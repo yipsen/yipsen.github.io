@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>http://www.yipsen.xyz/about/</loc>
+    <lastmod>2021-12-11T14:55:43+08:00</lastmod>
+  </url><url>
+    <loc>http://www.yipsen.xyz/posts/test/</loc>
+    <lastmod>2021-12-11T12:53:54+08:00</lastmod>
+  </url><url>
+    <loc>http://www.yipsen.xyz/posts/</loc>
+    <lastmod>2021-12-11T12:53:54+08:00</lastmod>
+  </url><url>
+    <loc>http://www.yipsen.xyz/</loc>
+    <lastmod>2021-12-11T12:53:54+08:00</lastmod>
+  </url><url>
+    <loc>http://www.yipsen.xyz/authors/</loc>
+  </url><url>
+    <loc>http://www.yipsen.xyz/categories/</loc>
+  </url><url>
+    <loc>http://www.yipsen.xyz/documents/</loc>
+  </url><url>
+    <loc>http://www.yipsen.xyz/series/</loc>
+  </url><url>
+    <loc>http://www.yipsen.xyz/tags/</loc>
+  </url><url>
+    <loc>http://www.yipsen.xyz/documents/test/test/</loc>
+  </url>
+</urlset>
