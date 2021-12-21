@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+
+<title>07 代理模式：帮我拿一下快递 | </title>
+  <meta name="description" content="【故事剧情】
+ 八月中秋已过，冬天急速飞来……一场秋雨一场寒，十场秋雨穿上棉！在下了两场秋雨之后，Tony 已经冻的瑟瑟发抖了。周六，Tony 在京东上买了一双雪地鞋准备过冬了，但是忘了选择京东自营的货源，第二天穿新鞋的梦想又不能如期实现了。
+周二，Tony 正在思考一个业务逻辑的实现方式，这时一通电话来了，“您好！圆通快递。您的东西到了，过来取一下快递！”。Tony 愣了一下，转念明白：是周六买的鞋子，本来以来第二天就能到的，所以填的是家里的地址。这下可好，人都不在家了，咋办呢？
+Tony 快速思索了一下，他想起了住一起的邻居 Wendy。Wendy 是一个小提琴老师，属于自由职业者，平时在艺术培训机构或到学生家里上上课，她在家的时间比较多。于是赶紧拿起手机呼叫 Wendy 帮忙：“你好，在家吗？能帮忙拿一下快速吗？”……
+万幸的是 Wendy 正好在家，在她的帮助下终于顺利拿到快递，减了不少麻烦。
+ 用程序来模拟生活 在生活中，我们经常要找人帮一些忙：帮忙收快递，帮忙照看宠物狗。在程序中，有一种类似的设计，叫代理模式。在开始之前，我们先来模拟一下上面的故事案例。
+源码示例：
+class ReceiveParcel:&amp;quot;接收包裹&amp;quot;def __init__(self, name):self.__name = namedef getName(self):return self.__namedef receive(self, parcelContent):passclass TonyReception(ReceiveParcel):&amp;quot;Tony接收&amp;quot;def __init__(self, name, phoneNum):super().__init__(name)self.__phoneNum = phoneNumdef getPhoneNum(self):return self.__phoneNumdef receive(self, parcelContent):print(&amp;quot;货物主人：&amp;quot; &#43; self.getName() &#43; &amp;quot;， 手机号：&amp;quot; &#43; self.getPhoneNum())print(&amp;quot;接收到一个包裹，包裹内容：&amp;quot; &#43; parcelContent)class WendyReception(ReceiveParcel):&amp;quot;Wendy接收&amp;quot;def __init__(self, name, receiver):super().">
+<meta name="viewport", content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" type="text/css" href="/css/apollo.css">
+<meta name="author" content="">
+
+
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <div class="logo-link">
+                <a href="http://yipsen.github.io/">
+                    <img src="/favicon.png" alt="logo">
+                    <span></span>
+                </a>
+            </div>
+            <ul class="nav nav-list">
+    
+    <li class="nav-list-item">
+            <a class="nav-list-link " href="http://yipsen.github.io/about/">ABOUT</a>
+        </li><li class="nav-list-item">
+            <a class="nav-list-link " href="http://yipsen.github.io/categories/">categories</a>
+        </li>
+    
+</ul>
+
+        </header>
+        <main class="container">
+            
+<div class="post">
+    <article class="post-block">
+        <h1 class="post-title">07 代理模式：帮我拿一下快递</h1>
+        <div class="post-info">
+            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/design">design</a>&nbsp;&nbsp;</div><div class="post-category">
+                
+                  <a href="/categories/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/"> 白话设计模式28讲 </a>
+                
+              </div></div>
+        <div class="post-content">
+            <p>【故事剧情】</p>
+<blockquote>
+<p>八月中秋已过，冬天急速飞来……一场秋雨一场寒，十场秋雨穿上棉！在下了两场秋雨之后，Tony 已经冻的瑟瑟发抖了。周六，Tony 在京东上买了一双雪地鞋准备过冬了，但是忘了选择京东自营的货源，第二天穿新鞋的梦想又不能如期实现了。</p>
+<p>周二，Tony 正在思考一个业务逻辑的实现方式，这时一通电话来了，“您好！圆通快递。您的东西到了，过来取一下快递！”。Tony 愣了一下，转念明白：是周六买的鞋子，本来以来第二天就能到的，所以填的是家里的地址。这下可好，人都不在家了，咋办呢？</p>
+<p>Tony 快速思索了一下，他想起了住一起的邻居 Wendy。Wendy 是一个小提琴老师，属于自由职业者，平时在艺术培训机构或到学生家里上上课，她在家的时间比较多。于是赶紧拿起手机呼叫 Wendy 帮忙：“你好，在家吗？能帮忙拿一下快速吗？”……</p>
+<p>万幸的是 Wendy 正好在家，在她的帮助下终于顺利拿到快递，减了不少麻烦。</p>
+</blockquote>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%2028%20%E8%AE%B2%EF%BC%88%E5%AE%8C%EF%BC%89/assets/33b267f0-d89b-11e7-9b5d-a5f4543ad36e.jpg" alt="enter image description here"></p>
+<h3 id="用程序来模拟生活">用程序来模拟生活</h3>
+<p>在生活中，我们经常要找人帮一些忙：帮忙收快递，帮忙照看宠物狗。在程序中，有一种类似的设计，叫代理模式。在开始之前，我们先来模拟一下上面的故事案例。</p>
+<p>源码示例：</p>
+<pre tabindex="0"><code>class ReceiveParcel:
+    &quot;接收包裹&quot;
+
+    def __init__(self, name):
+        self.__name = name
+
+    def getName(self):
+        return self.__name
+
+    def receive(self, parcelContent):
+        pass
+
+class TonyReception(ReceiveParcel):
+    &quot;Tony接收&quot;
+
+    def __init__(self, name, phoneNum):
+        super().__init__(name)
+        self.__phoneNum = phoneNum
+
+    def getPhoneNum(self):
+        return self.__phoneNum
+
+    def receive(self, parcelContent):
+        print(&quot;货物主人：&quot; + self.getName() + &quot;， 手机号：&quot; + self.getPhoneNum())
+        print(&quot;接收到一个包裹，包裹内容：&quot; + parcelContent)
+
+class WendyReception(ReceiveParcel):
+    &quot;Wendy接收&quot;
+
+    def __init__(self, name, receiver):
+        super().__init__(name)
+        self.__receiver = receiver
+
+    def receive(self, parcelContent):
+        print(&quot;我是&quot; + self.__receiver.getName() + &quot;的朋友， 我来帮他代收快递！&quot;)
+        if(self.__receiver is not None):
+            self.__receiver.receive(parcelContent)
+        print(&quot;代收人：&quot; + self.getName())
+
+</code></pre><p>测试代码：</p>
+<pre tabindex="0"><code>def testProxy():
+    tony = TonyReception(&quot;Tony&quot;, &quot;18512345678&quot;)
+    wendy = WendyReception(&quot;Wendy&quot;, tony)
+    wendy.receive(&quot;雪地靴&quot;)
+
+</code></pre><p>输出结果：</p>
+<pre tabindex="0"><code>我是Tony的朋友， 我来帮他代收快递！
+货物主人：Tony， 手机号：18512345678
+接收到一个包裹，包裹内容：雪地靴
+代收人：Wendy
+
+</code></pre><h3 id="从剧情中思考代理模式">从剧情中思考代理模式</h3>
+<p>从上面的示例中我们可以发现，包裹实际上是 Tony 的，但是 Wendy 代替 Tony 的身份帮忙接收了包裹，Wendy 需要使用 Tony 的身份并获得快递员的验证（Tony 手机号）才能成功接收包裹。像这样，一个对象完成某项动作或任务，是通过对另一个对象的引用来完成，这种模式叫代理模式。</p>
+<p><strong>代理模式（Proxy Pattern）</strong>：给某一个对象提供一个代理，并由代理对象控制对原对象的引用。代理模式的英文叫做 Proxy 或 Surrogate，它是一种对象结构型模式。</p>
+<p>在某些情况下，一个客户不想或者不能直接引用一个对象，此时可以通过一个称之为“代理”的第三者来实现间接引用。如上面的示例中，Tony 因为不在家，所以不能亲自接收包裹，但他可以叫 Wendy 来代他接收，这里 Wendy 就是代理，她代理了 Tony 的身份去接收快递。</p>
+<h3 id="代理模式的模型抽象">代理模式的模型抽象</h3>
+<h4 id="代码框架">代码框架</h4>
+<p>代理模式有三个关键要素，它们分别是：</p>
+<ol>
+<li>主题（Subject）：定义“操作/活动/任务”的接口类。</li>
+<li>真实主题（RealSubject）：真正完成“操作/活动/任务”的具体类。</li>
+<li>代理主题（ProxySubject）：代替真实主题完成“操作/活动/任务”的代理类。</li>
+</ol>
+<p>根据这三个要素，我们抽象出一个较为通用的代码框架。</p>
+<pre tabindex="0"><code>class Subject:
+    &quot;主题&quot;
+
+    def request(self):
+        pass
+
+class RealSubject(Subject):
+    &quot;代理主题&quot;
+
+    def request(self):
+        print(&quot;RealSubject todo something...&quot;)
+
+class ProxySubject(Subject):
+    &quot;代理主题&quot;
+
+    def __init__(self, subject):
+        self.__realSubject = subject
+
+    def request(self):
+        self.preRequest()
+        if(self.__realSubject is not None):
+            self.__realSubject.request()
+        self.afterRequest()
+
+    def preRequest(self):
+        print(&quot;preRequest&quot;)
+
+    def afterRequest(self):
+        print(&quot;afterRequest&quot;)
+
+def client():
+    &quot;客户端调用类&quot;
+    realObj = RealSubject()
+    proxyObj = ProxySubject(realObj)
+    proxyObj.request()
+
+</code></pre><h4 id="类图">类图</h4>
+<p>上面的代码框架可用类图表示如下：</p>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%2028%20%E8%AE%B2%EF%BC%88%E5%AE%8C%EF%BC%89/assets/01a1acc0-d89c-11e7-9363-994f5e2a852c.jpg" alt="enter image description here"></p>
+<h4 id="基于框架的实现">基于框架的实现</h4>
+<p>上面的示例代码中，ReceiveParcel 其实就是 Subject，TonyReception 其实就是 RealSubject，WendyReception 其实就是 ProxySubject，而 receive 其实就是 request。</p>
+<p>我们可以按上面的框架对 WendyReception 进行稍微的改动，如下：</p>
+<pre tabindex="0"><code>class WendyReception(ReceiveParcel):
+    &quot;Wendy接收&quot;
+
+    def __init__(self, name, receiver):
+        super().__init__(name)
+        self.__receiver = receiver
+
+    def receive(self, parcelContent):
+        self.preReceive()
+        if(self.__receiver is not None):
+            self.__receiver.receive(parcelContent)
+        self.afterReceive()
+
+    def preReceive(self):
+        print(&quot;我是&quot; + self.__receiver.getName() + &quot;的朋友， 我来帮他代收快递！&quot;)
+
+    def afterReceive(self):
+        print(&quot;代收人：&quot; + self.getName())
+
+</code></pre><p>测试代码不用变。自己跑一下，会发现输出结果和之前的是一样的。</p>
+<h4 id="模型说明">模型说明</h4>
+<p>代理对象可以在客户端和目标对象之间起到中间调和的作用，并且可以通过代理对象隐藏不希望被客户端看到的内容和服务，或者添加客户需要的额外服务。</p>
+<p>在实现生活中能找到非常的代理模式的模型：火车票/机票的代售点；银行支票在市场交易中用来代替现金，并提供对签发人账号上资金的控制；代表公司出席一些商务会议。</p>
+<h5 id="代理模式的优点"><strong>代理模式的优点</strong></h5>
+<ol>
+<li>代理模式能够协调调用者和被调用者，在一定程度上降低了系统的耦合度。</li>
+<li>可以灵活地隐藏被代理对象的部分功能和服务，也增加额外的功能和服务。</li>
+</ol>
+<h5 id="代理模式的缺点"><strong>代理模式的缺点</strong></h5>
+<ol>
+<li>由于在客户端和真实主题之间增加了代理对象，因此有些类型的代理模式可能会造成请求的处理速度变慢。</li>
+<li>实现代理模式需要额外的工作，有些代理模式的实现非常复杂。</li>
+</ol>
+<h3 id="应用场景">应用场景</h3>
+<p>（1）不想或者不能直接引用一个对象时</p>
+<p>如在移动端加载网页信息时，因为下载真实大图比较耗费流量和性能，可以用一个小图代替进行渲染（用一个代理对象去下载小图），在真正点击图片时，才去下载大图，显示大图效果。还有 HTML 中的占位符，其实也是代理的思想。</p>
+<p>（2）想对一个对象的功能进行加强时</p>
+<p>如在字体（Font）渲染时，对粗体（BoldFont）进行渲染时，可使用字体 Font 对象进行代理，只要在对 Font 进行渲染后，进行一步加粗的操作即可。</p>
+<p>（3）各种特殊用途的代理：远程代理、虚拟代理、Copy-on-Write 代理、保护（Protect or Access）代理、Cache 代理、防火墙（Firewall）代理、同步化（Synchronization）代理、智能引用（Smart Reference）代理。这部分具体的运用可查阅相关<a href="https://design-patterns.readthedocs.io/zh_CN/latest/structural_patterns/proxy.html">资料</a>。</p>
+
+        </div>
+    </article>
+</div>
+
+        </main>
+        <footer>
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/06-%E4%B8%AD%E4%BB%8B%E6%A8%A1%E5%BC%8F%E6%89%BE%E6%88%BF%E5%AD%90%E9%97%AE%E4%B8%AD%E4%BB%8B/"><span>06 中介模式：找房子问中介</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/08-%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F%E4%BD%A0%E6%83%B3%E6%80%8E%E4%B9%88%E7%A9%BF%E5%B0%B1%E6%80%8E%E4%B9%88%E7%A9%BF/"><span>08 装饰模式：你想怎么穿就怎么穿</span></a>
+    </div>
+</div>
+
+            <div class="copyright">
+    
+    
+    <p>&copy; 2021 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+</div>
+        </footer>
+    </div>
+    
+<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+
+
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function() {
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  var all = MathJax.Hub.getAllJax(), i;
+  console.log(all[0].SourceElement().parentNode.className);
+  for (var i = all.length - 1; i >= 0; i--) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script>
+</body>
+</html>

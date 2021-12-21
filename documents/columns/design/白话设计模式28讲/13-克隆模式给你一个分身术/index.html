@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+
+<title>13 克隆模式：给你一个分身术 | </title>
+  <meta name="description" content="【故事剧情】
+ Tony 最近在看一部电视剧《闪电侠》，里面一个人物叫 Danton Black 的超级人类，拥有复制自身的超能力，能够变身出六个自己，男主角第一次与他交锋时还晕了过去。
+Tony 也想要有这种超能力，这样就可以同时处理多件事啦：可以一边敲代码、一边看书、还能一边约妹，哈哈！
+当然这是不可能的，虽然现在的克隆技术已经能够克隆羊、克隆狗、克隆猫，但还不能克隆人！就算可以，也不能使克隆出来的自己立刻就变成二十几岁的你，当他长到二十几岁时你已经四十几岁了，他还能理解你的想法吗？
+ 用程序来模拟生活 人的克隆是困难的，但程序的克隆是简单的，因为它天生就具有方便复制的特点。在程序设计中，也有一种思想是来源于克隆这一概念，它就是克隆模式。在谈这一模式之前，我们先用程序来模拟一下 Tony 这一 YY 的想法。
+源码示例：
+from copy import copy, deepcopyclass Person:&amp;quot;人&amp;quot;def __init__(self, name, age):self.__name = nameself.__age = agedef showMyself(self):print(&amp;quot;我是&amp;quot; &#43; self.__name &#43; &amp;quot;,年龄&amp;quot; &#43; str(self.__age) &#43; &amp;quot;.&amp;quot;)def coding(self):print(&amp;quot;我是码农，我在Coding改变世界...&amp;quot;)def reading(self):print(&amp;quot;阅读使我快乐！知识使我成长！如饥似渴地阅读是生活的一部分...&amp;quot;)def fallInLove(self):print(&amp;quot;春风吹，月亮明，花前月下好相约...&amp;quot;)def clone(self):return copy(self)测试代码：
+def testProtoType():tony = Person(&amp;quot;Tony&amp;quot;, 26)tony.showMyself()tony.coding()tony1 = tony.">
+<meta name="viewport", content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" type="text/css" href="/css/apollo.css">
+<meta name="author" content="">
+
+
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <div class="logo-link">
+                <a href="http://yipsen.github.io/">
+                    <img src="/favicon.png" alt="logo">
+                    <span></span>
+                </a>
+            </div>
+            <ul class="nav nav-list">
+    
+    <li class="nav-list-item">
+            <a class="nav-list-link " href="http://yipsen.github.io/about/">ABOUT</a>
+        </li><li class="nav-list-item">
+            <a class="nav-list-link " href="http://yipsen.github.io/categories/">categories</a>
+        </li>
+    
+</ul>
+
+        </header>
+        <main class="container">
+            
+<div class="post">
+    <article class="post-block">
+        <h1 class="post-title">13 克隆模式：给你一个分身术</h1>
+        <div class="post-info">
+            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/design">design</a>&nbsp;&nbsp;</div><div class="post-category">
+                
+                  <a href="/categories/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/"> 白话设计模式28讲 </a>
+                
+              </div></div>
+        <div class="post-content">
+            <p>【故事剧情】</p>
+<blockquote>
+<p>Tony 最近在看一部电视剧《闪电侠》，里面一个人物叫 Danton Black 的超级人类，拥有复制自身的超能力，能够变身出六个自己，男主角第一次与他交锋时还晕了过去。</p>
+<p>Tony 也想要有这种超能力，这样就可以同时处理多件事啦：可以一边敲代码、一边看书、还能一边约妹，哈哈！</p>
+<p>当然这是不可能的，虽然现在的克隆技术已经能够克隆羊、克隆狗、克隆猫，但还不能克隆人！就算可以，也不能使克隆出来的自己立刻就变成二十几岁的你，当他长到二十几岁时你已经四十几岁了，他还能理解你的想法吗？</p>
+</blockquote>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%2028%20%E8%AE%B2%EF%BC%88%E5%AE%8C%EF%BC%89/assets/cdf6fa20-781d-11e8-81a3-e1036ee16107.jpg" alt="img"></p>
+<h3 id="用程序来模拟生活">用程序来模拟生活</h3>
+<p>人的克隆是困难的，但程序的克隆是简单的，因为它天生就具有方便复制的特点。在程序设计中，也有一种思想是来源于克隆这一概念，它就是克隆模式。在谈这一模式之前，我们先用程序来模拟一下 Tony 这一 YY 的想法。</p>
+<p>源码示例：</p>
+<pre tabindex="0"><code>from copy import copy, deepcopy
+
+class Person:
+    &quot;人&quot;
+
+    def __init__(self, name, age):
+        self.__name = name
+        self.__age = age
+
+    def showMyself(self):
+        print(&quot;我是&quot; + self.__name + &quot;,年龄&quot; + str(self.__age) + &quot;.&quot;)
+
+    def coding(self):
+        print(&quot;我是码农，我在Coding改变世界...&quot;)
+
+    def reading(self):
+        print(&quot;阅读使我快乐！知识使我成长！如饥似渴地阅读是生活的一部分...&quot;)
+
+    def fallInLove(self):
+        print(&quot;春风吹，月亮明，花前月下好相约...&quot;)
+
+    def clone(self):
+        return copy(self)
+
+</code></pre><p>测试代码：</p>
+<pre tabindex="0"><code>def testProtoType():
+    tony = Person(&quot;Tony&quot;, 26)
+    tony.showMyself()
+    tony.coding()
+
+    tony1 = tony.clone()
+    tony1.showMyself()
+    tony1.reading()
+
+    tony2 = tony.clone()
+    tony2.showMyself()
+    tony2.fallInLove()
+
+</code></pre><p>输出结果：</p>
+<pre tabindex="0"><code>我是Tony,年龄:26
+我是码农，我在Coding改变世界...
+我是Tony,年龄:26
+阅读使我快乐！知识使我成长！如饥似渴地阅读是生活的一部分...
+我是Tony,年龄:26
+春风吹，月亮明，花前月下好相约...
+
+</code></pre><p>在上面的例子中，Tony 克隆出了两个自己 tony1 和 tony2，因为是克隆出来的，所有姓名和年龄都一样，这样 Tony 就可以同时去敲代码、读书和约会了。</p>
+<h4 id="从剧情中思考克隆模式">从剧情中思考克隆模式</h4>
+<p>像上面的 Demo 一样，通过拷贝自身的属性来创建一个新对象的过程叫做<strong>克隆模式</strong>。在很多书籍和资料中被称为<strong>原型模式</strong>，但我觉得克隆一词更能切中其主旨。</p>
+<p>克隆模式的核心就是一个 Clone 方法，Clone 方法的功能就是拷贝父本的所有属性，主要包括两个过程：</p>
+<ul>
+<li>分配一块新的内存空间给新的对象；</li>
+<li>拷贝父本对象的所有属性。</li>
+</ul>
+<h4 id="浅拷贝与深拷贝">浅拷贝与深拷贝</h4>
+<p>要讲清楚这个概念，先来看一个例子，还是基于上面的 Demo，我们稍做一些修改。</p>
+<pre tabindex="0"><code>class Person:
+    &quot;人&quot;
+
+    def __init__(self, name, age):
+        self.__name = name
+        self.__age = age
+        self.__petList = []
+
+    def showMyself(self):
+        print(&quot;我是&quot; + self.__name + &quot;,年龄&quot; + str(self.__age) + &quot;. 我养了这些宠物：&quot;)
+        for pet in self.__petList:
+            print(pet + &quot;\t&quot;, end=&quot;&quot;)
+        print()
+
+    def addPet(self, pet):
+        self.__petList.append(pet)
+
+    def clone(self):
+        return copy(self)
+
+    def deepClone(self):
+        return deepcopy(self)
+
+</code></pre><p>测试代码：</p>
+<pre tabindex="0"><code>def testProtoType2():
+    tony = Person(&quot;Tony&quot;, 26)
+    tony.addPet(&quot;小狗Coco&quot;)
+    print(&quot;父本tony：&quot;, end=&quot;&quot;)
+    tony.showMyself()
+
+    tony1 = tony.deepClone()
+    tony1.addPet(&quot;小猫Amy&quot;)
+    print(&quot;副本tony1：&quot;, end=&quot;&quot;)
+    tony1.showMyself()
+    print(&quot;父本tony：&quot;, end=&quot;&quot;)
+    tony.showMyself()
+
+    tony2 = tony.clone()
+    tony2.addPet(&quot;小兔Ricky&quot;)
+    print(&quot;副本tony2：&quot;, end=&quot;&quot;)
+    tony2.showMyself()
+    print(&quot;父本tony：&quot;, end=&quot;&quot;)
+    tony.showMyself()
+
+</code></pre><p>输出结果：</p>
+<pre tabindex="0"><code>父本tony：我是Tony,年龄26. 我养了这些宠物：
+小狗Coco    
+副本tony1：我是Tony,年龄26. 我养了这些宠物：
+小狗Coco        小猫Amy   
+父本tony：我是Tony,年龄26. 我养了这些宠物：
+小狗Coco    
+副本tony2：我是Tony,年龄26. 我养了这些宠物：
+小狗Coco        小兔Ricky 
+父本tony：我是Tony,年龄26. 我养了这些宠物：
+小狗Coco        小兔Ricky
+
+</code></pre><p>在上面这个例子中，我们看到“副本 tony1”是通过深拷贝的方式创建的，我们对 tony1 对象增加宠物，不会影响 tony 对象。而副本 tony2 是通过浅拷贝的方式创建的，我们对 tony2 对象增加宠物时，tony 对象也更着改变。这是因为 Person 类<code>__petList</code>成员是一个可变的引用类型，<strong>浅拷贝只拷贝引用类型对象的指针（指向），而不拷贝引用类型对象指向的值；深拷贝到同时拷贝引用类型对象及其指向的值。</strong></p>
+<p>引用类型：对象本身可以修改，Python 中的引用类型有列表（List）、字典（Dictionary）、类对象。Python 在赋值的时候默认是浅拷贝，如</p>
+<pre tabindex="0"><code>def testList():
+    list = [1, 2, 3];
+    list1 = list;
+    print(&quot;list's id:&quot;, id(list))
+    print(&quot;list1's id:&quot;, id(list1))
+    print(&quot;修改之前：&quot;)
+    print(&quot;list:&quot;, list)
+    print(&quot;list1:&quot;, list1)
+    list1.append(4);
+    print(&quot;修改之后：&quot;)
+    print(&quot;list:&quot;, list)
+    print(&quot;list1:&quot;, list1)
+
+</code></pre><p>结果：</p>
+<pre tabindex="0"><code>list's id: 56424568
+list1's id: 56424568
+修改之前：
+list: [1, 2, 3]
+list1: [1, 2, 3]
+修改之后：
+list: [1, 2, 3, 4]
+list1: [1, 2, 3, 4]
+
+</code></pre><p>通过 Clone 的方式创建对象时，浅拷贝往往是很危险的，因为一个对象的改变另一个对象也同时改变。深拷贝会对一个对象的发生进行完全拷贝，这样两个对象之间就不会相互影响了，你改你的，我改我的。</p>
+<p>在使用克隆模式时，除非一些特殊情况（如需求本身就要求两个对象一起改变），<strong>尽量使用深拷贝的方式</strong>（称其为<strong>安全模式</strong>）。</p>
+<h3 id="克隆模式的模型抽象">克隆模式的模型抽象</h3>
+<h4 id="代码框架">代码框架</h4>
+<p>克隆模式非常简单，我们可以对它进行进一步的重构和优化，抽象出克隆模式的框架模型。</p>
+<pre tabindex="0"><code>from copy import copy, deepcopy
+
+class Clone:
+    &quot;克隆的基类&quot;
+
+    def clone(self):
+        &quot;浅拷贝的方式克隆对象&quot;
+        return copy(self)
+
+    def deepClone(self):
+        &quot;深拷贝的方式克隆对象&quot;
+        return deepcopy(self)
+
+</code></pre><h4 id="类图">类图</h4>
+<p>上面的代码框架可用类图表示如下：</p>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%2028%20%E8%AE%B2%EF%BC%88%E5%AE%8C%EF%BC%89/assets/ebf0ed60-781d-11e8-81a3-e1036ee16107.jpg" alt="enter image description here"></p>
+<h4 id="基于框架的实现">基于框架的实现</h4>
+<p>有了上面的代码框架之后，我们要实现示例代码的功能就会更简单了。最开始的示例代码我们假设它为 version 1.0，那么再看看基于框架的 version 2.0 吧。</p>
+<pre tabindex="0"><code>class Person(Clone):
+    &quot;人&quot;
+
+    def __init__(self, name, age):
+        self.__name = name
+        self.__age = age
+        self.__petList = []
+
+    def showMyself(self):
+        print(&quot;我是&quot; + self.__name + &quot;,年龄&quot; + str(self.__age) + &quot;. 我养了这些宠物：&quot;)
+        for pet in self.__petList:
+            print(pet + &quot;\t&quot;, end=&quot;&quot;)
+        print()
+
+    def addPet(self, pet):
+        self.__petList.append(pet)
+
+    def coding(self):
+        print(&quot;我是码农，我在Coding改变世界...&quot;)
+
+    def reading(self):
+        print(&quot;阅读使我快乐！知识使我成长！如饥似渴地阅读是生活的一部分...&quot;)
+
+    def fallInLove(self):
+        print(&quot;春风吹，月亮明，花前月下好相约...&quot;)
+
+</code></pre><p>测试代码不用变（同 testProtoType2()），自己跑一下，会发现输出结果和之前的是一样的。</p>
+<h4 id="模型说明">模型说明</h4>
+<p>克隆模式也叫原型模式，应用场景非常之广泛。Java 中与基类 Object 融为一体，可以随手就拿来用，只要 implements Cloneabble 接口就默认拥有了克隆的功能。而在 Python 中，克隆模式更是成为了语言本身的部分，因为 Python 中对象的赋值就是一个浅拷贝的过程。</p>
+<h5 id="克隆模式的优点"><strong>克隆模式的优点</strong></h5>
+<ul>
+<li>克隆模式是通过内存拷贝的方式进行复制，比 new 的方式创建对象性能更好；</li>
+<li>通过深拷贝的方式，可以方便地创建一个具有相同属性和行为的另一个对象，特别是对于复杂对象，方便性尤为体现。</li>
+</ul>
+<h5 id="克隆模式的缺点"><strong>克隆模式的缺点</strong></h5>
+<p>通过克隆的方式创建对象，<strong>不会执行类的构造函数</strong>，这不一定是缺点，但大家使用的时候需要注意这一点。</p>
+<h3 id="应用场景">应用场景</h3>
+<ul>
+<li>如果创建新对象（如复杂对象）成本较大，我们可以利用已有的对象进行复制来获得。</li>
+<li>当类的初始化需要消耗非常多的资源时，如需要消耗很多的数据、硬件等资源。</li>
+</ul>
+
+        </div>
+    </article>
+</div>
+
+        </main>
+        <footer>
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/12-%E6%9E%84%E5%BB%BA%E6%A8%A1%E5%BC%8F%E6%83%B3%E8%A6%81%E8%BD%A6%E8%BF%98%E6%98%AF%E5%BA%84%E5%9B%AD/"><span>12 构建模式：想要车还是庄园</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/14-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F%E6%80%8E%E4%B9%88%E6%9D%A5%E4%B8%8D%E9%87%8D%E8%A6%81%E4%BA%BA%E5%88%B0%E5%B0%B1%E8%A1%8C/"><span>14 策略模式：怎么来不重要，人到就行</span></a>
+    </div>
+</div>
+
+            <div class="copyright">
+    
+    
+    <p>&copy; 2021 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+</div>
+        </footer>
+    </div>
+    
+<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+
+
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function() {
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  var all = MathJax.Hub.getAllJax(), i;
+  console.log(all[0].SourceElement().parentNode.className);
+  for (var i = all.length - 1; i >= 0; i--) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+
+<title>05 职责模式：我的假条去哪了 | </title>
+  <meta name="description" content="【故事剧情】
+ 周五了，Tony 因为家里有一些重要的事需要回家一趟，于是向他的领导 Eren 请假，填写完假条便交给了 Eren。得到的回答却是：“这个假条我签不了，你得等部门总监同意！” Tony 一脸疑惑：“上次去参加 SDCC 开发者大会请了一天假不就是您签的吗？” Eren：“上次你只请了一天，我可以直接签。现在你是请五天，我要提交给部门总监，等他同意才可以。”
+Tony：“您怎么不早说啊？” Eren：“你也没问啊！下次请假要提前一点……”
+Tony 哪管这些啊！对他来说，每次请假只要把假条交给 Eren，其他的事情都交给领导去处理吧！
+事实却是，整个请假的过程要走一套复杂的流程：
+ 小于等于2天，直属领导签字，提交行政部门； 大于2天，小于等于5天，直属领导签字，部门总监签字，提交行政部门； 大于5天，小于等于1月，直属领导签字，部门总监签字，CEO 签字，提交行政部门。   用程序来模拟生活 对于 Tony 来说，他只需要每次把假条交给直属领导，其他的繁琐流程他都可以不用管，所以他并不知道请假流程的具体细节。但请假会影响项目的进展和产品的交互，所以请假其实是一种责任担当的过程：你请假了，必然会给团队或部门增加工作压力，所以领导肯定会控制风险。请假的时间越长，风险越大，领导的压力和责任也越大，责任人也就越多，责任人的链条也就越长。
+程序来源于生活，我们可以用程序来模拟这一个有趣的场景。
+源码示例：
+class Person:&amp;quot;请假申请人&amp;quot;def __init__(self, name, dayoff, reason):self.__name = nameself.__dayoff = dayoffself.__reason = reasonself.__leader = Nonedef getName(self):return self.__namedef getDayOff(self):return self.__dayoffdef getReason(self):return self.__reasondef setLeader(self, leader):self.__leader = leaderdef reuqest(self):print(self.">
+<meta name="viewport", content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" type="text/css" href="/css/apollo.css">
+<meta name="author" content="">
+
+
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <div class="logo-link">
+                <a href="http://yipsen.github.io/">
+                    <img src="/favicon.png" alt="logo">
+                    <span></span>
+                </a>
+            </div>
+            <ul class="nav nav-list">
+    
+    <li class="nav-list-item">
+            <a class="nav-list-link " href="http://yipsen.github.io/about/">ABOUT</a>
+        </li><li class="nav-list-item">
+            <a class="nav-list-link " href="http://yipsen.github.io/categories/">categories</a>
+        </li>
+    
+</ul>
+
+        </header>
+        <main class="container">
+            
+<div class="post">
+    <article class="post-block">
+        <h1 class="post-title">05 职责模式：我的假条去哪了</h1>
+        <div class="post-info">
+            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/design">design</a>&nbsp;&nbsp;</div><div class="post-category">
+                
+                  <a href="/categories/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/"> 白话设计模式28讲 </a>
+                
+              </div></div>
+        <div class="post-content">
+            <p>【故事剧情】</p>
+<blockquote>
+<p>周五了，Tony 因为家里有一些重要的事需要回家一趟，于是向他的领导 Eren 请假，填写完假条便交给了 Eren。得到的回答却是：“这个假条我签不了，你得等部门总监同意！” Tony 一脸疑惑：“上次去参加 SDCC 开发者大会请了一天假不就是您签的吗？” Eren：“上次你只请了一天，我可以直接签。现在你是请五天，我要提交给部门总监，等他同意才可以。”</p>
+<p>Tony：“您怎么不早说啊？” Eren：“你也没问啊！下次请假要提前一点……”</p>
+<p>Tony 哪管这些啊！对他来说，每次请假只要把假条交给 Eren，其他的事情都交给领导去处理吧！</p>
+<p>事实却是，整个请假的过程要走一套复杂的流程：</p>
+<ol>
+<li>小于等于2天，直属领导签字，提交行政部门；</li>
+<li>大于2天，小于等于5天，直属领导签字，部门总监签字，提交行政部门；</li>
+<li>大于5天，小于等于1月，直属领导签字，部门总监签字，CEO 签字，提交行政部门。</li>
+</ol>
+</blockquote>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%2028%20%E8%AE%B2%EF%BC%88%E5%AE%8C%EF%BC%89/assets/0d80f9d0-d5b6-11e7-ba8d-675556ef95d9.jpg" alt="enter image description here"></p>
+<h3 id="用程序来模拟生活">用程序来模拟生活</h3>
+<p>对于 Tony 来说，他只需要每次把假条交给直属领导，其他的繁琐流程他都可以不用管，所以他并不知道请假流程的具体细节。但请假会影响项目的进展和产品的交互，所以请假其实是一种责任担当的过程：你请假了，必然会给团队或部门增加工作压力，所以领导肯定会控制风险。请假的时间越长，风险越大，领导的压力和责任也越大，责任人也就越多，责任人的链条也就越长。</p>
+<p>程序来源于生活，我们可以用程序来模拟这一个有趣的场景。</p>
+<p>源码示例：</p>
+<pre tabindex="0"><code>class Person:
+    &quot;请假申请人&quot;
+    def __init__(self, name, dayoff, reason):
+        self.__name = name
+        self.__dayoff = dayoff
+        self.__reason = reason
+        self.__leader = None
+
+    def getName(self):
+        return self.__name
+
+    def getDayOff(self):
+        return self.__dayoff
+
+    def getReason(self):
+        return self.__reason
+
+    def setLeader(self, leader):
+        self.__leader = leader
+
+    def reuqest(self):
+        print(self.__name, &quot;申请请假&quot;, self.__dayoff, &quot;天。请假事由：&quot;, self.__reason)
+        if( self.__leader is not None):
+            self.__leader.handleRequest(self)
+
+class Manager:
+    &quot;公司管理人员&quot;
+
+    def __init__(self, name, title):
+        self.__name = name
+        self.__title = title
+        self.__nextHandler = None
+
+    def getName(self):
+        return self.__name
+
+    def getTitle(self):
+        return self.__title
+
+    def setNextHandler(self, nextHandler):
+        self.__nextHandler = nextHandler
+
+    def getNextHandler(self):
+        return self.__nextHandler
+
+    def handleRequest(self, person):
+        pass
+
+class Supervisor(Manager):
+    &quot;主管&quot;
+
+    def __init__(self, name, title):
+        super().__init__(name, title)
+
+    def handleRequest(self, person):
+        if(person.getDayOff() &lt;= 2):
+            print(&quot;同意&quot;, person.getName(), &quot;请假，签字人：&quot;, self.getName(), &quot;(&quot;, self.getTitle(), &quot;)&quot;)
+        nextHander = self.getNextHandler()
+        if(nextHander is not None):
+            nextHander.handleRequest(person)
+
+class DepartmentManager(Manager):
+    &quot;部门总监&quot;
+    def __init__(self, name, title):
+        super().__init__(name, title)
+
+    def handleRequest(self, person):
+        if(person.getDayOff() &gt;2 and person.getDayOff() &lt;= 5):
+            print(&quot;同意&quot;, person.getName(), &quot;请假，签字人：&quot;, self.getName(), &quot;(&quot;, self.getTitle(), &quot;)&quot;)
+        nextHander = self.getNextHandler()
+        if(nextHander is not None):
+            nextHander.handleRequest(person)
+
+class CEO(Manager):
+    &quot;CEO&quot;
+
+    def __init__(self, name, title):
+        super().__init__(name, title)
+
+    def handleRequest(self, person):
+        if (person.getDayOff() &gt; 5 and person.getDayOff() &lt;= 22):
+            print(&quot;同意&quot;, person.getName(), &quot;请假，签字人：&quot;, self.getName(), &quot;(&quot;, self.getTitle(), &quot;)&quot;)
+        nextHander = self.getNextHandler()
+        if (nextHander is not None):
+            nextHander.handleRequest(person)
+
+class Administrator(Manager):
+    &quot;行政人员&quot;
+
+    def __init__(self, name, title):
+        super().__init__(name, title)
+
+    def handleRequest(self, person):
+        print(person.getName(), &quot;的请假申请已审核，情况属实！已备案处理。处理人：&quot;, self.getName(), &quot;(&quot;, self.getTitle(), &quot;)\n&quot;)
+        nextHander = self.getNextHandler()
+
+</code></pre><p>测试代码：</p>
+<pre tabindex="0"><code>def testChainOfResponsibility():
+    directLeader = Supervisor(&quot;Eren&quot;, &quot;客户端研发部经理&quot;)
+    departmentLeader = DepartmentManager(&quot;Eric&quot;, &quot;技术研发中心总监&quot;)
+    ceo = CEO(&quot;Helen&quot;, &quot;创新文化公司CEO&quot;)
+    administrator = Administrator(&quot;Nina&quot;, &quot;行政中心总监&quot;)
+    directLeader.setNextHandler(departmentLeader)
+    departmentLeader.setNextHandler(ceo)
+    ceo.setNextHandler(administrator)
+
+    sunny = Person(&quot;Sunny&quot;, 1, &quot;参加MDCC大会。&quot;)
+    sunny.setLeader(directLeader)
+    sunny.reuqest()
+    tony = Person(&quot;Tony&quot;, 5, &quot;家里有紧急事情！&quot;)
+    tony.setLeader(directLeader)
+    tony.reuqest()
+    pony = Person(&quot;Pony&quot;, 15, &quot;出国深造。&quot;)
+    pony.setLeader(directLeader)
+    pony.reuqest()
+
+</code></pre><p>输出结果：</p>
+<pre tabindex="0"><code>Sunny 申请请假 1 天。请假事由： 参加MDCC大会。
+同意 Sunny 请假，签字人： Eren ( 客户端研发部经理 )
+Sunny 的请假申请已审核，情况属实！已备案处理。处理人： Nina ( 行政中心总监 )
+
+Tony 申请请假 5 天。请假事由： 家里有紧急事情！
+同意 Tony 请假，签字人： Eric ( 技术研发中心总监 )
+Tony 的请假申请已审核，情况属实！已备案处理。处理人： Nina ( 行政中心总监 )
+
+Pony 申请请假 15 天。请假事由： 出国深造。
+同意 Pony 请假，签字人： Helen ( 创新文化公司CEO )
+Pony 的请假申请已审核，情况属实！已备案处理。处理人： Nina ( 行政中心总监 )
+
+</code></pre><h3 id="从剧情中思考职责模式">从剧情中思考职责模式</h3>
+<p>从请假这个示例中我们发现，对于 Tony 来说，他并不需要知道假条处理的具体细节，甚至不需要知道假条去哪儿了，他只需要知道假条有人会处理。而假条的处理流程是一手接一手的责任传递，处理假条的所有人构成了一条<strong>责任的链条</strong>。链条上的每一个人只处理自己职责范围内的请求，对于自己处理不了请求，直接交给下一个责任人。这就是程序设计中职责模式的核心思想。</p>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%2028%20%E8%AE%B2%EF%BC%88%E5%AE%8C%EF%BC%89/assets/43e959e0-d5b6-11e7-ba8d-675556ef95d9.jpg" alt="enter image description here"></p>
+<p><strong>职责模式</strong>： 避免请求发送者与接收者耦合在一起，让多个对象都有可能接收请求，将这些对象连接成一条链，并且沿着这条链传递请求，直到有对象处理它为止。职责模式也称为责任链模式，它是一种对象行为型模式。</p>
+<p>职责链模式将请求的发送者和接受者解耦了。客户端不需要知道请求处理者的明确信息和处理的具体逻辑，甚至不需要知道链的结构，它只需要将请求进行发送即可。</p>
+<p>在职责链模式中我们可以随时随地的增加或者更改一个责任人，甚至可以更改责任人的顺序，增加了系统的灵活性。但是有时候可能会导致一个请求无论如何也得不到处理，它会被放置在链末端。</p>
+<h3 id="职责模式的模型抽象">职责模式的模型抽象</h3>
+<h4 id="代码框架">代码框架</h4>
+<p>上面的示例代码还是相对比较粗糙，我们可以对它进行进一步的重构和优化，抽象出职责模式的框架模型。</p>
+<pre tabindex="0"><code>class Request:
+    &quot;请求(内容)&quot;
+
+    def __init__(self, name, dayoff, reason):
+        self.__name = name
+        self.__dayoff = dayoff
+        self.__reason = reason
+        self.__leader = None
+
+    def getName(self):
+        return self.__name
+
+    def getDayOff(self):
+        return self.__dayoff
+
+    def getReason(self):
+        return self.__reason
+
+class Responsible:
+    &quot;责任人的抽象类&quot;
+
+    def __init__(self, name, title):
+        self.__name = name
+        self.__title = title
+        self.__nextHandler = None
+
+    def getName(self):
+        return self.__name
+
+    def getTitle(self):
+        return self.__title
+
+    def setNextHandler(self, nextHandler):
+        self.__nextHandler = nextHandler
+
+    def getNextHandler(self):
+        return self.__nextHandler
+
+    def handleRequest(self, request):
+        pass
+
+</code></pre><h4 id="类图">类图</h4>
+<p>上面的代码框架可用类图表示如下：</p>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%2028%20%E8%AE%B2%EF%BC%88%E5%AE%8C%EF%BC%89/assets/7c356e10-d5b6-11e7-8257-812093f8cef1.jpg" alt="enter image description here"></p>
+<h4 id="基于框架的实现">基于框架的实现</h4>
+<p>有了上面的代码框架之后，我们要实现示例代码的功能就会更简单了，代码也会更加优雅。最开始的示例代码我们假设它为 version 1.0，那么再看看基于框架的 version 2.0 吧。</p>
+<pre tabindex="0"><code>class Person:
+    &quot;请求者&quot;
+
+    def __init__(self, name):
+        self.__name = name
+        self.__leader = None
+
+    def setName(self, name):
+        self.__name = name
+
+    def getName(self):
+        return self.__name
+
+    def setLeader(self, leader):
+        self.__leader = leader
+
+    def getLeader(self):
+        return self.__leader
+
+    def sendReuqest(self, request):
+        print(self.__name, &quot;申请请假&quot;, request.getDayOff(), &quot;天。请假事由：&quot;, request.getReason())
+        if (self.__leader is not None):
+            self.__leader.handleRequest(request)
+
+class Supervisor(Responsible):
+    &quot;主管&quot;
+
+    def __init__(self, name, title):
+        super().__init__(name, title)
+
+    def handleRequest(self, request):
+        if (request.getDayOff() &lt;= 2):
+            print(&quot;同意&quot;, request.getName(), &quot;请假，签字人：&quot;, self.getName(), &quot;(&quot;, self.getTitle(), &quot;)&quot;)
+        nextHander = self.getNextHandler()
+        if (nextHander is not None):
+            nextHander.handleRequest(request)
+
+class DepartmentManager(Responsible):
+    &quot;部门总监&quot;
+
+    def __init__(self, name, title):
+        super().__init__(name, title)
+
+    def handleRequest(self, request):
+        if (request.getDayOff() &gt; 2 and request.getDayOff() &lt;= 5):
+            print(&quot;同意&quot;, request.getName(), &quot;请假，签字人：&quot;, self.getName(), &quot;(&quot;, self.getTitle(), &quot;)&quot;)
+        nextHander = self.getNextHandler()
+        if (nextHander is not None):
+            nextHander.handleRequest(request)
+
+class CEO(Responsible):
+    &quot;CEO&quot;
+
+    def __init__(self, name, title):
+        super().__init__(name, title)
+
+    def handleRequest(self, request):
+        if (request.getDayOff() &gt; 5 and request.getDayOff() &lt;= 22):
+            print(&quot;同意&quot;, request.getName(), &quot;请假，签字人：&quot;, self.getName(), &quot;(&quot;, self.getTitle(), &quot;)&quot;)
+        nextHander = self.getNextHandler()
+        if (nextHander is not None):
+            nextHander.handleRequest(request)
+
+class Administrator(Responsible):
+    &quot;行政人员&quot;
+
+    def __init__(self, name, title):
+        super().__init__(name, title)
+
+    def handleRequest(self, request):
+        print(request.getName(), &quot;的请假申请已审核，情况属实！已备案处理。处理人：&quot;, self.getName(), &quot;(&quot;, self.getTitle(), &quot;)\n&quot;)
+        nextHander = self.getNextHandler()
+
+</code></pre><p>测试代码需要稍微修改一下：</p>
+<pre tabindex="0"><code>def testChainOfResponsibility1():
+    directLeader = Supervisor(&quot;Eren&quot;, &quot;客户端研发部经理&quot;)
+    departmentLeader = DepartmentManager(&quot;Eric&quot;, &quot;技术研发中心总监&quot;)
+    ceo = CEO(&quot;Helen&quot;, &quot;创新文化公司CEO&quot;)
+    administrator = Administrator(&quot;Nina&quot;, &quot;行政中心总监&quot;)
+    directLeader.setNextHandler(departmentLeader)
+    departmentLeader.setNextHandler(ceo)
+    ceo.setNextHandler(administrator)
+
+    sunny = Person(&quot;Sunny&quot;)
+    sunny.setLeader(directLeader)
+    sunny.sendReuqest(Request(sunny.getName(), 1, &quot;参加MDCC大会。&quot;))
+    tony = Person(&quot;Tony&quot;)
+    tony.setLeader(directLeader)
+    tony.sendReuqest(Request(tony.getName(), 5, &quot;家里有紧急事情！&quot;))
+    pony = Person(&quot;Pony&quot;)
+    pony.setLeader(directLeader)
+    pony.sendReuqest(Request(pony.getName(), 15, &quot;出国深造。&quot;))
+
+</code></pre><p>自己跑一下，会发现输出结果和之前的是一样的。</p>
+<h4 id="模型说明">模型说明</h4>
+<ul>
+<li>设计要点</li>
+</ul>
+<p>在设计职责模式的程序时要注意以下几点：</p>
+<ol>
+<li><strong>请求者与请求内容</strong>：谁要发送请求？发送请求的对象称为请求者。请求的内容通过发送请求时的参数进行传递。</li>
+<li><strong>有哪些责任人</strong>：责任人是构成责任链的关键要素。请求的流动方向是链条中的线，而责任人则是链条上的结点，线和结点才构成了一条链条。</li>
+<li><strong>对责任人进行抽象</strong>：真实世界中的责任人会多种多样，纷繁复杂，会有不同的职责和功能；但他们也有一个共同的特征——都可以处理请求。所以需要对责任人进行抽象，使他们具有责任的可传递性。</li>
+<li><strong>责任人可自由组合</strong>：责任链上的责任人可以根据业务的具体逻辑进行自由的组合和排序。</li>
+</ol>
+<h4 id="优缺点">优缺点</h4>
+<ul>
+<li>优点：</li>
+</ul>
+<ol>
+<li>降低耦合度。它将请求的发送者和接受者解耦。</li>
+<li>简化了对象。使得对象不需要知道链的结构。</li>
+<li>增强给对象指派职责的灵活性。通过改变链内的成员或者调动它们的次序，允许动态地新增或者删除责任人。</li>
+<li>增加新的处理类很方便。</li>
+</ol>
+<ul>
+<li>职责模式的缺点：</li>
+</ul>
+<ol>
+<li>不能保证请求一定被接收。</li>
+<li>系统性能将受到一定影响，而且在进行代码调试时不太方便，可能会造成循环调用。</li>
+</ol>
+<h3 id="应用场景">应用场景</h3>
+<ol>
+<li>有多个对象可以处理同一个请求，具体哪个对象处理该请求由运行时刻自动确定。</li>
+<li>请求的处理具有明显的一层层传递关系。</li>
+<li>请求的处理流程和顺序需要程序运行时动态确定。</li>
+</ol>
+
+        </div>
+    </article>
+</div>
+
+        </main>
+        <footer>
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/04-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E4%BD%A0%E6%98%AF%E6%88%91%E7%94%9F%E5%91%BD%E7%9A%84%E5%94%AF%E4%B8%80/"><span>04 单例模式：你是我生命的唯一</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/06-%E4%B8%AD%E4%BB%8B%E6%A8%A1%E5%BC%8F%E6%89%BE%E6%88%BF%E5%AD%90%E9%97%AE%E4%B8%AD%E4%BB%8B/"><span>06 中介模式：找房子问中介</span></a>
+    </div>
+</div>
+
+            <div class="copyright">
+    
+    
+    <p>&copy; 2021 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+</div>
+        </footer>
+    </div>
+    
+<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+
+
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function() {
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  var all = MathJax.Hub.getAllJax(), i;
+  console.log(all[0].SourceElement().parentNode.className);
+  for (var i = all.length - 1; i >= 0; i--) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>netty on </title>
+    <link>http://yipsen.github.io/tags/netty/</link>
+    <description>Recent content in netty on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 22 Dec 2021 01:54:53 +0800</lastBuildDate><atom:link href="http://yipsen.github.io/tags/netty/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>31 结束语 技术成长之路：如何打造自己的技术体系</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/31-%E7%BB%93%E6%9D%9F%E8%AF%AD-%E6%8A%80%E6%9C%AF%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF%E5%A6%82%E4%BD%95%E6%89%93%E9%80%A0%E8%87%AA%E5%B7%B1%E7%9A%84%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:53 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/31-%E7%BB%93%E6%9D%9F%E8%AF%AD-%E6%8A%80%E6%9C%AF%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF%E5%A6%82%E4%BD%95%E6%89%93%E9%80%A0%E8%87%AA%E5%B7%B1%E7%9A%84%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/</guid>
+      <description>时间飞逝，不知不觉整个专栏这节课就结束了。首先感谢你一路陪伴和支持，整个专栏的过程对我来说也是一段难忘的经历，希望专栏的内容能够让你有所收获。读完本专栏，我们就能够立刻变成一个 Netty 高手了吗？答案是 NO。Netty 的知识体系非常庞大，需要我们花时间去慢慢消化，并在不断实践中总结，也许在不同时间段你对 Netty 的理解会更加深刻。
+相信你在刚开始学习一门技术的时候，多多少少都会遇到一些困难，例如方向不清晰，容易陷入死胡同。我们需要认真地思考如何规划最优的学习路线？如何打造该领域的技术体系？如何能够高效率地执行落地？
+体系化：目标制定与执行 在学习一门技术之前我都会问自己几个问题：
+ 该技术能够解决什么问题，可以提升我的哪些能力？ 短期目标和长期目标是什么？ 我需要做哪些事情可以实现目标？  现在获取知识的成本非常低，通过官方文档、博客等渠道我们都可以快速了解一门技术的概貌。当你下定决心深入研究这门技术的时候，最重要的是制定自己的学习计划。以 Netty 为例，因为刚开始我们对 Netty 不是特别了解，但是应该大概知道 Netty 有哪些重要的概念、特性需要去深入学习，先将这些重要的内容列入我们的学习计划，然后制定一个周期（例如一个星期）学习计划表。在学习的过程中，我们会对 Netty 的理解越发深入，发现有更多的知识点需要去挖掘，此时我们可以再去调整和完善学习计划。就像一个大树的成长过程一样，首先要抓住目标主干，然后再学习分支的知识点，由点到线、线到面不断自我探索和建立自己的技术体系。
+明确自己的学习方向后，实现自己学习目标的途径有非常多，项目实战、源码学习、写博客、参加社区等途径都是非常有效的办法。重要的是持之以恒地坚持下去，切忌急于求成或者半途而废。每隔一段时间我们应当回顾下自己的学习计划是否有效，我是否坚持完成了所有事情？如果达成阶段性的成果，可以适当奖励下自己，一定要让自己充满成就感。
+善于思考和总结 在学习一门技术的时候，大部分人都只是停留在会使用的层面，并不知道该技术到底能够解决什么问题，相比同领域的其他技术有什么优缺点。我们刚开始不可能一下看清楚问题的本质，需要不断在学习中思考，积累实践经验，然后慢慢总结自己的见解。一名优秀的技术人可以从技术原理中去了解问题本质，然后找到问题的解决防范，也让结果更有说服力。学会从优秀的开源项目中挖掘技术原理对我们是非常有帮助的，起码在面对问题的时候可以让我们思路更加开阔，处理问题更加得心应手。
+从技术的角度来说，我们一定要培养自己多维度的思考习惯，而不是停留在表面，这样永远都进步不了。一个方案、一个问题、一个功能都可能需要考虑到多种因素，如果我们能够把方方面面都考虑得非常细致，那么也会让自己做事更有技术深度、更具备全面性。在工作中，我们经常会得到别人大量的信息，看别人的观点和学习别人的方案，吸收值得学习的地方，再总结出自己的独特的思考。用多个维度去看待问题，有时候别人的观点并不一定是对的。
+乐于交流与分享 交流与分享是检验自己学习成果非常有效的方法，例如团队或者公司的技术分享、撰写书籍、博客等都是沉淀知识的绝佳途径。交流与分享不仅可以有机会让我们梳理自己的知识体系，让知识变得更加牢固，而且可以让众人来检验自己对知识的理解是否正确。人外有人，天外有天，避免自己陷入技术人自满的状态。
+我相信“会”一门技术并不等于你“会教”一门技术，把自己会的东西分享出来远比学习的过程更加困难。交流与分享需要我们更具备勇气，分享知识是获取勇气的一种方式，不要害怕自己会出错而退缩，也不要为了证明自己“很懂”而去与别人交流，虚心向他人学习，帮助团队成长，每次交流与分享让自己收获满满就足够了。
+最后 路漫漫其修远兮，吾将上下而求索。我们不是天才，更不可能一蹴而就，成长需要时间的积累，整个过程需要我们不断学习、思考和总结。保持好奇心和热情，抛弃浮躁，相信我们都能成就更好的自己。最后的最后，还是要感谢你的支持和建议，欢迎填写这份调查问卷，还请你留下宝贵的意见和建议。也欢迎给我留言，咱们后会有期！</description>
+    </item>
+    
+    <item>
+      <title>30 实践总结：Netty 在项目开发中的一些最佳实践</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/30-%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93netty-%E5%9C%A8%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:52 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/30-%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93netty-%E5%9C%A8%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</guid>
+      <description>这是专栏的最后一节课，首先恭喜你持之以恒学习到现在，你已经离成为一个 Netty 高手不远啦！本节课我会结合自身的实践经验，整理出一些 Netty 的最佳实践，帮助你回顾之前课程的知识点以及进一步提升 Netty 的进阶技巧。
+本节课我们的内容以知识点列表的方式呈现，仅仅对 Netty 的核心要点进行提炼，更多详细的实现原理需要你课后深入研究源码。
+性能篇 网络参数优化 Netty 提供了 ChannelOption 以便于我们优化 TCP 参数配置，为了提高网络通信的吞吐量，一些可选的网络参数我们有必要掌握。在之前的课程中我们已经介绍了一些常用的参数，我们在此基础上再做一些详细地扩展。
+ SO_SNDBUF/SO_RCVBUF  TCP 发送缓冲区和接收缓冲区的大小。为了能够达到最大的网络吞吐量，SO_SNDBUF 不应当小于带宽和时延的乘积。SO_RCVBUF 一直会保存数据到应用进程读取为止，如果 SO_RCVBUF 满了，接收端会通知对端 TCP 协议中的窗口关闭，保证 SO_RCVBUF 不会溢出。
+SO_SNDBUF/SO_RCVBUF 大小的设置建议参考消息的平均大小，不要按照最大消息来进行设置，这样会造成额外的内存浪费。更灵活的方式是可以动态调整缓冲区的大小，这时候就体现出 ByteBuf 的优势，Netty 提供的 ByteBuf 是可以支持动态调整容量的，而且提供了开箱即用的工具，例如可动态调整容量的接收缓冲区分配器 AdaptiveRecvByteBufAllocator。
+ TCP_NODELAY  是否开启 Nagle 算法。Nagle 算法通过缓存的方式将网络数据包累积到一定量才会发送，从而避免频繁发送小的数据包。Nagle 算法 在海量流量的场景下非常有效，但是会造成一定的数据延迟。如果对数据传输延迟敏感，那么应该禁用该参数。
+ SO_BACKLOG  已完成三次握手的请求队列最大长度。同一时刻服务端可能会处理多个连接，在高并发海量连接的场景下，该参数应适当调大。但是 SO_BACKLOG 也不能太大，否则无法防止 SYN-Flood 攻击。
+ SO_KEEPALIVE  连接保活。启用了 TCP SO_KEEPALIVE 属性，TCP 会主动探测连接状态，Linux 默认设置了 2 小时的心跳频率。TCP KEEPALIVE 机制主要用于回收死亡时间交长的连接，不适合实时性高的场景。
+在海量连接的场景下，也许你会遇到类似 &amp;ldquo;too many open files&amp;rdquo; 的报错，所以 Linux 操作系统最大文件句柄数基本是必须要调优参数。可以通过 vi /etc/security/limits.</description>
+    </item>
+    
+    <item>
+      <title>29 编程思想：Netty 中应用了哪些设计模式？</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/29-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3netty-%E4%B8%AD%E5%BA%94%E7%94%A8%E4%BA%86%E5%93%AA%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:51 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/29-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3netty-%E4%B8%AD%E5%BA%94%E7%94%A8%E4%BA%86%E5%93%AA%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>设计模式的运用是面试过程中常考的，学习设计模式切勿死记硬背，结合优秀项目的源码去理解设计模式的使用会事半功倍。Netty 源码中运用了大量的设计模式，常见的设计模式在 Netty 源码中都有所体现。本节课我们便一起梳理 Netty 源码中所包含的设计模式，希望能帮助你更深入地了解 Netty 的设计精髓，并可以结合 Netty 源码向面试官讲述你对设计模式的理解。
+单例模式 单例模式是最常见的设计模式，它可以保证全局只有一个实例，避免线程安全问题。单例模式有很多种实现方法，其中我比较推荐三种最佳实践：双重检验锁、静态内部类方式、饿汉方式和枚举方式，其中双重检验锁和静态内部类方式属于懒汉式单例，饿汉方式和枚举方式属于饿汉式单例。
+双重检验锁 在多线程环境下，为了提高实例初始化的性能，不是每次获取实例时在方法上加锁，而是当实例未创建时才会加锁，如下所示：
+public class SingletonTest {private SingletonTest instance;public static SingletonTest getInstance() {if (instance == null) {synchronized (this) {if (instance == null) {instance = new SingletonTest();}}}return instance;}}静态内部类方式 静态内部类方式实现单例巧妙地利用了 Java 类加载机制，保证其在多线程环境下的线程安全性。当一个类被加载时，其静态内部类是不会被同时加载的，只有第一次被调用时才会初始化，而且我们不能通过反射的方式获取内部的属性。由此可见，静态内部类方式实现单例更加安全，可以防止被反射入侵。具体实现方式如下：
+public class SingletonTest {private SingletonTest() {}public static Singleton getInstance() {return SingletonInstance.instance;}private static class SingletonInstance {private static final Singleton instance = new Singleton();}}饿汉方式 饿汉式实现单例非常简单，类加载的时候就创建出实例。饿汉方式使用私有构造函数实现全局单个实例的初始化，并使用 public static final 加以修饰，实现延迟加载和保证线程安全性。实现方式如下所示：</description>
+    </item>
+    
+    <item>
+      <title>28 实战总结：RPC 实战总结与进阶延伸</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/28-%E5%AE%9E%E6%88%98%E6%80%BB%E7%BB%93rpc-%E5%AE%9E%E6%88%98%E6%80%BB%E7%BB%93%E4%B8%8E%E8%BF%9B%E9%98%B6%E5%BB%B6%E4%BC%B8/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:50 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/28-%E5%AE%9E%E6%88%98%E6%80%BB%E7%BB%93rpc-%E5%AE%9E%E6%88%98%E6%80%BB%E7%BB%93%E4%B8%8E%E8%BF%9B%E9%98%B6%E5%BB%B6%E4%BC%B8/</guid>
+      <description>经过前面几节的实战课，我们已经初步完成了一个 RPC 框架原型，其中串联了 RPC 框架所涉及的大部分核心知识点。纸上得来终觉浅，绝知此事要躬行，编码是每个程序员的基本功，一定要亲自动手做一遍，不要停留在纸上谈兵。虽然 RPC 框架原型已经可以运行起来了，但是离生产级使用还差得很远，例如性能、高可用等。本节课我会做一个有关知识点的总结回顾，并结合业界成熟的 RPC 框架再做一些知识补充，希望对你提升系统设计能力所有帮助。
+实战知识点总结 Netty 服务端启动 Netty 提供了 ServerBootstrap 引导类作为程序启动入口，ServerBootstrap 将 Netty 核心组件像搭积木一样组装在一起，服务端启动过程我们需要完成以下三个基本步骤：
+ 配置线程池。Netty 是采用 Reactor 模型进行开发的，在大多数场景下，我们采用的都是主从多线程 Reactor 模型。 Channel 初始化。设置 Channel 类型，并向 ChannelPipeline 中注册 ChannelHandler，此外可以按需设置 Socket 参数以及用户自定义属性。 端口绑定。调用 bind() 方法会真正触发启动，sync() 方法则会阻塞，直至整个启动过程完成。  自定义通信协议 一个完备的网络协议需要具备的基本要素：魔数、协议版本号、序列化算法、报文类型、长度域字段、请求数据、保留字段。在实现协议编解码时经常用到两个重要的抽象类：MessageToByteEncoder 编码器和ByteToMessageDecoder 解码器。Netty 也提供了很多开箱即用的拆包器，推荐最广泛使用的 LengthFieldBasedFrameDecoder，它可以满足实际项目中的大部分场景。如果对 LengthFieldBasedFrameDecoder 的参数不够熟悉，实际直接使用 ByteBuf 反而更加直观，根据个人喜好按需选择。
+ByteBuf ByteBuf 是必须要掌握的核心工具类，并且能够理解 ByteBuf 的内部构造。ByteBuf 包含三个指针：读指针 readerIndex、写指针 writeIndex、最大容量 maxCapacity，根据指针的位置又可以将 ByteBuf 内部结构可以分为四个部分：废弃字节、可读字节、可写字节和可扩容字节。如下图所示。
+Pipeline &amp;amp; ChannelHandler ChannelPipeline 和 ChannelHandler 也是我们在平时应用开发的过程中打交道最多的组件，这两个组件为用户提供了 I/O 事件的全部控制权。ChannelPipeline 是双向链表结构，包含 ChannelInboundHandler 和 ChannelOutboundHandler 两种处理器。Inbound 事件和 Outbound 事件的传播方向相反，Inbound 事件的传播方向为 Head -&amp;gt; Tail，而 Outbound 事件传播方向是 Tail -&amp;gt; Head。在设计之初一定要梳理清楚 Inbound 和 Outbound 处理的传递顺序，以及数据模型之间是如何转换的。</description>
+    </item>
+    
+    <item>
+      <title>27 动态代理：为用户屏蔽 RPC 调用的底层细节</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/27-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E4%B8%BA%E7%94%A8%E6%88%B7%E5%B1%8F%E8%94%BD-rpc-%E8%B0%83%E7%94%A8%E7%9A%84%E5%BA%95%E5%B1%82%E7%BB%86%E8%8A%82/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:49 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/27-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E4%B8%BA%E7%94%A8%E6%88%B7%E5%B1%8F%E8%94%BD-rpc-%E8%B0%83%E7%94%A8%E7%9A%84%E5%BA%95%E5%B1%82%E7%BB%86%E8%8A%82/</guid>
+      <description>动态代理在 RPC 框架的实现中起到了至关重要的作用，它可以帮助用户屏蔽 RPC 调用时底层网络通信、服务发现、负载均衡等具体细节，这些对用户来说并没有什么意义。你在平时项目开发中使用 RPC 框架的时候，只需要调用接口方法，然后就拿到了返回结果，你是否好奇 RPC 框架是如何完成整个调用流程的呢？今天这节课我们就一起来完成 RPC 框架的最后一部分内容：RPC 请求调用和处理，看看如何使用动态代理机制完成这个神奇的操作。
+ 源码参考地址：mini-rpc
+ 动态代理基础 为什么需要代理模式呢？代理模式的优势是可以很好地遵循设计模式中的开放封闭原则，对扩展开发，对修改关闭。你不需要关注目标类的实现细节，通过代理模式可以在不修改目标类的情况下，增强目标类功能的行为。Spring AOP 是 Java 动态代理机制的经典运用，我们在项目开发中经常使用 AOP 技术完成一些切面服务，如耗时监控、事务管理、权限校验等，所有操作都是通过切面扩展实现的，不需要对源代码有所侵入。
+动态代理是一种代理模式，它提供了一种能够在运行时动态构建代理类以及动态调用目标方法的机制。为什么称为动态是因为代理类和被代理对象的关系是在运行时决定的，代理类可以看作是对被代理对象的包装，对目标方法的调用是通过代理类来完成的。所以通过代理模式可以有效地将服务提供者和服务消费者进行解耦，隐藏了 RPC 调用的具体细节，如下图所示。
+接下来我们一起探讨下动态代理的实现原理，以及常用的 JDK 动态代理、Cglib 动态代理是如何使用的。
+JDK 动态代理 JDK 动态代理实现依赖 java.lang.reflect 包中的两个核心类：InvocationHandler 接口和Proxy 类。
+ InvocationHandler 接口  JDK 动态代理所代理的对象必须实现一个或者多个接口，生成的代理类也是接口的实现类，然后通过 JDK 动态代理是通过反射调用的方式代理类中的方法，不能代理接口中不存在的方法。每一个动态代理对象必须提供 InvocationHandler 接口的实现类，InvocationHandler 接口中只有一个 invoke() 方法。当我们使用代理对象调用某个方法的时候，最终都会被转发到 invoke() 方法执行具体的逻辑。invoke() 方法的定义如下：
+public interface InvocationHandler {public Object invoke(Object proxy, Method method, Object[] args) throws Throwable;}其中 proxy 参数表示需要代理的对象，method 参数表示代理对象被调用的方法，args 参数为被调用方法所需的参数。</description>
+    </item>
+    
+    <item>
+      <title>26 服务治理：服务发现与负载均衡机制的实现</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/26-%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%9C%BA%E5%88%B6%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:48 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/26-%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%9C%BA%E5%88%B6%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+      <description>在分布式系统中，服务消费者和服务提供者都存在多个节点，如果服务提供者出现部分机器节点负载过高，那么可能会导致该节点上接收的请求处理超时，从而导致服务提供者整体可用率下降。所以 RPC 框架需要实现合理的负载均衡算法，那么如何控制流量能够均匀地分摊到每个服务提供者呢？今天这节课我们便讨论 RPC 框架负载均衡机制的相关实现。
+ 源码参考地址：mini-rpc
+ 注册中心选型 服务消费者在发起 RPC 调用之前，需要知道服务提供者有哪些节点是可用的，而且服务提供者节点会存在上线和下线的情况。所以服务消费者需要感知服务提供者的节点列表的动态变化，在 RPC 框架中一般采用注册中心来实现服务的注册和发现。
+目前主流的注册中心有 ZooKeeper、Eureka、Etcd、Consul、Nacos 等，选择一个高性能、高可用的注册中心对 RPC 框架至关重要。说到高可用自然离不开 CAP 理论，一致性 Consistency、可用性 Availability 和分区容忍性 Partition tolerance 是无法同时满足的，注册中心一般分为 CP 类型注册中心和 AP 类型注册中心。使用最为广泛的 Zookeeper 就是 CP 类型的注册中心，集群中会有一个节点作为 Leader，如果 Leader 节点挂了，会重新进行 Leader 选举，ZooKeeper 保证了所有节点的强一致性，但是在 Leader 选举的过程中是无法对外提供服务的，牺牲了部分可用性。Eureka 是典型的 AP 类型注册中心，在实现服务发现的场景下有很大的优势，整个集群是不存在 Leader、Flower 概念的，如果其中一个节点挂了，请求会立刻转移到其他节点上。可能会存在的问题是如果不同分区无法进行节点通信，那么可能会造成节点之间的数据是有差异的，所以 AP 类型的注册中心通过牺牲强一致性来保证高可用性 。
+对于 RPC 框架而言，即使注册中心出现问题，也不应该影响服务的正常调用，所以 AP 类型的注册中心在该场景下相比于 CP 类型的注册中心更有优势。对于成熟的 RPC 框架而言，会提供多种注册中心的选择，接下来我们便设计一个通用的注册中心接口，然后每种注册中心的实现都按该接口规范行扩展。
+注册中心接口设计 注册中心主要用于存储服务的元数据信息，首先我们需要将服务元数据信息封装成一个对象，该对象包括服务名称、服务版本、服务地址和服务端口号，如下所示：
+@Datapublic class ServiceMeta {private String serviceName;private String serviceVersion;private String serviceAddr;private int servicePort;}接下来我们提供一个通用的注册中心接口，该接口主要的操作对象是 ServiceMeta，不应该与其他任何第三方的注册中心工具库有任何联系，如下所示。</description>
+    </item>
+    
+    <item>
+      <title>25 远程通信：通信协议设计以及编解码的实现</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/25-%E8%BF%9C%E7%A8%8B%E9%80%9A%E4%BF%A1%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E8%AE%BE%E8%AE%A1%E4%BB%A5%E5%8F%8A%E7%BC%96%E8%A7%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:47 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/25-%E8%BF%9C%E7%A8%8B%E9%80%9A%E4%BF%A1%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E8%AE%BE%E8%AE%A1%E4%BB%A5%E5%8F%8A%E7%BC%96%E8%A7%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+      <description>上节课我们搭建了服务提供者和服务消费者的基本框架，现在我们可以建立两个模块之间的通信机制了。本节课我们通过向 ChannelPipeline 添加自定义的业务处理器，来完成 RPC 框架的远程通信机制。需要实现的主要功能如下：
+ 服务消费者实现协议编码，向服务提供者发送调用数据。 服务提供者收到数据后解码，然后向服务消费者发送响应数据，暂时忽略 RPC 请求是如何被调用的。 服务消费者收到响应数据后成功返回。   源码参考地址：mini-rpc
+ RPC 通信方案设计 结合本节课的目标，接下来我们对 RPC 请求调用和结果响应两个过程分别进行详细拆解分析。首先看下 RPC 请求调用的过程，如下图所示。
+RPC 请求的过程对于服务消费者来说是出站操作，对于服务提供者来说是入站操作。数据发送前，服务消费者将 RPC 请求信息封装成 MiniRpcProtocol 对象，然后通过编码器 MiniRpcEncoder 进行二进制编码，最后直接向发送至远端即可。服务提供者收到请求数据后，将二进制数据交给解码器 MiniRpcDecoder，解码后再次生成 MiniRpcProtocol 对象，然后传递给 RpcRequestHandler 执行真正的 RPC 请求调用。
+我们暂时忽略 RpcRequestHandler 是如何执行 RPC 请求调用的，接下来我们继续分析 RpcRequestHandler 处理成功后是如何向服务消费者返回响应结果的，如下图所示：
+与 RPC 请求过程相反，是由服务提供者将响应结果封装成 MiniRpcProtocol 对象，然后通过 MiniRpcEncoder 编码发送给服务消费者。服务消费者对响应结果进行解码，因为 RPC 请求是高并发的，所以需要 RpcRequestHandler 根据响应结果找到对应的请求，最后将响应结果返回。
+综合 RPC 请求调用和结果响应的处理过程来看，编码器 MiniRpcEncoder、解码器 MiniRpcDecoder 以及通信协议对象 MiniRpcProtocol 都可以设计成复用的，最终服务消费者和服务提供者的 ChannelPipeline 结构如下图所示。
+由此可见，在实现 Netty 网络通信模块时，先画图分析 ChannelHandler 的处理流程是非常有帮助的。</description>
+    </item>
+    
+    <item>
+      <title>24 服务发布与订阅：搭建生产者和消费者的基础框架</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/24-%E6%9C%8D%E5%8A%A1%E5%8F%91%E5%B8%83%E4%B8%8E%E8%AE%A2%E9%98%85%E6%90%AD%E5%BB%BA%E7%94%9F%E4%BA%A7%E8%80%85%E5%92%8C%E6%B6%88%E8%B4%B9%E8%80%85%E7%9A%84%E5%9F%BA%E7%A1%80%E6%A1%86%E6%9E%B6/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:46 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/24-%E6%9C%8D%E5%8A%A1%E5%8F%91%E5%B8%83%E4%B8%8E%E8%AE%A2%E9%98%85%E6%90%AD%E5%BB%BA%E7%94%9F%E4%BA%A7%E8%80%85%E5%92%8C%E6%B6%88%E8%B4%B9%E8%80%85%E7%9A%84%E5%9F%BA%E7%A1%80%E6%A1%86%E6%9E%B6/</guid>
+      <description>从本节课开始，我们开始动手开发一个完整的 RPC 框架原型，通过整个实践课程的学习，你不仅可以熟悉 RPC 的实现原理，而且可以对之前 Netty 基础知识加深理解，同样在工作中也可以学以致用。
+我会从服务发布与订阅、远程通信、服务治理、动态代理四个方面详细地介绍一个通用 RPC 框架的实现过程，相信你只要坚持完成本次实践课，之后你再独立完成工作中项目研发会变得更加容易。你是不是已经迫不及待地想动手了呢？让我们一起开始吧！
+ 源码参考地址：mini-rpc
+ 环境搭建 工欲善其事必先利其器，首先我们需要搭建我们的开发环境，这是每个程序员的必备技能。以下是我的本机环境清单，仅供参考。
+ 操作系统：MacOS Big Sur，11.0.1。 集成开发工具：IntelliJ IDEA 2020.3，当然你也可以选择 eclipse。 项目技术栈：SpringBoot 2.1.12.RELEASE + JDK 1.8.0_221 + Netty 4.1.42.Final。 项目依赖管理工具：Maven 3.5.4，你可以独立安装 Maven 或者使用 IDEA 的集成版，独立安装的 Maven 需要配置 MAVEN_HOME 和 PATH 环境变量。 注册中心：Zookeeeper 3.4.14，需要特别注意 Zookeeeper 和 Apache Curator 一定要搭配使用，Zookeeper 3.4.x 版本，Apache Curator 只有 2.x.x 才能支持。  项目结构 在动手开发项目之前，我们需要对项目结构有清晰的构思。根据上节课介绍的 RPC 框架设计架构，我们可以将项目结构划分为以下几个模块。
+其中每个模块都是什么角色呢？下面我们一一进行介绍。
+ rpc-provider，服务提供者。负责发布 RPC 服务，接收和处理 RPC 请求。 rpc-consumer，服务消费者。使用动态代理发起 RPC 远程调用，帮助使用者来屏蔽底层网络通信的细节。 rpc-registry，注册中心模块。提供服务注册、服务发现、负载均衡的基本功能。 rpc-protocol，网络通信模块。包含 RPC 协议的编解码器、序列化和反序列化工具等。 rpc-core，基础类库。提供通用的工具类以及模型定义，例如 RPC 请求和响应类、RPC 服务元数据类等。 rpc-facade，RPC 服务接口。包含服务提供者需要对外暴露的接口，本模块主要用于模拟真实 RPC 调用的测试。  如下图所示，首先我们需要清楚各个模块之间的依赖关系，才能帮助我们更好地梳理 Maven 的 pom 定义。rpc-core 是最基础的类库，所以大部分模块都依赖它。rpc-consumer 用于发起 RPC 调用。rpc-provider 负责处理 RPC 请求，如果不知道远程服务的地址，那么一切都是空谈了，所以两者都需要依赖 rpc-registry 提供的服务发现和服务注册的能力。</description>
+    </item>
+    
+    <item>
+      <title>23 架构设计：如何实现一个高性能分布式 RPC 框架</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/23-%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E9%AB%98%E6%80%A7%E8%83%BD%E5%88%86%E5%B8%83%E5%BC%8F-rpc-%E6%A1%86%E6%9E%B6/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:45 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/23-%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E9%AB%98%E6%80%A7%E8%83%BD%E5%88%86%E5%B8%83%E5%BC%8F-rpc-%E6%A1%86%E6%9E%B6/</guid>
+      <description>在前面的课程中，我们由浅入深地讲解了 Netty 的基础知识和实现原理，并对 Netty 的核心源码进行了剖析，相信你已经体会到了 Netty 的强大之处。本身学习一门技术是一个比较漫长的过程，恭喜你坚持了下来。纸上得来终觉浅，绝知此事要躬行。你是不是已经迫不及待想在项目中使用 Netty 了呢？接下来我会带着你完成一个相对完整的 RPC 框架原型，帮助你加深对 Netty 的理解，希望你能亲自动手跟我一起完成它。
+我先来说说，为什么要选择 RPC 框架作为实战项目。RPC 框架是大型企业高频使用的一种中间件框架，用于解决分布式系统中服务之间的调用问题。RPC 框架设计很多重要的知识点，如线程模型、通信协议设计、同步/异步调用、负载均衡等，对于提高我们的技术综合能力有非常大的帮助。
+我们实战课需要达到什么样的目标呢？市面上有较多出名的 RPC 框架，例如 Dubbo、Thrift、gRPC 等，RPC 框架本身是非常负责的，我们不可能面面俱到，而是抓住 RPC 框架的核心流程以及必备的组件，开发一个功能比较丰富的小型 RPC 框架。麻雀虽小，五脏俱全。
+在正式开始 RPC 实战项目之前，我们先学习一下 RPC 的架构设计，这是项目前期规划非常重要的一步。
+RPC 框架架构设计 RPC 又称远程过程调用（Remote Procedure Call），用于解决分布式系统中服务之间的调用问题。通俗地讲，就是开发者能够像调用本地方法一样调用远程的服务。下面我们通过一幅图来说说 RPC 框架的基本架构。
+RPC 框架包含三个最重要的组件，分别是客户端、服务端和注册中心。在一次 RPC 调用流程中，这三个组件是这样交互的：
+ 服务端在启动后，会将它提供的服务列表发布到注册中心，客户端向注册中心订阅服务地址； 客户端会通过本地代理模块 Proxy 调用服务端，Proxy 模块收到负责将方法、参数等数据转化成网络字节流； 客户端从服务列表中选取其中一个的服务地址，并将数据通过网络发送给服务端； 服务端接收到数据后进行解码，得到请求信息； 服务端根据解码后的请求信息调用对应的服务，然后将调用结果返回给客户端。  虽然 RPC 调用流程很容易理解，但是实现一个完整的 RPC 框架设计到很多内容，例如服务注册与发现、通信协议与序列化、负载均衡、动态代理等，下面我们一一进行初步地讲解。
+服务注册与发现 在分布式系统中，不同服务之间应该如何通信呢？传统的方式可以通过 HTTP 请求调用、保存服务端的服务列表等，这样做需要开发者主动感知到服务端暴露的信息，系统之间耦合严重。为了更好地将客户端和服务端解耦，以及实现服务优雅上线和下线，于是注册中心就出现了。
+在 RPC 框架中，主要是使用注册中心来实现服务注册和发现的功能。服务端节点上线后自行向注册中心注册服务列表，节点下线时需要从注册中心将节点元数据信息移除。客户端向服务端发起调用时，自己负责从注册中心获取服务端的服务列表，然后在通过负载均衡算法选择其中一个服务节点进行调用。以上是最简单直接的服务端和客户端的发布和订阅模式，不需要再借助任何中间服务器，性能损耗也是最小的。
+现在思考一个问题，服务在下线时需要从注册中心移除元数据，那么注册中心怎么才能感知到服务下线呢？我们最先想到的方法就是节点主动通知的实现方式，当节点需要下线时，向注册中心发送下线请求，让注册中心移除自己的元数据信息。但是如果节点异常退出，例如断网、进程崩溃等，那么注册中心将会一直残留异常节点的元数据，从而可能造成服务调用出现问题。
+为了避免上述问题，实现服务优雅下线比较好的方式是采用主动通知 + 心跳检测的方案。除了主动通知注册中心下线外，还需要增加节点与注册中心的心跳检测功能，这个过程也叫作探活。心跳检测可以由节点或者注册中心负责，例如注册中心可以向服务节点每 60s 发送一次心跳包，如果 3 次心跳包都没有收到请求结果，可以任务该服务节点已经下线。</description>
+    </item>
+    
+    <item>
+      <title>22 技巧篇：高性能无锁队列 Mpsc Queue</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/22-%E6%8A%80%E5%B7%A7%E7%AF%87%E9%AB%98%E6%80%A7%E8%83%BD%E6%97%A0%E9%94%81%E9%98%9F%E5%88%97-mpsc-queue/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:44 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/22-%E6%8A%80%E5%B7%A7%E7%AF%87%E9%AB%98%E6%80%A7%E8%83%BD%E6%97%A0%E9%94%81%E9%98%9F%E5%88%97-mpsc-queue/</guid>
+      <description>在前面的源码课程中，NioEventLoop 线程以及时间轮 HashedWheelTimer 的任务队列中都出现了 Mpsc Queue 的身影。这又是 Netty 使用的什么 “黑科技” 呢？为什么不使用 JDK 原生的队列呢？Mpsc Queue 应该在什么场景下使用呢？今天这节课就让我们一起再来长长知识吧！
+JDK 原生并发队列 在介绍 Mpsc Queue 之前，我们先回顾下 JDK 原生队列的工作原理。JDK 并发队列按照实现方式可以分为阻塞队列和非阻塞队列两种类型，阻塞队列是基于锁实现的，非阻塞队列是基于 CAS 操作实现的。JDK 中包含多种阻塞和非阻塞的队列实现，如下图所示。
+队列是一种 FIFO（先进先出）的数据结构，JDK 中定义了 java.util.Queue 的队列接口，与 List、Set 接口类似，java.util.Queue 也继承于 Collection 集合接口。此外，JDK 还提供了一种双端队列接口 java.util.Deque，我们最常用的 LinkedList 就是实现了 Deque 接口。下面我们简单说说上图中的每个队列的特点，并给出一些对比和总结。
+阻塞队列 阻塞队列在队列为空或者队列满时，都会发生阻塞。阻塞队列自身是线程安全的，使用者无需关心线程安全问题，降低了多线程开发难度。阻塞队列主要分为以下几种：
+ ArrayBlockingQueue：最基础且开发中最常用的阻塞队列，底层采用数组实现的有界队列，初始化需要指定队列的容量。ArrayBlockingQueue 是如何保证线程安全的呢？它内部是使用了一个重入锁 ReentrantLock，并搭配 notEmpty、notFull 两个条件变量 Condition 来控制并发访问。从队列读取数据时，如果队列为空，那么会阻塞等待，直到队列有数据了才会被唤醒。如果队列已经满了，也同样会进入阻塞状态，直到队列有空闲才会被唤醒。 LinkedBlockingQueue：内部采用的数据结构是链表，队列的长度可以是有界或者无界的，初始化不需要指定队列长度，默认是 Integer.MAX_VALUE。LinkedBlockingQueue 内部使用了 takeLock、putLock两个重入锁 ReentrantLock，以及 notEmpty、notFull 两个条件变量 Condition 来控制并发访问。采用读锁和写锁的好处是可以避免读写时相互竞争锁的现象，所以相比于 ArrayBlockingQueue，LinkedBlockingQueue 的性能要更好。 PriorityBlockingQueue：采用最小堆实现的优先级队列，队列中的元素按照优先级进行排列，每次出队都是返回优先级最高的元素。PriorityBlockingQueue 内部是使用了一个 ReentrantLock 以及一个条件变量 Condition notEmpty 来控制并发访问，不需要 notFull 是因为 PriorityBlockingQueue 是无界队列，所以每次 put 都不会发生阻塞。PriorityBlockingQueue 底层的最小堆是采用数组实现的，当元素个数大于等于最大容量时会触发扩容，在扩容时会先释放锁，保证其他元素可以正常出队，然后使用 CAS 操作确保只有一个线程可以执行扩容逻辑。 DelayQueue，一种支持延迟获取元素的阻塞队列，常用于缓存、定时任务调度等场景。DelayQueue 内部是采用优先级队列 PriorityQueue 存储对象。DelayQueue 中的每个对象都必须实现 Delayed 接口，并重写 compareTo 和 getDelay 方法。向队列中存放元素的时候必须指定延迟时间，只有延迟时间已满的元素才能从队列中取出。 SynchronizedQueue，又称无缓冲队列。比较特别的是 SynchronizedQueue 内部不会存储元素。与 ArrayBlockingQueue、LinkedBlockingQueue 不同，SynchronizedQueue 直接使用 CAS 操作控制线程的安全访问。其中 put 和 take 操作都是阻塞的，每一个 put 操作都必须阻塞等待一个 take 操作，反之亦然。所以 SynchronizedQueue 可以理解为生产者和消费者配对的场景，双方必须互相等待，直至配对成功。在 JDK 的线程池 Executors.</description>
+    </item>
+    
+    <item>
+      <title>21 技巧篇：延迟任务处理神器之时间轮 HashedWheelTimer</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/21-%E6%8A%80%E5%B7%A7%E7%AF%87%E5%BB%B6%E8%BF%9F%E4%BB%BB%E5%8A%A1%E5%A4%84%E7%90%86%E7%A5%9E%E5%99%A8%E4%B9%8B%E6%97%B6%E9%97%B4%E8%BD%AE-hashedwheeltimer/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:43 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/21-%E6%8A%80%E5%B7%A7%E7%AF%87%E5%BB%B6%E8%BF%9F%E4%BB%BB%E5%8A%A1%E5%A4%84%E7%90%86%E7%A5%9E%E5%99%A8%E4%B9%8B%E6%97%B6%E9%97%B4%E8%BD%AE-hashedwheeltimer/</guid>
+      <description>Netty 中有很多场景依赖定时任务实现，比较典型的有客户端连接的超时控制、通信双方连接的心跳检测等场景。在学习 Netty Reactor 线程模型时，我们知道 NioEventLoop 不仅负责处理 I/O 事件，而且兼顾执行任务队列中的任务，其中就包括定时任务。为了实现高性能的定时任务调度，Netty 引入了时间轮算法驱动定时任务的执行。时间轮到底是什么呢？为什么 Netty 一定要用时间轮来处理定时任务呢？JDK 原生的实现方案不能满足要求吗？本节课我将一步步为你深入剖析时间轮的原理以及 Netty 中是如何实现时间轮算法的。
+ 说明：本文参考的 Netty 源码版本为 4.1.42.Final。
+ 定时任务的基础知识 首先，我们先了解下什么是定时任务？定时器有非常多的使用场景，大家在平时工作中应该经常遇到，例如生成月统计报表、财务对账、会员积分结算、邮件推送等，都是定时器的使用场景。定时器一般有三种表现形式：按固定周期定时执行、延迟一定时间后执行、指定某个时刻执行。
+定时器的本质是设计一种数据结构，能够存储和调度任务集合，而且 deadline 越近的任务拥有更高的优先级。那么定时器如何知道一个任务是否到期了呢？定时器需要通过轮询的方式来实现，每隔一个时间片去检查任务是否到期。
+所以定时器的内部结构一般需要一个任务队列和一个异步轮询线程，并且能够提供三种基本操作：
+ Schedule 新增任务至任务集合； Cancel 取消某个任务； Run 执行到期的任务。  JDK 原生提供了三种常用的定时器实现方式，分别为 Timer、DelayedQueue 和 ScheduledThreadPoolExecutor。下面我们逐一对它们进行介绍。
+Timer Timer 属于 JDK 比较早期版本的实现，它可以实现固定周期的任务，以及延迟任务。Timer 会起动一个异步线程去执行到期的任务，任务可以只被调度执行一次，也可以周期性反复执行多次。我们先来看下 Timer 是如何使用的，示例代码如下。
+Timer timer = new Timer();timer.scheduleAtFixedRate(new TimerTask() {@Overridepublic void run() {// do something}}, 10000, 1000); // 10s 后调度一个周期为 1s 的定时任务可以看出，任务是由 TimerTask 类实现，TimerTask 是实现了 Runnable 接口的抽象类，Timer 负责调度和执行 TimerTask。接下来我们看下 Timer 的内部构造。</description>
+    </item>
+    
+    <item>
+      <title>20 技巧篇：Netty 的 FastThreadLocal 究竟比 ThreadLocal 快在哪儿？</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/20-%E6%8A%80%E5%B7%A7%E7%AF%87netty-%E7%9A%84-fastthreadlocal-%E7%A9%B6%E7%AB%9F%E6%AF%94-threadlocal-%E5%BF%AB%E5%9C%A8%E5%93%AA%E5%84%BF/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:42 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/20-%E6%8A%80%E5%B7%A7%E7%AF%87netty-%E7%9A%84-fastthreadlocal-%E7%A9%B6%E7%AB%9F%E6%AF%94-threadlocal-%E5%BF%AB%E5%9C%A8%E5%93%AA%E5%84%BF/</guid>
+      <description>在前面几篇源码解析的课程中，我们都有在源码中发现 FastThreadLocal 的身影。顾名思义，Netty 作为高性能的网络通信框架，FastThreadLocal 是比 JDK 自身的 ThreadLocal 性能更高的通信框架。FastThreadLocal 到底比 ThreadLocal 快在哪里呢？这节课我们就一起来探索 FastThreadLocal 高性能的奥秘。
+ 说明：本文参考的 Netty 源码版本为 4.1.42.Final。
+ JDK ThreadLocal 基本原理 JDK ThreadLocal 不仅是高频的面试知识点，而且在日常工作中也是常用一种工具，所以首先我们先学习下 Java 原生的 ThreadLocal 的实现原理，可以帮助我们更好地对比和理解 Netty 的 FastThreadLocal。
+如果你需要变量在多线程之间隔离，或者在同线程内的类和方法中共享，那么 ThreadLocal 大显身手的时候就到了。ThreadLocal 可以理解为线程本地变量，它是 Java 并发编程中非常重要的一个类。ThreadLocal 为变量在每个线程中都创建了一个副本，该副本只能被当前线程访问，多线程之间是隔离的，变量不能在多线程之间共享。这样每个线程修改变量副本时，不会对其他线程产生影响。
+接下来我们通过一个例子看下 ThreadLocal 如何使用：
+public class ThreadLocalTest {private static final ThreadLocal&amp;lt;String&amp;gt; THREAD_NAME_LOCAL = ThreadLocal.withInitial(() -&amp;gt; Thread.currentThread().getName());private static final ThreadLocal&amp;lt;TradeOrder&amp;gt; TRADE_THREAD_LOCAL = new ThreadLocal&amp;lt;&amp;gt;();public static void main(String[] args) {for (int i = 0; i &amp;lt; 2; i++) {int tradeId = i;new Thread(() -&amp;gt; {TradeOrder tradeOrder = new TradeOrder(tradeId, tradeId % 2 == 0 ?</description>
+    </item>
+    
+    <item>
+      <title>19 源码篇：一个网络请求在 Netty 中的旅程</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/19-%E6%BA%90%E7%A0%81%E7%AF%87%E4%B8%80%E4%B8%AA%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E5%9C%A8-netty-%E4%B8%AD%E7%9A%84%E6%97%85%E7%A8%8B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/19-%E6%BA%90%E7%A0%81%E7%AF%87%E4%B8%80%E4%B8%AA%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E5%9C%A8-netty-%E4%B8%AD%E7%9A%84%E6%97%85%E7%A8%8B/</guid>
+      <description>通过前面两节源码课程的学习，我们知道 Netty 在服务端启动时会为创建 NioServerSocketChannel，当客户端新连接接入时又会创建 NioSocketChannel，不管是服务端还是客户端 Channel，在创建时都会初始化自己的 ChannelPipeline。如果把 Netty 比作成一个生产车间，那么 Reactor 线程无疑是车间的中央管控系统，ChannelPipeline 可以看作是车间的流水线，将原材料按顺序进行一步步加工，然后形成一个完整的产品。本节课我将带你完整梳理一遍网络请求在 Netty 中的处理流程，从而加深对前两节课内容的理解，并着重讲解 ChannelPipeline 的工作原理。
+ 说明：本文参考的 Netty 源码版本为 4.1.42.Final。
+ 事件处理机制回顾 首先我们以服务端接入客户端新连接为例，并结合前两节源码课学习的知识点，一起复习下 Netty 的事件处理流程，如下图所示。
+Netty 服务端启动后，BossEventLoopGroup 会负责监听客户端的 Accept 事件。当有客户端新连接接入时，BossEventLoopGroup 中的 NioEventLoop 首先会新建客户端 Channel，然后在 NioServerSocketChannel 中触发 channelRead 事件传播，NioServerSocketChannel 中包含了一种特殊的处理器 ServerBootstrapAcceptor，最终通过 ServerBootstrapAcceptor 的 channelRead() 方法将新建的客户端 Channel 分配到 WorkerEventLoopGroup 中。WorkerEventLoopGroup 中包含多个 NioEventLoop，它会选择其中一个 NioEventLoop 与新建的客户端 Channel 绑定。
+完成客户端连接注册之后，就可以接收客户端的请求数据了。当客户端向服务端发送数据时，NioEventLoop 会监听到 OP_READ 事件，然后分配 ByteBuf 并读取数据，读取完成后将数据传递给 Pipeline 进行处理。一般来说，数据会从 ChannelPipeline 的第一个 ChannelHandler 开始传播，将加工处理后的消息传递给下一个 ChannelHandler，整个过程是串行化执行。
+在前面两节课中，我们介绍了服务端如何接收客户端新连接，以及 NioEventLoop 的工作流程，接下来我们重点介绍 ChannelPipeline 是如何实现 Netty 事件驱动的，这样 Netty 整个事件处理流程已经可以串成一条主线。</description>
+    </item>
+    
+    <item>
+      <title>18 源码篇：解密 Netty Reactor 线程模型</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/18-%E6%BA%90%E7%A0%81%E7%AF%87%E8%A7%A3%E5%AF%86-netty-reactor-%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:40 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/18-%E6%BA%90%E7%A0%81%E7%AF%87%E8%A7%A3%E5%AF%86-netty-reactor-%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/</guid>
+      <description>通过第一章 Netty 基础课程的学习，我们知道 Reactor 线程模型是 Netty 实现高性能的核心所在，在 Netty 中 EventLoop 是 Reactor 线程模型的核心处理引擎，那么 EventLoop 到底是如何实现的呢？又是如何保证高性能和线程安全性的呢？今天这节课让我们一起一探究竟。
+ 说明：本文参考的 Netty 源码版本为 4.1.42.Final。
+ Reactor 线程执行的主流程 在《事件调度层：为什么 EventLoop 是 Netty 的精髓》的课程中，我们介绍了 EventLoop 的概貌，因为 Netty 是基于 NIO 实现的，所以推荐使用 NioEventLoop 实现，我们再次通过 NioEventLoop 的核心入口 run() 方法回顾 Netty Reactor 线程模型执行的主流程，并以此为基础继续深入研究 NioEventLoop 的逻辑细节。
+protected void run() {for (;;) {try {try {switch (selectStrategy.calculateStrategy(selectNowSupplier, hasTasks())) {case SelectStrategy.CONTINUE:continue;case SelectStrategy.BUSY_WAIT:case SelectStrategy.SELECT:select(wakenUp.getAndSet(false)); // 轮询 I/O 事件if (wakenUp.</description>
+    </item>
+    
+    <item>
+      <title>17 源码篇：从 Linux 出发深入剖析服务端启动流程</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/17-%E6%BA%90%E7%A0%81%E7%AF%87%E4%BB%8E-linux-%E5%87%BA%E5%8F%91%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:39 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/17-%E6%BA%90%E7%A0%81%E7%AF%87%E4%BB%8E-linux-%E5%87%BA%E5%8F%91%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</guid>
+      <description>通过前几章课程的学习，我们已经对 Netty 的技术思想和基本原理有了初步的认识，从今天这节课开始我们将正式进入 Netty 核心源码学习的课程。希望能够通过源码解析的方式让你更加深入理解 Netty 的精髓，如 Netty 的设计思想、工程技巧等，为之后继续深入研究 Netty 打下坚实的基础。
+在课程开始之前，我想分享一下关于源码学习的几点经验和建议。第一，很多同学在开始学习源码时面临的第一个问题就是不知道从何下手，这个时候一定不能对着源码毫无意义地四处翻看。建议你可以通过 Hello World 或者 TestCase 作为源码学习的入口，然后再通过 Debug 断点的方式调试并跑通源码。第二，阅读源码一定要有全局观。首先要把握源码的主流程，避免刚开始陷入代码细节的死胡同。第三，源码一定要反复阅读，让自己每一次读都有不同的收获。我们可以通过画图、注释的方式帮助自己更容易理解源码的核心流程，方便后续的复习和回顾。
+作为源码解析的第一节课，我们将深入分析 Netty 服务端的启动流程。启动服务的过程中我们可以了解到 Netty 各大核心组件的关系，这将是学习 Netty 源码一个非常好的切入点，让我们一起看看 Netty 的每个零件是如何运转起来的吧。
+ 说明：本文参考的 Netty 源码版本为 4.1.42.Final。
+ 从 Echo 服务器示例入手 在《引导器作用：客户端和服务端启动都要做些什么？》的课程中，我们介绍了如何使用引导器搭建服务端的基本框架。在这里我们实现了一个最简单的 Echo 服务器，用于调试 Netty 服务端启动的源码。
+public class EchoServer {public void startEchoServer(int port) throws Exception {EventLoopGroup bossGroup = new NioEventLoopGroup();EventLoopGroup workerGroup = new NioEventLoopGroup();try {ServerBootstrap b = new ServerBootstrap();b.</description>
+    </item>
+    
+    <item>
+      <title>16 IO 加速：与众不同的 Netty 零拷贝技术</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/16-io-%E5%8A%A0%E9%80%9F%E4%B8%8E%E4%BC%97%E4%B8%8D%E5%90%8C%E7%9A%84-netty-%E9%9B%B6%E6%8B%B7%E8%B4%9D%E6%8A%80%E6%9C%AF/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:38 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/16-io-%E5%8A%A0%E9%80%9F%E4%B8%8E%E4%BC%97%E4%B8%8D%E5%90%8C%E7%9A%84-netty-%E9%9B%B6%E6%8B%B7%E8%B4%9D%E6%8A%80%E6%9C%AF/</guid>
+      <description>今天的课程我们继续讨论 Netty 实现高性能的另一个高阶特性——零拷贝。零拷贝是一个耳熟能详的词语，在 Linux、Kafka、RocketMQ 等知名的产品中都有使用，通常用于提升 I/O 性能。而且零拷贝也是面试过程中的高频问题，那么你知道零拷贝体现在哪些地方吗？Netty 的零拷贝技术又是如何实现的呢？接下来我们就针对 Netty 零拷贝特性进行详细地分析。
+传统 Linux 中的零拷贝技术 在介绍 Netty 零拷贝特性之前，我们有必要学习下传统 Linux 中零拷贝的工作原理。所谓零拷贝，就是在数据操作时，不需要将数据从一个内存位置拷贝到另外一个内存位置，这样可以减少一次内存拷贝的损耗，从而节省了 CPU 时钟周期和内存带宽。
+我们模拟一个场景，从文件中读取数据，然后将数据传输到网络上，那么传统的数据拷贝过程会分为哪几个阶段呢？具体如下图所示。
+从上图中可以看出，从数据读取到发送一共经历了四次数据拷贝，具体流程如下：
+ 当用户进程发起 read() 调用后，上下文从用户态切换至内核态。DMA 引擎从文件中读取数据，并存储到内核态缓冲区，这里是第一次数据拷贝。 请求的数据从内核态缓冲区拷贝到用户态缓冲区，然后返回给用户进程。第二次数据拷贝的过程同时，会导致上下文从内核态再次切换到用户态。 用户进程调用 send() 方法期望将数据发送到网络中，此时会触发第三次线程切换，用户态会再次切换到内核态，请求的数据从用户态缓冲区被拷贝到 Socket 缓冲区。 最终 send() 系统调用结束返回给用户进程，发生了第四次上下文切换。第四次拷贝会异步执行，从 Socket 缓冲区拷贝到协议引擎中。   说明：DMA（Direct Memory Access，直接内存存取）是现代大部分硬盘都支持的特性，DMA 接管了数据读写的工作，不需要 CPU 再参与 I/O 中断的处理，从而减轻了 CPU 的负担。
+ 传统的数据拷贝过程为什么不是将数据直接传输到用户缓冲区呢？其实引入内核缓冲区可以充当缓存的作用，这样就可以实现文件数据的预读，提升 I/O 的性能。但是当请求数据量大于内核缓冲区大小时，在完成一次数据的读取到发送可能要经历数倍次数的数据拷贝，这就造成严重的性能损耗。
+接下来我们介绍下使用零拷贝技术之后数据传输的流程。重新回顾一遍传统数据拷贝的过程，可以发现第二次和第三次拷贝是可以去除的，DMA 引擎从文件读取数据后放入到内核缓冲区，然后可以直接从内核缓冲区传输到 Socket 缓冲区，从而减少内存拷贝的次数。
+在 Linux 中系统调用 sendfile() 可以实现将数据从一个文件描述符传输到另一个文件描述符，从而实现了零拷贝技术。在 Java 中也使用了零拷贝技术，它就是 NIO FileChannel 类中的 transferTo() 方法，transferTo() 底层就依赖了操作系统零拷贝的机制，它可以将数据从 FileChannel 直接传输到另外一个 Channel。transferTo() 方法的定义如下：</description>
+    </item>
+    
+    <item>
+      <title>15 轻量级对象回收站：Recycler 对象池技术解析</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/15-%E8%BD%BB%E9%87%8F%E7%BA%A7%E5%AF%B9%E8%B1%A1%E5%9B%9E%E6%94%B6%E7%AB%99recycler-%E5%AF%B9%E8%B1%A1%E6%B1%A0%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:36 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/15-%E8%BD%BB%E9%87%8F%E7%BA%A7%E5%AF%B9%E8%B1%A1%E5%9B%9E%E6%94%B6%E7%AB%99recycler-%E5%AF%B9%E8%B1%A1%E6%B1%A0%E6%8A%80%E6%9C%AF%E8%A7%A3%E6%9E%90/</guid>
+      <description>前面两节课，我们学习了 Netty 内存池的高性能设计原理，这节课会介绍 Netty 的另一种池化技术：Recycler 对象池。在刚接触到 Netty 对象池这个概念时，你是不是也会有类似的疑问：
+ 对象池和内存池有什么区别？它们有什么联系吗？ 实现对象池的方法有很多，Netty 也是自己实现的吗？是如何实现的？ 对象池在实践中我们应该怎么使用？  带着这些问题，我们进入今天课程的学习吧。
+Recycler 快速上手 我们通过一个例子直观感受下 Recycler 如何使用，假设我们有一个 User 类，需要实现 User 对象的复用，具体实现代码如下：
+public class UserCache {private static final Recycler&amp;lt;User&amp;gt; userRecycler = new Recycler&amp;lt;User&amp;gt;() {@Overrideprotected User newObject(Handle&amp;lt;User&amp;gt; handle) {return new User(handle);}};static final class User {private String name;private Recycler.Handle&amp;lt;User&amp;gt; handle;public void setName(String name) {this.name = name;}public String getName() {return name;}public User(Recycler.</description>
+    </item>
+    
+    <item>
+      <title>14 举一反三：Netty 高性能内存管理设计（下）</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/14-%E4%B8%BE%E4%B8%80%E5%8F%8D%E4%B8%89netty-%E9%AB%98%E6%80%A7%E8%83%BD%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E8%AE%BE%E8%AE%A1%E4%B8%8B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:35 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/14-%E4%B8%BE%E4%B8%80%E5%8F%8D%E4%B8%89netty-%E9%AB%98%E6%80%A7%E8%83%BD%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E8%AE%BE%E8%AE%A1%E4%B8%8B/</guid>
+      <description>在上一节课，我们学习了 Netty 的内存规格分类以及内存管理的核心组件，今天这节课我们继续介绍 Netty 内存分配与回收的实现原理。有了上节课的基础，相信接下来的学习过程会事半功倍。
+本节课会侧重于详细分析不同场景下 Netty 内存分配和回收的实现过程，让你对 Netty 内存池的整体设计有一个更加清晰的认识。
+内存分配实现原理 Netty 中负责线程分配的组件有两个：PoolArena和PoolThreadCache。PoolArena 是多个线程共享的，每个线程会固定绑定一个 PoolArena，PoolThreadCache 是每个线程私有的缓存空间，如下图所示。
+在上节课中，我们介绍了 PoolChunk、PoolSubpage、PoolChunkList，它们都是 PoolArena 中所用到的概念。PoolArena 中管理的内存单位为 PoolChunk，每个 PoolChunk 会被划分为 2048 个 8K 的 Page。在申请的内存大于 8K 时，PoolChunk 会以 Page 为单位进行内存分配。当申请的内存大小小于 8K 时，会由 PoolSubpage 管理更小粒度的内存分配。
+PoolArena 分配的内存被释放后，不会立即会还给 PoolChunk，而且会缓存在本地私有缓存 PoolThreadCache 中，在下一次进行内存分配时，会优先从 PoolThreadCache 中查找匹配的内存块。
+由此可见，Netty 中不同的内存规格采用的分配策略是不同的，我们主要分为以下三个场景逐一进行分析。
+ 分配内存大于 8K 时，PoolChunk 中采用的 Page 级别的内存分配策略。 分配内存小于 8K 时，由 PoolSubpage 负责管理的内存分配策略。 分配内存小于 8K 时，为了提高内存分配效率，由 PoolThreadCache 本地线程缓存提供的内存分配。  PoolChunk 中 Page 级别的内存分配 每个 PoolChunk 默认大小为 16M，PoolChunk 是通过伙伴算法管理多个 Page，每个 PoolChunk 被划分为 2048 个 Page，最终通过一颗满二叉树实现，我们再一起回顾下 PoolChunk 的二叉树结构，如下图所示。</description>
+    </item>
+    
+    <item>
+      <title>13 举一反三：Netty 高性能内存管理设计（上）</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/13-%E4%B8%BE%E4%B8%80%E5%8F%8D%E4%B8%89netty-%E9%AB%98%E6%80%A7%E8%83%BD%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E8%AE%BE%E8%AE%A1%E4%B8%8A/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:34 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/13-%E4%B8%BE%E4%B8%80%E5%8F%8D%E4%B8%89netty-%E9%AB%98%E6%80%A7%E8%83%BD%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E8%AE%BE%E8%AE%A1%E4%B8%8A/</guid>
+      <description>Netty 作为一款高性能的网络框架，需要处理海量的字节数据，而且 Netty 默认提供了池化对象的内存分配，使用完后归还到内存池，所以一套高性能的内存管理机制是 Netty 必不可少的。在上节课中我们介绍了原生 jemalloc 的基本原理，而 Netty 高性能的内存管理也是借鉴 jemalloc 实现的，它同样需要解决两个经典的核心问题：
+ 在单线程或者多线程的场景下，如何高效地进行内存分配和回收？ 如何减少内存碎片，提高内存的有效利用率？  我们同样带着这两个经典问题开始 Netty 内存管理的课程学习。
+内存规格介绍 Netty 保留了内存规格分类的设计理念，不同大小的内存块采用的分配策略是不同的，具体内存规格的分类情况如下图所示。
+上图中 Tiny 代表 0 ~ 512B 之间的内存块，Samll 代表 512B ~ 8K 之间的内存块，Normal 代表 8K ~ 16M 的内存块，Huge 代表大于 16M 的内存块。在 Netty 中定义了一个 SizeClass 类型的枚举，用于描述上图中的内存规格类型，分别为 Tiny、Small 和 Normal。但是图中 Huge 并未在代码中定义，当分配大于 16M 时，可以归类为 Huge 场景，Netty 会直接使用非池化的方式进行内存分配。
+Netty 在每个区域内又定义了更细粒度的内存分配单位，分别为 Chunk、Page、Subpage，我们将逐一对其进行介绍。
+Chunk 是 Netty 向操作系统申请内存的单位，所有的内存分配操作也是基于 Chunk 完成的，Chunk 可以理解为 Page 的集合，每个 Chunk 默认大小为 16M。</description>
+    </item>
+    
+    <item>
+      <title>12 他山之石：高性能内存分配器 jemalloc 基本原理</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/12-%E4%BB%96%E5%B1%B1%E4%B9%8B%E7%9F%B3%E9%AB%98%E6%80%A7%E8%83%BD%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E5%99%A8-jemalloc-%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:33 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/12-%E4%BB%96%E5%B1%B1%E4%B9%8B%E7%9F%B3%E9%AB%98%E6%80%A7%E8%83%BD%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E5%99%A8-jemalloc-%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/</guid>
+      <description>在上节课，我们介绍了强大的 ByteBuf 工具类，ByteBuf 在 Netty 中随处可见，那么这些 ByteBuf 在 Netty 中是如何被分配和管理的呢？接下来的我们会对 Netty 高性能内存管理进行剖析，这些知识相比前面的章节有些晦涩难懂，你不必过于担心，Netty 内存管理的实现并不是一蹴而就的，它也是参考了 jemalloc 内存分配器。今天我们就先介绍 jemalloc 内存分配器的基本原理，为我们后面的课程打好基础。
+背景知识 jemalloc 是由 Jason Evans 在 FreeBSD 项目中引入的新一代内存分配器。它是一个通用的 malloc 实现，侧重于减少内存碎片和提升高并发场景下内存的分配效率，其目标是能够替代 malloc。jemalloc 应用十分广泛，在 Firefox、Redis、Rust、Netty 等出名的产品或者编程语言中都有大量使用。具体细节可以参考 Jason Evans 发表的论文 《A Scalable Concurrent malloc Implementation for FreeBSD》
+除了 jemalloc 之外，业界还有一些著名的内存分配器实现，例如 ptmalloc 和 tcmalloc。我们对这三种内存分配器做一个简单的对比：
+ptmalloc 是基于 glibc 实现的内存分配器，它是一个标准实现，所以兼容性较好。pt 表示 per thread 的意思。当然 ptmalloc 确实在多线程的性能优化上下了很多功夫。由于过于考虑性能问题，多线程之间内存无法实现共享，只能每个线程都独立使用各自的内存，所以在内存开销上是有很大浪费的。
+tcmalloc 出身于 Google，全称是 thread-caching malloc，所以 tcmalloc 最大的特点是带有线程缓存，tcmalloc 非常出名，目前在 Chrome、Safari 等知名产品中都有所应有。tcmalloc 为每个线程分配了一个局部缓存，对于小对象的分配，可以直接由线程局部缓存来完成，对于大对象的分配场景，tcmalloc 尝试采用自旋锁来减少多线程的锁竞争问题。
+jemalloc 借鉴了 tcmalloc 优秀的设计思路，所以在架构设计方面两者有很多相似之处，同样都包含 thread cache 的特性。但是 jemalloc 在设计上比 ptmalloc 和 tcmalloc 都要复杂，jemalloc 将内存分配粒度划分为 Small、Large、Huge 三个分类，并记录了很多 meta 数据，所以在空间占用上要略多于 tcmalloc，不过在大内存分配的场景，jemalloc 的内存碎片要少于 tcmalloc。tcmalloc 内部采用红黑树管理内存块和分页，Huge 对象通过红黑树查找索引数据可以控制在指数级时间。</description>
+    </item>
+    
+    <item>
+      <title>11 另起炉灶：Netty 数据传输载体 ByteBuf 详解</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/11-%E5%8F%A6%E8%B5%B7%E7%82%89%E7%81%B6netty-%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E8%BD%BD%E4%BD%93-bytebuf-%E8%AF%A6%E8%A7%A3/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:32 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/11-%E5%8F%A6%E8%B5%B7%E7%82%89%E7%81%B6netty-%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E8%BD%BD%E4%BD%93-bytebuf-%E8%AF%A6%E8%A7%A3/</guid>
+      <description>在学习编解码章节的过程中，我们看到 Netty 大量使用了自己实现的 ByteBuf 工具类，ByteBuf 是 Netty 的数据容器，所有网络通信中字节流的传输都是通过 ByteBuf 完成的。然而 JDK NIO 包中已经提供了类似的 ByteBuffer 类，为什么 Netty 还要去重复造轮子呢？本节课我会详细地讲解 ByteBuf。
+为什么选择 ByteBuf 我们首先介绍下 JDK NIO 的 ByteBuffer，才能知道 ByteBuffer 有哪些缺陷和痛点。下图展示了 ByteBuffer 的内部结构：
+从图中可知，ByteBuffer 包含以下四个基本属性：
+ mark：为某个读取过的关键位置做标记，方便回退到该位置； position：当前读取的位置； limit：buffer 中有效的数据长度大小； capacity：初始化时的空间容量。  以上四个基本属性的关系是：mark &amp;lt;= position &amp;lt;= limit &amp;lt;= capacity。结合 ByteBuffer 的基本属性，不难理解它在使用上的一些缺陷。
+第一，ByteBuffer 分配的长度是固定的，无法动态扩缩容，所以很难控制需要分配多大的容量。如果分配太大容量，容易造成内存浪费；如果分配太小，存放太大的数据会抛出 BufferOverflowException 异常。在使用 ByteBuffer 时，为了避免容量不足问题，你必须每次在存放数据的时候对容量大小做校验，如果超出 ByteBuffer 最大容量，那么需要重新开辟一个更大容量的 ByteBuffer，将已有的数据迁移过去。整个过程相对烦琐，对开发者而言是非常不友好的。
+第二，ByteBuffer 只能通过 position 获取当前可操作的位置，因为读写共用的 position 指针，所以需要频繁调用 flip、rewind 方法切换读写状态，开发者必须很小心处理 ByteBuffer 的数据读写，稍不留意就会出错。
+ByteBuffer 作为网络通信中高频使用的数据载体，显然不能够满足 Netty 的需求，Netty 重新实现了一个性能更高、易用性更强的 ByteBuf，相比于 ByteBuffer 它提供了很多非常酷的特性：</description>
+    </item>
+    
+    <item>
+      <title>10 双刃剑：合理管理 Netty 堆外内存</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/10-%E5%8F%8C%E5%88%83%E5%89%91%E5%90%88%E7%90%86%E7%AE%A1%E7%90%86-netty-%E5%A0%86%E5%A4%96%E5%86%85%E5%AD%98/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:31 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/10-%E5%8F%8C%E5%88%83%E5%89%91%E5%90%88%E7%90%86%E7%AE%A1%E7%90%86-netty-%E5%A0%86%E5%A4%96%E5%86%85%E5%AD%98/</guid>
+      <description>本节课我们将进入 Netty 内存管理的课程学习，在此之前，我们需要了解 Java 堆外内存的基本知识，因为当你在使用 Netty 时，需要时刻与堆外内存打交道。我们经常看到各类堆外内存泄漏的排查案例，堆外内存使用不当会使得应用出错、崩溃的概率变大，所以在使用堆外内存时一定要慎重，本节课我将带你一起认识堆外内存，并探讨如何更好地使用它。
+为什么需要堆外内存 在 Java 中对象都是在堆内分配的，通常我们说的JVM 内存也就指的堆内内存，堆内内存完全被JVM 虚拟机所管理，JVM 有自己的垃圾回收算法，对于使用者来说不必关心对象的内存如何回收。
+堆外内存与堆内内存相对应，对于整个机器内存而言，除堆内内存以外部分即为堆外内存，如下图所示。堆外内存不受 JVM 虚拟机管理，直接由操作系统管理。
+堆外内存和堆内内存各有利弊，这里我针对其中重要的几点进行说明。
+ 堆内内存由 JVM GC 自动回收内存，降低了 Java 用户的使用心智，但是 GC 是需要时间开销成本的，堆外内存由于不受 JVM 管理，所以在一定程度上可以降低 GC 对应用运行时带来的影响。 堆外内存需要手动释放，这一点跟 C/C++ 很像，稍有不慎就会造成应用程序内存泄漏，当出现内存泄漏问题时排查起来会相对困难。 当进行网络 I/O 操作、文件读写时，堆内内存都需要转换为堆外内存，然后再与底层设备进行交互，这一点在介绍 writeAndFlush 的工作原理中也有提到，所以直接使用堆外内存可以减少一次内存拷贝。 堆外内存可以实现进程之间、JVM 多实例之间的数据共享。  由此可以看出，如果你想实现高效的 I/O 操作、缓存常用的对象、降低 JVM GC 压力，堆外内存是一个非常不错的选择。
+堆外内存的分配 Java 中堆外内存的分配方式有两种：ByteBuffer#allocateDirect和Unsafe#allocateMemory。
+首先我们介绍下 Java NIO 包中的 ByteBuffer 类的分配方式，使用方式如下：
+// 分配 10M 堆外内存ByteBuffer buffer = ByteBuffer.allocateDirect(10 * 1024 * 1024); 跟进 ByteBuffer.</description>
+    </item>
+    
+    <item>
+      <title>09 数据传输：writeAndFlush 处理流程剖析</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/09-%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93writeandflush-%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B%E5%89%96%E6%9E%90/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:30 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/09-%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93writeandflush-%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B%E5%89%96%E6%9E%90/</guid>
+      <description>在前面几节课我们介绍了 Netty 编解码的基础知识，想必你已经掌握了 Netty 实现编解码逻辑的技巧。那么接下来我们如何将编解码后的结果发送出去呢？在 Netty 中实现数据发送非常简单，只需要调用 writeAndFlush 方法即可，这么简单的一行代码究竟 Netty 帮我们完成了哪些事情呢？一起进入我们今天这节课要探讨的主题吧！
+Pipeline 事件传播回顾 在介绍 writeAndFlush 的工作原理之前，我们首先回顾下 Pipeline 的事件传播机制，因为他们是息息相关的。根据网络数据的流向，ChannelPipeline 分为入站 ChannelInboundHandler 和出站 ChannelOutboundHandler 两种处理器，如下图所示。
+当我们从客户端向服务端发送请求，或者服务端向客户端响应请求结果都属于出站处理器 ChannelOutboundHandler 的行为，所以当我们调用 writeAndFlush 时，数据一定会在 Pipeline 中进行传播。
+在这里我首先抛出几个问题，学完本节课后可以用于检验下自己是否真的理解了 writeAndFlush 的原理。
+ writeAndFlush 是如何触发事件传播的？数据是怎样写到 Socket 底层的？ 为什么会有 write 和 flush 两个动作？执行 flush 之前数据是如何存储的？ writeAndFlush 是同步还是异步？它是线程安全的吗？  writeAndFlush 事件传播分析 为了便于我们分析 writeAndFlush 的事件传播流程，首先我们通过代码模拟一个最简单的数据出站场景，服务端在接收到客户端的请求后，将响应结果编码后写回客户端。
+以下是服务端的启动类，分别注册了三个 ChannelHandler：固定长度解码器 FixedLengthFrameDecoder、响应结果编码器 ResponseSampleEncoder、业务逻辑处理器 RequestSampleHandler。
+public class EchoServer {public void startEchoServer(int port) throws Exception {EventLoopGroup bossGroup = new NioEventLoopGroup();EventLoopGroup workerGroup = new NioEventLoopGroup();try {ServerBootstrap b = new ServerBootstrap();b.</description>
+    </item>
+    
+    <item>
+      <title>08 开箱即用：Netty 支持哪些常用的解码器？</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/08-%E5%BC%80%E7%AE%B1%E5%8D%B3%E7%94%A8netty-%E6%94%AF%E6%8C%81%E5%93%AA%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84%E8%A7%A3%E7%A0%81%E5%99%A8/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:29 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/08-%E5%BC%80%E7%AE%B1%E5%8D%B3%E7%94%A8netty-%E6%94%AF%E6%8C%81%E5%93%AA%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84%E8%A7%A3%E7%A0%81%E5%99%A8/</guid>
+      <description>在前两节课我们介绍了 TCP 拆包/粘包的问题，以及如何使用 Netty 实现自定义协议的编解码。可以看到，网络通信的底层实现，Netty 都已经帮我们封装好了，我们只需要扩展 ChannelHandler 实现自定义的编解码逻辑即可。更加人性化的是，Netty 提供了很多开箱即用的解码器，这些解码器基本覆盖了 TCP 拆包/粘包的通用解决方案。本节课我们将对 Netty 常用的解码器进行讲解，一起探索下它们有哪些用法和技巧。
+在本节课开始之前，我们首先回顾一下 TCP 拆包/粘包的主流解决方案。并梳理出 Netty 对应的编码器类。
+固定长度解码器 FixedLengthFrameDecoder 固定长度解码器 FixedLengthFrameDecoder 非常简单，直接通过构造函数设置固定长度的大小 frameLength，无论接收方一次获取多大的数据，都会严格按照 frameLength 进行解码。如果累积读取到长度大小为 frameLength 的消息，那么解码器认为已经获取到了一个完整的消息。如果消息长度小于 frameLength，FixedLengthFrameDecoder 解码器会一直等后续数据包的到达，直至获得完整的消息。下面我们通过一个例子感受一下使用 Netty 实现固定长度解码是多么简单。
+public class EchoServer {public void startEchoServer(int port) throws Exception {EventLoopGroup bossGroup = new NioEventLoopGroup();EventLoopGroup workerGroup = new NioEventLoopGroup();try {ServerBootstrap b = new ServerBootstrap();b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class).childHandler(new ChannelInitializer&amp;lt;SocketChannel&amp;gt;() {@Overridepublic void initChannel(SocketChannel ch) {ch.</description>
+    </item>
+    
+    <item>
+      <title>07 接头暗语：如何利用 Netty 实现自定义协议通信？</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/07-%E6%8E%A5%E5%A4%B4%E6%9A%97%E8%AF%AD%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8-netty-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8D%8F%E8%AE%AE%E9%80%9A%E4%BF%A1/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:28 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/07-%E6%8E%A5%E5%A4%B4%E6%9A%97%E8%AF%AD%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8-netty-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8D%8F%E8%AE%AE%E9%80%9A%E4%BF%A1/</guid>
+      <description>既然是网络编程，自然离不开通信协议，应用层之间通信需要实现各种各样的网络协议。在项目开发的过程中，我们就需要去构建满足自己业务场景的应用层协议。在上节课中我们介绍了如何使用网络协议解决 TCP 拆包/粘包的底层问题，本节课我们将在此基础上继续讨论如何设计一个高效、可扩展、易维护的自定义通信协议，以及如何使用 Netty 实现自定义通信协议。
+通信协议设计 所谓协议，就是通信双方事先商量好的接口暗语，在 TCP 网络编程中，发送方和接收方的数据包格式都是二进制，发送方将对象转化成二进制流发送给接收方，接收方获得二进制数据后需要知道如何解析成对象，所以协议是双方能够正常通信的基础。
+目前市面上已经有不少通用的协议，例如 HTTP、HTTPS、JSON-RPC、FTP、IMAP、Protobuf 等。通用协议兼容性好，易于维护，各种异构系统之间可以实现无缝对接。如果在满足业务场景以及性能需求的前提下，推荐采用通用协议的方案。相比通用协议，自定义协议主要有以下优点。
+ 极致性能：通用的通信协议考虑了很多兼容性的因素，必然在性能方面有所损失。 扩展性：自定义的协议相比通用协议更好扩展，可以更好地满足自己的业务需求。 安全性：通用协议是公开的，很多漏洞已经很多被黑客攻破。自定义协议更加安全，因为黑客需要先破解你的协议内容。  那么如何设计自定义的通信协议呢？这个答案见仁见智，但是设计通信协议有经验方法可循。结合实战经验我们一起看下一个完备的网络协议需要具备哪些基本要素。
+1. 魔数 魔数是通信双方协商的一个暗号，通常采用固定的几个字节表示。魔数的作用是防止任何人随便向服务器的端口上发送数据。服务端在接收到数据时会解析出前几个固定字节的魔数，然后做正确性比对。如果和约定的魔数不匹配，则认为是非法数据，可以直接关闭连接或者采取其他措施以增强系统的安全防护。魔数的思想在压缩算法、Java Class 文件等场景中都有所体现，例如 Class 文件开头就存储了魔数 0xCAFEBABE，在加载 Class 文件时首先会验证魔数的正确性。
+2. 协议版本号 随着业务需求的变化，协议可能需要对结构或字段进行改动，不同版本的协议对应的解析方法也是不同的。所以在生产级项目中强烈建议预留协议版本号这个字段。
+3. 序列化算法 序列化算法字段表示数据发送方应该采用何种方法将请求的对象转化为二进制，以及如何再将二进制转化为对象，如 JSON、Hessian、Java 自带序列化等。
+4. 报文类型 在不同的业务场景中，报文可能存在不同的类型。例如在 RPC 框架中有请求、响应、心跳等类型的报文，在 IM 即时通信的场景中有登陆、创建群聊、发送消息、接收消息、退出群聊等类型的报文。
+5. 长度域字段 长度域字段代表请求数据的长度，接收方根据长度域字段获取一个完整的报文。
+6. 请求数据 请求数据通常为序列化之后得到的二进制流，每种请求数据的内容是不一样的。
+7. 状态 状态字段用于标识请求是否正常。一般由被调用方设置。例如一次 RPC 调用失败，状态字段可被服务提供方设置为异常状态。
+8. 保留字段 保留字段是可选项，为了应对协议升级的可能性，可以预留若干字节的保留字段，以备不时之需。
+通过以上协议基本要素的学习，我们可以得到一个较为通用的协议示例：
++---------------------------------------------------------------+| 魔数 2byte | 协议版本号 1byte | 序列化算法 1byte | 报文类型 1byte |+---------------------------------------------------------------+| 状态 1byte | 保留字段 4byte | 数据长度 4byte | +---------------------------------------------------------------+| 数据内容 （长度不定） |+---------------------------------------------------------------+Netty 如何实现自定义通信协议 在学习完如何设计协议之后，我们又该如何在 Netty 中实现自定义的通信协议呢？其实 Netty 作为一个非常优秀的网络通信框架，已经为我们提供了非常丰富的编解码抽象基类，帮助我们更方便地基于这些抽象基类扩展实现自定义协议。</description>
+    </item>
+    
+    <item>
+      <title>06 粘包拆包问题：如何获取一个完整的网络包？</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/06-%E7%B2%98%E5%8C%85%E6%8B%86%E5%8C%85%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E7%9A%84%E7%BD%91%E7%BB%9C%E5%8C%85/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:27 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/06-%E7%B2%98%E5%8C%85%E6%8B%86%E5%8C%85%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E7%9A%84%E7%BD%91%E7%BB%9C%E5%8C%85/</guid>
+      <description>本节课开始我们将学习 Netty 通信过程中的编解码技术。编解码技术这是实现网络通信的基础，让我们可以定义任何满足业务需求的应用层协议。在网络编程中，我们经常会使用各种网络传输协议，其中 TCP 是最常用的协议。我们首先需要了解的是 TCP 最基本的拆包/粘包问题以及常用的解决方案，才能更好地理解 Netty 的编解码框架。
+为什么有拆包/粘包 TCP 传输协议是面向流的，没有数据包界限。客户端向服务端发送数据时，可能将一个完整的报文拆分成多个小报文进行发送，也可能将多个报文合并成一个大的报文进行发送。因此就有了拆包和粘包。
+为什么会出现拆包/粘包现象呢？在网络通信的过程中，每次可以发送的数据包大小是受多种因素限制的，如 MTU 传输单元大小、MSS 最大分段大小、滑动窗口等。如果一次传输的网络包数据大小超过传输单元大小，那么我们的数据可能会拆分为多个数据包发送出去。如果每次请求的网络包数据都很小，一共请求了 10000 次，TCP 并不会分别发送 10000 次。因为 TCP 采用的 Nagle 算法对此作出了优化。如果你是一位网络新手，可能对这些概念并不非常清楚。那我们先了解下计算机网络中 MTU、MSS、Nagle 这些基础概念以及它们为什么会造成拆包/粘包问题。
+MTU 最大传输单元和 MSS 最大分段大小 MTU（Maxitum Transmission Unit） 是链路层一次最大传输数据的大小。MTU 一般来说大小为 1500 byte。MSS（Maximum Segement Size） 是指 TCP 最大报文段长度，它是传输层一次发送最大数据的大小。如下图所示，MTU 和 MSS 一般的计算关系为：MSS = MTU - IP 首部 - TCP首部，如果 MSS + TCP 首部 + IP 首部 &amp;gt; MTU，那么数据包将会被拆分为多个发送。这就是拆包现象。
+滑动窗口 滑动窗口是 TCP 传输层用于流量控制的一种有效措施，也被称为通告窗口。滑动窗口是数据接收方设置的窗口大小，随后接收方会把窗口大小告诉发送方，以此限制发送方每次发送数据的大小，从而达到流量控制的目的。这样数据发送方不需要每发送一组数据就阻塞等待接收方确认，允许发送方同时发送多个数据分组，每次发送的数据都会被限制在窗口大小内。由此可见，滑动窗口可以大幅度提升网络吞吐量。
+那么 TCP 报文是怎么确保数据包按次序到达且不丢数据呢？首先，所有的数据帧都是有编号的，TCP 并不会为每个报文段都回复 ACK 响应，它会对多个报文段回复一次 ACK。假设有三个报文段 A、B、C，发送方先发送了B、C，接收方则必须等待 A 报文段到达，如果一定时间内仍未等到 A 报文段，那么 B、C 也会被丢弃，发送方会发起重试。如果已接收到 A 报文段，那么将会回复发送方一次 ACK 确认。</description>
+    </item>
+    
+    <item>
+      <title>05 服务编排层：Pipeline 如何协调各类 Handler ？</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/05-%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E5%B1%82pipeline-%E5%A6%82%E4%BD%95%E5%8D%8F%E8%B0%83%E5%90%84%E7%B1%BB-handler-/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:26 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/05-%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E5%B1%82pipeline-%E5%A6%82%E4%BD%95%E5%8D%8F%E8%B0%83%E5%90%84%E7%B1%BB-handler-/</guid>
+      <description>通过上节课的学习，我们知道 EventLoop 可以说是 Netty 的调度中心，负责监听多种事件类型：I/O 事件、信号事件、定时事件等，然而实际的业务处理逻辑则是由 ChannelPipeline 中所定义的 ChannelHandler 完成的，ChannelPipeline 和 ChannelHandler 也是我们在平时应用开发的过程中打交道最多的组件。Netty 服务编排层的核心组件 ChannelPipeline 和 ChannelHandler 为用户提供了 I/O 事件的全部控制权。今天这节课我们便一起深入学习 Netty 是如何利用这两个组件，将数据玩转起来。
+在学习这节课之前，我先抛出几个问题。
+ ChannelPipeline 与 ChannelHandler 的关系是什么？它们之间是如何协同工作的？ ChannelHandler 的类型有哪些？有什么区别？ Netty 中 I/O 事件是如何传播的？  希望你在学习完本课时后，可以找到问题的答案。
+ChannelPipeline 概述 Pipeline 的字面意思是管道、流水线。它在 Netty 中起到的作用，和一个工厂的流水线类似。原始的网络字节流经过 Pipeline ，被一步步加工包装，最后得到加工后的成品。经过前面课程核心组件的初步学习，我们已经对 ChannelPipeline 有了初步的印象：它是 Netty 的核心处理链，用以实现网络事件的动态编排和有序传播。
+今天我们将从以下几个方面一起探讨 ChannelPipeline 的实现原理：
+ ChannelPipeline 内部结构； ChannelHandler 接口设计； ChannelPipeline 事件传播机制； ChannelPipeline 异常传播机制。  ChannelPipeline 内部结构 首先我们要理清楚 ChannelPipeline 的内部结构是什么样子，这样才能理解 ChannelPipeline 的处理流程。ChannelPipeline 作为 Netty 的核心编排组件，负责调度各种类型的 ChannelHandler，实际数据的加工处理操作则是由 ChannelHandler 完成的。</description>
+    </item>
+    
+    <item>
+      <title>04 事件调度层：为什么 EventLoop 是 Netty 的精髓？</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/04-%E4%BA%8B%E4%BB%B6%E8%B0%83%E5%BA%A6%E5%B1%82%E4%B8%BA%E4%BB%80%E4%B9%88-eventloop-%E6%98%AF-netty-%E7%9A%84%E7%B2%BE%E9%AB%93/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:25 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/04-%E4%BA%8B%E4%BB%B6%E8%B0%83%E5%BA%A6%E5%B1%82%E4%B8%BA%E4%BB%80%E4%B9%88-eventloop-%E6%98%AF-netty-%E7%9A%84%E7%B2%BE%E9%AB%93/</guid>
+      <description>你好，我是若地。通过前面课程的学习，我们已经知道 Netty 高性能的奥秘在于其 Reactor 线程模型。 EventLoop 是 Netty Reactor 线程模型的核心处理引擎，那么它是如何高效地实现事件循环和任务处理机制的呢？本节课我们就一起学习 EventLoop 的实现原理和最佳实践。
+再谈 Reactor 线程模型 网络框架的设计离不开 I/O 线程模型，线程模型的优劣直接决定了系统的吞吐量、可扩展性、安全性等。目前主流的网络框架几乎都采用了 I/O 多路复用的方案。Reactor 模式作为其中的事件分发器，负责将读写事件分发给对应的读写事件处理者。大名鼎鼎的 Java 并发包作者 Doug Lea，在 Scalable I/O in Java 一文中阐述了服务端开发中 I/O 模型的演进过程。Netty 中三种 Reactor 线程模型也来源于这篇经典文章。下面我们对这三种 Reactor 线程模型做一个详细的分析。
+单线程模型 （摘自 Lea D. Scalable IO in Java）
+上图描述了 Reactor 的单线程模型结构，在 Reactor 单线程模型中，所有 I/O 操作（包括连接建立、数据读写、事件分发等），都是由一个线程完成的。单线程模型逻辑简单，缺陷也十分明显：
+ 一个线程支持处理的连接数非常有限，CPU 很容易打满，性能方面有明显瓶颈； 当多个事件被同时触发时，只要有一个事件没有处理完，其他后面的事件就无法执行，这就会造成消息积压及请求超时； 线程在处理 I/O 事件时，Select 无法同时处理连接建立、事件分发等操作； 如果 I/O 线程一直处于满负荷状态，很可能造成服务端节点不可用。  多线程模型 （摘自 Lea D. Scalable IO in Java）</description>
+    </item>
+    
+    <item>
+      <title>03 引导器作用：客户端和服务端启动都要做些什么？</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/03-%E5%BC%95%E5%AF%BC%E5%99%A8%E4%BD%9C%E7%94%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%90%AF%E5%8A%A8%E9%83%BD%E8%A6%81%E5%81%9A%E4%BA%9B%E4%BB%80%E4%B9%88/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:24 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/03-%E5%BC%95%E5%AF%BC%E5%99%A8%E4%BD%9C%E7%94%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%90%AF%E5%8A%A8%E9%83%BD%E8%A6%81%E5%81%9A%E4%BA%9B%E4%BB%80%E4%B9%88/</guid>
+      <description>你好，我是若地。上节课我们介绍了 Netty 中核心组件的作用以及组件协作的方式方法。从这节课开始，我们将对 Netty 的每个核心组件依次进行深入剖析解读。我会结合相应的代码示例讲解，帮助你快速上手 Netty。
+我们在使用 Netty 编写网络应用程序的时候，一定会从引导器 Bootstrap开始入手。Bootstrap 作为整个 Netty 客户端和服务端的程序入口，可以把 Netty 的核心组件像搭积木一样组装在一起。本节课我会从 Netty 的引导器Bootstrap出发，带你学习如何使用 Netty 进行最基本的程序开发。
+从一个简单的 HTTP 服务器开始 HTTP 服务器是我们平时最常用的工具之一。同传统 Web 容器 Tomcat、Jetty 一样，Netty 也可以方便地开发一个 HTTP 服务器。我从一个简单的 HTTP 服务器开始，通过程序示例为你展现 Netty 程序如何配置启动，以及引导器如何与核心组件产生联系。
+完整地实现一个高性能、功能完备、健壮性强的 HTTP 服务器非常复杂，本文仅为了方便理解 Netty 网络应用开发的基本过程，所以只实现最基本的请求-响应的流程：
+ 搭建 HTTP 服务器，配置相关参数并启动。 从浏览器或者终端发起 HTTP 请求。 成功得到服务端的响应结果。  Netty 的模块化设计非常优雅，客户端或者服务端的启动方式基本是固定的。作为开发者来说，只要照葫芦画瓢即可轻松上手。大多数场景下，你只需要实现与业务逻辑相关的一系列 ChannelHandler，再加上 Netty 已经预置了 HTTP 相关的编解码器就可以快速完成服务端框架的搭建。所以，我们只需要两个类就可以完成一个最简单的 HTTP 服务器，它们分别为服务器启动类和业务逻辑处理类，结合完整的代码实现我将对它们分别进行讲解。
+服务端启动类 所有 Netty 服务端的启动类都可以采用如下代码结构进行开发。简单梳理一下流程：首先创建引导器；然后配置线程模型，通过引导器绑定业务逻辑处理器，并配置一些网络参数；最后绑定端口，就可以完成服务器的启动了。
+public class HttpServer {public void start(int port) throws Exception {EventLoopGroup bossGroup = new NioEventLoopGroup();EventLoopGroup workerGroup = new NioEventLoopGroup();try {ServerBootstrap b = new ServerBootstrap();b.</description>
+    </item>
+    
+    <item>
+      <title>02 纵览全局：把握 Netty 整体架构脉络</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/02-%E7%BA%B5%E8%A7%88%E5%85%A8%E5%B1%80%E6%8A%8A%E6%8F%A1-netty-%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84%E8%84%89%E7%BB%9C/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:23 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/02-%E7%BA%B5%E8%A7%88%E5%85%A8%E5%B1%80%E6%8A%8A%E6%8F%A1-netty-%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84%E8%84%89%E7%BB%9C/</guid>
+      <description>上次课程中我介绍了 Netty 的功能特性和优势，从今天开始我们正式进入 Netty 技术原理的学习。
+学习任何一门技术都需要有全局观，在开始上手的时候，不宜陷入琐碎的技术细节，避免走进死胡同。这节课我们以 Netty 整体架构设计为切入点，来带你明确学习目标，建立起 Netty 的学习主线，这条主线将贯穿我们整个的学习过程。
+本节课以 Netty 4.1.42 为基准版本，我将分别从 Netty 整体结构、逻辑架构、源码结构三个方面对其进行介绍。
+Netty 整体结构 Netty 是一个设计非常用心的网络基础组件，Netty 官网给出了有关 Netty 的整体功能模块结构，却没有其他更多的解释。从图中，我们可以清晰地看出 Netty 结构一共分为三个模块：
+1. Core 核心层 Core 核心层是 Netty 最精华的内容，它提供了底层网络通信的通用抽象和实现，包括可扩展的事件模型、通用的通信 API、支持零拷贝的 ByteBuf 等。
+2. Protocol Support 协议支持层 协议支持层基本上覆盖了主流协议的编解码实现，如 HTTP、SSL、Protobuf、压缩、大文件传输、WebSocket、文本、二进制等主流协议，此外 Netty 还支持自定义应用层协议。Netty 丰富的协议支持降低了用户的开发成本，基于 Netty 我们可以快速开发 HTTP、WebSocket 等服务。
+3. Transport Service 传输服务层 传输服务层提供了网络传输能力的定义和实现方法。它支持 Socket、HTTP 隧道、虚拟机管道等传输方式。Netty 对 TCP、UDP 等数据传输做了抽象和封装，用户可以更聚焦在业务逻辑实现上，而不必关系底层数据传输的细节。
+Netty 的模块设计具备较高的通用性和可扩展性，它不仅是一个优秀的网络框架，还可以作为网络编程的工具箱。Netty 的设计理念非常优雅，值得我们学习借鉴。
+现在，我们对 Netty 的整体结构已经有了一个大概的印象，下面我们一起看下 Netty 的逻辑架构，学习下 Netty 是如何做功能分解的。
+Netty 逻辑架构 下图是 Netty 的逻辑处理架构。Netty 的逻辑处理架构为典型网络分层架构设计，共分为网络通信层、事件调度层、服务编排层，每一层各司其职。图中包含了 Netty 每一层所用到的核心组件。我将为你介绍 Netty 的每个逻辑分层中的各个核心组件以及组件之间是如何协调运作的。</description>
+    </item>
+    
+    <item>
+      <title>01 初识 Netty：为什么 Netty 这么流行？</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/01-%E5%88%9D%E8%AF%86-netty%E4%B8%BA%E4%BB%80%E4%B9%88-netty-%E8%BF%99%E4%B9%88%E6%B5%81%E8%A1%8C/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:22 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/01-%E5%88%9D%E8%AF%86-netty%E4%B8%BA%E4%BB%80%E4%B9%88-netty-%E8%BF%99%E4%B9%88%E6%B5%81%E8%A1%8C/</guid>
+      <description>你好，我是若地。今天我们将正式开始学习本专栏，一同了解一下 Netty。
+众所周知，Java 的生态非常完善，同一类型的需求可能会有几款产品供你选择。那为什么 Java 的网络编程框架大家都会向你推荐 Netty，而不是 Java NIO、Mina、Grizzy 呢？
+本节课，我们就一起来看看 Netty 为什么这么流行，它到底解决了什么问题，以及目前它的发展现状，让你对 Netty 有一个全面的认识。
+为什么选择 Netty？ Netty 是一款用于高效开发网络应用的 NIO 网络框架，它大大简化了网络应用的开发过程。我们所熟知的 TCP 和 UDP 的 Socket 服务器开发，就是一个有关 Netty 简化网络应用开发的典型案例。
+既然 Netty 是网络应用框架，那我们永远绕不开以下几个核心关注点：
+ I/O 模型、线程模型和事件处理机制； 易用性 API 接口； 对数据协议、序列化的支持。  我们之所以会最终选择 Netty，是因为 Netty 围绕这些核心要点可以做到尽善尽美，其健壮性、性能、可扩展性在同领域的框架中都首屈一指。下面我们从以下三个方面一起来看看，Netty 到底有多厉害。
+高性能，低延迟 经常听到这么一句话：“网络编程只要你使用了 Netty 框架，你的程序性能基本就不会差。”这句话虽然有些绝对，但是也从侧面上反映了人们对 Netty 高性能的肯定。
+实现高性能的网络应用框架离不开 I/O 模型问题，在了解 Netty 高性能原理之前我们需要先储备 I/O 模型的基本知识。
+I/O 请求可以分为两个阶段，分别为调用阶段和执行阶段。
+ 第一个阶段为I/O 调用阶段，即用户进程向内核发起系统调用。 第二个阶段为I/O 执行阶段。此时，内核等待 I/O 请求处理完成返回。该阶段分为两个过程：首先等待数据就绪，并写入内核缓冲区；随后将内核缓冲区数据拷贝至用户态缓冲区。  为了方便大家理解，可以看一下这张图：
+接下来我们来回顾一下 Linux 的 5 种主要 I/O 模式，并看下各种 I/O 模式的优劣势都在哪里？</description>
+    </item>
+    
+    <item>
+      <title>00 学好 Netty，是你修炼 Java 内功的必经之路</title>
+      <link>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/00-%E5%AD%A6%E5%A5%BD-netty%E6%98%AF%E4%BD%A0%E4%BF%AE%E7%82%BC-java-%E5%86%85%E5%8A%9F%E7%9A%84%E5%BF%85%E7%BB%8F%E4%B9%8B%E8%B7%AF/</link>
+      <pubDate>Wed, 22 Dec 2021 01:54:21 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/00-%E5%AD%A6%E5%A5%BD-netty%E6%98%AF%E4%BD%A0%E4%BF%AE%E7%82%BC-java-%E5%86%85%E5%8A%9F%E7%9A%84%E5%BF%85%E7%BB%8F%E4%B9%8B%E8%B7%AF/</guid>
+      <description>你好，我是若地。我曾担任美团点评技术专家，是一名高性能组件发烧友，平时专注于基础架构中间件的研发工作，积累了丰富的分布式架构设计和调优经验。
+我们知道网络层是架构设计中至关重要的环节，但 Java 的网络编程框架有很多（比如 Java NIO、Mina、Grizzy），为什么我这里只推荐 Netty 呢？
+因为 Netty 是目前最流行的一款高性能 Java 网络编程框架，它被广泛使用在中间件、直播、社交、游戏等领域。目前，许多知名的开源软件也都将 Netty 用作网络通信的底层框架，如 Dubbo、RocketMQ、Elasticsearch、HBase 等。
+为什么要学习 Netty？ 讲到这里，你可能要问了：如果我的工作中涉及网络编程的内容并不多，那我是否还有必要花精力学习 Netty 呢？
+其实在互联网大厂（阿里、腾讯、美团等）的中高级 Java 开发面试中，经常会问到涉及 Netty 核心技术原理的问题，比如：
+ Netty 的高性能表现在哪些方面？对你平时的项目开发有何启发？ Netty 中有哪些重要组件，它们之间有什么联系？ Netty 的内存池、对象池是如何设计的？ 针对 Netty 你有哪些印象比较深刻的系统调优案例？  这些问题看似简单，但如果你对 Netty 掌握不够深入，回答时就很容易“翻车”。我面试过很多求职者，虽然他们都有一定的 Netty 使用经验，但当深入探讨技术细节及如何解决项目中的实际问题时，就会发现大部分人只是简单使用，并没有深入掌握 Netty 的技术原理。如果你可以学好 Netty，掌握底层原理，一定会成为你求职面试的加分项。
+而且通过 Netty 的学习，还可以锻炼你的编程思维，对 Java 其他的知识体系起到融会贯通的作用。
+当年我刚踏入工作，领到的第一个任务是数据采集和上报。我尝试了各种解决方案最后都被主管否掉了，他说“不用那么麻烦，直接使用 Netty 就好了”。于是我一边学习一边完成工作，工作之余还会挤出时间研究 Netty 源码。
+回想起研究源码的那段日子，虽然很辛苦，但仿佛为我打开了一扇 Java 新世界的大门，当我理解领悟 Netty 的设计原理之后，对 I/O 模型 、内存管理、线程模型、数据结构等当时理解起来有一定难度的知识，仿佛一瞬间“顿悟”了。而且在我日后再去学习 RocketMQ、Nginx、Redis 等优秀框架时，也明显感觉更加便捷、高效了。
+因此，如果你想提升自己的技术水平并找到一份满意的工作，学习掌握 Netty 就非常重要。事实上，在平时的开发工作中，Netty 的易用性和可靠性也极大程度上降低了开发者的心智负担。</description>
+    </item>
+    
+  </channel>
+</rss>

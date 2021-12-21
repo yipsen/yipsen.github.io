@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>golang on </title>
+    <link>http://yipsen.github.io/tags/golang/</link>
+    <description>Recent content in golang on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 22 Dec 2021 01:33:16 +0800</lastBuildDate><atom:link href="http://yipsen.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>23 结束语 你的 Go 语言成长之路</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/23-%E7%BB%93%E6%9D%9F%E8%AF%AD-%E4%BD%A0%E7%9A%84-go-%E8%AF%AD%E8%A8%80%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF/</link>
+      <pubDate>Wed, 22 Dec 2021 01:33:16 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/23-%E7%BB%93%E6%9D%9F%E8%AF%AD-%E4%BD%A0%E7%9A%84-go-%E8%AF%AD%E8%A8%80%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF/</guid>
+      <description>我们从 Go 语言的基础知识，到底层原理，再到实战，相信你已经学会了如何使用 Go 语言，并可以上手做项目了。这一路走来，非常感谢你对学习的坚持，以及对我的支持。
+在本专栏的最后，我会和你聊下 Go 语言的前景，以及对于你学习 Go 语言编程和在今后职业发展方面，我的一些建议。
+Go 语言的发展前景 随着这几年 Dokcer、K8s 的普及，云原生的概念也越来越火，而 Go 语言恰恰就是为云而生的编程语言，所以在云原生的时代，它就具备了天生的优势：易于学习、天然的并发、高效的网络支持、跨平台的二进制文件编译等。
+CNCF（云原生计算基金会）对云原生的定义是：
+ 应用容器化； 面向微服务架构； 应用支持容器的编排调度。  我们可以看到，对于这三点有代表性的 Docker、K8s 以及 istio 都是采用 Go 语言编写的，所以 Go 语言在云原生中发挥了极大的优势。
+在涉及网络通信、对象存储、协议等领域的工作中，Go 语言所展现出的优势要比 Python、C /C++ 更大，所以诸如字节跳动、腾讯等很多大厂都在拥抱 Go 语言的开发，甚至很多公司在业务这一层也采用 Go 语言来开发微服务，从而提高开发和运行效率。
+总体来说，对 Go 语言的前景我还是比较看好的，所以本专栏是你 Go 语言学习的敲门砖，接下来我建议你可以对这一语言进行更加系统和全面的学习。
+Go 语言学习建议 关于 Go 语言的学习，我建议从官方文档和官方作者著作的书开始，这样你可以看到“原汁原味”的讲解。其实不只 Go 语言，任何一门语言都应该是这样，官方的内容是比较权威的。
+基于官方文档入门后，你就可以参考一些第三方大牛写的相关书籍了。阅读不同人写的 Go 语言书籍，你可以融会贯通，更好地理解 Go 语言的知识点。比如在其他书上看不懂的内容，换一本你可能就看懂了。
+阅读书籍还有一个好处是让你的学习具备系统性，而非零散的。现在大部分的我们都选择碎片化学习，其实通过碎片化的时间，系统地学习才是正确的方式。
+不管是通过书籍、官网文档，还是视频、专栏的学习，我们都要结合示例进行练习，不能只用眼睛看，这样的学习效率很低，一定要将代码动手写出来，这样你对知识的理解程度和只看是完全不一样的，在这个过程中你可以通过写加深记忆、通过调试加深理解、通过结果验证你的知识。
+有了这些基础后，就可以看一些实战类的书籍、文章和视频了，这样你不只是学会了 Go 语言，还能用 Go 语言做项目，了解如何编码、分库、微服务、自动化部署等。
+不管是学习 Go 语言还是其他编程语言，都要阅读源代码，通过阅读源代码了解底层的实现原理，以及学习他人优秀的代码设计，进而提升自己在 Go 语言上的技术能力。</description>
+    </item>
+    
+    <item>
+      <title>22 网络编程：Go 语言如何通过 RPC 实现跨平台服务？</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/22-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8Bgo-%E8%AF%AD%E8%A8%80%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87-rpc-%E5%AE%9E%E7%8E%B0%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%9C%8D%E5%8A%A1/</link>
+      <pubDate>Wed, 22 Dec 2021 01:33:15 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/22-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8Bgo-%E8%AF%AD%E8%A8%80%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87-rpc-%E5%AE%9E%E7%8E%B0%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%9C%8D%E5%8A%A1/</guid>
+      <description>在上一讲中，我为你讲解了 RESTful API 的规范以及实现，并且留了两个作业，它们分别是删除和修改用户，现在我为你讲解这两个作业。
+删除一个用户比较简单，它的 API 格式和获取一个用户一样，但是 HTTP 方法换成了DELETE。删除一个用户的示例代码如下所示：
+ch21/main.go
+func main() {//省略没有修改的代码r.DELETE(&amp;quot;/users/:id&amp;quot;, deleteUser)}func deleteUser(c *gin.Context) {id := c.Param(&amp;quot;id&amp;quot;)i := -1//类似于数据库的SQL查询for index, u := range users {if strings.EqualFold(id, strconv.Itoa(u.ID)) {i = indexbreak}}if i &amp;gt;= 0 {users = append(users[:i], users[i+1:]...)c.JSON(http.StatusNoContent, &amp;quot;&amp;quot;)} else {c.JSON(http.StatusNotFound, gin.H{&amp;quot;message&amp;quot;: &amp;quot;用户不存在&amp;quot;,})}}这个示例的逻辑就是注册 DELETE 方法，达到删除用户的目的。删除用户的逻辑是通过ID 查询：</description>
+    </item>
+    
+    <item>
+      <title>21 网络编程：Go 语言如何玩转 RESTful API 服务？</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/21-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8Bgo-%E8%AF%AD%E8%A8%80%E5%A6%82%E4%BD%95%E7%8E%A9%E8%BD%AC-restful-api-%E6%9C%8D%E5%8A%A1/</link>
+      <pubDate>Wed, 22 Dec 2021 01:33:14 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/21-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8Bgo-%E8%AF%AD%E8%A8%80%E5%A6%82%E4%BD%95%E7%8E%A9%E8%BD%AC-restful-api-%E6%9C%8D%E5%8A%A1/</guid>
+      <description>从这一讲开始，我将带你学习本专栏的第五模块，在这个模块中，你将学到我们项目中最常用的编码操作，也就是编写 RESTful API 和 RPC 服务。在实际开发项目中，你编写的这些服务可以被其他服务使用，这样就组成了微服务的架构；也可以被前端调用，这样就可以前后端分离。
+今天我就先来为你介绍什么是 RESTful API，以及 Go 语言是如何玩转 RESTful API 的。
+什么是 RESTful API RESTful API 是一套规范，它可以规范我们如何对服务器上的资源进行操作。在了解 RESTful API 之前，我先为你介绍下 HTTP Method，因为 RESTful API 和它是密不可分的。
+说起 HTTP Method，最常见的就是POST和GET，其实最早在 HTTP 0.9 版本中，只有一个GET方法，该方法是一个幂等方法，用于获取服务器上的资源，也就是我们在浏览器中直接输入网址回车请求的方法。
+在 HTTP 1.0 版本中又增加了HEAD和POST方法，其中常用的是 POST 方法，一般用于给服务端提交一个资源，导致服务器的资源发生变化。
+随着网络越来越复杂，发现这两个方法是不够用的，就继续新增了方法。所以在 HTTP1.1 版本的时候，一口气增加到了 9 个，新增的方法有 HEAD、OPTIONS、PUT、DELETE、TRACE、PATCH 和 CONNECT。下面我为你一一介绍它们的作用。
+ GET 方法可请求一个指定资源的表示形式，使用 GET 的请求应该只被用于获取数据。 HEAD 方法用于请求一个与 GET 请求的响应相同的响应，但没有响应体。 POST 方法用于将实体提交到指定的资源，通常导致服务器上的状态变化或副作用。 PUT 方法用于请求有效载荷替换目标资源的所有当前表示。 DELETE 方法用于删除指定的资源。 CONNECT 方法用于建立一个到由目标资源标识的服务器的隧道。 OPTIONS 方法用于描述目标资源的通信选项。 TRACE 方法用于沿着到目标资源的路径执行一个消息环回测试。 PATCH 方法用于对资源应用部分修改。  从以上每个方法的介绍可以看到，HTTP 规范针对每个方法都给出了明确的定义，所以我们使用的时候也要尽可能地遵循这些定义，这样我们在开发中才可以更好地协作。</description>
+    </item>
+    
+    <item>
+      <title>20 协作开发：模块化管理为什么能够提升研发效能？</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/20-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E5%A4%9F%E6%8F%90%E5%8D%87%E7%A0%94%E5%8F%91%E6%95%88%E8%83%BD/</link>
+      <pubDate>Wed, 22 Dec 2021 01:33:13 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/20-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E5%A4%9F%E6%8F%90%E5%8D%87%E7%A0%94%E5%8F%91%E6%95%88%E8%83%BD/</guid>
+      <description>任何业务，都是从简单向复杂演进的。而在业务演进的过程中，技术是从单体向多模块、多服务演进的。技术的这种演进方式的核心目的是复用代码、提高效率，这一讲，我会为你介绍 Go 语言是如何通过模块化的管理，提升开发效率的。
+Go 语言中的包 什么是包 在业务非常简单的时候，你甚至可以把代码写到一个 Go 文件中。但随着业务逐渐复杂，你会发现，如果代码都放在一个 Go 文件中，会变得难以维护，这时候你就需要抽取代码，把相同业务的代码放在一个目录中。在 Go 语言中，这个目录叫作包。
+在 Go 语言中，一个包是通过package 关键字定义的，最常见的就是main 包，它的定义如下所示：
+package main此外，前面章节演示示例经常使用到的 fmt 包，也是通过 package 关键字声明的。
+一个包就是一个独立的空间，你可以在这个包里定义函数、结构体等。这时，我们认为这些函数、结构体是属于这个包的。
+使用包 如果你想使用一个包里的函数或者结构体，就需要先导入这个包，才能使用，比如常用的 fmt包，代码示例如下所示。
+package mainimport &amp;quot;fmt&amp;quot;func main() {fmt.Println(&amp;quot;先导入fmt包，才能使用&amp;quot;)}要导入一个包，需要使用 import 关键字；如果需要同时导入多个包，则可以使用小括号，示例代码如下所示。
+import (&amp;quot;fmt&amp;quot;&amp;quot;os&amp;quot;)从以上示例可以看到，该示例导入了 fmt 和 os 这两个包，使用了小括号，每一行写了一个要导入的包。
+作用域 讲到了包之间的导入和使用，就不得不提作用域这个概念，因为只有满足作用域的函数才可以被调用。
+ 在Java 语言中，通过 public、private 这些修饰符修饰一个类的作用域； 但是在Go 语言中，并没有这样的作用域修饰符，它是通过首字母是否大写来区分的，这同时也体现了 Go 语言的简洁。  如上述示例中 fmt 包中的Println 函数：
+ 它的首字母就是大写的 P，所以该函数才可以在 main 包中使用； 如果 Println 函数的首字母是小写的 p，那么它只能在 fmt 包中被使用，不能跨包使用。  这里我为你总结下 Go 语言的作用域：</description>
+    </item>
+    
+    <item>
+      <title>19 性能优化：Go 语言如何进行代码检查和优化？</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/19-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96go-%E8%AF%AD%E8%A8%80%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E4%BB%A3%E7%A0%81%E6%A3%80%E6%9F%A5%E5%92%8C%E4%BC%98%E5%8C%96/</link>
+      <pubDate>Wed, 22 Dec 2021 01:33:12 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/19-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96go-%E8%AF%AD%E8%A8%80%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E4%BB%A3%E7%A0%81%E6%A3%80%E6%9F%A5%E5%92%8C%E4%BC%98%E5%8C%96/</guid>
+      <description>在上节课中，我为你留了一个小作业：在运行 go test 命令时，使用 -benchmem 这个 Flag 进行内存统计。该作业的答案比较简单，命令如下所示：
+➜ go test -bench=. -benchmem ./ch18运行这一命令就可以查看内存统计的结果了。这种通过 -benchmem 查看内存的方法适用于所有的基准测试用例。
+今天要讲的内容是 Go 语言的代码检查和优化，下面我们开始本讲内容的讲解。
+在项目开发中，保证代码质量和性能的手段不只有单元测试和基准测试，还有代码规范检查和性能优化。
+ 代码规范检查是对单元测试的一种补充，它可以从非业务的层面检查你的代码是否还有优化的空间，比如变量是否被使用、是否是死代码等等。 性能优化是通过基准测试来衡量的，这样我们才知道优化部分是否真的提升了程序的性能。  代码规范检查 什么是代码规范检查 代码规范检查，顾名思义，是从 Go 语言层面出发，依据 Go 语言的规范，对你写的代码进行的静态扫描检查，这种检查和你的业务无关。
+比如你定义了个常量，从未使用过，虽然对代码运行并没有造成什么影响，但是这个常量是可以删除的，代码如下所示：
+ch19/main.go
+const name = &amp;quot;飞雪无情&amp;quot;func main() {}示例中的常量 name 其实并没有使用，所以为了节省内存你可以删除它，这种未使用常量的情况就可以通过代码规范检查检测出来。
+再比如，你调用了一个函数，该函数返回了一个 error，但是你并没有对该 error 做判断，这种情况下，程序也可以正常编译运行。但是代码写得不严谨，因为返回的 error 被我们忽略了。代码如下所示：
+ch19/main.go
+func main() {os.Mkdir(&amp;quot;tmp&amp;quot;,0666)}示例代码中，Mkdir 函数是有返回 error 的，但是你并没有对返回的 error 做判断，这种情况下，哪怕创建目录失败，你也不知道，因为错误被你忽略了。如果你使用代码规范检查，这类潜在的问题也会被检测出来。
+以上两个例子可以帮你理解什么是代码规范检查、它有什么用。除了这两种情况，还有拼写问题、死代码、代码简化检测、命名中带下划线、冗余代码等，都可以使用代码规范检查检测出来。
+golangci-lint 要想对代码进行检查，则需要对代码进行扫描，静态分析写的代码是否存在规范问题。
+ 小提示：静态代码分析是不会运行代码的。
+ 可用于 Go 语言代码分析的工具有很多，比如 golint、gofmt、misspell 等，如果一一引用配置，就会比较烦琐，所以通常我们不会单独地使用它们，而是使用 golangci-lint。</description>
+    </item>
+    
+    <item>
+      <title>18 质量保证：Go 语言如何通过测试保证质量？</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/18-%E8%B4%A8%E9%87%8F%E4%BF%9D%E8%AF%81go-%E8%AF%AD%E8%A8%80%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E6%B5%8B%E8%AF%95%E4%BF%9D%E8%AF%81%E8%B4%A8%E9%87%8F/</link>
+      <pubDate>Wed, 22 Dec 2021 01:33:11 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/18-%E8%B4%A8%E9%87%8F%E4%BF%9D%E8%AF%81go-%E8%AF%AD%E8%A8%80%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E6%B5%8B%E8%AF%95%E4%BF%9D%E8%AF%81%E8%B4%A8%E9%87%8F/</guid>
+      <description>从这节课开始，我会带你学习本专栏的第四模块：工程管理。现在项目的开发都不是一个人可以完成的，需要多人进行协作，那么在多人协作中如何保证代码的质量，你写的代码如何被其他人使用，如何优化代码的性能等， 就是第四模块的内容。
+这一讲首先来学习 Go 语言的单元测试和基准测试。
+单元测试 在开发完一个功能后，你可能会直接把代码合并到代码库，用于上线或供其他人使用。但这样是不对的，因为你还没有对所写的代码进行测试。没有经过测试的代码逻辑可能会存在问题：如果强行合并到代码库，可能影响其他人的开发；如果强行上线，可能导致线上 Bug、影响用户使用。
+什么是单元测试 顾名思义，单元测试强调的是对单元进行测试。在开发中，一个单元可以是一个函数、一个模块等。一般情况下，你要测试的单元应该是一个完整的最小单元，比如 Go 语言的函数。这样的话，当每个最小单元都被验证通过，那么整个模块、甚至整个程序就都可以被验证通过。
+单元测试由开发者自己编写，也就是谁改动了代码，谁就要编写相应的单元测试代码以验证本次改动的正确性。
+Go 语言的单元测试 虽然每种编程语言里单元测试的概念是一样的，但它们对单元测试的设计不一样。Go 语言也有自己的单元测试规范，下面我会通过一个完整的示例为你讲解，这个例子就是经典的斐波那契数列。
+斐波那契数列是一个经典的黄金分隔数列：它的第 0 项是 0；第 1 项是 1；从第 2 项开始，每一项都等于前两项之和。所以它的数列是：0、1、1、2、3、5、8、13、21……
+ 说明：为了便于总结后面的函数方程式，我这里特意写的从第 0 项开始，其实现实中没有第 0 项。
+ 根据以上规律，可以总结出它的函数方程式。
+ F(0)=0 F(1)=1 F(n)=F(n - 1)+F(n - 2)  有了函数方程式，再编写一个 Go 语言函数来计算斐波那契数列就比较简单了，代码如下：
+ch18/main.go
+func Fibonacci(n int) int {if n &amp;lt; 0 {return 0}if n == 0 {return 0}if n == 1 {return 1}return Fibonacci(n-1) + Fibonacci(n-2)}也就是通过递归的方式实现了斐波那契数列的计算。</description>
+    </item>
+    
+    <item>
+      <title>17 SliceHeader：slice 如何高效处理数据？</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/17-sliceheaderslice-%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE/</link>
+      <pubDate>Wed, 22 Dec 2021 01:33:10 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/17-sliceheaderslice-%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE/</guid>
+      <description>在[第 4 讲|集合类型：如何正确使用 array、slice 和 map？]中，你已经学习了 slice（切片），并且知道如何使用。这节课我会详细介绍 slice 的原理，带你学习它的底层设计。
+数组 在讲 slice 的原理之前，我先来介绍一下数组。几乎所有的编程语言里都存在数组，Go 也不例外。那么为什么 Go 语言除了数组之外又设计了 slice 呢？要想解答这个问题，我们先来了解数组的局限性。
+在下面的示例中，a1、a2 是两个定义好的数组，但是它们的类型不一样。变量 a1 的类型是 [1]string，变量 a2 的类型是 [2]string，也就是说数组的大小属于数组类型的一部分，只有数组内部元素类型和大小一致时，这两个数组才是同一类型。
+a1:=[1]string{&amp;quot;飞雪无情&amp;quot;}a2:=[2]string{&amp;quot;飞雪无情&amp;quot;}可以总结为，一个数组由两部分构成：数组的大小和数组内的元素类型。
+//数组结构伪代码表示array{lenitem type}比如变量 a1 的大小是 1，内部元素的类型是 string，也就是说 a1 最多只能存储 1 个类型为 string 的元素。而 a2 的大小是 2，内部元素的类型也是 string，所以 a2 最多可以存储 2 个类型为 string 的元素。一旦一个数组被声明，它的大小和内部元素的类型就不能改变，你不能随意地向数组添加任意多个元素。这是数组的第一个限制。
+既然数组的大小是固定的，如果需要使用数组存储大量的数据，就需要提前指定一个合适的大小，比如 10 万，代码如下所示：
+a10:=[100000]string{&amp;quot;飞雪无情&amp;quot;}这样虽然可以解决问题，但又带来了另外的问题，那就是内存占用。因为在 Go 语言中，函数间的传参是值传递的，数组作为参数在各个函数之间被传递的时候，同样的内容就会被一遍遍地复制，这就会造成大量的内存浪费，这是数组的第二个限制。
+虽然数组有限制，但是它是 Go 非常重要的底层数据结构，比如 slice 切片的底层数据就存储在数组中。
+slice 切片 你已经知道，数组虽然也不错，但是在操作上有不少限制，为了解决这些限制，Go 语言创造了 slice，也就是切片。切片是对数组的抽象和封装，它的底层是一个数组存储所有的元素，但是它可以动态地添加元素，容量不足时还可以自动扩容，你完全可以把切片理解为动态数组。在 Go 语言中，除了明确需要指定长度大小的类型需要数组来完成，大多数情况下都是使用切片的。</description>
+    </item>
+    
+    <item>
+      <title>16 非类型安全：让你既爱又恨的 unsafe</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/16-%E9%9D%9E%E7%B1%BB%E5%9E%8B%E5%AE%89%E5%85%A8%E8%AE%A9%E4%BD%A0%E6%97%A2%E7%88%B1%E5%8F%88%E6%81%A8%E7%9A%84-unsafe/</link>
+      <pubDate>Wed, 22 Dec 2021 01:33:09 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/16-%E9%9D%9E%E7%B1%BB%E5%9E%8B%E5%AE%89%E5%85%A8%E8%AE%A9%E4%BD%A0%E6%97%A2%E7%88%B1%E5%8F%88%E6%81%A8%E7%9A%84-unsafe/</guid>
+      <description>上节课我留了一个小作业，让你练习一下如何使用反射调用一个方法，下面我来进行讲解。
+还是以 person 这个结构体类型为例。我为它增加一个方法 Print，功能是打印一段文本，示例代码如下：
+func (p person) Print(prefix string){fmt.Printf(&amp;quot;%s:Name is %s,Age is %d\n&amp;quot;,prefix,p.Name,p.Age)}然后就可以通过反射调用 Print 方法了，示例代码如下：
+func main() {p:=person{Name: &amp;quot;飞雪无情&amp;quot;,Age: 20}pv:=reflect.ValueOf(p)//反射调用person的Print方法mPrint:=pv.MethodByName(&amp;quot;Print&amp;quot;)args:=[]reflect.Value{reflect.ValueOf(&amp;quot;登录&amp;quot;)}mPrint.Call(args)}从示例中可以看到，要想通过反射调用一个方法，首先要通过 MethodByName 方法找到相应的方法。因为 Print 方法需要参数，所以需要声明参数，它的类型是 []reflect.Value，也就是示例中的 args 变量，最后就可以通过 Call 方法反射调用 Print 方法了。其中记得要把 args 作为参数传递给 Call 方法。
+运行以上代码，可以看到如下结果：
+登录:Name is 飞雪无情,Age is 20从打印的结果可以看到，和我们直接调用 Print 方法是一样的结果，这也证明了通过反射调用 Print 方法是可行的。
+下面我们继续深入 Go 的世界，这节课会介绍 Go 语言自带的 unsafe 包的高级用法。
+顾名思义，unsafe 是不安全的。Go 将其定义为这个包名，也是为了让我们尽可能地不使用它。不过虽然不安全，它也有优势，那就是可以绕过 Go 的内存安全机制，直接对内存进行读写。所以有时候出于性能需要，还是会冒险使用它来对内存进行操作。</description>
+    </item>
+    
+    <item>
+      <title>15 运行时反射：字符串和结构体之间如何转换？</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/15-%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8F%8D%E5%B0%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E7%BB%93%E6%9E%84%E4%BD%93%E4%B9%8B%E9%97%B4%E5%A6%82%E4%BD%95%E8%BD%AC%E6%8D%A2/</link>
+      <pubDate>Wed, 22 Dec 2021 01:33:08 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/15-%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8F%8D%E5%B0%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E7%BB%93%E6%9E%84%E4%BD%93%E4%B9%8B%E9%97%B4%E5%A6%82%E4%BD%95%E8%BD%AC%E6%8D%A2/</guid>
+      <description>我们在开发中会接触很多字符串和结构体之间的转换，尤其是在调用 API 的时候，你需要把 API 返回的 JSON 字符串转换为 struct 结构体，便于操作。那么一个 JSON 字符串是如何转换为 struct 结构体的呢？这就需要用到反射的知识，这节课我会基于字符串和结构体之间的转换，一步步地为你揭开 Go 语言运行时反射的面纱。
+反射是什么？ 和 Java 语言一样，Go 语言也有运行时反射，这为我们提供了一种可以在运行时操作任意类型对象的能力。比如查看一个接口变量的具体类型、看看一个结构体有多少字段、修改某个字段的值等。
+Go 语言是静态编译类语言，比如在定义一个变量的时候，已经知道了它是什么类型，那么为什么还需要反射呢？这是因为有些事情只有在运行时才知道。比如你定义了一个函数，它有一个**interface{}**类型的参数，这也就意味着调用者可以传递任何类型的参数给这个函数。在这种情况下，如果你想知道调用者传递的是什么类型的参数，就需要用到反射。如果你想知道一个结构体有哪些字段和方法，也需要反射。
+还是以我常用的函数 fmt.Println 为例，如下所示：
+src/fmt/print.go
+func Println(a ...interface{}) (n int, err error) {return Fprintln(os.Stdout, a...)}例子中 fmt.Println 的源代码有一个可变参数，类型为 interface{}，这意味着你可以传递零个或者多个任意类型参数给它，都能被正确打印。
+reflect.Value 和 reflect.Type 在 Go 语言的反射定义中，任何接口都由两部分组成：接口的具体类型，以及具体类型对应的值。比如 var i int = 3，因为 interface{} 可以表示任何类型，所以变量 i 可以转为 interface{}。你可以把变量 i 当成一个接口，那么这个变量在 Go 反射中的表示就是 &amp;lt;Value,Type&amp;gt;。其中 Value 为变量的值，即 3，而 Type 为变量的类型，即 int。
+ 小提示：interface{} 是空接口，可以表示任何类型，也就是说你可以把任何类型转换为空接口，它通常用于反射、类型断言，以减少重复代码，简化编程。</description>
+    </item>
+    
+    <item>
+      <title>14 内存分配：new 还是 make？什么情况下该用谁？</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/14-%E5%86%85%E5%AD%98%E5%88%86%E9%85%8Dnew-%E8%BF%98%E6%98%AF-make%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E8%AF%A5%E7%94%A8%E8%B0%81/</link>
+      <pubDate>Wed, 22 Dec 2021 01:33:07 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/14-%E5%86%85%E5%AD%98%E5%88%86%E9%85%8Dnew-%E8%BF%98%E6%98%AF-make%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E8%AF%A5%E7%94%A8%E8%B0%81/</guid>
+      <description>程序的运行都需要内存，比如像变量的创建、函数的调用、数据的计算等。所以在需要内存的时候就要申请内存，进行内存分配。在 C/C++ 这类语言中，内存是由开发者自己管理的，需要主动申请和释放，而在 Go 语言中则是由该语言自己管理的，开发者不用做太多干涉，只需要声明变量，Go 语言就会根据变量的类型自动分配相应的内存。
+Go 语言程序所管理的虚拟内存空间会被分为两部分：堆内存和栈内存。栈内存主要由 Go 语言来管理，开发者无法干涉太多，堆内存才是我们开发者发挥能力的舞台，因为程序的数据大部分分配在堆内存上，一个程序的大部分内存占用也是在堆内存上。
+ 小提示：我们常说的 Go 语言的内存垃圾回收是针对堆内存的垃圾回收。
+ 变量的声明、初始化就涉及内存的分配，比如声明变量会用到 var 关键字，如果要对变量初始化，就会用到 = 赋值运算符。除此之外还可以使用内置函数 new 和 make，这两个函数你在前面的课程中已经见过，它们的功能非常相似，但你可能还是比较迷惑，所以这节课我会基于内存分配，进而引出内置函数 new 和 make，为你讲解他们的不同，以及使用场景。
+变量 一个数据类型，在声明初始化后都会赋值给一个变量，变量存储了程序运行所需的数据。
+变量的声明 和前面课程讲的一样，如果要单纯声明一个变量，可以通过 var 关键字，如下所示：
+var s string该示例只是声明了一个变量 s，类型为 string，并没有对它进行初始化，所以它的值为 string 的零值，也就是 &amp;ldquo;&amp;quot;（空字符串）。
+上节课你已经知道 string 其实是个值类型，现在我们来声明一个指针类型的变量试试，如下所示：
+var sp *string发现也是可以的，但是它同样没有被初始化，所以它的值是 *string 类型的零值，也就是 nil。
+变量的赋值 变量可以通过 = 运算符赋值，也就是修改变量的值。如果在声明一个变量的时候就给这个变量赋值，这种操作就称为变量的初始化。如果要对一个变量初始化，可以有三种办法。
+ 声明时直接初始化，比如 var s string = &amp;ldquo;飞雪无情&amp;rdquo;。 声明后再进行初始化，比如 s=&amp;ldquo;飞雪无情&amp;rdquo;（假设已经声明变量 s）。 使用 := 简单声明，比如 s:=&amp;ldquo;飞雪无情&amp;rdquo;。   小提示：变量的初始化也是一种赋值，只不过它发生在变量声明的时候，时机最靠前。也就是说，当你获得这个变量时，它就已经被赋值了。</description>
+    </item>
+    
+    <item>
+      <title>13 参数传递：值、引用及指针之间的区别？</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/13-%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%E5%80%BC%E5%BC%95%E7%94%A8%E5%8F%8A%E6%8C%87%E9%92%88%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
+      <pubDate>Wed, 22 Dec 2021 01:33:06 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/13-%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%E5%80%BC%E5%BC%95%E7%94%A8%E5%8F%8A%E6%8C%87%E9%92%88%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
+      <description>上节课我留了一个思考题，关于指向接口的指针的思考。在[“第 6 讲| struct 和 interface：结构体与接口都实现了哪些功能？”]中，你已经知道了如何实现一个接口，并且也知道如果值接收者实现了接口，那么值的指针也就实现了该接口。现在我们再一起来复习一下接口实现的知识，然后再解答关于指向接口的指针的思考题。
+在下面的代码中，值类型 address 作为接收者实现了接口 fmt.Stringer，那么它的指针类型 *address 也就实现了接口 fmt.Stringer。
+ch13/main.go
+type address struct {province stringcity string}func (addr address) String() string{return fmt.Sprintf(&amp;quot;the addr is %s%s&amp;quot;,addr.province,addr.city)}在下面的代码示例中，我定义了值类型的变量 add，然后把它和它的指针 &amp;amp;add 都作为参数传给函数 printString，发现都是可以的，并且代码可以成功运行。这也证明了当值类型作为接收者实现了某接口时，它的指针类型也同样实现了该接口。
+ch13/main.go
+func main() {add := address{province: &amp;quot;北京&amp;quot;, city: &amp;quot;北京&amp;quot;}printString(add)printString(&amp;amp;add)}func printString(s fmt.Stringer) {fmt.Println(s.String())}基于以上结论，我们继续分析，看是否可以定义一个指向接口的指针。如下所示：
+ch13/main.go
+var si fmt.Stringer =address{province: &amp;quot;上海&amp;quot;,city: &amp;quot;上海&amp;quot;}printString(si)sip:=&amp;amp;siprintString(sip)在这个示例中，因为类型 address 已经实现了接口 fmt.</description>
+    </item>
+    
+    <item>
+      <title>12 指针详解：在什么情况下应该使用指针？</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/12-%E6%8C%87%E9%92%88%E8%AF%A6%E8%A7%A3%E5%9C%A8%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E5%BA%94%E8%AF%A5%E4%BD%BF%E7%94%A8%E6%8C%87%E9%92%88/</link>
+      <pubDate>Wed, 22 Dec 2021 01:33:05 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/12-%E6%8C%87%E9%92%88%E8%AF%A6%E8%A7%A3%E5%9C%A8%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E5%BA%94%E8%AF%A5%E4%BD%BF%E7%94%A8%E6%8C%87%E9%92%88/</guid>
+      <description>这节课起我将带你学习本专栏的第三模块：深入理解 Go 语言。这部分主要会为你讲解 Go 语言的高级特性，以及 Go 语言一些特性功能的底层原理。通过这部分的学习，你不光可以更好地使用 Go 语言，还会更深入地理解 Go 语言，比如理解你所使用的 slice 底层是如何实现的等。
+什么是指针 我们都知道程序运行时的数据是存放在内存中的，而内存会被抽象为一系列具有连续编号的存储空间，那么每一个存储在内存中的数据都会有一个编号，这个编号就是内存地址。有了这个内存地址就可以找到这个内存中存储的数据，而内存地址可以被赋值给一个指针。
+ 小提示：内存地址通常为 16 进制的数字表示，比如 0x45b876。
+ 可以总结为：在编程语言中，指针是一种数据类型，用来存储一个内存地址，该地址指向存储在该内存中的对象。这个对象可以是字符串、整数、函数或者你自定义的结构体。
+ 小技巧：你也可以简单地把指针理解为内存地址。
+ 举个通俗的例子，每本书中都有目录，目录上会有相应章节的页码，你可以把页码理解为一系列的内存地址，通过页码你可以快速地定位到具体的章节（也就是说，通过内存地址可以快速地找到存储的数据）。
+指针的声明和定义 在 Go 语言中，获取一个变量的指针非常容易，使用取地址符 &amp;amp; 就可以，比如下面的例子：
+ch12/main.go
+func main() {name:=&amp;quot;飞雪无情&amp;quot;nameP:=&amp;amp;name//取地址fmt.Println(&amp;quot;name变量的值为:&amp;quot;,name)fmt.Println(&amp;quot;name变量的内存地址为:&amp;quot;,nameP)}我在示例中定义了一个 string 类型的变量 name，它的值为&amp;quot;飞雪无情&amp;quot;，然后通过取地址符 &amp;amp; 获取变量 name 的内存地址，并赋值给指针变量 nameP，该指针变量的类型为 *string。运行以上示例你可以看到如下打印结果：
+name变量的值为: 飞雪无情name变量的内存地址为: 0xc000010200这一串 0xc000010200 就是内存地址，这个内存地址可以赋值给指针变量 nameP。
+ 指针类型非常廉价，只占用 4 个或者 8 个字节的内存大小。
+ 以上示例中 nameP 指针的类型是 *string，用于指向 string 类型的数据。在 Go 语言中使用类型名称前加 * 的方式，即可表示一个对应的指针类型。比如 int 类型的指针类型是 *int，float64 类型的指针类型是 *float64，自定义结构体 A 的指针类型是 *A。总之，指针类型就是在对应的类型前加 * 号。</description>
+    </item>
+    
+    <item>
+      <title>11 并发模式：Go 语言中即学即用的高效并发模式</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/11-%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8Fgo-%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8D%B3%E5%AD%A6%E5%8D%B3%E7%94%A8%E7%9A%84%E9%AB%98%E6%95%88%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Wed, 22 Dec 2021 01:33:04 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/11-%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8Fgo-%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8D%B3%E5%AD%A6%E5%8D%B3%E7%94%A8%E7%9A%84%E9%AB%98%E6%95%88%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8F/</guid>
+      <description>上节课我为你讲解了如何通过 Context 更好地控制多个协程，课程最后的思考题是：如何通过 Context 实现日志跟踪？
+要想跟踪一个用户的请求，必须有一个唯一的 ID 来标识这次请求调用了哪些函数、执行了哪些代码，然后通过这个唯一的 ID 把日志信息串联起来。这样就形成了一个日志轨迹，也就实现了用户的跟踪，于是思路就有了。
+ 在用户请求的入口点生成 TraceID。 通过 context.WithValue 保存 TraceID。 然后这个保存着 TraceID 的 Context 就可以作为参数在各个协程或者函数间传递。 在需要记录日志的地方，通过 Context 的 Value 方法获取保存的 TraceID，然后把它和其他日志信息记录下来。 这样具备同样 TraceID 的日志就可以被串联起来，达到日志跟踪的目的。  以上思路实现的核心是 Context 的传值功能。
+目前我们已熟练掌握了 goroutine、channel、sync 包的同步原语，这些都是并发编程比较基础的元素。而这节课要介绍的是如何用这些基础元素组成并发模式，帮助我们更好地编写并发程序。
+for select 循环模式 for select 循环模式非常常见，在前面的课程中也使用过，它一般和 channel 组合完成任务，代码格式如下：
+for { //for无限循环，或者for range循环select {//通过一个channel控制}}这是一种 for 循环 +select 多路复用的并发模式，哪个 case 满足就执行哪个，直到满足一定的条件退出 for 循环（比如发送退出信号）。
+从具体实现上讲，for select 循环有两种模式，一种是上节课监控狗例子中的无限循环模式，只有收到终止指令才会退出，如下所示：
+for {select {case &amp;lt;-done:returndefault://执行具体的任务}}这种模式会一直执行 default 语句中的任务，直到 done 这个 channel 被关闭为止。</description>
+    </item>
+    
+    <item>
+      <title>10 Context：你必须掌握的多线程并发控制神器</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/10-context%E4%BD%A0%E5%BF%85%E9%A1%BB%E6%8E%8C%E6%8F%A1%E7%9A%84%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%E7%A5%9E%E5%99%A8/</link>
+      <pubDate>Wed, 22 Dec 2021 01:33:03 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/10-context%E4%BD%A0%E5%BF%85%E9%A1%BB%E6%8E%8C%E6%8F%A1%E7%9A%84%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%E7%A5%9E%E5%99%A8/</guid>
+      <description>在上一节课中我留了一个作业，也就是让你自己练习使用 sync.Map，相信你已经做出来了。现在我为你讲解 sync.Map 的方法。
+ Store：存储一对 key-value 值。 Load：根据 key 获取对应的 value 值，并且可以判断 key 是否存在。 LoadOrStore：如果 key 对应的 value 存在，则返回该 value；如果不存在，存储相应的 value。 Delete：删除一个 key-value 键值对。 Range：循环迭代 sync.Map，效果与 for range 一样。  相信有了这些方法的介绍，你对 sync.Map 会有更深入的理解。下面开始今天的课程：如何通过 Context 更好地控制并发。
+协程如何退出 一个协程启动后，大部分情况需要等待里面的代码执行完毕，然后协程会自行退出。但是如果有一种情景，需要让协程提前退出怎么办呢？在下面的代码中，我做了一个监控狗用来监控程序：
+ch10/main.go
+func main() {var wg sync.WaitGroupwg.Add(1)go func() {defer wg.Done()watchDog(&amp;quot;【监控狗1】&amp;quot;)}()wg.Wait()}func watchDog(name string){//开启for select循环，一直后台监控for{select {default:fmt.Println(name,&amp;quot;正在监控……&amp;quot;)}time.Sleep(1*time.Second)}}我通过 watchDog 函数实现了一个监控狗，它会一直在后台运行，每隔一秒就会打印&amp;quot;监控狗正在监控……&amp;ldquo;的文字。</description>
+    </item>
+    
+    <item>
+      <title>09 同步原语：sync 包让你对并发控制得心应手</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/09-%E5%90%8C%E6%AD%A5%E5%8E%9F%E8%AF%ADsync-%E5%8C%85%E8%AE%A9%E4%BD%A0%E5%AF%B9%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%E5%BE%97%E5%BF%83%E5%BA%94%E6%89%8B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:33:02 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/09-%E5%90%8C%E6%AD%A5%E5%8E%9F%E8%AF%ADsync-%E5%8C%85%E8%AE%A9%E4%BD%A0%E5%AF%B9%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%E5%BE%97%E5%BF%83%E5%BA%94%E6%89%8B/</guid>
+      <description>上节课留了一个思考题：channel 为什么是并发安全的呢？是因为 channel 内部使用了互斥锁来保证并发的安全，这节课，我将为你介绍互斥锁的使用。
+在 Go 语言中，不仅有 channel 这类比较易用且高级的同步机制，还有 sync.Mutex、sync.WaitGroup 等比较原始的同步机制。通过它们，我们可以更加灵活地控制数据的同步和多协程的并发，下面我为你逐一讲解。
+资源竞争 在一个 goroutine 中，如果分配的内存没有被其他 goroutine 访问，只在该 goroutine 中被使用，那么不存在资源竞争的问题。
+但如果同一块内存被多个 goroutine 同时访问，就会产生不知道谁先访问也无法预料最后结果的情况。这就是资源竞争，这块内存可以称为共享的资源。
+我们通过下面的示例来进一步地了解：
+ch09/main.go
+//共享的资源var sum = 0func main() {//开启100个协程让sum+10for i := 0; i &amp;lt; 100; i++ {go add(10)}//防止提前退出time.Sleep(2 * time.Second)fmt.Println(&amp;quot;和为:&amp;quot;,sum)}func add(i int) {sum += i}示例中，你期待的结果可能是“和为 1000”，但当运行程序后，可能如预期所示，但也可能是 990 或者 980。导致这种情况的核心原因是资源 sum 不是并发安全的，因为同时会有多个协程交叉执行 sum+=i，产生不可预料的结果。
+既然已经知道了原因，解决的办法也就有了，只需要确保同时只有一个协程执行 sum+=i 操作即可。要达到该目的，可以使用 sync.</description>
+    </item>
+    
+    <item>
+      <title>08 并发基础：Goroutines 和 Channels 的声明与使用</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/08-%E5%B9%B6%E5%8F%91%E5%9F%BA%E7%A1%80goroutines-%E5%92%8C-channels-%E7%9A%84%E5%A3%B0%E6%98%8E%E4%B8%8E%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Wed, 22 Dec 2021 01:33:01 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/08-%E5%B9%B6%E5%8F%91%E5%9F%BA%E7%A1%80goroutines-%E5%92%8C-channels-%E7%9A%84%E5%A3%B0%E6%98%8E%E4%B8%8E%E4%BD%BF%E7%94%A8/</guid>
+      <description>在本节课开始之前，我们先一起回忆上节课的思考题：是否可以有多个 defer，如果可以的话，它们的执行顺序是怎么样的？
+对于这道题，可以直接采用写代码测试的方式，如下所示：
+func moreDefer(){defer fmt.Println(&amp;quot;First defer&amp;quot;)defer fmt.Println(&amp;quot;Second defer&amp;quot;)defer fmt.Println(&amp;quot;Three defer&amp;quot;)fmt.Println(&amp;quot;函数自身代码&amp;quot;)}func main(){moreDefer()}我定义了 moreDefer 函数，函数里有三个 defer 语句，然后在 main 函数里调用它。运行这段程序可以看到如下内容输出：
+函数自身代码Three deferSecond deferFirst defer通过以上示例可以证明：
+ 在一个方法或者函数中，可以有多个 defer 语句； 多个 defer 语句的执行顺序依照后进先出的原则。  defer 有一个调用栈，越早定义越靠近栈的底部，越晚定义越靠近栈的顶部，在执行这些 defer 语句的时候，会先从栈顶弹出一个 defer 然后执行它，也就是我们示例中的结果。
+下面我们开始本节课的学习。本节课是 Go 语言的重点——协程和通道，它们是 Go 语言并发的基础，我会从这两个基础概念开始，带你逐步深入 Go 语言的并发。
+什么是并发 前面的课程中，我所写的代码都按照顺序执行，也就是上一句代码执行完，才会执行下一句，这样的代码逻辑简单，也符合我们的阅读习惯。
+但这样是不够的，因为计算机很强大，如果只让它干完一件事情再干另外一件事情就太浪费了。比如一款音乐软件，使用它听音乐的时候还想让它下载歌曲，同一时刻做了两件事，在编程中，这就是并发，并发可以让你编写的程序在同一时刻做多几件事情。
+进程和线程 讲并发就绕不开线程，不过在介绍线程之前，我先为你介绍什么是进程。
+进程 在操作系统中，进程是一个非常重要的概念。当你启动一个软件（比如浏览器）的时候，操作系统会为这个软件创建一个进程，这个进程是该软件的工作空间，它包含了软件运行所需的所有资源，比如内存空间、文件句柄，还有下面要讲的线程等。下面的图片就是我的电脑上运行的进程：
+（电脑运行的进程）
+那么线程是什么呢？
+线程 线程是进程的执行空间，一个进程可以有多个线程，线程被操作系统调度执行，比如下载一个文件，发送一个消息等。这种多个线程被操作系统同时调度执行的情况，就是多线程的并发。
+一个程序启动，就会有对应的进程被创建，同时进程也会启动一个线程，这个线程叫作主线程。如果主线程结束，那么整个程序就退出了。有了主线程，就可以从主线里启动很多其他线程，也就有了多线程的并发。
+协程（Goroutine） Go 语言中没有线程的概念，只有协程，也称为 goroutine。相比线程来说，协程更加轻量，一个程序可以随意启动成千上万个 goroutine。</description>
+    </item>
+    
+    <item>
+      <title>07 错误处理：如何通过 error、deferred、panic 等处理错误？</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/07-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87-errordeferredpanic-%E7%AD%89%E5%A4%84%E7%90%86%E9%94%99%E8%AF%AF/</link>
+      <pubDate>Wed, 22 Dec 2021 01:33:00 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/07-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87-errordeferredpanic-%E7%AD%89%E5%A4%84%E7%90%86%E9%94%99%E8%AF%AF/</guid>
+      <description>上节课我为你讲解了结构体和接口，并留了一个小作业，让你自己练习实现有两个方法的接口。现在我就以“人既会走也会跑”为例进行讲解。
+首先定义一个接口 WalkRun，它有两个方法 Walk 和 Run，如下面的代码所示：
+type WalkRun interface {Walk()Run()}现在就可以让结构体 person 实现这个接口了，如下所示：
+func (p *person) Walk(){fmt.Printf(&amp;quot;%s能走\n&amp;quot;,p.name)}func (p *person) Run(){fmt.Printf(&amp;quot;%s能跑\n&amp;quot;,p.name)}关键点在于，让接口的每个方法都实现，也就实现了这个接口。
+ 提示：%s 是占位符，和 p.name 对应，也就是 p.name 的值，具体可以参考 fmt.Printf 函数的文档。
+ 下面进行本节课的讲解。这节课我会带你学习 Go 语言的错误和异常，在我们编写程序的时候，可能会遇到一些问题，该怎么处理它们呢？
+错误 在 Go 语言中，错误是可以预期的，并且不是非常严重，不会影响程序的运行。对于这类问题，可以用返回错误给调用者的方法，让调用者自己决定如何处理。
+error 接口 在 Go 语言中，错误是通过内置的 error 接口表示的。它非常简单，只有一个 Error 方法用来返回具体的错误信息，如下面的代码所示：
+type error interface {Error() string}在下面的代码中，我演示了一个字符串转整数的例子：
+ch07/main.go
+func main() {i,err:=strconv.Atoi(&amp;quot;a&amp;quot;)if err!=nil {fmt.</description>
+    </item>
+    
+    <item>
+      <title>06 struct 和 interface：结构体与接口都实现了哪些功能？</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/06-struct-%E5%92%8C-interface%E7%BB%93%E6%9E%84%E4%BD%93%E4%B8%8E%E6%8E%A5%E5%8F%A3%E9%83%BD%E5%AE%9E%E7%8E%B0%E4%BA%86%E5%93%AA%E4%BA%9B%E5%8A%9F%E8%83%BD/</link>
+      <pubDate>Wed, 22 Dec 2021 01:32:59 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/06-struct-%E5%92%8C-interface%E7%BB%93%E6%9E%84%E4%BD%93%E4%B8%8E%E6%8E%A5%E5%8F%A3%E9%83%BD%E5%AE%9E%E7%8E%B0%E4%BA%86%E5%93%AA%E4%BA%9B%E5%8A%9F%E8%83%BD/</guid>
+      <description>上节课我留了一个思考题：方法是否可以赋值给一个变量？如果可以，要怎么调用它呢？答案是完全可以，方法赋值给变量称为方法表达式，如下面的代码所示：
+age:=Age(25)//方法赋值给变量，方法表达式sm:=Age.String//通过变量，要传一个接收者进行调用也就是agesm(age)我们知道，方法 String 其实是没有参数的，但是通过方法表达式赋值给变量 sm 后，在调用的时候，必须要传一个接收者，这样 sm 才知道怎么调用。
+ 小提示：不管方法是否有参数，通过方法表达式调用，第一个参数必须是接收者，然后才是方法自身的参数。
+ 下面开始我们今天的课程。之前讲到的类型如整型、字符串等只能描述单一的对象，如果是聚合对象，就无法描述了，比如一个人具备的名字、年龄和性别等信息。因为人作为对象是一个聚合对象，要想描述它需要使用这节课要讲的结构体。
+结构体 结构体定义 结构体是一种聚合类型，里面可以包含任意类型的值，这些值就是我们定义的结构体的成员，也称为字段。在 Go 语言中，要自定义一个结构体，需要使用 type+struct 关键字组合。
+在下面的例子中，我自定义了一个结构体类型，名称为 person，表示一个人。这个 person 结构体有两个字段：name 代表这个人的名字，age 代表这个人的年龄。
+ch06/main.go
+type person struct {name stringage uint}在定义结构体时，字段的声明方法和平时声明一个变量是一样的，都是变量名在前，类型在后，只不过在结构体中，变量名称为成员名或字段名。
+结构体的成员字段并不是必需的，也可以一个字段都没有，这种结构体成为空结构体。
+根据以上信息，我们可以总结出结构体定义的表达式，如下面的代码所示：
+type structName struct{fieldName typeName........}其中：
+ type 和 struct 是 Go 语言的关键字，二者组合就代表要定义一个新的结构体类型。 structName 是结构体类型的名字。 fieldName 是结构体的字段名，而 typeName 是对应的字段类型。 字段可以是零个、一个或者多个。   小提示：结构体也是一种类型，所以以后自定义的结构体，我会称为某结构体或某类型，两者是一个意思。比如 person 结构体和 person 类型其实是一个意思。</description>
+    </item>
+    
+    <item>
+      <title>05 函数和方法：Go 语言中的函数和方法到底有什么不同？</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/05-%E5%87%BD%E6%95%B0%E5%92%8C%E6%96%B9%E6%B3%95go-%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0%E5%92%8C%E6%96%B9%E6%B3%95%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C/</link>
+      <pubDate>Wed, 22 Dec 2021 01:32:58 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/05-%E5%87%BD%E6%95%B0%E5%92%8C%E6%96%B9%E6%B3%95go-%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0%E5%92%8C%E6%96%B9%E6%B3%95%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C/</guid>
+      <description>上一讲的思考题是创建一个二维数组并使用。上节课，我主要介绍了一维数组，其实二维数组也很简单，仿照一维数组即可，如下面的代码所示：
+aa:=[3][3]int{}aa[0][0] =1aa[0][1] =2aa[0][2] =3aa[1][0] =4aa[1][1] =5aa[1][2] =6aa[2][0] =7aa[2][1] =8aa[2][2] =9fmt.Println(aa)相信你也完成了，现在学习我们本节课要讲的函数和方法。
+函数和方法是我们迈向代码复用、多人协作开发的第一步。通过函数，可以把开发任务分解成一个个小的单元，这些小单元可以被其他单元复用，进而提高开发效率、降低代码重合度。再加上现成的函数已经被充分测试和使用过，所以其他函数在使用这个函数时也更安全，比你自己重新写一个相似功能的函数 Bug 率更低。
+这节课，我会详细讲解 Go 语言的函数和方法，了解它们的声明、使用和不同。虽然在 Go 语言中有函数和方法两种概念，但它们的相似度非常高，只是所属的对象不同。我们先从函数开始了解。
+函数 函数初探 在前面的四节课中，你已经见到了 Go 语言中一个非常重要的函数：main 函数，它是一个 Go 语言程序的入口函数，我在演示代码示例的时候，会一遍遍地使用它。
+下面的示例就是一个 main 函数：
+func main() {}它由以下几部分构成：
+ 任何一个函数的定义，都有一个 func 关键字，用于声明一个函数，就像使用 var 关键字声明一个变量一样； 然后紧跟的 main 是函数的名字，命名符合 Go 语言的规范即可，比如不能以数字开头； main 函数名字后面的一对括号 () 是不能省略的，括号里可以定义函数使用的参数，这里的 main 函数没有参数，所以是空括号 () ； 括号 () 后还可以有函数的返回值，因为 main 函数没有返回值，所以这里没有定义； 最后就是大括号 {} 函数体了，你可以在函数体里书写代码，写该函数自己的业务逻辑。  函数声明 经过上一小节的介绍，相信你已经对 Go 语言函数的构成有一个比较清晰的了解了，现在让我们一起总结出函数的声明格式，如下面的代码所示：</description>
+    </item>
+    
+    <item>
+      <title>04 集合类型：如何正确使用 array、slice 和 map？</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/04-%E9%9B%86%E5%90%88%E7%B1%BB%E5%9E%8B%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8-arrayslice-%E5%92%8C-map/</link>
+      <pubDate>Wed, 22 Dec 2021 01:32:57 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/04-%E9%9B%86%E5%90%88%E7%B1%BB%E5%9E%8B%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8-arrayslice-%E5%92%8C-map/</guid>
+      <description>上节课的思考题是练习使用 for 循环中的 continue，通过上节课的学习，你已经了解 continue 是跳出本次循环的意思，现在我就以计算 100 以内的偶数之和为例，演示 continue 的用法：
+sum := 0for i:=1; i&amp;lt;100; i++{if i%2!=0 {continue}sum+=i}fmt.Println(&amp;quot;the sum is&amp;quot;,sum)这个示例的关键在于：如果 i 不是偶数，就会用 continue 跳出本次循环，继续下个循环；如果是偶数，则继续执行 sum+=i，然后继续循环，这样就达到了只计算 100 以内偶数之和的目的。
+下面我们开始本节课的学习，我将介绍 Go 语言的集合类型。
+在实际需求中，我们会有很多同一类型的元素放在一起的场景，这就是集合，例如 100 个数字，10 个字符串等。在 Go 语言中，数组（array）、切片（slice）、映射（map）这些都是集合类型，用于存放同一类元素。虽然都是集合，但用处又不太一样，这节课我就为你详细地介绍。
+Array（数组） 数组存放的是固定长度、相同类型的数据，而且这些存放的元素是连续的。所存放的数据类型没有限制，可以是整型、字符串甚至自定义。
+数组声明 要声明一个数组非常简单，语法和第二课时介绍的声明基础类型是一样的。
+在下面的代码示例中，我声明了一个字符串数组，长度是 5，所以其类型定义为 [5]string，其中大括号中的元素用于初始化数组。此外，在类型名前加 [] 中括号，并设置好长度，就可以通过它来推测数组的类型。
+ 注意：[5]string 和 [4]string 不是同一种类型，也就是说长度也是数组类型的一部分。
+ ch04/main.go
+array:=[5]string{&amp;quot;a&amp;quot;,&amp;quot;b&amp;quot;,&amp;quot;c&amp;quot;,&amp;quot;d&amp;quot;,&amp;quot;e&amp;quot;}数组在内存中都是连续存放的，下面通过一幅图片形象地展示数组在内存中如何存放：
+可以看到，数组的每个元素都是连续存放的，每一个元素都有一个下标（Index）。下标从 0 开始，比如第一个元素 a 对应的下标是 0，第二个元素 b 对应的下标是 1。以此类推，通过 array+[下标] 的方式，我们可以快速地定位元素。</description>
+    </item>
+    
+    <item>
+      <title>03 控制结构：if、for、switch 逻辑语句的那些事儿</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/03-%E6%8E%A7%E5%88%B6%E7%BB%93%E6%9E%84ifforswitch-%E9%80%BB%E8%BE%91%E8%AF%AD%E5%8F%A5%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/</link>
+      <pubDate>Wed, 22 Dec 2021 01:32:56 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/03-%E6%8E%A7%E5%88%B6%E7%BB%93%E6%9E%84ifforswitch-%E9%80%BB%E8%BE%91%E8%AF%AD%E5%8F%A5%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/</guid>
+      <description>在上节课中我留了一个思考题，在一个字符串中查找另外一个字符串是否存在，这个其实是字符串查找的功能，假如我需要在“飞雪无情”这个字符串中查找“飞雪”，可以这么做：
+i:=strings.Index(&amp;quot;飞雪无情&amp;quot;,&amp;quot;飞雪&amp;quot;)这就是 Go 语言标准库为我们提供的常用函数，以供我们使用，减少开发。
+这节课我们继续讲解 Go 语言，今天的内容是：Go 语言代码逻辑的控制。
+流程控制语句用于控制程序的执行顺序，这样你的程序就具备了逻辑结构。一般流程控制语句需要和各种条件结合使用，比如用于条件判断的 if，用于选择的 switch，用于循环的 for 等。这一节课，我会为你详细介绍，通过示例演示它们的使用方式。
+if 条件语句 if 语句是条件语句，它根据布尔值的表达式来决定选择哪个分支执行：如果表达式的值为 true，则 if 分支被执行；如果表达式的值为 false，则 else 分支被执行。下面，我们来看一个 if 条件语句示例：
+ch03/main.go
+func main() {i:=10if i &amp;gt;10 {fmt.Println(&amp;quot;i&amp;gt;10&amp;quot;)} else {fmt.Println(&amp;quot;i&amp;lt;=10&amp;quot;)}}这是一个非常简单的 if……else 条件语句，当 i&amp;gt;10 为 true 的时候，if 分支被执行，否则就执行 else 分支，你自己可以运行这段代码，验证打印结果。
+关于 if 条件语句的使用有一些规则：
+ if 后面的条件表达式不需要使用 ()，这和有些编程语言不一样，也更体现 Go 语言的简洁； 每个条件分支（if 或者 else）中的大括号是必须的，哪怕大括号里只有一行代码（如示例）； if 紧跟的大括号 { 不能独占一行，else 前的大括号 } 也不能独占一行，否则会编译不通过； 在 if……else 条件语句中还可以增加多个 else if，增加更多的条件分支。  通过 go run ch03/main.</description>
+    </item>
+    
+    <item>
+      <title>02 数据类型：你必须掌握的数据类型有哪些？</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/02-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%BD%A0%E5%BF%85%E9%A1%BB%E6%8E%8C%E6%8F%A1%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:32:55 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/02-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%BD%A0%E5%BF%85%E9%A1%BB%E6%8E%8C%E6%8F%A1%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B/</guid>
+      <description>上节课的思考题是打印出自己的名字，这个作业比较简单，属于文本的替换，你只需要把我示例中的&amp;quot;Hello 世界&amp;quot;修改成自己的名字即可，比如以我的名字为例，替换为“飞雪无情”。
+经过上一节课的学习，你已经对 Go 语言的程序结构有了初步了解，也准备好了相应的开发环境。但是一个完整的项目需要更复杂的逻辑，不是简单的“Hello 世界”可相比的。这些逻辑通过变量、常量、类型、函数方法、接口、结构体组成，这节课我就将带你认识它们，让你的 Go 语言程序变得更加生动。
+变量声明 变量代表可变的数据类型，也就是说，它在程序执行的过程中可能会被一次甚至多次修改。
+在 Go 语言中，通过 var 声明语句来定义一个变量，定义的时候需要指定这个变量的类型，然后再为它起个名字，并且设置好变量的初始值。所以 var 声明一个变量的格式如下：
+var 变量名 类型 = 表达式现在我通过一个示例来演示如何定义一个变量，并且设置它的初始值：
+ch02/main.go
+package mainimport &amp;quot;fmt&amp;quot;func main() {var i int = 10fmt.Println(i)}观察上面例子中 main 函数的内容，其中 var i int = 10 就是定义一个类型为 int（整数）、变量名为 i 的变量，它的初始值为 10
+这里为了运行程序，我加了一行 fmt.Println(i)，你在上节课中就见到过它，表示打印出变量 i 的值。
+这样做一方面是因为 Go 语言中定义的变量必须使用，否则无法编译通过，这也是 Go 语言比较好的特性，防止定义了变量不使用，导致浪费内存的情况；另一方面，在运行程序的时候可以查看变量 i 的结果。
+通过输入 go run ch02/main.go 命令回车运行，即可看到如下结果：
+$ go run ch02/main.</description>
+    </item>
+    
+    <item>
+      <title>01 基础入门：编写你的第一个 Go 语言程序</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/01-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E7%BC%96%E5%86%99%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-go-%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F/</link>
+      <pubDate>Wed, 22 Dec 2021 01:32:54 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/01-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E7%BC%96%E5%86%99%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-go-%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F/</guid>
+      <description>从这节课开始，我会带你走进 Go 语言的世界。我会用通俗易懂的语言，介绍 Go 语言的各个知识点，让你可以从零开始逐步学习，再深入它的世界。不管你以前是否接触过 Go 语言，都可以从这个专栏中受益。
+现在，让我以一个经典的例子“Hello World”来带你入门 Go 语言，了解它是如何运行起来的。
+Hello, 世界 如果你学过 C 语言，对这个经典的例子应该不会陌生。通过它，我先带你大概了解一下 Go 语言的一些核心理念，让你对 Go 语言代码有个整体的印象。如下所示：
+ch01/main.go
+package mainimport &amp;quot;fmt&amp;quot;func main() {fmt.Println(&amp;quot;Hello, 世界&amp;quot;)}这五行代码就构成了一个完整的 Go 程序，是不是非常简单？现在我运行这段代码，看看输出的结果，方法是打开终端输入以下命令，然后回车。
+$ go run ch01/main.goHello, 世界其中 go run ch01/main.go 是我输入的命令，回车后看到的“Hello, 世界”是 Go 程序输出的结果。
+代码中的 go 是一个 Go 语言开发工具包提供的命令，它和你平时常用的 ls 命令一样都是可执行的命令。它可以帮助你运行 Go 语言代码，并进行编译，生成可执行的二进制文件等。
+run 在这里是 go 命令的子命令，表示要运行 Go 语言代码的意思。最后的 ch01/main.go 就是我写的 Go 语言代码文件了。也就是说，整个 go run ch01/main.go 表示要运行 ch01/main.</description>
+    </item>
+    
+    <item>
+      <title>00 开篇词 Go 为开发者的需求设计，带你实现高效工作</title>
+      <link>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/00-%E5%BC%80%E7%AF%87%E8%AF%8D-go-%E4%B8%BA%E5%BC%80%E5%8F%91%E8%80%85%E7%9A%84%E9%9C%80%E6%B1%82%E8%AE%BE%E8%AE%A1%E5%B8%A6%E4%BD%A0%E5%AE%9E%E7%8E%B0%E9%AB%98%E6%95%88%E5%B7%A5%E4%BD%9C/</link>
+      <pubDate>Wed, 22 Dec 2021 01:32:53 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/00-%E5%BC%80%E7%AF%87%E8%AF%8D-go-%E4%B8%BA%E5%BC%80%E5%8F%91%E8%80%85%E7%9A%84%E9%9C%80%E6%B1%82%E8%AE%BE%E8%AE%A1%E5%B8%A6%E4%BD%A0%E5%AE%9E%E7%8E%B0%E9%AB%98%E6%95%88%E5%B7%A5%E4%BD%9C/</guid>
+      <description>你好，我是飞雪无情，在技术领域从业近 10 年，目前在一家互联网公司担任技术总监，负责技术管理和架构设计。
+2014 年，我因为 Docker 接触了 Go 语言，其简洁的语法、高效的开发效率和语言层面上的并发支持深深地吸引了我。经过不断地学习和实践，我对 Go 语言有了更深入的了解，不久后，便带领团队转型 Go 语言开发，提升了团队开发效率和系统性能，降低了用人成本。
+在带领团队转型 Go 语言的过程中，我不断把自己学习 Go 语言的经验沉淀成文章，方便大家利用碎片时间学习，于是“飞雪无情”的公众号和知乎号就诞生了。现在，我已经发布了 200 多篇相关内容，在帮助数万名朋友有效学习 Go 的同时，还有幸拿到了知乎 Go 语言专题的最高赞。
+Go 语言为开发者的需求而设计 K8s、Docker、etcd 这类耳熟能详的工具，就是用 Go 语言开发的，而且很多大公司（如腾讯、字节跳动等）都在把原来 C/C++、Python、PHP 的技术栈迁往 Go 语言。
+在我看来，Go 作为一门高效率的工业化语言备受推崇，这与其语言本身的优势有直接的关系：
+ 语法简洁，相比其他语言更容易上手，开发效率更高； 自带垃圾回收（GC），不用再手动申请释放内存，能够有效避免 Bug，提高性能； 语言层面的并发支持，让你很容易开发出高性能的程序； 提供的标准库强大，第三方库也足够丰富，可以拿来即用，提高开发效率； 可通过静态编译直接生成一个可执行文件，运行时不依赖其他库，部署方便，可伸缩能力强； 提供跨平台支持，很容易编译出跨各个系统平台直接运行的程序。  对比其他语言，Go 的优势也显著。比如 Java 虽然具备垃圾回收功能，但它是解释型语言，需要安装 JVM 虚拟机才能运行；C 语言虽然不用解释，可以直接编译运行，但是它不具备垃圾回收功能，需要开发者自己管理内存的申请和释放，容易出问题。而 Go 语言具备了两者的优势。
+如今微服务和云原生已经成为一种趋势，而 Go 作为一款高性能的编译型语言，最适合承载落地微服务的实现 ，又容易生成跨平台的可执行文件，相比其他编程语言更容易部署在 Docker 容器中，实现灵活的自动伸缩服务。
+总体来看，Go 语言的整体设计理念就是以软件工程为目的的，也就是说它不是为了编程语言本身多么强大而设计，而是为了开发者更好地研发、管理软件工程，一切都是为了开发者着想。
+如果你是有 1~3 年经验的其他语言开发者（如 Python、PHP、C/C++），Go 的学习会比较容易，因为编程语言的很多概念相通。而如果你是有基本计算机知识但无开发经验的小白，Go 也适合尽早学习，吃透它有助于加深你对编程语言的理解，也更有职业竞争力。
+而在我与 Go 语言学习者进行交流，以及面试的过程中，也发现了一些典型问题，可概括为如下三点：</description>
+    </item>
+    
+  </channel>
+</rss>

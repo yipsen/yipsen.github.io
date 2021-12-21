@@ -1,0 +1,1276 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java并发编程78讲 on </title>
+    <link>http://yipsen.github.io/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/</link>
+    <description>Recent content in Java并发编程78讲 on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 22 Dec 2021 01:42:56 +0800</lastBuildDate><atom:link href="http://yipsen.github.io/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>78 一份独家的 Java 并发工具图谱</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/78-%E4%B8%80%E4%BB%BD%E7%8B%AC%E5%AE%B6%E7%9A%84-java-%E5%B9%B6%E5%8F%91%E5%B7%A5%E5%85%B7%E5%9B%BE%E8%B0%B1/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:56 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/78-%E4%B8%80%E4%BB%BD%E7%8B%AC%E5%AE%B6%E7%9A%84-java-%E5%B9%B6%E5%8F%91%E5%B7%A5%E5%85%B7%E5%9B%BE%E8%B0%B1/</guid>
+      <description>本课时将提纲挈领的对本专栏的重点进行提炼，对前面 77 个课时的内容进行了整理和梳理，方便你复习前面的内容。如果你正准备面试，没有时间看前面的内容，可以通过本课时把 Java 并发知识体系快速建立起来，发现哪一块知识有薄弱的话，可以有针对性的去回顾那一课时的具体内容。
+本专栏总共分为 3 个大模块，分别是模块一：夯实并发基础，模块二：玩转 JUC 并发工具，模块三：深入浅出底层原理，知其所以然。我们就从模块一：夯实并发基础部分开始讲起。
+模块一：夯实并发基础 线程基础升华 首先对线程基础进行讲解和升华，在实现多线程上，讲解了为何本质只有 1 种实现线程的方法，并对于传统的 2 种或 3 种的说法进行了辨析；同时讲解了应该如何正确的停止线程，用 volatile 标记位的停止方法是不够全面的。
+然后介绍了线程的 6 种状态，即 NEW、RUNNABLE、BLOCKED、WAITING、TIMED_WAITING、TERMINATED，还介绍了转换路径。之后就把目光聚焦到了 wait、notify/notifyAll、sleep 相关的方法上，这也是面试中常考的内容，我们讲解了它们的注意事项，包括：
+ 为什么 wait 方法必须在 synchronized 保护的同步代码中使用？ 为什么 wait / notify / notifyAll 被定义在 Object 类中，而 sleep 定义在 Thread 类中？  我们还把 wait / notify 和 sleep 进行了比较，并分析它们的异同。之后我们用三种方式实现了生产者和消费者模式，分别是 wait / notify、Condition、BlockingQueue 的方式，并对它们进行了对比。
+线程安全 在线程安全的相关课时中，首先讲解了什么是线程安全，线程不安全的场景包括运行结果错误、发布或初始化错误以及活跃性问题，而活跃性问题又包括死锁、活锁和饥饿。
+然后总结了 4 种特别需要注意线程安全的情况，分别是：
+ 有操作共享资源或变量的时候； 依赖时序的操作； 不同数据之间存在绑定关系； 使用的类没有声明自己是线程安全的。  之后，讲解了多线程所带来的性能问题，包括线程调度所产生的上下文切换和缓存失效，以及线程协作带来的开销。</description>
+    </item>
+    
+    <item>
+      <title>77 AQS 在 CountDownLatch 等类中的应用原理是什么？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/77-aqs-%E5%9C%A8-countdownlatch-%E7%AD%89%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:55 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/77-aqs-%E5%9C%A8-countdownlatch-%E7%AD%89%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88/</guid>
+      <description>本课时我们主要讲解 AQS 在 CountDownLatch 类中的应用原理，即在 CountDownLatch 中如何利用 AQS 去实现 CountDownLatch 自己的线程协作逻辑的。本课时会包含一定的源码分析。
+AQS 用法 我们先讲一下 AQS 的用法。如果想使用 AQS 来写一个自己的线程协作工具类，通常而言是分为以下三步，这也是 JDK 里利用 AQS 类的主要步骤：
+ 第一步，新建一个自己的线程协作工具类，在内部写一个 Sync 类，该 Sync 类继承 AbstractQueuedSynchronizer，即 AQS； 第二步，想好设计的线程协作工具类的协作逻辑，在 Sync 类里，根据是否是独占，来重写对应的方法。如果是独占，则重写 tryAcquire 和 tryRelease 等方法；如果是非独占，则重写 tryAcquireShared 和 tryReleaseShared 等方法； 第三步，在自己的线程协作工具类中，实现获取/释放的相关方法，并在里面调用 AQS 对应的方法，如果是独占则调用 acquire 或 release 等方法，非独占则调用 acquireShared 或 releaseShared 或 acquireSharedInterruptibly 等方法。  通过这三步就可以实现对 AQS 的利用了。由于这三个步骤是经过浓缩和提炼的，所以现在你可能感觉有些不太容易理解，我们后面会有具体的实例来帮助理解，这里先有一个初步的印象即可。
+你可能注意到了，上面的第二步是根据某些条件来重写特定的一部分方法，这个做法好像之前很少遇到过，或者说你可能会想，是不是有更好的做法？比如通过实现接口的方式，因为实现某一个接口之后，自然就知道需要重写其中哪些方法了，为什么要先继承类，然后自己去判断选择哪些方法进行重写呢？这不是自己给自己设置障碍吗？
+关于这个问题的答案，其实在 AQS 的原作者 Doug Lea 的论文中已经进行了说明，他认为如果是实现接口的话，那每一个抽象方法都需要实现。比如你把整个 AQS 作为接口，那么需要实现的方法有很多，包括 tryAcquire、tryRelease、tryAcquireShared、tryReleaseShared 等，但是实际上我们并不是每个方法都需要重写，根据需求的不同，有选择的去实现一部分就足以了，所以就设计为不采用实现接口，而采用继承类并重写方法的形式。
+那可能你又有疑问了，继承类后，是不强制要求重写方法的，所以如果我们一个方法都不重写，行不行呢？答案是，如果不重写刚才所讲的 tryAcquire 等方法，是不行的，因为在执行的时候会抛出异常，我们来看下 AQS 对这些方法的默认的实现就知道了。</description>
+    </item>
+    
+    <item>
+      <title>76 AQS 的内部原理是什么样的？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/76-aqs-%E7%9A%84%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:54 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/76-aqs-%E7%9A%84%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84/</guid>
+      <description>本课时我们主要介绍 AQS 的内部原理是什么样的。
+AQS 内部原理解析 我们对 AQS 进行内部原理解析的话需要抓住重点，因为 AQS 的内部比较复杂，代码很长而且非常不容易读懂，如果我们一上来就一头扎进去读源码，是很难完全掌握它的。所以在本课时中，我们把 AQS 最核心的三个部分作为重点提炼出来，由这三个部分作为切入点，打开 AQS 的大门。
+是哪三大部分呢？AQS 最核心的三大部分就是状态、队列和期望协作工具类去实现的获取/释放等重要方法。我们就从这三个部分出发，分别展开讲解。
+state 状态 第一个要讲解的是状态 state，如果我们的 AQS 想要去管理或者想作为协作工具类的一个基础框架，那么它必然要管理一些状态，而这个状态在 AQS 内部就是用 state 变量去表示的。它的定义如下：
+/*** The synchronization state.*/private volatile int state;而 state 的含义并不是一成不变的，它会根据具体实现类的作用不同而表示不同的含义，下面举几个例子。
+比如说在信号量里面，state 表示的是剩余许可证的数量。如果我们最开始把 state 设置为 10，这就代表许可证初始一共有 10 个，然后当某一个线程取走一个许可证之后，这个 state 就会变为 9，所以信号量的 state 相当于是一个内部计数器。
+再比如，在 CountDownLatch 工具类里面，state 表示的是需要“倒数”的数量。一开始我们假设把它设置为 5，当每次调用 CountDown 方法时，state 就会减 1，一直减到 0 的时候就代表这个门闩被放开。
+下面我们再来看一下 state 在 ReentrantLock 中是什么含义，在 ReentrantLock 中它表示的是锁的占有情况。最开始是 0，表示没有任何线程占有锁；如果 state 变成 1，则就代表这个锁已经被某一个线程所持有了。</description>
+    </item>
+    
+    <item>
+      <title>75 为什么需要 AQS？AQS 的作用和重要性是什么？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/75-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-aqsaqs-%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8C%E9%87%8D%E8%A6%81%E6%80%A7%E6%98%AF%E4%BB%80%E4%B9%88/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:53 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/75-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-aqsaqs-%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8C%E9%87%8D%E8%A6%81%E6%80%A7%E6%98%AF%E4%BB%80%E4%B9%88/</guid>
+      <description>本课时我们主要讲解 AQS 的重要性，为什么需要 AQS，以及它的作用。
+AQS 的重要性 我们先来介绍一下 AQS（AbstractQueuedSynchronizer）的重要性，来看看 AQS 被用在了哪些类里面。
+如图所示，AQS 在 ReentrantLock、ReentrantReadWriteLock、Semaphore、CountDownLatch、ThreadPoolExcutor 的 Worker 中都有运用（JDK 1.8），AQS 是这些类的底层原理。
+而以上这些类，很多都是我们经常使用的类，大部分我们在前面课时中也已经详细介绍过，所以说 JUC 包里很多重要的工具类背后都离不开 AQS 框架，因此 AQS 的重要性不言而喻。
+学习 AQS 的思路 接下来我想介绍一下我对于学习 AQS 的思路的理解。AQS 类的内部结构要比一般的类复杂得多，里面有很多细节，不容易完全掌握，所以如果我们一上来就直接看源码，容易把自己给绕晕，容易陷入细节不能自拔，导致最后铩羽而归。
+其实我们大多数的程序员都是业务开发者，而不是 JDK 开发者，所以平时并不需要自己来开发类似于 ReentrantLock 这样的工具类，所以通常而言，我们不会直接使用到 AQS 来进行开发，因为 JDK 已经提供了很多封装好的线程协作工具类，像前面讲解的 ReentrantLock、Semaphore 就是 JDK 提供给我们的，其内部就用到了 AQS，而这些工具类已经基本足够覆盖大部分的业务场景了，这就使得我们即便不了解 AQS，也能利用这些工具类顺利进行开发。
+既然我们学习 AQS 的目的不是进行代码开发，那我们为什么还需要学习 AQS 呢？我认为，我们学习 AQS 的目的主要是想理解其背后的原理、学习设计思想，以提高技术并应对面试。所以本课时的主要目的是从宏观的角度去解读 AQS，比如知道为什么需要 AQS、AQS 有什么作用，在了解了宏观思想之后，再去分析它的内部结构，学习起来就轻松多了。
+锁和协作类有共同点：阀门功能 就让我们从熟悉的类作为学习 AQS 的切入点，请你先来思考一下，之前学过的 ReentrantLock 和 Semaphore，二者之间有没有什么共同点？
+其实它们都可以当做一个阀门来使用。比如我们把 Semaphore 的许可证数量设置为 1，那么由于它只有一个许可证，所以只能允许一个线程通过，并且当之前的线程归还许可证后，会允许其他线程继续获得许可证。其实这点和 ReentrantLock 很像，只有一个线程能获得锁，并且当这个线程释放锁之后，会允许其他的线程获得锁。那如果线程发现当前没有额外的许可证时，或者当前得不到锁，那么线程就会被阻塞，并且等到后续有许可证或者锁释放出来后，被唤醒，所以这些环节都是比较类似的。</description>
+    </item>
+    
+    <item>
+      <title>74 为什么 String 被设计为是不可变的？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/74-%E4%B8%BA%E4%BB%80%E4%B9%88-string-%E8%A2%AB%E8%AE%BE%E8%AE%A1%E4%B8%BA%E6%98%AF%E4%B8%8D%E5%8F%AF%E5%8F%98%E7%9A%84/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:52 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/74-%E4%B8%BA%E4%BB%80%E4%B9%88-string-%E8%A2%AB%E8%AE%BE%E8%AE%A1%E4%B8%BA%E6%98%AF%E4%B8%8D%E5%8F%AF%E5%8F%98%E7%9A%84/</guid>
+      <description>本课时我们主要讲解为什么 String 被设计为是不可变的？这样设计有什么好处？
+String 是不可变的 我们先来介绍一下“String 是不可变的”这件事。在 Java 中，字符串是一个常量，我们一旦创建了一个 String 对象，就无法改变它的值，它的内容也就不可能发生变化（不考虑反射这种特殊行为）。
+举个例子，比如我们给字符串 s 赋值为“lagou”，然后再尝试给它赋一个新值，正如下面这段代码所示：
+String s = &amp;quot;lagou&amp;quot;;s = &amp;quot;la&amp;quot;;看上去好像是改变了字符串的值，但其背后实际上是新建了一个新的字符串“la”，并且把 s 的引用指向这个新创建出来的字符串“la”，原来的字符串对象“lagou”保持不变。
+同样，如果我们调用 String 的 subString() 或 replace() 等方法，同时把 s 的引用指向这个新创建出来的字符串，这样都没有改变原有字符串对象的内容，因为这些方法只不过是建了一个新的字符串而已。例如下面这个例子：
+String lagou = &amp;quot;lagou&amp;quot;;lagou = lagou.subString(0, 4);代码中，利用 lagou.subString(0, 4) 会建立一个新的字符串“lago”这四个字母，比原来少了一个字母，但是这并不会影响到原有的“lagou”这个五个字母的字符串，也就是说，现在内存中同时存在“lagou”和“lago”这两个对象。
+那这背后是什么原因呢？我们来看下 String 类的部分重要源码：
+public final class Stringimplements Java.io.Serializable, Comparable&amp;lt;String&amp;gt;, CharSequence {/** The value is used for character storage. */private final char value[];//.</description>
+    </item>
+    
+    <item>
+      <title>73 为什么加了 final 却依然无法拥有“不变性”？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/73-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8A%A0%E4%BA%86-final-%E5%8D%B4%E4%BE%9D%E7%84%B6%E6%97%A0%E6%B3%95%E6%8B%A5%E6%9C%89%E4%B8%8D%E5%8F%98%E6%80%A7/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:51 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/73-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8A%A0%E4%BA%86-final-%E5%8D%B4%E4%BE%9D%E7%84%B6%E6%97%A0%E6%B3%95%E6%8B%A5%E6%9C%89%E4%B8%8D%E5%8F%98%E6%80%A7/</guid>
+      <description>本课时我们主要讲解为什么加了 final 却依然无法拥有“不变性”。
+什么是不变性 要想回答上面的问题，我们首先得知道什么是不变性（Immutable）。如果对象在被创建之后，其状态就不能修改了，那么它就具备“不变性”。
+我们举个例子，比如下面这个 Person 类：
+public class Person {final int id = 1;final int age = 18;}如果我们创建一个 person 对象，那么里面的属性会有两个，即 id 和 age，并且由于它们都是被 final 修饰的，所以一旦这个 person 对象被创建好，那么它里面所有的属性，即 id 和 age 就都是不能变的。我们如果想改变其中属性的值就会报错，代码如下所示：
+public class Person {final int id = 1;final int age = 18;public static void main(String[] args) {Person person = new Person();// person.age=5;//编译错误，无法修改 final 变量的值}}比如我们尝试去改变这个 person 对象，例如将 age 改成 5，则会编译通不过，所以像这样的 person 对象就具备不变性，也就意味着它的状态是不能改变的。</description>
+    </item>
+    
+    <item>
+      <title>72 final 的三种用法是什么？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/72-final-%E7%9A%84%E4%B8%89%E7%A7%8D%E7%94%A8%E6%B3%95%E6%98%AF%E4%BB%80%E4%B9%88/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:50 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/72-final-%E7%9A%84%E4%B8%89%E7%A7%8D%E7%94%A8%E6%B3%95%E6%98%AF%E4%BB%80%E4%B9%88/</guid>
+      <description>本课时我们主要讲解 final 的三种用法。
+final 的作用 final 是 Java 中的一个关键字，简而言之，final 的作用意味着“这是无法改变的”。不过由于 final 关键字一共有三种用法，它可以用来修饰变量、方法或者类，而且在修饰不同的地方时，效果、含义和侧重点也会有所不同，所以我们需要把这三种情况分开介绍。
+我们先来看一下 final 修饰变量的情况。
+final 修饰变量 作用 关键字 final 修饰变量的作用是很明确的，那就是意味着这个变量一旦被赋值就不能被修改了，也就是说只能被赋值一次，直到天涯海角也不会“变心”。如果我们尝试对一个已经赋值过 final 的变量再次赋值，就会报编译错误。
+我们来看下面这段代码示例：
+/*** 描述： final变量一旦被赋值就不能被修改*/public class FinalVarCantChange {public final int finalVar = 0;public static void main(String[] args) {FinalVarCantChange finalVarCantChange = new FinalVarCantChange();// finalVarCantChange.finalVar=9; //编译错误，不允许修改final的成员变量}}在这个例子中，我们有一个 final 修饰的 int，这个变量叫作 finalVar，然后在 main 函数中，新建了这个类的实例，并且尝试去修改它的值，此时会报编译错误，所以这体现了 final 修饰变量的一个最主要的作用：一旦被赋值就不能被修改了。
+目的 看完了它的作用之后，我们就来看一下使用 final 的目的，也就是为什么要对某个变量去加 final 关键字呢？主要有以下两点目的。</description>
+    </item>
+    
+    <item>
+      <title>71 讲一讲经典的哲学家就餐问题</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/71-%E8%AE%B2%E4%B8%80%E8%AE%B2%E7%BB%8F%E5%85%B8%E7%9A%84%E5%93%B2%E5%AD%A6%E5%AE%B6%E5%B0%B1%E9%A4%90%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:49 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/71-%E8%AE%B2%E4%B8%80%E8%AE%B2%E7%BB%8F%E5%85%B8%E7%9A%84%E5%93%B2%E5%AD%A6%E5%AE%B6%E5%B0%B1%E9%A4%90%E9%97%AE%E9%A2%98/</guid>
+      <description>本课时我们介绍经典的哲学家就餐问题。
+问题描述 哲学家就餐问题也被称为刀叉问题，或者吃面问题。我们先来描述一下这个问题所要说明的事情，这个问题如下图所示：
+有 5 个哲学家，他们面前都有一双筷子，即左手有一根筷子，右手有一根筷子。当然，这个问题有多个版本的描述，可以说是筷子，也可以说是一刀一叉，因为吃牛排的时候，需要刀和叉，缺一不可，也有说是用两把叉子来吃意大利面。这里具体是刀叉还是筷子并不重要，重要的是必须要同时持有左右两边的两个才行，也就是说，哲学家左手要拿到一根筷子，右手也要拿到一根筷子，在这种情况下哲学家才能吃饭。为了方便理解，我们选取和我国传统最贴近的筷子来说明这个问题。
+为什么选择哲学家呢？因为哲学家的特点是喜欢思考，所以我们可以把哲学家一天的行为抽象为思考，然后吃饭，并且他们吃饭的时候要用一双筷子，而不能只用一根筷子。
+1. 主流程
+我们来看一下哲学家就餐的主流程。哲学家如果想吃饭，他会先尝试拿起左手的筷子，然后再尝试拿起右手的筷子，如果某一根筷子被别人使用了，他就得等待他人用完，用完之后他人自然会把筷子放回原位，接着他把筷子拿起来就可以吃了（不考虑卫生问题）。这就是哲学家就餐的最主要流程。
+2. 流程的伪代码
+我们来看一下这个流程的伪代码，如下所示：
+while(true) { // 思考人生、宇宙、万物...think();// 思考后感到饿了，需要拿筷子开始吃饭pick_up_left_chopstick();pick_up_right_chopstick();eat();put_down_right_chopstick();put_down_left_chopstick();// 吃完饭后，继续思考人生、宇宙、万物...}while(true) 代表整个是一个无限循环。在每个循环中，哲学家首先会开始思考，思考一段时间之后（这个时间长度可以是随机的），他感到饿了，就准备开始吃饭。在吃饭之前必须先拿到左手的筷子，再拿到右手的筷子，然后才开始吃饭；吃完之后，先放回右手的筷子，再放回左手的筷子；由于这是个 while 循环，所以他就会继续思考人生，开启下一个循环。这就是整个过程。
+有死锁和资源耗尽的风险 这里存在什么风险呢？就是发生死锁的风险。如下面的动画所示：
+根据我们的逻辑规定，在拿起左手边的筷子之后，下一步是去拿右手的筷子。大部分情况下，右边的哲学家正在思考，所以当前哲学家的右手边的筷子是空闲的，或者如果右边的哲学家正在吃饭，那么当前的哲学家就等右边的哲学家吃完饭并释放筷子，于是当前哲学家就能拿到了他右手边的筷子了。
+但是，如果每个哲学家都同时拿起左手的筷子，那么就形成了环形依赖，在这种特殊的情况下，每个人都拿着左手的筷子，都缺少右手的筷子，那么就没有人可以开始吃饭了，自然也就没有人会放下手中的筷子。这就陷入了死锁，形成了一个相互等待的情况。代码如下所示：
+public class DiningPhilosophers {public static class Philosopher implements Runnable {private Object leftChopstick;private Object rightChopstick;public Philosopher(Object leftChopstick, Object rightChopstick) {this.leftChopstick = leftChopstick;this.rightChopstick = rightChopstick;}@Overridepublic void run() {try {while (true) {doAction(&amp;quot;思考人生、宇宙、万物、灵魂.</description>
+    </item>
+    
+    <item>
+      <title>70 有哪些解决死锁问题的策略？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/70-%E6%9C%89%E5%93%AA%E4%BA%9B%E8%A7%A3%E5%86%B3%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%E7%9A%84%E7%AD%96%E7%95%A5/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:48 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/70-%E6%9C%89%E5%93%AA%E4%BA%9B%E8%A7%A3%E5%86%B3%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%E7%9A%84%E7%AD%96%E7%95%A5/</guid>
+      <description>本课时我们主要介绍有哪些解决死锁的策略。
+线上发生死锁应该怎么办 如果线上环境发生了死锁，那么其实不良后果就已经造成了，修复死锁的最好时机在于“防患于未然”，而不是事后补救。就好比发生火灾时，一旦着了大火，想要不造成损失去扑灭几乎已经不可能了。死锁也是一样的，如果线上发生死锁问题，为了尽快减小损失，最好的办法是保存 JVM 信息、日志等“案发现场”的数据，然后立刻重启服务，来尝试修复死锁。为什么说重启服务能解决这个问题呢？因为发生死锁往往要有很多前提条件的，并且当并发度足够高的时候才有可能会发生死锁，所以重启后再次立刻发生死锁的几率并不是很大，当我们重启服务器之后，就可以暂时保证线上服务的可用，然后利用刚才保存过的案发现场的信息，排查死锁、修改代码，最终重新发布。
+常见修复策略 我们有哪些常见的对于死锁的修复策略呢？下面将会介绍三种主要的修复策略，分别是：
+ 避免策略 检测与恢复策略 鸵鸟策略  它们侧重各不相同，我们首先从避免策略说起。
+避免策略 如何避免
+避免策略最主要的思路就是，优化代码逻辑，从根本上消除发生死锁的可能性。通常而言，发生死锁的一个主要原因是顺序相反的去获取不同的锁。因此我们就演示如何通过调整锁的获取顺序来避免死锁。
+转账时避免死锁
+我们先来看一下转账时发生死锁的情况。这个例子是一个示意性的，是为了学习死锁所而写的例子，所以和真实的银行系统的设计有很大不同，不过没关系，因为我们主要看的是如何避免死锁，而不是转账的业务逻辑。
+（1）发生了死锁
+我们的转账系统为了保证线程安全，在转账前需要首先获取到两把锁（两个锁对象），分别是被转出的账户和被转入的账户。如果不做这一层限制，那么在某一个线程修改余额的期间，可能会有其他线程同时修改该变量，可能导致线程安全问题。所以在没有获取到这两把锁之前，是不能对余额进行操作的；只有获取到这两把锁之后，才能进行接下来真正的转账操作。当然，如果要转出的余额大于账户的余额，也不能转账，因为不允许余额变成负数。
+而这期间就隐藏着发生死锁的可能，我们来看下代码：
+public class TransferMoney implements Runnable {int flag;static Account a = new Account(500);static Account b = new Account(500);static class Account {public Account(int balance) {this.balance = balance;}int balance;}@Overridepublic void run() {if (flag == 1) {transferMoney(a, b, 200);}if (flag == 0) {transferMoney(b, a, 200);}}public static void transferMoney(Account from, Account to, int amount) {//先获取两把锁，然后开始转账synchronized (to) {synchronized (from) {if (from.</description>
+    </item>
+    
+    <item>
+      <title>69 如何用命令行和代码定位死锁？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/69-%E5%A6%82%E4%BD%95%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%92%8C%E4%BB%A3%E7%A0%81%E5%AE%9A%E4%BD%8D%E6%AD%BB%E9%94%81/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:47 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/69-%E5%A6%82%E4%BD%95%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%92%8C%E4%BB%A3%E7%A0%81%E5%AE%9A%E4%BD%8D%E6%AD%BB%E9%94%81/</guid>
+      <description>本课时我们主要介绍“如何用命令和代码来定位死锁”。
+在此之前，我们介绍了什么是死锁，以及死锁发生的必要条件。当然，即便我们很小心地编写代码，也必不可免地依然有可能会发生死锁，一旦死锁发生，第一步要做的就是把它给找到，因为在找到并定位到死锁之后，才能有接下来的补救措施，比如解除死锁、解除死锁之后恢复、对代码进行优化等；若找不到死锁的话，后面的步骤就无从谈起了。
+下面就来看一下是如何用命令行的方式找到死锁的。
+命令：jstack 这个命令叫作 jstack，它能看到我们 Java 线程的一些相关信息。如果是比较明显的死锁关系，那么这个工具就可以直接检测出来；如果死锁不明显，那么它无法直接检测出来，不过我们也可以借此来分析线程状态，进而就可以发现锁的相互依赖关系，所以这也是很有利于我们找到死锁的方式。
+我们就来试一试，执行这个命令。
+首先，我们运行一下第 67 讲的必然发生死锁的 MustDeadLock 类：
+/*** 描述： 必定死锁的情况*/public class MustDeadLock implements Runnable {public int flag;static Object o1 = new Object();static Object o2 = new Object();public void run() {System.out.println(&amp;quot;线程&amp;quot;+Thread.currentThread().getName() + &amp;quot;的flag为&amp;quot; + flag);if (flag == 1) {synchronized (o1) {try {Thread.sleep(500);} catch (Exception e) {e.printStackTrace();}synchronized (o2) {System.</description>
+    </item>
+    
+    <item>
+      <title>68 发生死锁必须满足哪 4 个条件？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/68-%E5%8F%91%E7%94%9F%E6%AD%BB%E9%94%81%E5%BF%85%E9%A1%BB%E6%BB%A1%E8%B6%B3%E5%93%AA-4-%E4%B8%AA%E6%9D%A1%E4%BB%B6/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:46 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/68-%E5%8F%91%E7%94%9F%E6%AD%BB%E9%94%81%E5%BF%85%E9%A1%BB%E6%BB%A1%E8%B6%B3%E5%93%AA-4-%E4%B8%AA%E6%9D%A1%E4%BB%B6/</guid>
+      <description>本课时我将为你介绍发生死锁必须满足哪 4 个条件。
+发生死锁的 4 个必要条件 要想发生死锁有 4 个缺一不可的必要条件，我们一个个来看：
+ 第 1 个叫互斥条件，它的意思是每个资源每次只能被一个线程（或进程，下同）使用，为什么资源不能同时被多个线程或进程使用呢？这是因为如果每个人都可以拿到想要的资源，那就不需要等待，所以是不可能发生死锁的。 第 2 个是请求与保持条件，它是指当一个线程因请求资源而阻塞时，则需对已获得的资源保持不放。如果在请求资源时阻塞了，并且会自动释放手中资源（例如锁）的话，那别人自然就能拿到我刚才释放的资源，也就不会形成死锁。 第 3 个是不剥夺条件，它是指线程已获得的资源，在未使用完之前，不会被强行剥夺。比如我们在上一课时中介绍的数据库的例子，它就有可能去强行剥夺某一个事务所持有的资源，这样就不会发生死锁了。所以要想发生死锁，必须满足不剥夺条件，也就是说当现在的线程获得了某一个资源后，别人就不能来剥夺这个资源，这才有可能形成死锁。 第 4 个是循环等待条件，只有若干线程之间形成一种头尾相接的循环等待资源关系时，才有可能形成死锁，比如在两个线程之间，这种“循环等待”就意味着它们互相持有对方所需的资源、互相等待；而在三个或更多线程中，则需要形成环路，例如依次请求下一个线程已持有的资源等。  案例解析 下面我们回到上一课时中所写的必然死锁的例子中，看看它是否一一满足了这 4 个条件，案例代码如下所示：
+/*** 描述： 必定死锁的情况*/public class MustDeadLock implements Runnable {public int flag;static Object o1 = new Object();static Object o2 = new Object();public void run() {System.out.println(&amp;quot;线程&amp;quot;+Thread.currentThread().getName() + &amp;quot;的flag为&amp;quot; + flag);if (flag == 1) {synchronized (o1) {try {Thread.</description>
+    </item>
+    
+    <item>
+      <title>67 如何写一个必然死锁的例子？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/67-%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AA%E5%BF%85%E7%84%B6%E6%AD%BB%E9%94%81%E7%9A%84%E4%BE%8B%E5%AD%90/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:45 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/67-%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AA%E5%BF%85%E7%84%B6%E6%AD%BB%E9%94%81%E7%9A%84%E4%BE%8B%E5%AD%90/</guid>
+      <description>本课时我们会首先介绍什么是死锁，死锁有什么危害和特点，然后通过代码分析一个“必然死锁的例子”。
+死锁是什么？有什么危害? 什么是死锁 发生在并发中
+首先你要知道，死锁一定发生在并发场景中。我们为了保证线程安全，有时会给程序使用各种能保证并发安全的工具，尤其是锁，但是如果在使用过程中处理不得当，就有可能会导致发生死锁的情况。
+互不相让
+死锁是一种状态，当两个（或多个）线程（或进程）相互持有对方所需要的资源，却又都不主动释放自己手中所持有的资源，导致大家都获取不到自己想要的资源，所有相关的线程（或进程）都无法继续往下执行，在未改变这种状态之前都不能向前推进，我们就把这种状态称为死锁状态，认为它们发生了死锁。通俗的讲，死锁就是两个或多个线程（或进程）被无限期地阻塞，相互等待对方手中资源的一种状态。
+生活中的例子
+下面我们用图示的方法来展示一种生活中发生死锁的情况，如下图所示：
+可以看到这张漫画展示了两个绅士分别向对方鞠躬的场景，为了表示礼貌，他们弯下腰之后谁也不愿意先起身，都希望对方起身之后我再起身。可是这样一来，就没有任何人可以先起身，起身这个动作就一直无法继续执行，两人形成了相互等待的状态，所以这就是一种典型的死锁！
+两个线程的例子
+下面我们用动画的形式来看一下两个线程发生死锁的情况，如下图所示：
+此时我们有两个线程，分别是线程 A 和线程 B，假设线程 A 现在持有了锁 A，线程 B 持有了锁 B，然后线程 A 尝试去获取锁 B，当然它获取不到，因为线程 B 还没有释放锁 B。然后线程 B 又来尝试获取锁 A，同样线程 B 也获取不到锁 A，因为锁 A 已经被线程 A 持有了。这样一来，线程 A 和线程 B 就发生了死锁，因为它们都相互持有对方想要的资源，却又不释放自己手中的资源，形成相互等待，而且会一直等待下去。
+多个线程造成死锁的情况
+死锁不仅仅存在于两个线程的场景，在多个线程中也同样存在。如果多个线程之间的依赖关系是环形，存在环路的依赖关系，那么也可能会发生死锁，如下图所示：
+我们看到在这个例子中，首先线程 1 持有了锁 A，然后线程 2 持有了锁 B，然后线程 3 持有了锁 C，现在每个线程都分别持有一把锁。接下来线程 1 想要去持有锁 B，可是它获取不到，因为现在锁 B 正在线程 2 的手里；接下来线程 2 又去尝试获取锁 C， 它同样也获取不到，因为现在锁 C 在线程 3 的手里；然后线程 3 去尝试获取锁 A ，当然它也获取不到，因为锁 A 现在在线程 1 的手里，这样一来线程 1、线程 2 和线程 3 相互之间就形成了一个环，这就是在多线程中发生死锁的情况。所以不仅是两个线程，多个线程同样也有可能会发生死锁的情况。</description>
+    </item>
+    
+    <item>
+      <title>66 CAS 有什么缺点？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/66-cas-%E6%9C%89%E4%BB%80%E4%B9%88%E7%BC%BA%E7%82%B9/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:43 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/66-cas-%E6%9C%89%E4%BB%80%E4%B9%88%E7%BC%BA%E7%82%B9/</guid>
+      <description>本课时主要讲解 CAS 有什么缺点。
+前面我们讲过 CAS 是有很多优点的，比如可以避免加互斥锁，可以提高程序的运行效率，但是同样 CAS 也有非常明显的缺点。所以我们在使用 CAS 的时候应该同时考虑到它的优缺点，合理地进行技术选型。
+下面我们就来看一下 CAS 有哪几个主要的缺点。
+ABA 问题 首先，CAS 最大的缺点就是 ABA 问题。
+决定 CAS 是否进行 swap 的判断标准是“当前的值和预期的值是否一致”，如果一致，就认为在此期间这个数值没有发生过变动，这在大多数情况下是没有问题的。
+但是在有的业务场景下，我们想确切知道从上一次看到这个值以来到现在，这个值是否发生过变化。例如，这个值假设从 A 变成了 B，再由 B 变回了 A，此时，我们不仅认为它发生了变化，并且会认为它变化了两次。
+在这种场景下，我们使用 CAS，就看不到这两次的变化，因为仅判断“当前的值和预期的值是否一致”就是不够的了。CAS 检查的并不是值有没有发生过变化，而是去比较这当前的值和预期值是不是相等，如果变量的值从旧值 A 变成了新值 B 再变回旧值 A，由于最开始的值 A 和现在的值 A 是相等的，所以 CAS 会认为变量的值在此期间没有发生过变化。所以，CAS 并不能检测出在此期间值是不是被修改过，它只能检查出现在的值和最初的值是不是一样。
+我们举一个例子：假设第一个线程拿到的初始值是 100，然后进行计算，在计算的过程中，有第二个线程把初始值改为了 200，然后紧接着又有第三个线程把 200 改回了 100。等到第一个线程计算完毕去执行 CAS 的时候，它会比较当前的值是不是等于最开始拿到的初始值 100，此时会发现确实是等于 100，所以线程一就认为在此期间值没有被修改过，就理所当然的把这个 100 改成刚刚计算出来的新值，但实际上，在此过程中已经有其他线程把这个值修改过了，这样就会发生 ABA 问题。
+如果发生了 ABA 问题，那么线程一就根本无法知晓在计算过程中是否有其他线程把这个值修改过，由于第一个线程发现当前值和预期值是相等的，所以就会认为在此期间没有线程修改过变量的值，所以它接下来的一些操作逻辑，是按照在此期间这个值没被修改过”的逻辑去处理的，比如它可能会打印日志：“本次修改十分顺利”，但是它本应触发其他的逻辑，比如当它发现了在此期间有其他线程修改过这个值，其实本应该打印的是“本次修改过程受到了干扰”。
+那么如何解决这个问题呢？添加一个版本号就可以解决。
+我们在变量值自身之外，再添加一个版本号，那么这个值的变化路径就从 A→B→A 变成了 1A→2B→3A，这样一来，就可以通过对比版本号来判断值是否变化过，这比我们直接去对比两个值是否一致要更靠谱，所以通过这样的思路就可以解决 ABA 的问题了。</description>
+    </item>
+    
+    <item>
+      <title>65 CAS 和乐观锁的关系，什么时候会用到 CAS？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/65-cas-%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81%E7%9A%84%E5%85%B3%E7%B3%BB%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BC%9A%E7%94%A8%E5%88%B0-cas/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:42 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/65-cas-%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81%E7%9A%84%E5%85%B3%E7%B3%BB%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BC%9A%E7%94%A8%E5%88%B0-cas/</guid>
+      <description>在本课时中，我将讲解 CAS 的应用场景，什么时候会用到 CAS？
+并发容器 Doug Lea 大神在 JUC 包中大量使用了 CAS 技术，该技术既能保证安全性，又不需要使用互斥锁，能大大提升工具类的性能。下面我将通过两个例子来展示 CAS 在并发容器中的使用情况。
+案例一：ConcurrentHashMap 先来看看并发容器 ConcurrentHashMap 的例子，我们截取部分 putVal 方法的代码，如下所示：
+final V putVal(K key, V value, boolean onlyIfAbsent) {if (key == null || value == null) throw new NullPointerException();int hash = spread(key.hashCode());int binCount = 0;for (Node&amp;lt;K,V&amp;gt;[] tab = table;;) {Node&amp;lt;K,V&amp;gt; f; int n, i, fh;if (tab == null || (n = tab.length) == 0)tab = initTable();else if ((f = tabAt(tab, i = (n - 1) &amp;amp; hash)) == null) {if (casTabAt(tab, i, null,new Node&amp;lt;K,V&amp;gt;(hash, key, value, null)))break; // no lock when adding to empty bin}//以下部分省略.</description>
+    </item>
+    
+    <item>
+      <title>64 你知道什么是 CAS 吗？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/64-%E4%BD%A0%E7%9F%A5%E9%81%93%E4%BB%80%E4%B9%88%E6%98%AF-cas-%E5%90%97/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/64-%E4%BD%A0%E7%9F%A5%E9%81%93%E4%BB%80%E4%B9%88%E6%98%AF-cas-%E5%90%97/</guid>
+      <description>本课时，我将讲解 CAS。
+CAS 简介 CAS 其实是我们面试中的常客，因为它是原子类的底层原理，同时也是乐观锁的原理，所以当你去面试的时候，经常会遇到这样的问题“你知道哪些类型的锁”？你可能会回答“悲观锁和乐观锁”，那么下一个问题很有可能是问乐观锁的原理，也就是和 CAS 相关的问题，当然也有可能会继续深入问你 CAS 的应用场景或者是缺点等问题。在本课时和接下来的这两个课时里，我将带领你学习如何回答这些问题。
+首先我们来看一下 CAS 是什么，它的英文全称是 Compare-And-Swap，中文叫做“比较并交换”，它是一种思想、一种算法。
+在多线程的情况下，各个代码的执行顺序是不能确定的，所以为了保证并发安全，我们可以使用互斥锁。而 CAS 的特点是避免使用互斥锁，当多个线程同时使用 CAS 更新同一个变量时，只有其中一个线程能够操作成功，而其他线程都会更新失败。不过和同步互斥锁不同的是，更新失败的线程并不会被阻塞，而是被告知这次由于竞争而导致的操作失败，但还可以再次尝试。
+CAS 被广泛应用在并发编程领域中，以实现那些不会被打断的数据交换操作，从而就实现了无锁的线程安全。
+CAS 的思路 在大多数处理器的指令中，都会实现 CAS 相关的指令，这一条指令就可以完成“比较并交换”的操作，也正是由于这是一条（而不是多条）CPU 指令，所以 CAS 相关的指令是具备原子性的，这个组合操作在执行期间不会被打断，这样就能保证并发安全。由于这个原子性是由 CPU 保证的，所以无需我们程序员来操心。
+CAS 有三个操作数：内存值 V、预期值 A、要修改的值 B。CAS 最核心的思路就是，仅当预期值 A 和当前的内存值 V 相同时，才将内存值修改为 B。
+我们对此展开描述一下：CAS 会提前假定当前内存值 V 应该等于值 A，而值 A 往往是之前读取到当时的内存值 V。在执行 CAS 时，如果发现当前的内存值 V 恰好是值 A 的话，那 CAS 就会把内存值 V 改成值 B，而值 B 往往是在拿到值 A 后，在值 A 的基础上经过计算而得到的。如果执行 CAS 时发现此时内存值 V 不等于值 A，则说明在刚才计算 B 的期间内，内存值已经被其他线程修改过了，那么本次 CAS 就不应该再修改了，可以避免多人同时修改导致出错。这就是 CAS 的主要思路和流程。</description>
+    </item>
+    
+    <item>
+      <title>63 单例模式的双重检查锁模式为什么必须加 volatile？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/63-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8F%8C%E9%87%8D%E6%A3%80%E6%9F%A5%E9%94%81%E6%A8%A1%E5%BC%8F%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%85%E9%A1%BB%E5%8A%A0-volatile/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:40 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/63-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8F%8C%E9%87%8D%E6%A3%80%E6%9F%A5%E9%94%81%E6%A8%A1%E5%BC%8F%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%85%E9%A1%BB%E5%8A%A0-volatile/</guid>
+      <description>本课时我们主要讲解单例模式的双重检查锁模式为什么必须加 volatile？
+什么是单例模式 单例模式指的是，保证一个类只有一个实例，并且提供一个可以全局访问的入口。
+为什么需要使用单例模式 那么我们为什么需要单例呢？其中**一个理由，那就是为了节省内存、节省计算。**因为在很多情况下，我们只需要一个实例就够了，如果出现更多的实例，反而纯属浪费。
+下面我们举一个例子来说明这个情况，以一个初始化比较耗时的类来说，代码如下所示：
+public class ExpensiveResource {public ExpensiveResource() {field1 = // 查询数据库field2 = // 然后对查到的数据做大量计算field3 = // 加密、压缩等耗时操作}}这个类在构造的时候，需要查询数据库并对查到的数据做大量计算，所以在第一次构造时，我们花了很多时间来初始化这个对象。但是假设数据库里的数据是不变的，我们就可以把这个对象保存在内存中，那么以后开发的时候就可以直接用这同一个实例了，不需要再次构建新实例。如果每次都重新生成新的实例，则会造成更多的浪费，实在没有必要。
+接下来看看需要单例的第二个理由，那就是为了保证结果的正确。**比如我们需要一个全局的计数器，用来统计人数，如果有多个实例，反而会造成混乱。
+另外呢，就是为了方便管理。**很多工具类，我们只需要一个实例，那么我们通过统一的入口，比如通过 getInstance 方法去获取这个单例是很方便的，太多实例不但没有帮助，反而会让人眼花缭乱。
+一般单例模式的类结构如下图所示：有一个私有的 Singleton 类型的 singleton 对象；同时构造方法也是私有的，为了防止他人调用构造函数来生成实例；另外还会有一个 public 的 getInstance 方法，可通过这个方法获取到单例。
+双重检查锁模式的写法 单例模式有多种写法，我们重点介绍一下和 volatile 强相关的双重检查锁模式的写法，代码如下所示：
+public class Singleton {private static volatile Singleton singleton;private Singleton() {}public static Singleton getInstance() {if (singleton == null) {synchronized (Singleton.</description>
+    </item>
+    
+    <item>
+      <title>62 volatile 的作用是什么？与 synchronized 有什么异同？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/62-volatile-%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%E4%B8%8E-synchronized-%E6%9C%89%E4%BB%80%E4%B9%88%E5%BC%82%E5%90%8C/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:39 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/62-volatile-%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%E4%B8%8E-synchronized-%E6%9C%89%E4%BB%80%E4%B9%88%E5%BC%82%E5%90%8C/</guid>
+      <description>本课时我们主要介绍 volatile 的作用和适用场景，以及它与 synchronized 有什么异同。
+volatile 是什么 首先我们就来介绍一下 volatile，它是 Java 中的一个关键字，是一种同步机制。当某个变量是共享变量，且这个变量是被 volatile 修饰的，那么在修改了这个变量的值之后，再读取该变量的值时，可以保证获取到的是修改后的最新的值，而不是过期的值。
+相比于 synchronized 或者 Lock，volatile 是更轻量的，因为使用 volatile 不会发生上下文切换等开销很大的情况，不会让线程阻塞。但正是由于它的开销相对比较小，所以它的效果，也就是能力，相对也小一些。
+虽然说 volatile 是用来保证线程安全的，但是它做不到像 synchronized 那样的同步保护，volatile 仅在很有限的场景中才能发挥作用，所以下面就让我们来看一下它的适用场景，我们会先给出不适合使用 volatile 的场景，再给出两种适合使用 volatile 的场景。
+volatile 的适用场合 不适用：a++ 首先我们就来看一下不适合使用 volatile 的场景，volatile 不适合运用于需要保证原子性的场景，比如更新的时候需要依赖原来的值，而最典型的就是 a++ 的场景，我们仅靠 volatile 是不能保证 a++ 的线程安全的。代码如下所示：
+public class DontVolatile implements Runnable {volatile int a;AtomicInteger realA = new AtomicInteger();public static void main(String[] args) throws InterruptedException {Runnable r = new DontVolatile();Thread thread1 = new Thread(r);Thread thread2 = new Thread(r);thread1.</description>
+    </item>
+    
+    <item>
+      <title>61 什么是 happens-before 规则？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/61-%E4%BB%80%E4%B9%88%E6%98%AF-happens-before-%E8%A7%84%E5%88%99/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:38 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/61-%E4%BB%80%E4%B9%88%E6%98%AF-happens-before-%E8%A7%84%E5%88%99/</guid>
+      <description>本课时我们主要讲解什么是 happens-before 关系。
+什么是 happens-before 关系 Happens-before 关系是用来描述和可见性相关问题的：如果第一个操作 happens-before 第二个操作（也可以描述为，第一个操作和第二个操作之间满足 happens-before 关系），那么我们就说第一个操作对于第二个操作一定是可见的，也就是第二个操作在执行时就一定能保证看见第一个操作执行的结果。
+不具备 happens-before 关系的例子 我们先来举一个不具备 happens-before 关系的例子，从宏观上进一步理解 happens-before 关系想要表达的内容。我们来看看下面的代码：
+public class Visibility {int x = 0;public void write() {x = 1;}public void read() {int y = x;}}代码很简单，类里面有一个 int x 变量 ，初始值为 0，而 write 方法的作用是把 x 的值改写为 1， 而 read 方法的作用则是读取 x 的值。
+如果有两个线程，分别执行 write 和 read 方法，那么由于这两个线程之间没有相互配合的机制，所以 write 和 read 方法内的代码不具备 happens-before 关系，其中的变量的可见性无法保证，下面我们用例子说明这个情况。</description>
+    </item>
+    
+    <item>
+      <title>60 主内存和工作内存的关系？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/60-%E4%B8%BB%E5%86%85%E5%AD%98%E5%92%8C%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AD%98%E7%9A%84%E5%85%B3%E7%B3%BB/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:37 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/60-%E4%B8%BB%E5%86%85%E5%AD%98%E5%92%8C%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AD%98%E7%9A%84%E5%85%B3%E7%B3%BB/</guid>
+      <description>本课时我们主要讲解主内存和工作内存的关系。
+CPU 有多级缓存，导致读的数据过期 由于 CPU 的处理速度很快，相比之下，内存的速度就显得很慢，所以为了提高 CPU 的整体运行效率，减少空闲时间，在 CPU 和内存之间会有 cache 层，也就是缓存层的存在。虽然缓存的容量比内存小，但是缓存的速度却比内存的速度要快得多，其中 L1 缓存的速度仅次于寄存器的速度。结构示意图如下所示：
+在图中，从下往上分别是内存，L3 缓存、L2 缓存、L1 缓存，寄存器，然后最上层是 CPU 的 4个核心。从内存，到 L3 缓存，再到 L2 和 L1 缓存，它们距离 CPU 的核心越来越近了，越靠近核心，其容量就越小，但是速度也越快。正是由于缓存层的存在，才让我们的 CPU 能发挥出更好的性能。
+其实，线程间对于共享变量的可见性问题，并不是直接由多核引起的，而是由我们刚才讲到的这些 L3 缓存、L2 缓存、L1 缓存，也就是多级缓存引起的：每个核心在获取数据时，都会将数据从内存一层层往上读取，同样，后续对于数据的修改也是先写入到自己的 L1 缓存中，然后等待时机再逐层往下同步，直到最终刷回内存。
+假设 core 1 修改了变量 a 的值，并写入到了 core 1 的 L1 缓存里，但是还没来得及继续往下同步，由于 core 1 有它自己的的 L1 缓存，core 4 是无法直接读取 core 1 的 L1 缓存的值的，那么此时对于 core 4 而言，变量 a 的值就不是 core 1 修改后的最新的值，core 4 读取到的值可能是一个过期的值，从而引起多线程时可见性问题的发生。</description>
+    </item>
+    
+    <item>
+      <title>59 什么是“内存可见性”问题？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/59-%E4%BB%80%E4%B9%88%E6%98%AF%E5%86%85%E5%AD%98%E5%8F%AF%E8%A7%81%E6%80%A7%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:36 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/59-%E4%BB%80%E4%B9%88%E6%98%AF%E5%86%85%E5%AD%98%E5%8F%AF%E8%A7%81%E6%80%A7%E9%97%AE%E9%A2%98/</guid>
+      <description>本课时我们主要讲解什么是“可见性”问题？
+我们先从两个案例来入手，看一看什么是可见性问题。
+案例一 我们来看看下面的代码，有一个变量 x，它是 int 类型的，如下所示：
+public class Visibility {int x = 0;public void write() {x = 1;}public void read() {int y = x;}}这是一段很简单的代码，类中有两个方法：
+ write 方法，作用是给 x 赋值，代码中，把 x 赋值为 1，由于 x 的初始值是 0，所以执行 write 方法相当于改变了 x 的值； read 方法，作用是把 x 读取出来，读取的时候我们用了一个新的 int 类型变量的 y 来接收 x 的值。  我们假设有两个线程来执行上述代码，第 1 个线程执行的是 write 方法，第 2 个线程执行的是 read 方法。下面我们来分析一下，代码在实际运行过程中的情景是怎么样的，如下图所示：
+在图中可以看出，由于 x 的初始值为 0，所以对于左边的第 1 个线程和右边的第 2 个线程而言，它们都可以从主内存中去获取到这个信息，对两个线程来说 x 都是 0。可是此时我们假设第 1 个线程先去执行 write 方法，它就把 x 的值从 0 改为了 1，但是它改动的动作并不是直接发生在主内存中的，而是会发生在第 1 个线程的工作内存中，如下图所示。</description>
+    </item>
+    
+    <item>
+      <title>58 Java 中的原子操作有哪些注意事项？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/58-java-%E4%B8%AD%E7%9A%84%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C%E6%9C%89%E5%93%AA%E4%BA%9B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:35 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/58-java-%E4%B8%AD%E7%9A%84%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C%E6%9C%89%E5%93%AA%E4%BA%9B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/</guid>
+      <description>本课时我们主要讲解 Java 中的原子性和原子操作。
+什么是原子性和原子操作 在编程中，具备原子性的操作被称为原子操作。原子操作是指一系列的操作，要么全部发生，要么全部不发生，不会出现执行一半就终止的情况。
+比如转账行为就是一个原子操作，该过程包含扣除余额、银行系统生成转账记录、对方余额增加等一系列操作。虽然整个过程包含多个操作，但由于这一系列操作被合并成一个原子操作，所以它们要么全部执行成功，要么全部不执行，不会出现执行一半的情况。比如我的余额已经扣除，但是对方的余额却不增加，这种情况是不会出现的，所以说转账行为是具备原子性的。而具有原子性的原子操作，天然具备线程安全的特性。
+下面我们举一个不具备原子性的例子，比如 i++ 这一行代码在 CPU 中执行时，可能会从一行代码变为以下的 3 个指令：
+ 第一个步骤是读取； 第二个步骤是增加； 第三个步骤是保存。  这就说明 i++ 是不具备原子性的，同时也证明了 i++ 不是线程安全的，正如第 06 课时中所介绍的那样。下面我们简单的复习一下，如何发生的线程不安全问题，如下所示：
+我们根据箭头指向依次看，线程 1 首先拿到 i=1 的结果，然后进行 i+1 操作，但假设此时 i+1 的结果还没有来得及被保存下来，线程 1 就被切换走了，于是 CPU 开始执行线程 2，它所做的事情和线程 1 是一样的 i++ 操作，但此时我们想一下，它拿到的 i 是多少？实际上和线程 1 拿到的 i 结果一样，同样是 1，为什么呢？因为线程 1 虽然对 i 进行了 +1 操作，但结果没有保存，所以线程 2 看不到修改后的结果。
+然后假设等线程 2 对 i 进行 +1 操作后，又切换到线程 1，让线程 1 完成未完成的操作，即将 i+1 的结果 2 保存下来，然后又切换到线程 2 完成 i=2 的保存操作，虽然两个线程都执行了对 i 进行 +1 的操作，但结果却最终保存了 i=2，而不是我们期望的 i=3，这样就发生了线程安全问题，导致数据结果错误，这也是最典型的线程安全问题。</description>
+    </item>
+    
+    <item>
+      <title>57 什么是指令重排序？为什么要重排序？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/57-%E4%BB%80%E4%B9%88%E6%98%AF%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92%E5%BA%8F%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%87%8D%E6%8E%92%E5%BA%8F/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:34 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/57-%E4%BB%80%E4%B9%88%E6%98%AF%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92%E5%BA%8F%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%87%8D%E6%8E%92%E5%BA%8F/</guid>
+      <description>本课时我们主要介绍什么是重排序？为什么要重排序？
+什么是重排序 假设我们写了一个 Java 程序，包含一系列的语句，我们会默认期望这些语句的实际运行顺序和写的代码顺序一致。但实际上，编译器、JVM 或者 CPU 都有可能出于优化等目的，对于实际指令执行的顺序进行调整，这就是重排序。
+重排序的好处：提高处理速度 你可能感到很困惑，为什么要重排序？这样做有什么好处呢？
+我们来举一个具体的例子。
+图中左侧是 3 行 Java 代码，右侧是这 3 行代码可能被转化成的指令。可以看出 a = 100 对应的是 Load a、Set to 100、Store a，意味着从主存中读取 a 的值，然后把值设置为 100，并存储回去，同理， b = 5 对应的是下面三行 Load b、Set to 5、Store b，最后的 a = a + 10，对应的是 Load a、Set to 110、Store a。如果你仔细观察，会发现这里有两次“Load a”和两次“Store a”，说明存在一定的重排序的优化空间。
+经过重排序之后，情况如下图所示：
+重排序后， a 的两次操作被放到一起，指令执行情况变为 Load a、Set to 100、Set to 110、 Store a。下面和 b 相关的指令不变，仍对应 Load b、 Set to 5、Store b。</description>
+    </item>
+    
+    <item>
+      <title>56 讲一讲什么是 Java 内存模型？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/56-%E8%AE%B2%E4%B8%80%E8%AE%B2%E4%BB%80%E4%B9%88%E6%98%AF-java-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:33 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/56-%E8%AE%B2%E4%B8%80%E8%AE%B2%E4%BB%80%E4%B9%88%E6%98%AF-java-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/</guid>
+      <description>本课时我们主要介绍什么是 Java 内存模型？
+从本课时开始，我们会进入到 Java 内存模型的学习。如果你想了解 Java 并发的底层原理，那么 Java 内存模型的知识非常重要，同时也是一个分水岭，可以区分出我们是仅停留在如何使用并发工具，还是能更进一步，知其所以然。
+容易混淆：JVM 内存结构 VS Java 内存模型 Java 作为一种面向对象的语言，有很多概念，从名称上看起来比较相似，比如 JVM 内存结构、Java 内存模型，这是两个截然不同的概念，但是很容易混淆。网络上也有不少讲 Java 内存模型的文章，其实写的是 JVM 内存结构。
+所以我们就先从整体上概括一下这两者的主要作用：
+ JVM 内存结构和 Java 虚拟机的运行时区域有关； Java 内存模型和 Java 的并发编程有关。  所以可以看出，这两个概念其实是有很大区别的。下面我们先来简要介绍一下 JVM 内存结构。
+JVM 内存结构 我们都知道，Java 代码是要运行在虚拟机上的，而虚拟机在执行 Java 程序的过程中会把所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途。在《Java 虚拟机规范（Java SE 8）》中描述了 JVM 运行时内存区域结构可分为以下 6 个区。
+**堆区（Heap）****：**堆是存储类实例和数组的，通常是内存中最大的一块。实例很好理解，比如 new Object() 就会生成一个实例；而数组也是保存在堆上面的，因为在 Java 中，数组也是对象。
+**虚拟机栈（Java Virtual Machine Stacks）****：**它保存局部变量和部分结果，并在方法调用和返回中起作用。
+**方法区（Method Area）****：**它存储每个类的结构，例如运行时的常量池、字段和方法数据，以及方法和构造函数的代码，包括用于类初始化以及接口初始化的特殊方法。
+**本地方法栈（Native Method Stacks）****：**与虚拟机栈基本类似，区别在于虚拟机栈为虚拟机执行的 Java 方法服务，而本地方法栈则是为 Native 方法服务。</description>
+    </item>
+    
+    <item>
+      <title>55 Condition、object.wait() 和 notify() 的关系？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/55-conditionobject.wait-%E5%92%8C-notify-%E7%9A%84%E5%85%B3%E7%B3%BB/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:32 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/55-conditionobject.wait-%E5%92%8C-notify-%E7%9A%84%E5%85%B3%E7%B3%BB/</guid>
+      <description>本课时我们主要介绍 Condition、Object 的 wait() 和 notify() 的关系。
+下面先讲一下 Condition 这个接口，来看看它的作用、如何使用，以及需要注意的点有哪些。
+Condition接口 作用 我们假设线程 1 需要等待某些条件满足后，才能继续运行，这个条件会根据业务场景不同，有不同的可能性，比如等待某个时间点到达或者等待某些任务处理完毕。在这种情况下，我们就可以执行 Condition 的 await 方法，一旦执行了该方法，这个线程就会进入 WAITING 状态。
+通常会有另外一个线程，我们把它称作线程 2，它去达成对应的条件，直到这个条件达成之后，那么，线程 2 调用 Condition 的 signal 方法 [或 signalAll 方法]，代表“这个条件已经达成了，之前等待这个条件的线程现在可以苏醒了”。这个时候，JVM 就会找到等待该 Condition 的线程，并予以唤醒，根据调用的是 signal 方法或 signalAll 方法，会唤醒 1 个或所有的线程。于是，线程 1 在此时就会被唤醒，然后它的线程状态又会回到 Runnable 可执行状态。
+代码案例 我们用一个代码来说明这个问题，如下所示：
+public class ConditionDemo {private ReentrantLock lock = new ReentrantLock();private Condition condition = lock.newCondition();void method1() throws InterruptedException {lock.lock();try{System.out.println(Thread.currentThread().getName()+&amp;quot;:条件不满足，开始await&amp;quot;);condition.</description>
+    </item>
+    
+    <item>
+      <title>54 CyclicBarrier 和 CountdownLatch 有什么异同？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/54-cyclicbarrier-%E5%92%8C-countdownlatch-%E6%9C%89%E4%BB%80%E4%B9%88%E5%BC%82%E5%90%8C/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:31 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/54-cyclicbarrier-%E5%92%8C-countdownlatch-%E6%9C%89%E4%BB%80%E4%B9%88%E5%BC%82%E5%90%8C/</guid>
+      <description>本课时我们主要介绍 CyclicBarrier 和 CountDownLatch 有什么不同。
+CyclicBarrier 作用 CyclicBarrier 和 CountDownLatch 确实有一定的相似性，它们都能阻塞一个或者一组线程，直到某种预定的条件达到之后，这些之前在等待的线程才会统一出发，继续向下执行。正因为它们有这个相似点，你可能会认为它们的作用是完全一样的，其实并不是。
+CyclicBarrier 可以构造出一个集结点，当某一个线程执行 await() 的时候，它就会到这个集结点开始等待，等待这个栅栏被撤销。直到预定数量的线程都到了这个集结点之后，这个栅栏就会被撤销，之前等待的线程就在此刻统一出发，继续去执行剩下的任务。
+举一个生活中的例子。假设我们班级春游去公园里玩，并且会租借三人自行车，每个人都可以骑，但由于这辆自行车是三人的，所以要凑齐三个人才能骑一辆，而且从公园大门走到自行车驿站需要一段时间。那么我们模拟这个场景，写出如下代码：
+public class CyclicBarrierDemo {public static void main(String[] args) {CyclicBarrier cyclicBarrier = new CyclicBarrier(3);for (int i = 0; i &amp;lt; 6; i++) {new Thread(new Task(i + 1, cyclicBarrier)).start();}}static class Task implements Runnable {private int id;private CyclicBarrier cyclicBarrier;public Task(int id, CyclicBarrier cyclicBarrier) {this.id = id;this.</description>
+    </item>
+    
+    <item>
+      <title>53 CountDownLatch 是如何安排线程执行顺序的？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/53-countdownlatch-%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%89%E6%8E%92%E7%BA%BF%E7%A8%8B%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F%E7%9A%84/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:30 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/53-countdownlatch-%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%89%E6%8E%92%E7%BA%BF%E7%A8%8B%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F%E7%9A%84/</guid>
+      <description>本课时我们主要介绍 CountDownLatch 是如何安排线程执行顺序的。
+我们先来介绍一下 CountDownLatch，它是 JDK 提供的并发流程控制的工具类，它是在 java.util.concurrent 包下，在 JDK1.5 以后加入的。下面举个例子来说明它主要在什么场景下使用。
+比如我们去游乐园坐激流勇进，有的时候游乐园里人不是那么多，这时，管理员会让你稍等一下，等人坐满了再开船，这样的话可以在一定程度上节约游乐园的成本。座位有多少，就需要等多少人，这就是 CountDownLatch 的核心思想，等到一个设定的数值达到之后，才能出发。
+流程图 我们把激流勇进的例子用流程图的方式来表示：
+可以看到，最开始 CountDownLatch 设置的初始值为 3，然后 T0 线程上来就调用 await 方法，它的作用是让这个线程开始等待，等待后面的 T1、T2、T3，它们每一次调用 countDown 方法，3 这个数值就会减 1，也就是从 3 减到 2，从 2 减到 1，从 1 减到 0，一旦减到 0 之后，这个 T0 就相当于达到了自己触发继续运行的条件，于是它就恢复运行了。
+主要方法介绍 下面介绍一下 CountDownLatch 的主要方法。
+（1）构造函数：public CountDownLatch(int count) { };
+它的构造函数是传入一个参数，该参数 count 是需要倒数的数值。
+（2）await()：调用 await() 方法的线程开始等待，直到倒数结束，也就是 count 值为 0 的时候才会继续执行。
+（3）await(long timeout, TimeUnit unit)：await() 有一个重载的方法，里面会传入超时参数，这个方法的作用和 await() 类似，但是这里可以设置超时时间，如果超时就不再等待了。
+（4）countDown()：把数值倒数 1，也就是将 count 值减 1，直到减为 0 时，之前等待的线程会被唤起。</description>
+    </item>
+    
+    <item>
+      <title>52 信号量能被 FixedThreadPool 替代吗？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/52-%E4%BF%A1%E5%8F%B7%E9%87%8F%E8%83%BD%E8%A2%AB-fixedthreadpool-%E6%9B%BF%E4%BB%A3%E5%90%97/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:29 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/52-%E4%BF%A1%E5%8F%B7%E9%87%8F%E8%83%BD%E8%A2%AB-fixedthreadpool-%E6%9B%BF%E4%BB%A3%E5%90%97/</guid>
+      <description>这一课时我们将介绍控制并发流程的工具类，作用就是更容易地让线程之间相互配合，比如让线程 A 等待线程 B 执行完毕后再继续执行，来满足业务逻辑。本课时我们从 Semaphore（信号量）开始介绍。
+Semaphore 信号量 介绍 从图中可以看出，信号量的一个最主要的作用就是，来控制那些需要限制并发访问量的资源。具体来讲，信号量会维护“许可证”的计数，而线程去访问共享资源前，必须先拿到许可证。线程可以从信号量中去“获取”一个许可证，一旦线程获取之后，信号量持有的许可证就转移过去了，所以信号量手中剩余的许可证要减一。
+同理，线程也可以“释放”一个许可证，如果线程释放了许可证，这个许可证相当于被归还给信号量了，于是信号量中的许可证的可用数量加一。当信号量拥有的许可证数量减到 0 时，如果下个线程还想要获得许可证，那么这个线程就必须等待，直到之前得到许可证的线程释放，它才能获取。由于线程在没有获取到许可证之前不能进一步去访问被保护的共享资源，所以这就控制了资源的并发访问量，这就是整体思路。
+应用实例、使用场景 背景
+我们来看一个具体的场景：
+在这个场景中，我们的服务是中间这个方块儿，左侧是请求，右侧是我们所依赖的那个慢服务。出于种种原因（比如计算量大、依赖的下游服务多等），右边的慢服务速度很慢，并且它可以承受的请求数量也很有限，一旦有太多的请求同时到达它这边，可能会导致它这个服务不可用，会压垮它。所以我们必须要保护它，不能让太多的线程同时去访问。那怎么才能做到这件事情呢？
+在讲解怎么做到这个事情之前，我们先来看一看，在通常的场景下，我们用一个普通线程池能不能做到这件事情。
+public class SemaphoreDemo1 {public static void main(String[] args) {ExecutorService service = Executors.newFixedThreadPool(50);for (int i = 0; i &amp;lt; 1000; i++) {service.submit(new Task());}service.shutdown();}static class Task implements Runnable {@Overridepublic void run() {System.out.println(Thread.currentThread().getName() + &amp;quot;调用了慢服务&amp;quot;);try {//模拟慢服务Thread.sleep(3000);} catch (InterruptedException e) {e.</description>
+    </item>
+    
+    <item>
+      <title>51 如何利用 CompletableFuture 实现“旅游平台”问题？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/51-%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8-completablefuture-%E5%AE%9E%E7%8E%B0%E6%97%85%E6%B8%B8%E5%B9%B3%E5%8F%B0%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:28 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/51-%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8-completablefuture-%E5%AE%9E%E7%8E%B0%E6%97%85%E6%B8%B8%E5%B9%B3%E5%8F%B0%E9%97%AE%E9%A2%98/</guid>
+      <description>本课时我们主要讲解如何利用 CompletableFuture 实现旅游平台问题。
+旅游平台问题 什么是旅游平台问题呢？如果想要搭建一个旅游平台，经常会有这样的需求，那就是用户想同时获取多家航空公司的航班信息。比如，从北京到上海的机票钱是多少？有很多家航空公司都有这样的航班信息，所以应该把所有航空公司的航班、票价等信息都获取到，然后再聚合。由于每个航空公司都有自己的服务器，所以分别去请求它们的服务器就可以了，比如请求国航、海航、东航等，如下图所示：
+串行 一种比较原始的方式是用串行的方式来解决这个问题。
+比如我们想获取价格，要先去访问国航，在这里叫作 website 1，然后再去访问海航 website 2，以此类推。当每一个请求发出去之后，等它响应回来以后，我们才能去请求下一个网站，这就是串行的方式。
+这样做的效率非常低下，比如航空公司比较多，假设每个航空公司都需要 1 秒钟的话，那么用户肯定等不及，所以这种方式是不可取的。
+并行 接下来我们就对刚才的思路进行改进，最主要的思路就是把串行改成并行，如下图所示：
+我们可以并行地去获取这些机票信息，然后再把机票信息给聚合起来，这样的话，效率会成倍的提高。
+这种并行虽然提高了效率，但也有一个缺点，那就是会“一直等到所有请求都返回”。如果有一个网站特别慢，那么你不应该被那个网站拖累，比如说某个网站打开需要二十秒，那肯定是等不了这么长时间的，所以我们需要一个功能，那就是有超时的获取。
+有超时的并行获取 下面我们就来看看下面这种有超时的并行获取的情况。
+在这种情况下，就属于有超时的并行获取，同样也在并行的去请求各个网站信息。但是我们规定了一个时间的超时，比如 3 秒钟，那么到 3 秒钟的时候如果都已经返回了那当然最好，把它们收集起来即可；但是如果还有些网站没能及时返回，我们就把这些请求给忽略掉，这样一来用户体验就比较好了，它最多只需要等固定的 3 秒钟就能拿到信息，虽然拿到的可能不是最全的，但是总比一直等更好。
+想要实现这个目标有几种实现方案，我们一个一个的来看看。
+线程池的实现 第一个实现方案是用线程池，我们来看一下代码。
+public class ThreadPoolDemo {ExecutorService threadPool = Executors.newFixedThreadPool(3);public static void main(String[] args) throws InterruptedException {ThreadPoolDemo threadPoolDemo = new ThreadPoolDemo();System.out.println(threadPoolDemo.getPrices());}private Set&amp;lt;Integer&amp;gt; getPrices() throws InterruptedException {Set&amp;lt;Integer&amp;gt; prices = Collections.synchronizedSet(new HashSet&amp;lt;Integer&amp;gt;());threadPool.submit(new Task(123, prices));threadPool.submit(new Task(456, prices));threadPool.</description>
+    </item>
+    
+    <item>
+      <title>50 使用 Future 有哪些注意点？Future 产生新的线程了吗？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/50-%E4%BD%BF%E7%94%A8-future-%E6%9C%89%E5%93%AA%E4%BA%9B%E6%B3%A8%E6%84%8F%E7%82%B9future-%E4%BA%A7%E7%94%9F%E6%96%B0%E7%9A%84%E7%BA%BF%E7%A8%8B%E4%BA%86%E5%90%97/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:27 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/50-%E4%BD%BF%E7%94%A8-future-%E6%9C%89%E5%93%AA%E4%BA%9B%E6%B3%A8%E6%84%8F%E7%82%B9future-%E4%BA%A7%E7%94%9F%E6%96%B0%E7%9A%84%E7%BA%BF%E7%A8%8B%E4%BA%86%E5%90%97/</guid>
+      <description>在本课时我们将讲解使用 Future 有哪些注意点，以及 Future 产生新的线程了吗？
+Future 的注意点 1. 当 for 循环批量获取 Future 的结果时容易 block，get 方法调用时应使用 timeout 限制
+对于 Future 而言，第一个注意点就是，当 for 循环批量获取 Future 的结果时容易 block，在调用 get 方法时，应该使用 timeout 来限制。
+下面我们具体看看这是一个什么情况。
+首先，假设一共有四个任务需要执行，我们都把它放到线程池中，然后它获取的时候是按照从 1 到 4 的顺序，也就是执行 get() 方法来获取的，代码如下所示：
+public class FutureDemo {public static void main(String[] args) {//创建线程池ExecutorService service = Executors.newFixedThreadPool(10);//提交任务，并用 Future 接收返回结果ArrayList&amp;lt;Future&amp;gt; allFutures = new ArrayList&amp;lt;&amp;gt;();for (int i = 0; i &amp;lt; 4; i++) {Future&amp;lt;String&amp;gt; future;if (i == 0 || i == 1) {future = service.</description>
+    </item>
+    
+    <item>
+      <title>49 Future 的主要功能是什么？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/49-future-%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD%E6%98%AF%E4%BB%80%E4%B9%88/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:26 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/49-future-%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD%E6%98%AF%E4%BB%80%E4%B9%88/</guid>
+      <description>在本课时我们将讲解 Future 的主要功能是什么。
+Future 类 Future 的作用 Future 最主要的作用是，比如当做一定运算的时候，运算过程可能比较耗时，有时会去查数据库，或是繁重的计算，比如压缩、加密等，在这种情况下，如果我们一直在原地等待方法返回，显然是不明智的，整体程序的运行效率会大大降低。我们可以把运算的过程放到子线程去执行，再通过 Future 去控制子线程执行的计算过程，最后获取到计算结果。这样一来就可以把整个程序的运行效率提高，是一种异步的思想。
+Callable 和 Future 的关系 接下来我们介绍下 Callable 和 Future 的关系，前面讲过，Callable 接口相比于 Runnable 的一大优势是可以有返回结果，那这个返回结果怎么获取呢？就可以用 Future 类的 get 方法来获取 。因此，Future 相当于一个存储器，它存储了 Callable 的 call 方法的任务结果。除此之外，我们还可以通过 Future 的 isDone 方法来判断任务是否已经执行完毕了，还可以通过 cancel 方法取消这个任务，或限时获取任务的结果等，总之 Future 的功能比较丰富。有了这样一个从宏观上的概念之后，我们就来具体看一下 Future 类的主要方法。
+Future 的方法和用法 首先看一下 Future 接口的代码，一共有 5 个方法，代码如下所示：
+public interface Future&amp;lt;V&amp;gt; {boolean cancel(boolean mayInterruptIfRunning);boolean isCancelled();boolean isDone();V get() throws InterruptedException, ExecutionException;V get(long timeout, TimeUnit unit)throws InterruptedException, ExecutionException, TimeoutExceptio}其中，第 5 个方法是对第 4 个方法的重载，方法名一样，但是参数不一样。</description>
+    </item>
+    
+    <item>
+      <title>48 Callable 和 Runnable 的不同？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/48-callable-%E5%92%8C-runnable-%E7%9A%84%E4%B8%8D%E5%90%8C/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:25 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/48-callable-%E5%92%8C-runnable-%E7%9A%84%E4%B8%8D%E5%90%8C/</guid>
+      <description>你好，欢迎来到第 48 课时，在本课时我们将讲解 Callable 和 Runnable 的不同。
+为什么需要 Callable？Runnable 的缺陷 先来看一下，为什么需要 Callable？要想回答这个问题，我们先来看看现有的 Runnable 有哪些缺陷？
+不能返回一个返回值 第一个缺陷，对于 Runnable 而言，它不能返回一个返回值，虽然可以利用其他的一些办法，比如在 Runnable 方法中写入日志文件或者修改某个共享的对象的办法，来达到保存线程执行结果的目的，但这种解决问题的行为千曲百折，属于曲线救国，效率着实不高。
+实际上，在很多情况下执行一个子线程时，我们都希望能得到执行的任务的结果，也就是说，我们是需要得到返回值的，比如请求网络、查询数据库等。可是 Runnable 不能返回一个返回值，这是它第一个非常严重的缺陷。
+不能抛出 checked Exception 第二个缺陷就是不能抛出 checked Exception，如下面这段代码所示：
+public class RunThrowException {/*** 普通方法内可以 throw 异常，并在方法签名上声明 throws*/public void normalMethod() throws Exception {throw new IOException();}Runnable runnable = new Runnable() {/*** run方法上无法声明 throws 异常，且run方法内无法 throw 出 checked Exception，除非使用try catch进行处理*/@Overridepublic void run() {try {throw new IOException();} catch (IOException e) {e.</description>
+    </item>
+    
+    <item>
+      <title>47 内存泄漏——为何每次用完 ThreadLocal 都要调用 remove()？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/47-%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%BA%E4%BD%95%E6%AF%8F%E6%AC%A1%E7%94%A8%E5%AE%8C-threadlocal-%E9%83%BD%E8%A6%81%E8%B0%83%E7%94%A8-remove/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:24 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/47-%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%BA%E4%BD%95%E6%AF%8F%E6%AC%A1%E7%94%A8%E5%AE%8C-threadlocal-%E9%83%BD%E8%A6%81%E8%B0%83%E7%94%A8-remove/</guid>
+      <description>在本课时我们主要讲解为什么用完 ThreadLocal 之后都要求调用 remove 方法？
+首先，我们要知道这个事情和内存泄漏有关，所以就让我们先来看一下什么是内存泄漏。
+什么是内存泄漏 内存泄漏指的是，当某一个对象不再有用的时候，占用的内存却不能被回收，这就叫作内存泄漏。
+因为通常情况下，如果一个对象不再有用，那么我们的垃圾回收器 GC，就应该把这部分内存给清理掉。这样的话，就可以让这部分内存后续重新分配到其他的地方去使用；否则，如果对象没有用，但一直不能被回收，这样的垃圾对象如果积累的越来越多，则会导致我们可用的内存越来越少，最后发生内存不够用的 OOM 错误。
+下面我们来分析一下，在 ThreadLocal 中这样的内存泄漏是如何发生的。
+Key 的泄漏 在上一讲中，我们分析了 ThreadLocal 的内部结构，知道了每一个 Thread 都有一个 ThreadLocal.ThreadLocalMap 这样的类型变量，该变量的名字叫作 threadLocals。线程在访问了 ThreadLocal 之后，都会在它的 ThreadLocalMap 里面的 Entry 中去维护该 ThreadLocal 变量与具体实例的映射。
+我们可能会在业务代码中执行了 ThreadLocal instance = null 操作，想清理掉这个 ThreadLocal 实例，但是假设我们在 ThreadLocalMap 的 Entry 中强引用了 ThreadLocal 实例，那么，虽然在业务代码中把 ThreadLocal 实例置为了 null，但是在 Thread 类中依然有这个引用链的存在。
+GC 在垃圾回收的时候会进行可达性分析，它会发现这个 ThreadLocal 对象依然是可达的，所以对于这个 ThreadLocal 对象不会进行垃圾回收，这样的话就造成了内存泄漏的情况。
+JDK 开发者考虑到了这一点，所以 ThreadLocalMap 中的 Entry 继承了 WeakReference 弱引用，代码如下所示：
+static class Entry extends WeakReference&amp;lt;ThreadLocal&amp;lt;?</description>
+    </item>
+    
+    <item>
+      <title>46 多个 ThreadLocal 在 Thread 中的 threadlocals 里是怎么存储的？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/46-%E5%A4%9A%E4%B8%AA-threadlocal-%E5%9C%A8-thread-%E4%B8%AD%E7%9A%84-threadlocals-%E9%87%8C%E6%98%AF%E6%80%8E%E4%B9%88%E5%AD%98%E5%82%A8%E7%9A%84/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:23 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/46-%E5%A4%9A%E4%B8%AA-threadlocal-%E5%9C%A8-thread-%E4%B8%AD%E7%9A%84-threadlocals-%E9%87%8C%E6%98%AF%E6%80%8E%E4%B9%88%E5%AD%98%E5%82%A8%E7%9A%84/</guid>
+      <description>本课时我们主要分析一下在 Thread 中多个 ThreadLocal 是怎么存储的。
+Thread、 ThreadLocal 及 ThreadLocalMap 三者之间的关系 在讲解本课时之前，先要搞清楚 Thread、 ThreadLocal 及 ThreadLocalMap 三者之间的关系。我们用最直观、最容易理解的图画的方式来看看它们三者的关系： 我们看到最左下角的 Thread 1，这是一个线程，它的箭头指向了 ThreadLocalMap 1，其要表达的意思是，每个 Thread 对象中都持有一个 ThreadLocalMap 类型的成员变量，在这里 Thread 1 所拥有的成员变量就是 ThreadLocalMap 1。
+而这个 ThreadLocalMap 自身类似于是一个 Map，里面会有一个个 key value 形式的键值对。那么我们就来看一下它的 key 和 value 分别是什么。可以看到这个表格的左侧是 ThreadLocal 1、ThreadLocal 2…… ThreadLocal n，能看出这里的 key 就是 ThreadLocal 的引用。
+而在表格的右侧是一个一个的 value，这就是我们希望 ThreadLocal 存储的内容，例如 user 对象等。
+这里需要重点看到它们的数量对应关系：一个 Thread 里面只有一个ThreadLocalMap ，而在一个 ThreadLocalMap 里面却可以有很多的 ThreadLocal，每一个 ThreadLocal 都对应一个 value。因为一个 Thread 是可以调用多个 ThreadLocal 的，所以 Thread 内部就采用了 ThreadLocalMap 这样 Map 的数据结构来存放 ThreadLocal 和 value。</description>
+    </item>
+    
+    <item>
+      <title>45 ThreadLocal 是用来解决共享资源的多线程访问的问题吗？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/45-threadlocal-%E6%98%AF%E7%94%A8%E6%9D%A5%E8%A7%A3%E5%86%B3%E5%85%B1%E4%BA%AB%E8%B5%84%E6%BA%90%E7%9A%84%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BF%E9%97%AE%E7%9A%84%E9%97%AE%E9%A2%98%E5%90%97/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:22 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/45-threadlocal-%E6%98%AF%E7%94%A8%E6%9D%A5%E8%A7%A3%E5%86%B3%E5%85%B1%E4%BA%AB%E8%B5%84%E6%BA%90%E7%9A%84%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BF%E9%97%AE%E7%9A%84%E9%97%AE%E9%A2%98%E5%90%97/</guid>
+      <description>本课时主要讲解一个问题：ThreadLocal 是不是用来解决共享资源的多线程访问的。
+这是一个常见的面试问题，如果被问到了 ThreadLocal，则有可能在你介绍完它的作用、注意点等内容之后，再问你：ThreadLocal 是不是用来解决共享资源的多线程访问的呢？假如遇到了这样的问题，其思路一定要清晰。这里我给出一个参考答案。
+面试时被问到应如何回答 这道题的答案很明确——不是，ThreadLocal 并不是用来解决共享资源问题的。虽然 ThreadLocal 确实可以用于解决多线程情况下的线程安全问题，但其资源并不是共享的，而是每个线程独享的。所以这道题其实是有一定陷阱成分在内的。
+ThreadLocal 解决线程安全问题的时候，相比于使用“锁”而言，换了一个思路，把资源变成了各线程独享的资源，非常巧妙地避免了同步操作。具体而言，它可以在 initialValue 中 new 出自己线程独享的资源，而多个线程之间，它们所访问的对象本身是不共享的，自然就不存在任何并发问题。这是 ThreadLocal 解决并发问题的最主要思路。
+如果我们把放到 ThreadLocal 中的资源用 static 修饰，让它变成一个共享资源的话，那么即便使用了 ThreadLocal，同样也会有线程安全问题。比如我们对第 44 讲中的例子进行改造，如果我们在 SimpleDateFormat 之前加上一个 static 关键字来修饰，并且把这个静态对象放到 ThreadLocal 中去存储的话，代码如下所示：
+public class ThreadLocalStatic {public static ExecutorService threadPool = Executors.newFixedThreadPool(16);static SimpleDateFormat dateFormat = new SimpleDateFormat(&amp;quot;mm:ss&amp;quot;);public static void main(String[] args) throws InterruptedException {for (int i = 0; i &amp;lt; 1000; i++) {int finalI = i;threadPool.</description>
+    </item>
+    
+    <item>
+      <title>44 ThreadLocal 适合用在哪些实际生产的场景中？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/44-threadlocal-%E9%80%82%E5%90%88%E7%94%A8%E5%9C%A8%E5%93%AA%E4%BA%9B%E5%AE%9E%E9%99%85%E7%94%9F%E4%BA%A7%E7%9A%84%E5%9C%BA%E6%99%AF%E4%B8%AD/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:21 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/44-threadlocal-%E9%80%82%E5%90%88%E7%94%A8%E5%9C%A8%E5%93%AA%E4%BA%9B%E5%AE%9E%E9%99%85%E7%94%9F%E4%BA%A7%E7%9A%84%E5%9C%BA%E6%99%AF%E4%B8%AD/</guid>
+      <description>本课时主要介绍 ThreadLocal 适合用在哪些实际生产的场景中。
+我们在学习一个工具之前，首先应该知道这个工具的作用，能带来哪些好处，而不是一上来就闷头进入工具的 API、用法等，否则就算我们把某个工具的用法学会了，也不知道应该在什么场景下使用。所以，我们先来看看究竟哪些场景下需要用到 ThreadLocal。
+在通常的业务开发中，ThreadLocal 有两种典型的使用场景。
+场景1，ThreadLocal 用作保存每个线程独享的对象，为每个线程都创建一个副本，这样每个线程都可以修改自己所拥有的副本, 而不会影响其他线程的副本，确保了线程安全。
+场景2，ThreadLocal 用作每个线程内需要独立保存信息，以便供其他方法更方便地获取该信息的场景。每个线程获取到的信息可能都是不一样的，前面执行的方法保存了信息后，后续方法可以通过 ThreadLocal 直接获取到，避免了传参，类似于全局变量的概念。
+典型场景1 这种场景通常用于保存线程不安全的工具类，典型的需要使用的类就是 SimpleDateFormat。
+场景介绍 在这种情况下，每个 Thread 内都有自己的实例副本，且该副本只能由当前 Thread 访问到并使用，相当于每个线程内部的本地变量，这也是 ThreadLocal 命名的含义。因为每个线程独享副本，而不是公用的，所以不存在多线程间共享的问题。
+我们来做一个比喻，比如饭店要做一道菜，但是有 5 个厨师一起做，这样的话就很乱了，因为如果一个厨师已经放过盐了，假如其他厨师都不知道，于是就都各自放了一次盐，导致最后的菜很咸。这就好比多线程的情况，线程不安全。我们用了 ThreadLocal 之后，相当于每个厨师只负责自己的一道菜，一共有 5 道菜，这样的话就非常清晰明了了，不会出现问题。
+SimpleDateFormat 的进化之路 1. 2 个线程都要用到 SimpleDateFormat
+下面我们用一个案例来说明这种典型的第一个场景。假设有个需求，即 2 个线程都要用到 SimpleDateFormat。代码如下所示：
+public class ThreadLocalDemo01 {public static void main(String[] args) throws InterruptedException {new Thread(() -&amp;gt; {String date = new ThreadLocalDemo01().date(1);System.out.println(date);}).start();Thread.sleep(100);new Thread(() -&amp;gt; {String date = new ThreadLocalDemo01().</description>
+    </item>
+    
+    <item>
+      <title>43 Java 8 中 Adder 和 Accumulator 有什么区别？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/43-java-8-%E4%B8%AD-adder-%E5%92%8C-accumulator-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:20 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/43-java-8-%E4%B8%AD-adder-%E5%92%8C-accumulator-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/</guid>
+      <description>本课时主要介绍在 Java 8 中 Adder 和 Accumulator 有什么区别。
+Adder 的介绍 我们要知道 Adder 和 Accumulator 都是 Java 8 引入的，是相对比较新的类。对于 Adder 而言，比如最典型的 LongAdder，我们在第 40 讲的时候已经讲解过了，在高并发下 LongAdder 比 AtomicLong 效率更高，因为对于 AtomicLong 而言，它只适合用于低并发场景，否则在高并发的场景下，由于 CAS 的冲突概率大，会导致经常自旋，影响整体效率。
+而 LongAdder 引入了分段锁的概念，当竞争不激烈的时候，所有线程都是通过 CAS 对同一个 Base 变量进行修改，但是当竞争激烈的时候，LongAdder 会把不同线程对应到不同的 Cell 上进行修改，降低了冲突的概率，从而提高了并发性。
+Accumulator 的介绍 那么 Accumulator 又是做什么的呢？Accumulator 和 Adder 非常相似，实际上 Accumulator 就是一个更通用版本的 Adder，比如 LongAccumulator 是 LongAdder 的功能增强版，因为 LongAdder 的 API 只有对数值的加减，而 LongAccumulator 提供了自定义的函数操作。
+我这样讲解可能有些同学还是不太理解，那就让我们用一个非常直观的代码来举例说明一下，代码如下：
+public class LongAccumulatorDemo {public static void main(String[] args) throws InterruptedException {LongAccumulator accumulator = new LongAccumulator((x, y) -&amp;gt; x + y, 0);ExecutorService executor = Executors.</description>
+    </item>
+    
+    <item>
+      <title>42 AtomicInteger 和 synchronized 的异同点？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/42-atomicinteger-%E5%92%8C-synchronized-%E7%9A%84%E5%BC%82%E5%90%8C%E7%82%B9/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:19 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/42-atomicinteger-%E5%92%8C-synchronized-%E7%9A%84%E5%BC%82%E5%90%8C%E7%82%B9/</guid>
+      <description>在上一课时中，我们说明了原子类和 synchronized 关键字都可以用来保证线程安全，在本课时中，我们首先分别用原子类和 synchronized 关键字来解决一个经典的线程安全问题，给出具体的代码对比，然后再分析它们背后的区别。
+代码对比 首先，原始的线程不安全的情况的代码如下所示：
+public class Lesson42 implements Runnable {static int value = 0;public static void main(String[] args) throws InterruptedException {Runnable runnable = new Lesson42();Thread thread1 = new Thread(runnable);Thread thread2 = new Thread(runnable);thread1.start();thread2.start();thread1.join();thread2.join();System.out.println(value);}@Overridepublic void run() {for (int i = 0; i &amp;lt; 10000; i++) {value++;}}}在代码中我们新建了一个 value 变量，并且在两个线程中对它进行同时的自加操作，每个线程加 10000 次，然后我们用 join 来确保它们都执行完毕，最后打印出最终的数值。</description>
+    </item>
+    
+    <item>
+      <title>41 原子类和 volatile 有什么异同？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/41-%E5%8E%9F%E5%AD%90%E7%B1%BB%E5%92%8C-volatile-%E6%9C%89%E4%BB%80%E4%B9%88%E5%BC%82%E5%90%8C/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:17 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/41-%E5%8E%9F%E5%AD%90%E7%B1%BB%E5%92%8C-volatile-%E6%9C%89%E4%BB%80%E4%B9%88%E5%BC%82%E5%90%8C/</guid>
+      <description>本课时我们主要讲解原子类和 volatile 有什么异同。
+案例****说明 volatile 和原子类的异同 我们首先看一个案例。如图所示，我们有两个线程。
+在图中左上角可以看出，有一个公共的 boolean flag 标记位，最开始赋值为 true，然后线程 2 会进入一个 while 循环，并且根据这个 flag 也就是标记位的值来决定是否继续执行或着退出。
+最开始由于 flag 的值是 true，所以首先会在这里执行一定时期的循环。然后假设在某一时刻，线程 1 把这个 flag 的值改为 false 了，它所希望的是，线程 2 看到这个变化后停止运行。
+但是这样做其实是有风险的，线程 2 可能并不能立刻停下来，也有可能过一段时间才会停止，甚至在最极端的情况下可能永远都不会停止。
+为了理解发生这种情况的原因，我们首先来看一下 CPU 的内存结构，这里是一个双核的 CPU 的简单示意图：
+可以看出，线程 1 和线程 2 分别在不同的 CPU 核心上运行，每一个核心都有自己的本地内存，并且在下方也有它们共享的内存。
+最开始它们都可以读取到 flag 为 true ，不过当线程 1 这个值改为 false 之后，线程 2 并不能及时看到这次修改，因为线程 2 不能直接访问线程 1 的本地内存，这样的问题就是一个非常典型的可见性问题。
+要想解决这个问题，我们只需要在变量的前面加上 volatile 关键字修饰，只要我们加上这个关键字，那么每一次变量被修改的时候，其他线程对此都可见，这样一旦线程 1 改变了这个值，那么线程 2 就可以立刻看到，因此就可以退出 while 循环了。
+之所以加了关键字之后就就可以让它拥有可见性，原因在于有了这个关键字之后，线程 1 的更改会被 flush 到共享内存中，然后又会被 refresh 到线程 2 的本地内存中，这样线程 2 就能感受到这个变化了，所以 volatile 这个关键字最主要是用来解决可见性问题的，可以一定程度上保证线程安全。</description>
+    </item>
+    
+    <item>
+      <title>40 AtomicInteger 在高并发下性能不好，如何解决？为什么？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/40-atomicinteger-%E5%9C%A8%E9%AB%98%E5%B9%B6%E5%8F%91%E4%B8%8B%E6%80%A7%E8%83%BD%E4%B8%8D%E5%A5%BD%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E4%B8%BA%E4%BB%80%E4%B9%88/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:16 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/40-atomicinteger-%E5%9C%A8%E9%AB%98%E5%B9%B6%E5%8F%91%E4%B8%8B%E6%80%A7%E8%83%BD%E4%B8%8D%E5%A5%BD%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E4%B8%BA%E4%BB%80%E4%B9%88/</guid>
+      <description>本课时我们主要讲解 AtomicInteger 在高并发下性能不好，如何解决？以及为什么会出现这种情况？
+我们知道在 JDK1.5 中新增了并发情况下使用的 Integer/Long 所对应的原子类 AtomicInteger 和 AtomicLong。
+在并发的场景下，如果我们需要实现计数器，可以利用 AtomicInteger 和 AtomicLong，这样一来，就可以避免加锁和复杂的代码逻辑，有了它们之后，我们只需要执行对应的封装好的方法，例如对这两个变量进行原子的增操作或原子的减操作，就可以满足大部分业务场景的需求。
+不过，虽然它们很好用，但是如果你的业务场景是并发量很大的，那么你也会发现，这两个原子类实际上会有较大的性能问题，这是为什么呢？就让我们从一个例子看起。
+AtomicLong 存在的问题 首先我们来看一段代码：
+/*** 描述： 在16个线程下使用AtomicLong*/public class AtomicLongDemo {public static void main(String[] args) throws InterruptedException {AtomicLong counter = new AtomicLong(0);ExecutorService service = Executors.newFixedThreadPool(16);for (int i = 0; i &amp;lt; 100; i++) {service.submit(new Task(counter));}Thread.sleep(2000);System.out.println(counter.get());}static class Task implements Runnable {private final AtomicLong counter;public Task(AtomicLong counter) {this.</description>
+    </item>
+    
+    <item>
+      <title>39 原子类是如何利用 CAS 保证线程安全的？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/39-%E5%8E%9F%E5%AD%90%E7%B1%BB%E6%98%AF%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8-cas-%E4%BF%9D%E8%AF%81%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:15 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/39-%E5%8E%9F%E5%AD%90%E7%B1%BB%E6%98%AF%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8-cas-%E4%BF%9D%E8%AF%81%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84/</guid>
+      <description>本课时主要讲解原子类是如何利用 CAS 保证线程安全的。
+什么是原子类？原子类有什么作用？ 要想回答这个问题，首先我们需要知道什么是原子类，以及它有什么作用。
+在编程领域里，原子性意味着“一组操作要么全都操作成功，要么全都失败，不能只操作成功其中的一部分”。而 java.util.concurrent.atomic 下的类，就是具有原子性的类，可以原子性地执行添加、递增、递减等操作。比如之前多线程下的线程不安全的 i++ 问题，到了原子类这里，就可以用功能相同且线程安全的 getAndIncrement 方法来优雅地解决。
+原子类的作用和锁有类似之处，是为了保证并发情况下线程安全。不过原子类相比于锁，有一定的优势：
+ 粒度更细：原子变量可以把竞争范围缩小到变量级别，通常情况下，锁的粒度都要大于原子变量的粒度。 效率更高：除了高度竞争的情况之外，使用原子类的效率通常会比使用同步互斥锁的效率更高，因为原子类底层利用了 CAS 操作，不会阻塞线程。  6 类原子类纵览 下面我们来看下一共有哪些原子类，原子类一共可以分为以下这 6 类，我们来逐一介绍：
+类型
+具体类
+Atomic* 基本类型原子类
+AtomicInteger、AtomicLong、AtomicBoolean
+Atomic*Array 数组类型原子类
+AtomicIntegerArray、AtomicLongArray、AtomicReferenceArray
+Atomic*Reference 引用类型原子类
+AtomicReference、AtomicStampedReference、AtomicMarkableReference
+Atomic*FieldUpdater 升级类型原子类
+AtomicIntegerfieldupdater、AtomicLongFieldUpdater、AtomicReferenceFieldUpdater
+Adder 累加器
+LongAdder、DoubleAdder
+Accumulator 积累器
+LongAccumulator、DoubleAccumulator
+Atomic\ 基本类型原子类 首先看到第一类 Atomic*，我们把它称为基本类型原子类，它包括三种，分别是 AtomicInteger、AtomicLong 和 AtomicBoolean。
+我们来介绍一下最为典型的 AtomicInteger。对于这个类型而言，它是对于 int 类型的封装，并且提供了原子性的访问和更新。也就是说，我们如果需要一个整型的变量，并且这个变量会被运用在并发场景之下，我们可以不用基本类型 int，也不使用包装类型 Integer，而是直接使用 AtomicInteger，这样一来就自动具备了原子能力，使用起来非常方便。
+AtomicInteger 类常用方法 AtomicInteger 类有以下几个常用的方法：
+ public final int get() //获取当前的值  因为它本身是一个 Java 类，而不再是一个基本类型，所以要想获取值还是需要一些方法，比如通过 get 方法就可以获取到当前的值。</description>
+    </item>
+    
+    <item>
+      <title>38 如何选择适合自己的阻塞队列？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/38-%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E9%80%82%E5%90%88%E8%87%AA%E5%B7%B1%E7%9A%84%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:14 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/38-%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E9%80%82%E5%90%88%E8%87%AA%E5%B7%B1%E7%9A%84%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97/</guid>
+      <description>本课时我们主要讲解如何选择适合自己的阻塞队列。
+他山之石，可以攻玉。对于如何选择最合适的阻塞队列这个问题，实际上线程池已经率先给我们做了表率。线程池有很多种，不同种类的线程池会根据自己的特点，来选择适合自己的阻塞队列。
+所以我们就首先来复习一下这些非常经典的线程池是如何挑选阻塞队列的，借鉴它们的经验之后，我们再去总结一套规则，来归纳出自己在选取阻塞队列时可以对哪些点进行考虑。
+线程池对于阻塞队列的选择 下面我们来看线程池的选择要诀。上面表格左侧是线程池，右侧为它们对应的阻塞队列，你可以看到 5 种线程池只对应了 3 种阻塞队列，下面我们对它们进行逐一的介绍。
+ FixedThreadPool（SingleThreadExecutor 同理）选取的是 LinkedBlockingQueue  因为 LinkedBlockingQueue 不同于 ArrayBlockingQueue，ArrayBlockingQueue 的容量是有限的，而 LinkedBlockingQueue 是链表长度默认是可以无限延长的。
+由于 FixedThreadPool 的线程数是固定的，在任务激增的时候，它无法增加更多的线程来帮忙处理 Task，所以需要像 LinkedBlockingQueue 这样没有容量上限的 Queue 来存储那些还没处理的 Task。
+如果所有的 corePoolSize 线程都正在忙，那么新任务将会进入阻塞队列等待，由于队列是没有容量上限的，队列永远不会被填满，这样就保证了对于线程池 FixedThreadPool 和 SingleThreadExecutor 而言，不会拒绝新任务的提交，也不会丢失数据。
+ CachedThreadPool 选取的是 SynchronousQueue  对于 CachedThreadPool 而言，为了避免新提交的任务被拒绝，它选择了无限制的 maximumPoolSize（在专栏中，maxPoolSize 等同于 maximumPoolSize），所以既然它的线程的最大数量是无限的，也就意味着它的线程数不会受到限制，那么它就不需要一个额外的空间来存储那些 Task，因为每个任务都可以通过新建线程来处理。
+SynchronousQueue 会直接把任务交给线程，而不需要另外保存它们，效率更高，所以 CachedThreadPool 使用的 Queue 是 SynchronousQueue。
+ ScheduledThreadPool（SingleThreadScheduledExecutor同理）选取的是延迟队列  对于 ScheduledThreadPool 而言，它使用的是 DelayedWorkQueue。延迟队列的特点是：不是先进先出，而是会按照延迟时间的长短来排序，下一个即将执行的任务会排到队列的最前面。
+我们来举个例子：例如我们往这个队列中，放一个延迟 10 分钟执行的任务，然后再放一个延迟 10 秒钟执行的任务。通常而言，如果不是延迟队列，那么按照先进先出的排列规则，也就是延迟 10 分钟执行的那个任务是第一个放置的，会放在最前面。但是由于我们此时使用的是阻塞队列，阻塞队列在排放各个任务的位置的时候，会根据延迟时间的长短来排放。所以，我们第二个放置的延迟 10 秒钟执行的那个任务，反而会排在延迟 10 分钟的任务的前面，因为它的执行时间更早。</description>
+    </item>
+    
+    <item>
+      <title>37 阻塞和非阻塞队列的并发安全原理是什么？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/37-%E9%98%BB%E5%A1%9E%E5%92%8C%E9%9D%9E%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E7%9A%84%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:13 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/37-%E9%98%BB%E5%A1%9E%E5%92%8C%E9%9D%9E%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E7%9A%84%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88/</guid>
+      <description>本课时我们主要研究阻塞和非阻塞队列的并发安全原理。
+之前我们探究了常见的阻塞队列的特点，在本课时，我们以 ArrayBlockingQueue 为例，首先分析 BlockingQueue 即阻塞队列的线程安全原理，然后再看看它的兄弟——非阻塞队列的并发安全原理。通过本课时的学习，我们就可以了解到关于并发队列的底层原理了。
+ArrayBlockingQueue 源码分析 我们首先看一下 ArrayBlockingQueue 的源码，ArrayBlockingQueue 有以下几个重要的属性：
+// 用于存放元素的数组final Object[] items;// 下一次读取操作的位置int takeIndex;// 下一次写入操作的位置int putIndex;// 队列中的元素数量int count;第一个就是最核心的、用于存储元素的 Object 类型的数组；然后它还会有两个位置变量，分别是 takeIndex 和 putIndex，这两个变量就是用来标明下一次读取和写入位置的；另外还有一个 count 用来计数，它所记录的就是队列中的元素个数。
+另外，我们再来看下面这三个变量：
+// 以下3个是控制并发用的工具final ReentrantLock lock;private final Condition notEmpty;private final Condition notFull;这三个变量也非常关键，第一个就是一个 ReentrantLock，而下面两个 Condition 分别是由 ReentrantLock 产生出来的，这三个变量就是我们实现线程安全最核心的工具。
+ArrayBlockingQueue 实现并发同步的原理就是利用 ReentrantLock 和它的两个 Condition，读操作和写操作都需要先获取到 ReentrantLock 独占锁才能进行下一步操作。进行读操作时如果队列为空，线程就会进入到读线程专属的 notEmpty 的 Condition 的队列中去排队，等待写线程写入新的元素；同理，如果队列已满，这个时候写操作的线程会进入到写线程专属的 notFull 队列中去排队，等待读线程将队列元素移除并腾出空间。</description>
+    </item>
+    
+    <item>
+      <title>36 有哪几种常见的阻塞队列？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/36-%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:12 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/36-%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97/</guid>
+      <description>本课时我们主要讲解有哪几种常见的阻塞队列。
+BlockingQueue 接口的实现类都被放在了 J.U.C 包中，本课时将对常见的和常用的实现类进行介绍，包括 ArrayBlockingQueue、LinkedBlockingQueue、SynchronousQueue、PriorityBlockingQueue，以及 DelayQueue。
+ArrayBlockingQueue 让我们先从最基础的 ArrayBlockingQueue 说起。ArrayBlockingQueue 是最典型的有界队列，其内部是用数组存储元素的，利用 ReentrantLock 实现线程安全。
+我们在创建它的时候就需要指定它的容量，之后也不可以再扩容了，在构造函数中我们同样可以指定是否是公平的，代码如下：
+ArrayBlockingQueue(int capacity, boolean fair)第一个参数是容量，第二个参数是是否公平。正如 ReentrantLock 一样，如果 ArrayBlockingQueue 被设置为非公平的，那么就存在插队的可能；如果设置为公平的，那么等待了最长时间的线程会被优先处理，其他线程不允许插队，不过这样的公平策略同时会带来一定的性能损耗，因为非公平的吞吐量通常会高于公平的情况。
+LinkedBlockingQueue 正如名字所示，这是一个内部用链表实现的 BlockingQueue。如果我们不指定它的初始容量，那么它容量默认就为整型的最大值 Integer.MAX_VALUE，由于这个数非常大，我们通常不可能放入这么多的数据，所以 LinkedBlockingQueue 也被称作无界队列，代表它几乎没有界限。
+SynchronousQueue 如图所示，SynchronousQueue 最大的不同之处在于，它的容量为 0，所以没有一个地方来暂存元素，导致每次取数据都要先阻塞，直到有数据被放入；同理，每次放数据的时候也会阻塞，直到有消费者来取。
+需要注意的是，SynchronousQueue 的容量不是 1 而是 0，因为 SynchronousQueue 不需要去持有元素，它所做的就是直接传递（direct handoff）。由于每当需要传递的时候，SynchronousQueue 会把元素直接从生产者传给消费者，在此期间并不需要做存储，所以如果运用得当，它的效率是很高的。
+另外，由于它的容量为 0，所以相比于一般的阻塞队列，SynchronousQueue 的很多方法的实现是很有意思的，我们来举几个例子：
+SynchronousQueue 的 peek 方法永远返回 null，代码如下：
+public E peek() {return null;}因为 peek 方法的含义是取出头结点，但是 SynchronousQueue 的容量是 0，所以连头结点都没有，peek 方法也就没有意义，所以始终返回 null。同理，element 始终会抛出 NoSuchElementException 异常。
+而 SynchronousQueue 的 size 方法始终返回 0，因为它内部并没有容量，代码如下：</description>
+    </item>
+    
+    <item>
+      <title>35 阻塞队列包含哪些常用的方法？add、offer、put 等方法的区别？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/35-%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E5%8C%85%E5%90%AB%E5%93%AA%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95addofferput-%E7%AD%89%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:11 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/35-%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E5%8C%85%E5%90%AB%E5%93%AA%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95addofferput-%E7%AD%89%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
+      <description>在本课时中我们主要讲解阻塞队列包含哪些常用的方法，以及 add，offer，put 等方法的区别。
+在阻塞队列中有很多方法，而且它们都非常相似，所以非常有必要对这些类似的方法进行辨析，所以本课时会用分类的方式，和你一起，把阻塞队列中常见的方法进行梳理和讲解。
+我们把 BlockingQueue 中最常用的和添加、删除相关的 8 个方法列出来，并且把它们分为三组，每组方法都和添加、移除元素相关。
+这三组方法由于功能很类似，所以比较容易混淆。它们的区别仅在于特殊情况：当队列满了无法添加元素，或者是队列空了无法移除元素时，不同组的方法对于这种特殊情况会有不同的处理方式：
+ 抛出异常：add、remove、element 返回结果但不抛出异常：offer、poll、peek 阻塞：put、take  第一组：add、remove、element add 方法 add 方法是往队列里添加一个元素，如果队列满了，就会抛出异常来提示队列已满。示例代码如下：
+private static void addTest() {BlockingQueue&amp;lt;Integer&amp;gt; blockingQueue = new ArrayBlockingQueue&amp;lt;Integer&amp;gt;(2);blockingQueue.add(1);blockingQueue.add(1);blockingQueue.add(1);}在这段代码中，我们创建了一个容量为 2 的 BlockingQueue，并且尝试往里面放 3 个值，超过了容量上限，那么在添加第三个值的时候就会得到异常：
+Exception in thread &amp;quot;main&amp;quot; java.lang.IllegalStateException:Queue fullremove 方法 remove 方法的作用是删除元素，如果我们删除的队列是空的，由于里面什么都没有，所以也无法删除任何元素，那么 remove 方法就会抛出异常。示例代码如下：
+private static void removeTest() {ArrayBlockingQueue&amp;lt;Integer&amp;gt; blockingQueue = new ArrayBlockingQueue&amp;lt;Integer&amp;gt;(2);blockingQueue.add(1);blockingQueue.add(1);blockingQueue.remove();blockingQueue.remove();blockingQueue.remove();}在这段代码中，我们往一个容量为 2 的 BlockingQueue 里放入 2 个元素，并且删除 3 个元素。在删除前面两个元素的时候会正常执行，因为里面依然有元素存在，但是在删除第三个元素时，由于队列里面已经空了，所以便会抛出异常：</description>
+    </item>
+    
+    <item>
+      <title>34 什么是阻塞队列？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/34-%E4%BB%80%E4%B9%88%E6%98%AF%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:10 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/34-%E4%BB%80%E4%B9%88%E6%98%AF%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97/</guid>
+      <description>在本课时中我们主要讲解一下什么是阻塞队列。
+阻塞队列的作用 阻塞队列，也就是 BlockingQueue，它是一个接口，如代码所示：
+public interface BlockingQueue&amp;lt;E&amp;gt; extends Queue&amp;lt;E&amp;gt;{...}BlockingQueue 继承了 Queue 接口，是队列的一种。Queue 和 BlockingQueue 都是在 Java 5 中加入的。
+BlockingQueue 是线程安全的，我们在很多场景下都可以利用线程安全的队列来优雅地解决我们业务自身的线程安全问题。比如说，使用生产者/消费者模式的时候，我们生产者只需要往队列里添加元素，而消费者只需要从队列里取出它们就可以了，如图所示： 在图中，左侧有三个生产者线程，它会把生产出来的结果放到中间的阻塞队列中，而右侧的三个消费者也会从阻塞队列中取出它所需要的内容并进行处理。因为阻塞队列是线程安全的，所以生产者和消费者都可以是多线程的，不会发生线程安全问题。
+既然队列本身是线程安全的，队列可以安全地从一个线程向另外一个线程传递数据，所以我们的生产者/消费者直接使用线程安全的队列就可以，而不需要自己去考虑更多的线程安全问题。这也就意味着，考虑锁等线程安全问题的重任从“你”转移到了“队列”上，降低了我们开发的难度和工作量。
+同时，队列它还能起到一个隔离的作用。比如说我们开发一个银行转账的程序，那么生产者线程不需要关心具体的转账逻辑，只需要把转账任务，如账户和金额等信息放到队列中就可以，而不需要去关心银行这个类如何实现具体的转账业务。而作为银行这个类来讲，它会去从队列里取出来将要执行的具体的任务，再去通过自己的各种方法来完成本次转账。
+这样就实现了具体任务与执行任务类之间的解耦，任务被放在了阻塞队列中，而负责放任务的线程是无法直接访问到我们银行具体实现转账操作的对象的，实现了隔离，提高了安全性。
+主要并发队列关系图 上图展示了 Queue 最主要的实现类，可以看出 Java 提供的线程安全的队列（也称为并发队列）分为阻塞队列和非阻塞队列两大类。
+阻塞队列的典型例子就是 BlockingQueue 接口的实现类，BlockingQueue 下面有 6 种最主要的实现，分别是 ArrayBlockingQueue、LinkedBlockingQueue、SynchronousQueue、DelayQueue、PriorityBlockingQueue 和 LinkedTransferQueue，它们各自有不同的特点，对于这些常见的阻塞队列的特点，我们会在第 36 课时中展开说明。
+非阻塞并发队列的典型例子是 ConcurrentLinkedQueue，这个类不会让线程阻塞，利用 CAS 保证了线程安全。
+我们可以根据需要自由选取阻塞队列或者非阻塞队列来满足业务需求。
+还有一个和 Queue 关系紧密的 Deque 接口，它继承了 Queue，如代码所示：
+public interface Deque&amp;lt;E&amp;gt; extends Queue&amp;lt;E&amp;gt; {//...}Deque 的意思是双端队列，音标是 [dek]，是 double-ended-queue 的缩写，它从头和尾都能添加和删除元素；而普通的 Queue 只能从一端进入，另一端出去。这是 Deque 和 Queue 的不同之处，Deque 其他方面的性质都和 Queue 类似。</description>
+    </item>
+    
+    <item>
+      <title>33 CopyOnWriteArrayList 有什么特点？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/33-copyonwritearraylist-%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:09 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/33-copyonwritearraylist-%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9/</guid>
+      <description>本课时我们主要讲解 CopyOnWriteArrayList 有什么特点。
+故事要从诞生 CopyOnWriteArrayList 之前说起。其实在 CopyOnWriteArrayList 出现之前，我们已经有了 ArrayList 和 LinkedList 作为 List 的数组和链表的实现，而且也有了线程安全的 Vector 和 Collections.synchronizedList() 可以使用。所以首先就让我们来看下线程安全的 Vector 的 size 和 get 方法的代码：
+public synchronized int size() {return elementCount;}public synchronized E get(int index) {if (index &amp;gt;= elementCount)throw new ArrayIndexOutOfBoundsException(index);return elementData(index);}可以看出，Vector 内部是使用 synchronized 来保证线程安全的，并且锁的粒度比较大，都是方法级别的锁，在并发量高的时候，很容易发生竞争，并发效率相对比较低。在这一点上，Vector 和 Hashtable 很类似。
+并且，前面这几种 List 在迭代期间不允许编辑，如果在迭代期间进行添加或删除元素等操作，则会抛出 ConcurrentModificationException 异常，这样的特点也在很多情况下给使用者带来了麻烦。
+所以从 JDK1.5 开始，Java 并发包里提供了使用 CopyOnWrite 机制实现的并发容器 CopyOnWriteArrayList 作为主要的并发 List，CopyOnWrite 的并发集合还包括 CopyOnWriteArraySet，其底层正是利用 CopyOnWriteArrayList 实现的。所以今天我们以 CopyOnWriteArrayList 为突破口，来看一下 CopyOnWrite 容器的特点。</description>
+    </item>
+    
+    <item>
+      <title>32 同样是线程安全，ConcurrentHashMap 和 Hashtable 的区别</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/32-%E5%90%8C%E6%A0%B7%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8concurrenthashmap-%E5%92%8C-hashtable-%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:08 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/32-%E5%90%8C%E6%A0%B7%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8concurrenthashmap-%E5%92%8C-hashtable-%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
+      <description>在本课时我们主要讲解同样是线程安全，ConcurrentHashMap 与 Hashtable 到底有什么区别呢？
+我们都知道 HashMap 不是线程安全的，而 ConcurrentHashMap 和 Hashtable 它们两个确实都是线程安全的，那它们有哪些不同点呢？我们从以下四个角度出发，去分析它们的不同点。
+出现的版本不同 我们先从表面的、显而易见的出现时间来分析。Hashtable 在 JDK1.0 的时候就存在了，并在 JDK1.2 版本中实现了 Map 接口，成为了集合框架的一员。而 ConcurrentHashMap 则是在 JDK1.5 中才出现的，也正是因为它们出现的年代不同，而后出现的往往是对前面出现的类的优化，所以它们在实现方式以及性能上，也存在着较大的不同。
+实现线程安全的方式不同 虽然 ConcurrentHashMap 和 Hashtable 它们两个都是线程安全的，但是从原理上分析，Hashtable 实现并发安全的原理是通过 synchronized 关键字，让我们直接看下源码，以 clear() 方法为例，代码如下：
+public synchronized void clear() {Entry&amp;lt;?,?&amp;gt; tab[] = table;modCount++;for (int index = tab.length; --index &amp;gt;= 0; )tab[index] = null;count = 0;}可以看出这个 clear() 方法是被 synchronized 关键字所修饰的，同理其他的方法例如 put、get、size 等，也同样是被 synchronized 关键字修饰的。之所以 Hashtable 是线程安全的，是因为几乎每个方法都被 synchronized 关键字所修饰了，这也就保证了线程安全。</description>
+    </item>
+    
+    <item>
+      <title>31 为什么 Map 桶中超过 8 个才转为红黑树？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/31-%E4%B8%BA%E4%BB%80%E4%B9%88-map-%E6%A1%B6%E4%B8%AD%E8%B6%85%E8%BF%87-8-%E4%B8%AA%E6%89%8D%E8%BD%AC%E4%B8%BA%E7%BA%A2%E9%BB%91%E6%A0%91/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:07 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/31-%E4%B8%BA%E4%BB%80%E4%B9%88-map-%E6%A1%B6%E4%B8%AD%E8%B6%85%E8%BF%87-8-%E4%B8%AA%E6%89%8D%E8%BD%AC%E4%B8%BA%E7%BA%A2%E9%BB%91%E6%A0%91/</guid>
+      <description>这一课时我们主要讲解为什么 Map 的桶中超过 8 个才转为红黑树？
+JDK 1.8 的 HashMap 和 ConcurrentHashMap 都有这样一个特点：最开始的 Map 是空的，因为里面没有任何元素，往里放元素时会计算 hash 值，计算之后，第 1 个 value 会首先占用一个桶（也称为槽点）位置，后续如果经过计算发现需要落到同一个桶中，那么便会使用链表的形式往后延长，俗称“拉链法”，如图所示：
+图中，有的桶是空的， 比如第 4 个；有的只有一个元素，比如 1、3、6；有的就是刚才说的拉链法，比如第 2 和第 5 个桶。
+当链表长度大于或等于阈值（默认为 8）的时候，如果同时还满足容量大于或等于 MIN_TREEIFY_CAPACITY（默认为 64）的要求，就会把链表转换为红黑树。同样，后续如果由于删除或者其他原因调整了大小，当红黑树的节点小于或等于 6 个以后，又会恢复为链表形态。
+让我们回顾一下 HashMap 的结构示意图：
+在图中我们可以看到，有一些槽点是空的，有一些是拉链，有一些是红黑树。
+更多的时候我们会关注，为何转为红黑树以及红黑树的一些特点，可是，为什么转化的这个阈值要默认设置为 8 呢？要想知道为什么设置为 8，那首先我们就要知道为什么要转换，因为转换是第一步。
+每次遍历一个链表，平均查找的时间复杂度是 O(n)，n 是链表的长度。红黑树有和链表不一样的查找性能，由于红黑树有自平衡的特点，可以防止不平衡情况的发生，所以可以始终将查找的时间复杂度控制在 O(log(n))。最初链表还不是很长，所以可能 O(n) 和 O(log(n)) 的区别不大，但是如果链表越来越长，那么这种区别便会有所体现。所以为了提升查找性能，需要把链表转化为红黑树的形式。
+那为什么不一开始就用红黑树，反而要经历一个转换的过程呢？其实在 JDK 的源码注释中已经对这个问题作了解释：
+Because TreeNodes are about twice the size of regular nodes,use them only when bins contain enough nodes to warrant use(see TREEIFY_THRESHOLD).</description>
+    </item>
+    
+    <item>
+      <title>30 ConcurrentHashMap 在 Java7 和 8 有何不同？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/30-concurrenthashmap-%E5%9C%A8-java7-%E5%92%8C-8-%E6%9C%89%E4%BD%95%E4%B8%8D%E5%90%8C/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:06 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/30-concurrenthashmap-%E5%9C%A8-java7-%E5%92%8C-8-%E6%9C%89%E4%BD%95%E4%B8%8D%E5%90%8C/</guid>
+      <description>在 Java 8 中，对于 ConcurrentHashMap 这个常用的工具类进行了很大的升级，对比之前 Java 7 版本在诸多方面都进行了调整和变化。不过，在 Java 7 中的 Segment 的设计思想依然具有参考和学习的价值，所以在很多情况下面试官都会问你：ConcurrentHashMap 在 Java 7 和 Java 8 中的结构分别是什么？它们有什么相同点和不同点？所以本课时就对 ConcurrentHashMap 在这两个版本的特点和性质进行对比和介绍。
+Java 7 版本的 ConcurrentHashMap 我们首先来看一下 Java 7 版本中的 ConcurrentHashMap 的结构示意图：
+从图中我们可以看出，在 ConcurrentHashMap 内部进行了 Segment 分段，Segment 继承了 ReentrantLock，可以理解为一把锁，各个 Segment 之间都是相互独立上锁的，互不影响。相比于之前的 Hashtable 每次操作都需要把整个对象锁住而言，大大提高了并发效率。因为它的锁与锁之间是独立的，而不是整个对象只有一把锁。
+每个 Segment 的底层数据结构与 HashMap 类似，仍然是数组和链表组成的拉链法结构。默认有 0~15 共 16 个 Segment，所以最多可以同时支持 16 个线程并发操作（操作分别分布在不同的 Segment 上）。16 这个默认值可以在初始化的时候设置为其他值，但是一旦确认初始化以后，是不可以扩容的。
+Java 8 版本的 ConcurrentHashMap 在 Java 8 中，几乎完全重写了 ConcurrentHashMap，代码量从原来 Java 7 中的 1000 多行，变成了现在的 6000 多行，所以也大大提高了源码的阅读难度。而为了方便我们理解，我们还是先从整体的结构示意图出发，看一看总体的设计思路，然后再去深入细节。</description>
+    </item>
+    
+    <item>
+      <title>29 HashMap 为什么是线程不安全的？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/29-hashmap-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:05 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/29-hashmap-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84/</guid>
+      <description>本课时我们主要讲解为什么 HashMap 是线程不安全的？而对于 HashMap，相信你一定并不陌生，HashMap 是我们平时工作和学习中用得非常非常多的一个容器，也是 Map 最主要的实现类之一，但是它自身并不具备线程安全的特点，可以从多种情况中体现出来，下面我们就对此进行具体的分析。
+源码分析 第一步，我们来看一下 HashMap 中 put 方法的源码：
+public V put(K key, V value) {if (key == null)return putForNullKey(value);int hash = hash(key.hashCode());int i = indexFor(hash, table.length);for (Entry&amp;lt;K,V&amp;gt; e = table[i]; e != null; e = e.next) {Object k;if (e.hash == hash &amp;amp;&amp;amp; ((k = e.key) == key || key.equals(k))) {V oldValue = e.value;e.value = value;e.recordAccess(this);return oldValue;}} //modCount++ 是一个复合操作modCount++;addEntry(hash, key, value, i);return null;}在 HashMap 的 put() 方法中，可以看出里面进行了很多操作，那么在这里，我们把目光聚焦到标记出来的 modCount++ 这一行代码中，相信有经验的小伙伴一定发现了，这相当于是典型的“i++”操作，正是我们在 06 课时讲过的线程不安全的“运行结果错误”的情况。从表面上看 i++ 只是一行代码，但实际上它并不是一个原子操作，它的执行步骤主要分为三步，而且在每步操作之间都有可能被打断。</description>
+    </item>
+    
+    <item>
+      <title>28 JVM 对锁进行了哪些优化？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/28-jvm-%E5%AF%B9%E9%94%81%E8%BF%9B%E8%A1%8C%E4%BA%86%E5%93%AA%E4%BA%9B%E4%BC%98%E5%8C%96/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:04 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/28-jvm-%E5%AF%B9%E9%94%81%E8%BF%9B%E8%A1%8C%E4%BA%86%E5%93%AA%E4%BA%9B%E4%BC%98%E5%8C%96/</guid>
+      <description>本课时我们主要讲解 JVM 对锁进行了哪些优化呢？
+相比于 JDK 1.5，在 JDK 1.6 中 HotSopt 虚拟机对 synchronized 内置锁的性能进行了很多优化，包括自适应的自旋、锁消除、锁粗化、偏向锁、轻量级锁等。有了这些优化措施后，synchronized 锁的性能得到了大幅提高，下面我们分别介绍这些具体的优化。
+自适应的自旋锁 首先，我们来看一下自适应的自旋锁。先来复习一下自旋的概念和自旋的缺点。“自旋”就是不释放 CPU，一直循环尝试获取锁，如下面这段代码所
+public final long getAndAddLong(Object var1, long var2, long var4) {long var6;do {var6 = this.getLongVolatile(var1, var2);} while(!this.compareAndSwapLong(var1, var2, var6, var6 + var4));return var6;}代码中使用一个 do-while 循环来一直尝试修改 long 的值。自旋的缺点在于如果自旋时间过长，那么性能开销是很大的，浪费了 CPU 资源。
+在 JDK 1.6 中引入了自适应的自旋锁来解决长时间自旋的问题。自适应意味着自旋的时间不再固定，而是会根据最近自旋尝试的成功率、失败率，以及当前锁的拥有者的状态等多种因素来共同决定。自旋的持续时间是变化的，自旋锁变“聪明”了。比如，如果最近尝试自旋获取某一把锁成功了，那么下一次可能还会继续使用自旋，并且允许自旋更长的时间；但是如果最近自旋获取某一把锁失败了，那么可能会省略掉自旋的过程，以便减少无用的自旋，提高效率。
+锁消除 第二个优化是锁消除。首先我们来看下面的代码：
+public class Person {private String name;private int age;public Person(String personName, int personAge) {name = personName;age = personAge;}public Person(Person p) {this(p.</description>
+    </item>
+    
+    <item>
+      <title>27 什么是自旋锁？自旋的好处和后果是什么呢？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/27-%E4%BB%80%E4%B9%88%E6%98%AF%E8%87%AA%E6%97%8B%E9%94%81%E8%87%AA%E6%97%8B%E7%9A%84%E5%A5%BD%E5%A4%84%E5%92%8C%E5%90%8E%E6%9E%9C%E6%98%AF%E4%BB%80%E4%B9%88%E5%91%A2/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:03 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/27-%E4%BB%80%E4%B9%88%E6%98%AF%E8%87%AA%E6%97%8B%E9%94%81%E8%87%AA%E6%97%8B%E7%9A%84%E5%A5%BD%E5%A4%84%E5%92%8C%E5%90%8E%E6%9E%9C%E6%98%AF%E4%BB%80%E4%B9%88%E5%91%A2/</guid>
+      <description>在本课时我们主要讲解什么是自旋锁？以及使用自旋锁的好处和后果分别是什么呢？
+什么是自旋 首先，我们了解什么叫自旋？“自旋”可以理解为“自我旋转”，这里的“旋转”指“循环”，比如 while 循环或者 for 循环。“自旋”就是自己在这里不停地循环，直到目标达成。而不像普通的锁那样，如果获取不到锁就进入阻塞。
+对比自旋和非自旋的获取锁的流程 下面我们用这样一张流程图来对比一下自旋锁和非自旋锁的获取锁的过程。
+首先，我们来看自旋锁，它并不会放弃 CPU 时间片，而是通过自旋等待锁的释放，也就是说，它会不停地再次地尝试获取锁，如果失败就再次尝试，直到成功为止。
+我们再来看下非自旋锁，非自旋锁和自旋锁是完全不一样的，如果它发现此时获取不到锁，它就把自己的线程切换状态，让线程休眠，然后 CPU 就可以在这段时间去做很多其他的事情，直到之前持有这把锁的线程释放了锁，于是 CPU 再把之前的线程恢复回来，让这个线程再去尝试获取这把锁。如果再次失败，就再次让线程休眠，如果成功，一样可以成功获取到同步资源的锁。
+可以看出，非自旋锁和自旋锁最大的区别，就是如果它遇到拿不到锁的情况，它会把线程阻塞，直到被唤醒。而自旋锁会不停地尝试。那么，自旋锁这样不停尝试的好处是什么呢？
+自旋锁的好处 首先，阻塞和唤醒线程都是需要高昂的开销的，如果同步代码块中的内容不复杂，那么可能转换线程带来的开销比实际业务代码执行的开销还要大。
+在很多场景下，可能我们的同步代码块的内容并不多，所以需要的执行时间也很短，如果我们仅仅为了这点时间就去切换线程状态，那么其实不如让线程不切换状态，而是让它自旋地尝试获取锁，等待其他线程释放锁，有时我只需要稍等一下，就可以避免上下文切换等开销，提高了效率。
+用一句话总结自旋锁的好处，那就是自旋锁用循环去不停地尝试获取锁，让线程始终处于 Runnable 状态，节省了线程状态切换带来的开销。
+AtomicLong 的实现 在 Java 1.5 版本及以上的并发包中，也就是 java.util.concurrent 的包中，里面的原子类基本都是自旋锁的实现。
+比如我们看一个 AtomicLong 的实现，里面有一个 getAndIncrement 方法，源码如下：
+public final long getAndIncrement() {return unsafe.getAndAddLong(this, valueOffset, 1L);}可以看到它调用了一个 unsafe.getAndAddLong，所以我们再来看这个方法：
+public final long getAndAddLong (Object var1,long var2, long var4){long var6;do {var6 = this.getLongVolatile(var1, var2);} while (!this.compareAndSwapLong(var1, var2, var6, var6 + var4));return var6;}在这个方法中，它用了一个 do while 循环。这里就很明显了：</description>
+    </item>
+    
+    <item>
+      <title>26 读锁应该插队吗？什么是读写锁的升降级？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/26-%E8%AF%BB%E9%94%81%E5%BA%94%E8%AF%A5%E6%8F%92%E9%98%9F%E5%90%97%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%BB%E5%86%99%E9%94%81%E7%9A%84%E5%8D%87%E9%99%8D%E7%BA%A7/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:02 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/26-%E8%AF%BB%E9%94%81%E5%BA%94%E8%AF%A5%E6%8F%92%E9%98%9F%E5%90%97%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%BB%E5%86%99%E9%94%81%E7%9A%84%E5%8D%87%E9%99%8D%E7%BA%A7/</guid>
+      <description>在本课时我们主要讲解读锁应该插队吗?以及什么是读写锁的升降级。
+读锁插队策略 首先，我们来看一下读锁的插队策略，在这里先快速回顾一下在 24 课时公平与非公平锁中讲到的 ReentrantLock，如果锁被设置为非公平，那么它是可以在前面线程释放锁的瞬间进行插队的，而不需要进行排队。在读写锁这里，策略也是这样的吗？
+首先，我们看到 ReentrantReadWriteLock 可以设置为公平或者非公平，代码如下：
+公平锁：
+ReentrantReadWriteLock reentrantReadWriteLock = new ReentrantReadWriteLock(true);非公平锁：
+ReentrantReadWriteLock reentrantReadWriteLock = new ReentrantReadWriteLock(false);如果是公平锁，我们就在构造函数的参数中传入 true，如果是非公平锁，就在构造函数的参数中传入 false，默认是非公平锁。在获取读锁之前，线程会检查 readerShouldBlock() 方法，同样，在获取写锁之前，线程会检查 writerShouldBlock() 方法，来决定是否需要插队或者是去排队。
+首先看公平锁对于这两个方法的实现：
+final boolean writerShouldBlock() {return hasQueuedPredecessors();}final boolean readerShouldBlock() {return hasQueuedPredecessors();}很明显，在公平锁的情况下，只要等待队列中有线程在等待，也就是 hasQueuedPredecessors() 返回 true 的时候，那么 writer 和 reader 都会 block，也就是一律不允许插队，都乖乖去排队，这也符合公平锁的思想。
+下面让我们来看一下非公平锁的实现：
+final boolean writerShouldBlock() {return false; // writers can always barge}final boolean readerShouldBlock() {return apparentlyFirstQueuedIsExclusive();}在 writerShouldBlock() 这个方法中始终返回 false，可以看出，对于想获取写锁的线程而言，由于返回值是 false，所以它是随时可以插队的，这就和我们的 ReentrantLock 的设计思想是一样的，但是读锁却不一样。这里实现的策略很有意思，先让我们来看下面这种场景：</description>
+    </item>
+    
+    <item>
+      <title>25 读写锁 ReadWriteLock 获取锁有哪些规则？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/25-%E8%AF%BB%E5%86%99%E9%94%81-readwritelock-%E8%8E%B7%E5%8F%96%E9%94%81%E6%9C%89%E5%93%AA%E4%BA%9B%E8%A7%84%E5%88%99/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:01 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/25-%E8%AF%BB%E5%86%99%E9%94%81-readwritelock-%E8%8E%B7%E5%8F%96%E9%94%81%E6%9C%89%E5%93%AA%E4%BA%9B%E8%A7%84%E5%88%99/</guid>
+      <description>在本课时我们主要讲解读写锁 ReadWriteLock 获取锁有哪些规则呢？
+在没有读写锁之前，我们假设使用普通的 ReentrantLock，那么虽然我们保证了线程安全，但是也浪费了一定的资源，因为如果多个读操作同时进行，其实并没有线程安全问题，我们可以允许让多个读操作并行，以便提高程序效率。
+但是写操作不是线程安全的，如果多个线程同时写，或者在写的同时进行读操作，便会造成线程安全问题。
+我们的读写锁就解决了这样的问题，它设定了一套规则，既可以保证多个线程同时读的效率，同时又可以保证有写入操作时的线程安全。
+整体思路是它有两把锁，第 1 把锁是写锁，获得写锁之后，既可以读数据又可以修改数据，而第 2 把锁是读锁，获得读锁之后，只能查看数据，不能修改数据。读锁可以被多个线程同时持有，所以多个线程可以同时查看数据。
+在读的地方合理使用读锁，在写的地方合理使用写锁，灵活控制，可以提高程序的执行效率。
+读写锁的获取规则 我们在使用读写锁时遵守下面的获取规则：
+ 如果有一个线程已经占用了读锁，则此时其他线程如果要申请读锁，可以申请成功。 如果有一个线程已经占用了读锁，则此时其他线程如果要申请写锁，则申请写锁的线程会一直等待释放读锁，因为读写不能同时操作。 如果有一个线程已经占用了写锁，则此时其他线程如果申请写锁或者读锁，都必须等待之前的线程释放写锁，同样也因为读写不能同时，并且两个线程不应该同时写。  所以我们用一句话总结：要么是一个或多个线程同时有读锁，要么是一个线程有写锁，但是两者不会同时出现。也可以总结为：读读共享、其他都互斥（写写互斥、读写互斥、写读互斥）。
+使用案例 下面我们举个例子来应用读写锁，ReentrantReadWriteLock 是 ReadWriteLock 的实现类，最主要的有两个方法：readLock() 和 writeLock() 用来获取读锁和写锁。
+代码如下：
+/*** 描述： 演示读写锁用法*/public class ReadWriteLockDemo {private static final ReentrantReadWriteLock reentrantReadWriteLock = new ReentrantReadWriteLock(false);private static final ReentrantReadWriteLock.ReadLock readLock = reentrantReadWriteLock.readLock();private static final ReentrantReadWriteLock.WriteLock writeLock = reentrantReadWriteLock.writeLock();private static void read() {readLock.lock();try {System.</description>
+    </item>
+    
+    <item>
+      <title>24 讲一讲公平锁和非公平锁，为什么要“非公平”？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/24-%E8%AE%B2%E4%B8%80%E8%AE%B2%E5%85%AC%E5%B9%B3%E9%94%81%E5%92%8C%E9%9D%9E%E5%85%AC%E5%B9%B3%E9%94%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%9D%9E%E5%85%AC%E5%B9%B3/</link>
+      <pubDate>Wed, 22 Dec 2021 01:42:00 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/24-%E8%AE%B2%E4%B8%80%E8%AE%B2%E5%85%AC%E5%B9%B3%E9%94%81%E5%92%8C%E9%9D%9E%E5%85%AC%E5%B9%B3%E9%94%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%9D%9E%E5%85%AC%E5%B9%B3/</guid>
+      <description>本课时我们主要讲一讲公平锁和非公平锁，以及为什么要“非公平”？
+什么是公平和非公平 首先，我们来看下什么是公平锁和非公平锁，公平锁指的是按照线程请求的顺序，来分配锁；而非公平锁指的是不完全按照请求的顺序，在一定情况下，可以允许插队。但需要注意这里的非公平并不是指完全的随机，不是说线程可以任意插队，而是仅仅“在合适的时机”插队。
+那么什么时候是合适的时机呢？假设当前线程在请求获取锁的时候，恰巧前一个持有锁的线程释放了这把锁，那么当前申请锁的线程就可以不顾已经等待的线程而选择立刻插队。但是如果当前线程请求的时候，前一个线程并没有在那一时刻释放锁，那么当前线程还是一样会进入等待队列。
+为了能够更好的理解公平锁和非公平锁，我们举一个生活中的例子，假设我们还在学校读书，去食堂排队买饭，我排在队列的第二个，我前面还有一位同学，但此时我脑子里想的不是午饭，而是上午的一道数学题并陷入深思，所以当前面的同学打完饭之后轮到我时我走神了，并也没注意到现在轮到我了，此时前面的同学突然又回来插队，说“不好意思，阿姨麻烦给我加个鸡腿”，像这样的行为就可以类比我们的公平锁和非公平锁。
+看到这里，你可能不解，为什么要设置非公平策略呢，而且非公平还是 ReentrantLock的默认策略，如果我们不加以设置的话默认就是非公平的，难道我的这些排队的时间都白白浪费了吗，为什么别人比我有优先权呢？毕竟公平是一种很好的行为，而非公平是一种不好的行为。
+让我们考虑一种情况，假设线程 A 持有一把锁，线程 B 请求这把锁，由于线程 A 已经持有这把锁了，所以线程 B 会陷入等待，在等待的时候线程 B 会被挂起，也就是进入阻塞状态，那么当线程 A 释放锁的时候，本该轮到线程 B 苏醒获取锁，但如果此时突然有一个线程 C 插队请求这把锁，那么根据非公平的策略，会把这把锁给线程 C，这是因为唤醒线程 B 是需要很大开销的，很有可能在唤醒之前，线程 C 已经拿到了这把锁并且执行完任务释放了这把锁。相比于等待唤醒线程 B 的漫长过程，插队的行为会让线程 C 本身跳过陷入阻塞的过程，如果在锁代码中执行的内容不多的话，线程 C 就可以很快完成任务，并且在线程 B 被完全唤醒之前，就把这个锁交出去，这样是一个双赢的局面，对于线程 C 而言，不需要等待提高了它的效率，而对于线程 B 而言，它获得锁的时间并没有推迟，因为等它被唤醒的时候，线程 C 早就释放锁了，因为线程 C 的执行速度相比于线程 B 的唤醒速度，是很快的，所以 Java 设计者设计非公平锁，是为了提高整体的运行效率。
+公平的场景 下面我们用图示来说明公平和非公平的场景，先来看公平的情况。假设我们创建了一个公平锁，此时有 4 个线程按顺序来请求公平锁，线程 1 在拿到这把锁之后，线程 2、3、4 会在等待队列中开始等待，然后等线程 1 释放锁之后，线程 2、3、4 会依次去获取这把锁，线程 2 先获取到的原因是它等待的时间最长。
+不公平的场景 下面我们再来看看非公平的情况，假设线程 1 在解锁的时候，突然有线程 5 尝试获取这把锁，那么根据我们的非公平策略，线程 5 是可以拿到这把锁的，尽管它没有进入等待队列，而且线程 2、3、4 等待的时间都比线程 5 要长，但是从整体效率考虑，这把锁此时还是会交给线程 5 持有。</description>
+    </item>
+    
+    <item>
+      <title>23 Lock 有哪几个常用方法？分别有什么用？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/23-lock-%E6%9C%89%E5%93%AA%E5%87%A0%E4%B8%AA%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%88%86%E5%88%AB%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:59 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/23-lock-%E6%9C%89%E5%93%AA%E5%87%A0%E4%B8%AA%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%88%86%E5%88%AB%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8/</guid>
+      <description>本课时我们主要讲解 Lock 有哪几种常用的方法，以及它们分别都是干什么用的。
+简介 Lock 接口是 Java 5 引入的，最常见的实现类是 ReentrantLock，可以起到“锁”的作用。
+Lock 和 synchronized 是两种最常见的锁，锁是一种工具，用于控制对共享资源的访问，而 Lock 和 synchronized 都可以达到线程安全的目的，但是在使用上和功能上又有较大的不同。所以 Lock 并不是用来代替 synchronized 的，而是当使用 synchronized 不合适或不足以满足要求的时候，Lock 可以用来提供更高级功能的。
+通常情况下，Lock 只允许一个线程来访问这个共享资源。不过有的时候，一些特殊的实现也可允许并发访问，比如 ReadWriteLock 里面的 ReadLock。
+方法纵览 我们首先看下 Lock 接口的各个方法，如代码所示。
+public interface Lock {void lock();void lockInterruptibly() throws InterruptedException;boolean tryLock();boolean tryLock(long time, TimeUnit unit) throws InterruptedException;void unlock();Condition newCondition();}我们可以看到与 Lock 接口加解锁相关的主要有 5 个方法，我们接下来重点分析这 5 种方法的作用和用法，这 5 种方法分别是 lock()、tryLock()、tryLock(long time, TimeUnit unit) 和 lockInterruptibly()、unlock()。</description>
+    </item>
+    
+    <item>
+      <title>22 synchronized 和 Lock 孰优孰劣，如何选择？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/22-synchronized-%E5%92%8C-lock-%E5%AD%B0%E4%BC%98%E5%AD%B0%E5%8A%A3%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:58 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/22-synchronized-%E5%92%8C-lock-%E5%AD%B0%E4%BC%98%E5%AD%B0%E5%8A%A3%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9/</guid>
+      <description>本课时我们主要学习 synchronized 和 Lock 的异同点，以及该如何选择。
+相同点 synchronized 和 Lock 的相同点非常多，我们这里重点讲解 3 个比较大的相同点。
+ synchronized 和 Lock 都是用来保护资源线程安全的。  这一点毋庸置疑，这是它们的基本作用。
+ 都可以保证可见性。  对于 synchronized 而言，线程 A 在进入 synchronized 块之前或在 synchronized 块内进行操作，对于后续的获得同一个 monitor 锁的线程 B 是可见的，也就是线程 B 是可以看到线程 A 之前的操作的，这也体现了 happens-before 针对 synchronized 的一个原则。
+而对于 Lock 而言，它和 synchronized 是一样，都可以保证可见性，如图所示，在解锁之前的所有操作对加锁之后的所有操作都是可见的。
+如果你之前不了解什么是可见性，此时理解可能会有一定的困难，可以在学习本专栏的 Java 内存模型相关内容后，再复习本课时，就会豁然开朗。
+ synchronized 和 ReentrantLock 都拥有可重入的特点。  这里的 ReentrantLock 是 Lock 接口的一个最主要的实现类，在对比 synchronized 和 Lock 的时候，也会选择 Lock 的主要实现类来进行对比。可重入指的是某个线程如果已经获得了一个锁，现在试图再次请求这个它已经获得的锁，如果它无需提前释放这个锁，而是直接可以继续使用持有的这个锁，那么就是可重入的。如果必须释放锁后才能再次申请这个锁，就是不可重入的。而 synchronized 和 ReentrantLock 都具有可重入的特性。</description>
+    </item>
+    
+    <item>
+      <title>21 如何看到 synchronized 背后的“monitor 锁”？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/21-%E5%A6%82%E4%BD%95%E7%9C%8B%E5%88%B0-synchronized-%E8%83%8C%E5%90%8E%E7%9A%84monitor-%E9%94%81/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:56 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/21-%E5%A6%82%E4%BD%95%E7%9C%8B%E5%88%B0-synchronized-%E8%83%8C%E5%90%8E%E7%9A%84monitor-%E9%94%81/</guid>
+      <description>本课时我们研究下 synchronized 背后的 monitor 锁。
+获取和释放 monitor 锁的时机 我们都知道，最简单的同步方式就是利用 synchronized 关键字来修饰代码块或者修饰一个方法，那么这部分被保护的代码，在同一时刻就最多只有一个线程可以运行，而 synchronized 的背后正是利用 monitor 锁实现的。所以首先我们来看下获取和释放 monitor 锁的时机，每个 Java 对象都可以用作一个实现同步的锁，这个锁也被称为内置锁或 monitor 锁，获得 monitor 锁的唯一途径就是进入由这个锁保护的同步代码块或同步方法，线程在进入被 synchronized 保护的代码块之前，会自动获取锁，并且无论是正常路径退出，还是通过抛出异常退出，在退出的时候都会自动释放锁。
+我们首先来看一个 synchronized 修饰方法的代码的例子：
+public synchronized void method() {method body}我们看到 method() 方法是被 synchronized 修饰的，为了方便理解其背后的原理，我们把上面这段代码改写为下面这种等价形式的伪代码。
+public void method() {this.intrinsicLock.lock();try{method body}finally {this.intrinsicLock.unlock();}}在这种写法中，进入 method 方法后，立刻添加内置锁，并且用 try 代码块把方法保护起来，最后用 finally 释放这把锁，这里的 intrinsicLock 就是 monitor 锁。经过这样的伪代码展开之后，相信你对 synchronized 的理解就更加清晰了。
+用 javap 命令查看反汇编的结果 JVM 实现 synchronized 方法和 synchronized 代码块的细节是不一样的，下面我们就分别来看一下两者的实现。</description>
+    </item>
+    
+    <item>
+      <title>20 悲观锁和乐观锁的本质是什么？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/20-%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81%E7%9A%84%E6%9C%AC%E8%B4%A8%E6%98%AF%E4%BB%80%E4%B9%88/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:55 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/20-%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81%E7%9A%84%E6%9C%AC%E8%B4%A8%E6%98%AF%E4%BB%80%E4%B9%88/</guid>
+      <description>本课时我们会讲讲悲观锁和乐观锁。
+首先我们看下悲观锁与乐观锁是如何进行分类的，悲观锁和乐观锁是从是否锁住资源的角度进行分类的。
+悲观锁 悲观锁比较悲观，它认为如果不锁住这个资源，别的线程就会来争抢，就会造成数据结果错误，所以悲观锁为了确保结果的正确性，会在每次获取并修改数据时，都把数据锁住，让其他线程无法访问该数据，这样就可以确保数据内容万无一失。
+这也和我们人类中悲观主义者的性格是一样的，悲观主义者做事情之前总是担惊受怕，所以会严防死守，保证别人不能来碰我的东西，这就是悲观锁名字的含义。
+我们举个例子，假设线程 A 和 B 使用的都是悲观锁，所以它们在尝试获取同步资源时，必须要先拿到锁。
+假设线程 A 拿到了锁，并且正在操作同步资源，那么此时线程 B 就必须进行等待。
+而当线程 A 执行完毕后，CPU 才会唤醒正在等待这把锁的线程 B 再次尝试获取锁。
+如果线程 B 现在获取到了锁，才可以对同步资源进行自己的操作。这就是悲观锁的操作流程。
+乐观锁 乐观锁比较乐观，认为自己在操作资源的时候不会有其他线程来干扰，所以并不会锁住被操作对象，不会不让别的线程来接触它，同时，为了确保数据正确性，在更新之前，会去对比在我修改数据期间，数据有没有被其他线程修改过：如果没被修改过，就说明真的只有我自己在操作，那我就可以正常的修改数据；如果发现数据和我一开始拿到的不一样了，说明其他线程在这段时间内修改过数据，那说明我迟了一步，所以我会放弃这次修改，并选择报错、重试等策略。
+这和我们生活中乐天派的人的性格是一样的，乐观的人并不会担忧还没有发生的事情，相反，他会认为未来是美好的，所以他在修改数据之前，并不会把数据给锁住。当然，乐天派也不会盲目行动，如果他发现事情和他预想的不一样，也会有相应的处理办法，他不会坐以待毙，这就是乐观锁的思想。
+乐观锁的实现一般都是利用 CAS 算法实现的。我们举个例子，假设线程 A 此时运用的是乐观锁。那么它去操作同步资源的时候，不需要提前获取到锁，而是可以直接去读取同步资源，并且在自己的线程内进行计算。
+当它计算完毕之后、准备更新同步资源之前，会先判断这个资源是否已经被其他线程所修改过。
+如果这个时候同步资源没有被其他线程修改更新，也就是说此时的数据和线程 A 最开始拿到的数据是一致的话，那么此时线程 A 就会去更新同步资源，完成修改的过程。
+而假设此时的同步资源已经被其他线程修改更新了，线程 A 会发现此时的数据已经和最开始拿到的数据不一致了，那么线程 A 不会继续修改该数据，而是会根据不同的业务逻辑去选择报错或者重试。
+悲观锁和乐观锁概念并不是 Java 中独有的，这是一种广义的思想，这种思想可以应用于其他领域，比如说在数据库中，同样也有对悲观锁和乐观锁的应用。
+典型案例  悲观锁：synchronized 关键字和 Lock 接口  Java 中悲观锁的实现包括 synchronized 关键字和 Lock 相关类等，我们以 Lock 接口为例，例如 Lock 的实现类 ReentrantLock，类中的 lock() 等方法就是执行加锁，而 unlock() 方法是执行解锁。处理资源之前必须要先加锁并拿到锁，等到处理完了之后再解开锁，这就是非常典型的悲观锁思想。
+ 乐观锁：原子类  乐观锁的典型案例就是原子类，例如 AtomicInteger 在更新数据时，就使用了乐观锁的思想，多个线程可以同时操作同一个原子变量。</description>
+    </item>
+    
+    <item>
+      <title>19 你知道哪几种锁？分别有什么特点？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/19-%E4%BD%A0%E7%9F%A5%E9%81%93%E5%93%AA%E5%87%A0%E7%A7%8D%E9%94%81%E5%88%86%E5%88%AB%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:54 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/19-%E4%BD%A0%E7%9F%A5%E9%81%93%E5%93%AA%E5%87%A0%E7%A7%8D%E9%94%81%E5%88%86%E5%88%AB%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9/</guid>
+      <description>本课时我们首先会对锁的分类有一个整体的概念，了解锁究竟有哪些分类标准。然后在后续的课程中，会对其中重要的锁进行详细讲解。
+锁的 7 大分类 需要首先指出的是，这些多种多样的分类，是评价一个事物的多种标准，比如评价一个城市，标准有人口多少、经济发达与否、城市面积大小等。而一个城市可能同时占据多个标准，以北京而言，人口多，经济发达，同时城市面积还很大。
+同理，对于 Java 中的锁而言，一把锁也有可能同时占有多个标准，符合多种分类，比如 ReentrantLock 既是可中断锁，又是可重入锁。
+根据分类标准我们把锁分为以下 7 大类别，分别是：
+ 偏向锁/轻量级锁/重量级锁； 可重入锁/非可重入锁； 共享锁/独占锁； 公平锁/非公平锁； 悲观锁/乐观锁； 自旋锁/非自旋锁； 可中断锁/不可中断锁。  以上是常见的分类标准，下面我们来逐一介绍它们的含义。
+偏向锁/轻量级锁/重量级锁 第一种分类是偏向锁/轻量级锁/重量级锁，这三种锁特指 synchronized 锁的状态，通过在对象头中的 mark word 来表明锁的状态。
+ 偏向锁  如果自始至终，对于这把锁都不存在竞争，那么其实就没必要上锁，只需要打个标记就行了，这就是偏向锁的思想。一个对象被初始化后，还没有任何线程来获取它的锁时，那么它就是可偏向的，当有第一个线程来访问它并尝试获取锁的时候，它就将这个线程记录下来，以后如果尝试获取锁的线程正是偏向锁的拥有者，就可以直接获得锁，开销很小，性能最好。
+ 轻量级锁  JVM 开发者发现在很多情况下，synchronized 中的代码是被多个线程交替执行的，而不是同时执行的，也就是说并不存在实际的竞争，或者是只有短时间的锁竞争，用 CAS 就可以解决，这种情况下，用完全互斥的重量级锁是没必要的。轻量级锁是指当锁原来是偏向锁的时候，被另一个线程访问，说明存在竞争，那么偏向锁就会升级为轻量级锁，线程会通过自旋的形式尝试获取锁，而不会陷入阻塞。
+ 重量级锁  重量级锁是互斥锁，它是利用操作系统的同步机制实现的，所以开销相对比较大。当多个线程直接有实际竞争，且锁竞争时间长的时候，轻量级锁不能满足需求，锁就会膨胀为重量级锁。重量级锁会让其他申请却拿不到锁的线程进入阻塞状态。
+你可以发现锁升级的路径：无锁→偏向锁→轻量级锁→重量级锁。
+综上所述，偏向锁性能最好，可以避免执行 CAS 操作。而轻量级锁利用自旋和 CAS 避免了重量级锁带来的线程阻塞和唤醒，性能中等。重量级锁则会把获取不到锁的线程阻塞，性能最差。
+可重入锁/非可重入锁 第 2 个分类是可重入锁和非可重入锁。可重入锁指的是线程当前已经持有这把锁了，能在不释放这把锁的情况下，再次获取这把锁。同理，不可重入锁指的是虽然线程当前持有了这把锁，但是如果想再次获取这把锁，也必须要先释放锁后才能再次尝试获取。
+对于可重入锁而言，最典型的就是 ReentrantLock 了，正如它的名字一样，reentrant 的意思就是可重入，它也是 Lock 接口最主要的一个实现类。
+共享锁/独占锁 第 3 种分类标准是共享锁和独占锁。共享锁指的是我们同一把锁可以被多个线程同时获得，而独占锁指的就是，这把锁只能同时被一个线程获得。我们的读写锁，就最好地诠释了共享锁和独占锁的理念。读写锁中的读锁，是共享锁，而写锁是独占锁。读锁可以被同时读，可以同时被多个线程持有，而写锁最多只能同时被一个线程持有。
+公平锁/非公平锁 第 4 种分类是公平锁和非公平锁。公平锁的公平的含义在于如果线程现在拿不到这把锁，那么线程就都会进入等待，开始排队，在等待队列里等待时间长的线程会优先拿到这把锁，有先来先得的意思。而非公平锁就不那么“完美”了，它会在一定情况下，忽略掉已经在排队的线程，发生插队现象。</description>
+    </item>
+    
+    <item>
+      <title>18 线程池实现“线程复用”的原理？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/18-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B%E5%A4%8D%E7%94%A8%E7%9A%84%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:53 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/18-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B%E5%A4%8D%E7%94%A8%E7%9A%84%E5%8E%9F%E7%90%86/</guid>
+      <description>在本课时我们主要学习线程复用的原理，以及对线程池的 execute 这个非常重要的方法进行源码解析。
+线程复用原理 我们知道线程池会使用固定数量或可变数量的线程来执行任务，但无论是固定数量或可变数量的线程，其线程数量都远远小于任务数量，面对这种情况线程池可以通过线程复用让同一个线程去执行不同的任务，那么线程复用背后的原理是什么呢？
+线程池可以把线程和任务进行解耦，线程归线程，任务归任务，摆脱了之前通过 Thread 创建线程时的一个线程必须对应一个任务的限制。在线程池中，同一个线程可以从 BlockingQueue 中不断提取新任务来执行，其核心原理在于线程池对 Thread 进行了封装，并不是每次执行任务都会调用 Thread.start() 来创建新线程，而是让每个线程去执行一个“循环任务”，在这个“循环任务”中，不停地检查是否还有任务等待被执行，如果有则直接去执行这个任务，也就是调用任务的 run 方法，把 run 方法当作和普通方法一样的地位去调用，相当于把每个任务的 run() 方法串联了起来，所以线程数量并不增加。
+我们首先来复习一下线程池创建新线程的时机和规则：
+如流程图所示，当提交任务后，线程池首先会检查当前线程数，如果此时线程数小于核心线程数，比如最开始线程数量为 0，则新建线程并执行任务，随着任务的不断增加，线程数会逐渐增加并达到核心线程数，此时如果仍有任务被不断提交，就会被放入 workQueue 任务队列中，等待核心线程执行完当前任务后重新从 workQueue 中提取正在等待被执行的任务。此时，假设我们的任务特别的多，已经达到了 workQueue 的容量上限，这时线程池就会启动后备力量，也就是 maxPoolSize 最大线程数，线程池会在 corePoolSize 核心线程数的基础上继续创建线程来执行任务，假设任务被不断提交，线程池会持续创建线程直到线程数达到 maxPoolSize 最大线程数，如果依然有任务被提交，这就超过了线程池的最大处理能力，这个时候线程池就会拒绝这些任务，我们可以看到实际上任务进来之后，线程池会逐一判断 corePoolSize 、workQueue 、maxPoolSize ，如果依然不能满足需求，则会拒绝任务。
+我们接下来具体看看代码是如何实现的，我们从 execute 方法开始分析，源码如下所示。
+public void execute(Runnable command) { if (command == null) throw new NullPointerException();int c = ctl.get();if (workerCountOf(c) &amp;lt; corePoolSize) { if (addWorker(command, true)) return;c = ctl.get();} if (isRunning(c) &amp;amp;&amp;amp; workQueue.</description>
+    </item>
+    
+    <item>
+      <title>17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/17-%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%85%B3%E9%97%AD%E7%BA%BF%E7%A8%8B%E6%B1%A0shutdown-%E5%92%8C-shutdownnow-%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:52 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/17-%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%85%B3%E9%97%AD%E7%BA%BF%E7%A8%8B%E6%B1%A0shutdown-%E5%92%8C-shutdownnow-%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
+      <description>在本课时我们主要学习如何正确关闭线程池？以及 shutdown() 与 shutdownNow() 方法的区别？首先，我们创建一个线程数固定为 10 的线程池，并且往线程池中提交 100 个任务，如代码所示。
+ExecutorService service = Executors.newFixedThreadPool(10);for (int i = 0; i &amp;lt; 100; i++) { service.execute(new Task());}那么如果现在我们想关闭该线程池该如何做呢？本课时主要介绍 5 种在 ThreadPoolExecutor 中涉及关闭线程池的方法，如下所示。
+ void shutdown; boolean isShutdown; boolean isTerminated; boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException; List shutdownNow;  下面我们就对这些方法逐一展开。
+shutdown() 第一种方法叫作 shutdown()，它可以安全地关闭一个线程池，调用 shutdown() 方法之后线程池并不是立刻就被关闭，因为这时线程池中可能还有很多任务正在被执行，或是任务队列中有大量正在等待被执行的任务，调用 shutdown() 方法后线程池会在执行完正在执行的任务和队列中等待的任务后才彻底关闭。但这并不代表 shutdown() 操作是没有任何效果的，调用 shutdown() 方法后如果还有新的任务被提交，线程池则会根据拒绝策略直接拒绝后续新提交的任务。
+isShutdown() 第二个方法叫作 isShutdown()，它可以返回 true 或者 false 来判断线程池是否已经开始了关闭工作，也就是是否执行了 shutdown 或者 shutdownNow 方法。这里需要注意，如果调用 isShutdown() 方法的返回的结果为 true 并不代表线程池此时已经彻底关闭了，这仅仅代表线程池开始了关闭的流程，也就是说，此时可能线程池中依然有线程在执行任务，队列里也可能有等待被执行的任务。</description>
+    </item>
+    
+    <item>
+      <title>16 如何根据实际需要，定制自己的线程池？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/16-%E5%A6%82%E4%BD%95%E6%A0%B9%E6%8D%AE%E5%AE%9E%E9%99%85%E9%9C%80%E8%A6%81%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:51 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/16-%E5%A6%82%E4%BD%95%E6%A0%B9%E6%8D%AE%E5%AE%9E%E9%99%85%E9%9C%80%E8%A6%81%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0/</guid>
+      <description>在本课时我们主要学习如何根据自己的实际需求设置线程池的各个参数来定制自己的线程池。
+核心线程数 第一个需要设置的参数往往是 corePoolSize 核心线程数，在上一课时我们讲过，合理的线程数量和任务类型，以及 CPU 核心数都有关系，基本结论是线程的平均工作时间所占比例越高，就需要越少的线程；线程的平均等待时间所占比例越高，就需要越多的线程。而对于最大线程数而言，如果我们执行的任务类型不是固定的，比如可能一段时间是 CPU 密集型，另一段时间是 IO 密集型，或是同时有两种任务相互混搭。那么在这种情况下，我们可以把最大线程数设置成核心线程数的几倍，以便应对任务突发情况。当然更好的办法是用不同的线程池执行不同类型的任务，让任务按照类型区分开，而不是混杂在一起，这样就可以按照上一课时估算的线程数或经过压测得到的结果来设置合理的线程数了，达到更好的性能。
+阻塞队列 对于阻塞队列这个参数而言，我们可以选择之前介绍过的 LinkedBlockingQueue 或者 SynchronousQueue 或者 DelayedWorkQueue，不过还有一种常用的阻塞队列叫 ArrayBlockingQueue，它也经常被用于线程池中，这种阻塞队列内部是用数组实现的，在新建对象的时候要求传入容量值，且后期不能扩容，所以 ArrayBlockingQueue 的最大的特点就是容量是有限的。这样一来，如果任务队列放满了任务，而且线程数也已经达到了最大值，线程池根据规则就会拒绝新提交的任务，这样一来就可能会产生一定的数据丢失。
+但相比于无限增加任务或者线程数导致内存不足，进而导致程序崩溃，数据丢失还是要更好一些的，如果我们使用了 ArrayBlockingQueue 这种阻塞队列，再加上我们限制了最大线程数量，就可以非常有效地防止资源耗尽的情况发生。此时的队列容量大小和 maxPoolSize 是一个 trade-off，如果我们使用容量更大的队列和更小的最大线程数，就可以减少上下文切换带来的开销，但也可能因此降低整体的吞吐量；如果我们的任务是 IO 密集型，则可以选择稍小容量的队列和更大的最大线程数，这样整体的效率就会更高，不过也会带来更多的上下文切换。
+线程工厂 对于线程工厂 threadFactory 这个参数，我们可以使用默认的 defaultThreadFactory，也可以传入自定义的有额外能力的线程工厂，因为我们可能有多个线程池，而不同的线程池之间有必要通过不同的名字来进行区分，所以可以传入能根据业务信息进行命名的线程工厂，以便后续可以根据线程名区分不同的业务进而快速定位问题代码。比如可以通过com.google.common.util.concurrent.ThreadFactory
+Builder 来实现，如代码所示。
+ThreadFactoryBuilder builder = new ThreadFactoryBuilder();ThreadFactory rpcFactory = builder.setNameFormat(&amp;quot;rpc-pool-%d&amp;quot;).build();我们生成了名字为 rpcFactory 的 ThreadFactory，它的 nameFormat 为 &amp;ldquo;rpc-pool-%d&amp;rdquo; ，那么它生成的线程的名字是有固定格式的，它生成的线程的名字分别为&amp;quot;rpc-pool-1&amp;quot;，&amp;ldquo;rpc-pool-2&amp;rdquo; ，以此类推。
+拒绝策略 最后一个参数是拒绝策略，我们可以根据业务需要，选择第 11 讲里的四种拒绝策略之一来使用：AbortPolicy，DiscardPolicy，DiscardOldestPolicy 或者 CallerRunsPolicy。除此之外，我们还可以通过实现 RejectedExecutionHandler 接口来实现自己的拒绝策略，在接口中我们需要实现 rejectedExecution 方法，在 rejectedExecution 方法中，执行例如打印日志、暂存任务、重新执行等自定义的拒绝策略，以便满足业务需求。如代码所示。
+private static class CustomRejectionHandler implements RejectedExecutionHandler { @Overridepublic void rejectedExecution(Runnable r, ThreadPoolExecutor executor) { //打印日志、暂存任务、重新执行等拒绝策略} }总结 所以定制自己的线程池和我们的业务是强相关的，首先我们需要掌握每个参数的含义，以及常见的选项，然后根据实际需要，比如说并发量、内存大小、是否接受任务被拒绝等一系列因素去定制一个非常适合自己业务的线程池，这样既不会导致内存不足，同时又可以用合适数量的线程来保障任务执行的效率，并在拒绝任务时有所记录方便日后进行追溯。</description>
+    </item>
+    
+    <item>
+      <title>15 合适的线程数量是多少？CPU 核心数和线程数的关系？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/15-%E5%90%88%E9%80%82%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%95%B0%E9%87%8F%E6%98%AF%E5%A4%9A%E5%B0%91cpu-%E6%A0%B8%E5%BF%83%E6%95%B0%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%95%B0%E7%9A%84%E5%85%B3%E7%B3%BB/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:50 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/15-%E5%90%88%E9%80%82%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%95%B0%E9%87%8F%E6%98%AF%E5%A4%9A%E5%B0%91cpu-%E6%A0%B8%E5%BF%83%E6%95%B0%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%95%B0%E7%9A%84%E5%85%B3%E7%B3%BB/</guid>
+      <description>在本课时我们主要学习合适的线程数量是多少，以及 CPU 核心数和线程数的关系。
+你可能经常在面试中被问到这两个问题，如果想要很好地回答它们首先你需要了解，我们调整线程池中的线程数量的最主要的目的是为了充分并合理地使用 CPU 和内存等资源，从而最大限度地提高程序的性能。在实际工作中，我们需要根据任务类型的不同选择对应的策略。 CPU 密集型任务 首先，我们来看 CPU 密集型任务，比如加密、解密、压缩、计算等一系列需要大量耗费 CPU 资源的任务。对于这样的任务最佳的线程数为 CPU 核心数的 1~2 倍，如果设置过多的线程数，实际上并不会起到很好的效果。此时假设我们设置的线程数量是 CPU 核心数的 2 倍以上，因为计算任务非常重，会占用大量的 CPU 资源，所以这时 CPU 的每个核心工作基本都是满负荷的，而我们又设置了过多的线程，每个线程都想去利用 CPU 资源来执行自己的任务，这就会造成不必要的上下文切换，此时线程数的增多并没有让性能提升，反而由于线程数量过多会导致性能下降。
+针对这种情况，我们最好还要同时考虑在同一台机器上还有哪些其他会占用过多 CPU 资源的程序在运行，然后对资源使用做整体的平衡。
+耗时 IO 型任务 第二种任务是耗时 IO 型，比如数据库、文件的读写，网络通信等任务，这种任务的特点是并不会特别消耗 CPU 资源，但是 IO 操作很耗时，总体会占用比较多的时间。对于这种任务最大线程数一般会大于 CPU 核心数很多倍，因为 IO 读写速度相比于 CPU 的速度而言是比较慢的，如果我们设置过少的线程数，就可能导致 CPU 资源的浪费。而如果我们设置更多的线程数，那么当一部分线程正在等待 IO 的时候，它们此时并不需要 CPU 来计算，那么另外的线程便可以利用 CPU 去执行其他的任务，互不影响，这样的话在任务队列中等待的任务就会减少，可以更好地利用资源。
+《Java并发编程实战》的作者 Brain Goetz 推荐的计算方法：
+线程数 = CPU 核心数 *（1+平均等待时间/平均工作时间）通过这个公式，我们可以计算出一个合理的线程数量，如果任务的平均等待时间长，线程数就随之增加，而如果平均工作时间长，也就是对于我们上面的 CPU 密集型任务，线程数就随之减少。
+太少的线程数会使得程序整体性能降低，而过多的线程也会消耗内存等其他资源，所以如果想要更准确的话，可以进行压测，监控 JVM 的线程情况以及 CPU 的负载情况，根据实际情况衡量应该创建的线程数，合理并充分利用资源。</description>
+    </item>
+    
+    <item>
+      <title>14 为什么不应该自动创建线程池？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/14-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%BA%94%E8%AF%A5%E8%87%AA%E5%8A%A8%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E6%B1%A0/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:49 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/14-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%BA%94%E8%AF%A5%E8%87%AA%E5%8A%A8%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E6%B1%A0/</guid>
+      <description>在本课时我们主要学习为什么不应该自动创建线程池，所谓的自动创建线程池就是直接调用 Executors 的各种方法来生成前面学过的常见的线程池，例如 Executors.newCachedThreadPool()。但这样做是有一定风险的，接下来我们就来逐一分析自动创建线程池可能带来哪些问题。
+FixedThreadPool 首先我们来看第一种线程池 FixedThreadPool， 它是线程数量固定的线程池，如源码所示，newFixedThreadPool 内部实际还是调用了 ThreadPoolExecutor 构造函数。
+public static ExecutorService newFixedThreadPool(int nThreads) { return new ThreadPoolExecutor(nThreads, nThreads,0L, TimeUnit.MILLISECONDS,new LinkedBlockingQueue&amp;lt;Runnable&amp;gt;());}通过往构造函数中传参，创建了一个核心线程数和最大线程数相等的线程池，它们的数量也就是我们传入的参数，这里的重点是使用的队列是容量没有上限的 LinkedBlockingQueue，如果我们对任务的处理速度比较慢，那么随着请求的增多，队列中堆积的任务也会越来越多，最终大量堆积的任务会占用大量内存，并发生 OOM ，也就是OutOfMemoryError，这几乎会影响到整个程序，会造成很严重的后果。
+SingleThreadExecutor 第二种线程池是 SingleThreadExecutor，我们来分析下创建它的源码。
+public static ExecutorService newSingleThreadExecutor() { return new FinalizableDelegatedExecutorService (new ThreadPoolExecutor(1, 1,0L, TimeUnit.MILLISECONDS,new LinkedBlockingQueue&amp;lt;Runnable&amp;gt;()));}你可以看出，newSingleThreadExecutor 和 newFixedThreadPool 的原理是一样的，只不过把核心线程数和最大线程数都直接设置成了 1，但是任务队列仍是无界的 LinkedBlockingQueue，所以也会导致同样的问题，也就是当任务堆积时，可能会占用大量的内存并导致 OOM。
+CachedThreadPool 第三种线程池是 CachedThreadPool，创建它的源码下所示。
+public static ExecutorService newCachedThreadPool() { return new ThreadPoolExecutor(0, Integer.MAX_VALUE,60L, TimeUnit.SECONDS,new SynchronousQueue&amp;lt;Runnable&amp;gt;());}这里的 CachedThreadPool 和前面两种线程池不一样的地方在于任务队列使用的是 SynchronousQueue，SynchronousQueue 本身并不存储任务，而是对任务直接进行转发，这本身是没有问题的，但你会发现构造函数的第二个参数被设置成了 Integer.</description>
+    </item>
+    
+    <item>
+      <title>13 线程池常用的阻塞队列有哪些？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/13-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%B8%B8%E7%94%A8%E7%9A%84%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E6%9C%89%E5%93%AA%E4%BA%9B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:48 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/13-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%B8%B8%E7%94%A8%E7%9A%84%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E6%9C%89%E5%93%AA%E4%BA%9B/</guid>
+      <description>在本课时我们主要学习线程池内部结构，以及线程池中最常见的阻塞队列类型。
+线程池内部结构 线程池的内部结构主要由四部分组成，如图所示。
+ 第一部分是线程池管理器，它主要负责管理线程池的创建、销毁、添加任务等管理操作，它是整个线程池的管家。 第二部分是工作线程，也就是图中的线程 t0~t9，这些线程勤勤恳恳地从任务队列中获取任务并执行。 第三部分是任务队列，作为一种缓冲机制，线程池会把当下没有处理的任务放入任务队列中，由于多线程同时从任务队列中获取任务是并发场景，此时就需要任务队列满足线程安全的要求，所以线程池中任务队列采用 BlockingQueue 来保障线程安全。 第四部分是任务，任务要求实现统一的接口，以便工作线程可以处理和执行。  阻塞队列  线程池中的这四个主要组成部分最值得我们关注的就是阻塞队列了，如表格所示，不同的线程池会选用不同的阻塞队列。
+表格左侧是线程池，右侧为它们对应的阻塞队列，你可以看到 5 种线程池对应了 3 种阻塞队列，我们接下来对它们进行逐一的介绍。
+LinkedBlockingQueue 对于 FixedThreadPool 和 SingleThreadExector 而言，它们使用的阻塞队列是容量为 Integer.MAX_VALUE 的 LinkedBlockingQueue，可以认为是无界队列。由于 FixedThreadPool 线程池的线程数是固定的，所以没有办法增加特别多的线程来处理任务，这时就需要 LinkedBlockingQueue 这样一个没有容量限制的阻塞队列来存放任务。这里需要注意，由于线程池的任务队列永远不会放满，所以线程池只会创建核心线程数量的线程，所以此时的最大线程数对线程池来说没有意义，因为并不会触发生成多于核心线程数的线程。
+SynchronousQueue 第二种阻塞队列是 SynchronousQueue，对应的线程池是 CachedThreadPool。线程池 CachedThreadPool 的最大线程数是 Integer 的最大值，可以理解为线程数是可以无限扩展的。CachedThreadPool 和上一种线程池 FixedThreadPool 的情况恰恰相反，FixedThreadPool 的情况是阻塞队列的容量是无限的，而这里 CachedThreadPool 是线程数可以无限扩展，所以 CachedThreadPool 线程池并不需要一个任务队列来存储任务，因为一旦有任务被提交就直接转发给线程或者创建新线程来执行，而不需要另外保存它们。
+我们自己创建使用 SynchronousQueue 的线程池时，如果不希望任务被拒绝，那么就需要注意设置最大线程数要尽可能大一些，以免发生任务数大于最大线程数时，没办法把任务放到队列中也没有足够线程来执行任务的情况。
+DelayedWorkQueue 第三种阻塞队列是DelayedWorkQueue，它对应的线程池分别是 ScheduledThreadPool 和 SingleThreadScheduledExecutor，这两种线程池的最大特点就是可以延迟执行任务，比如说一定时间后执行任务或是每隔一定的时间执行一次任务。DelayedWorkQueue 的特点是内部元素并不是按照放入的时间排序，而是会按照延迟的时间长短对任务进行排序，内部采用的是“堆”的数据结构。之所以线程池 ScheduledThreadPool 和 SingleThreadScheduledExecutor 选择 DelayedWorkQueue，是因为它们本身正是基于时间执行任务的，而延迟队列正好可以把任务按时间进行排序，方便任务的执行。</description>
+    </item>
+    
+    <item>
+      <title>12 有哪 6 种常见的线程池？什么是 Java8 的 ForkJoinPool？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/12-%E6%9C%89%E5%93%AA-6-%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0%E4%BB%80%E4%B9%88%E6%98%AF-java8-%E7%9A%84-forkjoinpool/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:47 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/12-%E6%9C%89%E5%93%AA-6-%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0%E4%BB%80%E4%B9%88%E6%98%AF-java8-%E7%9A%84-forkjoinpool/</guid>
+      <description>在本课时我们主要学习常见的 6 种线程池，并详细讲解 Java 8 新增的 ForkJoinPool 线程池，6 种常见的线程池如下。
+ FixedThreadPool CachedThreadPool ScheduledThreadPool SingleThreadExecutor SingleThreadScheduledExecutor ForkJoinPool  FixedThreadPool 第一种线程池叫作 FixedThreadPool，它的核心线程数和最大线程数是一样的，所以可以把它看作是固定线程数的线程池，它的特点是线程池中的线程数除了初始阶段需要从 0 开始增加外，之后的线程数量就是固定的，就算任务数超过线程数，线程池也不会再创建更多的线程来处理任务，而是会把超出线程处理能力的任务放到任务队列中进行等待。而且就算任务队列满了，到了本该继续增加线程数的时候，由于它的最大线程数和核心线程数是一样的，所以也无法再增加新的线程了。
+如图所示，线程池有 t0~t9，10 个线程，它们会不停地执行任务，如果某个线程任务执行完了，就会从任务队列中获取新的任务继续执行，期间线程数量不会增加也不会减少，始终保持在 10 个。
+CachedThreadPool 第二种线程池是 CachedThreadPool，可以称作可缓存线程池，它的特点在于线程数是几乎可以无限增加的（实际最大可以达到 Integer.MAX_VALUE，为 2^31-1，这个数非常大，所以基本不可能达到），而当线程闲置时还可以对线程进行回收。也就是说该线程池的线程数量不是固定不变的，当然它也有一个用于存储提交任务的队列，但这个队列是 SynchronousQueue，队列的容量为0，实际不存储任何任务，它只负责对任务进行中转和传递，所以效率比较高。
+当我们提交一个任务后，线程池会判断已创建的线程中是否有空闲线程，如果有空闲线程则将任务直接指派给空闲线程，如果没有空闲线程，则新建线程去执行任务，这样就做到了动态地新增线程。让我们举个例子，如下方代码所示。
+ExecutorService service = Executors.newCachedThreadPool();for (int i = 0; i &amp;lt; 1000; i++) { service.execute(new Task() { });}使用 for 循环提交 1000 个任务给 CachedThreadPool，假设这些任务处理的时间非常长，会发生什么情况呢？因为 for 循环提交任务的操作是非常快的，但执行任务却比较耗时，就可能导致 1000 个任务都提交完了但第一个任务还没有被执行完，所以此时 CachedThreadPool 就可以动态的伸缩线程数量，随着任务的提交，不停地创建 1000 个线程来执行任务，而当任务执行完之后，假设没有新的任务了，那么大量的闲置线程又会造成内存资源的浪费，这时线程池就会检测线程在 60 秒内有没有可执行任务，如果没有就会被销毁，最终线程数量会减为 0。</description>
+    </item>
+    
+    <item>
+      <title>11 线程池有哪 4 种拒绝策略？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/11-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%9C%89%E5%93%AA-4-%E7%A7%8D%E6%8B%92%E7%BB%9D%E7%AD%96%E7%95%A5/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:46 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/11-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%9C%89%E5%93%AA-4-%E7%A7%8D%E6%8B%92%E7%BB%9D%E7%AD%96%E7%95%A5/</guid>
+      <description>本课时我们主要学习线程池有哪 4 种默认的拒绝策略。
+拒绝时机 首先，新建线程池时可以指定它的任务拒绝策略，例如：
+newThreadPoolExecutor(5, 10, 5, TimeUnit.SECONDS, new LinkedBlockingQueue&amp;lt;&amp;gt;(),new ThreadPoolExecutor.DiscardOldestPolicy());以便在必要的时候按照我们的策略来拒绝任务，那么拒绝任务的时机是什么呢？线程池会在以下两种情况下会拒绝新提交的任务。
+ 第一种情况是当我们调用 shutdown 等方法关闭线程池后，即便此时可能线程池内部依然有没执行完的任务正在执行，但是由于线程池已经关闭，此时如果再向线程池内提交任务，就会遭到拒绝。 第二种情况是线程池没有能力继续处理新提交的任务，也就是工作已经非常饱和的时候。  我们具体讲一下第二种情况，也就是由于工作饱和导致的拒绝。比如新建一个线程池，使用容量上限为 10 的 ArrayBlockingQueue 作为任务队列，并且指定线程池的核心线程数为 5，最大线程数为 10，假设此时有 20 个耗时任务被提交，在这种情况下，线程池会首先创建核心数量的线程，也就是5个线程来执行任务，然后往队列里去放任务，队列的 10 个容量被放满了之后，会继续创建新线程，直到达到最大线程数 10。此时线程池中一共有 20 个任务，其中 10 个任务正在被 10 个线程执行，还有 10 个任务在任务队列中等待，而且由于线程池的最大线程数量就是 10，所以已经不能再增加更多的线程来帮忙处理任务了，这就意味着此时线程池工作饱和，这个时候再提交新任务时就会被拒绝。
+我们结合图示来分析上述情况，首先看右侧上方的队列部分，你可以看到目前队列已经满了，而图中队列下方的每个线程都在工作，且线程数已经达到最大值 10，如果此时再有新的任务提交，线程池由于没有能力继续处理新提交的任务，所以就会拒绝。
+我们了解了线程池拒绝任务的时机，那么我们如何正确地选择拒绝策略呢？Java 在 ThreadPoolExecutor 类中为我们提供了 4 种默认的拒绝策略来应对不同的场景，都实现了 RejectedExecutionHandler 接口，如图所示：
+接下来，我们将具体讲解这 4 种拒绝策略。
+拒绝策略  第一种拒绝策略是 AbortPolicy，这种拒绝策略在拒绝任务时，会直接抛出一个类型为 RejectedExecutionException 的 RuntimeException，让你感知到任务被拒绝了，于是你便可以根据业务逻辑选择重试或者放弃提交等策略。 第二种拒绝策略是 DiscardPolicy，这种拒绝策略正如它的名字所描述的一样，当新任务被提交后直接被丢弃掉，也不会给你任何的通知，相对而言存在一定的风险，因为我们提交的时候根本不知道这个任务会被丢弃，可能造成数据丢失。 第三种拒绝策略是 DiscardOldestPolicy，如果线程池没被关闭且没有能力执行，则会丢弃任务队列中的头结点，通常是存活时间最长的任务，这种策略与第二种不同之处在于它丢弃的不是最新提交的，而是队列中存活时间最长的，这样就可以腾出空间给新提交的任务，但同理它也存在一定的数据丢失风险。 第四种拒绝策略是 CallerRunsPolicy，相对而言它就比较完善了，当有新任务提交后，如果线程池没被关闭且没有能力执行，则把这个任务交于提交任务的线程执行，也就是谁提交任务，谁就负责执行任务。这样做主要有两点好处。  第一点新提交的任务不会被丢弃，这样也就不会造成业务损失。 第二点好处是，由于谁提交任务谁就要负责执行任务，这样提交任务的线程就得负责执行任务，而执行任务又是比较耗时的，在这段期间，提交任务的线程被占用，也就不会再提交新的任务，减缓了任务提交的速度，相当于是一个负反馈。在此期间，线程池中的线程也可以充分利用这段时间来执行掉一部分任务，腾出一定的空间，相当于是给了线程池一定的缓冲期。    </description>
+    </item>
+    
+    <item>
+      <title>10 线程池的各个参数的含义？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/10-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%90%84%E4%B8%AA%E5%8F%82%E6%95%B0%E7%9A%84%E5%90%AB%E4%B9%89/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:45 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/10-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%90%84%E4%B8%AA%E5%8F%82%E6%95%B0%E7%9A%84%E5%90%AB%E4%B9%89/</guid>
+      <description>本课时我们主要学习线程池各个参数的含义，并重点掌握线程池中线程是在什么时机被创建和销毁的。
+线程池的参数 首先，我们来看下线程池中各个参数的含义，如表所示线程池主要有 6 个参数，其中第 3 个参数由 keepAliveTime + 时间单位组成。我们逐一看下它们各自的含义，corePoolSize 是核心线程数，也就是常驻线程池的线程数量，与它对应的是 maximumPoolSize，表示线程池最大线程数量，当我们的任务特别多而 corePoolSize 核心线程数无法满足需求的时候，就会向线程池中增加线程，以便应对任务突增的情况。
+线程创建的时机 接下来，我们来具体看下这两个参数所代表的含义，以及线程池中创建线程的时机。如上图所示，当提交任务后，线程池首先会检查当前线程数，如果此时线程数小于核心线程数，比如最开始线程数量为 0，则新建线程并执行任务，随着任务的不断增加，线程数会逐渐增加并达到核心线程数，此时如果仍有任务被不断提交，就会被放入 workQueue 任务队列中，等待核心线程执行完当前任务后重新从 workQueue 中提取正在等待被执行的任务。
+此时，假设我们的任务特别的多，已经达到了 workQueue 的容量上限，这时线程池就会启动后备力量，也就是 maximumPoolSize 最大线程数，线程池会在 corePoolSize 核心线程数的基础上继续创建线程来执行任务，假设任务被不断提交，线程池会持续创建线程直到线程数达到 maximumPoolSize 最大线程数，如果依然有任务被提交，这就超过了线程池的最大处理能力，这个时候线程池就会拒绝这些任务，我们可以看到实际上任务进来之后，线程池会逐一判断 corePoolSize、workQueue、maximumPoolSize，如果依然不能满足需求，则会拒绝任务。
+corePoolSize 与 maximumPoolSize 通过上面的流程图，我们了解了 corePoolSize 和 maximumPoolSize 的具体含义，corePoolSize 指的是核心线程数，线程池初始化时线程数默认为 0，当有新的任务提交后，会创建新线程执行任务，如果不做特殊设置，此后线程数通常不会再小于 corePoolSize ，因为它们是核心线程，即便未来可能没有可执行的任务也不会被销毁。随着任务量的增加，在任务队列满了之后，线程池会进一步创建新线程，最多可以达到 maximumPoolSize 来应对任务多的场景，如果未来线程有空闲，大于 corePoolSize 的线程会被合理回收。所以正常情况下，线程池中的线程数量会处在 corePoolSize 与 maximumPoolSize 的闭区间内。
+“长工”与“临时工” 我们可以把 corePoolSize 与 maximumPoolSize 比喻成长工与临时工，通常古代一个大户人家会有几个固定的长工，负责日常的工作，而大户人家起初肯定也是从零开始雇佣长工的。假如长工数量被老爷设定为 5 人，也就对应了 corePoolSize，不管这 5 个长工是忙碌还是空闲，都会一直在大户人家待着，可到了农忙或春节，长工的人手显然就不够用了，这时就需要雇佣更多的临时工，这些临时工就相当于在 corePoolSize 的基础上继续创建新线程，但临时工也是有上限的，也就对应了 maximumPoolSize，随着农忙或春节结束，老爷考虑到人工成本便会解约掉这些临时工，家里工人数量便会从 maximumPoolSize 降到 corePoolSize，所以老爷家的工人数量会一致保持在 corePoolSize 和 maximumPoolSize 的区间。</description>
+    </item>
+    
+    <item>
+      <title>09 使用线程池比手动创建线程好在哪里？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/09-%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%AF%94%E6%89%8B%E5%8A%A8%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E5%A5%BD%E5%9C%A8%E5%93%AA%E9%87%8C/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:44 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/09-%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%AF%94%E6%89%8B%E5%8A%A8%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E5%A5%BD%E5%9C%A8%E5%93%AA%E9%87%8C/</guid>
+      <description>在本课时我们主要学习为什么使用线程池比手动创建线程要好，并讲解具体好在哪里？
+为什么要使用线程池 首先，回顾线程池的相关知识，在 Java 诞生之初是没有线程池的概念的，而是先有线程，随着线程数的不断增加，人们发现需要一个专门的类来管理它们，于是才诞生了线程池。没有线程池的时候，每发布一个任务就需要创建一个新的线程，这样在任务少时是没有问题的，如代码所示。
+/** * 描述： 单个任务的时候，新建线程来执行 */ public class OneTask { public static void main(String[] args) { Thread thread0 = new Thread(new Task());thread0.start();} static class Task implements Runnable { public void run() { System.out.println(&amp;quot;Thread Name: &amp;quot; + Thread.currentThread().getName());} } }在这段代码中，我们发布了一个新的任务并放入子线程中，然后启动子线程执行任务，这时的任务也非常简单，只是打印出当前线程的名字，这种情况下，打印结果显示 Thread Name: Thread-0，即我们当前子线程的默认名字。
+我们来看一下任务执行流程，如图所示，主线程调用 start() 方法，启动了一个 t0 的子线程。这是在一个任务的场景下，随着我们的任务增多，比如现在有 10 个任务了，那么我们就可以使用 for 循环新建 10 个子线程，如代码所示。
+/** * 描述： for循环新建10个线程 */ public class TenTask { public static void main(String[] args) { for (int i = 0; i &amp;lt; 10; i++) { Thread thread = new Thread(new Task());thread.</description>
+    </item>
+    
+    <item>
+      <title>08 为什么多线程会带来性能问题？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/08-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BC%9A%E5%B8%A6%E6%9D%A5%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:43 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/08-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BC%9A%E5%B8%A6%E6%9D%A5%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98/</guid>
+      <description>在本课时我们主要学习为什么多线程会带来性能问题？
+什么是性能问题 在上一课时我们已经学习了多线程带来的线程安全问题，但对于多线程而言，它不仅可能会带来线程安全问题，还有可能会带来性能问题，也许你会奇怪，我们使用多线程的最大目的不就是为了提高性能吗？让多个线程同时工作，加快程序运行速度，为什么反而会带来性能问题呢？这是因为单线程程序是独立工作的，不需要与其他线程进行交互，但多线程之间则需要调度以及合作，调度与合作就会带来性能开销从而产生性能问题。
+首先，我们来了解究竟什么是性能问题？其实性能问题有许多的表现形式，比如服务器的响应慢、吞吐量低、内存占用过多就属于性能问题。我们设计优秀的系统架构、购置更多的 CDN 服务器、购买更大的带宽等都是为了提高性能，提高用户体验，虽然运行速度慢不会带来严重的后果，通常只需要我们多等几秒就可以，但这会严重影响用户的体验。有研究表明，页面每多响应 1 秒，就会流失至少 7% 的用户，而超过 8 秒无法返回结果的话，几乎所有用户都不会选择继续等待。我们引入多线程的一大重要原因就是想提高程序性能，所以不能本末倒置，不能因为引入了多线程反而程序运行得更慢了，所以我们必须要解决多线程带来的性能问题。
+为什么多线程会带来性能问题 那么什么情况下多线程编程会带来性能问题呢？主要有两个方面，一方面是线程调度，另一个方面是线程协作。
+调度开销 上下文切换 首先，我们看一下线程调度，在实际开发中，线程数往往是大于 CPU 核心数的，比如 CPU 核心数可能是 8 核、16 核，等等，但线程数可能达到成百上千个。这种情况下，操作系统就会按照一定的调度算法，给每个线程分配时间片，让每个线程都有机会得到运行。而在进行调度时就会引起上下文切换，上下文切换会挂起当前正在执行的线程并保存当前的状态，然后寻找下一处即将恢复执行的代码，唤醒下一个线程，以此类推，反复执行。但上下文切换带来的开销是比较大的，假设我们的任务内容非常短，比如只进行简单的计算，那么就有可能发生我们上下文切换带来的性能开销比执行线程本身内容带来的开销还要大的情况。
+缓存失效 不仅上下文切换会带来性能问题，缓存失效也有可能带来性能问题。由于程序有很大概率会再次访问刚才访问过的数据，所以为了加速整个程序的运行，会使用缓存，这样我们在使用相同数据时就可以很快地获取数据。可一旦进行了线程调度，切换到其他线程，CPU就会去执行不同的代码，原有的缓存就很可能失效了，需要重新缓存新的数据，这也会造成一定的开销，所以线程调度器为了避免频繁地发生上下文切换，通常会给被调度到的线程设置最小的执行时间，也就是只有执行完这段时间之后，才可能进行下一次的调度，由此减少上下文切换的次数。
+那么什么情况会导致密集的上下文切换呢？如果程序频繁地竞争锁，或者由于 IO 读写等原因导致频繁阻塞，那么这个程序就可能需要更多的上下文切换，这也就导致了更大的开销，我们应该尽量避免这种情况的发生。
+协作开销 除了线程调度之外，线程协作同样也有可能带来性能问题。因为线程之间如果有共享数据，为了避免数据错乱，为了保证线程安全，就有可能禁止编译器和 CPU 对其进行重排序等优化，也可能出于同步的目的，反复把线程工作内存的数据 flush 到主存中，然后再从主内存 refresh 到其他线程的工作内存中，等等。这些问题在单线程中并不存在，但在多线程中为了确保数据的正确性，就不得不采取上述方法，因为线程安全的优先级要比性能优先级更高，这也间接降低了我们的性能。</description>
+    </item>
+    
+    <item>
+      <title>07 哪些场景需要额外注意线程安全问题？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/07-%E5%93%AA%E4%BA%9B%E5%9C%BA%E6%99%AF%E9%9C%80%E8%A6%81%E9%A2%9D%E5%A4%96%E6%B3%A8%E6%84%8F%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:42 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/07-%E5%93%AA%E4%BA%9B%E5%9C%BA%E6%99%AF%E9%9C%80%E8%A6%81%E9%A2%9D%E5%A4%96%E6%B3%A8%E6%84%8F%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/</guid>
+      <description>在本课时我们主要学习哪些场景需要额外注意线程安全问题，在这里总结了四种场景。
+访问共享变量或资源 第一种场景是访问共享变量或共享资源的时候，典型的场景有访问共享对象的属性，访问 static 静态变量，访问共享的缓存，等等。因为这些信息不仅会被一个线程访问到，还有可能被多个线程同时访问，那么就有可能在并发读写的情况下发生线程安全问题。比如我们上一课时讲过的多线程同时 i++ 的例子：
+/*** 描述： 共享的变量或资源带来的线程安全问题*/public class ThreadNotSafe1 {static int i;public static void main(String[] args) throws InterruptedException {Runnable r = new Runnable() {@Overridepublic void run() {for (int j = 0; j &amp;lt; 10000; j++) {i++;}}};Thread thread1 = new Thread(r);Thread thread2 = new Thread(r);thread1.start();thread2.start();thread1.join();thread2.join();System.out.println(i);}}如代码所示，两个线程同时对 i 进行 i++ 操作，最后的输出可能是 15875 等小于20000的数，而不是我们期待的20000，这便是非常典型的共享变量带来的线程安全问题。</description>
+    </item>
+    
+    <item>
+      <title>06 一共有哪 3 类线程安全问题？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/06-%E4%B8%80%E5%85%B1%E6%9C%89%E5%93%AA-3-%E7%B1%BB%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/06-%E4%B8%80%E5%85%B1%E6%9C%89%E5%93%AA-3-%E7%B1%BB%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/</guid>
+      <description>本课时我们学习 3 类线程安全问题。
+什么是线程安全 要想弄清楚有哪 3 类线程安全问题，首先需要了解什么是线程安全，线程安全经常在工作中被提到，比如：你的对象不是线程安全的，你的线程发生了安全错误，虽然线程安全经常被提到，但我们可能对线程安全并没有一个明确的定义。
+《Java Concurrency In Practice》的作者 Brian Goetz 对线程安全是这样理解的，当多个线程访问一个对象时，如果不用考虑这些线程在运行时环境下的调度和交替执行问题，也不需要进行额外的同步，而调用这个对象的行为都可以获得正确的结果，那这个对象便是线程安全的。
+事实上，Brian Goetz 想表达的意思是，如果某个对象是线程安全的，那么对于使用者而言，在使用时就不需要考虑方法间的协调问题，比如不需要考虑不能同时写入或读写不能并行的问题，也不需要考虑任何额外的同步问题，比如不需要额外自己加 synchronized 锁，那么它才是线程安全的，可以看出对线程安全的定义还是非常苛刻的。
+而我们在实际开发中经常会遇到线程不安全的情况，那么一共有哪 3 种典型的线程安全问题呢？
+ 运行结果错误； 发布和初始化导致线程安全问题； 活跃性问题。  运行结果错误 首先，来看多线程同时操作一个变量导致的运行结果错误。
+public class WrongResult {volatile static int i;public static void main(String[] args) throws InterruptedException {Runnable r = new Runnable() {@Overridepublic void run() {for (int j = 0; j &amp;lt; 10000; j++) {i++;}}};Thread thread1 = new Thread(r);thread1.</description>
+    </item>
+    
+    <item>
+      <title>05 有哪几种实现生产者消费者模式的方法？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/05-%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:39 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/05-%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+      <description>本课时我们主要学习如何用 wait/notify/Condition/BlockingQueue 实现生产者消费者模式。
+生产者消费者模式 我们先来看看什么是生产者消费者模式，生产者消费者模式是程序设计中非常常见的一种设计模式，被广泛运用在解耦、消息队列等场景。在现实世界中，我们把生产商品的一方称为生产者，把消费商品的一方称为消费者，有时生产者的生产速度特别快，但消费者的消费速度跟不上，俗称“产能过剩”，又或是多个生产者对应多个消费者时，大家可能会手忙脚乱。如何才能让大家更好地配合呢？这时在生产者和消费者之间就需要一个中介来进行调度，于是便诞生了生产者消费者模式。
+使用生产者消费者模式通常需要在两者之间增加一个阻塞队列作为媒介，有了媒介之后就相当于有了一个缓冲，平衡了两者的能力，整体的设计如图所示，最上面是阻塞队列，右侧的 1 是生产者线程，生产者在生产数据后将数据存放在阻塞队列中，左侧的 2 是消费者线程，消费者获取阻塞队列中的数据。而中间的 3 和 4 分别代表生产者消费者之间互相通信的过程，因为无论阻塞队列是满还是空都可能会产生阻塞，阻塞之后就需要在合适的时机去唤醒被阻塞的线程。
+那么什么时候阻塞线程需要被唤醒呢？有两种情况。第一种情况是当消费者看到阻塞队列为空时，开始进入等待，这时生产者一旦往队列中放入数据，就会通知所有的消费者，唤醒阻塞的消费者线程。另一种情况是如果生产者发现队列已经满了，也会被阻塞，而一旦消费者获取数据之后就相当于队列空了一个位置，这时消费者就会通知所有正在阻塞的生产者进行生产，这便是对生产者消费者模式的简单介绍。
+如何用 BlockingQueue 实现生产者消费者模式 我们接下来看如何用 wait/notify/Condition/BlockingQueue 实现生产者消费者模式，先从最简单的 BlockingQueue 开始讲起：
+public static void main(String[] args) {BlockingQueue&amp;lt;Object&amp;gt; queue = new ArrayBlockingQueue&amp;lt;&amp;gt;(10);Runnable producer = () -&amp;gt; {while (true) {queue.put(new Object());}};new Thread(producer).start();new Thread(producer).start();Runnable consumer = () -&amp;gt; {while (true) {queue.take();}};new Thread(consumer).start();new Thread(consumer).start();}如代码所示，首先，创建了一个 ArrayBlockingQueue 类型的 BlockingQueue，命名为 queue 并将它的容量设置为 10；其次，创建一个简单的生产者，while(true) 循环体中的queue.</description>
+    </item>
+    
+    <item>
+      <title>04 waitnotifynotifyAll 方法的使用注意事项？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/04-waitnotifynotifyall-%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:38 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/04-waitnotifynotifyall-%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/</guid>
+      <description>本课时我们主要学习 wait/notify/notifyAll 方法的使用注意事项。
+我们主要从三个问题入手：
+ 为什么 wait 方法必须在 synchronized 保护的同步代码中使用？ 为什么 wait/notify/notifyAll 被定义在 Object 类中，而 sleep 定义在 Thread 类中？ wait/notify 和 sleep 方法的异同？  为什么 wait 必须在 synchronized 保护的同步代码中使用？ 首先，我们来看第一个问题，为什么 wait 方法必须在 synchronized 保护的同步代码中使用？
+我们先来看看 wait 方法的源码注释是怎么写的。
+“wait method should always be used in a loop:
+ synchronized (obj) {while (condition does not hold)obj.wait();... // Perform action appropriate to condition}This method should only be called by a thread that is the owner of this object&amp;rsquo;s monitor.</description>
+    </item>
+    
+    <item>
+      <title>03 线程是如何在 6 种状态之间转换的？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/03-%E7%BA%BF%E7%A8%8B%E6%98%AF%E5%A6%82%E4%BD%95%E5%9C%A8-6-%E7%A7%8D%E7%8A%B6%E6%80%81%E4%B9%8B%E9%97%B4%E8%BD%AC%E6%8D%A2%E7%9A%84/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:37 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/03-%E7%BA%BF%E7%A8%8B%E6%98%AF%E5%A6%82%E4%BD%95%E5%9C%A8-6-%E7%A7%8D%E7%8A%B6%E6%80%81%E4%B9%8B%E9%97%B4%E8%BD%AC%E6%8D%A2%E7%9A%84/</guid>
+      <description>本课时我们主要学习线程是如何在 6 种状态之间转换的。
+线程的 6 种状态 就像生物从出生到长大、最终死亡的过程一样，线程也有自己的生命周期，在 Java 中线程的生命周期中一共有 6 种状态。
+ New（新创建） Runnable（可运行） Blocked（被阻塞） Waiting（等待） Timed Waiting（计时等待） Terminated（被终止）  如果想要确定线程当前的状态，可以通过 getState() 方法，并且线程在任何时刻只可能处于 1 种状态。
+New 新创建 下面我们逐个介绍线程的 6 种状态，如图所示，首先来看下左上角的 New 状态。
+New 表示线程被创建但尚未启动的状态：当我们用 new Thread() 新建一个线程时，如果线程没有开始运行 start() 方法，所以也没有开始执行 run() 方法里面的代码，那么此时它的状态就是 New。而一旦线程调用了 start()，它的状态就会从 New 变成 Runnable，也就是状态转换图中中间的这个大方框里的内容。
+Runnable 可运行 Java 中的 Runable 状态对应操作系统线程状态中的两种状态，分别是 Running 和 Ready，也就是说，Java 中处于 Runnable 状态的线程有可能正在执行，也有可能没有正在执行，正在等待被分配 CPU 资源。
+所以，如果一个正在运行的线程是 Runnable 状态，当它运行到任务的一半时，执行该线程的 CPU 被调度去做其他事情，导致该线程暂时不运行，它的状态依然不变，还是 Runnable，因为它有可能随时被调度回来继续执行任务。
+阻塞状态 接下来，我们来看下 Runnable 下面的三个方框，它们统称为阻塞状态，在 Java 中阻塞状态通常不仅仅是 Blocked，实际上它包括三种状态，分别是 Blocked(被阻塞）、Waiting(等待）、Timed Waiting(计时等待），这三 种状态统称为阻塞状态，下面我们来看看这三种状态具体是什么含义。</description>
+    </item>
+    
+    <item>
+      <title>02 如何正确停止线程？为什么 volatile 标记位的停止方法是错误的？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/02-%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%81%9C%E6%AD%A2%E7%BA%BF%E7%A8%8B%E4%B8%BA%E4%BB%80%E4%B9%88-volatile-%E6%A0%87%E8%AE%B0%E4%BD%8D%E7%9A%84%E5%81%9C%E6%AD%A2%E6%96%B9%E6%B3%95%E6%98%AF%E9%94%99%E8%AF%AF%E7%9A%84/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:36 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/02-%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%81%9C%E6%AD%A2%E7%BA%BF%E7%A8%8B%E4%B8%BA%E4%BB%80%E4%B9%88-volatile-%E6%A0%87%E8%AE%B0%E4%BD%8D%E7%9A%84%E5%81%9C%E6%AD%A2%E6%96%B9%E6%B3%95%E6%98%AF%E9%94%99%E8%AF%AF%E7%9A%84/</guid>
+      <description>在本课时我们主要学习如何正确停止一个线程？以及为什么用 volatile 标记位的停止方法是错误的？
+首先，我们来复习如何启动一个线程，想要启动线程需要调用 Thread 类的 start() 方法，并在 run() 方法中定义需要执行的任务。启动一个线程非常简单，但如果想要正确停止它就没那么容易了。
+原理介绍 通常情况下，我们不会手动停止一个线程，而是允许线程运行到结束，然后让它自然停止。但是依然会有许多特殊的情况需要我们提前停止线程，比如：用户突然关闭程序，或程序运行出错重启等。
+在这种情况下，即将停止的线程在很多业务场景下仍然很有价值。尤其是我们想写一个健壮性很好，能够安全应对各种场景的程序时，正确停止线程就显得格外重要。但是Java 并没有提供简单易用，能够直接安全停止线程的能力。
+为什么不强制停止？而是通知、协作 对于 Java 而言，最正确的停止线程的方式是使用 interrupt。但 interrupt 仅仅起到通知被停止线程的作用。而对于被停止的线程而言，它拥有完全的自主权，它既可以选择立即停止，也可以选择一段时间后停止，也可以选择压根不停止。那么为什么 Java 不提供强制停止线程的能力呢？
+事实上，Java 希望程序间能够相互通知、相互协作地管理线程，因为如果不了解对方正在做的工作，贸然强制停止线程就可能会造成一些安全的问题，为了避免造成问题就需要给对方一定的时间来整理收尾工作。比如：线程正在写入一个文件，这时收到终止信号，它就需要根据自身业务判断，是选择立即停止，还是将整个文件写入成功后停止，而如果选择立即停止就可能造成数据不完整，不管是中断命令发起者，还是接收者都不希望数据出现问题。
+如何用 interrupt 停止线程 while (!Thread.currentThread().isInterrupted() &amp;amp;&amp;amp; more work to do) {do more work}明白 Java 停止线程的设计原则之后，我们看看如何用代码实现停止线程的逻辑。我们一旦调用某个线程的 interrupt() 之后，这个线程的中断标记位就会被设置成 true。每个线程都有这样的标记位，当线程执行时，应该定期检查这个标记位，如果标记位被设置成 true，就说明有程序想终止该线程。回到源码，可以看到在 while 循环体判断语句中，首先通过 Thread.currentThread().isInterrupt() 判断线程是否被中断，随后检查是否还有工作要做。&amp;amp;&amp;amp; 逻辑表示只有当两个判断条件同时满足的情况下，才会去执行下面的工作。
+我们再看看具体例子。
+public class StopThread implements Runnable {@Overridepublic void run() {int count = 0;while (!Thread.currentThread().isInterrupted() &amp;amp;&amp;amp; count &amp;lt; 1000) {System.</description>
+    </item>
+    
+    <item>
+      <title>01 为何说只有 1 种实现线程的方法？</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/01-%E4%B8%BA%E4%BD%95%E8%AF%B4%E5%8F%AA%E6%9C%89-1-%E7%A7%8D%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:35 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/01-%E4%B8%BA%E4%BD%95%E8%AF%B4%E5%8F%AA%E6%9C%89-1-%E7%A7%8D%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+      <description>在本课时我们主要学习为什么说本质上只有一种实现线程的方式？实现 Runnable 接口究竟比继承 Thread 类实现线程好在哪里？
+实现线程是并发编程中基础中的基础，因为我们必须要先实现多线程，才可以继续后续的一系列操作。所以本课时就先从并发编程的基础如何实现线程开始讲起，希望你能够夯实基础，虽然实现线程看似简单、基础，但实际上却暗藏玄机。首先，我们来看下为什么说本质上实现线程只有一种方式？
+实现线程的方式到底有几种？大部分人会说有 2 种、3 种或是 4 种，很少有人会说有 1 种。我们接下来看看它们具体指什么？2 种实现方式的描述是最基本的，也是最为大家熟知的，我们就先来看看 2 种线程实现方式的源码。
+实现 Runnable 接口 public class RunnableThread implements Runnable {@Overridepublic void run() {System.out.println(&#39;用实现Runnable接口实现线程&#39;);}}第 1 种方式是通过实现 Runnable 接口实现多线程，如代码所示，首先通过 RunnableThread 类实现 Runnable 接口，然后重写 run() 方法，之后只需要把这个实现了 run() 方法的实例传到 Thread 类中就可以实现多线程。
+继承 Thread 类 public class ExtendsThread extends Thread {@Overridepublic void run() {System.out.println(&#39;用Thread类实现线程&#39;);}}第 2 种方式是继承 Thread 类，如代码所示，与第 1 种方式不同的是它没有实现接口，而是继承 Thread 类，并重写了其中的 run() 方法。相信上面这两种方式你一定非常熟悉，并且经常在工作中使用它们。</description>
+    </item>
+    
+    <item>
+      <title>00 由点及面，搭建你的 Java 并发知识网</title>
+      <link>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/00-%E7%94%B1%E7%82%B9%E5%8F%8A%E9%9D%A2%E6%90%AD%E5%BB%BA%E4%BD%A0%E7%9A%84-java-%E5%B9%B6%E5%8F%91%E7%9F%A5%E8%AF%86%E7%BD%91/</link>
+      <pubDate>Wed, 22 Dec 2021 01:41:34 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/00-%E7%94%B1%E7%82%B9%E5%8F%8A%E9%9D%A2%E6%90%AD%E5%BB%BA%E4%BD%A0%E7%9A%84-java-%E5%B9%B6%E5%8F%91%E7%9F%A5%E8%AF%86%E7%BD%91/</guid>
+      <description>你好，欢迎学习《Java 并发编程核心 78 讲》，我是讲师徐隆曦，硕士毕业于德国慕尼黑工业大学，现就职于滴滴出行，负责小桔车服驾驶安全平台开发。
+扎实的理论基础，宝贵的并发实践经验 工作期间，因为业务需要，我所开发和负责的场景大多数都是大流量和高并发的，其中有很多是对 Java 并发知识的实际应用。学习如逆旅，从小白成长为并发大神，困难重重，既然不能逃避，那么唯有改变对它的态度。
+从一开始面对线程池导致的 OOM 问题的不知所措，到后来可以深入剖析 JUC 源码，并精准定位、复现、修复线上的并发问题，再到现在可以应对千万级流量的业务场景，并预判和发现隐藏在其中的线程安全隐患，这期间，我走过一些弯路，踩过一些坑，也积累了很多宝贵的并发经验。
+此外，在对并发问题的逐个解决过程中，在系统的设计和实施过程中，我详细研读了大量的国内外经典并发书籍和资料，把涉及的代码一一落实、验证，并应用到业务里，这期间让我逐渐建立起了完善的 Java 并发知识体系。
+为什么并发编程这么重要呢 随着接触和负责的系统越来越复杂，我逐渐发现，无论是对于优秀的系统设计，还是对于程序员的成长提高、职业发展，并发编程都是必须要跨过去的“坎”，而一旦你跨过了这道“坎”，便会豁然开朗，原来一切都如此简单，职业发展也会更上一层楼。
+ 并发已经逐渐成为基本技能  流量稍大的系统，随着数据和用户量的不断增加，并发量轻松过万，如果不使用并发编程，那么性能很快就会成为瓶颈。而随着近年来服务器 CPU 性能和核心数的不断提高，又给并发编程带来了广阔的施展拳脚的空间。可谓是有需求，同时又有资源****保障，兼具天时地利。
+ 并发几乎是 Java 面试必考的内容  而随着互联网进入下半场，好公司对程序员的要求也水涨船高，各大互联网公司的岗位描述中，并发几乎是逃不掉的关键词，我们举几个来自拉勾网的 JD 实例。
+你会发现，Java 高级工程师岗位要求中并发编程几乎成为了必须掌握的技能点，而在面经里涉及的并发编程的知识也数不胜数，本专栏各课时涉及的知识点，也正是各大厂 Java 高级工程师面试的高频考题。
+如何学好并发编程 在此邀请你做一个小测试，看看目录里的问题，你能否回答全面？相信你看到问题后大部分会感觉很熟悉，但要组织答案却又模棱两可，不敢太确定，那么接下来就带你了解如何学好 Java 高并发并攻克这些难题。
+ Java 编程是众多框架的原理和基础  无论是 Spring、tomcat 中对线程池的应用、数据库中的乐观锁思想，还是 Log4j2 对阻塞队列的应用等，无不体现着并发编程的思想，并发编程应用广泛，各大框架都和并发编程有着千丝万缕的联系。
+并发编程就像是地基，掌握好以后，可以做到一通百通。
+不过，要想学好并发编程，却不是一件容易的事，你有没有以下的感受？
+ 并发的知识太多、太杂了  常见的并发工具类数不尽数：例如，线程池、各种 Lock、synchronized 关键字、ConcurrentHashMap、CopyOnWriteArrayList、ArrayBlockingQueue、ThreadLocal、原子类、CountDownLatch、Semaphore，等等，而它们的原理又包括 CAS、AQS、Java 内存模型等等。
+从刚才那一长串的名字中可以看出，并发工具的数量很多，而且功能也不尽相同，不容易完全掌握。确实，并发涉及的知识点太琐碎了，大家或多或少都学习过一些并发的知识，但是总感觉一直学不完，东一榔头西一棒槌，很零散，也不知道尽头在哪里，导致学完以后，真正能记住的内容却很少。而且如果学到并发底层原理，就不只涉及 Java 语言，更涉及 JVM、JMM、操作系统、内存、CPU 指令等，令人一头雾水。
+ 不容易找到清晰易懂的学习资料  在我学习的过程中，我总是有一种感受，那就是较少有资料能够把 Java 并发编程讲得非常清楚，例如我们学习一个工具类，希望了解它的诞生背景、使用场景，用法、注意点，最后理解原理，以及它和其他工具类的联系，这一系列的内容其实都是我们需要掌握的。</description>
+    </item>
+    
+  </channel>
+</rss>

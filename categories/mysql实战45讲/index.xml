@@ -1,0 +1,916 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MySQL实战45讲 on </title>
+    <link>http://yipsen.github.io/categories/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/</link>
+    <description>Recent content in MySQL实战45讲 on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 22 Dec 2021 01:52:44 +0800</lastBuildDate><atom:link href="http://yipsen.github.io/categories/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>结束语 点线网面，一起构建MySQL知识网络</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/%E7%BB%93%E6%9D%9F%E8%AF%AD-%E7%82%B9%E7%BA%BF%E7%BD%91%E9%9D%A2%E4%B8%80%E8%B5%B7%E6%9E%84%E5%BB%BAmysql%E7%9F%A5%E8%AF%86%E7%BD%91%E7%BB%9C/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:44 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/%E7%BB%93%E6%9D%9F%E8%AF%AD-%E7%82%B9%E7%BA%BF%E7%BD%91%E9%9D%A2%E4%B8%80%E8%B5%B7%E6%9E%84%E5%BB%BAmysql%E7%9F%A5%E8%AF%86%E7%BD%91%E7%BB%9C/</guid>
+      <description>时光流逝，这是专栏的最后一篇文章。回顾整个过程，如果用一个词来描述，就是“没料到”：
+我没料到文章这么难写，似乎每一篇文章都要用尽所学；
+我没料到评论这么精彩，以致于我花在评论区的时间并不比正文少；
+我没料到收获这么大，每一次被评论区的提问问到盲点，都会带着久违的兴奋去分析代码。
+如果让我自己评价这个专栏：
+我最满意的部分，是每一篇文章都带上了实践案例，也尽量讲清楚了原理；
+我最得意的段落，是在讲事务隔离级别的时候，把文章重写到第三遍，终于能够写上“到这里，我们把一致性读、当前读和行锁就串起来了”；
+我最开心的时候，是看到评论区有同学在回答课后思考题时，准确地用上了之前文章介绍的知识点。因为我理解的构建知识网络，就是这么从点到线，从线到网，从网到面的过程，很欣喜能跟大家一起走过这个过程。
+当然，我更看重的还是你的评价。所以，当我看到你们在评论区和知乎说“好”的时候，就只会更细致地设计文章内容和课后思考题。
+同时，我知道专栏的订阅用户中，有刚刚接触 MySQL 的新人，也有使用 MySQL 多年的同学。所以，我始终都在告诫自己，要尽量让大家都能有所收获。
+在我的理解里，介绍数据库的文章需要有操作性，每一个操作有相应的原理，每一个原理背后又有它的原理，这是一个链条。能够讲清楚链条中的一个环节，就可能是一篇好文章。但是，每一层都有不同的受众。所以，我给这 45 篇文章定的目标就是：讲清楚操作和第一层的原理，并适当触及第二层原理。希望这样的设计不会让你觉得太浅。
+有同学在问 MySQL 的学习路径，我在这里就和你谈谈我的理解。
+1. 路径千万条，实践第一条 如果你问一个 DBA“理解得最深刻的知识点”，他很可能告诉你是他踩得最深的那个坑。由此，“实践”的重要性可见一斑。
+以前我带新人的时候，第一步就是要求他们手动搭建一套主备复制结构。并且，平时碰到问题的时候，我要求要动手复现。
+从专栏评论区的留言可以看出来，有不少同学在跟着专栏中的案例做实验，我觉得这是个非常好的习惯，希望你能继续坚持下去。在阅读其他技术文章、图书的时候，也是同样的道理。如果你觉得自己理解了一个知识点，也一定要尝试设计一个例子来验证它。
+同时，在设计案例的时候，我建议你也设计一个对照的反例，从而达到知识融汇贯通的目的。就像我在写这个专栏的过程中，就感觉自己也涨了不少知识，主要就得益于给文章设计案例的过程。
+2. 原理说不清，双手白费劲 不论是先实践再搞清楚原理去解释，还是先明白原理再通过实践去验证，都不失为一种好的学习方法，因人而异。但是，怎么证明自己是不是真的把原理弄清楚了呢？答案是说出来、写出来。
+如果有人请教你某个知识点，那真是太好了，一定要跟他讲明白。不要觉得这是在浪费时间。因为这样做，一来可以帮你验证自己确实搞懂了这个知识点；二来可以提升自己的技术表达能力，毕竟你终究要面临和这样的三类人讲清楚原理的情况，即：老板、晋升答辩的评委、新工作的面试官。
+我在带新人的时候，如果这一届的新人不止一个，就会让他们组成学习小组，并定期给他们出一个已经有确定答案的问题。大家分头去研究，之后在小组内进行讨论。如果你能碰到愿意跟你结成学习小组的同学，一定要好好珍惜。
+而“写出来”又是一个更高的境界。因为，你在写的过程中，就会发现这个“明白”很可能只是一个假象。所以，在专栏下面写下自己对本章知识点的理解，也是一个不错的夯实学习成果的方法。
+3. 知识没体系，转身就忘记 把知识点“写下来”，还有一个好处，就是你会发现这个知识点的关联知识点。深究下去，点就连成线，然后再跟别的线找交叉。
+比如，我们专栏里面讲到对临时表的操作不记录日志，然后你就可以给自己一个问题，这会不会导致备库同步出错？再比如，了解了临时表在不同的 binlog 格式下的行为，再追问一句，如果创建表的时候是 statement 格式，之后再修改为 row 格式（或者反之），会怎么样呢？
+把这些都搞明白以后，你就能够把临时表、日志格式、同步机制，甚至于事务机制都连起来了。
+相信你和我一样，在学习过程中最喜欢的就是这种交叉的瞬间。交叉多了，就形成了网络。而有了网络以后，吸收新知识的速度就很快了。
+比如，如果你对事务隔离级别弄得很清楚了，在看到第 45 篇文章讲的 max_trx_id 超限会导致持续脏读的时候，相信你理解起来就很容易了。
+4. 手册补全面，案例扫盲点 有同学还问我，要不要一开始就看手册？我的建议是不要。看手册的时机，应该是你的知识网络构建得差不多的时候。
+那你可能会问，什么时候算是差不多呢？其实，这没有一个固定的标准。但是，有一些基本实践可以帮你去做一个检验。
+ 能否解释清楚错误日志（error log）、慢查询日志（slow log）中每一行的意思？ 能否快速评估出一个表结构或者一条 SQL 语句，设计得是否合理？ 能否通过 explain 的结果，来“脑补”整个执行过程（我们已经在专栏中练习几次了）？ 到网络上找 MySQL 的实践建议，对于每一条做一次分析：  如果觉得不合理，能否给出自己的意见？ 如果觉得合理，能否给出自己的解释？    那，怎么判断自己的意见或者解释对不对呢？最快速、有效的途径，就是找有经验的人讨论。比如说，留言到我们专栏的相关文章的评论区，就是一个可行的方法。</description>
+    </item>
+    
+    <item>
+      <title>我的MySQL心路历程</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/%E6%88%91%E7%9A%84mysql%E5%BF%83%E8%B7%AF%E5%8E%86%E7%A8%8B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:43 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/%E6%88%91%E7%9A%84mysql%E5%BF%83%E8%B7%AF%E5%8E%86%E7%A8%8B/</guid>
+      <description>在专栏上线后的 11 月 21 日，我来到极客时间做了一场直播，主题就是“我的 MySQL 心路历程”。今天，我特意将这个直播的回顾文章，放在了专栏下面，希望你可以从我这些年和 MySQL 打交道的经历中，找到对你有所帮助的点。
+这里，我先和你说一下，在这个直播中，我主要分享的内容：
+ 我和 MySQL 打交道的经历； 你为什么要了解数据库原理； 我建议的 MySQL 学习路径； DBA 的修炼之道。  以丰富的经历进入百度 我是福州大学毕业的，据我了解，那时候我们学校的应届生很难直接进入百度，都要考到浙江大学读个研究生才行。没想到的是，我投递了简历后居然进了面试。
+入职以后，我跑去问当时的面试官，为什么我的简历可以通过筛选？他们说：“因为你的简历厚啊”。我在读书的时候，确实做了很多项目，也实习过不少公司，所以简历里面的经历就显得很丰富了。
+在面试的时候，有个让我印象很深刻的事儿。面试官问我说，你有这么多实习经历，有没有什么比较好玩儿的事？我想了想答道，跟你说个数据量很大的事儿 ，在跟移动做日志分析的时候我碰到了几千万行的数据。他听完以后就笑了。
+后来，我进了百度才知道，几千万行那都是小数据。
+开始尝试看源码解决问题 加入百度后，我是在贴吧做后端程序，比如权限系统等等。其实很简单，就是写一个 C 语言程序，响应客户端请求，然后返回结果。
+那个时候，我还仅仅是个 MySQL 的普通用户，使用了一段时间后就出现问题了：一个跑得很快的请求，偶尔会又跑得非常慢。老板问这是什么原因，而我又不好意思说不知道，于是就自己上网查资料。
+但是，2008 年那会儿，网上资料很少，花了挺长时间也没查出个所以然。最终，我只好去看源码。翻到源码，我当时就觉得它还蛮有意思的。而且，源码真的可以帮我解决一些问题。
+于是一发不可收拾，我从那时候就入了源码的“坑”。
+混社区分享经验 2010 年的时候，阿里正好在招数据库的开发人员。虽然那时我还只是看得懂源码，没有什么开发经验，但还是抱着试试看的态度投了简历。然后顺利通过了面试，成功进入了阿里。之后，我就跟着褚霸（霸爷）干了 7 年多才离开了阿里。
+在百度的时候，我基本上没有参加过社区活动。因为那时候百度可能更提倡内部分享，解决问题的经验基本上都是在内网分享。所以，去了阿里以后，我才建了博客、开了微博。我在阿里的花名叫丁奇，博客、微博、社区也因此都是用的这个名字。
+这里，我讲几个亲身经历的事情，和你聊聊为什么要了解数据库原理。
+了解原理能帮你更好地定位问题 一次同学聚会，大家谈起了技术问题。一个在政府里的同学说，他们的系统很奇怪，每天早上都得重启一下应用程序，否则就提示连接数据库失败，他们都不知道该怎么办。
+我分析说，按照这个错误提示，应该就是连接时间过长了，断开了连接。数据库默认的超时时间是 8 小时，而你们平时六点下班，下班之后系统就没有人用了，等到第二天早上九点甚至十点才上班，这中间的时间已经超过 10 个小时了，数据库的连接肯定就会断开了。
+我当时说，估计这个系统程序写得比较差，连接失败也不会重连，仍然用原来断掉的连接，所以就报错了。然后，我让他回去把超时时间改得长一点。后来他跟我说，按照这个方法，问题已经解决了。
+由此，我也更深刻地体会到，作为开发人员，即使我们只知道每个参数的意思，可能就可以给出一些问题的正确应对方法。
+了解原理能让你更巧妙地解决问题 我在做贴吧系统的时候，每次访问页面都要请求一次权限。所以，这个请求权限的请求，访问概率会非常高，不可能每次都去数据库里查，怎么办呢？
+我想了个简单的方案：在应用程序里面开了个很大的内存，启动的时候就把整张表全部 load 到内存里去。这样再有权限请求的时候，直接从内存里取就行了。
+数据库重启时，我的进程也会跟着重启，接下来就会到数据表里面做全表扫描，把整个用户相关信息全部塞到内存里面去。
+但是，后来我遇到了一个很郁闷的情况。有时候 MySQL 崩溃了，我的程序重新加载权限到内存里，结果这个 select 语句要执行 30 分钟左右。本来 MySQL 正常重启一下是很快的，进程重启也很快，正常加载权限的过程只需要两分钟就跑完了。但是，为什么异常重启的时候就要 30 分钟呢？</description>
+    </item>
+    
+    <item>
+      <title>45 自增id用完怎么办？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/45-%E8%87%AA%E5%A2%9Eid%E7%94%A8%E5%AE%8C%E6%80%8E%E4%B9%88%E5%8A%9E/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:42 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/45-%E8%87%AA%E5%A2%9Eid%E7%94%A8%E5%AE%8C%E6%80%8E%E4%B9%88%E5%8A%9E/</guid>
+      <description>MySQL 里有很多自增的 id，每个自增 id 都是定义了初始值，然后不停地往上加步长。虽然自然数是没有上限的，但是在计算机里，只要定义了表示这个数的字节长度，那它就有上限。比如，无符号整型 (unsigned int) 是 4 个字节，上限就是 232-1。
+既然自增 id 有上限，就有可能被用完。但是，自增 id 用完了会怎么样呢？
+今天这篇文章，我们就来看看 MySQL 里面的几种自增 id，一起分析一下它们的值达到上限以后，会出现什么情况。
+说到自增 id，你第一个想到的应该就是表结构定义里的自增字段，也就是我在第 39 篇文章[《自增主键为什么不是连续的？》]中和你介绍过的自增主键 id。
+表定义的自增值达到上限后的逻辑是：再申请下一个 id 时，得到的值保持不变。
+我们可以通过下面这个语句序列验证一下：
+create table t(id int unsigned auto_increment primary key) auto_increment=4294967295;insert into t values(null);// 成功插入一行 4294967295show create table t;/* CREATE TABLE `t` (`id` int(10) unsigned NOT NULL AUTO_INCREMENT,PRIMARY KEY (`id`)) ENGINE=InnoDB AUTO_INCREMENT=4294967295;*/insert into t values(null);//Duplicate entry &#39;4294967295&#39; for key &#39;PRIMARY&#39;可以看到，第一个 insert 语句插入数据成功后，这个表的 AUTO_INCREMENT 没有改变（还是 4294967295），就导致了第二个 insert 语句又拿到相同的自增 id 值，再试图执行插入语句，报主键冲突错误。</description>
+    </item>
+    
+    <item>
+      <title>44 答疑文章（三）：说一说这些好问题</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/44-%E7%AD%94%E7%96%91%E6%96%87%E7%AB%A0%E4%B8%89%E8%AF%B4%E4%B8%80%E8%AF%B4%E8%BF%99%E4%BA%9B%E5%A5%BD%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/44-%E7%AD%94%E7%96%91%E6%96%87%E7%AB%A0%E4%B8%89%E8%AF%B4%E4%B8%80%E8%AF%B4%E8%BF%99%E4%BA%9B%E5%A5%BD%E9%97%AE%E9%A2%98/</guid>
+      <description>这是我们专栏的最后一篇答疑文章，今天我们来说说一些好问题。
+在我看来，能够帮我们扩展一个逻辑的边界的问题，就是好问题。因为通过解决这样的问题，能够加深我们对这个逻辑的理解，或者帮我们关联到另外一个知识点，进而可以帮助我们建立起自己的知识网络。
+在工作中会问好问题，是一个很重要的能力。
+经过这段时间的学习，从评论区的问题我可以感觉出来，紧跟课程学习的同学，对 SQL 语句执行性能的感觉越来越好了，提出的问题也越来越细致和精准了。
+接下来，我们就一起看看同学们在评论区提到的这些好问题。在和你一起分析这些问题的时候，我会指出它们具体是在哪篇文章出现的。同时，在回答这些问题的过程中，我会假设你已经掌握了这篇文章涉及的知识。当然，如果你印象模糊了，也可以跳回文章再复习一次。
+在第 35 篇文章[《join 语句怎么优化？》]中，我在介绍 join 执行顺序的时候，用的都是 straight_join。@郭健 同学在文后提出了两个问题：
+ 如果用 left join 的话，左边的表一定是驱动表吗？ 如果两个表的 join 包含多个条件的等值匹配，是都要写到 on 里面呢，还是只把一个条件写到 on 里面，其他条件写到 where 部分？  为了同时回答这两个问题，我来构造两个表 a 和 b：
+create table a(f1 int, f2 int, index(f1))engine=innodb;create table b(f1 int, f2 int)engine=innodb;insert into a values(1,1),(2,2),(3,3),(4,4),(5,5),(6,6);insert into b values(3,3),(4,4),(5,5),(6,6),(7,7),(8,8);表 a 和 b 都有两个字段 f1 和 f2，不同的是表 a 的字段 f1 上有索引。然后，我往两个表中都插入了 6 条记录，其中在表 a 和 b 中同时存在的数据有 4 行。</description>
+    </item>
+    
+    <item>
+      <title>43 要不要使用分区表？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/43-%E8%A6%81%E4%B8%8D%E8%A6%81%E4%BD%BF%E7%94%A8%E5%88%86%E5%8C%BA%E8%A1%A8/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:40 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/43-%E8%A6%81%E4%B8%8D%E8%A6%81%E4%BD%BF%E7%94%A8%E5%88%86%E5%8C%BA%E8%A1%A8/</guid>
+      <description>我经常被问到这样一个问题：分区表有什么问题，为什么公司规范不让使用分区表呢？今天，我们就来聊聊分区表的使用行为，然后再一起回答这个问题。
+为了说明分区表的组织形式，我先创建一个表 t：
+CREATE TABLE `t` (`ftime` datetime NOT NULL,`c` int(11) DEFAULT NULL,KEY (`ftime`)) ENGINE=InnoDB DEFAULT CHARSET=latin1PARTITION BY RANGE (YEAR(ftime))(PARTITION p_2017 VALUES LESS THAN (2017) ENGINE = InnoDB,PARTITION p_2018 VALUES LESS THAN (2018) ENGINE = InnoDB,PARTITION p_2019 VALUES LESS THAN (2019) ENGINE = InnoDB,PARTITION p_others VALUES LESS THAN MAXVALUE ENGINE = InnoDB);insert into t values(&#39;2017-4-1&#39;,1),(&#39;2018-4-1&#39;,1);图 1 表 t 的磁盘文件</description>
+    </item>
+    
+    <item>
+      <title>42 grant之后要跟着flush privileges吗？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/42-grant%E4%B9%8B%E5%90%8E%E8%A6%81%E8%B7%9F%E7%9D%80flush-privileges%E5%90%97/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:39 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/42-grant%E4%B9%8B%E5%90%8E%E8%A6%81%E8%B7%9F%E7%9D%80flush-privileges%E5%90%97/</guid>
+      <description>在 MySQL 里面，grant 语句是用来给用户赋权的。不知道你有没有见过一些操作文档里面提到，grant 之后要马上跟着执行一个 flush privileges 命令，才能使赋权语句生效。我最开始使用 MySQL 的时候，就是照着一个操作文档的说明按照这个顺序操作的。
+那么，grant 之后真的需要执行 flush privileges 吗？如果没有执行这个 flush 命令的话，赋权语句真的不能生效吗？
+接下来，我就先和你介绍一下 grant 语句和 flush privileges 语句分别做了什么事情，然后再一起来分析这个问题。
+为了便于说明，我先创建一个用户：
+create user &#39;ua&#39;@&#39;%&#39; identified by &#39;pa&#39;;这条语句的逻辑是创建一个用户’ua’@’%’，密码是 pa。注意，在 MySQL 里面，用户名 (user)+ 地址 (host) 才表示一个用户，因此 ua@ip1 和 ua@ip2 代表的是两个不同的用户。
+这条命令做了两个动作：
+ 磁盘上，往 mysql.user 表里插入一行，由于没有指定权限，所以这行数据上所有表示权限的字段的值都是 N； 内存里，往数组 acl_users 里插入一个 acl_user 对象，这个对象的 access 字段值为 0。  图 1 就是这个时刻用户 ua 在 user 表中的状态。
+图 1 mysql.user 数据行
+在 MySQL 中，用户权限是有不同的范围的。接下来，我就按照用户权限范围从大到小的顺序依次和你说明。</description>
+    </item>
+    
+    <item>
+      <title>41 怎么最快地复制一张表？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/41-%E6%80%8E%E4%B9%88%E6%9C%80%E5%BF%AB%E5%9C%B0%E5%A4%8D%E5%88%B6%E4%B8%80%E5%BC%A0%E8%A1%A8/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:38 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/41-%E6%80%8E%E4%B9%88%E6%9C%80%E5%BF%AB%E5%9C%B0%E5%A4%8D%E5%88%B6%E4%B8%80%E5%BC%A0%E8%A1%A8/</guid>
+      <description>我在上一篇文章最后，给你留下的问题是怎么在两张表中拷贝数据。如果可以控制对源表的扫描行数和加锁范围很小的话，我们简单地使用 insert … select 语句即可实现。
+当然，为了避免对源表加读锁，更稳妥的方案是先将数据写到外部文本文件，然后再写回目标表。这时，有两种常用的方法。接下来的内容，我会和你详细展开一下这两种方法。
+为了便于说明，我还是先创建一个表 db1.t，并插入 1000 行数据，同时创建一个相同结构的表 db2.t。
+create database db1;use db1;create table t(id int primary key, a int, b int, index(a))engine=innodb;delimiter ;;create procedure idata()begindeclare i int;set i=1;while(i&amp;lt;=1000)doinsert into t values(i,i,i);set i=i+1;end while;end;;delimiter ;call idata();create database db2;create table db2.t like db1.t假设，我们要把 db1.t 里面 a&amp;gt;900 的数据行导出来，插入到 db2.t 中。
+一种方法是，使用 mysqldump 命令将数据导出成一组 INSERT 语句。你可以使用下面的命令：</description>
+    </item>
+    
+    <item>
+      <title>40 insert语句的锁为什么这么多？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/40-insert%E8%AF%AD%E5%8F%A5%E7%9A%84%E9%94%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E5%A4%9A/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:37 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/40-insert%E8%AF%AD%E5%8F%A5%E7%9A%84%E9%94%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E5%A4%9A/</guid>
+      <description>在上一篇文章中，我提到 MySQL 对自增主键锁做了优化，尽量在申请到自增 id 以后，就释放自增锁。
+因此，insert 语句是一个很轻量的操作。不过，这个结论对于“普通的 insert 语句”才有效。也就是说，还有些 insert 语句是属于“特殊情况”的，在执行过程中需要给其他资源加锁，或者无法在申请到自增 id 以后就立马释放自增锁。
+那么，今天这篇文章，我们就一起来聊聊这个话题。
+我们先从昨天的问题说起吧。表 t 和 t2 的表结构、初始化数据语句如下，今天的例子我们还是针对这两个表展开。
+CREATE TABLE `t` (`id` int(11) NOT NULL AUTO_INCREMENT,`c` int(11) DEFAULT NULL,`d` int(11) DEFAULT NULL,PRIMARY KEY (`id`),UNIQUE KEY `c` (`c`)) ENGINE=InnoDB;insert into t values(null, 1,1);insert into t values(null, 2,2);insert into t values(null, 3,3);insert into t values(null, 4,4);create table t2 like t现在，我们一起来看看为什么在可重复读隔离级别下，binlog_format=statement 时执行：</description>
+    </item>
+    
+    <item>
+      <title>39 自增主键为什么不是连续的？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/39-%E8%87%AA%E5%A2%9E%E4%B8%BB%E9%94%AE%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E6%98%AF%E8%BF%9E%E7%BB%AD%E7%9A%84/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:36 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/39-%E8%87%AA%E5%A2%9E%E4%B8%BB%E9%94%AE%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E6%98%AF%E8%BF%9E%E7%BB%AD%E7%9A%84/</guid>
+      <description>在[第 4 篇文章]中，我们提到过自增主键，由于自增主键可以让主键索引尽量地保持递增顺序插入，避免了页分裂，因此索引更紧凑。
+之前我见过有的业务设计依赖于自增主键的连续性，也就是说，这个设计假设自增主键是连续的。但实际上，这样的假设是错的，因为自增主键不能保证连续递增。
+今天这篇文章，我们就来说说这个问题，看看什么情况下自增主键会出现 “空洞”？
+为了便于说明，我们创建一个表 t，其中 id 是自增主键字段、c 是唯一索引。
+CREATE TABLE `t` (`id` int(11) NOT NULL AUTO_INCREMENT,`c` int(11) DEFAULT NULL,`d` int(11) DEFAULT NULL,PRIMARY KEY (`id`),UNIQUE KEY `c` (`c`)) ENGINE=InnoDB;在这个空表 t 里面执行 insert into t values(null, 1, 1); 插入一行数据，再执行 show create table 命令，就可以看到如下图所示的结果：
+图 1 自动生成的 AUTO_INCREMENT 值
+可以看到，表定义里面出现了一个 AUTO_INCREMENT=2，表示下一次插入数据时，如果需要自动生成自增值，会生成 id=2。
+其实，这个输出结果容易引起这样的误解：自增值是保存在表结构定义里的。实际上，表的结构定义存放在后缀名为.frm 的文件中，但是并不会保存自增值。
+不同的引擎对于自增值的保存策略不同。
+ MyISAM 引擎的自增值保存在数据文件中。 InnoDB 引擎的自增值，其实是保存在了内存里，并且到了 MySQL 8.0 版本后，才有了“自增值持久化”的能力，也就是才实现了“如果发生重启，表的自增值可以恢复为 MySQL 重启前的值”，具体情况是：  在 MySQL 5.</description>
+    </item>
+    
+    <item>
+      <title>38 都说InnoDB好，那还要不要使用Memory引擎？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/38-%E9%83%BD%E8%AF%B4innodb%E5%A5%BD%E9%82%A3%E8%BF%98%E8%A6%81%E4%B8%8D%E8%A6%81%E4%BD%BF%E7%94%A8memory%E5%BC%95%E6%93%8E/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:35 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/38-%E9%83%BD%E8%AF%B4innodb%E5%A5%BD%E9%82%A3%E8%BF%98%E8%A6%81%E4%B8%8D%E8%A6%81%E4%BD%BF%E7%94%A8memory%E5%BC%95%E6%93%8E/</guid>
+      <description>我在上一篇文章末尾留给你的问题是：两个 group by 语句都用了 order by null，为什么使用内存临时表得到的语句结果里，0 这个值在最后一行；而使用磁盘临时表得到的结果里，0 这个值在第一行？
+今天我们就来看看，出现这个问题的原因吧。
+为了便于分析，我来把这个问题简化一下，假设有以下的两张表 t1 和 t2，其中表 t1 使用 Memory 引擎， 表 t2 使用 InnoDB 引擎。
+create table t1(id int primary key, c int) engine=Memory;create table t2(id int primary key, c int) engine=innodb;insert into t1 values(1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(0,0);insert into t2 values(1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(0,0);然后，我分别执行 select * from t1 和 select * from t2。
+图 1 两个查询结果 -0 的位置
+可以看到，内存表 t1 的返回结果里面 0 在最后一行，而 InnoDB 表 t2 的返回结果里 0 在第一行。</description>
+    </item>
+    
+    <item>
+      <title>37 什么时候会使用内部临时表？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/37-%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BC%9A%E4%BD%BF%E7%94%A8%E5%86%85%E9%83%A8%E4%B8%B4%E6%97%B6%E8%A1%A8/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:34 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/37-%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BC%9A%E4%BD%BF%E7%94%A8%E5%86%85%E9%83%A8%E4%B8%B4%E6%97%B6%E8%A1%A8/</guid>
+      <description>在[第 16]和[第 34]篇文章中，我分别和你介绍了 sort buffer、内存临时表和 join buffer。这三个数据结构都是用来存放语句执行过程中的中间数据，以辅助 SQL 语句的执行的。其中，我们在排序的时候用到了 sort buffer，在使用 join 语句的时候用到了 join buffer。
+然后，你可能会有这样的疑问，MySQL 什么时候会使用内部临时表呢？
+今天这篇文章，我就先给你举两个需要用到内部临时表的例子，来看看内部临时表是怎么工作的。然后，我们再来分析，什么情况下会使用内部临时表。
+为了便于量化分析，我用下面的表 t1 来举例。
+create table t1(id int primary key, a int, b int, index(a));delimiter ;;create procedure idata()begindeclare i int;set i=1;while(i&amp;lt;=1000)doinsert into t1 values(i, i, i);set i=i+1;end while;end;;delimiter ;call idata();然后，我们执行下面这条语句：
+(select 1000 as f) union (select id from t1 order by id desc limit 2);这条语句用到了 union，它的语义是，取这两个子查询结果的并集。并集的意思就是这两个集合加起来，重复的行只保留一行。</description>
+    </item>
+    
+    <item>
+      <title>36 为什么临时表可以重名？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/36-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%B4%E6%97%B6%E8%A1%A8%E5%8F%AF%E4%BB%A5%E9%87%8D%E5%90%8D/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:33 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/36-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%B4%E6%97%B6%E8%A1%A8%E5%8F%AF%E4%BB%A5%E9%87%8D%E5%90%8D/</guid>
+      <description>在上一篇文章中，我们在优化 join 查询的时候使用到了临时表。当时，我们是这么用的：
+create temporary table temp_t like t1;alter table temp_t add index(b);insert into temp_t select * from t2 where b&amp;gt;=1 and b&amp;lt;=2000;select * from t1 join temp_t on (t1.b=temp_t.b);你可能会有疑问，为什么要用临时表呢？直接用普通表是不是也可以呢？
+今天我们就从这个问题说起：临时表有哪些特征，为什么它适合这个场景？
+这里，我需要先帮你厘清一个容易误解的问题：有的人可能会认为，临时表就是内存表。但是，这两个概念可是完全不同的。
+ 内存表，指的是使用 Memory 引擎的表，建表语法是 create table … engine=memory。这种表的数据都保存在内存里，系统重启的时候会被清空，但是表结构还在。除了这两个特性看上去比较“奇怪”外，从其他的特征上看，它就是一个正常的表。 而临时表，可以使用各种引擎类型 。如果是使用 InnoDB 引擎或者 MyISAM 引擎的临时表，写数据的时候是写到磁盘上的。当然，临时表也可以使用 Memory 引擎。  弄清楚了内存表和临时表的区别以后，我们再来看看临时表有哪些特征。
+为了便于理解，我们来看下下面这个操作序列：
+图 1 临时表特性示例
+可以看到，临时表在使用上有以下几个特点：
+ 建表语法是 create temporary table …。 一个临时表只能被创建它的 session 访问，对其他线程不可见。所以，图中 session A 创建的临时表 t，对于 session B 就是不可见的。 临时表可以与普通表同名。 session A 内有同名的临时表和普通表的时候，show create 语句，以及增删改查语句访问的是临时表。 show tables 命令不显示临时表。  由于临时表只能被创建它的 session 访问，所以在这个 session 结束的时候，会自动删除临时表。也正是由于这个特性，临时表就特别适合我们文章开头的 join 优化这种场景。为什么呢？</description>
+    </item>
+    
+    <item>
+      <title>35 join语句怎么优化？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/35-join%E8%AF%AD%E5%8F%A5%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:32 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/35-join%E8%AF%AD%E5%8F%A5%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96/</guid>
+      <description>在上一篇文章中，我和你介绍了 join 语句的两种算法，分别是 Index Nested-Loop Join(NLJ) 和 Block Nested-Loop Join(BNL)。
+我们发现在使用 NLJ 算法的时候，其实效果还是不错的，比通过应用层拆分成多个语句然后再拼接查询结果更方便，而且性能也不会差。
+但是，BNL 算法在大表 join 的时候性能就差多了，比较次数等于两个表参与 join 的行数的乘积，很消耗 CPU 资源。
+当然了，这两个算法都还有继续优化的空间，我们今天就来聊聊这个话题。
+为了便于分析，我还是创建两个表 t1、t2 来和你展开今天的问题。
+create table t1(id int primary key, a int, b int, index(a));create table t2 like t1;drop procedure idata;delimiter ;;create procedure idata()begindeclare i int;set i=1;while(i&amp;lt;=1000)doinsert into t1 values(i, 1001-i, i);set i=i+1;end while;set i=1;while(i&amp;lt;=1000000)doinsert into t2 values(i, i, i);set i=i+1;end while;end;;delimiter ;call idata();为了便于后面量化说明，我在表 t1 里，插入了 1000 行数据，每一行的 a=1001-id 的值。也就是说，表 t1 中字段 a 是逆序的。同时，我在表 t2 中插入了 100 万行数据。</description>
+    </item>
+    
+    <item>
+      <title>34 到底可不可以使用join？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/34-%E5%88%B0%E5%BA%95%E5%8F%AF%E4%B8%8D%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8join/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:31 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/34-%E5%88%B0%E5%BA%95%E5%8F%AF%E4%B8%8D%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8join/</guid>
+      <description>在实际生产中，关于 join 语句使用的问题，一般会集中在以下两类：
+ 我们 DBA 不让使用 join，使用 join 有什么问题呢？ 如果有两个大小不同的表做 join，应该用哪个表做驱动表呢？  今天这篇文章，我就先跟你说说 join 语句到底是怎么执行的，然后再来回答这两个问题。
+为了便于量化分析，我还是创建两个表 t1 和 t2 来和你说明。
+CREATE TABLE `t2` (`id` int(11) NOT NULL,`a` int(11) DEFAULT NULL,`b` int(11) DEFAULT NULL,PRIMARY KEY (`id`),KEY `a` (`a`)) ENGINE=InnoDB;drop procedure idata;delimiter ;;create procedure idata()begindeclare i int;set i=1;while(i&amp;lt;=1000)doinsert into t2 values(i, i, i);set i=i+1;end while;end;;delimiter ;call idata();create table t1 like t2;insert into t1 (select * from t2 where id&amp;lt;=100)可以看到，这两个表都有一个主键索引 id 和一个索引 a，字段 b 上无索引。存储过程 idata() 往表 t2 里插入了 1000 行数据，在表 t1 里插入的是 100 行数据。</description>
+    </item>
+    
+    <item>
+      <title>33 我查这么多数据，会不会把数据库内存打爆？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/33-%E6%88%91%E6%9F%A5%E8%BF%99%E4%B9%88%E5%A4%9A%E6%95%B0%E6%8D%AE%E4%BC%9A%E4%B8%8D%E4%BC%9A%E6%8A%8A%E6%95%B0%E6%8D%AE%E5%BA%93%E5%86%85%E5%AD%98%E6%89%93%E7%88%86/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:30 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/33-%E6%88%91%E6%9F%A5%E8%BF%99%E4%B9%88%E5%A4%9A%E6%95%B0%E6%8D%AE%E4%BC%9A%E4%B8%8D%E4%BC%9A%E6%8A%8A%E6%95%B0%E6%8D%AE%E5%BA%93%E5%86%85%E5%AD%98%E6%89%93%E7%88%86/</guid>
+      <description>我经常会被问到这样一个问题：我的主机内存只有 100G，现在要对一个 200G 的大表做全表扫描，会不会把数据库主机的内存用光了？
+这个问题确实值得担心，被系统 OOM（out of memory）可不是闹着玩的。但是，反过来想想，逻辑备份的时候，可不就是做整库扫描吗？如果这样就会把内存吃光，逻辑备份不是早就挂了？
+所以说，对大表做全表扫描，看来应该是没问题的。但是，这个流程到底是怎么样的呢？
+假设，我们现在要对一个 200G 的 InnoDB 表 db1. t，执行一个全表扫描。当然，你要把扫描结果保存在客户端，会使用类似这样的命令：
+mysql -h$host -P$port -u$user -p$pwd -e &amp;quot;select * from db1.t&amp;quot; &amp;gt; $target_file你已经知道了，InnoDB 的数据是保存在主键索引上的，所以全表扫描实际上是直接扫描表 t 的主键索引。这条查询语句由于没有其他的判断条件，所以查到的每一行都可以直接放到结果集里面，然后返回给客户端。
+那么，这个“结果集”存在哪里呢？
+实际上，服务端并不需要保存一个完整的结果集。取数据和发数据的流程是这样的：
+ 获取一行，写到 net_buffer 中。这块内存的大小是由参数 net_buffer_length 定义的，默认是 16k。 重复获取行，直到 net_buffer 写满，调用网络接口发出去。 如果发送成功，就清空 net_buffer，然后继续取下一行，并写入 net_buffer。 如果发送函数返回 EAGAIN 或 WSAEWOULDBLOCK，就表示本地网络栈（socket send buffer）写满了，进入等待。直到网络栈重新可写，再继续发送。  这个过程对应的流程图如下所示。
+图 1 查询结果发送流程
+从这个流程中，你可以看到：
+ 一个查询在发送过程中，占用的 MySQL 内部的内存最大就是 net_buffer_length 这么大，并不会达到 200G； socket send buffer 也不可能达到 200G（默认定义 /proc/sys/net/core/wmem_default），如果 socket send buffer 被写满，就会暂停读数据的流程。  也就是说，MySQL 是“边读边发的”，这个概念很重要。这就意味着，如果客户端接收得慢，会导致 MySQL 服务端由于结果发不出去，这个事务的执行时间变长。</description>
+    </item>
+    
+    <item>
+      <title>32 为什么还有kill不掉的语句？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/32-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%98%E6%9C%89kill%E4%B8%8D%E6%8E%89%E7%9A%84%E8%AF%AD%E5%8F%A5/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:29 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/32-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%98%E6%9C%89kill%E4%B8%8D%E6%8E%89%E7%9A%84%E8%AF%AD%E5%8F%A5/</guid>
+      <description>在 MySQL 中有两个 kill 命令：一个是 kill query + 线程 id，表示终止这个线程中正在执行的语句；一个是 kill connection + 线程 id，这里 connection 可缺省，表示断开这个线程的连接，当然如果这个线程有语句正在执行，也是要先停止正在执行的语句的。
+不知道你在使用 MySQL 的时候，有没有遇到过这样的现象：使用了 kill 命令，却没能断开这个连接。再执行 show processlist 命令，看到这条语句的 Command 列显示的是 Killed。
+你一定会奇怪，显示为 Killed 是什么意思，不是应该直接在 show processlist 的结果里看不到这个线程了吗？
+今天，我们就来讨论一下这个问题。
+其实大多数情况下，kill query/connection 命令是有效的。比如，执行一个查询的过程中，发现执行时间太久，要放弃继续查询，这时我们就可以用 kill query 命令，终止这条查询语句。
+还有一种情况是，语句处于锁等待的时候，直接使用 kill 命令也是有效的。我们一起来看下这个例子：
+图 1 kill query 成功的例子
+可以看到，session C 执行 kill query 以后，session B 几乎同时就提示了语句被中断。这，就是我们预期的结果。
+但是，这里你要停下来想一下：session B 是直接终止掉线程，什么都不管就直接退出吗？显然，这是不行的。
+我在[第 6 篇文章]中讲过，当对一个表做增删改查操作时，会在表上加 MDL 读锁。所以，session B 虽然处于 blocked 状态，但还是拿着一个 MDL 读锁的。如果线程被 kill 的时候，就直接终止，那之后这个 MDL 读锁就没机会被释放了。</description>
+    </item>
+    
+    <item>
+      <title>31 误删数据后除了跑路，还能怎么办？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/31-%E8%AF%AF%E5%88%A0%E6%95%B0%E6%8D%AE%E5%90%8E%E9%99%A4%E4%BA%86%E8%B7%91%E8%B7%AF%E8%BF%98%E8%83%BD%E6%80%8E%E4%B9%88%E5%8A%9E/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:28 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/31-%E8%AF%AF%E5%88%A0%E6%95%B0%E6%8D%AE%E5%90%8E%E9%99%A4%E4%BA%86%E8%B7%91%E8%B7%AF%E8%BF%98%E8%83%BD%E6%80%8E%E4%B9%88%E5%8A%9E/</guid>
+      <description>今天我要和你讨论的是一个沉重的话题：误删数据。
+在前面几篇文章中，我们介绍了 MySQL 的高可用架构。当然，传统的高可用架构是不能预防误删数据的，因为主库的一个 drop table 命令，会通过 binlog 传给所有从库和级联从库，进而导致整个集群的实例都会执行这个命令。
+虽然我们之前遇到的大多数的数据被删，都是运维同学或者 DBA 背锅的。但实际上，只要有数据操作权限的同学，都有可能踩到误删数据这条线。
+今天我们就来聊聊误删数据前后，我们可以做些什么，减少误删数据的风险，和由误删数据带来的损失。
+为了找到解决误删数据的更高效的方法，我们需要先对和 MySQL 相关的误删数据，做下分类：
+ 使用 delete 语句误删数据行； 使用 drop table 或者 truncate table 语句误删数据表； 使用 drop database 语句误删数据库； 使用 rm 命令误删整个 MySQL 实例。  在[第 24 篇文章]中，我们提到如果是使用 delete 语句误删了数据行，可以用 Flashback 工具通过闪回把数据恢复回来。
+Flashback 恢复数据的原理，是修改 binlog 的内容，拿回原库重放。而能够使用这个方案的前提是，需要确保 binlog_format=row 和 binlog_row_image=FULL。
+具体恢复数据时，对单个事务做如下处理：
+ 对于 insert 语句，对应的 binlog event 类型是 Write_rows event，把它改成 Delete_rows event 即可； 同理，对于 delete 语句，也是将 Delete_rows event 改为 Write_rows event； 而如果是 Update_rows 的话，binlog 里面记录了数据行修改前和修改后的值，对调这两行的位置即可。  如果误操作不是一个，而是多个，会怎么样呢？比如下面三个事务：</description>
+    </item>
+    
+    <item>
+      <title>30 答疑文章（二）：用动态的观点看加锁</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/30-%E7%AD%94%E7%96%91%E6%96%87%E7%AB%A0%E4%BA%8C%E7%94%A8%E5%8A%A8%E6%80%81%E7%9A%84%E8%A7%82%E7%82%B9%E7%9C%8B%E5%8A%A0%E9%94%81/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:27 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/30-%E7%AD%94%E7%96%91%E6%96%87%E7%AB%A0%E4%BA%8C%E7%94%A8%E5%8A%A8%E6%80%81%E7%9A%84%E8%A7%82%E7%82%B9%E7%9C%8B%E5%8A%A0%E9%94%81/</guid>
+      <description>在第[20]和[21]篇文章中，我和你介绍了 InnoDB 的间隙锁、next-key lock，以及加锁规则。在这两篇文章的评论区，出现了很多高质量的留言。我觉得通过分析这些问题，可以帮助你加深对加锁规则的理解。
+所以，我就从中挑选了几个有代表性的问题，构成了今天这篇答疑文章的主题，即：用动态的观点看加锁。
+为了方便你理解，我们再一起复习一下加锁规则。这个规则中，包含了两个“原则”、两个“优化”和一个“bug”：
+ 原则 1：加锁的基本单位是 next-key lock。希望你还记得，next-key lock 是前开后闭区间。 原则 2：查找过程中访问到的对象才会加锁。 优化 1：索引上的等值查询，给唯一索引加锁的时候，next-key lock 退化为行锁。 优化 2：索引上的等值查询，向右遍历时且最后一个值不满足等值条件的时候，next-key lock 退化为间隙锁。 一个 bug：唯一索引上的范围查询会访问到不满足条件的第一个值为止。  接下来，我们的讨论还是基于下面这个表 t：
+CREATE TABLE `t` (`id` int(11) NOT NULL,`c` int(11) DEFAULT NULL,`d` int(11) DEFAULT NULL,PRIMARY KEY (`id`),KEY `c` (`c`)) ENGINE=InnoDB;insert into t values(0,0,0),(5,5,5),(10,10,10),(15,15,15),(20,20,20),(25,25,25);有同学对“等值查询”提出了疑问：等值查询和“遍历”有什么区别？为什么我们文章的例子里面，where 条件是不等号，这个过程里也有等值查询？
+我们一起来看下这个例子，分析一下这条查询语句的加锁范围：
+begin;select * from t where id&amp;gt;9 and id&amp;lt;12 order by id desc for update;利用上面的加锁规则，我们知道这个语句的加锁范围是主键索引上的 (0,5]、(5,10] 和 (10, 15)。也就是说，id=15 这一行，并没有被加上行锁。为什么呢？</description>
+    </item>
+    
+    <item>
+      <title>29 如何判断一个数据库是不是出问题了？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/29-%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93%E6%98%AF%E4%B8%8D%E6%98%AF%E5%87%BA%E9%97%AE%E9%A2%98%E4%BA%86/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:26 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/29-%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93%E6%98%AF%E4%B8%8D%E6%98%AF%E5%87%BA%E9%97%AE%E9%A2%98%E4%BA%86/</guid>
+      <description>我在第[25]和[27]篇文章中，和你介绍了主备切换流程。通过这些内容的讲解，你应该已经很清楚了：在一主一备的双 M 架构里，主备切换只需要把客户端流量切到备库；而在一主多从架构里，主备切换除了要把客户端流量切到备库外，还需要把从库接到新主库上。
+主备切换有两种场景，一种是主动切换，一种是被动切换。而其中被动切换，往往是因为主库出问题了，由 HA 系统发起的。
+这也就引出了我们今天要讨论的问题：怎么判断一个主库出问题了？
+你一定会说，这很简单啊，连上 MySQL，执行个 select 1 就好了。但是 select 1 成功返回了，就表示主库没问题吗？
+实际上，select 1 成功返回，只能说明这个库的进程还在，并不能说明主库没问题。现在，我们来看一下这个场景。
+set global innodb_thread_concurrency=3;CREATE TABLE `t` (`id` int(11) NOT NULL,`c` int(11) DEFAULT NULL,PRIMARY KEY (`id`)) ENGINE=InnoDB;insert into t values(1,1)图 1 查询 blocked
+我们设置 innodb_thread_concurrency 参数的目的是，控制 InnoDB 的并发线程上限。也就是说，一旦并发线程数达到这个值，InnoDB 在接收到新请求的时候，就会进入等待状态，直到有线程退出。
+这里，我把 innodb_thread_concurrency 设置成 3，表示 InnoDB 只允许 3 个线程并行执行。而在我们的例子中，前三个 session 中的 sleep(100)，使得这三个语句都处于“执行”状态，以此来模拟大查询。
+你看到了， session D 里面，select 1 是能执行成功的，但是查询表 t 的语句会被堵住。也就是说，如果这时候我们用 select 1 来检测实例是否正常的话，是检测不出问题的。</description>
+    </item>
+    
+    <item>
+      <title>28 读写分离有哪些坑？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/28-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E6%9C%89%E5%93%AA%E4%BA%9B%E5%9D%91/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:25 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/28-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E6%9C%89%E5%93%AA%E4%BA%9B%E5%9D%91/</guid>
+      <description>在上一篇文章中，我和你介绍了一主多从的结构以及切换流程。今天我们就继续聊聊一主多从架构的应用场景：读写分离，以及怎么处理主备延迟导致的读写分离问题。
+我们在上一篇文章中提到的一主多从的结构，其实就是读写分离的基本结构了。这里，我再把这张图贴过来，方便你理解。
+图 1 读写分离基本结构
+读写分离的主要目标就是分摊主库的压力。图 1 中的结构是客户端（client）主动做负载均衡，这种模式下一般会把数据库的连接信息放在客户端的连接层。也就是说，由客户端来选择后端数据库进行查询。
+还有一种架构是，在 MySQL 和客户端之间有一个中间代理层 proxy，客户端只连接 proxy， 由 proxy 根据请求类型和上下文决定请求的分发路由。
+图 2 带 proxy 的读写分离架构
+接下来，我们就看一下客户端直连和带 proxy 的读写分离架构，各有哪些特点。
+ 客户端直连方案，因为少了一层 proxy 转发，所以查询性能稍微好一点儿，并且整体架构简单，排查问题更方便。但是这种方案，由于要了解后端部署细节，所以在出现主备切换、库迁移等操作的时候，客户端都会感知到，并且需要调整数据库连接信息。 你可能会觉得这样客户端也太麻烦了，信息大量冗余，架构很丑。其实也未必，一般采用这样的架构，一定会伴随一个负责管理后端的组件，比如 Zookeeper，尽量让业务端只专注于业务逻辑开发。 带 proxy 的架构，对客户端比较友好。客户端不需要关注后端细节，连接维护、后端信息维护等工作，都是由 proxy 完成的。但这样的话，对后端维护团队的要求会更高。而且，proxy 也需要有高可用架构。因此，带 proxy 架构的整体就相对比较复杂。  理解了这两种方案的优劣，具体选择哪个方案就取决于数据库团队提供的能力了。但目前看，趋势是往带 proxy 的架构方向发展的。
+但是，不论使用哪种架构，你都会碰到我们今天要讨论的问题：由于主从可能存在延迟，客户端执行完一个更新事务后马上发起查询，如果查询选择的是从库的话，就有可能读到刚刚的事务更新之前的状态。
+这种“在从库上会读到系统的一个过期状态”的现象，在这篇文章里，我们暂且称之为“过期读”。
+前面我们说过了几种可能导致主备延迟的原因，以及对应的优化策略，但是主从延迟还是不能 100% 避免的。
+不论哪种结构，客户端都希望查询从库的数据结果，跟查主库的数据结果是一样的。
+接下来，我们就来讨论怎么处理过期读问题。
+这里，我先把文章中涉及到的处理过期读的方案汇总在这里，以帮助你更好地理解和掌握全文的知识脉络。这些方案包括：
+ 强制走主库方案； sleep 方案； 判断主备无延迟方案； 配合 semi-sync 方案； 等主库位点方案； 等 GTID 方案。  强制走主库方案其实就是，将查询请求做分类。通常情况下，我们可以将查询请求分为这么两类：
+ 对于必须要拿到最新结果的请求，强制将其发到主库上。比如，在一个交易平台上，卖家发布商品以后，马上要返回主页面，看商品是否发布成功。那么，这个请求需要拿到最新的结果，就必须走主库。 对于可以读到旧数据的请求，才将其发到从库上。在这个交易平台上，买家来逛商铺页面，就算晚几秒看到最新发布的商品，也是可以接受的。那么，这类请求就可以走从库。  你可能会说，这个方案是不是有点畏难和取巧的意思，但其实这个方案是用得最多的。
+当然，这个方案最大的问题在于，有时候你会碰到“所有查询都不能是过期读”的需求，比如一些金融类的业务。这样的话，你就要放弃读写分离，所有读写压力都在主库，等同于放弃了扩展性。</description>
+    </item>
+    
+    <item>
+      <title>27 主库出问题了，从库怎么办？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/27-%E4%B8%BB%E5%BA%93%E5%87%BA%E9%97%AE%E9%A2%98%E4%BA%86%E4%BB%8E%E5%BA%93%E6%80%8E%E4%B9%88%E5%8A%9E/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:24 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/27-%E4%B8%BB%E5%BA%93%E5%87%BA%E9%97%AE%E9%A2%98%E4%BA%86%E4%BB%8E%E5%BA%93%E6%80%8E%E4%B9%88%E5%8A%9E/</guid>
+      <description>在前面的第[24]、[25]和[26]篇文章中，我和你介绍了 MySQL 主备复制的基础结构，但这些都是一主一备的结构。
+大多数的互联网应用场景都是读多写少，因此你负责的业务，在发展过程中很可能先会遇到读性能的问题。而在数据库层解决读性能问题，就要涉及到接下来两篇文章要讨论的架构：一主多从。
+今天这篇文章，我们就先聊聊一主多从的切换正确性。然后，我们在下一篇文章中再聊聊解决一主多从的查询逻辑正确性的方法。
+如图 1 所示，就是一个基本的一主多从结构。
+图 1 一主多从基本结构
+图中，虚线箭头表示的是主备关系，也就是 A 和 A’互为主备， 从库 B、C、D 指向的是主库 A。一主多从的设置，一般用于读写分离，主库负责所有的写入和一部分读，其他的读请求则由从库分担。
+今天我们要讨论的就是，在一主多从架构下，主库故障后的主备切换问题。
+如图 2 所示，就是主库发生故障，主备切换后的结果。
+图 2 一主多从基本结构 &amp;ndash; 主备切换
+相比于一主一备的切换流程，一主多从结构在切换完成后，A’会成为新的主库，从库 B、C、D 也要改接到 A’。正是由于多了从库 B、C、D 重新指向的这个过程，所以主备切换的复杂性也相应增加了。
+接下来，我们再一起看看一个切换系统会怎么完成一主多从的主备切换过程。
+这里，我们需要先来回顾一个知识点。
+当我们把节点 B 设置成节点 A’的从库的时候，需要执行一条 change master 命令：
+CHANGE MASTER TO MASTER_HOST=$host_name MASTER_PORT=$port MASTER_USER=$user_name MASTER_PASSWORD=$password MASTER_LOG_FILE=$master_log_name MASTER_LOG_POS=$master_log_pos 这条命令有这么 6 个参数：
+ MASTER_HOST、MASTER_PORT、MASTER_USER 和 MASTER_PASSWORD 四个参数，分别代表了主库 A’的 IP、端口、用户名和密码。 最后两个参数 MASTER_LOG_FILE 和 MASTER_LOG_POS 表示，要从主库的 master_log_name 文件的 master_log_pos 这个位置的日志继续同步。而这个位置就是我们所说的同步位点，也就是主库对应的文件名和日志偏移量。  那么，这里就有一个问题了，节点 B 要设置成 A’的从库，就要执行 change master 命令，就不可避免地要设置位点的这两个参数，但是这两个参数到底应该怎么设置呢？</description>
+    </item>
+    
+    <item>
+      <title>26 备库为什么会延迟好几个小时？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/26-%E5%A4%87%E5%BA%93%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%BB%B6%E8%BF%9F%E5%A5%BD%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%97%B6/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:23 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/26-%E5%A4%87%E5%BA%93%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%BB%B6%E8%BF%9F%E5%A5%BD%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%97%B6/</guid>
+      <description>在上一篇文章中，我和你介绍了几种可能导致备库延迟的原因。你会发现，这些场景里，不论是偶发性的查询压力，还是备份，对备库延迟的影响一般是分钟级的，而且在备库恢复正常以后都能够追上来。
+但是，如果备库执行日志的速度持续低于主库生成日志的速度，那这个延迟就有可能成了小时级别。而且对于一个压力持续比较高的主库来说，备库很可能永远都追不上主库的节奏。
+这就涉及到今天我要给你介绍的话题：备库并行复制能力。
+为了便于你理解，我们再一起看一下第 24 篇文章[《MySQL 是怎么保证主备一致的？》]的主备流程图。
+图 1 主备流程图
+谈到主备的并行复制能力，我们要关注的是图中黑色的两个箭头。一个箭头代表了客户端写入主库，另一箭头代表的是备库上 sql_thread 执行中转日志（relay log）。如果用箭头的粗细来代表并行度的话，那么真实情况就如图 1 所示，第一个箭头要明显粗于第二个箭头。
+在主库上，影响并发度的原因就是各种锁了。由于 InnoDB 引擎支持行锁，除了所有并发事务都在更新同一行（热点行）这种极端场景外，它对业务并发度的支持还是很友好的。所以，你在性能测试的时候会发现，并发压测线程 32 就比单线程时，总体吞吐量高。
+而日志在备库上的执行，就是图中备库上 sql_thread 更新数据 (DATA) 的逻辑。如果是用单线程的话，就会导致备库应用日志不够快，造成主备延迟。
+在官方的 5.6 版本之前，MySQL 只支持单线程复制，由此在主库并发高、TPS 高时就会出现严重的主备延迟问题。
+从单线程复制到最新版本的多线程复制，中间的演化经历了好几个版本。接下来，我就跟你说说 MySQL 多线程复制的演进过程。
+其实说到底，所有的多线程复制机制，都是要把图 1 中只有一个线程的 sql_thread，拆成多个线程，也就是都符合下面的这个模型：
+图 2 多线程模型
+图 2 中，coordinator 就是原来的 sql_thread, 不过现在它不再直接更新数据了，只负责读取中转日志和分发事务。真正更新日志的，变成了 worker 线程。而 work 线程的个数，就是由参数 slave_parallel_workers 决定的。根据我的经验，把这个值设置为 8~16 之间最好（32 核物理机的情况），毕竟备库还有可能要提供读查询，不能把 CPU 都吃光了。
+接下来，你需要先思考一个问题：事务能不能按照轮询的方式分发给各个 worker，也就是第一个事务分给 worker_1，第二个事务发给 worker_2 呢？
+其实是不行的。因为，事务被分发给 worker 以后，不同的 worker 就独立执行了。但是，由于 CPU 的调度策略，很可能第二个事务最终比第一个事务先执行。而如果这时候刚好这两个事务更新的是同一行，也就意味着，同一行上的两个事务，在主库和备库上的执行顺序相反，会导致主备不一致的问题。</description>
+    </item>
+    
+    <item>
+      <title>25 MySQL是怎么保证高可用的？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/25-mysql%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:22 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/25-mysql%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84/</guid>
+      <description>在上一篇文章中，我和你介绍了 binlog 的基本内容，在一个主备关系中，每个备库接收主库的 binlog 并执行。
+正常情况下，只要主库执行更新生成的所有 binlog，都可以传到备库并被正确地执行，备库就能达到跟主库一致的状态，这就是最终一致性。
+但是，MySQL 要提供高可用能力，只有最终一致性是不够的。为什么这么说呢？今天我就着重和你分析一下。
+这里，我再放一次上一篇文章中讲到的双 M 结构的主备切换流程图。
+图 1 MySQL 主备切换流程 &amp;ndash; 双 M 结构
+主备切换可能是一个主动运维动作，比如软件升级、主库所在机器按计划下线等，也可能是被动操作，比如主库所在机器掉电。
+接下来，我们先一起看看主动切换的场景。
+在介绍主动切换流程的详细步骤之前，我要先跟你说明一个概念，即“同步延迟”。与数据同步有关的时间点主要包括以下三个：
+ 主库 A 执行完成一个事务，写入 binlog，我们把这个时刻记为 T1; 之后传给备库 B，我们把备库 B 接收完这个 binlog 的时刻记为 T2; 备库 B 执行完成这个事务，我们把这个时刻记为 T3。  所谓主备延迟，就是同一个事务，在备库执行完成的时间和主库执行完成的时间之间的差值，也就是 T3-T1。
+你可以在备库上执行 show slave status 命令，它的返回结果里面会显示 seconds_behind_master，用于表示当前备库延迟了多少秒。
+seconds_behind_master 的计算方法是这样的：
+ 每个事务的 binlog 里面都有一个时间字段，用于记录主库上写入的时间； 备库取出当前正在执行的事务的时间字段的值，计算它与当前系统时间的差值，得到 seconds_behind_master。  可以看到，其实 seconds_behind_master 这个参数计算的就是 T3-T1。所以，我们可以用 seconds_behind_master 来作为主备延迟的值，这个值的时间精度是秒。
+你可能会问，如果主备库机器的系统时间设置不一致，会不会导致主备延迟的值不准？
+其实不会的。因为，备库连接到主库的时候，会通过执行 SELECT UNIX_TIMESTAMP() 函数来获得当前主库的系统时间。如果这时候发现主库的系统时间与自己不一致，备库在执行 seconds_behind_master 计算的时候会自动扣掉这个差值。</description>
+    </item>
+    
+    <item>
+      <title>24 MySQL是怎么保证主备一致的？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/24-mysql%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:21 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/24-mysql%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84/</guid>
+      <description>在前面的文章中，我不止一次地和你提到了 binlog，大家知道 binlog 可以用来归档，也可以用来做主备同步，但它的内容是什么样的呢？为什么备库执行了 binlog 就可以跟主库保持一致了呢？今天我就正式地和你介绍一下它。
+毫不夸张地说，MySQL 能够成为现下最流行的开源数据库，binlog 功不可没。
+在最开始，MySQL 是以容易学习和方便的高可用架构，被开发人员青睐的。而它的几乎所有的高可用架构，都直接依赖于 binlog。虽然这些高可用架构已经呈现出越来越复杂的趋势，但都是从最基本的一主一备演化过来的。
+今天这篇文章我主要为你介绍主备的基本原理。理解了背后的设计原理，你也可以从业务开发的角度，来借鉴这些设计思想。
+如图 1 所示就是基本的主备切换流程。
+图 1 MySQL 主备切换流程
+在状态 1 中，客户端的读写都直接访问节点 A，而节点 B 是 A 的备库，只是将 A 的更新都同步过来，到本地执行。这样可以保持节点 B 和 A 的数据是相同的。
+当需要切换的时候，就切成状态 2。这时候客户端读写访问的都是节点 B，而节点 A 是 B 的备库。
+在状态 1 中，虽然节点 B 没有被直接访问，但是我依然建议你把节点 B（也就是备库）设置成只读（readonly）模式。这样做，有以下几个考虑：
+ 有时候一些运营类的查询语句会被放到备库上去查，设置为只读可以防止误操作； 防止切换逻辑有 bug，比如切换过程中出现双写，造成主备不一致； 可以用 readonly 状态，来判断节点的角色。  你可能会问，我把备库设置成只读了，还怎么跟主库保持同步更新呢？
+这个问题，你不用担心。因为 readonly 设置对超级 (super) 权限用户是无效的，而用于同步更新的线程，就拥有超级权限。
+接下来，我们再看看节点 A 到 B 这条线的内部流程是什么样的。图 2 中画出的就是一个 update 语句在节点 A 执行，然后同步到节点 B 的完整流程图。</description>
+    </item>
+    
+    <item>
+      <title>23 MySQL是怎么保证数据不丢的？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/23-mysql%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E4%B8%8D%E4%B8%A2%E7%9A%84/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:20 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/23-mysql%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E4%B8%8D%E4%B8%A2%E7%9A%84/</guid>
+      <description>今天这篇文章，我会继续和你介绍在业务高峰期临时提升性能的方法。从文章标题“MySQL 是怎么保证数据不丢的？”，你就可以看出来，今天我和你介绍的方法，跟数据的可靠性有关。
+在专栏前面文章和答疑篇中，我都着重介绍了 WAL 机制，得到的结论是：只要 redo log 和 binlog 保证持久化到磁盘，就能确保 MySQL 异常重启后，数据可以恢复。
+评论区有同学又继续追问，redo log 的写入流程是怎么样的，如何保证 redo log 真实地写入了磁盘。那么今天，我们就再一起看看 MySQL 写入 binlog 和 redo log 的流程。
+其实，binlog 的写入逻辑比较简单：事务执行过程中，先把日志写到 binlog cache，事务提交的时候，再把 binlog cache 写到 binlog 文件中。
+一个事务的 binlog 是不能被拆开的，因此不论这个事务多大，也要确保一次性写入。这就涉及到了 binlog cache 的保存问题。
+系统给 binlog cache 分配了一片内存，每个线程一个，参数 binlog_cache_size 用于控制单个线程内 binlog cache 所占内存的大小。如果超过了这个参数规定的大小，就要暂存到磁盘。
+事务提交的时候，执行器把 binlog cache 里的完整事务写入到 binlog 中，并清空 binlog cache。状态如图 1 所示。
+图 1 binlog 写盘状态
+可以看到，每个线程有自己 binlog cache，但是共用同一份 binlog 文件。
+ 图中的 write，指的就是指把日志写入到文件系统的 page cache，并没有把数据持久化到磁盘，所以速度比较快。 图中的 fsync，才是将数据持久化到磁盘的操作。一般情况下，我们认为 fsync 才占磁盘的 IOPS。  write 和 fsync 的时机，是由参数 sync_binlog 控制的：</description>
+    </item>
+    
+    <item>
+      <title>22 MySQL有哪些“饮鸩止渴”提高性能的方法？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/22-mysql%E6%9C%89%E5%93%AA%E4%BA%9B%E9%A5%AE%E9%B8%A9%E6%AD%A2%E6%B8%B4%E6%8F%90%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:19 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/22-mysql%E6%9C%89%E5%93%AA%E4%BA%9B%E9%A5%AE%E9%B8%A9%E6%AD%A2%E6%B8%B4%E6%8F%90%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+      <description>不知道你在实际运维过程中有没有碰到这样的情景：业务高峰期，生产环境的 MySQL 压力太大，没法正常响应，需要短期内、临时性地提升一些性能。
+我以前做业务护航的时候，就偶尔会碰上这种场景。用户的开发负责人说，不管你用什么方案，让业务先跑起来再说。
+但，如果是无损方案的话，肯定不需要等到这个时候才上场。今天我们就来聊聊这些临时方案，并着重说一说它们可能存在的风险。
+正常的短连接模式就是连接到数据库后，执行很少的 SQL 语句就断开，下次需要的时候再重连。如果使用的是短连接，在业务高峰期的时候，就可能出现连接数突然暴涨的情况。
+我在第 1 篇文章[《基础架构：一条 SQL 查询语句是如何执行的？》]中说过，MySQL 建立连接的过程，成本是很高的。除了正常的网络连接三次握手外，还需要做登录权限判断和获得这个连接的数据读写权限。
+在数据库压力比较小的时候，这些额外的成本并不明显。
+但是，短连接模型存在一个风险，就是一旦数据库处理得慢一些，连接数就会暴涨。max_connections 参数，用来控制一个 MySQL 实例同时存在的连接数的上限，超过这个值，系统就会拒绝接下来的连接请求，并报错提示“Too many connections”。对于被拒绝连接的请求来说，从业务角度看就是数据库不可用。
+在机器负载比较高的时候，处理现有请求的时间变长，每个连接保持的时间也更长。这时，再有新建连接的话，就可能会超过 max_connections 的限制。
+碰到这种情况时，一个比较自然的想法，就是调高 max_connections 的值。但这样做是有风险的。因为设计 max_connections 这个参数的目的是想保护 MySQL，如果我们把它改得太大，让更多的连接都可以进来，那么系统的负载可能会进一步加大，大量的资源耗费在权限验证等逻辑上，结果可能是适得其反，已经连接的线程拿不到 CPU 资源去执行业务的 SQL 请求。
+那么这种情况下，你还有没有别的建议呢？我这里还有两种方法，但要注意，这些方法都是有损的。
+第一种方法：先处理掉那些占着连接但是不工作的线程。
+max_connections 的计算，不是看谁在 running，是只要连着就占用一个计数位置。对于那些不需要保持的连接，我们可以通过 kill connection 主动踢掉。这个行为跟事先设置 wait_timeout 的效果是一样的。设置 wait_timeout 参数表示的是，一个线程空闲 wait_timeout 这么多秒之后，就会被 MySQL 直接断开连接。
+但是需要注意，在 show processlist 的结果里，踢掉显示为 sleep 的线程，可能是有损的。我们来看下面这个例子。
+图 1 sleep 线程的两种状态
+在上面这个例子里，如果断开 session A 的连接，因为这时候 session A 还没有提交，所以 MySQL 只能按照回滚事务来处理；而断开 session B 的连接，就没什么大影响。所以，如果按照优先级来说，你应该优先断开像 session B 这样的事务外空闲的连接。</description>
+    </item>
+    
+    <item>
+      <title>21 为什么我只改一行的语句，锁这么多？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/21-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E5%8F%AA%E6%94%B9%E4%B8%80%E8%A1%8C%E7%9A%84%E8%AF%AD%E5%8F%A5%E9%94%81%E8%BF%99%E4%B9%88%E5%A4%9A/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:18 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/21-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E5%8F%AA%E6%94%B9%E4%B8%80%E8%A1%8C%E7%9A%84%E8%AF%AD%E5%8F%A5%E9%94%81%E8%BF%99%E4%B9%88%E5%A4%9A/</guid>
+      <description>在上一篇文章中，我和你介绍了间隙锁和 next-key lock 的概念，但是并没有说明加锁规则。间隙锁的概念理解起来确实有点儿难，尤其在配合上行锁以后，很容易在判断是否会出现锁等待的问题上犯错。
+所以今天，我们就先从这个加锁规则开始吧。
+首先说明一下，这些加锁规则我没在别的地方看到过有类似的总结，以前我自己判断的时候都是想着代码里面的实现来脑补的。这次为了总结成不看代码的同学也能理解的规则，是我又重新刷了代码临时总结出来的。所以，这个规则有以下两条前提说明：
+ MySQL 后面的版本可能会改变加锁策略，所以这个规则只限于截止到现在的最新版本，即 5.x 系列 &amp;lt;=5.7.24，8.0 系列 &amp;lt;=8.0.13。 如果大家在验证中有发现 bad case 的话，请提出来，我会再补充进这篇文章，使得一起学习本专栏的所有同学都能受益。  因为间隙锁在可重复读隔离级别下才有效，所以本篇文章接下来的描述，若没有特殊说明，默认是可重复读隔离级别。
+我总结的加锁规则里面，包含了两个“原则”、两个“优化”和一个“bug”。
+ 原则 1：加锁的基本单位是 next-key lock。希望你还记得，next-key lock 是前开后闭区间。 原则 2：查找过程中访问到的对象才会加锁。 优化 1：索引上的等值查询，给唯一索引加锁的时候，next-key lock 退化为行锁。 优化 2：索引上的等值查询，向右遍历时且最后一个值不满足等值条件的时候，next-key lock 退化为间隙锁。 一个 bug：唯一索引上的范围查询会访问到不满足条件的第一个值为止。  我还是以上篇文章的表 t 为例，和你解释一下这些规则。表 t 的建表语句和初始化语句如下。
+CREATE TABLE `t` (`id` int(11) NOT NULL,`c` int(11) DEFAULT NULL,`d` int(11) DEFAULT NULL,PRIMARY KEY (`id`),KEY `c` (`c`)) ENGINE=InnoDB;insert into t values(0,0,0),(5,5,5),(10,10,10),(15,15,15),(20,20,20),(25,25,25);接下来的例子基本都是配合着图片说明的，所以我建议你可以对照着文稿看，有些例子可能会“毁三观”，也建议你读完文章后亲手实践一下。</description>
+    </item>
+    
+    <item>
+      <title>20 幻读是什么，幻读有什么问题？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/20-%E5%B9%BB%E8%AF%BB%E6%98%AF%E4%BB%80%E4%B9%88%E5%B9%BB%E8%AF%BB%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:17 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/20-%E5%B9%BB%E8%AF%BB%E6%98%AF%E4%BB%80%E4%B9%88%E5%B9%BB%E8%AF%BB%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98/</guid>
+      <description>在上一篇文章最后，我给你留了一个关于加锁规则的问题。今天，我们就从这个问题说起吧。
+为了便于说明问题，这一篇文章，我们就先使用一个小一点儿的表。建表和初始化语句如下（为了便于本期的例子说明，我把上篇文章中用到的表结构做了点儿修改）：
+CREATE TABLE `t` (`id` int(11) NOT NULL,`c` int(11) DEFAULT NULL,`d` int(11) DEFAULT NULL,PRIMARY KEY (`id`),KEY `c` (`c`)) ENGINE=InnoDB;insert into t values(0,0,0),(5,5,5),(10,10,10),(15,15,15),(20,20,20),(25,25,25);这个表除了主键 id 外，还有一个索引 c，初始化语句在表中插入了 6 行数据。
+上期我留给你的问题是，下面的语句序列，是怎么加锁的，加的锁又是什么时候释放的呢？
+begin;select * from t where d=5 for update;commit;比较好理解的是，这个语句会命中 d=5 的这一行，对应的主键 id=5，因此在 select 语句执行完成后，id=5 这一行会加一个写锁，而且由于两阶段锁协议，这个写锁会在执行 commit 语句的时候释放。
+由于字段 d 上没有索引，因此这条查询语句会做全表扫描。那么，其他被扫描到的，但是不满足条件的 5 行记录上，会不会被加锁呢？
+我们知道，InnoDB 的默认事务隔离级别是可重复读，所以本文接下来没有特殊说明的部分，都是设定在可重复读隔离级别下。
+现在，我们就来分析一下，如果只在 id=5 这一行加锁，而其他行的不加锁的话，会怎么样。
+下面先来看一下这个场景（注意：这是我假设的一个场景）：
+图 1 假设只在 id=5 这一行加行锁</description>
+    </item>
+    
+    <item>
+      <title>19 为什么我只查一行的语句，也执行这么慢？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/19-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E5%8F%AA%E6%9F%A5%E4%B8%80%E8%A1%8C%E7%9A%84%E8%AF%AD%E5%8F%A5%E4%B9%9F%E6%89%A7%E8%A1%8C%E8%BF%99%E4%B9%88%E6%85%A2/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:16 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/19-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E5%8F%AA%E6%9F%A5%E4%B8%80%E8%A1%8C%E7%9A%84%E8%AF%AD%E5%8F%A5%E4%B9%9F%E6%89%A7%E8%A1%8C%E8%BF%99%E4%B9%88%E6%85%A2/</guid>
+      <description>一般情况下，如果我跟你说查询性能优化，你首先会想到一些复杂的语句，想到查询需要返回大量的数据。但有些情况下，“查一行”，也会执行得特别慢。今天，我就跟你聊聊这个有趣的话题，看看什么情况下，会出现这个现象。
+需要说明的是，如果 MySQL 数据库本身就有很大的压力，导致数据库服务器 CPU 占用率很高或 ioutil（IO 利用率）很高，这种情况下所有语句的执行都有可能变慢，不属于我们今天的讨论范围。
+为了便于描述，我还是构造一个表，基于这个表来说明今天的问题。这个表有两个字段 id 和 c，并且我在里面插入了 10 万行记录。
+mysql&amp;gt; CREATE TABLE `t` (`id` int(11) NOT NULL,`c` int(11) DEFAULT NULL,PRIMARY KEY (`id`)) ENGINE=InnoDB;delimiter ;;create procedure idata()begindeclare i int;set i=1;while(i&amp;lt;=100000)doinsert into t values(i,i);set i=i+1;end while;end;;delimiter ;call idata();接下来，我会用几个不同的场景来举例，有些是前面的文章中我们已经介绍过的知识点，你看看能不能一眼看穿，来检验一下吧。
+如图 1 所示，在表 t 执行下面的 SQL 语句：
+mysql&amp;gt; select * from t where id=1;查询结果长时间不返回。</description>
+    </item>
+    
+    <item>
+      <title>18 为什么这些SQL语句逻辑相同，性能却差异巨大？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/18-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%BA%9Bsql%E8%AF%AD%E5%8F%A5%E9%80%BB%E8%BE%91%E7%9B%B8%E5%90%8C%E6%80%A7%E8%83%BD%E5%8D%B4%E5%B7%AE%E5%BC%82%E5%B7%A8%E5%A4%A7/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:15 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/18-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%BA%9Bsql%E8%AF%AD%E5%8F%A5%E9%80%BB%E8%BE%91%E7%9B%B8%E5%90%8C%E6%80%A7%E8%83%BD%E5%8D%B4%E5%B7%AE%E5%BC%82%E5%B7%A8%E5%A4%A7/</guid>
+      <description>在 MySQL 中，有很多看上去逻辑相同，但性能却差异巨大的 SQL 语句。对这些语句使用不当的话，就会不经意间导致整个数据库的压力变大。
+我今天挑选了三个这样的案例和你分享。希望再遇到相似的问题时，你可以做到举一反三、快速解决问题。
+假设你现在维护了一个交易系统，其中交易记录表 tradelog 包含交易流水号（tradeid）、交易员 id（operator）、交易时间（t_modified）等字段。为了便于描述，我们先忽略其他字段。这个表的建表语句如下：
+mysql&amp;gt; CREATE TABLE `tradelog` (`id` int(11) NOT NULL,`tradeid` varchar(32) DEFAULT NULL,`operator` int(11) DEFAULT NULL,`t_modified` datetime DEFAULT NULL,PRIMARY KEY (`id`),KEY `tradeid` (`tradeid`),KEY `t_modified` (`t_modified`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;假设，现在已经记录了从 2016 年初到 2018 年底的所有数据，运营部门有一个需求是，要统计发生在所有年份中 7 月份的交易记录总数。这个逻辑看上去并不复杂，你的 SQL 语句可能会这么写：
+mysql&amp;gt; select count(*) from tradelog where month(t_modified)=7;由于 t_modified 字段上有索引，于是你就很放心地在生产库中执行了这条语句，但却发现执行了特别久，才返回了结果。
+如果你问 DBA 同事为什么会出现这样的情况，他大概会告诉你：如果对字段做了函数计算，就用不上索引了，这是 MySQL 的规定。
+现在你已经学过了 InnoDB 的索引结构了，可以再追问一句为什么？为什么条件是 where t_modified=&amp;lsquo;2018-7-1’的时候可以用上索引，而改成 where month(t_modified)=7 的时候就不行了？</description>
+    </item>
+    
+    <item>
+      <title>17 如何正确地显示随机消息？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/17-%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%9C%B0%E6%98%BE%E7%A4%BA%E9%9A%8F%E6%9C%BA%E6%B6%88%E6%81%AF/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:14 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/17-%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%9C%B0%E6%98%BE%E7%A4%BA%E9%9A%8F%E6%9C%BA%E6%B6%88%E6%81%AF/</guid>
+      <description>我在上一篇文章，为你讲解完 order by 语句的几种执行模式后，就想到了之前一个做英语学习 App 的朋友碰到过的一个性能问题。今天这篇文章，我就从这个性能问题说起，和你说说 MySQL 中的另外一种排序需求，希望能够加深你对 MySQL 排序逻辑的理解。
+这个英语学习 App 首页有一个随机显示单词的功能，也就是根据每个用户的级别有一个单词表，然后这个用户每次访问首页的时候，都会随机滚动显示三个单词。他们发现随着单词表变大，选单词这个逻辑变得越来越慢，甚至影响到了首页的打开速度。
+现在，如果让你来设计这个 SQL 语句，你会怎么写呢？
+为了便于理解，我对这个例子进行了简化：去掉每个级别的用户都有一个对应的单词表这个逻辑，直接就是从一个单词表中随机选出三个单词。这个表的建表语句和初始数据的命令如下：
+mysql&amp;gt; CREATE TABLE `words` (`id` int(11) NOT NULL AUTO_INCREMENT,`word` varchar(64) DEFAULT NULL,PRIMARY KEY (`id`)) ENGINE=InnoDB;delimiter ;;create procedure idata()begindeclare i int;set i=0;while i&amp;lt;10000 doinsert into words(word) values(concat(char(97+(i div 1000)), char(97+(i % 1000 div 100)), char(97+(i % 100 div 10)), char(97+(i % 10))));set i=i+1;end while;end;;delimiter ;call idata();为了便于量化说明，我在这个表里面插入了 10000 行记录。接下来，我们就一起看看要随机选择 3 个单词，有什么方法实现，存在什么问题以及如何改进。</description>
+    </item>
+    
+    <item>
+      <title>16 “order by”是怎么工作的？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/16-order-by%E6%98%AF%E6%80%8E%E4%B9%88%E5%B7%A5%E4%BD%9C%E7%9A%84/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:13 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/16-order-by%E6%98%AF%E6%80%8E%E4%B9%88%E5%B7%A5%E4%BD%9C%E7%9A%84/</guid>
+      <description>在你开发应用的时候，一定会经常碰到需要根据指定的字段排序来显示结果的需求。还是以我们前面举例用过的市民表为例，假设你要查询城市是“杭州”的所有人名字，并且按照姓名排序返回前 1000 个人的姓名、年龄。
+假设这个表的部分定义是这样的：
+CREATE TABLE `t` (`id` int(11) NOT NULL,`city` varchar(16) NOT NULL,`name` varchar(16) NOT NULL,`age` int(11) NOT NULL,`addr` varchar(128) DEFAULT NULL,PRIMARY KEY (`id`),KEY `city` (`city`)) ENGINE=InnoDB;这时，你的 SQL 语句可以这么写：
+select city,name,age from t where city=&#39;杭州&#39; order by name limit 1000 ;这个语句看上去逻辑很清晰，但是你了解它的执行流程吗？今天，我就和你聊聊这个语句是怎么执行的，以及有什么参数会影响执行的行为。
+前面我们介绍过索引，所以你现在就很清楚了，为避免全表扫描，我们需要在 city 字段加上索引。
+在 city 字段上创建索引之后，我们用 explain 命令来看看这个语句的执行情况。
+图 1 使用 explain 命令查看语句的执行情况
+Extra 这个字段中的“Using filesort”表示的就是需要排序，MySQL 会给每个线程分配一块内存用于排序，称为 sort_buffer。</description>
+    </item>
+    
+    <item>
+      <title>15 答疑文章（一）：日志和索引相关问题</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/15-%E7%AD%94%E7%96%91%E6%96%87%E7%AB%A0%E4%B8%80%E6%97%A5%E5%BF%97%E5%92%8C%E7%B4%A2%E5%BC%95%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:12 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/15-%E7%AD%94%E7%96%91%E6%96%87%E7%AB%A0%E4%B8%80%E6%97%A5%E5%BF%97%E5%92%8C%E7%B4%A2%E5%BC%95%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</guid>
+      <description>在今天这篇答疑文章更新前，MySQL 实战这个专栏已经更新了 14 篇。在这些文章中，大家在评论区留下了很多高质量的留言。现在，每篇文章的评论区都有热心的同学帮忙总结文章知识点，也有不少同学提出了很多高质量的问题，更有一些同学帮忙解答其他同学提出的问题。
+在浏览这些留言并回复的过程中，我倍受鼓舞，也尽我所知地帮助你解决问题、和你讨论。可以说，你们的留言活跃了整个专栏的氛围、提升了整个专栏的质量，谢谢你们。
+评论区的大多数留言我都直接回复了，对于需要展开说明的问题，我都拿出小本子记了下来。这些被记下来的问题，就是我们今天这篇答疑文章的素材了。
+到目前为止，我已经收集了 47 个问题，很难通过今天这一篇文章全部展开。所以，我就先从中找了几个联系非常紧密的问题，串了起来，希望可以帮你解决关于日志和索引的一些疑惑。而其他问题，我们就留着后面慢慢展开吧。
+我在第 2 篇文章[《日志系统：一条 SQL 更新语句是如何执行的？》]中，和你讲到 binlog（归档日志）和 redo log（重做日志）配合崩溃恢复的时候，用的是反证法，说明了如果没有两阶段提交，会导致 MySQL 出现主备数据不一致等问题。
+在这篇文章下面，很多同学在问，在两阶段提交的不同瞬间，MySQL 如果发生异常重启，是怎么保证数据完整性的？
+现在，我们就从这个问题开始吧。
+我再放一次两阶段提交的图，方便你学习下面的内容。
+图 1 两阶段提交示意图
+这里，我要先和你解释一个误会式的问题。有同学在评论区问到，这个图不是一个 update 语句的执行流程吗，怎么还会调用 commit 语句？
+他产生这个疑问的原因，是把两个“commit”的概念混淆了：
+ 他说的“commit 语句”，是指 MySQL 语法中，用于提交一个事务的命令。一般跟 begin/start transaction 配对使用。 而我们图中用到的这个“commit 步骤”，指的是事务提交过程中的一个小步骤，也是最后一步。当这个步骤执行完成后，这个事务就提交完成了。 “commit 语句”执行的时候，会包含“commit 步骤”。  而我们这个例子里面，没有显式地开启事务，因此这个 update 语句自己就是一个事务，在执行完成后提交事务时，就会用到这个“commit 步骤“。
+接下来，我们就一起分析一下在两阶段提交的不同时刻，MySQL 异常重启会出现什么现象。
+如果在图中时刻 A 的地方，也就是写入 redo log 处于 prepare 阶段之后、写 binlog 之前，发生了崩溃（crash），由于此时 binlog 还没写，redo log 也还没提交，所以崩溃恢复的时候，这个事务会回滚。这时候，binlog 还没写，所以也不会传到备库。到这里，大家都可以理解。
+大家出现问题的地方，主要集中在时刻 B，也就是 binlog 写完，redo log 还没 commit 前发生 crash，那崩溃恢复的时候 MySQL 会怎么处理？</description>
+    </item>
+    
+    <item>
+      <title>14 count()这么慢，我该怎么办？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/14-count%E8%BF%99%E4%B9%88%E6%85%A2%E6%88%91%E8%AF%A5%E6%80%8E%E4%B9%88%E5%8A%9E/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:11 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/14-count%E8%BF%99%E4%B9%88%E6%85%A2%E6%88%91%E8%AF%A5%E6%80%8E%E4%B9%88%E5%8A%9E/</guid>
+      <description>在开发系统的时候，你可能经常需要计算一个表的行数，比如一个交易系统的所有变更记录总数。这时候你可能会想，一条 select count(*) from t 语句不就解决了吗？
+但是，你会发现随着系统中记录数越来越多，这条语句执行得也会越来越慢。然后你可能就想了，MySQL 怎么这么笨啊，记个总数，每次要查的时候直接读出来，不就好了吗。
+那么今天，我们就来聊聊 count(*) 语句到底是怎样实现的，以及 MySQL 为什么会这么实现。然后，我会再和你说说，如果应用中有这种频繁变更并需要统计表行数的需求，业务设计上可以怎么做。
+你首先要明确的是，在不同的 MySQL 引擎中，count(*) 有不同的实现方式。
+ MyISAM 引擎把一个表的总行数存在了磁盘上，因此执行 count(*) 的时候会直接返回这个数，效率很高； 而 InnoDB 引擎就麻烦了，它执行 count(*) 的时候，需要把数据一行一行地从引擎里面读出来，然后累积计数。  这里需要注意的是，我们在这篇文章里讨论的是没有过滤条件的 count(*)，如果加了 where 条件的话，MyISAM 表也是不能返回得这么快的。
+在前面的文章中，我们一起分析了为什么要使用 InnoDB，因为不论是在事务支持、并发能力还是在数据安全方面，InnoDB 都优于 MyISAM。我猜你的表也一定是用了 InnoDB 引擎。这就是当你的记录数越来越多的时候，计算一个表的总行数会越来越慢的原因。
+那为什么 InnoDB 不跟 MyISAM 一样，也把数字存起来呢？
+这是因为即使是在同一个时刻的多个查询，由于多版本并发控制（MVCC）的原因，InnoDB 表“应该返回多少行”也是不确定的。这里，我用一个算 count(*) 的例子来为你解释一下。
+假设表 t 中现在有 10000 条记录，我们设计了三个用户并行的会话。
+ 会话 A 先启动事务并查询一次表的总行数； 会话 B 启动事务，插入一行后记录后，查询表的总行数； 会话 C 先启动一个单独的语句，插入一行记录后，查询表的总行数。  我们假设从上到下是按照时间顺序执行的，同一行语句是在同一时刻执行的。
+图 1 会话 A、B、C 的执行流程</description>
+    </item>
+    
+    <item>
+      <title>13 为什么表数据删掉一半，表文件大小不变？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/13-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A1%A8%E6%95%B0%E6%8D%AE%E5%88%A0%E6%8E%89%E4%B8%80%E5%8D%8A%E8%A1%A8%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E4%B8%8D%E5%8F%98/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:10 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/13-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A1%A8%E6%95%B0%E6%8D%AE%E5%88%A0%E6%8E%89%E4%B8%80%E5%8D%8A%E8%A1%A8%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E4%B8%8D%E5%8F%98/</guid>
+      <description>经常会有同学来问我，我的数据库占用空间太大，我把一个最大的表删掉了一半的数据，怎么表文件的大小还是没变？
+那么今天，我就和你聊聊数据库表的空间回收，看看如何解决这个问题。
+这里，我们还是针对 MySQL 中应用最广泛的 InnoDB 引擎展开讨论。一个 InnoDB 表包含两部分，即：表结构定义和数据。在 MySQL 8.0 版本以前，表结构是存在以.frm 为后缀的文件里。而 MySQL 8.0 版本，则已经允许把表结构定义放在系统数据表中了。因为表结构定义占用的空间很小，所以我们今天主要讨论的是表数据。
+接下来，我会先和你说明为什么简单地删除表数据达不到表空间回收的效果，然后再和你介绍正确回收空间的方法。
+表数据既可以存在共享表空间里，也可以是单独的文件。这个行为是由参数 innodb_file_per_table 控制的：
+ 这个参数设置为 OFF 表示的是，表的数据放在系统共享表空间，也就是跟数据字典放在一起； 这个参数设置为 ON 表示的是，每个 InnoDB 表数据存储在一个以 .ibd 为后缀的文件中。  从 MySQL 5.6.6 版本开始，它的默认值就是 ON 了。
+我建议你不论使用 MySQL 的哪个版本，都将这个值设置为 ON。因为，一个表单独存储为一个文件更容易管理，而且在你不需要这个表的时候，通过 drop table 命令，系统就会直接删除这个文件。而如果是放在共享表空间中，即使表删掉了，空间也是不会回收的。
+所以，将 innodb_file_per_table 设置为 ON，是推荐做法，我们接下来的讨论都是基于这个设置展开的。
+我们在删除整个表的时候，可以使用 drop table 命令回收表空间。但是，我们遇到的更多的删除数据的场景是删除某些行，这时就遇到了我们文章开头的问题：表中的数据被删除了，但是表空间却没有被回收。
+我们要彻底搞明白这个问题的话，就要从数据删除流程说起了。
+我们先再来看一下 InnoDB 中一个索引的示意图。在前面[第 4]和[第 5]篇文章中，我和你介绍索引时曾经提到过，InnoDB 里的数据都是用 B+ 树的结构组织的。
+图 1 B+ 树索引示意图
+假设，我们要删掉 R4 这个记录，InnoDB 引擎只会把 R4 这个记录标记为删除。如果之后要再插入一个 ID 在 300 和 600 之间的记录时，可能会复用这个位置。但是，磁盘文件的大小并不会缩小。</description>
+    </item>
+    
+    <item>
+      <title>12 为什么我的MySQL会“抖”一下？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/12-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E7%9A%84mysql%E4%BC%9A%E6%8A%96%E4%B8%80%E4%B8%8B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:09 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/12-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E7%9A%84mysql%E4%BC%9A%E6%8A%96%E4%B8%80%E4%B8%8B/</guid>
+      <description>平时的工作中，不知道你有没有遇到过这样的场景，一条 SQL 语句，正常执行的时候特别快，但是有时也不知道怎么回事，它就会变得特别慢，并且这样的场景很难复现，它不只随机，而且持续时间还很短。
+看上去，这就像是数据库“抖”了一下。今天，我们就一起来看一看这是什么原因。
+在前面第 2 篇文章[《日志系统：一条 SQL 更新语句是如何执行的？》]中，我为你介绍了 WAL 机制。现在你知道了，InnoDB 在处理更新语句的时候，只做了写日志这一个磁盘操作。这个日志叫作 redo log（重做日志），也就是《孔乙己》里咸亨酒店掌柜用来记账的粉板，在更新内存写完 redo log 后，就返回给客户端，本次更新成功。
+做下类比的话，掌柜记账的账本是数据文件，记账用的粉板是日志文件（redo log），掌柜的记忆就是内存。
+掌柜总要找时间把账本更新一下，这对应的就是把内存里的数据写入磁盘的过程，术语就是 flush。在这个 flush 操作执行之前，孔乙己的赊账总额，其实跟掌柜手中账本里面的记录是不一致的。因为孔乙己今天的赊账金额还只在粉板上，而账本里的记录是老的，还没把今天的赊账算进去。
+当内存数据页跟磁盘数据页内容不一致的时候，我们称这个内存页为“脏页”。内存数据写入到磁盘后，内存和磁盘上的数据页的内容就一致了，称为“干净页”。
+不论是脏页还是干净页，都在内存中。在这个例子里，内存对应的就是掌柜的记忆。
+接下来，我们用一个示意图来展示一下“孔乙己赊账”的整个操作过程。假设原来孔乙己欠账 10 文，这次又要赊 9 文。
+图 1 “孔乙己赊账”更新和 flush 过程
+回到文章开头的问题，你不难想象，平时执行很快的更新操作，其实就是在写内存和日志，而 MySQL 偶尔“抖”一下的那个瞬间，可能就是在刷脏页（flush）。
+那么，什么情况会引发数据库的 flush 过程呢？
+我们还是继续用咸亨酒店掌柜的这个例子，想一想：掌柜在什么情况下会把粉板上的赊账记录改到账本上？
+ 第一种场景是，粉板满了，记不下了。这时候如果再有人来赊账，掌柜就只得放下手里的活儿，将粉板上的记录擦掉一些，留出空位以便继续记账。当然在擦掉之前，他必须先将正确的账目记录到账本中才行。 这个场景，对应的就是 InnoDB 的 redo log 写满了。这时候系统会停止所有更新操作，把 checkpoint 往前推进，redo log 留出空间可以继续写。我在第二讲画了一个 redo log 的示意图，这里我改成环形，便于大家理解。  图 2 redo log 状态图
+checkpoint 可不是随便往前修改一下位置就可以的。比如图 2 中，把 checkpoint 位置从 CP 推进到 CP’，就需要将两个点之间的日志（浅绿色部分），对应的所有脏页都 flush 到磁盘上。之后，图中从 write pos 到 CP’之间就是可以再写入的 redo log 的区域。</description>
+    </item>
+    
+    <item>
+      <title>11 怎么给字符串字段加索引？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/11-%E6%80%8E%E4%B9%88%E7%BB%99%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AD%97%E6%AE%B5%E5%8A%A0%E7%B4%A2%E5%BC%95/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:08 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/11-%E6%80%8E%E4%B9%88%E7%BB%99%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AD%97%E6%AE%B5%E5%8A%A0%E7%B4%A2%E5%BC%95/</guid>
+      <description>现在，几乎所有的系统都支持邮箱登录，如何在邮箱这样的字段上建立合理的索引，是我们今天要讨论的问题。
+假设，你现在维护一个支持邮箱登录的系统，用户表是这么定义的：
+mysql&amp;gt; create table SUser(ID bigint unsigned primary key,email varchar(64), ... )engine=innodb; 由于要使用邮箱登录，所以业务代码中一定会出现类似于这样的语句：
+mysql&amp;gt; select f1, f2 from SUser where email=&#39;xxx&#39;;从第 4 和第 5 篇讲解索引的文章中，我们可以知道，如果 email 这个字段上没有索引，那么这个语句就只能做全表扫描。
+同时，MySQL 是支持前缀索引的，也就是说，你可以定义字符串的一部分作为索引。默认地，如果你创建索引的语句不指定前缀长度，那么索引就会包含整个字符串。
+比如，这两个在 email 字段上创建索引的语句：
+mysql&amp;gt; alter table SUser add index index1(email);或mysql&amp;gt; alter table SUser add index index2(email(6));第一个语句创建的 index1 索引里面，包含了每个记录的整个字符串；而第二个语句创建的 index2 索引里面，对于每个记录都是只取前 6 个字节。
+那么，这两种不同的定义在数据结构和存储上有什么区别呢？如图 2 和 3 所示，就是这两个索引的示意图。
+图 1 email 索引结构
+图 2 email(6) 索引结构</description>
+    </item>
+    
+    <item>
+      <title>10 MySQL为什么有时候会选错索引？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/10-mysql%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:07 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/10-mysql%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95/</guid>
+      <description>前面我们介绍过索引，你已经知道了在 MySQL 中一张表其实是可以支持多个索引的。但是，你写 SQL 语句的时候，并没有主动指定使用哪个索引。也就是说，使用哪个索引是由 MySQL 来确定的。
+不知道你有没有碰到过这种情况，一条本来可以执行得很快的语句，却由于 MySQL 选错了索引，而导致执行速度变得很慢？
+我们一起来看一个例子吧。
+我们先建一个简单的表，表里有 a、b 两个字段，并分别建上索引：
+CREATE TABLE `t` (`id` int(11) NOT NULL,`a` int(11) DEFAULT NULL,`b` int(11) DEFAULT NULL,PRIMARY KEY (`id`),KEY `a` (`a`),KEY `b` (`b`)) ENGINE=InnoDB；然后，我们往表 t 中插入 10 万行记录，取值按整数递增，即：(1,1,1)，(2,2,2)，(3,3,3) 直到 (100000,100000,100000)。
+我是用存储过程来插入数据的，这里我贴出来方便你复现：
+delimiter ;;create procedure idata()begindeclare i int;set i=1;while(i&amp;lt;=100000)doinsert into t values(i, i, i);set i=i+1;end while;end;;delimiter ;call idata();接下来，我们分析一条 SQL 语句：</description>
+    </item>
+    
+    <item>
+      <title>09 普通索引和唯一索引，应该怎么选择？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/09-%E6%99%AE%E9%80%9A%E7%B4%A2%E5%BC%95%E5%92%8C%E5%94%AF%E4%B8%80%E7%B4%A2%E5%BC%95%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E9%80%89%E6%8B%A9/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:06 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/09-%E6%99%AE%E9%80%9A%E7%B4%A2%E5%BC%95%E5%92%8C%E5%94%AF%E4%B8%80%E7%B4%A2%E5%BC%95%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E9%80%89%E6%8B%A9/</guid>
+      <description>今天的正文开始前，我要特意感谢一下评论区几位留下高质量留言的同学。
+用户名是 @某、人 的同学，对文章的知识点做了梳理，然后提了关于事务可见性的问题，就是先启动但是后提交的事务，对数据可见性的影响。@夏日雨同学也提到了这个问题，我在置顶评论中回复了，今天的文章末尾也会再展开说明。@Justin 和 @倪大人两位同学提了两个好问题。
+对于能够引发更深一步思考的问题，我会在回复的内容中写上“好问题”三个字，方便你搜索，你也可以去看看他们的留言。
+非常感谢大家很细致地看文章，并且留下了那么多和很高质量的留言。知道文章有给大家带来一些新理解，对我来说是一个很好的鼓励。同时，也让其他认真看评论区的同学，有机会发现一些自己还没有意识到的、但可能还不清晰的知识点，这也在总体上提高了整个专栏的质量。再次谢谢你们。
+好了，现在就回到我们今天的正文内容。
+在前面的基础篇文章中，我给你介绍过索引的基本概念，相信你已经了解了唯一索引和普通索引的区别。今天我们就继续来谈谈，在不同的业务场景下，应该选择普通索引，还是唯一索引？
+假设你在维护一个市民系统，每个人都有一个唯一的身份证号，而且业务代码已经保证了不会写入两个重复的身份证号。如果市民系统需要按照身份证号查姓名，就会执行类似这样的 SQL 语句：
+select name from CUser where id_card = &#39;xxxxxxxyyyyyyzzzzz&#39;;所以，你一定会考虑在 id_card 字段上建索引。
+由于身份证号字段比较大，我不建议你把身份证号当做主键，那么现在你有两个选择，要么给 id_card 字段创建唯一索引，要么创建一个普通索引。如果业务代码已经保证了不会写入重复的身份证号，那么这两个选择逻辑上都是正确的。
+现在我要问你的是，从性能的角度考虑，你选择唯一索引还是普通索引呢？选择的依据是什么呢？
+简单起见，我们还是用第 4 篇文章[深入浅出索引（上）]中的例子来说明，假设字段 k 上的值都不重复。
+图 1 InnoDB 的索引组织结构
+接下来，我们就从这两种索引对查询语句和更新语句的性能影响来进行分析。
+假设，执行查询的语句是 select id from T where k=5。这个查询语句在索引树上查找的过程，先是通过 B+ 树从树根开始，按层搜索到叶子节点，也就是图中右下角的这个数据页，然后可以认为数据页内部通过二分法来定位记录。
+ 对于普通索引来说，查找到满足条件的第一个记录 (5,500) 后，需要查找下一个记录，直到碰到第一个不满足 k=5 条件的记录。 对于唯一索引来说，由于索引定义了唯一性，查找到第一个满足条件的记录后，就会停止继续检索。  那么，这个不同带来的性能差距会有多少呢？答案是，微乎其微。
+你知道的，InnoDB 的数据是按数据页为单位来读写的。也就是说，当需要读一条记录的时候，并不是将这个记录本身从磁盘读出来，而是以页为单位，将其整体读入内存。在 InnoDB 中，每个数据页的大小默认是 16KB。
+因为引擎是按页读写的，所以说，当找到 k=5 的记录的时候，它所在的数据页就都在内存里了。那么，对于普通索引来说，要多做的那一次“查找和判断下一条记录”的操作，就只需要一次指针寻找和一次计算。
+当然，如果 k=5 这个记录刚好是这个数据页的最后一个记录，那么要取下一个记录，必须读取下一个数据页，这个操作会稍微复杂一些。
+但是，我们之前计算过，对于整型字段，一个数据页可以放近千个 key，因此出现这种情况的概率会很低。所以，我们计算平均性能差异时，仍可以认为这个操作成本对于现在的 CPU 来说可以忽略不计。</description>
+    </item>
+    
+    <item>
+      <title>08 事务到底是隔离的还是不隔离的？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/08-%E4%BA%8B%E5%8A%A1%E5%88%B0%E5%BA%95%E6%98%AF%E9%9A%94%E7%A6%BB%E7%9A%84%E8%BF%98%E6%98%AF%E4%B8%8D%E9%9A%94%E7%A6%BB%E7%9A%84/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:05 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/08-%E4%BA%8B%E5%8A%A1%E5%88%B0%E5%BA%95%E6%98%AF%E9%9A%94%E7%A6%BB%E7%9A%84%E8%BF%98%E6%98%AF%E4%B8%8D%E9%9A%94%E7%A6%BB%E7%9A%84/</guid>
+      <description>你好，我是林晓斌。 你现在看到的这篇文章是我重写过的。在第一版文章发布之后，我发现在介绍事务可见性规则时，由于引入了太多概念，导致理解起来很困难。随后，我索性就重写了这篇文章。 现在的用户留言中，还能看到第一版文章中引入的 up_limit_id 的概念，为了避免大家产生误解，再此特地和大家事先说明一下。
+ 我在第 3 篇文章和你讲事务隔离级别的时候提到过，如果是可重复读隔离级别，事务 T 启动的时候会创建一个视图 read-view，之后事务 T 执行期间，即使有其他事务修改了数据，事务 T 看到的仍然跟在启动时看到的一样。也就是说，一个在可重复读隔离级别下执行的事务，好像与世无争，不受外界影响。
+但是，我在上一篇文章中，和你分享行锁的时候又提到，一个事务要更新一行，如果刚好有另外一个事务拥有这一行的行锁，它又不能这么超然了，会被锁住，进入等待状态。问题是，既然进入了等待状态，那么等到这个事务自己获取到行锁要更新数据的时候，它读到的值又是什么呢？
+我给你举一个例子吧。下面是一个只有两行的表的初始化语句。
+mysql&amp;gt; CREATE TABLE `t` (`id` int(11) NOT NULL,`k` int(11) DEFAULT NULL,PRIMARY KEY (`id`)) ENGINE=InnoDB;insert into t(id, k) values(1,1),(2,2);图 1 事务 A、B、C 的执行流程
+这里，我们需要注意的是事务的启动时机。
+begin/start transaction 命令并不是一个事务的起点，在执行到它们之后的第一个操作 InnoDB 表的语句，事务才真正启动。如果你想要马上启动一个事务，可以使用 start transaction with consistent snapshot 这个命令。
+ 第一种启动方式，一致性视图是在第执行第一个快照读语句时创建的； 第二种启动方式，一致性视图是在执行 start transaction with consistent snapshot 时创建的。
+ 还需要注意的是，在整个专栏里面，我们的例子中如果没有特别说明，都是默认 autocommit=1。</description>
+    </item>
+    
+    <item>
+      <title>07 行锁功过：怎么减少行锁对性能的影响？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/07-%E8%A1%8C%E9%94%81%E5%8A%9F%E8%BF%87%E6%80%8E%E4%B9%88%E5%87%8F%E5%B0%91%E8%A1%8C%E9%94%81%E5%AF%B9%E6%80%A7%E8%83%BD%E7%9A%84%E5%BD%B1%E5%93%8D/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:04 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/07-%E8%A1%8C%E9%94%81%E5%8A%9F%E8%BF%87%E6%80%8E%E4%B9%88%E5%87%8F%E5%B0%91%E8%A1%8C%E9%94%81%E5%AF%B9%E6%80%A7%E8%83%BD%E7%9A%84%E5%BD%B1%E5%93%8D/</guid>
+      <description>在上一篇文章中，我跟你介绍了 MySQL 的全局锁和表级锁，今天我们就来讲讲 MySQL 的行锁。
+MySQL 的行锁是在引擎层由各个引擎自己实现的。但并不是所有的引擎都支持行锁，比如 MyISAM 引擎就不支持行锁。不支持行锁意味着并发控制只能使用表锁，对于这种引擎的表，同一张表上任何时刻只能有一个更新在执行，这就会影响到业务并发度。InnoDB 是支持行锁的，这也是 MyISAM 被 InnoDB 替代的重要原因之一。
+我们今天就主要来聊聊 InnoDB 的行锁，以及如何通过减少锁冲突来提升业务并发度。
+顾名思义，行锁就是针对数据表中行记录的锁。这很好理解，比如事务 A 更新了一行，而这时候事务 B 也要更新同一行，则必须等事务 A 的操作完成后才能进行更新。
+当然，数据库中还有一些没那么一目了然的概念和设计，这些概念如果理解和使用不当，容易导致程序出现非预期行为，比如两阶段锁。
+我先给你举个例子。在下面的操作序列中，事务 B 的 update 语句执行时会是什么现象呢？假设字段 id 是表 t 的主键。 这个问题的结论取决于事务 A 在执行完两条 update 语句后，持有哪些锁，以及在什么时候释放。你可以验证一下：实际上事务 B 的 update 语句会被阻塞，直到事务 A 执行 commit 之后，事务 B 才能继续执行。
+知道了这个答案，你一定知道了事务 A 持有的两个记录的行锁，都是在 commit 的时候才释放的。
+也就是说，在 InnoDB 事务中，行锁是在需要的时候才加上的，但并不是不需要了就立刻释放，而是要等到事务结束时才释放。这个就是两阶段锁协议。
+知道了这个设定，对我们使用事务有什么帮助呢？那就是，如果你的事务中需要锁多个行，要把最可能造成锁冲突、最可能影响并发度的锁尽量往后放。我给你举个例子。
+假设你负责实现一个电影票在线交易业务，顾客 A 要在影院 B 购买电影票。我们简化一点，这个业务需要涉及到以下操作：
+ 从顾客 A 账户余额中扣除电影票价； 给影院 B 的账户余额增加这张电影票价； 记录一条交易日志。  也就是说，要完成这个交易，我们需要 update 两条记录，并 insert 一条记录。当然，为了保证交易的原子性，我们要把这三个操作放在一个事务中。那么，你会怎样安排这三个语句在事务中的顺序呢？</description>
+    </item>
+    
+    <item>
+      <title>06 全局锁和表锁 ：给表加个字段怎么有这么多阻碍？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/06-%E5%85%A8%E5%B1%80%E9%94%81%E5%92%8C%E8%A1%A8%E9%94%81-%E7%BB%99%E8%A1%A8%E5%8A%A0%E4%B8%AA%E5%AD%97%E6%AE%B5%E6%80%8E%E4%B9%88%E6%9C%89%E8%BF%99%E4%B9%88%E5%A4%9A%E9%98%BB%E7%A2%8D/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:03 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/06-%E5%85%A8%E5%B1%80%E9%94%81%E5%92%8C%E8%A1%A8%E9%94%81-%E7%BB%99%E8%A1%A8%E5%8A%A0%E4%B8%AA%E5%AD%97%E6%AE%B5%E6%80%8E%E4%B9%88%E6%9C%89%E8%BF%99%E4%B9%88%E5%A4%9A%E9%98%BB%E7%A2%8D/</guid>
+      <description>今天我要跟你聊聊 MySQL 的锁。数据库锁设计的初衷是处理并发问题。作为多用户共享的资源，当出现并发访问的时候，数据库需要合理地控制资源的访问规则。而锁就是用来实现这些访问规则的重要数据结构。
+根据加锁的范围，MySQL 里面的锁大致可以分成全局锁、表级锁和行锁三类。今天这篇文章，我会和你分享全局锁和表级锁。而关于行锁的内容，我会留着在下一篇文章中再和你详细介绍。
+这里需要说明的是，锁的设计比较复杂，这两篇文章不会涉及锁的具体实现细节，主要介绍的是碰到锁时的现象和其背后的原理。
+顾名思义，全局锁就是对整个数据库实例加锁。MySQL 提供了一个加全局读锁的方法，命令是 Flush tables with read lock (FTWRL)。当你需要让整个库处于只读状态的时候，可以使用这个命令，之后其他线程的以下语句会被阻塞：数据更新语句（数据的增删改）、数据定义语句（包括建表、修改表结构等）和更新类事务的提交语句。
+**全局锁的典型使用场景是，做全库逻辑备份。**也就是把整库每个表都 select 出来存成文本。
+以前有一种做法，是通过 FTWRL 确保不会有其他线程对数据库做更新，然后对整个库做备份。注意，在备份过程中整个库完全处于只读状态。
+但是让整库都只读，听上去就很危险：
+ 如果你在主库上备份，那么在备份期间都不能执行更新，业务基本上就得停摆； 如果你在从库上备份，那么备份期间从库不能执行主库同步过来的 binlog，会导致主从延迟。  看来加全局锁不太好。但是细想一下，备份为什么要加锁呢？我们来看一下不加锁会有什么问题。
+假设你现在要维护“极客时间”的购买系统，关注的是用户账户余额表和用户课程表。
+现在发起一个逻辑备份。假设备份期间，有一个用户，他购买了一门课程，业务逻辑里就要扣掉他的余额，然后往已购课程里面加上一门课。
+如果时间顺序上是先备份账户余额表 (u_account)，然后用户购买，然后备份用户课程表 (u_course)，会怎么样呢？你可以看一下这个图：
+图 1 业务和备份状态图
+可以看到，这个备份结果里，用户 A 的数据状态是“账户余额没扣，但是用户课程表里面已经多了一门课”。如果后面用这个备份来恢复数据的话，用户 A 就发现，自己赚了。
+作为用户可别觉得这样可真好啊，你可以试想一下：如果备份表的顺序反过来，先备份用户课程表再备份账户余额表，又可能会出现什么结果？
+也就是说，不加锁的话，备份系统备份的得到的库不是一个逻辑时间点，这个视图是逻辑不一致的。
+说到视图你肯定想起来了，我们在前面讲事务隔离的时候，其实是有一个方法能够拿到一致性视图的，对吧？
+是的，就是在可重复读隔离级别下开启一个事务。
+ 备注：如果你对事务隔离级别的概念不是很清晰的话，可以再回顾一下第 3 篇文章[《事务隔离：为什么你改了我还看不见？》]中的相关内容。
+ 官方自带的逻辑备份工具是 mysqldump。当 mysqldump 使用参数–single-transaction 的时候，导数据之前就会启动一个事务，来确保拿到一致性视图。而由于 MVCC 的支持，这个过程中数据是可以正常更新的。
+你一定在疑惑，有了这个功能，为什么还需要 FTWRL 呢？**一致性读是好，但前提是引擎要支持这个隔离级别。**比如，对于 MyISAM 这种不支持事务的引擎，如果备份过程中有更新，总是只能取到最新的数据，那么就破坏了备份的一致性。这时，我们就需要使用 FTWRL 命令了。
+所以，**single-transaction 方法只适用于所有的表使用事务引擎的库。**如果有的表使用了不支持事务的引擎，那么备份就只能通过 FTWRL 方法。这往往是 DBA 要求业务开发人员使用 InnoDB 替代 MyISAM 的原因之一。</description>
+    </item>
+    
+    <item>
+      <title>05 深入浅出索引（下）</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/05-%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E7%B4%A2%E5%BC%95%E4%B8%8B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:02 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/05-%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E7%B4%A2%E5%BC%95%E4%B8%8B/</guid>
+      <description>在上一篇文章中，我和你介绍了 InnoDB 索引的数据结构模型，今天我们再继续聊聊跟 MySQL 索引有关的概念。
+在开始这篇文章之前，我们先来看一下这个问题：
+在下面这个表 T 中，如果我执行 select * from T where k between 3 and 5，需要执行几次树的搜索操作，会扫描多少行？
+下面是这个表的初始化语句。
+mysql&amp;gt; create table T (ID int primary key,k int NOT NULL DEFAULT 0, s varchar(16) NOT NULL DEFAULT &#39;&#39;,index k(k))engine=InnoDB;insert into T values(100,1, &#39;aa&#39;),(200,2,&#39;bb&#39;),(300,3,&#39;cc&#39;),(500,5,&#39;ee&#39;),(600,6,&#39;ff&#39;),(700,7,&#39;gg&#39;);图 1 InnoDB 的索引组织结构
+现在，我们一起来看看这条 SQL 查询语句的执行流程：
+ 在 k 索引树上找到 k=3 的记录，取得 ID = 300； 再到 ID 索引树查到 ID=300 对应的 R3； 在 k 索引树取下一个值 k=5，取得 ID=500； 再回到 ID 索引树查到 ID=500 对应的 R4； 在 k 索引树取下一个值 k=6，不满足条件，循环结束。  在这个过程中，回到主键索引树搜索的过程，我们称为回表。可以看到，这个查询过程读了 k 索引树的 3 条记录（步骤 1、3 和 5），回表了两次（步骤 2 和 4）。</description>
+    </item>
+    
+    <item>
+      <title>04 深入浅出索引（上）</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/04-%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E7%B4%A2%E5%BC%95%E4%B8%8A/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:01 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/04-%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E7%B4%A2%E5%BC%95%E4%B8%8A/</guid>
+      <description>提到数据库索引，我想你并不陌生，在日常工作中会经常接触到。比如某一个 SQL 查询比较慢，分析完原因之后，你可能就会说“给某个字段加个索引吧”之类的解决方案。但到底什么是索引，索引又是如何工作的呢？今天就让我们一起来聊聊这个话题吧。
+数据库索引的内容比较多，我分成了上下两篇文章。索引是数据库系统里面最重要的概念之一，所以我希望你能够耐心看完。在后面的实战文章中，我也会经常引用这两篇文章中提到的知识点，加深你对数据库索引的理解。
+一句话简单来说，索引的出现其实就是为了提高数据查询的效率，就像书的目录一样。一本 500 页的书，如果你想快速找到其中的某一个知识点，在不借助目录的情况下，那我估计你可得找一会儿。同样，对于数据库的表而言，索引其实就是它的“目录”。
+索引的出现是为了提高查询效率，但是实现索引的方式却有很多种，所以这里也就引入了索引模型的概念。可以用于提高读写效率的数据结构很多，这里我先给你介绍三种常见、也比较简单的数据结构，它们分别是哈希表、有序数组和搜索树。
+下面我主要从使用的角度，为你简单分析一下这三种模型的区别。
+哈希表是一种以键 - 值（key-value）存储数据的结构，我们只要输入待查找的值即 key，就可以找到其对应的值即 Value。哈希的思路很简单，把值放在数组里，用一个哈希函数把 key 换算成一个确定的位置，然后把 value 放在数组的这个位置。
+不可避免地，多个 key 值经过哈希函数的换算，会出现同一个值的情况。处理这种情况的一种方法是，拉出一个链表。
+假设，你现在维护着一个身份证信息和姓名的表，需要根据身份证号查找对应的名字，这时对应的哈希索引的示意图如下所示：
+图 1 哈希表示意图
+图中，User2 和 User4 根据身份证号算出来的值都是 N，但没关系，后面还跟了一个链表。假设，这时候你要查 ID_card_n2 对应的名字是什么，处理步骤就是：首先，将 ID_card_n2 通过哈希函数算出 N；然后，按顺序遍历，找到 User2。
+需要注意的是，图中四个 ID_card_n 的值并不是递增的，这样做的好处是增加新的 User 时速度会很快，只需要往后追加。但缺点是，因为不是有序的，所以哈希索引做区间查询的速度是很慢的。
+你可以设想下，如果你现在要找身份证号在 [ID_card_X, ID_card_Y] 这个区间的所有用户，就必须全部扫描一遍了。
+所以，哈希表这种结构适用于只有等值查询的场景，比如 Memcached 及其他一些 NoSQL 引擎。
+而有序数组在等值查询和范围查询场景中的性能就都非常优秀。还是上面这个根据身份证号查名字的例子，如果我们使用有序数组来实现的话，示意图如下所示：
+图 2 有序数组示意图
+这里我们假设身份证号没有重复，这个数组就是按照身份证号递增的顺序保存的。这时候如果你要查 ID_card_n2 对应的名字，用二分法就可以快速得到，这个时间复杂度是 O(log(N))。
+同时很显然，这个索引结构支持范围查询。你要查身份证号在 [ID_card_X, ID_card_Y] 区间的 User，可以先用二分法找到 ID_card_X（如果不存在 ID_card_X，就找到大于 ID_card_X 的第一个 User），然后向右遍历，直到查到第一个大于 ID_card_Y 的身份证号，退出循环。</description>
+    </item>
+    
+    <item>
+      <title>03 事务隔离：为什么你改了我还看不见？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/03-%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%A0%E6%94%B9%E4%BA%86%E6%88%91%E8%BF%98%E7%9C%8B%E4%B8%8D%E8%A7%81/</link>
+      <pubDate>Wed, 22 Dec 2021 01:52:00 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/03-%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%A0%E6%94%B9%E4%BA%86%E6%88%91%E8%BF%98%E7%9C%8B%E4%B8%8D%E8%A7%81/</guid>
+      <description>提到事务，你肯定不陌生，和数据库打交道的时候，我们总是会用到事务。最经典的例子就是转账，你要给朋友小王转 100 块钱，而此时你的银行卡只有 100 块钱。
+转账过程具体到程序里会有一系列的操作，比如查询余额、做加减法、更新余额等，这些操作必须保证是一体的，不然等程序查完之后，还没做减法之前，你这 100 块钱，完全可以借着这个时间差再查一次，然后再给另外一个朋友转账，如果银行这么整，不就乱了么？这时就要用到“事务”这个概念了。
+简单来说，事务就是要保证一组数据库操作，要么全部成功，要么全部失败。在 MySQL 中，事务支持是在引擎层实现的。你现在知道，MySQL 是一个支持多引擎的系统，但并不是所有的引擎都支持事务。比如 MySQL 原生的 MyISAM 引擎就不支持事务，这也是 MyISAM 被 InnoDB 取代的重要原因之一。
+今天的文章里，我将会以 InnoDB 为例，剖析 MySQL 在事务支持方面的特定实现，并基于原理给出相应的实践建议，希望这些案例能加深你对 MySQL 事务原理的理解。
+提到事务，你肯定会想到 ACID（Atomicity、Consistency、Isolation、Durability，即原子性、一致性、隔离性、持久性），今天我们就来说说其中 I，也就是“隔离性”。
+当数据库上有多个事务同时执行的时候，就可能出现脏读（dirty read）、不可重复读（non-repeatable read）、幻读（phantom read）的问题，为了解决这些问题，就有了“隔离级别”的概念。
+在谈隔离级别之前，你首先要知道，你隔离得越严实，效率就会越低。因此很多时候，我们都要在二者之间寻找一个平衡点。SQL 标准的事务隔离级别包括：读未提交（read uncommitted）、读提交（read committed）、可重复读（repeatable read）和串行化（serializable ）。下面我逐一为你解释：
+ 读未提交是指，一个事务还没提交时，它做的变更就能被别的事务看到。 读提交是指，一个事务提交之后，它做的变更才会被其他事务看到。 可重复读是指，一个事务执行过程中看到的数据，总是跟这个事务在启动时看到的数据是一致的。当然在可重复读隔离级别下，未提交变更对其他事务也是不可见的。 串行化，顾名思义是对于同一行记录，“写”会加“写锁”，“读”会加“读锁”。当出现读写锁冲突的时候，后访问的事务必须等前一个事务执行完成，才能继续执行。  其中“读提交”和“可重复读”比较难理解，所以我用一个例子说明这几种隔离级别。假设数据表 T 中只有一列，其中一行的值为 1，下面是按照时间顺序执行两个事务的行为。
+mysql&amp;gt; create table T(c int) engine=InnoDB;insert into T(c) values(1);我们来看看在不同的隔离级别下，事务 A 会有哪些不同的返回结果，也就是图里面 V1、V2、V3 的返回值分别是什么。
+ 若隔离级别是“读未提交”， 则 V1 的值就是 2。这时候事务 B 虽然还没有提交，但是结果已经被 A 看到了。因此，V2、V3 也都是 2。 若隔离级别是“读提交”，则 V1 是 1，V2 的值是 2。事务 B 的更新在提交后才能被 A 看到。所以， V3 的值也是 2。 若隔离级别是“可重复读”，则 V1、V2 是 1，V3 是 2。之所以 V2 还是 1，遵循的就是这个要求：事务在执行期间看到的数据前后必须是一致的。 若隔离级别是“串行化”，则在事务 B 执行“将 1 改成 2”的时候，会被锁住。直到事务 A 提交后，事务 B 才可以继续执行。所以从 A 的角度看， V1、V2 值是 1，V3 的值是 2。  在实现上，数据库里面会创建一个视图，访问的时候以视图的逻辑结果为准。在“可重复读”隔离级别下，这个视图是在事务启动时创建的，整个事务存在期间都用这个视图。在“读提交”隔离级别下，这个视图是在每个 SQL 语句开始执行的时候创建的。这里需要注意的是，“读未提交”隔离级别下直接返回记录上的最新值，没有视图概念；而“串行化”隔离级别下直接用加锁的方式来避免并行访问。</description>
+    </item>
+    
+    <item>
+      <title>02 日志系统：一条SQL更新语句是如何执行的？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/02-%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F%E4%B8%80%E6%9D%A1sql%E6%9B%B4%E6%96%B0%E8%AF%AD%E5%8F%A5%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:59 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/02-%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F%E4%B8%80%E6%9D%A1sql%E6%9B%B4%E6%96%B0%E8%AF%AD%E5%8F%A5%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84/</guid>
+      <description>前面我们系统了解了一个查询语句的执行流程，并介绍了执行过程中涉及的处理模块。相信你还记得，一条查询语句的执行过程一般是经过连接器、分析器、优化器、执行器等功能模块，最后到达存储引擎。
+那么，一条更新语句的执行流程又是怎样的呢？
+之前你可能经常听 DBA 同事说，MySQL 可以恢复到半个月内任意一秒的状态，惊叹的同时，你是不是心中也会不免会好奇，这是怎样做到的呢？
+我们还是从一个表的一条更新语句说起，下面是这个表的创建语句，这个表有一个主键 ID 和一个整型字段 c：
+mysql&amp;gt; create table T(ID int primary key, c int);如果要将 ID=2 这一行的值加 1，SQL 语句就会这么写：
+mysql&amp;gt; update T set c=c+1 where ID=2;前面我有跟你介绍过 SQL 语句基本的执行链路，这里我再把那张图拿过来，你也可以先简单看看这个图回顾下。首先，可以确定的说，查询语句的那一套流程，更新语句也是同样会走一遍。
+MySQL 的逻辑架构图
+你执行语句前要先连接数据库，这是连接器的工作。
+前面我们说过，在一个表上有更新的时候，跟这个表有关的查询缓存会失效，所以这条语句就会把表 T 上所有缓存结果都清空。这也就是我们一般不建议使用查询缓存的原因。
+接下来，分析器会通过词法和语法解析知道这是一条更新语句。优化器决定要使用 ID 这个索引。然后，执行器负责具体执行，找到这一行，然后更新。
+与查询流程不一样的是，更新流程还涉及两个重要的日志模块，它们正是我们今天要讨论的主角：redo log（重做日志）和 binlog（归档日志）。如果接触 MySQL，那这两个词肯定是绕不过的，我后面的内容里也会不断地和你强调。不过话说回来，redo log 和 binlog 在设计上有很多有意思的地方，这些设计思路也可以用到你自己的程序里。
+不知道你还记不记得《孔乙己》这篇文章，酒店掌柜有一个粉板，专门用来记录客人的赊账记录。如果赊账的人不多，那么他可以把顾客名和账目写在板上。但如果赊账的人多了，粉板总会有记不下的时候，这个时候掌柜一定还有一个专门记录赊账的账本。
+如果有人要赊账或者还账的话，掌柜一般有两种做法：
+ 一种做法是直接把账本翻出来，把这次赊的账加上去或者扣除掉； 另一种做法是先在粉板上记下这次的账，等打烊以后再把账本翻出来核算。  在生意红火柜台很忙时，掌柜一定会选择后者，因为前者操作实在是太麻烦了。首先，你得找到这个人的赊账总额那条记录。你想想，密密麻麻几十页，掌柜要找到那个名字，可能还得带上老花镜慢慢找，找到之后再拿出算盘计算，最后再将结果写回到账本上。
+这整个过程想想都麻烦。相比之下，还是先在粉板上记一下方便。你想想，如果掌柜没有粉板的帮助，每次记账都得翻账本，效率是不是低得让人难以忍受？
+同样，在 MySQL 里也有这个问题，如果每一次的更新操作都需要写进磁盘，然后磁盘也要找到对应的那条记录，然后再更新，整个过程 IO 成本、查找成本都很高。为了解决这个问题，MySQL 的设计者就用了类似酒店掌柜粉板的思路来提升更新效率。
+而粉板和账本配合的整个过程，其实就是 MySQL 里经常说到的 WAL 技术，WAL 的全称是 Write-Ahead Logging，它的关键点就是先写日志，再写磁盘，也就是先写粉板，等不忙的时候再写账本。</description>
+    </item>
+    
+    <item>
+      <title>01 基础架构：一条SQL查询语句是如何执行的？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/01-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84%E4%B8%80%E6%9D%A1sql%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:58 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/01-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84%E4%B8%80%E6%9D%A1sql%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84/</guid>
+      <description>这是专栏的第一篇文章，我想来跟你聊聊 MySQL 的基础架构。我们经常说，看一个事儿千万不要直接陷入细节里，你应该先鸟瞰其全貌，这样能够帮助你从高维度理解问题。同样，对于 MySQL 的学习也是这样。平时我们使用数据库，看到的通常都是一个整体。比如，你有个最简单的表，表里只有一个 ID 字段，在执行下面这个查询语句时：
+mysql&amp;gt; select * from T where ID=10；我们看到的只是输入一条语句，返回一个结果，却不知道这条语句在 MySQL 内部的执行过程。
+所以今天我想和你一起把 MySQL 拆解一下，看看里面都有哪些“零件”，希望借由这个拆解过程，让你对 MySQL 有更深入的理解。这样当我们碰到 MySQL 的一些异常或者问题时，就能够直戳本质，更为快速地定位并解决问题。
+下面我给出的是 MySQL 的基本架构示意图，从中你可以清楚地看到 SQL 语句在 MySQL 的各个功能模块中的执行过程。
+MySQL 的逻辑架构图
+大体来说，MySQL 可以分为 Server 层和存储引擎层两部分。
+Server 层包括连接器、查询缓存、分析器、优化器、执行器等，涵盖 MySQL 的大多数核心服务功能，以及所有的内置函数（如日期、时间、数学和加密函数等），所有跨存储引擎的功能都在这一层实现，比如存储过程、触发器、视图等。
+而存储引擎层负责数据的存储和提取。其架构模式是插件式的，支持 InnoDB、MyISAM、Memory 等多个存储引擎。现在最常用的存储引擎是 InnoDB，它从 MySQL 5.5.5 版本开始成为了默认存储引擎。
+也就是说，你执行 create table 建表的时候，如果不指定引擎类型，默认使用的就是 InnoDB。不过，你也可以通过指定存储引擎的类型来选择别的引擎，比如在 create table 语句中使用 engine=memory, 来指定使用内存引擎创建表。不同存储引擎的表数据存取方式不同，支持的功能也不同，在后面的文章中，我们会讨论到引擎的选择。
+从图中不难看出，不同的存储引擎共用一个Server 层，也就是从连接器到执行器的部分。你可以先对每个组件的名字有个印象，接下来我会结合开头提到的那条 SQL 语句，带你走一遍整个执行流程，依次看下每个组件的作用。
+第一步，你会先连接到这个数据库上，这时候接待你的就是连接器。连接器负责跟客户端建立连接、获取权限、维持和管理连接。连接命令一般是这么写的：
+mysql -h$ip -P$port -u$user -p输完命令之后，你就需要在交互对话里面输入密码。虽然密码也可以直接跟在 -p 后面写在命令行中，但这样可能会导致你的密码泄露。如果你连的是生产服务器，强烈建议你不要这么做。</description>
+    </item>
+    
+    <item>
+      <title>00 开篇词 这一次，让我们一起来搞懂MySQL</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/00-%E5%BC%80%E7%AF%87%E8%AF%8D-%E8%BF%99%E4%B8%80%E6%AC%A1%E8%AE%A9%E6%88%91%E4%BB%AC%E4%B8%80%E8%B5%B7%E6%9D%A5%E6%90%9E%E6%87%82mysql/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:56 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/00-%E5%BC%80%E7%AF%87%E8%AF%8D-%E8%BF%99%E4%B8%80%E6%AC%A1%E8%AE%A9%E6%88%91%E4%BB%AC%E4%B8%80%E8%B5%B7%E6%9D%A5%E6%90%9E%E6%87%82mysql/</guid>
+      <description>你好，我是林晓斌，网名“丁奇”，欢迎加入我的专栏，和我一起开始 MySQL 学习之旅。我曾先后在百度和阿里任职，从事 MySQL 数据库方面的工作，一步步地从一个数据库小白成为 MySQL 内核开发人员。回想起来，从我第一次带着疑问翻 MySQL 的源码查到答案至今，已经有十个年头了。在这个过程中，走了不少弯路，但同时也收获了很多的知识和思考，希望能在这个专栏里分享给你。
+记得刚开始接触 MySQL，是我在百度贴吧做权限系统的时候。我们遇到了一个奇怪的问题，一个正常 10 毫秒就能完成的 SQL 查询请求偶尔要执行 100 多毫秒才结束。当时主管问我是什么原因，我其实也搞不清楚，就上网查答案，但怎么找都找不到，又脸皮薄不想说自己不知道，只好硬着头皮翻源码。后来遇到了越来越多的问题，也是类似的情景，所以我逐步养成了通过分析源码理解原理的习惯。
+当时，我自己的感觉是，即使我只是一个开发工程师，只是 MySQL 的用户，在了解了一个个系统模块的原理后，再来使用它，感觉是完全不一样的。当在代码里写下一行数据库命令的时候，我就能想到它在数据库端将怎么执行，它的性能是怎么样的，怎样写能让我的应用程序访问数据库的性能最高。进一步，哪些数据处理让数据库系统来做性能会更好，哪些数据处理在缓存里做性能会更好，我心里也会更清楚。在建表和建索引的时候，我也会更有意识地为将来的查询优化做综合考虑，比如确定是否使用递增主键、主键的列怎样选择，等等。
+但随后我又有了一个新的困惑，我觉得自己了解的 MySQL 知识点是零散的，没有形成网络。于是解决完一个问题后，很容易忘记。再碰到类似的问题，我又得再翻一次代码。
+所幸在阿里工作的时候，我参与了阿里云关系型数据库服务内核的开发，并且负责开发开源分支 AliSQL，让我对 MySQL 内核和源码有了更深层次的研究和理解。在服务内部客户和公有云客户的过程中，我有机会面对和解决足够多的问题，再通过手册进行系统的学习，算是比较坎坷地将 MySQL 的知识网络补了起来。
+所以，在回顾这个过程的时候，我的第一个感受是，如果一开始就有一些从理论到实战的系统性指导，那该多好啊，也许我可以学习得更快些。
+在极客时间团队跟我联系策划这个专栏的时候，我还是持怀疑态度的。为什么呢？现在不比当年了，犹记得十余年前，你使用 MySQL 的过程中碰到问题的话，基本上都只能到代码里去找答案，因为那时网上的资料太少了。
+而近十年来，MySQL 在中国广泛普及，技术分享文章可以说是浩如烟海。所以，现在要系统地介绍一遍 MySQL 的话，恐怕里面提及的大多数知识点，都可以在社区文章中找到。那么我们做这个专栏的意义在哪里，而它又凭什么可以收费呢？
+直到收到极客时间团队的答复，我才开始对这个专栏“想做和可以做”的事情感觉清晰起来。数据库是一个综合系统，其背后是发展了几十年的数据库理论。同时，数据库系统也是一个应用系统，可能一个业务开发人员用了两三年 MySQL，还未必清楚那些自己一直在用的“最佳实践”为什么是最佳的。
+于是，我希望这个专栏能够帮助这样的一些开发者：他们正在使用 MySQL，知道如何写出逻辑正确的 SQL 语句来实现业务目标，却不确定这个语句是不是最优的；他们听说了一些使用数据库的最佳实践，但是更想了解为什么这么做；他们使用的数据库偶尔会出问题，亟需了解如何更快速、更准确地定位问题，甚至自己解决问题……
+在过去的七年里，我带过十几个应届毕业生，看着他们成长，要求他们原理先行，再实践验证。几年下来，他们的成长速度都很快，其中好几个毕业没两年就成为团队的骨干力量了。我也在社招的时候面试过很多有着不错的运维实践经验和能力的候选人，但都因为对数据库原理仅有一知半解的了解，而最终遗憾地没有通过面试。
+因此，我希望这个专栏能够激发开发者对数据库原理的探索欲，从而更好地理解工作中遇到的问题，更能知道背后的为什么。所以我会选那些平时使用数据库时高频出现的知识，如事务、索引、锁等内容构成专栏的主线。这些主线上是一个个的知识点。每个点就是一个概念、一个机制或者一个原理说明。在每个说明之后，我会和你讨论一个实践相关的问题。
+希望能以这样的方式，让你对 MySQL 的几条主线有一个整体的认识，并且了解基本概念。在之后的实践篇中，我会引用到这些主线的知识背景，并着力说明它们是怎样指导实践的。这样，你可以从点到线，再到面，形成自己的 MySQL 知识网络。
+在这里，有一份目录，你也可以先了解下整个专栏的知识结构。
+如前面说的，这几条主线上的每个知识点几乎都不是最新的，有些甚至十年前就这样，并没有改过。但我希望针对这些点的说明，可以让你在使用 MySQL 时心里更有底，知道怎么做选择，并且明白为什么。了解了原理，才能在实践中不断创新，提升个人的价值和工作输出。</description>
+    </item>
+    
+  </channel>
+</rss>

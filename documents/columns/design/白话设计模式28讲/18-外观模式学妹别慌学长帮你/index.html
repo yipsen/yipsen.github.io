@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+
+<title>18 外观模式：学妹别慌，学长帮你 | </title>
+  <meta name="description" content="【故事剧情】
+ Tony 有个爱好，喜欢跑步。因为住的离北体（北京体育大学）比较近，便经常去北体跑步，校园里环境优雅、场地开阔。正直金色九月的一天，Tony 一如往常的来到北体的开放田径场，但与往常不同的是 Tony 看到了成群的学生穿着蓝色的军服在参加军训。看着这群活力四射的新生迈着整齐的步伐，忽然有一种熟悉的感觉……是的，Tony 想起了自己的大学生活，想起了自己参加过的军训，更想起了自己刚踏入大学校园的那一天！
+2010 年 9 月 10 日，Tony 拖着一个行旅箱，背着一个背包，独自一人坐上了一辆前往南昌的大巴，开始了自己的大学生涯。路上遇到堵车，一路兜兜转转，到站时已经很晚了，还好赶上了学校在汽车站的最后一趟迎新接送班车，感觉如释重负！到达学校时已是下午六点多了，天色已渐入黄昏！一路舟车劳顿，身心具备的 Tony 一下车有种不知所措的感觉……
+正当 Tony 四处张望寻找该去哪儿报到时，一位热情的志愿者走过来问：“你好！我是新生报到的志愿者，你是报道的新生吧！哪个学院的呢？”
+Tony 有点蒙：“什么&amp;hellip;学院？”
+志愿者：“你录取通知书上写的是什么专业？”
+Tony：“哦，软件工程！”
+志愿者：“那就是软件学院，正好我也是这个专业的，我叫 Frank，是你学长，哈哈！”
+Tony：“学长好！”
+志愿者：“你是一个人来的吗？一路坐车累了吧！我帮你拿行李吧！这边走，我带你去报到……”
+在 Frank 的帮助下，Tony 先到活动中心完成了报到登记，然后去缴费窗口缴完学费，之后又到生活中心领了生活用品，最后再到宿舍完成入住。这一系列流程走完，差不多花了一个小时，还是在 Frank 的热心帮助下！如果是 Tony 一个人，面对这陌生的环境和场所，所花的时间更是难以想象。报道流程结束后，Frank 还带 Tony 到食堂，请他吃了顿饭，带他到校园走了半圈……
+Tony 读大二、大三时，每一年新生入学时，作为老鸟的他也毅然决然地成为了迎新志愿者的一员，迎接新一届的学弟学妹！加入志愿者后，Tony 发现这里真是有不少“假”志愿者！因为要是学妹来了，一群学长都围过去，抡着去帮忙；虽然学弟也不拒绝，但明显就没了抢的姿势，在理工类学院，学姐抢学弟的事是绝对不可能发生的！
+ 用程序来模拟生活 9 月是所有大学的入学季，新生入学报道是学校的一项大工程，每一个学校都有自己的报道流程和方式，但都少不了志愿者这一重要角色！一来，学长学姐带学弟学妹是尊师重教的一种优良传统；二来，轻车熟路的学长学姐作为志愿者为入学新生服务，能给刚入学的新生减少了诸多不必要的麻烦。下面我们用程序来模拟一下新生报到的整个流程。
+源码示例：
+class Register:&amp;quot;入学报到&amp;quot;def register(self, name):print(&amp;quot;活动中心:&amp;quot; &#43; name &#43; &amp;quot;同学报到成功！&amp;quot;)class Payment:&amp;quot;缴费&amp;quot;def pay(self, name, money):print(&amp;quot;缴费中心:&amp;quot; &#43; &amp;quot;收到&amp;quot; &#43; name &#43; &amp;quot;同学&amp;quot; &#43; str(money) &#43; &amp;quot;元付款，缴费成功！&amp;quot;)class DormitoryManagementCenter:&amp;quot;宿舍管理中心(生活中心)&amp;quot;def provideLivingGoods(self, name):print(&amp;quot;生活中心:&amp;quot; &#43; name &#43; &amp;quot;同学的生活用品已发放。&amp;quot;)class Dormitory:&amp;quot;宿舍&amp;quot;def meetRoommate(self, name):print(&amp;quot;宿 舍:&amp;quot; &#43; &amp;quot;大家好！这是刚来的&amp;quot; &#43; name &#43; &amp;quot;同学，是你们未来需要共度四年的室友！相互认识一下……&amp;quot;)class Volunteer:&amp;quot;迎新志愿者&amp;quot;def __init__(self, name):self.">
+<meta name="viewport", content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" type="text/css" href="/css/apollo.css">
+<meta name="author" content="">
+
+
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <div class="logo-link">
+                <a href="http://yipsen.github.io/">
+                    <img src="/favicon.png" alt="logo">
+                    <span></span>
+                </a>
+            </div>
+            <ul class="nav nav-list">
+    
+    <li class="nav-list-item">
+            <a class="nav-list-link " href="http://yipsen.github.io/about/">ABOUT</a>
+        </li><li class="nav-list-item">
+            <a class="nav-list-link " href="http://yipsen.github.io/categories/">categories</a>
+        </li>
+    
+</ul>
+
+        </header>
+        <main class="container">
+            
+<div class="post">
+    <article class="post-block">
+        <h1 class="post-title">18 外观模式：学妹别慌，学长帮你</h1>
+        <div class="post-info">
+            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/design">design</a>&nbsp;&nbsp;</div><div class="post-category">
+                
+                  <a href="/categories/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/"> 白话设计模式28讲 </a>
+                
+              </div></div>
+        <div class="post-content">
+            <p>【故事剧情】</p>
+<blockquote>
+<p>Tony 有个爱好，喜欢跑步。因为住的离北体（北京体育大学）比较近，便经常去北体跑步，校园里环境优雅、场地开阔。正直金色九月的一天，Tony 一如往常的来到北体的开放田径场，但与往常不同的是 Tony 看到了成群的学生穿着蓝色的军服在参加军训。看着这群活力四射的新生迈着整齐的步伐，忽然有一种熟悉的感觉……是的，Tony 想起了自己的大学生活，想起了自己参加过的军训，更想起了自己刚踏入大学校园的那一天！</p>
+<p>2010 年 9 月 10 日，Tony 拖着一个行旅箱，背着一个背包，独自一人坐上了一辆前往南昌的大巴，开始了自己的大学生涯。路上遇到堵车，一路兜兜转转，到站时已经很晚了，还好赶上了学校在汽车站的最后一趟迎新接送班车，感觉如释重负！到达学校时已是下午六点多了，天色已渐入黄昏！一路舟车劳顿，身心具备的 Tony 一下车有种不知所措的感觉……</p>
+<p>正当 Tony 四处张望寻找该去哪儿报到时，一位热情的志愿者走过来问：“你好！我是新生报到的志愿者，你是报道的新生吧！哪个学院的呢？”</p>
+<p>Tony 有点蒙：“什么&hellip;学院？”</p>
+<p>志愿者：“你录取通知书上写的是什么专业？”</p>
+<p>Tony：“哦，软件工程！”</p>
+<p>志愿者：“那就是软件学院，正好我也是这个专业的，我叫 Frank，是你学长，哈哈！”</p>
+<p>Tony：“学长好！”</p>
+<p>志愿者：“你是一个人来的吗？一路坐车累了吧！我帮你拿行李吧！这边走，我带你去报到……”</p>
+<p>在 Frank 的帮助下，Tony 先到活动中心完成了报到登记，然后去缴费窗口缴完学费，之后又到生活中心领了生活用品，最后再到宿舍完成入住。这一系列流程走完，差不多花了一个小时，还是在 Frank 的热心帮助下！如果是 Tony 一个人，面对这陌生的环境和场所，所花的时间更是难以想象。报道流程结束后，Frank 还带 Tony 到食堂，请他吃了顿饭，带他到校园走了半圈……</p>
+<p>Tony 读大二、大三时，每一年新生入学时，作为老鸟的他也毅然决然地成为了迎新志愿者的一员，迎接新一届的学弟学妹！加入志愿者后，Tony 发现这里真是有不少“假”志愿者！因为要是学妹来了，一群学长都围过去，抡着去帮忙；虽然学弟也不拒绝，但明显就没了抢的姿势，在理工类学院，学姐抢学弟的事是绝对不可能发生的！</p>
+</blockquote>
+<h3 id="用程序来模拟生活">用程序来模拟生活</h3>
+<p>9 月是所有大学的入学季，新生入学报道是学校的一项大工程，每一个学校都有自己的报道流程和方式，但都少不了志愿者这一重要角色！一来，学长学姐带学弟学妹是尊师重教的一种优良传统；二来，轻车熟路的学长学姐作为志愿者为入学新生服务，能给刚入学的新生减少了诸多不必要的麻烦。下面我们用程序来模拟一下新生报到的整个流程。</p>
+<p>源码示例：</p>
+<pre tabindex="0"><code>class Register:
+    &quot;入学报到&quot;
+
+    def register(self, name):
+        print(&quot;活动中心:&quot; + name + &quot;同学报到成功！&quot;)
+
+class Payment:
+    &quot;缴费&quot;
+
+    def pay(self, name, money):
+        print(&quot;缴费中心:&quot; + &quot;收到&quot; + name + &quot;同学&quot; + str(money) + &quot;元付款，缴费成功！&quot;)
+
+class DormitoryManagementCenter:
+    &quot;宿舍管理中心(生活中心)&quot;
+
+    def provideLivingGoods(self, name):
+        print(&quot;生活中心:&quot; + name + &quot;同学的生活用品已发放。&quot;)
+
+class Dormitory:
+    &quot;宿舍&quot;
+
+    def meetRoommate(self, name):
+        print(&quot;宿    舍:&quot; + &quot;大家好！这是刚来的&quot; + name + &quot;同学，是你们未来需要共度四年的室友！相互认识一下……&quot;)
+
+class Volunteer:
+    &quot;迎新志愿者&quot;
+
+    def __init__(self, name):
+        self.__name = name
+        self.__register = Register()
+        self.__payment = Payment()
+        self.__lifeCenter = DormitoryManagementCenter()
+        self.__dormintory = Dormitory()
+
+    def welcomeFreshmen(self, name):
+        print(&quot;你好,&quot; + name + &quot;同学! 我是新生报到的志愿者&quot; + self.__name
+              + &quot;，我将带你完成整个报到流程。&quot;)
+        self.__register.register(name)
+        self.__payment.pay(name, 10000)
+        self.__lifeCenter.provideLivingGoods(name)
+        self.__dormintory.meetRoommate(name)
+
+</code></pre><p>测试代码：</p>
+<pre tabindex="0"><code>def testRegister():
+    volunteer = Volunteer(&quot;Frank&quot;)
+    volunteer.welcomeFreshmen(&quot;Tony&quot;)
+
+</code></pre><p>输出结果：</p>
+<pre tabindex="0"><code>你好,Tony同学! 我是新生报到的志愿者Frank，我将带你完成整个报到流程。
+活动中心:Tony同学报到成功！
+缴费中心:收到Tony同学10000元付款，缴费成功！
+生活中心:Tony同学的生活用品已发放。
+宿    舍:大家好！这是刚来的Tony同学，是你们未来需要共度四年的室友！相互认识一下……
+
+</code></pre><h3 id="从剧情中思考外观模式">从剧情中思考外观模式</h3>
+<p>在上面的示例中，迎新志愿者陪同并帮助入学新生完成报到登记、缴纳学费、领日用品、入住宿舍等一系列的报到流程。新生不用知道具体的报到流程，不用去寻找各个场地；只要跟着志愿者走，到指定的地点，根据志愿者的指导，完成指定的任务即可。志愿者虽然不是直接提供这些报到服务，但也相当于间接提供了报到登记、缴纳学费、领日用品、入住宿舍等一条龙的服务，帮新生减轻了不少麻烦和负担。</p>
+<p>在这里志愿者就相当于一个对接人，将复杂的业务通过一个对接人来提供一整套统一的（一条龙式的）服务，让用户不用关心内部复杂的运行机制。这种方式在程序中叫<strong>外观模式</strong>，也是门面模式。</p>
+<h4 id="外观模式">外观模式</h4>
+<blockquote>
+<p>Provide a unified interface to a set of interfaces in a subsystem. Facade defines a higher-level interface that makes the subsystem easier to use.</p>
+<p>为子系统中的一组接口提供一个一致的界面称为<strong>外观模式</strong>，外观模式定义了一个高层接口，这个接口使得这一子系统更容易使用。</p>
+</blockquote>
+<p>外观模式的核心思想：用一个简单的接口来封装一个复杂的系统，使这个系统更容易使用。</p>
+<h3 id="外观模式的模型抽象">外观模式的模型抽象</h3>
+<h4 id="类图">类图</h4>
+<p>外观模式的类图表示如下：</p>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%2028%20%E8%AE%B2%EF%BC%88%E5%AE%8C%EF%BC%89/assets/90d44460-8351-11e8-a90b-215c3565b75a.jpg" alt="enter image description here"></p>
+<p>Facade 封装了子系统的复杂实现，给外部提供了一个统一的接口，用户只需要通过 Facade 来访问子系统。</p>
+<p>外观模式虽然很简单，但却是非常常用的一种模式，它测为一个复杂的系统提供一个简单可用的的调用接口。如有一个运行多年的老项目 A，现在要开发的新项目 B 要用到项目 A 的部分功能，但由于项目 A 维护的时间太长了（真实的场景很可能是原来的开发人员都离职了，后期的维护人员在原来的系统上随便修修改改），类的结构和关系非常庞杂，调用关系也比较复杂，重新开发一套成本又比较高。这个时候就需要对系统 A 进行封装，提供一个简单可用的接口，方便项目 B 的开发者进行调用。</p>
+<p>在软件的层次化结构设计中，可以使用外观模式来定义每一层系统的调用接口，层与层之间不直接产生联系，而通过外观类建立联系，降低层之间的耦合度。这时就会有如下这样的层次结构图：</p>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%2028%20%E8%AE%B2%EF%BC%88%E5%AE%8C%EF%BC%89/assets/c0c47410-8351-11e8-9f90-95294e517933.jpg" alt="img"></p>
+<p>我曾经开发过的一个电子书阅读器就采用了这样一种层次结构分明的软件结构设计。如下图：</p>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%2028%20%E8%AE%B2%EF%BC%88%E5%AE%8C%EF%BC%89/assets/226f3330-8352-11e8-9f90-95294e517933.jpg" alt="enter image description here"></p>
+<h4 id="模型说明">模型说明</h4>
+<h5 id="设计要点"><strong>设计要点</strong></h5>
+<p>外观模式是最简单的设计模式之一，只有两个角色。</p>
+<p><strong>外观角色（Facade）：</strong> 为子系统封装统一的对外接口，如同子系统的一个门面。这个类一般不负责具体的业务逻辑，只是一个委托类，具体的业务逻辑由子系统完成。</p>
+<p><strong>子系统（SubSystem）：</strong> 由多个类组成的具有某一特定功能的子系统。可以是第三方库，也可以是自己的基础库，还可能是一个子服务，为整个系统提供特定的功能或服务。</p>
+<h5 id="优缺点"><strong>优缺点</strong></h5>
+<p>优点：</p>
+<ul>
+<li>实现了子系统与客户端之间的松耦合关系，这使得子系统的变化不会影响到调用它的客户端。</li>
+<li>简化了客户端对子系统的使用难度，客户端（用户）无须关心子系统的具体实现方式，而只需要和外观进行交互即可。</li>
+<li>为不同的用户提供了统一的调用接口，方便了系统的管理和维护。</li>
+</ul>
+<p>缺点：因为统一了调用的接口，降低了系统功能的灵活性。</p>
+<h3 id="实战应用">实战应用</h3>
+<p>在互联网世界中，文件的压缩与解压是一项非常重要的功能，它不仅能降低文件的存储空间，还能减少网络带宽，现在最常用的压缩文件格式有：ZIP、RAR、7Z 。从压缩率看：ZIP &lt; RAR &lt; 7Z（即 7Z 的压缩比最高），从压缩时间看：ZIP &lt; RAR &lt; 7Z（即 ZIP 的压缩速度最快）。从普及率上看，ZIP 应该是应用最广泛的，因为出现的时间最早，格式开放且免费；而 7Z 因为其极高的压缩比和开放性，大有赶超之势。</p>
+<p>假设我们有一个压缩与解压缩系统专门处理文件的压缩和解压，这个系统有三个模块 ZIPModel、RARModel、ZModel 分别处理 ZIP、RAR、7Z 三种文件格式的压缩与解压。现在这一系统要提供给上层应用程序使用。</p>
+<p>为了让这一系统更方便使用，这时就可以用外观模式进行封装，定义一套统一的调用接口，我们用代码实现一下。</p>
+<p><strong>源码示例：</strong></p>
+<pre tabindex="0"><code>from os import path
+import logging
+
+class ZIPModel:
+    &quot;ZIP模块，负责ZIP文件的压缩与解压&quot;
+
+    def compress(self, srcFilePath, dstFilePath):
+        print(&quot;ZIP模块正在进行 '&quot; + srcFilePath + &quot;' 文件的压缩......&quot;)
+        print(&quot;文件压缩成功，已保存至 '&quot; + dstFilePath + &quot;'&quot;)
+
+    def decompress(self, srcFilePath, dstFilePath):
+        print(&quot;ZIP模块正在进行 '&quot; + srcFilePath + &quot;' 文件的解压......&quot;)
+        print(&quot;文件解压成功，已保存至 '&quot; + dstFilePath+ &quot;'&quot;)
+
+class RARModel:
+    &quot;RAR模块，负责ZIP文件的压缩与解压&quot;
+
+    def compress(self, srcFilePath, dstFilePath):
+        print(&quot;RAR模块正在进行 '&quot; + srcFilePath + &quot;' 文件的压缩......&quot;)
+        print(&quot;文件压缩成功，已保存至 '&quot; + dstFilePath + &quot;'&quot;)
+
+    def decompress(self, srcFilePath, dstFilePath):
+        print(&quot;RAR模块正在进行 '&quot; + srcFilePath + &quot;' 文件的解压......&quot;)
+        print(&quot;文件解压成功，已保存至 '&quot; + dstFilePath + &quot;'&quot;)
+
+class ZModel:
+    &quot;7Z模块，负责7Z文件的压缩与解压&quot;
+
+    def compress(self, srcFilePath, dstFilePath):
+        print(&quot;7Z模块正在进行 '&quot; + srcFilePath + &quot;' 文件的压缩......&quot;)
+        print(&quot;文件压缩成功，已保存至 '&quot; + dstFilePath + &quot;'&quot;)
+
+    def decompress(self, srcFilePath, dstFilePath):
+        print(&quot;7Z模块正在进行 '&quot; + srcFilePath + &quot;' 文件的解压......&quot;)
+        print(&quot;文件解压成功，已保存至 '&quot; + dstFilePath + &quot;'&quot;)
+
+class CompressionFacade:
+    &quot;压缩系统的外观类&quot;
+
+    def __init__(self):
+        self.__zipModel = ZIPModel()
+        self.__rarModel = RARModel()
+        self.__zModel = ZModel()
+
+    def compress(self, srcFilePath, dstFilePath, type):
+        &quot;根据不同的压缩类型，压缩成不同的格式&quot;
+        # 获取新的文件名
+        extName = &quot;.&quot; + type
+        fullName = dstFilePath + extName
+        if (type.lower() == &quot;zip&quot;) :
+            self.__zipModel.compress(srcFilePath, fullName)
+        elif(type.lower() == &quot;rar&quot;):
+            self.__rarModel.compress(srcFilePath, fullName)
+        elif(type.lower() == &quot;7z&quot;):
+            self.__zModel.compress(srcFilePath, fullName)
+        else:
+            logging.error(&quot;Not support this format:&quot; + str(type))
+            return False
+        return True
+
+    def decompress(self, srcFilePath, dstFilePath):
+        &quot;从srcFilePath中获取后缀，根据不同的后缀名(拓展名)，进行不同格式的解压&quot;
+        baseName = path.basename(srcFilePath)
+        extName = baseName.split(&quot;.&quot;)[1]
+        if (extName.lower() == &quot;zip&quot;) :
+            self.__zipModel.decompress(srcFilePath, dstFilePath)
+        elif(extName.lower() == &quot;rar&quot;):
+            self.__rarModel.decompress(srcFilePath, dstFilePath)
+        elif(extName.lower() == &quot;7z&quot;):
+            self.__zModel.decompress(srcFilePath, dstFilePath)
+        else:
+            logging.error(&quot;Not support this format:&quot; + str(extName))
+            return False
+        return True
+
+</code></pre><p><strong>测试代码：</strong></p>
+<pre tabindex="0"><code>def testCompression():
+    facade = CompressionFacade()
+    facade.compress(&quot;E:\生活中的设计模式\生活中的外观模式——学妹别慌，学长帮你.md&quot;,
+                    &quot;E:\压缩文件\生活中的外观模式——学妹别慌，学长帮你&quot;, &quot;zip&quot;)
+    facade.decompress(&quot;E:\压缩文件\生活中的外观模式——学妹别慌，学长帮你.zip&quot;,
+                      &quot;E:\解析文件\生活中的外观模式——学妹别慌，学长帮你.md&quot;)
+    print()
+
+    facade.compress(&quot;E:\生活中的设计模式\生活中的外观模式——学妹别慌，学长帮你.md&quot;,
+                    &quot;E:\压缩文件\生活中的外观模式——学妹别慌，学长帮你&quot;, &quot;rar&quot;)
+    facade.decompress(&quot;E:\压缩文件\生活中的外观模式——学妹别慌，学长帮你.rar&quot;,
+                      &quot;E:\解析文件\生活中的外观模式——学妹别慌，学长帮你.md&quot;)
+    print()
+
+    facade.compress(&quot;E:\生活中的设计模式\生活中的外观模式——学妹别慌，学长帮你.md&quot;,
+                    &quot;E:\压缩文件\生活中的外观模式——学妹别慌，学长帮你&quot;, &quot;7z&quot;)
+    facade.decompress(&quot;E:\压缩文件\生活中的外观模式——学妹别慌，学长帮你.7z&quot;,
+                      &quot;E:\解析文件\生活中的外观模式——学妹别慌，学长帮你.md&quot;)
+    print()
+
+</code></pre><p><strong>输出结果：</strong></p>
+<pre tabindex="0"><code>ZIP模块正在进行 'E:\生活中的设计模式\生活中的外观模式——学妹别慌，学长帮你.md' 文件的压缩......
+文件压缩成功，已保存至 'E:\压缩文件\生活中的外观模式——学妹别慌，学长帮你.zip'
+ZIP模块正在进行 'E:\压缩文件\生活中的外观模式——学妹别慌，学长帮你.zip' 文件的解压......
+文件解压成功，已保存至 'E:\解析文件\生活中的外观模式——学妹别慌，学长帮你.md'
+
+RAR模块正在进行 'E:\生活中的设计模式\生活中的外观模式——学妹别慌，学长帮你.md' 文件的压缩......
+文件压缩成功，已保存至 'E:\压缩文件\生活中的外观模式——学妹别慌，学长帮你.rar'
+RAR模块正在进行 'E:\压缩文件\生活中的外观模式——学妹别慌，学长帮你.rar' 文件的解压......
+文件解压成功，已保存至 'E:\解析文件\生活中的外观模式——学妹别慌，学长帮你.md'
+
+7Z模块正在进行 'E:\生活中的设计模式\生活中的外观模式——学妹别慌，学长帮你.md' 文件的压缩......
+文件压缩成功，已保存至 'E:\压缩文件\生活中的外观模式——学妹别慌，学长帮你.7z'
+7Z模块正在进行 'E:\压缩文件\生活中的外观模式——学妹别慌，学长帮你.7z' 文件的解压......
+文件解压成功，已保存至 'E:\解析文件\生活中的外观模式——学妹别慌，学长帮你.md'
+
+</code></pre><p>在上面的例子中，为了简单起见，我们通过后缀名（拓展名）来区分不同的文件格式，不同的文件格式采用不同的解压方式来进行解压。在实际的项目开发中，不应该通过文件后缀名来区分文件格式，因为用户可能将一个 RAR 格式的文件改成 .zip 的后缀，这会造成解压的错误；而应该通过文件的魔数来判断，每一种格式的文件，在二进制文件的开头都会有一个魔数来说明该文件的类型（可通过二进制文件工具查看，如 WinHex），如 ZIP 的魔数是 PK（50 4B 03 04），RAR 的魔数是 Rar（52 61 72），7z 的魔数是 7z（37 7A）。</p>
+<h3 id="应用场景">应用场景</h3>
+<ul>
+<li>当要为一个复杂子系统提供一个简单接口时；</li>
+<li>客户程序与多个子系统之间存在很大的依赖性，引入外观类将子系统与客户以及其他子系统解耦，可以提高子系统的独立性和可移植性；</li>
+<li>在层次化结构中，可以使用外观模式定义系统中每一层的入口，层与层之间不直接产生联系，而通过外观类建立联系，降低层之间的耦合度。</li>
+</ul>
+
+        </div>
+    </article>
+</div>
+
+        </main>
+        <footer>
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/17-%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E9%A2%9C%E6%96%99%E5%BE%88%E8%B4%B5%E5%BF%85%E9%A1%BB%E5%85%85%E5%88%86%E5%88%A9%E7%94%A8/"><span>17 享元模式：颜料很贵必须充分利用</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/19-%E8%AE%BF%E9%97%AE%E6%A8%A1%E5%BC%8F%E4%B8%80%E5%8D%83%E4%B8%AA%E8%AF%BB%E8%80%85%E4%B8%80%E5%8D%83%E4%B8%AA%E5%93%88%E5%A7%86%E9%9B%B7%E7%89%B9/"><span>19 访问模式：一千个读者一千个哈姆雷特</span></a>
+    </div>
+</div>
+
+            <div class="copyright">
+    
+    
+    <p>&copy; 2021 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+</div>
+        </footer>
+    </div>
+    
+<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+
+
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function() {
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  var all = MathJax.Hub.getAllJax(), i;
+  console.log(all[0].SourceElement().parentNode.className);
+  for (var i = all.length - 1; i >= 0; i--) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script>
+</body>
+</html>

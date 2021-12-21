@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+
+<title>11 JDWP 简介：十步杀一人，千里不留行 | </title>
+  <meta name="description" content="Java 平台调试体系（Java Platform Debugger Architecture，JPDA），由三个相对独立的层次共同组成。这三个层次由低到高分别是 Java 虚拟机工具接口（JVMTI）、Java 调试连接协议（JDWP）以及 Java 调试接口（JDI）。
+模块
+层次
+编程语言
+作用
+JVMTI
+底层
+C
+获取及控制当前虚拟机状态
+JDWP
+中间层
+C
+定义 JVMTI 和 JDI 交互的数据格式
+JDI
+高层
+Java
+提供 Java API 来远程控制被调试虚拟机
+ 详细介绍请参考或搜索：JPDA 体系概览。
+ 服务端 JVM 配置 本篇主要讲解如何在 JVM 中启用 JDWP，以供远程调试。 假设主启动类是 com.xxx.Test。
+在 Windows 机器上：
+java -Xdebug -Xrunjdwp:transport=dt_shmem,address=debug,server=y,suspend=y com.xxx.Test在 Solaris 或 Linux 操作系统上：
+java -Xdebug -Xrunjdwp:transport=dt_socket,address=8888,server=y,suspend=y com.xxx.Test其实，-Xdebug 这个选项什么用都没有，官方说是为了历史兼容性，避免报错才没有删除。
+另外这个参数配置里的 suspend=y 会让 Java 进程启动时先挂起，等到有调试器连接上以后继续执行程序。
+而如果改成 suspend=n 的话，则此 Java 进程会直接执行，但是我们可以随时通过调试器连上进程。">
+<meta name="viewport", content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" type="text/css" href="/css/apollo.css">
+<meta name="author" content="">
+
+
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <div class="logo-link">
+                <a href="http://yipsen.github.io/">
+                    <img src="/favicon.png" alt="logo">
+                    <span></span>
+                </a>
+            </div>
+            <ul class="nav nav-list">
+    
+    <li class="nav-list-item">
+            <a class="nav-list-link " href="http://yipsen.github.io/about/">ABOUT</a>
+        </li><li class="nav-list-item">
+            <a class="nav-list-link " href="http://yipsen.github.io/categories/">categories</a>
+        </li>
+    
+</ul>
+
+        </header>
+        <main class="container">
+            
+<div class="post">
+    <article class="post-block">
+        <h1 class="post-title">11 JDWP 简介：十步杀一人，千里不留行</h1>
+        <div class="post-info">
+            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/java">java</a>&nbsp;&nbsp;</div><div class="post-category">
+                
+                  <a href="/categories/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/"> JVM核心技术32讲 </a>
+                
+              </div></div>
+        <div class="post-content">
+            <p>Java 平台调试体系（Java Platform Debugger Architecture，JPDA），由三个相对独立的层次共同组成。这三个层次由低到高分别是 Java 虚拟机工具接口（JVMTI）、Java 调试连接协议（JDWP）以及 Java 调试接口（JDI）。</p>
+<p>模块</p>
+<p>层次</p>
+<p>编程语言</p>
+<p>作用</p>
+<p>JVMTI</p>
+<p>底层</p>
+<p>C</p>
+<p>获取及控制当前虚拟机状态</p>
+<p>JDWP</p>
+<p>中间层</p>
+<p>C</p>
+<p>定义 JVMTI 和 JDI 交互的数据格式</p>
+<p>JDI</p>
+<p>高层</p>
+<p>Java</p>
+<p>提供 Java API 来远程控制被调试虚拟机</p>
+<blockquote>
+<p>详细介绍请参考或搜索：<a href="https://www.ibm.com/developerworks/cn/java/j-lo-jpda1/index.html">JPDA 体系概览</a>。</p>
+</blockquote>
+<h2 id="服务端-jvm-配置">服务端 JVM 配置</h2>
+<p>本篇主要讲解如何在 JVM 中启用 JDWP，以供远程调试。 假设主启动类是 com.xxx.Test。</p>
+<p>在 Windows 机器上：</p>
+<pre tabindex="0"><code>java -Xdebug -Xrunjdwp:transport=dt_shmem,address=debug,server=y,suspend=y com.xxx.Test
+
+</code></pre><p>在 Solaris 或 Linux 操作系统上：</p>
+<pre tabindex="0"><code>java -Xdebug -Xrunjdwp:transport=dt_socket,address=8888,server=y,suspend=y com.xxx.Test
+
+</code></pre><p>其实，<code>-Xdebug</code> 这个选项什么用都没有，官方说是为了历史兼容性，避免报错才没有删除。</p>
+<p>另外这个参数配置里的 <code>suspend=y</code> 会让 Java 进程启动时先挂起，等到有调试器连接上以后继续执行程序。</p>
+<p>而如果改成 <code>suspend=n</code> 的话，则此 Java 进程会直接执行，但是我们可以随时通过调试器连上进程。</p>
+<p>就是说，比如说我们启动一个 Web 服务器进程，当这个值是 y 的时候，服务器的 JVM 初始化以后不会启动 Web 服务器，会一直等到我们用 IDEA 或 Eclipse、JDB 等工具连上这个 Java 进程后，再继续启动 Web 服务器。而如果是 n 的话，则会不管有没有调试器连接，都会正常运行。</p>
+<p>通过这些启动参数，Test 类将运行在调试模式下，并等待调试器连接到 JVM 的调试地址：在 Windows 上是 Debug，在 Oracle Solaris 或 Linux 操作系统上是 8888 端口。</p>
+<blockquote>
+<p>如果细心观察的话，会发现 IDEA 中 Debug 模式启动的程序，自动设置了类似的启动选项。</p>
+</blockquote>
+<h2 id="jdb">JDB</h2>
+<p>启用了 JDWP 之后，可以使用各种客户端来进行调试/远程调试。比如 JDB 调试本地 JVM：</p>
+<pre tabindex="0"><code>jdb -attach 'debug'
+jdb -attach 8888
+
+</code></pre><p>当 JDB 初始化并连接到 Test 之后，就可以进行 Java 代码级（Java-level）的调试。</p>
+<p>但是 JDB 调试非常麻烦，比如说几个常用命令：</p>
+<p>\1. 设置断点：</p>
+<pre tabindex="0"><code>stop at 类名:行号 
+
+</code></pre><p>\2. 清除断点：</p>
+<pre tabindex="0"><code>clear at 类名:行号 
+
+</code></pre><p>\3. 显示局部变量：</p>
+<pre tabindex="0"><code>localx
+
+</code></pre><p>\4. 显示变量 a 的值：</p>
+<pre tabindex="0"><code>print a
+
+</code></pre><p>\5. 显示当前线程堆栈：</p>
+<pre tabindex="0"><code>wherei
+
+</code></pre><p>\6. 代码执行到下一行：</p>
+<pre tabindex="0"><code>next
+
+</code></pre><p>\7. 代码继续执行，直到遇到下一个断点：</p>
+<pre tabindex="0"><code>cont
+
+</code></pre><p>可以看到使用 JDB 调试的话非常麻烦，所以我们一般还是在开发工具 IDE（IDEA、Eclipse）里调试代码。</p>
+<h2 id="开发工具-idea-中使用远程调试">开发工具 IDEA 中使用远程调试</h2>
+<p>下面介绍 IDEA 中怎样使用远程调试。与常规的 Debug 配置类似，进入编辑：</p>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/JVM%20%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%2032%20%E8%AE%B2%EF%BC%88%E5%AE%8C%EF%BC%89/assets/5adef100-2c99-11ea-8c87-e5afec28626d" alt="749ef972-a71a-475a-a395-ab8e78db5fdf.png"></p>
+<p>添加 Remote（不是 Tomcat 下面的那个 Remote Server）：</p>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/JVM%20%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%2032%20%E8%AE%B2%EF%BC%88%E5%AE%8C%EF%BC%89/assets/6d83bcf0-2c99-11ea-8c87-e5afec28626d" alt="f6a45f68-6c1c-4c55-90ae-eae35c2dafc3.png"></p>
+<p>然后配置端口号，比如 8888。</p>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/JVM%20%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%2032%20%E8%AE%B2%EF%BC%88%E5%AE%8C%EF%BC%89/assets/7e457100-2c99-11ea-b3f5-45352c445237" alt="82bb5db4-9dc4-443d-9bb9-00864167c52f.png"></p>
+<p>然后点击应用（Apply）按钮。</p>
+<p>点击 Debug 的那个按钮即可启动远程调试，连上之后就和调试本地程序一样了。当然，记得加断点或者条件断点。</p>
+<p><strong>注意</strong>：远程调试时，需要保证服务端 JVM 中运行的代码和本地完全一致，否则可能会有莫名其妙的问题。</p>
+<p>细心的同学可能已经发现，IDEA 给出了远程 JVM 的启动参数，建议使用 agentlib 的方式：</p>
+<pre tabindex="0"><code>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8888
+
+</code></pre><p>远程调试代码不仅在开发程序的过程中非常有用，而且实际生产环境，有时候我们无法判断程序运行的过程中出现了什么问题，到时运行结果跟期望值不一致，这时候就可以使用远程调试功能连接到生产环境，从而可以追踪导致执行过程中的哪个步骤出了问题。</p>
+<p>JVM 为什么可以让不同的开发工具和调试器都连接上进行调试呢？因为它提供了一套公开的调试信息的交互协议，各家厂商就可以根据这个协议去实现自己的调试图形工具，进而方便 Java 开发人员的使用。下面就简单谈谈这个协议。</p>
+<h2 id="jdwp-协议规范">JDWP 协议规范</h2>
+<p>JDWP 全称是 Java Debug Wire Protocol，中文翻译为“Java 调试连接协议”，是用于规范调试器（Debugger）与目标 JVM 之间通信的协议。</p>
+<p>JDWP 是一个可选组件，可能在某些 JDK 实现中不可用。</p>
+<p>JDWP 支持两种调试场景：</p>
+<ul>
+<li>同一台计算机上的其他进程</li>
+<li>远程计算机上</li>
+</ul>
+<p>与许多协议规范的不同之处在于，JDWP 只规定了具体的格式和布局，而不管你用什么协议来传输数据。</p>
+<p>JDWP 实现可以只使用简单的 API 来接受不同的传输机制。具体的传输不一定支持各种组合。</p>
+<p>JDWP 设计得非常简洁，容易实现，而且对于未来的升级也足够灵活。</p>
+<p>当前，JDWP 没有指定任何传输机制。将来如果发生变更，会在单独的文档中来进行规范。</p>
+<p>JDWP 是 JPDA 中的一层。JPDA（Java Platform Debugger Architecture，Java 平台调试器体系结构）架构还包含更上层的 Java 调试接口（JDI，Java Debug Interface）。JDWP 旨在促进 JDI 的有效使用；为此，它的许多功能都是量身定制的。</p>
+<p>对于那些用 Java 语言编写的 Debugger 工具来说，直接使用 JDI 比起 JDWP 更加方便。</p>
+<p>有关 JPDA 的更多信息，请参考：</p>
+<blockquote>
+<p><a href="https://docs.oracle.com/javase/8/docs/technotes/guides/jpda/index.html">Java Platform Debugger Architecture documentation</a></p>
+</blockquote>
+<h2 id="jdwp-握手过程">JDWP 握手过程</h2>
+<p>连接建立之后，在发送其他数据包之前，连接双方需要进行握手：</p>
+<p>握手过程包括以下步骤：</p>
+<ul>
+<li>Debugger 端向目标 JVM 发送 14 个字节，也就是包括 14 个 ASCII 字符的字符串 &ldquo;JDWP-Handshake&rdquo;。</li>
+<li>VM 端以相同的 14 个字节答复：JDWP-Handshake。</li>
+</ul>
+<h2 id="jdwp-数据包">JDWP 数据包</h2>
+<p>JDWP 是无状态的协议，基于数据包来传输数据。包含两种基本的数据包类型：命令包（Command Packet）和应答包（Reply Packet）。</p>
+<p>调试器和目标 VM 都可以发出命令包，调试器可以用命令包来从目标 VM 请求相关信息或者控制程序的执行，目标 VM 可以将自身的某些事件（例如断点或异常）用命令数据包的方式通知调试器。</p>
+<p>应答包仅用于对命令包进行响应，并且标明该命令是成功还是失败。 应答包还可以携带命令中请求的数据（例如字段或变量的值）。当前，从目标 VM 发出的事件不需要调试器的应答。</p>
+<p>JDWP 是异步的，在收到某个应答之前，可以发送多个命令包。</p>
+<p>命令包和应答包的 header 大小相等。这样使传输更易于实现和抽象。每个数据包的布局如下所示。</p>
+<p><strong>命令包（Command Packet）</strong></p>
+<ul>
+<li>Header
+<ul>
+<li>length（4 bytes）</li>
+<li>id（4 bytes）</li>
+<li>flags（1 byte）</li>
+<li>command set（1 byte）</li>
+<li>command（1 byte）</li>
+</ul>
+</li>
+<li>data（长度不固定）</li>
+</ul>
+<p><strong>应答包（Reply Packet）</strong></p>
+<ul>
+<li>Header
+<ul>
+<li>length（4 bytes）</li>
+<li>id（4 bytes）</li>
+<li>flags（1 byte）</li>
+<li>error code（2 bytes）</li>
+</ul>
+</li>
+<li>data（Variable）</li>
+</ul>
+<p>可以看到，这两种数据包的 Header 中，前三个字段格式是相同的。</p>
+<p>通过 JDWP 发送的所有字段和数据都应采用大端字节序（big-endian）。大端字节序的定义请参考《Java 虚拟机规范》。</p>
+<h2 id="数据包字段说明">数据包字段说明</h2>
+<h3 id="通用-header-字段">通用 Header 字段</h3>
+<p>下面的 Header 字段是命令包与应答包通用的。</p>
+<p><strong>length</strong></p>
+<p>length 字段表示整个数据包（包括 header）的字节数。因为数据包 header 的大小为 11 个字节，因此没有 data 的数据包会将此字段值设置为 11。</p>
+<p><strong>id</strong></p>
+<p>id 字段用于唯一标识每一对数据包（command/reply）。应答包 id 值必须与对应的命令包 ID 相同。这样异步方式的命令和应答就能匹配起来。同一个来源发送的所有未完成命令包的 id 字段必须唯一。（调试器发出的命令包，与 JVM 发出的命令包如果 ID 相同也没关系。） 除此之外，对 ID 的分配没有任何要求。对于大多数实现而言，使用自增计数器就足够了。id 的取值允许 2^32 个数据包，足以应对各种调试场景。</p>
+<p><strong>flags</strong></p>
+<p>flags 标志用于修改命令的排队和处理方式，也用来标记源自 JVM 的数据包。当前只定义了一个标志位 0x80，表示此数据包是应答包。协议的未来版本可能会定义其他标志。</p>
+<h3 id="命令包的-header">命令包的 Header</h3>
+<p>除了前面的通用 Header 字段，命令包还有以下请求头。</p>
+<p><strong>command set</strong></p>
+<p>该字段主要用于通过一种有意义的方式对命令进行分组。Sun 定义的命令集，通过在 JDI 中支持的接口进行分组。例如，所有支持 VirtualMachine 接口的命令都在 VirtualMachine 命令集里面。命令集空间大致分为以下几类：</p>
+<ul>
+<li>0-63：发给目标 VM 的命令集</li>
+<li>64-127：发送给调试器的命令集</li>
+<li>128-256：JVM 提供商自己定义的命令和扩展。</li>
+</ul>
+<p><strong>command</strong></p>
+<p>该字段用于标识命令集中的具体命令。该字段与命令集字段一起用于指示应如何处理命令包。更简洁地说，它们告诉接收者该怎么做。具体命令将在本文档后面介绍。</p>
+<h3 id="应答包的-header">应答包的 Header</h3>
+<p>除了前面的通用 Header 字段，应答包还有以下请求头。</p>
+<p><strong>error code</strong></p>
+<p>此字段用于标识是否成功处理了对应的命令包。0 值表示成功，非零值表示错误。返回的错误代码由具体的命令集/命令规定，但是通常会映射为 JVM TI 标准错误码。</p>
+<h3 id="data">Data</h3>
+<p>每个命令的 Data 部分都是不同的。相应的命令包和应答包之间也有所不同。例如，请求命令包希望获取某个字段的值，可以在 Data 中填上 object ID 和 field ID。应答包的 Data 字段将存放该字段的值。</p>
+<h2 id="jdwp-中常用的数据类型">JDWP 中常用的数据类型</h2>
+<p>通常，命令或应答包的 Data 字段格式由具体的命令规定。Data 中的每个字段都是（Java 标准的）大端格式编码。下面介绍每个 Data 字段的数据类型。</p>
+<p>大部分 JDWP 数据包中的数据类型如下所述。</p>
+<p>Name</p>
+<p>Size</p>
+<p>byte</p>
+<p>1 byte</p>
+<p>boolean</p>
+<p>1 byte</p>
+<p>int</p>
+<p>4 bytes</p>
+<p>long</p>
+<p>8 bytes</p>
+<p>objectID</p>
+<p>由具体的 JVM 确定，最多 8 字节</p>
+<p>tagged-objectID</p>
+<p>objectID 的大小 +1 字节</p>
+<p>threadID</p>
+<p>同 objectID</p>
+<p>threadGroupID</p>
+<p>同 objectID</p>
+<p>stringID</p>
+<p>同 objectID</p>
+<p>classLoaderID</p>
+<p>同 objectID</p>
+<p>classObjectID</p>
+<p>同 objectID</p>
+<p>arrayID</p>
+<p>同 objectID</p>
+<p>referenceTypeID</p>
+<p>同 objectID</p>
+<p>classID</p>
+<p>同 referenceTypeID</p>
+<p>interfaceID</p>
+<p>同 referenceTypeID</p>
+<p>arrayTypeID</p>
+<p>同 referenceTypeID</p>
+<p>methodID</p>
+<p>由具体的 JVM 确定，最多 8 字节</p>
+<p>fieldID</p>
+<p>由具体的 JVM 确定，最多 8 字节</p>
+<p>frameID</p>
+<p>由具体的 JVM 确定，最多 8 字节</p>
+<p>location</p>
+<p>由具体的 JVM 确定</p>
+<p>string</p>
+<p>长度不固定</p>
+<p>value</p>
+<p>长度不固定</p>
+<p>untagged-value</p>
+<p>长度不固定</p>
+<p>arrayregion</p>
+<p>长度不固定</p>
+<p>不同的 JVM 中，Object IDs、Reference Type IDs、Field IDs、Method IDs 和 Frame IDs 的大小可能不同。</p>
+<p>通常，它们的大小与 JNI 和 JVMDI 调用中用于这些项目的 native 标识符的大小相对应。这些类型中最大的 size 为 8 个字节。当然，调试器可以使用 &ldquo;idSizes&rdquo; 这个命令来确定每种类型的大小。</p>
+<p>如果 JVM 收到的命令包里面含有未实现（non-implemented）或无法识别（non-recognized）的命令/命令集，则会返回带有错误码 NOT_IMPLEMENTED 的应答包。具体的错误常量可参考：</p>
+<blockquote>
+<p><a href="https://docs.oracle.com/javase/8/docs/platform/jpda/jdwp/jdwp-protocol.html#JDWP_Error">Error Constants</a></p>
+</blockquote>
+<h2 id="参考文档">参考文档</h2>
+<ul>
+<li><a href="https://docs.oracle.com/javase/8/docs/platform/jpda/jdwp/jdwp-protocol.html">JDWP 协议的具体命令</a></li>
+<li><a href="https://docs.oracle.com/javase/8/docs/technotes/guides/jpda/index.html">Java Platform Debugger Architecture</a></li>
+<li><a href="https://docs.oracle.com/javase/8/docs/technotes/guides/jpda/jdwp-spec.html">JDWP Specification</a></li>
+<li><a href="https://www.jianshu.com/p/5a64ed722b91">使用 JDB 进行调试</a></li>
+</ul>
+
+        </div>
+    </article>
+</div>
+
+        </main>
+        <footer>
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/10-jdk-%E5%86%85%E7%BD%AE%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E5%B7%A5%E5%85%B7%E6%B5%B7%E9%98%94%E5%87%AD%E9%B1%BC%E8%B7%83%E5%A4%A9%E9%AB%98%E4%BB%BB%E9%B8%9F%E9%A3%9E/"><span>10 JDK 内置图形界面工具：海阔凭鱼跃，天高任鸟飞</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/12-jmx-%E4%B8%8E%E7%9B%B8%E5%85%B3%E5%B7%A5%E5%85%B7%E5%B1%B1%E9%AB%98%E6%9C%88%E5%B0%8F%E6%B0%B4%E8%90%BD%E7%9F%B3%E5%87%BA/"><span>12 JMX 与相关工具：山高月小，水落石出</span></a>
+    </div>
+</div>
+
+            <div class="copyright">
+    
+    
+    <p>&copy; 2021 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+</div>
+        </footer>
+    </div>
+    
+<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+
+
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function() {
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  var all = MathJax.Hub.getAllJax(), i;
+  console.log(all[0].SourceElement().parentNode.className);
+  for (var i = all.length - 1; i >= 0; i--) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script>
+</body>
+</html>

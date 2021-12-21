@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JVM核心技术32讲 on </title>
+    <link>http://yipsen.github.io/columns/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/</link>
+    <description>Recent content in JVM核心技术32讲 on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 22 Dec 2021 01:45:33 +0800</lastBuildDate><atom:link href="http://yipsen.github.io/columns/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>32 应对容器时代面临的挑战：长风破浪会有时、直挂云帆济沧海</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/32-%E5%BA%94%E5%AF%B9%E5%AE%B9%E5%99%A8%E6%97%B6%E4%BB%A3%E9%9D%A2%E4%B8%B4%E7%9A%84%E6%8C%91%E6%88%98%E9%95%BF%E9%A3%8E%E7%A0%B4%E6%B5%AA%E4%BC%9A%E6%9C%89%E6%97%B6%E7%9B%B4%E6%8C%82%E4%BA%91%E5%B8%86%E6%B5%8E%E6%B2%A7%E6%B5%B7/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:33 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/32-%E5%BA%94%E5%AF%B9%E5%AE%B9%E5%99%A8%E6%97%B6%E4%BB%A3%E9%9D%A2%E4%B8%B4%E7%9A%84%E6%8C%91%E6%88%98%E9%95%BF%E9%A3%8E%E7%A0%B4%E6%B5%AA%E4%BC%9A%E6%9C%89%E6%97%B6%E7%9B%B4%E6%8C%82%E4%BA%91%E5%B8%86%E6%B5%8E%E6%B2%A7%E6%B5%B7/</guid>
+      <description>当今的时代，容器的使用越来越普及，Cgroups、Docker、Kubernetes 等项目和技术越来越成熟，成为很多大规模集群的基石。
+容器是一种沙盒技术，可以对资源进行调度分配和限制配额、对不同应用进行环境隔离。
+容器时代不仅给我们带来的机遇，也带来了很多挑战。跨得过去就是机会，跳不过去就是坑。
+在容器环境下，要直接进行调试并不容易，我们更多地是进行应用性能指标的采集和监控，并构建预警机制。而这需要架构师、开发、测试、运维人员的协作。
+但监控领域的工具又多又杂，而且在持续发展和不断迭代。最早期的监控，只在系统发布时检查服务器相关的参数，并将这些参数用作系统运行状况的指标。监控服务器的健康状况，与用户体验之间紧密相关，悲剧在于监控的不完善，导致发生的问题比实际检测到的要多很多。
+随着时间推移，日志管理、预警、遥测以及系统报告领域持续发力。其中有很多有效的措施，诸如安全事件、有效警报、记录资源使用量等等。但前提是我们需要有一个清晰的策略和对应工具，进行用户访问链路跟踪，比如 Zabbix、Nagios 以及 Prometheus 等工具在生产环境中被广泛使用。
+性能问题的关键是人，也就是我们的用户。但已有的这些工具并没有实现真正的用户体验监控。仅仅使用这些软件也不能缓解性能问题，我们还需要采取各种措施，在勇敢和专注下不懈地努力。
+一方面，Web 系统的问题诊断和性能调优，是一件意义重大的事情。需要严格把控，也需要付出很多精力。
+当然，成功实施这些工作对企业的回报也是巨大的！
+另一方面，拿 Java 领域事实上的标准 Spring 来说，SpringBoot 提供了一款应用指标收集器——Micrometer，官方文档连接：https://micrometer.io/docs。
+ 支持直接将数据上报给 Elasticsearch、Datadog、InfluxData 等各种流行的监控系统。 自动采集最大延迟、平均延迟、95% 线、吞吐量、内存使用量等指标。  此外，在小规模集群中，我们还可以使用 Pinpoint、Skywalking 等开源 APM 工具。
+容器环境的资源隔离性 容器毕竟是一种轻量级的实现方式，所以其封闭性不如虚拟机技术。
+举个例子：
+ 物理机/宿主机有 96 个 CPU 内核、256GB 物理内存，容器限制的资源是 4 核 8G，那么容器内部的 JVM 进程看到的内核数和内存数是多少呢？
+目前来说，JVM 看到的内核数是 96，内存值是 256G。
+ 这会造成一些问题，基于 CPU 内核数 availableProcessors 的各种算法都会受到影响，比如默认 GC 线程数：假如啥都不配置，JVM 看见 96 个内核，设置 GC 并行线程数为 96*5/8~=60，但容器限制了只能使用 4 个内核资源，于是 60 个并行 GC 线程来争抢 4 个机器内核，造成严重的 GC 性能问题。</description>
+    </item>
+    
+    <item>
+      <title>31 JVM 相关的常见面试问题汇总：运筹策帷帐之中，决胜于千里之外</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/31-jvm-%E7%9B%B8%E5%85%B3%E7%9A%84%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB%E8%BF%90%E7%AD%B9%E7%AD%96%E5%B8%B7%E5%B8%90%E4%B9%8B%E4%B8%AD%E5%86%B3%E8%83%9C%E4%BA%8E%E5%8D%83%E9%87%8C%E4%B9%8B%E5%A4%96/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:32 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/31-jvm-%E7%9B%B8%E5%85%B3%E7%9A%84%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB%E8%BF%90%E7%AD%B9%E7%AD%96%E5%B8%B7%E5%B8%90%E4%B9%8B%E4%B8%AD%E5%86%B3%E8%83%9C%E4%BA%8E%E5%8D%83%E9%87%8C%E4%B9%8B%E5%A4%96/</guid>
+      <description>面试和笔试的要点其实差不多，基础知识和实战经验都是最重要的关注点（当然，面试时的态度和眼缘也很重要）。
+实际面试时，因为时间有限，不可能所有问题都问一遍，一般是根据简历上涉及的内容，抽一部分话题来聊一聊。看看面试者的经验、态度，以及面对一层层深入问题时的处理思路。借此了解面试者的技术水平，对深度、广度，以及思考和解决问题的能力。
+常见的面试套路是什么呢？
+ XXX 是什么？ 实现原理是什么？ 为什么这样实现？ 如果让你实现你会怎么做？ 分析下你的实现有什么优缺点？ 有哪些需要改进的地方?  下面总结一些比较常见的面试题，供大家参考。针对这些问题，大家可以给自己打一个分。
+ 0 分：不清楚相关知识。 30 分：有一点印象，知道一些名词。 60 分：知道一些概念以及含义，了解功能和常见用途。 80 分：能在参考答案的基础上进行补充。 100 分：发现参考答案的问题。  下面我们来看看 JVM 相关面试问题。
+1. 什么是 JVM？ JVM 全称是 Java Virtual Machine，中文称为 Java 虚拟机。
+JVM 是 Java 程序运行的底层平台，与 Java 支持库一起构成了 Java 程序的执行环境。
+分为 JVM 规范和 JVM 实现两个部分。简单来说，Java 虚拟机就是指能执行标准 Java 字节码的虚拟计算机。
+1.1 请问 JDK 与 JVM 有什么区别？ 现在的 JDK、JRE 和 JVM 一般是整套出现的。
+ JDK = JRE + 开发调试诊断工具 JRE = JVM + Java 标准库  1.</description>
+    </item>
+    
+    <item>
+      <title>30 GC 疑难情况问题排查与分析（下篇）</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/30-gc-%E7%96%91%E9%9A%BE%E6%83%85%E5%86%B5%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E4%B8%8E%E5%88%86%E6%9E%90%E4%B8%8B%E7%AF%87/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:31 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/30-gc-%E7%96%91%E9%9A%BE%E6%83%85%E5%86%B5%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E4%B8%8E%E5%88%86%E6%9E%90%E4%B8%8B%E7%AF%87/</guid>
+      <description>Weak、Soft 及 Phantom 引用 另一类影响 GC 的问题是程序中的 non-strong 引用。虽然这类引用在很多情况下可以避免出现 OutOfMemoryError，但过量使用也会对 GC 造成严重的影响，反而降低系统性能。
+弱引用的缺点 首先，弱引用（weak reference）是可以被 GC 强制回收的。当垃圾收集器发现一个弱可达对象（weakly reachable，即指向该对象的引用只剩下弱引用）时，就会将其置入相应的 ReferenceQueue 中，变成可终结的对象。之后可能会遍历这个 reference queue，并执行相应的清理。典型的示例是清除缓存中不再引用的 KEY。
+当然，在这个时候我们还可以将该对象赋值给新的强引用，在最后终结和回收前，GC 会再次确认该对象是否可以安全回收。因此，弱引用对象的回收过程是横跨多个 GC 周期的。
+实际上弱引用使用的很多。大部分缓存框架都是基于弱引用实现的，所以虽然业务代码中没有直接使用弱引用，但程序中依然会大量存在。
+其次，软引用（soft reference）比弱引用更难被垃圾收集器回收。回收软引用没有确切的时间点，由 JVM 自己决定。一般只会在即将耗尽可用内存时，才会回收软引用，以作最后手段。这意味着可能会有更频繁的 Full GC，暂停时间也比预期更长，因为老年代中的存活对象会很多。
+最后，使用虚引用（phantom reference）时，必须手动进行内存管理，以标识这些对象是否可以安全地回收。表面上看起来很正常，但实际上并不是这样。javadoc 中写道：
+ In order to ensure that a reclaimable object remains so, the referent of a phantom reference may not be retrieved: The get method of a phantom reference always returns null.
+为了防止可回收对象的残留，虚引用对象不应该被获取：phantom reference 的 get 方法返回值永远是 null。</description>
+    </item>
+    
+    <item>
+      <title>29 GC 疑难情况问题排查与分析（上篇）</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/29-gc-%E7%96%91%E9%9A%BE%E6%83%85%E5%86%B5%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E4%B8%8E%E5%88%86%E6%9E%90%E4%B8%8A%E7%AF%87/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:30 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/29-gc-%E7%96%91%E9%9A%BE%E6%83%85%E5%86%B5%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E4%B8%8E%E5%88%86%E6%9E%90%E4%B8%8A%E7%AF%87/</guid>
+      <description>本章介绍导致 GC 性能问题的典型情况。相关示例都来源于生产环境，为演示需要做了一定程度的精简。
+ 名词说明：Allocation Rate，翻译为“分配速率”，而不是分配率。因为不是百分比，而是单位时间内分配的量。同理，Promotion Rate 翻译为“提升速率”。
+ 高分配速率（High Allocation Rate） 分配速率（Allocation Rate）表示单位时间内分配的内存量。通常使用 MB/sec 作为单位，也可以使用 PB/year 等。分配速率过高就会严重影响程序的性能，在 JVM 中可能会导致巨大的 GC 开销。
+如何测量分配速率？ 通过指定 JVM 参数：-XX:+PrintGCDetails -XX:+PrintGCTimeStamps，通过 GC 日志来计算分配速率。GC 日志如下所示：
+ 0.291: [GC (Allocation Failure)[PSYoungGen: 33280K-&amp;gt;5088K(38400K)]33280K-&amp;gt;24360K(125952K), 0.0365286 secs][Times: user=0.11 sys=0.02, real=0.04 secs]0.446: [GC (Allocation Failure)[PSYoungGen: 38368K-&amp;gt;5120K(71680K)]57640K-&amp;gt;46240K(159232K), 0.0456796 secs][Times: user=0.15 sys=0.02, real=0.04 secs]0.829: [GC (Allocation Failure)[PSYoungGen: 71680K-&amp;gt;5120K(71680K)]112800K-&amp;gt;81912K(159232K), 0.0861795 secs][Times: user=0.23 sys=0.</description>
+    </item>
+    
+    <item>
+      <title>28 JVM 问题排查分析下篇（案例实战）</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/28-jvm-%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E5%88%86%E6%9E%90%E4%B8%8B%E7%AF%87%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%88%98/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:29 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/28-jvm-%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E5%88%86%E6%9E%90%E4%B8%8B%E7%AF%87%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%88%98/</guid>
+      <description>GC 问题排查实战案例 这一部分，我们来看一个实际的案例。
+假设我们有一个提供高并发请求的服务，系统使用 Spring Boot 框架，指标采集使用 MicroMeter，监控数据上报给 Datadog 服务。
+当然，Micrometer支 持将数据上报给各种监控系统，例如：AppOptics、Atlas、Datadog、Dynatrace、Elastic、Ganglia、Graphite、Humio、Influx、Instana、JMX、KairosDB、New Relic、Prometh eus、SignalFx、Stackdriver、StatsD、Wavefront 等等。
+有关MicroMeter的信息可参考：
+ https://micrometer.io/docs
+ 问题现象描述 最近一段时间，通过监控指标发现，有一个服务节点的最大 GC 暂停时间经常会达到 400ms 以上。
+如下图所示：
+从图中可以看到，GC 暂停时间的峰值达到了 546ms，这里展示的时间点是 2020 年 02 月 04 日 09:20:00 左右。
+客户表示这种情况必须解决，因为服务调用的超时时间为 1s，要求最大 GC 暂停时间不超过 200ms，平均暂停时间达到 100ms 以内，对客户的交易策略产生了极大的影响。
+CPU 负载 CPU 的使用情况如下图所示：
+从图中可以看到：系统负载为 4.92，CPU使用率 7% 左右，其实这个图中隐含了一些重要的线索，但我们此时并没有发现什么问题。
+GC 内存使用情况 然后我们排查了这段时间的内存使用情况：
+从图中可以看到，大约 09:25 左右 old_gen 使用量大幅下跌，确实是发生了 FullGC。
+但 09:20 前后，老年代空间的使用量在缓慢上升，并没有下降，也就是说引发最大暂停时间的这个点并没有发生 FullGC。
+当然，这些是事后复盘分析得出的结论。当时对监控所反馈的信息并不是特别信任，怀疑就是触发了 FullGC 导致的长时间 GC 暂停。</description>
+    </item>
+    
+    <item>
+      <title>27 JVM 问题排查分析上篇（调优经验）</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/27-jvm-%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E5%88%86%E6%9E%90%E4%B8%8A%E7%AF%87%E8%B0%83%E4%BC%98%E7%BB%8F%E9%AA%8C/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:28 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/27-jvm-%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E5%88%86%E6%9E%90%E4%B8%8A%E7%AF%87%E8%B0%83%E4%BC%98%E7%BB%8F%E9%AA%8C/</guid>
+      <description>一般来说，只要系统架构设计得比较合理，大部分情况下系统都能正常运行，出现系统崩溃等故障问题是小概率事件。也就是说，业务开发是大部分软件工程中的重头戏，所以有人开玩笑说：“面试造火箭，入职拧螺丝。”
+一般来说，我们进行排查分析的目的主要有：
+ 解决问题和故障 排查系统风险隐患  我们按照问题的复杂程度，可以分为两类：
+ 常规问题 疑难杂症  常规的问题一般在开发过程中就被发现和解决了，所以线上问题一般会比较复杂，出现在大家都没有考虑到的地方。按照我们的多年解决经验，这些复杂问题的排查方式可以分为两种途径：
+ 逻辑严密的系统性排查； 以猜测来驱动，凭历史经验进行排查。  如果您倾向于选择后一种方式，那么可能会浪费大量的时间，效果得看运气。更糟糕的是，因为基本靠蒙，所以这个过程是完全不可预测的，如果时间很紧张，就会在团队内部造成压力，甚至升级为甩锅和互相指责。
+系统出现性能问题或者故障，究竟是不是 JVM 的问题，得从各个层面依次进行排查。
+为什么问题排查这么困难？ 生产环境中进行故障排查的困难 在生产环境中针对特定问题进行故障排除时，往往会有诸多限制，从而导致排查的过程变得痛苦。
+1. 影响到客户的时间越短越好
+面对客户的抱怨，解决问题最快的办法可能是：“只要重启机器就能让系统恢复正常”。
+用最快的方法来避免对用户产生影响是很自然的需求。
+但重启可能会破坏故障现场，那样就很难排查问题的根本原因了。
+如果重新启动实例，则无法再采集实际发生的情况，导致我们并没有从这次故障中学习，从而获得收益。
+即使重启解决了目前的问题，但问题原因本身仍然存在，一直是一个定时炸弹，还可能会接二连三地发生。
+2. 安全方面的限制
+接下来是安全性相关的限制，这些限制导致生产环境是独立和隔离的，一般来说，开发人员可能没有权限访问生产环境。如果没有权限访问生产环境，那就只能进行远程故障排除，并涉及到所有与之相关的问题：
+ 每个要执行的操作都需要多人参与或审核，这不仅增加了执行单个操作所需的时间，而且沟通交流过程中可能会丢失一些信息。  特别是将临时补丁程序发布到生产环境时，“希望它能生效”，但这种试错的情况却可能导致越来越糟糕。
+因为测试和发布流程可能又要消耗几小时甚至几天，进一步增加了解决问题实际消耗的时间。
+如果还需要分多次上线这种“不一定生效的补丁程序”，则很可能会消耗几个星期才能解决问题。
+3. 工具引发的问题
+还有很重要的一点是需要使用的工具：安装使用的某些工具在特点场景下可能会使情况变得更糟。
+例如：
+ 对 JVM 进行堆转储（heap dump）可能会使 JVM 暂停几十秒或更长时间。 打印更细粒度的日志可能会引入其他的并发问题，IO 开销、磁盘问题等。 增加的探测器或者分析器可能会有很大开销，导致本就缓慢的系统彻底卡死。  因此，要想给系统打补丁或者增加新的远程监测程序，可能最终会花费很多天的时间：既然在生产环境中进行故障诊断排查会面临这么多的问题，很自然地，大部分情况下，我们都是在开发或测试环境中进行故障排查。
+在测试和开发环境进行诊断需要注意的问题 如果在开发环境或者测试环境中进行问题诊断和故障排查，则可以避免生产环境中的那些麻烦。
+因为开发环境和生产环境配置不同，有些时候可能也会有问题：即很难复现生产环境中产生的 Bug 或性能问题。
+例如：
+ 测试环境和生产环境使用的数据源不同。这意味着由数据量引发的性能问题可能不会在测试环境中重现。 某些问题的使用方式可能不容易复现（我们有时候也称之为“幽灵问题”）。例如只在 2 月 29 日这个特殊时间引起的并发问题，只在多个用户同时访问某个功能时引发，如果事先不知道原因，那也很难排查。 两个环境下的应用程序可能还不一样。生产部署的配置可能明显不同。这些差异包括：操作系统、群集、启动参数，以及不同的打包版本。  这些困难会引起“这不可能，我机器上就没事” 这种很尴尬的局面。</description>
+    </item>
+    
+    <item>
+      <title>26 面临复杂问题时的几个高级工具：它山之石，可以攻玉</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/26-%E9%9D%A2%E4%B8%B4%E5%A4%8D%E6%9D%82%E9%97%AE%E9%A2%98%E6%97%B6%E7%9A%84%E5%87%A0%E4%B8%AA%E9%AB%98%E7%BA%A7%E5%B7%A5%E5%85%B7%E5%AE%83%E5%B1%B1%E4%B9%8B%E7%9F%B3%E5%8F%AF%E4%BB%A5%E6%94%BB%E7%8E%89/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:27 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/26-%E9%9D%A2%E4%B8%B4%E5%A4%8D%E6%9D%82%E9%97%AE%E9%A2%98%E6%97%B6%E7%9A%84%E5%87%A0%E4%B8%AA%E9%AB%98%E7%BA%A7%E5%B7%A5%E5%85%B7%E5%AE%83%E5%B1%B1%E4%B9%8B%E7%9F%B3%E5%8F%AF%E4%BB%A5%E6%94%BB%E7%8E%89/</guid>
+      <description>前面提到了很多 JVM 的分析工具，本节里我们会再介绍几种有用的工具，大家可以在需要的时候按需使用。
+OOM Killer 在前面的章节，我们简单提及过 Linux 系统上的 OOM Killer（Out Of Memory killer，OOM 终结者）。假如物理内存不足，Linux 会找出“一头比较壮的进程”来杀掉。
+OOM Killer 参数调优 Java 的堆内存溢出（OOM），是指堆内存用满了，GC 没法回收导致分配不了新的对象。
+而操作系统的内存溢出（OOM），则是指计算机所有的内存（物理内存 + 交换空间），都被使用满了。
+这种情况下，默认配置会导致系统报警，并停止正常运行。当然，将 /proc/sys/vm/panic_on_oom 参数设置为 0 之后，则系统内核会在发生内存溢出时，自动调用 OOM Killer 功能，来杀掉最壮实的那头进程（Rogue Process，流氓进程），这样系统也许就可以继续运行了。
+以下参数可以基于单个进程进行设置，以手工控制哪些进程可以被 OOM Killer 终结。这些参数位于 proc 文件系统中的 /proc/pid/ 目录下，其中 pid 是指进程的 ID。
+ oom_adj：正常范围是 -16 到 15，用于计算一个进程的 OOM 评分（oom_score）。这个分值越高，该进程越有可能被 OOM Killer 给干掉。如果设置为 -17，则禁止 OOM Killer 杀死该进程。 proc 文件系统是虚拟文件系统，某个进程被杀掉，则 /proc/pid/ 目录也就被销毁了。  OOM Killer 参数调整示例 例如进程的 pid=12884，root 用户执行：
+$ cat /proc/12884/oom_adj0# 查看最终得分$ cat /proc/12884/oom_score161$ cat /proc/12884/oom_score_adj 0# 修改分值 .</description>
+    </item>
+    
+    <item>
+      <title>25 FastThread 相关的工具介绍：欲穷千里目，更上一层楼</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/25-fastthread-%E7%9B%B8%E5%85%B3%E7%9A%84%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D%E6%AC%B2%E7%A9%B7%E5%8D%83%E9%87%8C%E7%9B%AE%E6%9B%B4%E4%B8%8A%E4%B8%80%E5%B1%82%E6%A5%BC/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:26 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/25-fastthread-%E7%9B%B8%E5%85%B3%E7%9A%84%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D%E6%AC%B2%E7%A9%B7%E5%8D%83%E9%87%8C%E7%9B%AE%E6%9B%B4%E4%B8%8A%E4%B8%80%E5%B1%82%E6%A5%BC/</guid>
+      <description>FastThread 简介 在前面的章节里，我们知道了可以打印出来 JVM 的所有线程信息，然后进行分析。然而所有的线程信息都很长，看起来又差不多，每次去看都让人头大。
+所以，每当我去分析线程都在想，要是有工具能帮我把一般情况汇总，并自动帮我分析分析 JVM 线程情况就好了。这里要介绍的 FastThread 就是这么一款工具。
+ FastThread 是一款线程转储(Thread Dump)分析工具，官网地址为：http://fastthread.io/ 。
+这款工具由 tier1app 公司 开发和支持，这家公司现在主要提供 3 款 JVM 分析工具，除了 FastThread 还有：
+ GCEasy，访问地址：https://gceasy.io/，详情请参考前面的文章 [《GC 日志解读与分析（番外篇可视化工具）》]。 HeapHero，官网地址：https://heaphero.io/，顾名思义，这是一款 Heap Dump 分析工具。   FastThread 工具可用来分析和定位问题，功能特征包括：
+ 通用线程转储分析，FastThread 是一款通用的线程转储分析工具，可以通过 JVM 导出的线程转储，来进行根本原因排查分析（RCA，root cause analysis）。 提供在线分析功能，因为线程转储一般不会太大，所以只需上传我们导出的线程转储文件即可快速查看分析报告，而不需要在本地计算机下载和安装。使用非常方便。 提供直观的线程分析视图，通过仪表盘等形式的图形展示，使用起来既简单又容易理解。并对各种线程状态进行分类，比如阻塞、运行、定时等待、等待，以及重复的堆栈跟踪。通过这款工具，可以快速方便地解决可扩展性、性能问题和可用性问题。 支持 REST 方式的 API 接口调用，FastThread 是业界第一款支持 API 方式的线程转储分析工具。通过 API 接口，我们就可以通过脚本或者程序实现自动化分析，适用于进行批量的操作。 支持核心转储分析（Core Dump Analysis），Java 核心转储包括很多信息，但格式非常难以理解和解析。FastThread 可以分析 Java 核心转储文件，并以图形方式提供精确的信息。 分析 hs_err_pid 文件，进程崩溃（crashes）或致命错误(fatal error）会导致JVM异常终止。这时候 JVM 会自动生成 hs_err_pid 文件。这个文件中包含大量的信息，可以用 FastThread 来帮助我们进行分析。   顺便说一句，JVM 的线程转储不只是 Java 语言有，其他语言也是支持的，例如 Scala、Jython、JRuby 等等。</description>
+    </item>
+    
+    <item>
+      <title>24 内存分析与相关工具下篇（常见问题分析）</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/24-%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90%E4%B8%8E%E7%9B%B8%E5%85%B3%E5%B7%A5%E5%85%B7%E4%B8%8B%E7%AF%87%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:25 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/24-%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90%E4%B8%8E%E7%9B%B8%E5%85%B3%E5%B7%A5%E5%85%B7%E4%B8%8B%E7%AF%87%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/</guid>
+      <description>Java 程序的内存可以分为几个部分：堆（Heap space）、非堆（Non-Heap）、栈（Stack）等等，如下图所示：
+最常见的 java.lang.OutOfMemoryError 可以归为以下类型。
+OutOfMemoryError: Java heap space JVM 限制了 Java 程序的最大内存使用量，由 JVM 的启动参数决定。
+其中，堆内存的最大值，由 JVM 启动参数 -Xmx 指定。如果没有明确指定，则根据平台类型（OS 版本 + JVM 版本）和物理内存的大小来计算默认值。
+假如在创建新的对象时，堆内存中的空间不足以存放新创建的对象，就会引发“java.lang.OutOfMemoryError: Java heap space”错误。不管机器上还没有空闲的物理内存，只要堆内存使用量达到最大内存限制，就会抛出这个错误。
+原因分析 产生“java.lang.OutOfMemoryError: Java heap space”错误的原因，很多时候就类似于将 XXL 号的对象，往 S 号的 Java heap space 里面塞。其实清楚了原因，问题就很容易解决了：只要增加堆内存的大小，程序就能正常运行。另外还有一些比较复杂的情况，主要是由代码问题导致的：
+ 超出预期的访问量/数据量：应用系统设计时，一般是有“容量”定义的，部署这么多机器，用来处理一定流量的数据/业务。如果访问量突然飙升，超过预期的阈值，类似于时间坐标系中针尖形状的图谱。那么在峰值所在的时间段，程序很可能就会卡死、并触发“java.lang.OutOfMemoryError: Java heap space”错误。 内存泄露（Memory leak）：这也是一种经常出现的情形。由于代码中的某些隐蔽错误，导致系统占用的内存越来越多。如果某个方法/某段代码存在内存泄漏，每执行一次，就会（有更多的垃圾对象）占用更多的内存。随着运行时间的推移，泄漏的对象耗光了堆中的所有内存，那么“java.lang.OutOfMemoryError: Java heap space”错误就爆发了。  一个非常简单的示例 以下代码非常简单，程序试图分配容量为 16M 的 int 数组。如果指定启动参数 -Xmx16m，那么就会发生“java.lang.OutOfMemoryError: Java heap space”错误。而只要将参数稍微修改一下，变成 -Xmx20m，错误就不再发生。
+public class OOM {static final int SIZE=16*1024*1024;public static void main(String[] a) {int[] i = new int[SIZE];}}解决方案 如果设置的最大内存不满足程序的正常运行，只需要增大堆内存即可，配置参数可以参考下文。</description>
+    </item>
+    
+    <item>
+      <title>23 内存分析与相关工具上篇（内存布局与分析工具）</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/23-%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90%E4%B8%8E%E7%9B%B8%E5%85%B3%E5%B7%A5%E5%85%B7%E4%B8%8A%E7%AF%87%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%E4%B8%8E%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:24 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/23-%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90%E4%B8%8E%E7%9B%B8%E5%85%B3%E5%B7%A5%E5%85%B7%E4%B8%8A%E7%AF%87%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%E4%B8%8E%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7/</guid>
+      <description>通过前面的课程，我们学习了“内存溢出”和“内存泄漏”的区别。
+简单来说，Java 中的内存溢出就是内存不够用，一般是堆内存报错，当然也可能是其他内存空间不足引起的。
+下面我们详细讲解 Java 对象的内存相关知识。
+Java 对象内存布局简介  请思考一个问题： 一个对象具有 100 个属性，与 100 个对象每个具有 1 个属性，哪个占用的内存空间更大？
+ 为了回答这个问题，我们来看看 JVM 怎么表示一个对象：
+说明
+ alignment（外部对齐）：比如 8 字节的数据类型 long，在内存中的起始地址必须是 8 字节的整数倍。 padding（内部填充）：在对象体内一个字段所占据空间的末尾，如果有空白，需要使用 padding 来补齐，因为下一个字段的起始位置必须是 4/8 字节（32bit/64bit）的整数倍。 其实这两者都是一个道理，让对象内外的位置都对齐。  一个 Java 对象占用多少内存？ 参考 Mindprod，我们可以发现事情并不简单：
+ JVM 具体实现可以用任意形式来存储内部数据，可以是大端字节序或者小端字节序（Big/Little Endian），还可以增加任意数量的补齐、或者开销，尽管原生数据类型（primitives）的行为必须符合规范。   例如：JVM 或者本地编译器可以决定是否将 boolean[] 存储为 64bit 的内存块中，类似于 BitSet。JVM 厂商可以不告诉你这些细节，只要程序运行结果一致即可。
+  JVM 可以在栈（stack）空间分配一些临时对象。 编译器可能用常量来替换某些变量或方法调用。 编译器可能会深入地进行优化，比如对方法和循环生成多个编译版本，针对某些情况调用其中的一个。  当然，硬件平台和操作系统还会有多级缓存，例如 CPU 内置的 L1/L2/L3、SRAM 缓存、DRAM 缓存、普通内存，以及磁盘上的虚拟内存。
+用户数据可能在多个层级的缓存中出现。这么多复杂的情况、决定了我们只能对内存占用情况进行大致的估测。
+对象内存占用的测量方法 一般情况下，可以使用 Instrumentation.</description>
+    </item>
+    
+    <item>
+      <title>22 JVM 的线程堆栈等数据分析：操千曲而后晓声、观千剑而后识器</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/22-jvm-%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%A0%86%E6%A0%88%E7%AD%89%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%93%8D%E5%8D%83%E6%9B%B2%E8%80%8C%E5%90%8E%E6%99%93%E5%A3%B0%E8%A7%82%E5%8D%83%E5%89%91%E8%80%8C%E5%90%8E%E8%AF%86%E5%99%A8/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:23 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/22-jvm-%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%A0%86%E6%A0%88%E7%AD%89%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%93%8D%E5%8D%83%E6%9B%B2%E8%80%8C%E5%90%8E%E6%99%93%E5%A3%B0%E8%A7%82%E5%8D%83%E5%89%91%E8%80%8C%E5%90%8E%E8%AF%86%E5%99%A8/</guid>
+      <description>Java 线程简介与示例 多线程的使用和调优也是 Java 应用程序性能的一个重要组成部分，本节我们主要来讨论这一部分内容。
+线程（Thread）是系统内核级的重要资源，并不能无限制地创建和使用。创建线程的开销很大，由于线程管理较为复杂，在编写多线程代码时，如果有哪里未设置正确，可能会产生一些莫名其妙的 Bug。
+开发中一般会使用资源池模式，也就是“线程池”（Thread Pool）。通过把线程的调度管理委托给线程池，应用程序可以实现用少量的线程，来执行大量的任务。
+线程池的思路和原理大概如下：与其为每个任务创建一个线程，执行完就销毁；倒不如统一创建少量的线程，然后将执行的逻辑作为一个个待处理的任务包装起来，提交给线程池来调度执行。有任务需要调度的时候，线程池找一个空闲的线程，并通知它干活。任务执行完成后，再将这个线程放回池子里，等待下一次调度。这样就避免了每次大量的创建和销毁线程的开销，也隔离开了任务处理和线程池管理这两个不同的代码部分，让开发者可以关注与任务处理的逻辑。同时通过管理和调度，控制实际线程的数量，也避免了一下子创建了（远超过 CPU 核心数的）太多线程导致并不能并发执行，反而产生了大量线程切换调度，导致性能降低的问题。
+Java 语言从一开始就实现了对多线程的支持，但是在早期版本中需要开发者手动地去创建和管理线程。
+Java 5.0 版本开始提供标准的线程池 API：Executor 和 ExecutorService 接口，它们定义了线程池以及支持的交互操作。相关的类和接口都位于 java.util.concurrent 包中，在编写简单的并发任务时，可以直接使用。一般来说，我们可以使用 Executors 的静态工厂方法来实例化 ExecutorService。
+下面我们通过示例代码来进行讲解。
+先创建一个线程工厂：
+package demo.jvm0205;import java.util.concurrent.ThreadFactory;import java.util.concurrent.atomic.AtomicInteger;// Demo线程工厂public class DemoThreadFactory implements ThreadFactory {// 线程的名称前缀private String threadNamePrefix;// 线程 ID 计数器private AtomicInteger counter = new AtomicInteger();public DemoThreadFactory(String threadNamePrefix) {this.threadNamePrefix = threadNamePrefix;}@Overridepublic Thread newThread(Runnable r) {// 创建新线程Thread t = new Thread(r);// 设置一个有意义的名字t.</description>
+    </item>
+    
+    <item>
+      <title>21 GC 日志解读与分析（番外篇可视化工具）</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/21-gc-%E6%97%A5%E5%BF%97%E8%A7%A3%E8%AF%BB%E4%B8%8E%E5%88%86%E6%9E%90%E7%95%AA%E5%A4%96%E7%AF%87%E5%8F%AF%E8%A7%86%E5%8C%96%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:22 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/21-gc-%E6%97%A5%E5%BF%97%E8%A7%A3%E8%AF%BB%E4%B8%8E%E5%88%86%E6%9E%90%E7%95%AA%E5%A4%96%E7%AF%87%E5%8F%AF%E8%A7%86%E5%8C%96%E5%B7%A5%E5%85%B7/</guid>
+      <description>通过前面的学习，我们发现 GC 日志量很大，人工分析太消耗精力了。由于各种 GC 算法的复杂性，它们的日志格式互相之间不太兼容。
+有没有什么工具来减少我们的重复劳动呢? 这种轮子肯定是有现成的。比如 GCEasy、GCViwer 等等。
+这一节我们就开始介绍一些能让我们事半功倍的工具。
+GCEasy 工具 GCEasy 工具由 Tier1app 公司 开发和支持，这家公司主要提供3款分析工具：
+ GCEasy，访问地址：https://gceasy.io/，是一款在线的 GC 日志分析工具，支持各种版本的 GC 日志格式。 FastThread，官网地址：https://fastthread.io/，线程分析工具，后面我们专门有一节课程会进行介绍。 HeapHero，官网地址：https://heaphero.io/，顾名思义，这是一款 Heap Dump 分析工具。  其中 GCEasy 可用来分析定位GC和内存性能问题，支持以下三种模式：
+ 官方网站在线分析（免费），我们主要介绍这种方式 API 接口调用（付费计划） 本地安装（企业付费）  特性介绍 作为一款商业产品，分析能力和结果报告自然是棒棒的。
+ 可以分析 GC 日志和 JStat 日志 支持上传文件的方式（免费） 支持粘贴日志文本的方式（免费） 支持下载结果报告 *（付费方案） 支持分享链接（免费】 支持 API 调用的方式 *（付费方案） 企业版支持本地安装 *（企业付费） 付费方案可以免费试用：就是说结果现在也是可以试用下载的  测试案例 我们这里依然使用前面演示的示例代码，稍微修改一下，让其执行 30 秒左右。
+假设程序启动参数为：
+-XX:+UseParallelGC-Xms512m-Xmx512m-Xloggc:gc.demo.log-XX:+PrintGCDetails-XX:+PrintGCDateStamps然后我们就得到了一个 GC 日志文件 gc.</description>
+    </item>
+    
+    <item>
+      <title>20 GC 日志解读与分析（实例分析下篇）</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/20-gc-%E6%97%A5%E5%BF%97%E8%A7%A3%E8%AF%BB%E4%B8%8E%E5%88%86%E6%9E%90%E5%AE%9E%E4%BE%8B%E5%88%86%E6%9E%90%E4%B8%8B%E7%AF%87/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:20 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/20-gc-%E6%97%A5%E5%BF%97%E8%A7%A3%E8%AF%BB%E4%B8%8E%E5%88%86%E6%9E%90%E5%AE%9E%E4%BE%8B%E5%88%86%E6%9E%90%E4%B8%8B%E7%AF%87/</guid>
+      <description>复习一下：G1 的全称是 Garbage-First，意为垃圾优先，哪一块的垃圾最多就优先清理它。
+G1 相关的调优参数，可以参考：
+ https://www.oracle.com/technical-resources/articles/java/g1gc.html
+ G1 使用示例：
+# 请注意命令行启动时没有换行java -XX:+UseG1GC-Xms512m-Xmx512m-Xloggc:gc.demo.log-XX:+PrintGCDetails-XX:+PrintGCDateStampsdemo.jvm0204.GCLogAnalysis运行之后，我们看看 G1 的日志长什么样：
+Java HotSpot(TM) 64-Bit Server VM (25.162-b12) ......Memory: 4k page，physical 16777216k(709304k free)CommandLine flags: -XX:InitialHeapSize=536870912-XX:MaxHeapSize=536870912-XX:+PrintGC -XX:+PrintGCDateStamps-XX:+PrintGCDetails -XX:+PrintGCTimeStamps-XX:+UseCompressedClassPointers -XX:+UseCompressedOops-XX:+UseG1GC2019-12-23T01:45:40.605-0800: 0.181:[GC pause (G1 Evacuation Pause) (young)，0.0038577 secs][Parallel Time: 3.1 ms，GC Workers: 8]...... 此处省略多行[Code Root Fixup: 0.0 ms][Code Root Purge: 0.</description>
+    </item>
+    
+    <item>
+      <title>19 GC 日志解读与分析（实例分析中篇）</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/19-gc-%E6%97%A5%E5%BF%97%E8%A7%A3%E8%AF%BB%E4%B8%8E%E5%88%86%E6%9E%90%E5%AE%9E%E4%BE%8B%E5%88%86%E6%9E%90%E4%B8%AD%E7%AF%87/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:19 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/19-gc-%E6%97%A5%E5%BF%97%E8%A7%A3%E8%AF%BB%E4%B8%8E%E5%88%86%E6%9E%90%E5%AE%9E%E4%BE%8B%E5%88%86%E6%9E%90%E4%B8%AD%E7%AF%87/</guid>
+      <description>CMS 的 GC 日志解读 CMS 也可称为“并发标记清除垃圾收集器”。其设计目标是避免在老年代 GC 时出现长时间的卡顿。默认情况下，CMS 使用的并发线程数等于 CPU 内核数的 1/4。
+通过以下选项来指定 CMS 垃圾收集器：
+-XX:+UseConcMarkSweepGC如果 CPU 资源受限，CMS 的吞吐量会比并行 GC 差一些。示例：
+# 请注意命令行启动时没有换行，此处是方便大家阅读。java -XX:+UseConcMarkSweepGC-Xms512m-Xmx512m-Xloggc：gc.demo.log-XX:+PrintGCDetails-XX:+PrintGCDateStampsdemo.jvm0204.GCLogAnalysis和前面分析的串行 GC/并行 GC 一样，我们将程序启动起来，看看 CMS 算法生成的 GC 日志是什么样子：
+Java HotSpot(TM) 64-Bit Server VM (25.162-b12) 。。。Memory： 4k page，physical 16777216k(1168104k free)CommandLine flags：-XX:InitialHeapSize=536870912 -XX:MaxHeapSize=536870912-XX:MaxNewSize=178958336 -XX:MaxTenuringThreshold=6-XX:NewSize=178958336 -XX:OldPLABSize=16 -XX:OldSize=357912576-XX:+PrintGC -XX:+PrintGCDateStamps-XX:+PrintGCDetails -XX:+PrintGCTimeStamps-XX:+UseCompressedClassPointers -XX:+UseCompressedOops-XX:+UseConcMarkSweepGC -XX:+UseParNewGC2019-12-22T00:00:31.865-0800: 1.</description>
+    </item>
+    
+    <item>
+      <title>18 GC 日志解读与分析（实例分析上篇）</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/18-gc-%E6%97%A5%E5%BF%97%E8%A7%A3%E8%AF%BB%E4%B8%8E%E5%88%86%E6%9E%90%E5%AE%9E%E4%BE%8B%E5%88%86%E6%9E%90%E4%B8%8A%E7%AF%87/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:18 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/18-gc-%E6%97%A5%E5%BF%97%E8%A7%A3%E8%AF%BB%E4%B8%8E%E5%88%86%E6%9E%90%E5%AE%9E%E4%BE%8B%E5%88%86%E6%9E%90%E4%B8%8A%E7%AF%87/</guid>
+      <description>上一节讲述了 GC 日志相关的基础信息和配置。
+需要提醒的是，这些参数是基于 JDK 8 配置的。
+在 JDK 9 之后的版本中，启动参数有一些变化，继续使用原来的参数配置可能会在启动时报错。不过也不用担心，如果碰到，一般都可以从错误提示中找到对应的处置措施和解决方案。
+例如 JDK 11 版本中打印 info 级别 GC 日志的启动脚本：
+# JDK 11 环境，输出 info 级别的 GC 日志java -Xms512m -Xmx512m-Xlog:gc*=info:file=gc.log:time:filecount=0demo.jvm0204.GCLogAnalysis从 JDK 9 开始，可以使用命令 java -Xlog:help 来查看当前 JVM 支持的日志参数，本文不进行详细的介绍，有兴趣的同学可以查看 JEP 158: Unified JVM Logging 和 JEP 271: Unified GC Logging。
+另外，JMX 技术提供了 GC 事件的通知机制，监听 GC 事件的示例程序我们会在《应对容器时代面临的挑战》这一章节中给出。
+但很多情况下 JMX 通知事件中报告的 GC 数据并不完全，只是一个粗略的统计汇总。
+GC 日志才是我们了解 JVM 和垃圾收集器最可靠和全面的信息，因为里面包含了很多细节。再次强调，分析 GC 日志是一项很有价值的技能，能帮助我们更好地排查性能问题。
+下面我们通过实际操作来分析和解读 GC 日志。</description>
+    </item>
+    
+    <item>
+      <title>17 GC 日志解读与分析（基础配置）</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/17-gc-%E6%97%A5%E5%BF%97%E8%A7%A3%E8%AF%BB%E4%B8%8E%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:17 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/17-gc-%E6%97%A5%E5%BF%97%E8%A7%A3%E8%AF%BB%E4%B8%8E%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/</guid>
+      <description>本章通过具体示例来演示如何输出 GC 日志，并对输出的日志信息进行解读分析，从中提取有用的信息。
+本次演示的示例代码 为了演示需要，我们先来编写一段简单的 Java 代码：
+package demo.jvm0204;import java.util.Random;import java.util.concurrent.TimeUnit;import java.util.concurrent.atomic.LongAdder;/*演示 GC 日志生成与解读*/public class GCLogAnalysis {private static Random random = new Random();public static void main(String[] args) {// 当前毫秒时间戳long startMillis = System.currentTimeMillis();// 持续运行毫秒数; 可根据需要进行修改long timeoutMillis = TimeUnit.SECONDS.toMillis(1);// 结束时间戳long endMillis = startMillis + timeoutMillis;LongAdder counter = new LongAdder();System.out.println(&amp;quot;正在执行...&amp;quot;);// 缓存一部分对象; 进入老年代int cacheSize = 2000;Object[] cachedGarbage = new Object[cacheSize];// 在此时间范围内,持续循环while (System.</description>
+    </item>
+    
+    <item>
+      <title>16 Oracle GraalVM 介绍：会当凌绝顶、一览众山小</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/16-oracle-graalvm-%E4%BB%8B%E7%BB%8D%E4%BC%9A%E5%BD%93%E5%87%8C%E7%BB%9D%E9%A1%B6%E4%B8%80%E8%A7%88%E4%BC%97%E5%B1%B1%E5%B0%8F/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:16 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/16-oracle-graalvm-%E4%BB%8B%E7%BB%8D%E4%BC%9A%E5%BD%93%E5%87%8C%E7%BB%9D%E9%A1%B6%E4%B8%80%E8%A7%88%E4%BC%97%E5%B1%B1%E5%B0%8F/</guid>
+      <description>GraalVM 简介与特性 前面了解了那么多的 JVM 相关技术，我们可以发现一个脉络就是 Java 相关的体系越来越复杂，越来越强大。放眼看去，最近十年来，各种各类的技术和平台层出不穷，每类技术都有自己的适用场景和使用人群。并且伴随着微服务和云原生等理念的出现和发展，越来越多的技术被整合到一起。那么作为目前最流行的平台技术，Java/JVM 也自然不会在这个大潮中置身事外。本节我们介绍一个语言平台的集大成者 GraalVM：
+ 从功能的广度上，它的目标是打通各类不同的语言平台，这样开发者可以博取众长，不同的团队、不同的模块能够使用不同的平台去做。（这也是目前微服务架构的一个流行趋势。试想一下：一个非常大的产品线，大家共同维护几十个不同功能、各自独立部署运行的服务模块，那么每个团队就可以按照自己的想法选择合适的语言和平台工具去做。但是随着业务的不断发展，模块一直在重构，分分合合，怎么办？Python 的算法服务、Node.js 的 REST 脚手架，怎么跟 Java 的模块产生联系？！） 从性能的深度上，它则可以把各类程序转换成本地的原生应用，脱离中间语言和虚拟机来执行，从而获得最佳的性能，包括运行速度和内存占用。  什么是 GraalVM GraalVM 是 Oracle 开源的一款通用虚拟机产品，官方称之为 Universal GraalVM，是新一代的通用多语言高性能虚拟机。能执行各类高性能与互操作性任务，在无需额外开销的前提下允许用户构建多语言应用程序。
+官方网站为：
+ https://www.graalvm.org
+ GraalVM 有什么特点 GraalVM 既可以独立运行，也可以在不同的部署场景中使用，比如在 OpenJDK 虚拟机环境、Node.js 环境，或者 Oracle、MySQL 数据库等环境中运行。下图来自 GraalVM 官网，展示了目前支持的平台技术。
+GraalVM 支持大量的语言，包括：
+ 基于 JVM 的语言（例如 Java、Scala、Groovy、Kotlin、Clojure 等）； 基于 LLVM 的语言（例如 C、C++ 等语言）； 动态语言，例如 JavaScript、Ruby、Python、R 语言等等。  包括以下动态语言引擎：
+ JavaScript 引擎：Graal.js 是一款 JavaScript 解释器/编译器，能够在 JVM 上运行 Node.js 应用； FastR 引擎：这是 R 语言解释器/编译器； RubyTruffle 引擎：支持 Ruby 且性能优于 Ruby。  GraalVM 支持哪些特性呢？</description>
+    </item>
+    
+    <item>
+      <title>15 Java11 ZGC 和 Java12 Shenandoah 介绍：苟日新、日日新、又日新</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/15-java11-zgc-%E5%92%8C-java12-shenandoah-%E4%BB%8B%E7%BB%8D%E8%8B%9F%E6%97%A5%E6%96%B0%E6%97%A5%E6%97%A5%E6%96%B0%E5%8F%88%E6%97%A5%E6%96%B0/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:15 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/15-java11-zgc-%E5%92%8C-java12-shenandoah-%E4%BB%8B%E7%BB%8D%E8%8B%9F%E6%97%A5%E6%96%B0%E6%97%A5%E6%97%A5%E6%96%B0%E5%8F%88%E6%97%A5%E6%96%B0/</guid>
+      <description>随着互联网的迅速发展和计算机硬件的迭代更新，越来越多的业务系统使用大内存。而且这些实时在线业务对响应时间比较敏感。比如需要实时获得响应消息的支付业务，如果 JVM 的某一次 GC 暂停时间达到 10 秒，显然会让客户的耐心耗尽。
+还有一些对延迟特别敏感的系统，一般要求响应时间在 100ms 以内。例如高频交易系统，业务本身就有一些运算耗时，如果 GC 暂停时间超过一半（&amp;gt;50ms），那很可能就会让某些交易策略失效，从而达不到规定的性能指标。
+在这样的背景下，GC 消耗的资源（如 CPU、内存）相对来说并不是那么重要，吞吐量稍微小一点是能接受的。因为在这类系统中，硬件资源一般都有很多冗余，而且还可以通过限频、分流、集群等措施将单机的吞吐限制在一定范围内。也就是说低延迟才是这些系统的核心非功能性需求。
+如何让系统能够在高并发、高吞吐、大内存（如堆内存 64/128G+）的情况下，保持长期稳定运行，将 GC 停顿延迟降低到 10ms 级别，就成为一个非常值得思考的问题，也是业界迫切需要解决的难题。
+Pauseless GC 基本情况 早在 2005 年，Azul Systems 公司的三位工程师就给出了非常棒的解决方案，在论文《无停顿 GC 算法（The Pauseless GC Algorithm）》中提出了 Pauseless GC 设计。他们发现，低延迟的秘诀主要在于两点：
+ 使用读屏障 使用增量并发垃圾回收  论文提出后，经历了 10 多年的研究和开发，JDK 11 正式引入 ZGC 垃圾收集器，基本上就是按照这篇论文中提出的算法和思路来实现的。当然，JDK 12 中引入的 Shenandoah GC（读作“谢南多厄”）也是类似的设计思想。
+之前的各种 GC 算法实现，都是在业务线程执行的代码中强制增加“写屏障（write barrier）”，以控制对堆内存的修改，同时也可以跟踪堆内存中跨区的引用。这种实现方法使得基于分代/分区的 GC 算法具有非常卓越的性能，被广泛用于各种产品级 JVM 中。换句话说，以前在生产环境中很少有人使用“读屏障（read barrier）”，主要原因是理论研究和实现都不成熟，也没有优势。
+好的 GC 算法肯定要保证内存清理的速度要比内存分配的速度快，除此之外，Pauseless GC 并没有规定哪个阶段是必须快速完成的。每个阶段都不必跟业务线程争抢 CPU 资源，没有哪个阶段需要抢在后面的业务操作之前必须完成。
+Pauseless GC 算法主要分为三个阶段：标记（Mark）、重定位（Relocate）和重映射（Remap）。每个阶段都是完全并行的，而且每个阶段都是和业务线程并发执行的。</description>
+    </item>
+    
+    <item>
+      <title>14 常见的 GC 算法（ParallelCMSG1）</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/14-%E5%B8%B8%E8%A7%81%E7%9A%84-gc-%E7%AE%97%E6%B3%95parallelcmsg1/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:14 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/14-%E5%B8%B8%E8%A7%81%E7%9A%84-gc-%E7%AE%97%E6%B3%95parallelcmsg1/</guid>
+      <description>学习了 GC 算法的相关概念之后，我们将介绍在 JVM 中这些算法的具体实现。首先要记住的是，大多数 JVM 都需要使用两种不同的 GC 算法——一种用来清理年轻代，另一种用来清理老年代。
+我们可以选择 JVM 内置的各种算法。如果不通过参数明确指定垃圾收集算法，则会使用相应 JDK 版本的默认实现。本章会详细介绍各种算法的实现原理。
+串行 GC（Serial GC） 串行 GC 对年轻代使用 mark-copy（标记—复制）算法，对老年代使用 mark-sweep-compact（标记—清除—整理）算法。
+两者都是单线程的垃圾收集器，不能进行并行处理，所以都会触发全线暂停（STW），停止所有的应用线程。
+因此这种 GC 算法不能充分利用多核 CPU。不管有多少 CPU 内核，JVM 在垃圾收集时都只能使用单个核心。
+要启用此款收集器，只需要指定一个 JVM 启动参数即可，同时对年轻代和老年代生效：
+-XX:+UseSerialGC该选项只适合几百 MB 堆内存的 JVM，而且是单核 CPU 时比较有用。
+对于服务器端来说，因为一般是多个 CPU 内核，并不推荐使用，除非确实需要限制 JVM 所使用的资源。大多数服务器端应用部署在多核平台上，选择 串行 GC 就意味着人为地限制了系统资源的使用，会导致资源闲置，多余的 CPU 资源也不能用增加业务处理的吞吐量。
+关于串行垃圾收集器的日志内容，我们在后面的内容《GC 日志解读与分析》之中进行详细的讲解。
+并行 GC（Parallel GC） 并行垃圾收集器这一类组合，在年轻代使用“标记—复制（mark-copy）算法”，在老年代使用“标记—清除—整理（mark-sweep-compact）算法”。年轻代和老年代的垃圾回收都会触发 STW 事件，暂停所有的应用线程来执行垃圾收集。两者在执行“标记和复制/整理”阶段时都使用多个线程，因此得名“Parallel”。通过并行执行，使得 GC 时间大幅减少。
+通过命令行参数 -XX:ParallelGCThreads=NNN 来指定 GC 线程数，其默认值为 CPU 核心数。可以通过下面的任意一组命令行参数来指定并行 GC：
+-XX:+UseParallelGC-XX:+UseParallelOldGC-XX:+UseParallelGC -XX:+UseParallelOldGC并行垃圾收集器适用于多核服务器，主要目标是增加吞吐量。因为对系统资源的有效使用，能达到更高的吞吐量：</description>
+    </item>
+    
+    <item>
+      <title>13 常见的 GC 算法（GC 的背景与原理）</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/13-%E5%B8%B8%E8%A7%81%E7%9A%84-gc-%E7%AE%97%E6%B3%95gc-%E7%9A%84%E8%83%8C%E6%99%AF%E4%B8%8E%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:13 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/13-%E5%B8%B8%E8%A7%81%E7%9A%84-gc-%E7%AE%97%E6%B3%95gc-%E7%9A%84%E8%83%8C%E6%99%AF%E4%B8%8E%E5%8E%9F%E7%90%86/</guid>
+      <description>GC 是英文词汇 Garbage Collection 的缩写，中文一般直译为“垃圾收集”。当然有时候为了让文字更流畅，也会说“垃圾回收”。一般认为“垃圾回收”和“垃圾收集”是同样的意思。此外，GC 也有“垃圾收集器”的意思，英文表述为 Garbage Collector。本节我们就来详细讲解常用的 GC 算法。
+闲话 GC 假如我们做生意，需要仓库来存放物资。如果所有仓库都需要公司自建，那成本就太高了，一般人玩不转，而且效率也不高，成本控制不好就很难赚到钱。所以现代社会就有了一种共享精神和租赁意识，大幅度提高了整个社会的资源利用率。
+比如说一条供应链，A 公司转给 B 公司，B 公司转给 C 公司，那么每个公司自己的加工车间和私有仓库，就类似于线程空间，工厂内部会有相应的流水线。因为每个公司/业务员的精力有限，这个私有空间不可能无限大。
+公共的仓库，就类似于堆内存，相比私有空间要大很多，而且很方便别的公司来存取物资，或者可以直接存取，或者加锁需要钥匙才能存取。 很明显，这个体系需要进行有效的管理，整个仓储系统才能良好运转。不再使用的仓库需要去打个招呼说我们不用了，要不然公司需要一直付费，实际上是浪费的公司的钱，也在浪费社会的资源。这就类似于内存释放。
+ 也可以使用创客空间的共享工位做类比，工位（内存）是有限的且固定的。大家都可以来租赁（申请内存），拿到所有权以后就可以使用工位（内存）。使用结束后归还给管理方（系统），然后其他人就可以来租赁和使用。
+ 本节课程先简要介绍 GC 相关的基础知识，然后再介绍常见的三种垃圾收集器实现（Parallel/CMS/G1）。
+手动内存管理 有之前 C/C++ 编程经验、或者了解计算机原理的同学，会很容易理解“内存分配”和“内存释放”这两个概念。
+计算机程序在执行过程中，需要有地方来存放输入参数、中间变量，以及运算结果。通过前面的课程学习，我们知道这些参数都会存放到栈内存之中。
+但如果系统业务处理代码中现在就需要使用内存，例如场景：
+ 比如说，我一个销售员，负责跟其他公司谈业务，合同签订之后还得盯着，决定什么时候去把仓库退了。在使用 C/C++ 编程时就是这种情况，我们称之为”手动内存管理”。
+公司规模很小，业务简单时，这种方式很灵活，业务员的权力很大。但如果公司业务规模扩大，业务变得复杂之后，这种方式的弊端就会显露出来。因为业务员也很难决定什么时候去退仓库，不退呢可能会浪费资源，退了呢可能下游的某个公司还要用呢，那样容易被投诉。
+所以 C++ 程序员很爽，就像上帝之手，一切尽在掌握之中。但是使用 C++ 开发业务的公司，其他部门就不一定很爽了。
+ 这种方式在计算机中称为“手动内存管理”。
+弊端就是：经手处理过仓库的人多了，很可能就不记得是不是这个仓库需要归还还是已经归还过了，就会导致仓库的管理混乱，使用仓库的多方抢仓库而发生冲突。
+引用计数法 然后老板们合计了一下，咱还是成立一个部门专门来管理仓库吧。谁要用就向仓库部门申请，至于后续什么时候释放就由仓库自己进行管理，业务员就不用操心了。
+GC 垃圾收集器就像这个仓库部门，负责分配内存，负责追踪这些内存的使用情况，并在适当的时候进行释放。
+于是仓库部门就建立起来，专门管理这些仓库。怎么管理呢？
+先是想了一个办法，叫做“引用计数法”。有人办业务需要来申请仓库，就找个计数器记下次数 1，后续哪个业务用到呢都需要登记一下，继续加 1，每个业务办完计数器就减一。如果一个仓库（对象使用的内存）的计数到降了 0，就说明可以人使用这个仓库了，我们就可以随时在方便的时候去归还/释放这个仓库。（需要注意：一般不是一个仓库到 0 了就立即释放，出于效率考虑，系统总是会等一批仓库一起处理，这样更加高效。）
+但是呢，如果业务变得更复杂。仓库之间需要协同工作，有了依赖关系之后。
+这时候单纯的引用计数就会出问题，循环依赖的仓库/对象没办法回收，就像数据库的死锁一样让人讨厌，你没法让它自己变成 0。
+这种情况在计算机中叫做“内存泄漏”，该释放的没释放，该回收的没回收。
+如果依赖关系更复杂，计算机的内存资源很可能用满，或者说不够用，内存不够用则称为“内存溢出”。
+这样我们知道了引用计数法有一些缺陷，有没有办法解决呢？俗话说办法总比困难多，我找个人专门来排查循环计数行了吧，一个不够就两个……但如果仓库成千上万，或者上亿呢？还是能解决的，最多不就是慢点嘛。
+像 Perl、Python 和 PHP 等平台/语言使用的就是引用计数法（当然也都做了一定的优化，一般使用不用太担心，而且每个语言有自己的适用场景，专门干好自己的事就是好语言）。
+ 第一代自动垃圾收集算法，使用的是引用计数（reference counting）。针对每个对象，只需要记住被引用的次数，当引用计数变为 0 时，这个对象就可以被安全地回收（reclaimed）了。著名的示例是 C++ 的共享指针（shared pointers）； 第二代的垃圾收集算法，被称为“引用追踪（reference tracing）”，JVM 使用的各种垃圾收集算法都是基于引用追踪方式的算法。  下面我们一起来看看 JVM 中使用的垃圾收集方法。</description>
+    </item>
+    
+    <item>
+      <title>12 JMX 与相关工具：山高月小，水落石出</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/12-jmx-%E4%B8%8E%E7%9B%B8%E5%85%B3%E5%B7%A5%E5%85%B7%E5%B1%B1%E9%AB%98%E6%9C%88%E5%B0%8F%E6%B0%B4%E8%90%BD%E7%9F%B3%E5%87%BA/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:12 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/12-jmx-%E4%B8%8E%E7%9B%B8%E5%85%B3%E5%B7%A5%E5%85%B7%E5%B1%B1%E9%AB%98%E6%9C%88%E5%B0%8F%E6%B0%B4%E8%90%BD%E7%9F%B3%E5%87%BA/</guid>
+      <description>Java 平台提供了全面的 JVM 监控和管理措施。
+在 Java SE 5 之前，虽然 JVM 提供了一些底层的 API，比如 JVMPI 和 JVMTI，但这些 API 都是面向 C 语言的，需要通过 JNI 等方式才能调用，想要监控 JVM 和系统资源非常不方便。
+Java SE 5.0 版本引入了 JMX 技术（Java Management Extensions，Java 管理扩展），JMX 技术的前身是“JSR3:Java Management Extensions”，以及“JSR 160:JMX Remote API”。
+JMX 是用于监控和管理 JVM 资源（包括应用程序、设备、服务和 JVM）的一组标准 API。
+通过这些 API 接口，可以对外暴露 JVM 和宿主机的一些信息，甚至支持远程动态调整某些运行时参数。
+JMX 技术让我们在 JDK 中开发自检程序成为可能，同时也提供了很多轻量级的 API 来监测 JVM 状态和运行中对象/线程状态，从而提高了 Java 语言自身的管理监测能力。
+客户端使用 JMX 主要通过两种方式：
+ 程序代码手动获取 MXBean； 通过网络远程获取 MBean。  从 JVM 运行时获取 GC 行为数据，最简单的办法是使用标准 JMX API 接口。JMX 也是获取 JVM 内部运行时状态信息 的标准 API。可以编写程序代码，通过 JMX API 来访问本程序所在的 JVM，也可以通过 JMX 客户端执行（远程）访问。MXBean 可用于监控和管理 JVM，每个 MXBean 都封装了一部分功能。</description>
+    </item>
+    
+    <item>
+      <title>11 JDWP 简介：十步杀一人，千里不留行</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/11-jdwp-%E7%AE%80%E4%BB%8B%E5%8D%81%E6%AD%A5%E6%9D%80%E4%B8%80%E4%BA%BA%E5%8D%83%E9%87%8C%E4%B8%8D%E7%95%99%E8%A1%8C/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:11 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/11-jdwp-%E7%AE%80%E4%BB%8B%E5%8D%81%E6%AD%A5%E6%9D%80%E4%B8%80%E4%BA%BA%E5%8D%83%E9%87%8C%E4%B8%8D%E7%95%99%E8%A1%8C/</guid>
+      <description>Java 平台调试体系（Java Platform Debugger Architecture，JPDA），由三个相对独立的层次共同组成。这三个层次由低到高分别是 Java 虚拟机工具接口（JVMTI）、Java 调试连接协议（JDWP）以及 Java 调试接口（JDI）。
+模块
+层次
+编程语言
+作用
+JVMTI
+底层
+C
+获取及控制当前虚拟机状态
+JDWP
+中间层
+C
+定义 JVMTI 和 JDI 交互的数据格式
+JDI
+高层
+Java
+提供 Java API 来远程控制被调试虚拟机
+ 详细介绍请参考或搜索：JPDA 体系概览。
+ 服务端 JVM 配置 本篇主要讲解如何在 JVM 中启用 JDWP，以供远程调试。 假设主启动类是 com.xxx.Test。
+在 Windows 机器上：
+java -Xdebug -Xrunjdwp:transport=dt_shmem,address=debug,server=y,suspend=y com.xxx.Test在 Solaris 或 Linux 操作系统上：
+java -Xdebug -Xrunjdwp:transport=dt_socket,address=8888,server=y,suspend=y com.xxx.Test其实，-Xdebug 这个选项什么用都没有，官方说是为了历史兼容性，避免报错才没有删除。
+另外这个参数配置里的 suspend=y 会让 Java 进程启动时先挂起，等到有调试器连接上以后继续执行程序。
+而如果改成 suspend=n 的话，则此 Java 进程会直接执行，但是我们可以随时通过调试器连上进程。</description>
+    </item>
+    
+    <item>
+      <title>10 JDK 内置图形界面工具：海阔凭鱼跃，天高任鸟飞</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/10-jdk-%E5%86%85%E7%BD%AE%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E5%B7%A5%E5%85%B7%E6%B5%B7%E9%98%94%E5%87%AD%E9%B1%BC%E8%B7%83%E5%A4%A9%E9%AB%98%E4%BB%BB%E9%B8%9F%E9%A3%9E/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:10 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/10-jdk-%E5%86%85%E7%BD%AE%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E5%B7%A5%E5%85%B7%E6%B5%B7%E9%98%94%E5%87%AD%E9%B1%BC%E8%B7%83%E5%A4%A9%E9%AB%98%E4%BB%BB%E9%B8%9F%E9%A3%9E/</guid>
+      <description>GUI 图形界面工具，主要是 3 款：JConsole、JVisualVM、JMC。其实这三个产品可以说是 3 代不同的 JVM 分析工具。
+这三个工具都支持我们分析本地 JVM 进程，或者通过 JMX 等方式连接到远程 JVM 进程。当然，图形界面工具的版本号和目标 JVM 不能差别太大，否则可能会报错。
+下面分别对它们进行介绍。
+JConsole JConsole，顾名思义，就是“Java 控制台”，在这里，我们可以从多个维度和时间范围去监控一个 Java 进程的内外部指标。进而通过这些指标数据来分析判断 JVM 的状态，为我们的调优提供依据。
+在 Windows 或 macOS 的运行窗口或命令行输入 jconsole，然后回车，可以看到如下界面：
+本地进程列表列出了本机的所有 Java 进程（远程进程我们在 JMX 课程进行讲解），选择一个要连接的 Java 进程，点击连接，然后可以看到如下界面：
+注意，点击右上角的绿色连接图标，即可连接或断开这个 Java 进程。
+上图中显示了总共 6 个标签页，每个标签页对应一个监控面板，分别为：
+ 概览：以图表方式查看 Java 进程的堆内存、线程、类、CPU 占用率四项指标和历史。 内存：JVM 的各个内存池的使用情况以及明细。 线程：JVM 内所有的线程列表和具体的状态信息。 类：JVM 加载和卸载的类数量汇总信息。 VM 概要：JVM 的供应商、运行时间、JVM 参数，以及其他数据的摘要。 MBean：跟 JMX 相关的 MBean，我们在后面的 JMX 课程中进行讲解。  概览 概览信息见上图，四项指标具体为：
+ 堆内存使用量：此处展示的就是前面 Java 内存模型课程中提到的堆内存使用情况，从图上可以看到，堆内存使用了 94MB 左右，并且一直在增长。 线程：展示了 JVM 中活动线程的数量，当前时刻共有 17 个活动线程。 类：JVM 一共加载了 5563 个类，没有卸载类。 CPU 占用率：目前 CPU 使用率为 0.</description>
+    </item>
+    
+    <item>
+      <title>09 JDK 内置命令行工具：工欲善其事，必先利其器</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/09-jdk-%E5%86%85%E7%BD%AE%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%E5%B7%A5%E6%AC%B2%E5%96%84%E5%85%B6%E4%BA%8B%E5%BF%85%E5%85%88%E5%88%A9%E5%85%B6%E5%99%A8/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:09 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/09-jdk-%E5%86%85%E7%BD%AE%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%E5%B7%A5%E6%AC%B2%E5%96%84%E5%85%B6%E4%BA%8B%E5%BF%85%E5%85%88%E5%88%A9%E5%85%B6%E5%99%A8/</guid>
+      <description>很多情况下，JVM 运行环境中并没有趁手的工具，所以掌握基本的内置工具是一项基本功。
+JDK 自带的工具和程序可以分为 2 大类型：
+ 开发工具 诊断分析工具  JDK 内置的开发工具 写过 Java 程序的同学，对 JDK 中的开发工具应该比较熟悉。 下面列举常用的部分：
+工具
+简介
+java
+Java 应用的启动程序
+javac
+JDK 内置的编译工具
+javap
+反编译 class 文件的工具
+javadoc
+根据 Java 代码和标准注释，自动生成相关的 API 说明文档
+javah
+JNI 开发时，根据 Java 代码生成需要的 .h 文件。
+extcheck
+检查某个 jar 文件和运行时扩展 jar 有没有版本冲突，很少使用
+jdb
+Java Debugger 可以调试本地和远端程序，属于 JPDA 中的一个 Demo 实现，供其他调试器参考。开发时很少使用
+jdeps
+探测 class 或 jar 包需要的依赖
+jar
+打包工具，可以将文件和目录打包成为 .jar 文件；.jar 文件本质上就是 zip 文件，只是后缀不同。使用时按顺序对应好选项和参数即可。</description>
+    </item>
+    
+    <item>
+      <title>08 JVM 启动参数详解：博观而约取、厚积而薄发</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/08-jvm-%E5%90%AF%E5%8A%A8%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3%E5%8D%9A%E8%A7%82%E8%80%8C%E7%BA%A6%E5%8F%96%E5%8E%9A%E7%A7%AF%E8%80%8C%E8%96%84%E5%8F%91/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:08 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/08-jvm-%E5%90%AF%E5%8A%A8%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3%E5%8D%9A%E8%A7%82%E8%80%8C%E7%BA%A6%E5%8F%96%E5%8E%9A%E7%A7%AF%E8%80%8C%E8%96%84%E5%8F%91/</guid>
+      <description>JVM 作为一个通用的虚拟机，我们可以通过启动 Java 命令时指定不同的 JVM 参数，让 JVM 调整自己的运行状态和行为，内存管理和垃圾回收的 GC 算法，添加和处理调试和诊断信息等等。本节概括地讲讲 JVM 参数，对于 GC 相关的详细参数将在后续的 GC 章节说明和分析。
+直接通过命令行启动 Java 程序的格式为:
+java [options] classname [args]java [options] -jar filename [args]其中:
+ [options] 部分称为 &amp;ldquo;JVM 选项&amp;rdquo;,对应 IDE 中的 VM options, 可用 jps -v 查看。 [args] 部分是指 &amp;ldquo;传给main函数的参数&amp;rdquo;, 对应 IDE 中的 Program arguments, 可用 jps -m 查看。  如果是使用 Tomcat 之类自带 startup.sh 等启动脚本的程序，我们一般把相关参数都放到一个脚本定义的 JAVA_OPTS 环境变量中，最后脚本启动 JVM 时会把 JAVA_OPTS 变量里的所有参数都加到命令的合适位置。
+如果是在 IDEA 之类的 IDE 里运行的话，则可以在“Run/Debug Configurations”里看到 VM 选项和程序参数两个可以输入参数的地方，直接输入即可。</description>
+    </item>
+    
+    <item>
+      <title>07 Java 内存模型：海不辞水，故能成其深</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/07-java-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E6%B5%B7%E4%B8%8D%E8%BE%9E%E6%B0%B4%E6%95%85%E8%83%BD%E6%88%90%E5%85%B6%E6%B7%B1/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:07 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/07-java-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E6%B5%B7%E4%B8%8D%E8%BE%9E%E6%B0%B4%E6%95%85%E8%83%BD%E6%88%90%E5%85%B6%E6%B7%B1/</guid>
+      <description>了解计算机历史的同学应该知道，计算机刚刚发明的时候，是没有内存这个概念的，速度慢到无法忍受。 直到冯诺依曼提出了一个天才的设计才解决了这个问题，没错，这个设计就是加了内存，所以现代的电子计算机又叫做“冯诺依曼机”。
+JVM 是一个完整的计算机模型，所以自然就需要有对应的内存模型，这个模型被称为 “Java 内存模型”，对应的英文是“Java Memory Model”，简称 JMM。
+Java 内存模型规定了 JVM 应该如何使用计算机内存（RAM）。 广义来讲， Java 内存模型分为两个部分：
+ JVM 内存结构 JMM 与线程规范  其中，JVM 内存结构是底层实现，也是我们理解和认识 JMM 的基础。 大家熟知的堆内存、栈内存等运行时数据区的划分就可以归为 JVM 内存结构。
+就像很多神书讲 JVM 开篇就讲怎么编译 JVM 一样，讲 JMM 一上来就引入 CPU 寄存器的同步机制。虽然看起来高大上、显得高深莫测，但是大家很难理解。
+所以我们这节课先从基础讲起，避开生涩的一些过于底层的术语，学习基本的 JVM 内存结构。理解了这些基本的知识点，然后再来学习 JMM 和线程相关的知识。
+6.1 JVM 内存结构 我们先来看看 JVM 整体的内存概念图：
+JVM 内部使用的 Java 内存模型， 在逻辑上将内存划分为 线程栈（thread stacks）和堆内存 （heap）两个部分。 如下图所示：
+JVM 中，每个正在运行的线程，都有自己的线程栈。 线程栈包含了当前正在执行的方法链/调用链上的所有方法的状态信息。
+所以线程栈又被称为“方法栈”或“调用栈”（call stack）。线程在执行代码时，调用栈中的信息会一直在变化。
+线程栈里面保存了调用链上正在执行的所有方法中的局部变量。
+ 每个线程都只能访问自己的线程栈。 每个线程都不能访问(看不见)其他线程的局部变量。  即使两个线程正在执行完全相同的代码，但每个线程都会在自己的线程栈内创建对应代码中声明的局部变量。 所以每个线程都有一份自己的局部变量副本。</description>
+    </item>
+    
+    <item>
+      <title>06 Java 类加载器：山不辞土，故能成其高</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/06-java-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%B1%B1%E4%B8%8D%E8%BE%9E%E5%9C%9F%E6%95%85%E8%83%BD%E6%88%90%E5%85%B6%E9%AB%98/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:06 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/06-java-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%B1%B1%E4%B8%8D%E8%BE%9E%E5%9C%9F%E6%95%85%E8%83%BD%E6%88%90%E5%85%B6%E9%AB%98/</guid>
+      <description>前面我们学习了 Java 字节码，写好的代码经过编译变成了字节码，并且可以打包成 Jar 文件。
+然后就可以让 JVM 去加载需要的字节码，变成持久代/元数据区上的 Class 对象，接着才会执行我们的程序逻辑。
+我们可以用 Java 命令指定主启动类，或者是 Jar 包，通过约定好的机制，JVM 就会自动去加载对应的字节码（可能是 class 文件，也可能是 Jar 包）。
+我们知道 Jar 包打开后实际上就等价于一个文件夹，里面有很多 class 文件和资源文件，但是为了方便就打包成 zip 格式。 当然解压了之后照样可以直接用 java 命令来执行。
+$ java Hello或者把 Hello.class 和依赖的其他文件一起打包成 jar 文件:
+ 示例 1: 将 class 文件和 java 源文件归档到一个名为 hello.jar 的档案中: jar cvf hello.jar Hello.class Hello.java 示例 2: 归档的同时，通过 e 选项指定 jar 的启动类 Hello: jar cvfe hello.jar Hello Hello.class Hello.java
+ 然后通过 -jar 选项来执行jar包:</description>
+    </item>
+    
+    <item>
+      <title>05 Java 字节码技术：不积细流，无以成江河</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/05-java-%E5%AD%97%E8%8A%82%E7%A0%81%E6%8A%80%E6%9C%AF%E4%B8%8D%E7%A7%AF%E7%BB%86%E6%B5%81%E6%97%A0%E4%BB%A5%E6%88%90%E6%B1%9F%E6%B2%B3/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:05 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/05-java-%E5%AD%97%E8%8A%82%E7%A0%81%E6%8A%80%E6%9C%AF%E4%B8%8D%E7%A7%AF%E7%BB%86%E6%B5%81%E6%97%A0%E4%BB%A5%E6%88%90%E6%B1%9F%E6%B2%B3/</guid>
+      <description>Java 中的字节码，英文名为 bytecode, 是 Java 代码编译后的中间代码格式。JVM 需要读取并解析字节码才能执行相应的任务。
+从技术人员的角度看，Java 字节码是 JVM 的指令集。JVM 加载字节码格式的 class 文件，校验之后通过 JIT 编译器转换为本地机器代码执行。 简单说字节码就是我们编写的 Java 应用程序大厦的每一块砖，如果没有字节码的支撑，大家编写的代码也就没有了用武之地，无法运行。也可以说，Java 字节码就是 JVM 执行的指令格式。
+那么我们为什么需要掌握它呢？
+不管用什么编程语言，对于卓越而有追求的程序员，都能深入去探索一些技术细节，在需要的时候，可以在代码被执行前解读和理解中间形式的代码。对于 Java 来说，中间代码格式就是 Java 字节码。 了解字节码及其工作原理，对于编写高性能代码至关重要，对于深入分析和排查问题也有一定作用，所以我们要想深入了解 JVM 来说，了解字节码也是夯实基础的一项基本功。同时对于我们开发人员来时，不了解平台的底层原理和实现细节，想要职业进阶绝对不是长久之计，毕竟我们都希望成为更好的程序员， 对吧？
+任何有实际经验的开发者都知道，业务系统总不可能没有 BUG，了解字节码以及 Java 编译器会生成什么样的字节码，才能说具备扎实的 JVM 功底，会在排查问题和分析错误时非常有用，也能更好地解决问题。
+而对于工具领域和程序分析来说, 字节码就是必不可少的基础知识了，通过修改字节码来调整程序的行为是司空见惯的事情。想了解分析器(Profiler)，Mock 框架，AOP 等工具和技术这一类工具，则必须完全了解 Java 字节码。
+4.1 Java 字节码简介 有一件有趣的事情，就如名称所示, Java bytecode 由单字节(byte)的指令组成，理论上最多支持 256 个操作码(opcode)。实际上 Java 只使用了 200 左右的操作码， 还有一些操作码则保留给调试操作。
+操作码， 下面称为 指令, 主要由类型前缀和操作名称两部分组成。
+ 例如，&#39;i&#39; 前缀代表 ‘integer’，所以，&#39;iadd&#39; 很容易理解, 表示对整数执行加法运算。
+ 根据指令的性质，主要分为四个大类：</description>
+    </item>
+    
+    <item>
+      <title>04 JVM 基础知识：不积跬步，无以至千里</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/04-jvm-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B8%8D%E7%A7%AF%E8%B7%AC%E6%AD%A5%E6%97%A0%E4%BB%A5%E8%87%B3%E5%8D%83%E9%87%8C/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:04 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/04-jvm-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B8%8D%E7%A7%AF%E8%B7%AC%E6%AD%A5%E6%97%A0%E4%BB%A5%E8%87%B3%E5%8D%83%E9%87%8C/</guid>
+      <description>前面的章节我们介绍了 JDK 和 JVM 的关系以及环境准备等，本节我们来探讨一下 JVM 的基础知识，包括以下内容：
+ 常见的编程语言类型 关于跨平台、运行时（Runtime）与虚拟机（VM） 关于内存管理和垃圾回收（GC）  3.1 常见的编程语言类型 我们都知道 Java 是一种基于虚拟机的静态类型编译语言。那么常见的语言可以怎么分类呢？
+1）编程语言分类 首先，我们可以把形形色色的编程从底向上划分为最基本的三大类：机器语言、汇编语言、高级语言。
+按《计算机编程语言的发展与应用》一文里的定义：计算机编程语言能够实现人与机器之间的交流和沟通，而计算机编程语言主要包括汇编语言、机器语言以及高级语言，具体内容如下：
+ 机器语言：这种语言主要是利用二进制编码进行指令的发送，能够被计算机快速地识别，其灵活性相对较高，且执行速度较为可观，机器语言与汇编语言之间的相似性较高，但由于具有局限性，所以在使用上存在一定的约束性。 汇编语言：该语言主要是以缩写英文作为标符进行编写的，运用汇编语言进行编写的一般都是较为简练的小程序，其在执行方面较为便利，但汇编语言在程序方面较为冗长，所以具有较高的出错率。 高级语言：所谓的高级语言，其实是由多种编程语言结合之后的总称，其可以对多条指令进行整合，将其变为单条指令完成输送，其在操作细节指令以及中间过程等方面都得到了适当的简化，所以，整个程序更为简便，具有较强的操作性，而这种编码方式的简化，使得计算机编程对于相关工作人员的专业水平要求不断放宽。  简言之：机器语言是直接给机器执行的二进制指令，每种 CPU 平台都有对应的机器语言。
+而汇编语言则相当于是给机器执行的指令，按照人可以理解的助记符表示，这样代码就非常长，但是性能也很好。
+高级语言则是为了方便人来理解，进而快速设计和实现程序代码，一般跟机器语言和汇编语言的指令已经完全没有关系了，代码编写完成后通过编译或解释，转换成汇编码或机器码，之后再传递给计算机去执行。
+所以机器语言和汇编语言都是跟目标机器的 CPU 架构有直接联系，而高级语言一般就没有关系了，高级语言高级就高级在，一份代码往往是可以跨不同的目标机器的 CPU 架构的，不管是 x86 还是其他 CPU，尽管不同 CPU 支持的指令集略有不同，但是都在编译或解释过程之后，变成实际平台的目标代码，进而代码的开发者很大程度上不需要关心目标平台的差异性。这一点非常重要，因为现代计算机软件系统的开发，往往开发者、测试者、部署运维者，并不是一拨人，特别是随着公有云的快速发展，我们甚至都不清楚自己的软件系统在容器下到底是什么物理架构。
+2）高级语言分类 如果按照有没有虚拟机来划分，高级编程语言可分为两类：
+ 有虚拟机：Java，Lua，Ruby，部分 JavaScript 的实现等等 无虚拟机：C，C++，C#，Golang，以及大部分常见的编程语言  很奇怪的一件事儿，C#、Golang 有 GC（垃圾回收），也有运行时（Runtime），但是没有虚拟机（VM），为什么会这样设计呢? 下文会详细讨论这个事情。
+如果按照变量是不是有确定的类型，还是类型可以随意变化来划分，高级编程语言可以分为：
+ 静态类型：Java，C，C++ 等等 动态类型：所有脚本类型的语言  如果按照是编译执行，还是解释执行，可以分为：
+ 编译执行：C，C++，Golang，Rust，C#，Java，Scala，Clojure，Kotlin，Swift 等等 解释执行：JavaScript 的部分实现和 NodeJS，Python，Perl，Ruby 等等  这里面，C# 和 Java 都是编译后生成了一种中间类型的目标代码（类似汇编），但不是汇编或机器码，在C#中称为 微软中间语言（MSIL），在 Java 里叫做 Java 字节码（Java bytecode）。</description>
+    </item>
+    
+    <item>
+      <title>03 常用性能指标：没有量化，就没有改进</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/03-%E5%B8%B8%E7%94%A8%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E6%B2%A1%E6%9C%89%E9%87%8F%E5%8C%96%E5%B0%B1%E6%B2%A1%E6%9C%89%E6%94%B9%E8%BF%9B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:03 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/03-%E5%B8%B8%E7%94%A8%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E6%B2%A1%E6%9C%89%E9%87%8F%E5%8C%96%E5%B0%B1%E6%B2%A1%E6%9C%89%E6%94%B9%E8%BF%9B/</guid>
+      <description>前面一节课阐述了 JDK 的发展过程，以及怎么安装一个 JDK，在正式开始进行 JVM 的内容之前，我们先了解一下性能相关的一些基本概念和原则。
+ 如果要问目前最火热的 JVM 知识是什么? 很多同学的答案可能是 “JVM 调优” 或者 “JVM 性能优化”。但是具体需要从哪儿入手，怎么去做呢？
+其实“调优”是一个诊断和处理手段，我们最终的目标是让系统的处理能力，也就是“性能”达到最优化，这个过程我们就像是一个医生，诊断和治疗“应用系统”这位病人。我们以作为医生给系统看病作为对比，“性能优化”就是实现“把身体的大小毛病治好，身体达到最佳健康状态”的目标。
+那么去医院看病，医生会是怎么一个处理流程呢？先简单的询问和了解基本情况，发烧了没有，咳嗽几天了，最近吃了什么，有没有拉肚子一类的，然后给患者开了一系列的检查化验单子：去查个血、拍个胸透、验个尿之类的。然后就会有医生使用各项仪器工具，依次把去做这些项目的检查，检查的结果就是很多标准化的具体指标（这里就是我们对 JVM 进行信息收集，变成各项指标）。
+然后拿过来给医生诊断用，医生根据这些指标数据判断哪些是异常的，哪些是正常的，这些异常指标说明了什么问题（对系统问题进行分析排查），比如是白细胞增多（系统延迟和抖动增加，偶尔宕机），说明可能有炎症（比如 JVM 配置不合理）。最后要“对症下药”，开出一些阿莫西林或者头孢（对 JVM 配置进行调整），叮嘱怎么频率，什么时间点服药，如果问题比较严重，是不是要住院做手术（系统重构和调整），同时告知一些注意事项（对日常运维的要求和建议），最后经过一段时间治疗，逐渐好转，最终痊愈（系统延迟降低，不在抖动，不再宕机）。通过了解 JVM 去让我们具有分析和诊断能力，是本课程的核心主题。
+2.1 量化性能相关指标 &amp;ldquo;没有量化就没有改进&amp;rdquo;，所以我们需要先了解和度量性能指标，就像在医院检查以后得到的检验报告单一样。因为人的主观感觉是不靠谱的，个人经验本身也是无法复制的，而定义了量化的指标，就意味着我们有了一个客观度量体系。哪怕我们最开始定义的指标不是特别精确，我们也可以在使用过程中，随着真实的场景去验证指标有效性，进而替换或者调整指标，逐渐的完善这个量化的指标体系，成为一个可以复制和复用的有效工具。就像是上图的血常规检查报告单，一旦成为这种标准化的指标，那么使用它得到的结果，也就是这个报告单，给任何一个医生看，都是有效的，一般也能得到一致的判断结果。
+那么系统性能的诊断要做些什么指标呢？我们先来考虑，进行要做诊断，那么程序或 JVM 可能出现了问题，而我们排查程序运行中出现的问题，比如排查程序 BUG 的时候，要优先保证正确性，这时候就不仅仅是 JVM 本身的问题，例如死锁等等，程序跑在 JVM 里，现象出现在 JVM 上，很多时候还要深入分析业务代码和逻辑确定 Java 程序哪里有问题。
+ 分析系统性能问题： 比如是不是达到了我们预期性能指标，判断资源层面有没有问题，JVM 层面有没有问题，系统的关键处理流程有没有问题，业务流程是否需要优化； 通过工具收集系统的状态，日志，包括打点做内部的指标收集，监控并得出关键性能指标数据，也包括进行压测，得到一些相关的压测数据和性能内部分析数据； 根据分析结果和性能指标，进行资源配置调整，并持续进行监控和分析，以优化性能，直到满足系统要求，达到系统的最佳性能状态。  计算机系统中，性能相关的资源主要分为这几类:
+ CPU：CPU 是系统最关键的计算资源，在单位时间内有限，也是比较容易由于业务逻辑处理不合理而出现瓶颈的地方，浪费了 CPU 资源和过渡消耗 CPU 资源都不是理想状态，我们需要监控相关指标； 内存：内存则对应程序运行时直接可使用的数据快速暂存空间，也是有限的，使用过程随着时间的不断的申请内存又释放内存，好在 JVM 的 GC 帮我们处理了这些事情，但是如果 GC 配置的不合理，一样会在一定的时间后，产生包括 OOM 宕机之类的各种问题，所以内存指标也需要关注； IO（存储+网络）：CPU 在内存中把业务逻辑计算以后，为了长期保存，就必须通过磁盘存储介质持久化，如果多机环境、分布式部署、对外提供网络服务能力，那么很多功能还需要直接使用网络，这两块的 IO 都会比 CPU 和内存速度更慢，所以也是我们关注的重点。  其他各种更细节的指标，将会在工具和命令的使用章节详细介绍。</description>
+    </item>
+    
+    <item>
+      <title>02 环境准备：千里之行，始于足下</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/02-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87%E5%8D%83%E9%87%8C%E4%B9%8B%E8%A1%8C%E5%A7%8B%E4%BA%8E%E8%B6%B3%E4%B8%8B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:02 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/02-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87%E5%8D%83%E9%87%8C%E4%B9%8B%E8%A1%8C%E5%A7%8B%E4%BA%8E%E8%B6%B3%E4%B8%8B/</guid>
+      <description>Java 语言编写代码非常简单，也很容易入门，非常适合开发各种企业级应用和业务系统。一个众所周知的事实是： 用起来越简单的系统， 其背后的原理和实现就越复杂。道理很容易理解， 系统的内部实现考虑了各种极端的情况，对用户屏蔽了各种复杂性。作为支撑庞大的 Java 生态系统的基石， JVM 内部实现是非常复杂的。据统计，OpenJDK 的实现代码已经超过 1000 万行。
+JVM 难不难? 自然是 “难者不会，会者不难”。万丈高楼平地起， 没有掌握一定的基础知识， 学过的各种原理，了解相关技巧，也就会出现转眼即忘，书到用时方恨少的情况。
+掌握好基础知识，学而时习之，经常使用各种工具并熟练运用，自然就能深入掌握一门技能。理论结合实践，掌握 JVM 相关知识，熟练各种工具的使用，是 Java 工程师职业进阶中不可或缺的。学就要学会理论，掌握实现原理。 理解了 Java 标准平台的 JVM，举一反三，稍微变通一下，碰到 Android 的 ART， Go 的虚拟机，以及各种语言的垃圾收集实现，都会很容易理解。
+1.1 JDK、JRE、JVM 的关系 JDK
+JDK（Java Development Kit） 是用于开发 Java 应用程序的软件开发工具集合，包括了 Java 运行时的环境（JRE）、解释器（Java）、编译器（javac）、Java 归档（jar）、文档生成器（Javadoc）等工具。简单的说我们要开发 Java 程序，就需要安装某个版本的 JDK 工具包。
+JRE
+JRE（Java Runtime Enviroment ）提供 Java 应用程序执行时所需的环境，由 Java 虚拟机（JVM）、核心类、支持文件等组成。简单的说，我们要是想在某个机器上运行 Java 程序，可以安装 JDK，也可以只安装 JRE，后者体积比较小。
+JVM
+Java Virtual Machine（Java 虚拟机）有三层含义，分别是：
+ JVM规范要求； 满足 JVM 规范要求的一种具体实现（一种计算机程序）； 一个 JVM 运行实例，在命令提示符下编写 Java 命令以运行 Java 类时，都会创建一个 JVM 实例，我们下面如果只记到 JVM 则指的是这个含义；如果我们带上了某种 JVM 的名称，比如说是 Zing JVM，则表示上面第二种含义。  JDK 与 JRE、JVM 之间的关系</description>
+    </item>
+    
+    <item>
+      <title>01 阅读此专栏的正确姿势</title>
+      <link>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/01-%E9%98%85%E8%AF%BB%E6%AD%A4%E4%B8%93%E6%A0%8F%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BF/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:01 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/01-%E9%98%85%E8%AF%BB%E6%AD%A4%E4%B8%93%E6%A0%8F%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BF/</guid>
+      <description>课程背景 近些年来，无论是使用规模、开发者人数，还是技术生态成熟度、相关工具的丰富程度，Java 都当之无愧是后端开发语言中不可撼动的王者，也是开发各类业务系统的首选语言。
+时至今日，整个 IT 招聘市场上，Java 开发工程师依然是缺口最大，需求最多的热门职位。另外，从整个市场环境看，传统企业的信息化，传统 IT 系统的互联网化，都还有非常大的发展空间，由此推断未来 Java 开发的市场前景广阔，从业人员的行业红利还可以持续很长时间。
+从权威的 TIOBE 编程语言排行榜 2019 年 11 月数据来看，Java 的流行程度也是稳居第一。
+拉勾网 2019 年 9 月统计的招聘岗位比例，也可以看到 Java 和 JavaScript 是最高的，不过 Java 的求职难度只有 JavaScript 的 1/7。
+Java 平均一个岗位有 4 个人竞争，而 JavaScript 则是 28 个，Perl 最夸张，超过 30 个。
+而通过职友网的数据统计，北京、上海、杭州、深圳的 Java 程序员平均薪酬在 16-21K 之间，在广州、成都、苏州、南京等城市也有 11K-13K 的平均收入，远超一般行业的收入水平。
+所以学习 Java 目前还是一个非常有优势的职业发展选择。
+而了解 JVM 则是深入学习 Java 必不可少的一环，也是 Java 开发人员迈向更高水平的一个阶梯。我们不仅要会用 Java 写代码做系统，更要懂得如何理解和分析 Java 程序运行起来以后内部发生了什么，然后可以怎么让它运行的更好。
+就像我们要想多年开车的老司机，仅仅会开车肯定不能当一个好司机。车开多了，总会有一些多多少少大大小小的故障毛病。老司机需要知道什么现象说明有了什么毛病，需要怎么处理，不然就会导致经常抛锚，影响我们的行程。
+本课程就是用来教会我们怎么能够去了解 JVM 这辆优秀跑车的一些原理和怎么去用各种工具分析修理它。
+课程特点 市面上各类 JVM 相关的资料虽多，但是明显存在两个极端：过于生涩难懂，或者流于某个技巧点而不系统化。同时各大公司也都越来越重视推动和发展 JVM 相关技术，一线大厂技术面试现在 JVM 知识也是必考科目。</description>
+    </item>
+    
+  </channel>
+</rss>

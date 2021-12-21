@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kafka核心技术与实战 on </title>
+    <link>http://yipsen.github.io/categories/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/</link>
+    <description>Recent content in Kafka核心技术与实战 on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 22 Dec 2021 01:46:38 +0800</lastBuildDate><atom:link href="http://yipsen.github.io/categories/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>结束语 以梦为马，莫负韶华！</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/%E7%BB%93%E6%9D%9F%E8%AF%AD-%E4%BB%A5%E6%A2%A6%E4%B8%BA%E9%A9%AC%E8%8E%AB%E8%B4%9F%E9%9F%B6%E5%8D%8E/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:38 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/%E7%BB%93%E6%9D%9F%E8%AF%AD-%E4%BB%A5%E6%A2%A6%E4%B8%BA%E9%A9%AC%E8%8E%AB%E8%B4%9F%E9%9F%B6%E5%8D%8E/</guid>
+      <description>你好，我是胡夕。今天，我的专栏“Kafka 核心技术与实战”就正式结束了。
+回顾与你在专栏相聚的这几个月，我的内心充满了成就感。且不必说这 42 讲的文字全是我一字一键敲下来的，也不必说那长达十几个小时的录音，单是留言区那些踊跃积极的提问与讨论，就足以使我深受感动并收获满满了。
+此时此刻，千言万语汇成一句话：“感谢！”感谢你对我和本专栏的支持，感谢你曾经的鼓励与提问，也感谢你的肯定与期望。另外，我也要向你表示祝贺，祝贺你完整地学习了专栏的全部课程，你的恒心与坚持令人敬佩。
+虽然专栏更新结束了，但是我相信我们的 Kafka 学习之旅不会结束。相反，这对于你来说，或许是一个新的开始。
+还记得开篇词里的那句话吧：“Stay focused and work hard！”我一直觉得，学习任何技术，甚至是搞定任何事情，只要下足了功夫，理论上你可以藐视一切学习方法或捷径。但是，如果你忽视了毅力和坚持，再多的速成教程也无法引领你达到你期望的高度。著名的“10000 小时定律”就明确表示，10000 个小时的锤炼，是所有人从平凡人变成世界级大师的必要条件。
+还是那句话，只要你持之以恒地投入时间去学习，你就能成为某个领域的专家。因此，从某种意义上说，我这碗“鸡汤”的配料非常简单，就四个字：干就完了。
+那这是不是在说书籍、专栏之类的他人智慧总结就没用了呢？当然不是！他山之石，可以攻玉，书籍和专栏的最大作用就在于，当你遇到岔路口时，它们能够帮助你快速地识别前进中的已知路障，让你少走弯路，更快地实现目标。但前提是你要在路上，而不是单纯地想要依赖它们速成。
+在专栏的最后，我想再和你分享一些学习大数据框架的个人经验。这些经验不仅仅适用于学习 Kafka，对于其他框架甚至是分布式系统的学习，都是适用的。
+首先，最重要的就是夯实技术基本功。这是我们 IT 从业者赖以生存的基石。
+这里的基本功包含很多方面，比如操作系统、数据结构等，但我更想说的，还是对 Java 语言的掌握。
+目前，大数据框架多是以 Java 或 JVM 系语言开发而成的，因此，熟练掌握甚至精通 Java，是学好大数据框架的基石！所谓精通，不仅仅是要求你熟练使用 Java 进行代码开发，更要求你对 JVM 底层有详细的了解。就这个层面的学习而言，我想给你 3 条建议。
+ 持续精进自己的 Java 功底。比如，你可以去 Java 官网上，把 Java 语言规范和 JVM 规范熟读一遍。很多人都不太重视语言规范文档，但实际上，Java 中关于线程和同步的知识，在 Java 语言规范中都有相关的阐释。 提升自己的 Java 多线程开发以及 I/O 开发能力。很多大数据框架底层都大量使用 Java 多线程能力以及 NIO 帮助实现自身功能。就拿 Kafka 来说，多线程自不必说，Kafka 可是大量使用 NIO 实现网络通信的。所以，这部分的知识是你必须要熟练掌握的。 掌握 JVM 调优和 GC。我推荐你去读一读“Java Performance”这本书。虽然目前 GC 收集器大部分演进到了 G1 时代，但书中大部分的调优内容依然是适用的。调优 Kafka 的 JVM，也要依赖这部分知识给予我们指导。  除此之外，你还要学习分布式系统的设计。</description>
+    </item>
+    
+    <item>
+      <title>加餐 搭建开发环境、阅读源码方法、经典学习资料大揭秘</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/%E5%8A%A0%E9%A4%90-%E6%90%AD%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%98%85%E8%AF%BB%E6%BA%90%E7%A0%81%E6%96%B9%E6%B3%95%E7%BB%8F%E5%85%B8%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99%E5%A4%A7%E6%8F%AD%E7%A7%98/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:37 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/%E5%8A%A0%E9%A4%90-%E6%90%AD%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%98%85%E8%AF%BB%E6%BA%90%E7%A0%81%E6%96%B9%E6%B3%95%E7%BB%8F%E5%85%B8%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99%E5%A4%A7%E6%8F%AD%E7%A7%98/</guid>
+      <description>你好，我是胡夕。
+截止到现在，专栏已经更新了 38 讲，你掌握得怎么样了呢？如果暂时掌握得不是很好，也没有关系，慢慢来，有问题记得在留言区留言，我们一起讨论。
+今天，我们来聊点儿不一样的。我总结了 3 个讨论热度很高的话题，现在一一来为你“揭秘”。
+ 如何搭建 Kafka 开发环境？很多人对于编译和调试 Kafka 饶有兴致，却苦于无从下手。今天我就给你完整地演示一遍搭建 Kafka 开发环境的过程。 如何阅读 Kafka 源码？我曾经在专栏[第 1 讲]提到过我自己阅读 Kafka 源码的经历，后来我收到很多留言，问我是如何阅读的，今天，我就跟你分享一些阅读 Kafka 源代码的比较好的法则或者技巧。 Kafka 的学习资料。幸运的是，我在这方面还是有过一些总结的，今天我会毫无保留地把资料全部分享给你。  Kafka 开发环境搭建 现在，我先来回答第 1 个问题：如何搭建 Kafka 开发环境。我以 IDEA 为例进行说明，Eclipse 应该也是类似的。
+第 1 步：安装 Java 和 Gradle 要搭建 Kafka 开发环境，你必须要安装好 Java 和 Gradle，同时在 IDEA 中安装 Scala 插件。你最好把 Java 和 Gradle 环境加入到环境变量中。
+第 2 步：下载 Kafka 的源码 完成第 1 步之后，下载 Kafka 的源码，命令如下：
+$ cd Projects$ git clone https://github.</description>
+    </item>
+    
+    <item>
+      <title>42 Kafka Streams在金融领域的应用</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/42-kafka-streams%E5%9C%A8%E9%87%91%E8%9E%8D%E9%A2%86%E5%9F%9F%E7%9A%84%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:36 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/42-kafka-streams%E5%9C%A8%E9%87%91%E8%9E%8D%E9%A2%86%E5%9F%9F%E7%9A%84%E5%BA%94%E7%94%A8/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的主题是：Kafka Streams 在金融领域的应用。
+背景 金融领域囊括的内容有很多，我今天分享的主要是，如何利用大数据技术，特别是 Kafka Streams 实时计算框架，来帮助我们更好地做企业用户洞察。
+众所周知，金融领域内的获客成本是相当高的，一线城市高净值白领的获客成本通常可达上千元。面对如此巨大的成本压力，金融企业一方面要降低广告投放的获客成本，另一方面要做好精细化运营，实现客户生命周期内价值（Custom Lifecycle Value, CLV）的最大化。
+实现价值最大化的一个重要途径就是做好用户洞察，而用户洞察要求你要更深度地了解你的客户，即所谓的 Know Your Customer（KYC），真正做到以客户为中心，不断地满足客户需求。
+为了实现 KYC，传统的做法是花费大量的时间与客户见面，做面对面的沟通以了解客户的情况。但是，用这种方式得到的数据往往是不真实的，毕竟客户内心是有潜在的自我保护意识的，短时间内的面对面交流很难真正洞察到客户的真实诉求。
+相反地，渗透到每个人日常生活方方面面的大数据信息则代表了客户的实际需求。比如客户经常浏览哪些网站、都买过什么东西、最喜欢的视频类型是什么。这些数据看似很随意，但都表征了客户最真实的想法。将这些数据汇总在一起，我们就能完整地构造出客户的画像，这就是所谓的用户画像（User Profile）技术。
+用户画像 用户画像听起来很玄妙，但实际上你应该是很熟悉的。你的很多基本信息，比如性别、年龄、所属行业、工资收入和爱好等，都是用户画像的一部分。举个例子，我们可以这样描述一个人：某某某，男性，28 岁，未婚，工资水平大致在 15000 到 20000 元之间，是一名大数据开发工程师，居住在北京天通苑小区，平时加班很多，喜欢动漫或游戏。
+其实，这一连串的描述就是典型的用户画像。通俗点来说，构建用户画像的核心工作就是给客户或用户打标签（Tagging）。刚刚那一连串的描述就是用户系统中的典型标签。用户画像系统通过打标签的形式，把客户提供给业务人员，从而实现精准营销。
+ID 映射（ID Mapping） 用户画像的好处不言而喻，而且标签打得越多越丰富，就越能精确地表征一个人的方方面面。不过，在打一个个具体的标签之前，弄清楚“你是谁”是所有用户画像系统首要考虑的问题，这个问题也被称为 ID 识别问题。
+所谓的 ID 即 Identification，表示用户身份。在网络上，能够标识用户身份信息的常见 ID 有 5 种。
+ 身份证号：这是最能表征身份的 ID 信息，每个身份证号只会对应一个人。 手机号：手机号通常能较好地表征身份。虽然会出现同一个人有多个手机号或一个手机号在不同时期被多个人使用的情形，但大部分互联网应用使用手机号表征用户身份的做法是很流行的。 设备 ID：在移动互联网时代，这主要是指手机的设备 ID 或 Mac、iPad 等移动终端设备的设备 ID。特别是手机的设备 ID，在很多场景下具备定位和识别用户的功能。常见的设备 ID 有 iOS 端的 IDFA 和 Android 端的 IMEI。 应用注册账号：这属于比较弱的一类 ID。每个人在不同的应用上可能会注册不同的账号，但依然有很多人使用通用的注册账号名称，因此具有一定的关联性和识别性。 Cookie：在 PC 时代，浏览器端的 Cookie 信息是很重要的数据，它是网络上表征用户信息的重要手段之一。只不过随着移动互联网时代的来临，Cookie 早已江河日下，如今作为 ID 数据的价值也越来越小了。我个人甚至认为，在构建基于移动互联网的新一代用户画像时，Cookie 可能要被抛弃了。  在构建用户画像系统时，我们会从多个数据源上源源不断地收集各种个人用户数据。通常情况下，这些数据不会全部携带以上这些 ID 信息。比如在读取浏览器的浏览历史时，你获取的是 Cookie 数据，而读取用户在某个 App 上的访问行为数据时，你拿到的是用户的设备 ID 和注册账号信息。</description>
+    </item>
+    
+    <item>
+      <title>41 Kafka Streams DSL开发实例</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/41-kafka-streams-dsl%E5%BC%80%E5%8F%91%E5%AE%9E%E4%BE%8B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:35 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/41-kafka-streams-dsl%E5%BC%80%E5%8F%91%E5%AE%9E%E4%BE%8B/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的主题是：Kafka Streams DSL 开发实例。
+DSL，也就是 Domain Specific Language，意思是领域特定语言。它提供了一组便捷的 API 帮助我们实现流式数据处理逻辑。今天，我就来分享一些 Kafka Streams 中的 DSL 开发方法以及具体实例。
+Kafka Streams 背景介绍 在上一讲中，我们提到流处理平台是专门处理无限数据集的引擎。就 Kafka Streams 而言，它仅仅是一个客户端库。所谓的 Kafka Streams 应用，就是调用了 Streams API 的普通 Java 应用程序。只不过在 Kafka Streams 中，流处理逻辑是用拓扑来表征的。
+一个拓扑结构本质上是一个有向无环图（DAG），它由多个处理节点（Node）和连接节点的多条边组成，如下图所示：
+图中的节点也称为处理单元或 Processor，它封装了具体的事件处理逻辑。Processor 在其他流处理平台也被称为操作算子。常见的操作算子包括转换（map）、过滤（filter）、连接（join）和聚合（aggregation）等。后面我会详细介绍几种常见的操作算子。
+大体上，Kafka Streams 开放了两大类 API 供你定义 Processor 逻辑。
+第 1 类就是我刚刚提到的 DSL，它是声明式的函数式 API，使用起来感觉和 SQL 类似，你不用操心它的底层是怎么实现的，你只需要调用特定的 API 告诉 Kafka Streams 你要做什么即可。
+举个简单的例子，你可以看看下面这段代码，尝试理解下它是做什么的。
+movies.filter((title, movie) -&amp;gt; movie.getGenre().equals(&amp;quot; 动作片 &amp;quot;)).xxx()...这段代码虽然用了 Java 8 的 Lambda 表达式，但从整体上来看，它要做的事情应该还是很清晰的：它要从所有 Movie 事件中过滤出影片类型是“动作片”的事件。这就是 DSL 声明式 API 的实现方式。</description>
+    </item>
+    
+    <item>
+      <title>40 Kafka Streams与其他流处理平台的差异在哪里？</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/40-kafka-streams%E4%B8%8E%E5%85%B6%E4%BB%96%E6%B5%81%E5%A4%84%E7%90%86%E5%B9%B3%E5%8F%B0%E7%9A%84%E5%B7%AE%E5%BC%82%E5%9C%A8%E5%93%AA%E9%87%8C/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:34 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/40-kafka-streams%E4%B8%8E%E5%85%B6%E4%BB%96%E6%B5%81%E5%A4%84%E7%90%86%E5%B9%B3%E5%8F%B0%E7%9A%84%E5%B7%AE%E5%BC%82%E5%9C%A8%E5%93%AA%E9%87%8C/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的主题是：Kafka Streams 与其他流处理平台的差异。
+近些年来，开源流处理领域涌现出了很多优秀框架。光是在 Apache 基金会孵化的项目，关于流处理的大数据框架就有十几个之多，比如早期的 Apache Samza、Apache Storm，以及这两年火爆的 Spark 以及 Flink 等。
+应该说，每个框架都有自己独特的地方，也都有自己的缺陷。面对这众多的流处理框架，我们应该如何选择呢？今天，我就来梳理几个主流的流处理平台，并重点分析一下 Kafka Streams 与其他流处理平台的差异。
+什么是流处理平台？ 首先，我们有必要了解一下流处理平台的概念。“Streaming Systems”一书是这么定义“流处理平台”的：流处理平台（Streaming System）是处理无限数据集（Unbounded Dataset）的数据处理引擎，而流处理是与批处理（Batch Processing）相对应的。
+所谓的无限数据，是指数据永远没有尽头。流处理平台是专门处理这种数据集的系统或框架。当然，这并不是说批处理系统不能处理这种无限数据集，只是通常情况下，它更擅长处理有限数据集（Bounded Dataset）。
+那流处理和批处理究竟该如何区分呢？下面这张图应该能帮助你快速且直观地理解它们的区别。
+好了，现在我来详细解释一下流处理和批处理的区别。
+长期以来，流处理给人的印象通常是低延时，但是结果不准确。每来一条消息，它就能计算一次结果，但由于它处理的大多是无界数据，可能永远也不会结束，因此在流处理中，我们很难精确描述结果何时是精确的。理论上，流处理的计算结果会不断地逼近精确结果。
+但是，它的竞争对手批处理则正好相反。批处理能提供准确的计算结果，但往往延时很高。
+因此，业界的大神们扬长避短，将两者结合在一起使用。一方面，利用流处理快速地给出不那么精确的结果；另一方面，依托于批处理，最终实现数据一致性。这就是所谓的Lambda 架构。
+延时低是个很好的特性，但如果计算结果不准确，流处理是无法完全替代批处理的。所谓计算结果准确，在教科书或文献中有个专属的名字，叫正确性（Correctness）。可以这么说，目前难以实现正确性是流处理取代批处理的最大障碍，而实现正确性的基石是精确一次处理语义（Exactly Once Semantics，EOS）。
+这里的精确一次是流处理平台能提供的一类一致性保障。常见的一致性保障有三类：
+ 至多一次（At most once）语义：消息或事件对应用状态的影响最多只有一次。 至少一次（At least once）语义：消息或事件对应用状态的影响最少一次。 精确一次（Exactly once）语义：消息或事件对应用状态的影响有且只有一次。  注意，我这里说的都是对应用状态的影响。对于很多有副作用（Side Effect）的操作而言，实现精确一次语义几乎是不可能的。举个例子，假设流处理中的某个步骤是发送邮件操作，当邮件发送出去后，倘若后面出现问题要回滚整个流处理流程，已发送的邮件是没法追回的，这就是所谓的副作用。当你的流处理逻辑中存在包含副作用的操作算子时，该操作算子的执行是无法保证精确一次处理的。因此，我们通常只是保证这类操作对应用状态的影响精确一次罢了。后面我们会重点讨论 Kafka Streams 是如何实现 EOS 的。
+我们今天讨论的流处理既包含真正的实时流处理，也包含微批化（Microbatch）的流处理。所谓的微批化，其实就是重复地执行批处理引擎来实现对无限数据集的处理。典型的微批化实现平台就是Spark Streaming。
+Kafka Streams 的特色 相比于其他流处理平台，Kafka Streams 最大的特色就是它不是一个平台，至少它不是一个具备完整功能（Full-Fledged）的平台，比如其他框架中自带的调度器和资源管理器，就是 Kafka Streams 不提供的。
+Kafka 官网明确定义 Kafka Streams 是一个Java 客户端库（Client Library）。你可以使用这个库来构建高伸缩性、高弹性、高容错性的分布式应用以及微服务。</description>
+    </item>
+    
+    <item>
+      <title>39 从0搭建基于Kafka的企业级实时日志流处理平台</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/39-%E4%BB%8E0%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8Ekafka%E7%9A%84%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%AE%9E%E6%97%B6%E6%97%A5%E5%BF%97%E6%B5%81%E5%A4%84%E7%90%86%E5%B9%B3%E5%8F%B0/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:33 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/39-%E4%BB%8E0%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8Ekafka%E7%9A%84%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%AE%9E%E6%97%B6%E6%97%A5%E5%BF%97%E6%B5%81%E5%A4%84%E7%90%86%E5%B9%B3%E5%8F%B0/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的主题是：从 0 搭建基于 Kafka 的企业级实时日志流处理平台。
+简单来说，我们要实现一些大数据组件的组合，就如同玩乐高玩具一样，把它们“插”在一起，“拼”成一个更大一点的玩具。
+在任何一个企业中，服务器每天都会产生很多的日志数据。这些数据内容非常丰富，包含了我们的线上业务数据、用户行为数据以及后端系统数据。实时分析这些数据，能够帮助我们更快地洞察潜在的趋势，从而有针对性地做出决策。今天，我们就使用 Kafka 搭建一个这样的平台。
+流处理架构 如果在网上搜索实时日志流处理，你应该能够搜到很多教你搭建实时流处理平台做日志分析的教程。这些教程使用的技术栈大多是 Flume+Kafka+Storm、Spark Streaming 或 Flink。特别是 Flume+Kafka+Flink 的组合，逐渐成为了实时日志流处理的标配。不过，要搭建这样的处理平台，你需要用到 3 个框架才能实现，这既增加了系统复杂度，也提高了运维成本。
+今天，我来演示一下如何使用 Apache Kafka 这一个框架，实现一套实时日志流处理系统。换句话说，我使用的技术栈是 Kafka Connect+Kafka Core+Kafka Streams 的组合。
+下面这张图展示了基于 Kafka 的实时日志流处理平台的流程。
+从图中我们可以看到，日志先从 Web 服务器被不断地生产出来，随后被实时送入到 Kafka Connect 组件，Kafka Connect 组件对日志进行处理后，将其灌入 Kafka 的某个主题上，接着发送到 Kafka Streams 组件，进行实时分析。最后，Kafka Streams 将分析结果发送到 Kafka 的另一个主题上。
+我在专栏前面简单介绍过 Kafka Connect 和 Kafka Streams 组件，前者可以实现外部系统与 Kafka 之间的数据交互，而后者可以实时处理 Kafka 主题中的消息。
+现在，我们就使用这两个组件，结合前面学习的所有 Kafka 知识，一起构建一个实时日志分析平台。
+Kafka Connect 组件 我们先利用 Kafka Connect 组件收集数据。如前所述，Kafka Connect 组件负责连通 Kafka 与外部数据系统。连接外部数据源的组件叫连接器（Connector）。常见的外部数据源包括数据库、KV 存储、搜索系统或文件系统等。</description>
+    </item>
+    
+    <item>
+      <title>38 调优Kafka，你做到了吗？</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/38-%E8%B0%83%E4%BC%98kafka%E4%BD%A0%E5%81%9A%E5%88%B0%E4%BA%86%E5%90%97/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:32 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/38-%E8%B0%83%E4%BC%98kafka%E4%BD%A0%E5%81%9A%E5%88%B0%E4%BA%86%E5%90%97/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的主题是：如何调优 Kafka。
+调优目标 在做调优之前，我们必须明确优化 Kafka 的目标是什么。通常来说，调优是为了满足系统常见的非功能性需求。在众多的非功能性需求中，性能绝对是我们最关心的那一个。不同的系统对性能有不同的诉求，比如对于数据库用户而言，性能意味着请求的响应时间，用户总是希望查询或更新请求能够被更快地处理完并返回。
+对 Kafka 而言，性能一般是指吞吐量和延时。
+吞吐量，也就是 TPS，是指 Broker 端进程或 Client 端应用程序每秒能处理的字节数或消息数，这个值自然是越大越好。
+延时和我们刚才说的响应时间类似，它表示从 Producer 端发送消息到 Broker 端持久化完成之间的时间间隔。这个指标也可以代表端到端的延时（End-to-End，E2E），也就是从 Producer 发送消息到 Consumer 成功消费该消息的总时长。和 TPS 相反，我们通常希望延时越短越好。
+总之，高吞吐量、低延时是我们调优 Kafka 集群的主要目标，一会儿我们会详细讨论如何达成这些目标。在此之前，我想先谈一谈优化漏斗的问题。
+优化漏斗 优化漏斗是一个调优过程中的分层漏斗，我们可以在每一层上执行相应的优化调整。总体来说，层级越靠上，其调优的效果越明显，整体优化效果是自上而下衰减的，如下图所示：
+第 1 层：应用程序层。它是指优化 Kafka 客户端应用程序代码。比如，使用合理的数据结构、缓存计算开销大的运算结果，抑或是复用构造成本高的对象实例等。这一层的优化效果最为明显，通常也是比较简单的。
+第 2 层：框架层。它指的是合理设置 Kafka 集群的各种参数。毕竟，直接修改 Kafka 源码进行调优并不容易，但根据实际场景恰当地配置关键参数的值，还是很容易实现的。
+第 3 层：JVM 层。Kafka Broker 进程是普通的 JVM 进程，各种对 JVM 的优化在这里也是适用的。优化这一层的效果虽然比不上前两层，但有时也能带来巨大的改善效果。
+第 4 层：操作系统层。对操作系统层的优化很重要，但效果往往不如想象得那么好。与应用程序层的优化效果相比，它是有很大差距的。
+基础性调优 接下来，我就来分别介绍一下优化漏斗的 4 个分层的调优。
+操作系统调优 我先来说说操作系统层的调优。在操作系统层面，你最好在挂载（Mount）文件系统时禁掉 atime 更新。atime 的全称是 access time，记录的是文件最后被访问的时间。记录 atime 需要操作系统访问 inode 资源，而禁掉 atime 可以避免 inode 访问时间的写入操作，减少文件系统的写操作数。你可以执行mount -o noatime 命令进行设置。</description>
+    </item>
+    
+    <item>
+      <title>37 主流的Kafka监控框架</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/37-%E4%B8%BB%E6%B5%81%E7%9A%84kafka%E7%9B%91%E6%8E%A7%E6%A1%86%E6%9E%B6/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:31 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/37-%E4%B8%BB%E6%B5%81%E7%9A%84kafka%E7%9B%91%E6%8E%A7%E6%A1%86%E6%9E%B6/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的主题是：那些主流的 Kafka 监控框架。
+在上一讲中，我们重点讨论了如何监控 Kafka 集群，主要是侧重于讨论监控原理和监控方法。今天，我们来聊聊具体的监控工具或监控框架。
+令人有些遗憾的是，Kafka 社区似乎一直没有在监控框架方面投入太多的精力。目前，Kafka 的新功能提议已超过 500 个，但没有一个提议是有关监控框架的。当然，Kafka 的确提供了超多的 JMX 指标，只是，单独查看这些 JMX 指标往往不是很方便，我们还是要依赖于框架统一地提供性能监控。
+也许，正是由于社区的这种“不作为”，很多公司和个人都自行着手开发 Kafka 监控框架，其中并不乏佼佼者。今天我们就来全面地梳理一下主流的监控框架。
+JMXTool 工具 首先，我向你推荐 JMXTool 工具。严格来说，它并不是一个框架，只是社区自带的一个工具罢了。JMXTool 工具能够实时查看 Kafka JMX 指标。倘若你一时找不到合适的框架来做监控，JMXTool 可以帮你“临时救急”一下。
+Kafka 官网没有 JMXTool 的任何介绍，你需要运行下面的命令，来获取它的使用方法的完整介绍。
+bin/kafka-run-class.sh kafka.tools.JmxToolJMXTool 工具提供了很多参数，但你不必完全了解所有的参数。我把主要的参数说明列在了下面的表格里，你至少要了解一下这些参数的含义。
+现在，我举一个实际的例子来说明一下如何运行这个命令。
+假设你要查询 Broker 端每秒入站的流量，即所谓的 JMX 指标 BytesInPerSec，这个 JMX 指标能帮助你查看 Broker 端的入站流量负载，如果你发现这个值已经接近了你的网络带宽，这就说明该 Broker 的入站负载过大。你需要降低该 Broker 的负载，或者将一部分负载转移到其他 Broker 上。
+下面这条命令，表示每 5 秒查询一次过去 1 分钟的 BytesInPerSec 均值。
+bin/kafka-run-class.sh kafka.tools.JmxTool --object-name kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec --jmx-url service:jmx:rmi:///jndi/rmi://:9997/jmxrmi --date-format &amp;quot;YYYY-MM-dd HH:mm:ss&amp;quot; --attributes OneMinuteRate --reporting-interval 1000在这条命令中，有几点需要你注意一下。</description>
+    </item>
+    
+    <item>
+      <title>36 你应该怎么监控Kafka？</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/36-%E4%BD%A0%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E7%9B%91%E6%8E%A7kafka/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:30 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/36-%E4%BD%A0%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E7%9B%91%E6%8E%A7kafka/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的主题是：如何监控 Kafka。
+监控 Kafka，历来都是个老大难的问题。无论是在我维护的微信公众号，还是 Kafka QQ 群里面，大家问得最多的问题，一定是 Kafka 的监控。大家提问的内容看似五花八门，但真正想了解的，其实都是监控这点事，也就是我应该监控什么，怎么监控。那么今天，我们就来详细聊聊这件事。
+我个人认为，和头疼医头、脚疼医脚的问题类似，在监控 Kafka 时，如果我们只监控 Broker 的话，就难免以偏概全。单个 Broker 启动的进程虽然属于 Kafka 应用，但它也是一个普通的 Java 进程，更是一个操作系统进程。因此，我觉得有必要从 Kafka 主机、JVM 和 Kafka 集群本身这三个维度进行监控。
+主机监控 主机级别的监控，往往是揭示线上问题的第一步。所谓主机监控，指的是监控 Kafka 集群 Broker 所在的节点机器的性能。通常来说，一台主机上运行着各种各样的应用进程，这些进程共同使用主机上的所有硬件资源，比如 CPU、内存或磁盘等。
+常见的主机监控指标包括但不限于以下几种：
+ 机器负载（Load） CPU 使用率 内存使用率，包括空闲内存（Free Memory）和已使用内存（Used Memory） 磁盘 I/O 使用率，包括读使用率和写使用率 网络 I/O 使用率 TCP 连接数 打开文件数 inode 使用情况  考虑到我们并不是要系统地学习调优与监控主机性能，因此我并不打算对上面的每一个指标都进行详细解释，我重点分享一下机器负载和 CPU 使用率的监控方法。我会以 Linux 平台为例来进行说明，其他平台应该也是类似的。
+首先，我们来看一张图片。我在 Kafka 集群的某台 Broker 所在的主机上运行 top 命令，输出的内容如下图所示：
+在图片的右上角，我们可以看到 load average 的 3 个值：4.85，2.76 和 1.</description>
+    </item>
+    
+    <item>
+      <title>35 跨集群备份解决方案MirrorMaker</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/35-%E8%B7%A8%E9%9B%86%E7%BE%A4%E5%A4%87%E4%BB%BD%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88mirrormaker/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:29 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/35-%E8%B7%A8%E9%9B%86%E7%BE%A4%E5%A4%87%E4%BB%BD%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88mirrormaker/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的主题是：Kafka 的跨集群数据镜像工具 MirrorMaker。
+一般情况下，我们会使用一套 Kafka 集群来完成业务，但有些场景确实会需要多套 Kafka 集群同时工作，比如为了便于实现灾难恢复，你可以在两个机房分别部署单独的 Kafka 集群。如果其中一个机房出现故障，你就能很容易地把流量打到另一个正常运转的机房下。再比如，你想为地理相近的客户提供低延时的消息服务，而你的主机房又离客户很远，这时你就可以在靠近客户的地方部署一套 Kafka 集群，让这套集群服务你的客户，从而提供低延时的服务。
+如果要实现这些需求，除了部署多套 Kafka 集群之外，你还需要某种工具或框架，来帮助你实现数据在集群间的拷贝或镜像。
+值得注意的是，通常我们把数据在单个集群下不同节点之间的拷贝称为备份，而把数据在集群间的拷贝称为镜像（Mirroring）。
+今天，我来重点介绍一下 Apache Kafka 社区提供的 MirrorMaker 工具，它可以帮我们实现消息或数据从一个集群到另一个集群的拷贝。
+什么是 MirrorMaker？ 从本质上说，MirrorMaker 就是一个消费者 + 生产者的程序。消费者负责从源集群（Source Cluster）消费数据，生产者负责向目标集群（Target Cluster）发送消息。整个镜像流程如下图所示：
+MirrorMaker 连接的源集群和目标集群，会实时同步消息。当然，你不要认为你只能使用一套 MirrorMaker 来连接上下游集群。事实上，很多用户会部署多套集群，用于实现不同的目的。
+我们来看看下面这张图。图中部署了三套集群：左边的源集群负责主要的业务处理；右上角的目标集群可以用于执行数据分析；而右下角的目标集群则充当源集群的热备份。
+运行 MirrorMaker Kafka 默认提供了 MirrorMaker 命令行工具 kafka-mirror-maker 脚本，它的常见用法是指定生产者配置文件、消费者配置文件、线程数以及要执行数据镜像的主题正则表达式。比如下面的这个命令，就是一个典型的 MirrorMaker 执行命令。
+$ bin/kafka-mirror-maker.sh --consumer.config ./config/consumer.properties --producer.config ./config/producer.properties --num.streams 8 --whitelist &amp;quot;.*&amp;quot;现在我来解释一下这条命令中各个参数的含义。
+ consumer.config 参数。它指定了 MirrorMaker 中消费者的配置文件地址，最主要的配置项是bootstrap.servers，也就是该 MirrorMaker 从哪个 Kafka 集群读取消息。因为 MirrorMaker 有可能在内部创建多个消费者实例并使用消费者组机制，因此你还需要设置 group.id 参数。另外，我建议你额外配置 auto.offset.reset=earliest，否则的话，MirrorMaker 只会拷贝那些在它启动之后到达源集群的消息。 producer.</description>
+    </item>
+    
+    <item>
+      <title>34 云环境下的授权该怎么做？</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/34-%E4%BA%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E6%8E%88%E6%9D%83%E8%AF%A5%E6%80%8E%E4%B9%88%E5%81%9A/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:28 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/34-%E4%BA%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E6%8E%88%E6%9D%83%E8%AF%A5%E6%80%8E%E4%B9%88%E5%81%9A/</guid>
+      <description>你好，我是胡夕。今天我要分享的主题是：Kafka 的授权机制。
+什么是授权机制？ 我们在上一讲中花了不少时间讨论 Kafka 的认证机制，今天我们来看看 Kafka 的授权机制（Authorization）。所谓授权，一般是指对与信息安全或计算机安全相关的资源授予访问权限，特别是存取控制。
+具体到权限模型，常见的有四种。
+ ACL：Access-Control List，访问控制列表。 RBAC：Role-Based Access Control，基于角色的权限控制。 ABAC：Attribute-Based Access Control，基于属性的权限控制。 PBAC：Policy-Based Access Control，基于策略的权限控制。  在典型的互联网场景中，前两种模型应用得多，后面这两种则比较少用。
+ACL 模型很简单，它表征的是用户与权限的直接映射关系，如下图所示：
+而 RBAC 模型则加入了角色的概念，支持对用户进行分组，如下图所示：
+Kafka 没有使用 RBAC 模型，它用的是 ACL 模型。简单来说，这种模型就是规定了什么用户对什么资源有什么样的访问权限。我们可以借用官网的一句话来统一表示这种模型：“Principal P is [Allowed/Denied] Operation O From Host H On Resource R.” 这句话中出现了很多个主体，我来分别解释下它们的含义。
+ Principal：表示访问 Kafka 集群的用户。 Operation：表示一个具体的访问类型，如读写消息或创建主题等。 Host：表示连接 Kafka 集群的客户端应用程序 IP 地址。Host 支持星号占位符，表示所有 IP 地址。 Resource：表示 Kafka 资源类型。如果以最新的 2.3 版本为例，Resource 共有 5 种，分别是 TOPIC、CLUSTER、GROUP、TRANSACTIONALID 和 DELEGATION TOKEN。  当前，Kafka 提供了一个可插拔的授权实现机制。该机制会将你配置的所有 ACL 项保存在 ZooKeeper 下的 /kafka-acl 节点中。你可以通过 Kafka 自带的 kafka-acls 脚本动态地对 ACL 项进行增删改查，并让它立即生效。</description>
+    </item>
+    
+    <item>
+      <title>33 Kafka认证机制用哪家？</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/33-kafka%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6%E7%94%A8%E5%93%AA%E5%AE%B6/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:27 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/33-kafka%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6%E7%94%A8%E5%93%AA%E5%AE%B6/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的主题是：Kafka 的认证机制。
+什么是认证机制？ 所谓认证，又称“验证”“鉴权”，英文是 authentication，是指通过一定的手段，完成对用户身份的确认。认证的主要目的是确认当前声称为某种身份的用户确实是所声称的用户。
+在计算机领域，经常和认证搞混的一个术语就是授权，英文是 authorization。授权一般是指对信息安全或计算机安全相关的资源定义与授予相应的访问权限。
+举个简单的例子来区分下两者：认证要解决的是你要证明你是谁的问题，授权要解决的则是你能做什么的问题。
+在 Kafka 中，认证和授权是两套独立的安全配置。我们今天主要讨论 Kafka 的认证机制，在专栏的下一讲内容中，我们将讨论授权机制。
+Kafka 认证机制 自 0.9.0.0 版本开始，Kafka 正式引入了认证机制，用于实现基础的安全用户认证，这是将 Kafka 上云或进行多租户管理的必要步骤。截止到当前最新的 2.3 版本，Kafka 支持基于 SSL 和基于 SASL 的安全认证机制。
+基于 SSL 的认证主要是指 Broker 和客户端的双路认证（2-way authentication）。通常来说，SSL 加密（Encryption）已经启用了单向认证，即客户端认证 Broker 的证书（Certificate）。如果要做 SSL 认证，那么我们要启用双路认证，也就是说 Broker 也要认证客户端的证书。
+对了，你可能会说，SSL 不是已经过时了吗？现在都叫 TLS（Transport Layer Security）了吧？但是，Kafka 的源码中依然是使用 SSL 而不是 TLS 来表示这类东西的。不过，今天出现的所有 SSL 字眼，你都可以认为它们是和 TLS 等价的。
+Kafka 还支持通过 SASL 做客户端认证。SASL 是提供认证和数据安全服务的框架。Kafka 支持的 SASL 机制有 5 种，它们分别是在不同版本中被引入的，你需要根据你自己使用的 Kafka 版本，来选择该版本所支持的认证机制。
+ GSSAPI：也就是 Kerberos 使用的安全接口，是在 0.</description>
+    </item>
+    
+    <item>
+      <title>32 KafkaAdminClient：Kafka的运维利器</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/32-kafkaadminclientkafka%E7%9A%84%E8%BF%90%E7%BB%B4%E5%88%A9%E5%99%A8/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:26 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/32-kafkaadminclientkafka%E7%9A%84%E8%BF%90%E7%BB%B4%E5%88%A9%E5%99%A8/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的主题是：Kafka 的运维利器 KafkaAdminClient。
+引入原因 在上一讲中，我向你介绍了 Kafka 自带的各种命令行脚本，这些脚本使用起来虽然方便，却有一些弊端。
+首先，不论是 Windows 平台，还是 Linux 平台，命令行的脚本都只能运行在控制台上。如果你想要在应用程序、运维框架或是监控平台中集成它们，会非常得困难。
+其次，这些命令行脚本很多都是通过连接 ZooKeeper 来提供服务的。目前，社区已经越来越不推荐任何工具直连 ZooKeeper 了，因为这会带来一些潜在的问题，比如这可能会绕过 Kafka 的安全设置。在专栏前面，我说过 kafka-topics 脚本连接 ZooKeeper 时，不会考虑 Kafka 设置的用户认证机制。也就是说，任何使用该脚本的用户，不论是否具有创建主题的权限，都能成功“跳过”权限检查，强行创建主题。这显然和 Kafka 运维人员配置权限的初衷背道而驰。
+最后，运行这些脚本需要使用 Kafka 内部的类实现，也就是 Kafka服务器端的代码。实际上，社区还是希望用户只使用 Kafka客户端代码，通过现有的请求机制来运维管理集群。这样的话，所有运维操作都能纳入到统一的处理机制下，方便后面的功能演进。
+基于这些原因，社区于 0.11 版本正式推出了 Java 客户端版的 AdminClient，并不断地在后续的版本中对它进行完善。我粗略地计算了一下，有关 AdminClient 的优化和更新的各种提案，社区中有十几个之多，而且贯穿各个大的版本，足见社区对 AdminClient 的重视。
+值得注意的是，服务器端也有一个 AdminClient，包路径是 kafka.admin。这是之前的老运维工具类，提供的功能也比较有限，社区已经不再推荐使用它了。所以，我们最好统一使用客户端的 AdminClient。
+如何使用？ 下面，我们来看一下如何在应用程序中使用 AdminClient。我们在前面说过，它是 Java 客户端提供的工具。想要使用它的话，你需要在你的工程中显式地增加依赖。我以最新的 2.3 版本为例来进行一下展示。
+如果你使用的是 Maven，需要增加以下依赖项：
+&amp;lt;dependency&amp;gt;&amp;lt;groupId&amp;gt;org.apache.kafka&amp;lt;/groupId&amp;gt;&amp;lt;artifactId&amp;gt;kafka-clients&amp;lt;/artifactId&amp;gt;&amp;lt;version&amp;gt;2.3.0&amp;lt;/version&amp;gt;&amp;lt;/dependency&amp;gt;如果你使用的是 Gradle，那么添加方法如下：
+compile group: &#39;org.apache.kafka&#39;, name: &#39;kafka-clients&#39;, version: &#39;2.3.0&#39;功能 鉴于社区还在不断地完善 AdminClient 的功能，所以你需要时刻关注不同版本的发布说明（Release Notes），看看是否有新的运维操作被加入进来。在最新的 2.</description>
+    </item>
+    
+    <item>
+      <title>31 常见工具脚本大汇总</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/31-%E5%B8%B8%E8%A7%81%E5%B7%A5%E5%85%B7%E8%84%9A%E6%9C%AC%E5%A4%A7%E6%B1%87%E6%80%BB/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:25 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/31-%E5%B8%B8%E8%A7%81%E5%B7%A5%E5%85%B7%E8%84%9A%E6%9C%AC%E5%A4%A7%E6%B1%87%E6%80%BB/</guid>
+      <description>你好，我是胡夕。今天我要跟你分享的主题是：Kafka 常见的脚本汇总。
+命令行脚本概览 Kafka 默认提供了很多个命令行脚本，用于实现各种各样的功能和运维管理。今天我以 2.2 版本为例，详细地盘点下这些命令行工具。下图展示了 2.2 版本提供的所有命令行脚本。
+从图中我们可以知道，2.2 版本总共提供了 30 个 SHELL 脚本。图中的 windows 实际上是个子目录，里面保存了 Windows 平台下的 BAT 批处理文件。其他的.sh 文件则是 Linux 平台下的标准 SHELL 脚本。
+默认情况下，不加任何参数或携带 &amp;ndash;help 运行 SHELL 文件，会得到该脚本的使用方法说明。下面这张图片展示了 kafka-log-dirs 脚本的调用方法。
+有了这些基础的了解，我来逐一地说明这些脚本的用途，然后再给你详细地介绍一些常见的脚本。
+我们先来说说 connect-standalone 和 connect-distributed 两个脚本。这两个脚本是 Kafka Connect 组件的启动脚本。在专栏[第 4 讲]谈到 Kafka 生态时，我曾说过社区提供了 Kafka Connect 组件，用于实现 Kafka 与外部世界系统之间的数据传输。Kafka Connect 支持单节点的 Standalone 模式，也支持多节点的 Distributed 模式。这两个脚本分别是这两种模式下的启动脚本。鉴于 Kafka Connect 不在我们的讨论范围之内，我就不展开讲了。
+接下来是 kafka-acls 脚本。它是用于设置 Kafka 权限的，比如设置哪些用户可以访问 Kafka 的哪些主题之类的权限。在专栏后面，我会专门来讲 Kafka 安全设置的内容，到时候我们再细聊这个脚本。
+下面是 kafka-broker-api-versions 脚本。这个脚本的主要目的是验证不同 Kafka 版本之间服务器和客户端的适配性。我来举个例子，下面这两张图分别展示了 2.</description>
+    </item>
+    
+    <item>
+      <title>30 怎么重设消费者组位移？</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/30-%E6%80%8E%E4%B9%88%E9%87%8D%E8%AE%BE%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84%E4%BD%8D%E7%A7%BB/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:24 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/30-%E6%80%8E%E4%B9%88%E9%87%8D%E8%AE%BE%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84%E4%BD%8D%E7%A7%BB/</guid>
+      <description>你好，我是胡夕。今天我要跟你分享的主题是：如何重设消费者组位移。
+为什么要重设消费者组位移？ 我们知道，Kafka 和传统的消息引擎在设计上是有很大区别的，其中一个比较显著的区别就是，Kafka 的消费者读取消息是可以重演的（replayable）。
+像 RabbitMQ 或 ActiveMQ 这样的传统消息中间件，它们处理和响应消息的方式是破坏性的（destructive），即一旦消息被成功处理，就会被从 Broker 上删除。
+反观 Kafka，由于它是基于日志结构（log-based）的消息引擎，消费者在消费消息时，仅仅是从磁盘文件上读取数据而已，是只读的操作，因此消费者不会删除消息数据。同时，由于位移数据是由消费者控制的，因此它能够很容易地修改位移的值，实现重复消费历史数据的功能。
+对了，之前有很多同学在专栏的留言区提问：在实际使用场景中，我该如何确定是使用传统的消息中间件，还是使用 Kafka 呢？我在这里统一回答一下。如果在你的场景中，消息处理逻辑非常复杂，处理代价很高，同时你又不关心消息之间的顺序，那么传统的消息中间件是比较合适的；反之，如果你的场景需要较高的吞吐量，但每条消息的处理时间很短，同时你又很在意消息的顺序，此时，Kafka 就是你的首选。
+重设位移策略 不论是哪种设置方式，重设位移大致可以从两个维度来进行。
+ 位移维度。这是指根据位移值来重设。也就是说，直接把消费者的位移值重设成我们给定的位移值。 时间维度。我们可以给定一个时间，让消费者把位移调整成大于该时间的最小位移；也可以给出一段时间间隔，比如 30 分钟前，然后让消费者直接将位移调回 30 分钟之前的位移值。  下面的这张表格罗列了 7 种重设策略。接下来，我来详细解释下这些策略。
+Earliest 策略表示将位移调整到主题当前最早位移处。这个最早位移不一定就是 0，因为在生产环境中，很久远的消息会被 Kafka 自动删除，所以当前最早位移很可能是一个大于 0 的值。如果你想要重新消费主题的所有消息，那么可以使用 Earliest 策略。
+Latest 策略表示把位移重设成最新末端位移。如果你总共向某个主题发送了 15 条消息，那么最新末端位移就是 15。如果你想跳过所有历史消息，打算从最新的消息处开始消费的话，可以使用 Latest 策略。
+Current 策略表示将位移调整成消费者当前提交的最新位移。有时候你可能会碰到这样的场景：你修改了消费者程序代码，并重启了消费者，结果发现代码有问题，你需要回滚之前的代码变更，同时也要把位移重设到消费者重启时的位置，那么，Current 策略就可以帮你实现这个功能。
+表中第 4 行的 Specified-Offset 策略则是比较通用的策略，表示消费者把位移值调整到你指定的位移处。这个策略的典型使用场景是，消费者程序在处理某条错误消息时，你可以手动地“跳过”此消息的处理。在实际使用过程中，可能会出现 corrupted 消息无法被消费的情形，此时消费者程序会抛出异常，无法继续工作。一旦碰到这个问题，你就可以尝试使用 Specified-Offset 策略来规避。
+如果说 Specified-Offset 策略要求你指定位移的绝对数值的话，那么 Shift-By-N 策略指定的就是位移的相对数值，即你给出要跳过的一段消息的距离即可。这里的“跳”是双向的，你既可以向前“跳”，也可以向后“跳”。比如，你想把位移重设成当前位移的前 100 条位移处，此时你需要指定 N 为 -100。
+刚刚讲到的这几种策略都是位移维度的，下面我们来聊聊从时间维度重设位移的 DateTime 和 Duration 策略。</description>
+    </item>
+    
+    <item>
+      <title>29 Kafka动态配置了解下？</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/29-kafka%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE%E4%BA%86%E8%A7%A3%E4%B8%8B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:23 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/29-kafka%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE%E4%BA%86%E8%A7%A3%E4%B8%8B/</guid>
+      <description>你好，我是胡夕。今天我要和你讨论的主题是：Kafka 的动态 Broker 参数配置。
+什么是动态 Broker 参数配置？ 在开始今天的分享之前，我们先来复习一下设置 Kafka 参数，特别是 Broker 端参数的方法。
+在 Kafka 安装目录的 config 路径下，有个 server.properties 文件。通常情况下，我们会指定这个文件的路径来启动 Broker。如果要设置 Broker 端的任何参数，我们必须在这个文件中显式地增加一行对应的配置，之后启动 Broker 进程，令参数生效。我们常见的做法是，一次性设置好所有参数之后，再启动 Broker。当后面需要变更任何参数时，我们必须重启 Broker。但生产环境中的服务器，怎么能随意重启呢？所以，目前修改 Broker 端参数是非常痛苦的过程。
+基于这个痛点，社区于 1.1.0 版本中正式引入了动态 Broker 参数（Dynamic Broker Configs）。所谓动态，就是指修改参数值后，无需重启 Broker 就能立即生效，而之前在 server.properties 中配置的参数则称为静态参数（Static Configs）。显然，动态调整参数值而无需重启服务，是非常实用的功能。如果你想体验动态 Broker 参数的话，那就赶快升级到 1.1 版本吧。
+当然了，当前最新的 2.3 版本中的 Broker 端参数有 200 多个，社区并没有将每个参数都升级成动态参数，它仅仅是把一部分参数变成了可动态调整。那么，我们应该如何分辨哪些参数是动态参数呢？
+如果你打开 1.1 版本之后（含 1.1）的 Kafka 官网，你会发现Broker Configs表中增加了 Dynamic Update Mode 列。该列有 3 类值，分别是 read-only、per-broker 和 cluster-wide。我来解释一下它们的含义。
+ read-only。被标记为 read-only 的参数和原来的参数行为一样，只有重启 Broker，才能令修改生效。 per-broker。被标记为 per-broker 的参数属于动态参数，修改它之后，只会在对应的 Broker 上生效。 cluster-wide。被标记为 cluster-wide 的参数也属于动态参数，修改它之后，会在整个集群范围内生效，也就是说，对所有 Broker 都生效。你也可以为具体的 Broker 修改 cluster-wide 参数。  我来举个例子说明一下 per-broker 和 cluster-wide 的区别。Broker 端参数 listeners 想必你应该不陌生吧。它是一个 per-broker 参数，这表示你只能为单个 Broker 动态调整 listeners，而不能直接调整一批 Broker 的 listeners。log.</description>
+    </item>
+    
+    <item>
+      <title>28 主题管理知多少</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/28-%E4%B8%BB%E9%A2%98%E7%AE%A1%E7%90%86%E7%9F%A5%E5%A4%9A%E5%B0%91/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:22 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/28-%E4%B8%BB%E9%A2%98%E7%AE%A1%E7%90%86%E7%9F%A5%E5%A4%9A%E5%B0%91/</guid>
+      <description>你好，我是胡夕。今天我想和你讨论一下 Kafka 中的主题管理，包括日常的主题管理、特殊主题的管理与运维以及常见的主题错误处理。
+主题日常管理 所谓的日常管理，无非就是主题的增删改查。你可能会觉得，这有什么好讨论的，官网上不都有命令吗？这部分内容的确比较简单，但它是我们讨论后面内容的基础。而且，在讨论的过程中，我还会向你分享一些小技巧。另外，我们今天讨论的管理手段都是借助于 Kafka 自带的命令。事实上，在专栏后面，我们还会专门讨论如何使用 Java API 的方式来运维 Kafka 集群。
+我们先来学习一下如何使用命令创建 Kafka 主题。Kafka 提供了自带的 kafka-topics 脚本，用于帮助用户创建主题。该脚本文件位于 Kafka 安装目录的 bin 子目录下。如果你是在 Windows 上使用 Kafka，那么该脚本位于 bin 路径的 windows 子目录下。一个典型的创建命令如下：
+bin/kafka-topics.sh --bootstrap-server broker_host:port --create --topic my_topic_name --partitions 1 --replication-factor 1create 表明我们要创建主题，而 partitions 和 replication factor 分别设置了主题的分区数以及每个分区下的副本数。如果你之前使用过这个命令，你可能会感到奇怪：难道不是指定 &amp;ndash;zookeeper 参数吗？为什么现在变成 &amp;ndash;bootstrap-server 了呢？我来给出答案：从 Kafka 2.2 版本开始，社区推荐用 &amp;ndash;bootstrap-server 参数替换 &amp;ndash;zookeeper 参数，并且显式地将后者标记为“已过期”，因此，如果你已经在使用 2.2 版本了，那么创建主题请指定 &amp;ndash;bootstrap-server 参数。
+社区推荐使用 &amp;ndash;bootstrap-server 而非 &amp;ndash;zookeeper 的原因主要有两个。
+ 使用 &amp;ndash;zookeeper 会绕过 Kafka 的安全体系。这就是说，即使你为 Kafka 集群设置了安全认证，限制了主题的创建，如果你使用 &amp;ndash;zookeeper 的命令，依然能成功创建任意主题，不受认证体系的约束。这显然是 Kafka 集群的运维人员不希望看到的。 使用 &amp;ndash;bootstrap-server 与集群进行交互，越来越成为使用 Kafka 的标准姿势。换句话说，以后会有越来越少的命令和 API 需要与 ZooKeeper 进行连接。这样，我们只需要一套连接信息，就能与 Kafka 进行全方位的交互，不用像以前一样，必须同时维护 ZooKeeper 和 Broker 的连接信息。  创建好主题之后，Kafka 允许我们使用相同的脚本查询主题。你可以使用下面的命令，查询所有主题的列表。</description>
+    </item>
+    
+    <item>
+      <title>27 关于高水位和Leader Epoch的讨论</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/27-%E5%85%B3%E4%BA%8E%E9%AB%98%E6%B0%B4%E4%BD%8D%E5%92%8Cleader-epoch%E7%9A%84%E8%AE%A8%E8%AE%BA/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:21 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/27-%E5%85%B3%E4%BA%8E%E9%AB%98%E6%B0%B4%E4%BD%8D%E5%92%8Cleader-epoch%E7%9A%84%E8%AE%A8%E8%AE%BA/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的主题是：Kafka 中的高水位和 Leader Epoch 机制。
+你可能听说过高水位（High Watermark），但不一定耳闻过 Leader Epoch。前者是 Kafka 中非常重要的概念，而后者是社区在 0.11 版本中新推出的，主要是为了弥补高水位机制的一些缺陷。鉴于高水位机制在 Kafka 中举足轻重，而且深受各路面试官的喜爱，今天我们就来重点说说高水位。当然，我们也会花一部分时间来讨论 Leader Epoch 以及它的角色定位。
+什么是高水位？ 首先，我们要明确一下基本的定义：什么是高水位？或者说什么是水位？水位一词多用于流式处理领域，比如，Spark Streaming 或 Flink 框架中都有水位的概念。教科书中关于水位的经典定义通常是这样的：
+ 在时刻 T，任意创建时间（Event Time）为 T’，且 T’≤T 的所有事件都已经到达或被观测到，那么 T 就被定义为水位。
+ “Streaming System”一书则是这样表述水位的：
+ 水位是一个单调增加且表征最早未完成工作（oldest work not yet completed）的时间戳。
+ 为了帮助你更好地理解水位，我借助这本书里的一张图来说明一下。
+图中标注“Completed”的蓝色部分代表已完成的工作，标注“In-Flight”的红色部分代表正在进行中的工作，两者的边界就是水位线。
+在 Kafka 的世界中，水位的概念有一点不同。Kafka 的水位不是时间戳，更与时间无关。它是和位置信息绑定的，具体来说，它是用消息位移来表征的。另外，Kafka 源码使用的表述是高水位，因此，今天我也会统一使用“高水位”或它的缩写 HW 来进行讨论。值得注意的是，Kafka 中也有低水位（Low Watermark），它是与 Kafka 删除消息相关联的概念，与今天我们要讨论的内容没有太多联系，我就不展开讲了。
+高水位的作用 在 Kafka 中，高水位的作用主要有 2 个。
+ 定义消息可见性，即用来标识分区下的哪些消息是可以被消费者消费的。 帮助 Kafka 完成副本同步。  下面这张图展示了多个与高水位相关的 Kafka 术语。我来详细解释一下图中的内容，同时澄清一些常见的误区。</description>
+    </item>
+    
+    <item>
+      <title>26 你一定不能错过的Kafka控制器</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/26-%E4%BD%A0%E4%B8%80%E5%AE%9A%E4%B8%8D%E8%83%BD%E9%94%99%E8%BF%87%E7%9A%84kafka%E6%8E%A7%E5%88%B6%E5%99%A8/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:20 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/26-%E4%BD%A0%E4%B8%80%E5%AE%9A%E4%B8%8D%E8%83%BD%E9%94%99%E8%BF%87%E7%9A%84kafka%E6%8E%A7%E5%88%B6%E5%99%A8/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的主题是：Kafka 中的控制器组件。
+控制器组件（Controller），是 Apache Kafka 的核心组件。它的主要作用是在 Apache ZooKeeper 的帮助下管理和协调整个 Kafka 集群。集群中任意一台 Broker 都能充当控制器的角色，但是，在运行过程中，只能有一个 Broker 成为控制器，行使其管理和协调的职责。换句话说，每个正常运转的 Kafka 集群，在任意时刻都有且只有一个控制器。官网上有个名为 activeController 的 JMX 指标，可以帮助我们实时监控控制器的存活状态。这个 JMX 指标非常关键，你在实际运维操作过程中，一定要实时查看这个指标的值。下面，我们就来详细说说控制器的原理和内部运行机制。
+在开始之前，我先简单介绍一下 Apache ZooKeeper 框架。要知道，控制器是重度依赖 ZooKeeper 的，因此，我们有必要花一些时间学习下 ZooKeeper 是做什么的。
+Apache ZooKeeper 是一个提供高可靠性的分布式协调服务框架。它使用的数据模型类似于文件系统的树形结构，根目录也是以“/”开始。该结构上的每个节点被称为 znode，用来保存一些元数据协调信息。
+如果以 znode 持久性来划分，znode 可分为持久性 znode 和临时 znode。持久性 znode 不会因为 ZooKeeper 集群重启而消失，而临时 znode 则与创建该 znode 的 ZooKeeper 会话绑定，一旦会话结束，该节点会被自动删除。
+ZooKeeper 赋予客户端监控 znode 变更的能力，即所谓的 Watch 通知功能。一旦 znode 节点被创建、删除，子节点数量发生变化，抑或是 znode 所存的数据本身变更，ZooKeeper 会通过节点变更监听器 (ChangeHandler) 的方式显式通知客户端。
+依托于这些功能，ZooKeeper 常被用来实现集群成员管理、分布式锁、领导者选举等功能。Kafka 控制器大量使用 Watch 功能实现对集群的协调管理。我们一起来看一张图片，它展示的是 Kafka 在 ZooKeeper 中创建的 znode 分布。你不用了解每个 znode 的作用，但你可以大致体会下 Kafka 对 ZooKeeper 的依赖。</description>
+    </item>
+    
+    <item>
+      <title>25 消费者组重平衡全流程解析</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/25-%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84%E9%87%8D%E5%B9%B3%E8%A1%A1%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:19 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/25-%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84%E9%87%8D%E5%B9%B3%E8%A1%A1%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的主题是：消费者组重平衡全流程解析。
+之前我们聊到过消费者组的重平衡流程，它的作用是让组内所有的消费者实例就消费哪些主题分区达成一致。重平衡需要借助 Kafka Broker 端的 Coordinator 组件，在 Coordinator 的帮助下完成整个消费者组的分区重分配。今天我们就来详细说说这个流程。
+先提示一下，我会以 Kafka 2.3 版本的源代码开启今天的讲述。在分享的过程中，对于旧版本的设计差异，我也会显式地说明。这样，即使你依然在使用比较旧的版本也不打紧，毕竟设计原理大体上是没有变化的。
+触发与通知 我们先来简单回顾一下重平衡的 3 个触发条件：
+ 组成员数量发生变化。 订阅主题数量发生变化。 订阅主题的分区数发生变化。  就我个人的经验来看，在实际生产环境中，因命中第 1 个条件而引发的重平衡是最常见的。另外，消费者组中的消费者实例依次启动也属于第 1 种情况，也就是说，每次消费者组启动时，必然会触发重平衡过程。
+这部分内容我在专栏[第 15 讲]中已经详细介绍过了，就不再赘述了。如果你不记得的话，可以先去复习一下。
+今天，我真正想引出的是另一个话题：重平衡过程是如何通知到其他消费者实例的？答案就是，靠消费者端的心跳线程（Heartbeat Thread）。
+Kafka Java 消费者需要定期地发送心跳请求（Heartbeat Request）到 Broker 端的协调者，以表明它还存活着。在 Kafka 0.10.1.0 版本之前，发送心跳请求是在消费者主线程完成的，也就是你写代码调用 KafkaConsumer.poll 方法的那个线程。
+这样做有诸多弊病，最大的问题在于，消息处理逻辑也是在这个线程中完成的。因此，一旦消息处理消耗了过长的时间，心跳请求将无法及时发到协调者那里，导致协调者“错误地”认为该消费者已“死”。自 0.10.1.0 版本开始，社区引入了一个单独的心跳线程来专门执行心跳请求发送，避免了这个问题。
+但这和重平衡又有什么关系呢？其实，重平衡的通知机制正是通过心跳线程来完成的。当协调者决定开启新一轮重平衡后，它会将“REBALANCE_IN_PROGRESS”封装进心跳请求的响应中，发还给消费者实例。当消费者实例发现心跳响应中包含了“REBALANCE_IN_PROGRESS”，就能立马知道重平衡又开始了，这就是重平衡的通知机制。
+对了，很多人还搞不清楚消费者端参数 heartbeat.interval.ms 的真实用途，我来解释一下。从字面上看，它就是设置了心跳的间隔时间，但这个参数的真正作用是控制重平衡通知的频率。如果你想要消费者实例更迅速地得到通知，那么就可以给这个参数设置一个非常小的值，这样消费者就能更快地感知到重平衡已经开启了。
+消费者组状态机 重平衡一旦开启，Broker 端的协调者组件就要开始忙了，主要涉及到控制消费者组的状态流转。当前，Kafka 设计了一套消费者组状态机（State Machine），来帮助协调者完成整个重平衡流程。严格来说，这套状态机属于非常底层的设计，Kafka 官网上压根就没有提到过，但你最好还是了解一下，因为它能够帮助你搞懂消费者组的设计原理，比如消费者组的过期位移（Expired Offsets）删除等。
+目前，Kafka 为消费者组定义了 5 种状态，它们分别是：Empty、Dead、PreparingRebalance、CompletingRebalance 和 Stable。那么，这 5 种状态的含义是什么呢？我们一起来看看下面这张表格。
+了解了这些状态的含义之后，我们来看一张图片，它展示了状态机的各个状态流转。
+我来解释一下消费者组启动时的状态流转过程。一个消费者组最开始是 Empty 状态，当重平衡过程开启后，它会被置于 PreparingRebalance 状态等待成员加入，之后变更到 CompletingRebalance 状态等待分配方案，最后流转到 Stable 状态完成重平衡。</description>
+    </item>
+    
+    <item>
+      <title>24 请求是怎么被处理的？</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/24-%E8%AF%B7%E6%B1%82%E6%98%AF%E6%80%8E%E4%B9%88%E8%A2%AB%E5%A4%84%E7%90%86%E7%9A%84/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:18 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/24-%E8%AF%B7%E6%B1%82%E6%98%AF%E6%80%8E%E4%B9%88%E8%A2%AB%E5%A4%84%E7%90%86%E7%9A%84/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的主题是：Kafka 请求是怎么被处理的。
+无论是 Kafka 客户端还是 Broker 端，它们之间的交互都是通过“请求 / 响应”的方式完成的。比如，客户端会通过网络发送消息生产请求给 Broker，而 Broker 处理完成后，会发送对应的响应给到客户端。
+Apache Kafka 自己定义了一组请求协议，用于实现各种各样的交互操作。比如常见的 PRODUCE 请求是用于生产消息的，FETCH 请求是用于消费消息的，METADATA 请求是用于请求 Kafka 集群元数据信息的。
+总之，Kafka 定义了很多类似的请求格式。我数了一下，截止到目前最新的 2.3 版本，Kafka 共定义了多达 45 种请求格式。所有的请求都是通过 TCP 网络以 Socket 的方式进行通讯的。
+今天，我们就来详细讨论一下 Kafka Broker 端处理请求的全流程。
+关于如何处理请求，我们很容易想到的方案有两个。
+1.顺序处理请求。如果写成伪代码，大概是这个样子：
+while (true) {Request request = accept(connection);handle(request);}这个方法实现简单，但是有个致命的缺陷，那就是吞吐量太差。由于只能顺序处理每个请求，因此，每个请求都必须等待前一个请求处理完毕才能得到处理。这种方式只适用于请求发送非常不频繁的系统。
+2. 每个请求使用单独线程处理。也就是说，我们为每个入站请求都创建一个新的线程来异步处理。我们一起来看看这个方案的伪代码。
+while (true) {Request = request = accept(connection);Thread thread = new Thread(() -&amp;gt; {handle(request);});thread.start();}这个方法反其道而行之，完全采用异步的方式。系统会为每个入站请求都创建单独的线程来处理。这个方法的好处是，它是完全异步的，每个请求的处理都不会阻塞下一个请求。但缺陷也同样明显。为每个请求都创建线程的做法开销极大，在某些场景下甚至会压垮整个服务。还是那句话，这个方法只适用于请求发送频率很低的业务场景。
+既然这两种方案都不好，那么，Kafka 是如何处理请求的呢？用一句话概括就是，Kafka 使用的是Reactor 模式。</description>
+    </item>
+    
+    <item>
+      <title>23 Kafka副本机制详解</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/23-kafka%E5%89%AF%E6%9C%AC%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:17 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/23-kafka%E5%89%AF%E6%9C%AC%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的主题是：Apache Kafka 的副本机制。
+所谓的副本机制（Replication），也可以称之为备份机制，通常是指分布式系统在多台网络互联的机器上保存有相同的数据拷贝。副本机制有什么好处呢？
+ 提供数据冗余。即使系统部分组件失效，系统依然能够继续运转，因而增加了整体可用性以及数据持久性。 提供高伸缩性。支持横向扩展，能够通过增加机器的方式来提升读性能，进而提高读操作吞吐量。 改善数据局部性。允许将数据放入与用户地理位置相近的地方，从而降低系统延时。  这些优点都是在分布式系统教科书中最常被提及的，但是有些遗憾的是，对于 Apache Kafka 而言，目前只能享受到副本机制带来的第 1 个好处，也就是提供数据冗余实现高可用性和高持久性。我会在这一讲后面的内容中，详细解释 Kafka 没能提供第 2 点和第 3 点好处的原因。
+不过即便如此，副本机制依然是 Kafka 设计架构的核心所在，它也是 Kafka 确保系统高可用和消息高持久性的重要基石。
+副本定义 在讨论具体的副本机制之前，我们先花一点时间明确一下副本的含义。
+我们之前谈到过，Kafka 是有主题概念的，而每个主题又进一步划分成若干个分区。副本的概念实际上是在分区层级下定义的，每个分区配置有若干个副本。
+所谓副本（Replica），本质就是一个只能追加写消息的提交日志。根据 Kafka 副本机制的定义，同一个分区下的所有副本保存有相同的消息序列，这些副本分散保存在不同的 Broker 上，从而能够对抗部分 Broker 宕机带来的数据不可用。
+在实际生产环境中，每台 Broker 都可能保存有各个主题下不同分区的不同副本，因此，单个 Broker 上存有成百上千个副本的现象是非常正常的。
+接下来我们来看一张图，它展示的是一个有 3 台 Broker 的 Kafka 集群上的副本分布情况。从这张图中，我们可以看到，主题 1 分区 0 的 3 个副本分散在 3 台 Broker 上，其他主题分区的副本也都散落在不同的 Broker 上，从而实现数据冗余。
+副本角色 既然分区下能够配置多个副本，而且这些副本的内容还要一致，那么很自然的一个问题就是：我们该如何确保副本中所有的数据都是一致的呢？特别是对 Kafka 而言，当生产者发送消息到某个主题后，消息是如何同步到对应的所有副本中的呢？针对这个问题，最常见的解决方案就是采用基于领导者（Leader-based）的副本机制。Apache Kafka 就是这样的设计。
+基于领导者的副本机制的工作原理如下图所示，我来简单解释一下这张图里面的内容。
+第一，在 Kafka 中，副本分成两类：领导者副本（Leader Replica）和追随者副本（Follower Replica）。每个分区在创建时都要选举一个副本，称为领导者副本，其余的副本自动称为追随者副本。</description>
+    </item>
+    
+    <item>
+      <title>22 消费者组消费进度监控都怎么实现？</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/22-%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84%E6%B6%88%E8%B4%B9%E8%BF%9B%E5%BA%A6%E7%9B%91%E6%8E%A7%E9%83%BD%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:16 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/22-%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84%E6%B6%88%E8%B4%B9%E8%BF%9B%E5%BA%A6%E7%9B%91%E6%8E%A7%E9%83%BD%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0/</guid>
+      <description>你好，我是胡夕。今天我要跟你分享的主题是：消费者组消费进度监控如何实现。
+对于 Kafka 消费者来说，最重要的事情就是监控它们的消费进度了，或者说是监控它们消费的滞后程度。这个滞后程度有个专门的名称：消费者 Lag 或 Consumer Lag。
+所谓滞后程度，就是指消费者当前落后于生产者的程度。比方说，Kafka 生产者向某主题成功生产了 100 万条消息，你的消费者当前消费了 80 万条消息，那么我们就说你的消费者滞后了 20 万条消息，即 Lag 等于 20 万。
+通常来说，Lag 的单位是消息数，而且我们一般是在主题这个级别上讨论 Lag 的，但实际上，Kafka 监控 Lag 的层级是在分区上的。如果要计算主题级别的，你需要手动汇总所有主题分区的 Lag，将它们累加起来，合并成最终的 Lag 值。
+我们刚刚说过，对消费者而言，Lag 应该算是最最重要的监控指标了。它直接反映了一个消费者的运行情况。一个正常工作的消费者，它的 Lag 值应该很小，甚至是接近于 0 的，这表示该消费者能够及时地消费生产者生产出来的消息，滞后程度很小。反之，如果一个消费者 Lag 值很大，通常就表明它无法跟上生产者的速度，最终 Lag 会越来越大，从而拖慢下游消息的处理速度。
+更可怕的是，由于消费者的速度无法匹及生产者的速度，极有可能导致它消费的数据已经不在操作系统的页缓存中了，那么这些数据就会失去享有 Zero Copy 技术的资格。这样的话，消费者就不得不从磁盘上读取它们，这就进一步拉大了与生产者的差距，进而出现马太效应，即那些 Lag 原本就很大的消费者会越来越慢，Lag 也会越来越大。
+鉴于这些原因，你在实际业务场景中必须时刻关注消费者的消费进度。一旦出现 Lag 逐步增加的趋势，一定要定位问题，及时处理，避免造成业务损失。
+既然消费进度这么重要，我们应该怎么监控它呢？简单来说，有 3 种方法。
+ 使用 Kafka 自带的命令行工具 kafka-consumer-groups 脚本。 使用 Kafka Java Consumer API 编程。 使用 Kafka 自带的 JMX 监控指标。  接下来，我们分别来讨论下这 3 种方法。</description>
+    </item>
+    
+    <item>
+      <title>21 Java 消费者是如何管理TCP连接的</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/21-java-%E6%B6%88%E8%B4%B9%E8%80%85%E6%98%AF%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86tcp%E8%BF%9E%E6%8E%A5%E7%9A%84/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:15 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/21-java-%E6%B6%88%E8%B4%B9%E8%80%85%E6%98%AF%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86tcp%E8%BF%9E%E6%8E%A5%E7%9A%84/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的主题是：Kafka 的 Java 消费者是如何管理 TCP 连接的。
+在专栏[第 13 讲]中，我们专门聊过“Java生产者是如何管理 TCP 连接资源的”这个话题，你应该还有印象吧？今天算是它的姊妹篇，我们一起来研究下 Kafka 的 Java消费者管理 TCP 或 Socket 资源的机制。只有完成了今天的讨论，我们才算是对 Kafka 客户端的 TCP 连接管理机制有了全面的了解。
+和之前一样，我今天会无差别地混用 TCP 和 Socket 两个术语。毕竟，在 Kafka 的世界中，无论是 ServerSocket，还是 SocketChannel，它们实现的都是 TCP 协议。或者这么说，Kafka 的网络传输是基于 TCP 协议的，而不是基于 UDP 协议，因此，当我今天说到 TCP 连接或 Socket 资源时，我指的是同一个东西。
+何时创建 TCP 连接？ 我们先从消费者创建 TCP 连接开始讨论。消费者端主要的程序入口是 KafkaConsumer 类。和生产者不同的是，构建 KafkaConsumer 实例时是不会创建任何 TCP 连接的，也就是说，当你执行完 new KafkaConsumer(properties) 语句后，你会发现，没有 Socket 连接被创建出来。这一点和 Java 生产者是有区别的，主要原因就是生产者入口类 KafkaProducer 在构建实例的时候，会在后台默默地启动一个 Sender 线程，这个 Sender 线程负责 Socket 连接的创建。
+从这一点上来看，我个人认为 KafkaConsumer 的设计比 KafkaProducer 要好。就像我在第 13 讲中所说的，在 Java 构造函数中启动线程，会造成 this 指针的逃逸，这始终是一个隐患。</description>
+    </item>
+    
+    <item>
+      <title>20 多线程开发消费者实例</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/20-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%BC%80%E5%8F%91%E6%B6%88%E8%B4%B9%E8%80%85%E5%AE%9E%E4%BE%8B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:14 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/20-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%BC%80%E5%8F%91%E6%B6%88%E8%B4%B9%E8%80%85%E5%AE%9E%E4%BE%8B/</guid>
+      <description>你好，我是胡夕。今天我们来聊聊 Kafka Java Consumer 端多线程消费的实现方案。
+目前，计算机的硬件条件已经大大改善，即使是在普通的笔记本电脑上，多核都已经是标配了，更不用说专业的服务器了。如果跑在强劲服务器机器上的应用程序依然是单线程架构，那实在是有点暴殄天物了。不过，Kafka Java Consumer 就是单线程的设计，你是不是感到很惊讶。所以，探究它的多线程消费方案，就显得非常必要了。
+Kafka Java Consumer 设计原理 在开始探究之前，我先简单阐述下 Kafka Java Consumer 为什么采用单线程的设计。了解了这一点，对我们后面制定多线程方案大有裨益。
+谈到 Java Consumer API，最重要的当属它的入口类 KafkaConsumer 了。我们说 KafkaConsumer 是单线程的设计，严格来说这是不准确的。因为，从 Kafka 0.10.1.0 版本开始，KafkaConsumer 就变为了双线程的设计，即用户主线程和心跳线程。
+所谓用户主线程，就是你启动 Consumer 应用程序 main 方法的那个线程，而新引入的心跳线程（Heartbeat Thread）只负责定期给对应的 Broker 机器发送心跳请求，以标识消费者应用的存活性（liveness）。引入这个心跳线程还有一个目的，那就是期望它能将心跳频率与主线程调用 KafkaConsumer.poll 方法的频率分开，从而解耦真实的消息处理逻辑与消费者组成员存活性管理。
+不过，虽然有心跳线程，但实际的消息获取逻辑依然是在用户主线程中完成的。因此，在消费消息的这个层面上，我们依然可以安全地认为 KafkaConsumer 是单线程的设计。
+其实，在社区推出 Java Consumer API 之前，Kafka 中存在着一组统称为 Scala Consumer 的 API。这组 API，或者说这个 Consumer，也被称为老版本 Consumer，目前在新版的 Kafka 代码中已经被完全移除了。
+我之所以重提旧事，是想告诉你，老版本 Consumer 是多线程的架构，每个 Consumer 实例在内部为所有订阅的主题分区创建对应的消息获取线程，也称 Fetcher 线程。老版本 Consumer 同时也是阻塞式的（blocking），Consumer 实例启动后，内部会创建很多阻塞式的消息获取迭代器。但在很多场景下，Consumer 端是有非阻塞需求的，比如在流处理应用中执行过滤（filter）、连接（join）、分组（group by）等操作时就不能是阻塞式的。基于这个原因，社区为新版本 Consumer 设计了单线程 + 轮询的机制。这种设计能够较好地实现非阻塞式的消息获取。</description>
+    </item>
+    
+    <item>
+      <title>19 CommitFailedException异常怎么处理？</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/19-commitfailedexception%E5%BC%82%E5%B8%B8%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:13 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/19-commitfailedexception%E5%BC%82%E5%B8%B8%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86/</guid>
+      <description>你好，我是胡夕。今天我来跟你聊聊 CommitFailedException 异常的处理。
+说起这个异常，我相信用过 Kafka Java Consumer 客户端 API 的你一定不会感到陌生。所谓 CommitFailedException，顾名思义就是 Consumer 客户端在提交位移时出现了错误或异常，而且还是那种不可恢复的严重异常。如果异常是可恢复的瞬时错误，提交位移的 API 自己就能规避它们了，因为很多提交位移的 API 方法是支持自动错误重试的，比如我们在上一期中提到的commitSync 方法。
+每次和 CommitFailedException 一起出现的，还有一段非常著名的注释。为什么说它很“著名”呢？第一，我想不出在近 50 万行的 Kafka 源代码中，还有哪个异常类能有这种待遇，可以享有这么大段的注释，来阐述其异常的含义；第二，纵然有这么长的文字解释，却依然有很多人对该异常想表达的含义感到困惑。
+现在，我们一起领略下这段文字的风采，看看社区对这个异常的最新解释：
+ Commit cannot be completed since the group has already rebalanced and assigned the partitions to another member. This means that the time between subsequent calls to poll() was longer than the configured max.poll.interval.ms, which typically implies that the poll loop is spending too much time message processing.</description>
+    </item>
+    
+    <item>
+      <title>18 Kafka中位移提交那些事儿</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/18-kafka%E4%B8%AD%E4%BD%8D%E7%A7%BB%E6%8F%90%E4%BA%A4%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:12 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/18-kafka%E4%B8%AD%E4%BD%8D%E7%A7%BB%E6%8F%90%E4%BA%A4%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/</guid>
+      <description>你好，我是胡夕。今天我们来聊聊 Kafka 中位移提交的那些事儿。
+之前我们说过，Consumer 端有个位移的概念，它和消息在分区中的位移不是一回事儿，虽然它们的英文都是 Offset。今天我们要聊的位移是 Consumer 的消费位移，它记录了 Consumer 要消费的下一条消息的位移。这可能和你以前了解的有些出入，不过切记是下一条消息的位移，而不是目前最新消费消息的位移。
+我来举个例子说明一下。假设一个分区中有 10 条消息，位移分别是 0 到 9。某个 Consumer 应用已消费了 5 条消息，这就说明该 Consumer 消费了位移为 0 到 4 的 5 条消息，此时 Consumer 的位移是 5，指向了下一条消息的位移。
+Consumer 需要向 Kafka 汇报自己的位移数据，这个汇报过程被称为提交位移（Committing Offsets）。因为 Consumer 能够同时消费多个分区的数据，所以位移的提交实际上是在分区粒度上进行的，即Consumer 需要为分配给它的每个分区提交各自的位移数据。
+提交位移主要是为了表征 Consumer 的消费进度，这样当 Consumer 发生故障重启之后，就能够从 Kafka 中读取之前提交的位移值，然后从相应的位移处继续消费，从而避免整个消费过程重来一遍。换句话说，位移提交是 Kafka 提供给你的一个工具或语义保障，你负责维持这个语义保障，即如果你提交了位移 X，那么 Kafka 会认为所有位移值小于 X 的消息你都已经成功消费了。
+这一点特别关键。因为位移提交非常灵活，你完全可以提交任何位移值，但由此产生的后果你也要一并承担。假设你的 Consumer 消费了 10 条消息，你提交的位移值却是 20，那么从理论上讲，位移介于 11～19 之间的消息是有可能丢失的；相反地，如果你提交的位移值是 5，那么位移介于 5～9 之间的消息就有可能被重复消费。所以，我想再强调一下，位移提交的语义保障是由你来负责的，Kafka 只会“无脑”地接受你提交的位移。你对位移提交的管理直接影响了你的 Consumer 所能提供的消息语义保障。
+鉴于位移提交甚至是位移管理对 Consumer 端的巨大影响，Kafka，特别是 KafkaConsumer API，提供了多种提交位移的方法。从用户的角度来说，位移提交分为自动提交和手动提交；从 Consumer 端的角度来说，位移提交分为同步提交和异步提交。</description>
+    </item>
+    
+    <item>
+      <title>17 消费者组重平衡能避免吗？</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/17-%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84%E9%87%8D%E5%B9%B3%E8%A1%A1%E8%83%BD%E9%81%BF%E5%85%8D%E5%90%97/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:11 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/17-%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84%E9%87%8D%E5%B9%B3%E8%A1%A1%E8%83%BD%E9%81%BF%E5%85%8D%E5%90%97/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的内容是：消费者组重平衡能避免吗?
+其实在专栏[第 15 期]中，我们讲过重平衡，也就是 Rebalance，现在先来回顾一下这个概念的原理和用途。Rebalance 就是让一个 Consumer Group 下所有的 Consumer 实例就如何消费订阅主题的所有分区达成共识的过程。在 Rebalance 过程中，所有 Consumer 实例共同参与，在协调者组件的帮助下，完成订阅主题分区的分配。但是，在整个过程中，所有实例都不能消费任何消息，因此它对 Consumer 的 TPS 影响很大。
+你可能会对这里提到的“协调者”有些陌生，我来简单介绍下。所谓协调者，在 Kafka 中对应的术语是 Coordinator，它专门为 Consumer Group 服务，负责为 Group 执行 Rebalance 以及提供位移管理和组成员管理等。
+具体来讲，Consumer 端应用程序在提交位移时，其实是向 Coordinator 所在的 Broker 提交位移。同样地，当 Consumer 应用启动时，也是向 Coordinator 所在的 Broker 发送各种请求，然后由 Coordinator 负责执行消费者组的注册、成员管理记录等元数据管理操作。
+所有 Broker 在启动时，都会创建和开启相应的 Coordinator 组件。也就是说，所有 Broker 都有各自的 Coordinator 组件。那么，Consumer Group 如何确定为它服务的 Coordinator 在哪台 Broker 上呢？答案就在我们之前说过的 Kafka 内部位移主题 __consumer_offsets 身上。
+目前，Kafka 为某个 Consumer Group 确定 Coordinator 所在的 Broker 的算法有 2 个步骤。</description>
+    </item>
+    
+    <item>
+      <title>16 揭开神秘的“位移主题”面纱</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/16-%E6%8F%AD%E5%BC%80%E7%A5%9E%E7%A7%98%E7%9A%84%E4%BD%8D%E7%A7%BB%E4%B8%BB%E9%A2%98%E9%9D%A2%E7%BA%B1/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:09 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/16-%E6%8F%AD%E5%BC%80%E7%A5%9E%E7%A7%98%E7%9A%84%E4%BD%8D%E7%A7%BB%E4%B8%BB%E9%A2%98%E9%9D%A2%E7%BA%B1/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的内容是：Kafka 中神秘的内部主题（Internal Topic）__consumer_offsets。
+__consumer_offsets 在 Kafka 源码中有个更为正式的名字，叫位移主题，即 Offsets Topic。为了方便今天的讨论，我将统一使用位移主题来指代 __consumer_offsets。需要注意的是，它有两个下划线哦。
+好了，我们开始今天的内容吧。首先，我们有必要探究一下位移主题被引入的背景及原因，即位移主题的前世今生。
+在上一期中，我说过老版本 Consumer 的位移管理是依托于 Apache ZooKeeper 的，它会自动或手动地将位移数据提交到 ZooKeeper 中保存。当 Consumer 重启后，它能自动从 ZooKeeper 中读取位移数据，从而在上次消费截止的地方继续消费。这种设计使得 Kafka Broker 不需要保存位移数据，减少了 Broker 端需要持有的状态空间，因而有利于实现高伸缩性。
+但是，ZooKeeper 其实并不适用于这种高频的写操作，因此，Kafka 社区自 0.8.2.x 版本开始，就在酝酿修改这种设计，并最终在新版本 Consumer 中正式推出了全新的位移管理机制，自然也包括这个新的位移主题。
+新版本 Consumer 的位移管理机制其实也很简单，就是**将 Consumer 的位移数据作为一条条普通的 Kafka 消息，提交到 __consumer_offsets 中。可以这么说，__consumer_offsets 的主要作用是保存 Kafka 消费者的位移信息。**它要求这个提交过程不仅要实现高持久性，还要支持高频的写操作。显然，Kafka 的主题设计天然就满足这两个条件，因此，使用 Kafka 主题来保存位移这件事情，实际上就是一个水到渠成的想法了。
+这里我想再次强调一下，和你创建的其他主题一样，位移主题就是普通的 Kafka 主题。你可以手动地创建它、修改它，甚至是删除它。只不过，它同时也是一个内部主题，大部分情况下，你其实并不需要“搭理”它，也不用花心思去管理它，把它丢给 Kafka 就完事了。
+虽说位移主题是一个普通的 Kafka 主题，但它的消息格式却是 Kafka 自己定义的，用户不能修改，也就是说你不能随意地向这个主题写消息，因为一旦你写入的消息不满足 Kafka 规定的格式，那么 Kafka 内部无法成功解析，就会造成 Broker 的崩溃。事实上，Kafka Consumer 有 API 帮你提交位移，也就是向位移主题写消息。你千万不要自己写个 Producer 随意向该主题发送消息。</description>
+    </item>
+    
+    <item>
+      <title>15 消费者组到底是什么？</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/15-%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E4%B9%88/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:08 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/15-%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E4%B9%88/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的主题是：Kafka 的消费者组。
+消费者组，即 Consumer Group，应该算是 Kafka 比较有亮点的设计了。那么何谓 Consumer Group 呢？用一句话概括就是：Consumer Group 是 Kafka 提供的可扩展且具有容错性的消费者机制。既然是一个组，那么组内必然可以有多个消费者或消费者实例（Consumer Instance），它们共享一个公共的 ID，这个 ID 被称为 Group ID。组内的所有消费者协调在一起来消费订阅主题（Subscribed Topics）的所有分区（Partition）。当然，每个分区只能由同一个消费者组内的一个 Consumer 实例来消费。个人认为，理解 Consumer Group 记住下面这三个特性就好了。
+ Consumer Group 下可以有一个或多个 Consumer 实例。这里的实例可以是一个单独的进程，也可以是同一进程下的线程。在实际场景中，使用进程更为常见一些。 Group ID 是一个字符串，在一个 Kafka 集群中，它标识唯一的一个 Consumer Group。 Consumer Group 下所有实例订阅的主题的单个分区，只能分配给组内的某个 Consumer 实例消费。这个分区当然也可以被其他的 Group 消费。  你应该还记得我在专栏[第 1 期]中提到的两种消息引擎模型吧？它们分别是点对点模型和发布 / 订阅模型，前者也称为消费队列。当然，你要注意区分很多架构文章中涉及的消息队列与这里的消息队列。国内很多文章都习惯把消息中间件这类框架统称为消息队列，我在这里不评价这种提法是否准确，只是想提醒你注意这里所说的消息队列，特指经典的消息引擎模型。
+好了，传统的消息引擎模型就是这两大类，它们各有优劣。我们来简单回顾一下。传统的消息队列模型的缺陷在于消息一旦被消费，就会从队列中被删除，而且只能被下游的一个 Consumer 消费。严格来说，这一点不算是缺陷，只能算是它的一个特性。但很显然，这种模型的伸缩性（scalability）很差，因为下游的多个 Consumer 都要“抢”这个共享消息队列的消息。发布 / 订阅模型倒是允许消息被多个 Consumer 消费，但它的问题也是伸缩性不高，因为每个订阅者都必须要订阅主题的所有分区。这种全量订阅的方式既不灵活，也会影响消息的真实投递效果。
+如果有这么一种机制，既可以避开这两种模型的缺陷，又兼具它们的优点，那就太好了。幸运的是，Kafka 的 Consumer Group 就是这样的机制。当 Consumer Group 订阅了多个主题后，组内的每个实例不要求一定要订阅主题的所有分区，它只会消费部分分区中的消息。
+Consumer Group 之间彼此独立，互不影响，它们能够订阅相同的一组主题而互不干涉。再加上 Broker 端的消息留存机制，Kafka 的 Consumer Group 完美地规避了上面提到的伸缩性差的问题。可以这么说，Kafka 仅仅使用 Consumer Group 这一种机制，却同时实现了传统消息引擎系统的两大模型：如果所有实例都属于同一个 Group，那么它实现的就是消息队列模型；如果所有实例分别属于不同的 Group，那么它实现的就是发布 / 订阅模型。</description>
+    </item>
+    
+    <item>
+      <title>14 幂等生产者和事务生产者是一回事吗？</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/14-%E5%B9%82%E7%AD%89%E7%94%9F%E4%BA%A7%E8%80%85%E5%92%8C%E4%BA%8B%E5%8A%A1%E7%94%9F%E4%BA%A7%E8%80%85%E6%98%AF%E4%B8%80%E5%9B%9E%E4%BA%8B%E5%90%97/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:07 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/14-%E5%B9%82%E7%AD%89%E7%94%9F%E4%BA%A7%E8%80%85%E5%92%8C%E4%BA%8B%E5%8A%A1%E7%94%9F%E4%BA%A7%E8%80%85%E6%98%AF%E4%B8%80%E5%9B%9E%E4%BA%8B%E5%90%97/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的主题是：Kafka 消息交付可靠性保障以及精确处理一次语义的实现。
+所谓的消息交付可靠性保障，是指 Kafka 对 Producer 和 Consumer 要处理的消息提供什么样的承诺。常见的承诺有以下三种：
+ 最多一次（at most once）：消息可能会丢失，但绝不会被重复发送。 至少一次（at least once）：消息不会丢失，但有可能被重复发送。 精确一次（exactly once）：消息不会丢失，也不会被重复发送。  目前，Kafka 默认提供的交付可靠性保障是第二种，即至少一次。在专栏[第 11 期]中，我们说过消息“已提交”的含义，即只有 Broker 成功“提交”消息且 Producer 接到 Broker 的应答才会认为该消息成功发送。不过倘若消息成功“提交”，但 Broker 的应答没有成功发送回 Producer 端（比如网络出现瞬时抖动），那么 Producer 就无法确定消息是否真的提交成功了。因此，它只能选择重试，也就是再次发送相同的消息。这就是 Kafka 默认提供至少一次可靠性保障的原因，不过这会导致消息重复发送。
+Kafka 也可以提供最多一次交付保障，只需要让 Producer 禁止重试即可。这样一来，消息要么写入成功，要么写入失败，但绝不会重复发送。我们通常不会希望出现消息丢失的情况，但一些场景里偶发的消息丢失其实是被允许的，相反，消息重复是绝对要避免的。此时，使用最多一次交付保障就是最恰当的。
+无论是至少一次还是最多一次，都不如精确一次来得有吸引力。大部分用户还是希望消息只会被交付一次，这样的话，消息既不会丢失，也不会被重复处理。或者说，即使 Producer 端重复发送了相同的消息，Broker 端也能做到自动去重。在下游 Consumer 看来，消息依然只有一条。
+那么问题来了，Kafka 是怎么做到精确一次的呢？简单来说，这是通过两种机制：幂等性（Idempotence）和事务（Transaction）。它们分别是什么机制？两者是一回事吗？要回答这些问题，我们首先来说说什么是幂等性。
+什么是幂等性（Idempotence）？ “幂等”这个词原是数学领域中的概念，指的是某些操作或函数能够被执行多次，但每次得到的结果都是不变的。我来举几个简单的例子说明一下。比如在乘法运算中，让数字乘以 1 就是一个幂等操作，因为不管你执行多少次这样的运算，结果都是相同的。再比如，取整函数（floor 和 ceiling）是幂等函数，那么运行 1 次 floor(3.4) 和 100 次 floor(3.4)，结果是一样的，都是 3。相反地，让一个数加 1 这个操作就不是幂等的，因为执行一次和执行多次的结果必然不同。
+在计算机领域中，幂等性的含义稍微有一些不同：
+ 在命令式编程语言（比如 C）中，若一个子程序是幂等的，那它必然不能修改系统状态。这样不管运行这个子程序多少次，与该子程序关联的那部分系统状态保持不变。 在函数式编程语言（比如 Scala 或 Haskell）中，很多纯函数（pure function）天然就是幂等的，它们不执行任何的 side effect。  幂等性有很多好处，其最大的优势在于我们可以安全地重试任何幂等性操作，反正它们也不会破坏我们的系统状态。如果是非幂等性操作，我们还需要担心某些操作执行多次对状态的影响，但对于幂等性操作而言，我们根本无需担心此事。</description>
+    </item>
+    
+    <item>
+      <title>13 Java生产者是如何管理TCP连接的？</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/13-java%E7%94%9F%E4%BA%A7%E8%80%85%E6%98%AF%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86tcp%E8%BF%9E%E6%8E%A5%E7%9A%84/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:06 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/13-java%E7%94%9F%E4%BA%A7%E8%80%85%E6%98%AF%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86tcp%E8%BF%9E%E6%8E%A5%E7%9A%84/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的主题是：Kafka 的 Java 生产者是如何管理 TCP 连接的。
+为何采用 TCP？ Apache Kafka 的所有通信都是基于 TCP 的，而不是基于 HTTP 或其他协议。无论是生产者、消费者，还是 Broker 之间的通信都是如此。你可能会问，为什么 Kafka 不使用 HTTP 作为底层的通信协议呢？其实这里面的原因有很多，但最主要的原因在于 TCP 和 HTTP 之间的区别。
+从社区的角度来看，在开发客户端时，人们能够利用 TCP 本身提供的一些高级功能，比如多路复用请求以及同时轮询多个连接的能力。
+所谓的多路复用请求，即 multiplexing request，是指将两个或多个数据流合并到底层单一物理连接中的过程。TCP 的多路复用请求会在一条物理连接上创建若干个虚拟连接，每个虚拟连接负责流转各自对应的数据流。其实严格来说，TCP 并不能多路复用，它只是提供可靠的消息交付语义保证，比如自动重传丢失的报文。
+更严谨地说，作为一个基于报文的协议，TCP 能够被用于多路复用连接场景的前提是，上层的应用协议（比如 HTTP）允许发送多条消息。不过，我们今天并不是要详细讨论 TCP 原理，因此你只需要知道这是社区采用 TCP 的理由之一就行了。
+除了 TCP 提供的这些高级功能有可能被 Kafka 客户端的开发人员使用之外，社区还发现，目前已知的 HTTP 库在很多编程语言中都略显简陋。
+基于这两个原因，Kafka 社区决定采用 TCP 协议作为所有请求通信的底层协议。
+Kafka 生产者程序概览 Kafka 的 Java 生产者 API 主要的对象就是 KafkaProducer。通常我们开发一个生产者的步骤有 4 步。
+第 1 步：构造生产者对象所需的参数对象。
+第 2 步：利用第 1 步的参数对象，创建 KafkaProducer 对象实例。</description>
+    </item>
+    
+    <item>
+      <title>12 客户端都有哪些不常见但是很高级的功能？</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/12-%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E4%B8%8D%E5%B8%B8%E8%A7%81%E4%BD%86%E6%98%AF%E5%BE%88%E9%AB%98%E7%BA%A7%E7%9A%84%E5%8A%9F%E8%83%BD/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:05 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/12-%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E4%B8%8D%E5%B8%B8%E8%A7%81%E4%BD%86%E6%98%AF%E5%BE%88%E9%AB%98%E7%BA%A7%E7%9A%84%E5%8A%9F%E8%83%BD/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的主题是：客户端都有哪些不常见但是很高级的功能。
+既然是不常见，那就说明在实际场景中并没有太高的出场率，但它们依然是很高级很实用的。下面就有请今天的主角登场：Kafka 拦截器。
+什么是拦截器？ 如果你用过 Spring Interceptor 或是 Apache Flume，那么应该不会对拦截器这个概念感到陌生，其基本思想就是允许应用程序在不修改逻辑的情况下，动态地实现一组可插拔的事件处理逻辑链。它能够在主业务操作的前后多个时间点上插入对应的“拦截”逻辑。下面这张图展示了 Spring MVC 拦截器的工作原理：
+图片来源：https://o7planning.org/en/11229/spring-mvc-interceptors-tutorial
+拦截器 1 和拦截器 2 分别在请求发送之前、发送之后以及完成之后三个地方插入了对应的处理逻辑。而 Flume 中的拦截器也是同理，它们插入的逻辑可以是修改待发送的消息，也可以是创建新的消息，甚至是丢弃消息。这些功能都是以配置拦截器类的方式动态插入到应用程序中的，故可以快速地切换不同的拦截器而不影响主程序逻辑。
+Kafka 拦截器借鉴了这样的设计思路。你可以在消息处理的前后多个时点动态植入不同的处理逻辑，比如在消息发送前或者在消息被消费后。
+作为一个非常小众的功能，Kafka 拦截器自 0.10.0.0 版本被引入后并未得到太多的实际应用，我也从未在任何 Kafka 技术峰会上看到有公司分享其使用拦截器的成功案例。但即便如此，在自己的 Kafka 工具箱中放入这么一个有用的东西依然是值得的。今天我们就让它来发挥威力，展示一些非常酷炫的功能。
+Kafka 拦截器 Kafka 拦截器分为生产者拦截器和消费者拦截器。生产者拦截器允许你在发送消息前以及消息提交成功后植入你的拦截器逻辑；而消费者拦截器支持在消费消息前以及提交位移后编写特定逻辑。值得一提的是，这两种拦截器都支持链的方式，即你可以将一组拦截器串连成一个大的拦截器，Kafka 会按照添加顺序依次执行拦截器逻辑。
+举个例子，假设你想在生产消息前执行两个“前置动作”：第一个是为消息增加一个头信息，封装发送该消息的时间，第二个是更新发送消息数字段，那么当你将这两个拦截器串联在一起统一指定给 Producer 后，Producer 会按顺序执行上面的动作，然后再发送消息。
+当前 Kafka 拦截器的设置方法是通过参数配置完成的。生产者和消费者两端有一个相同的参数，名字叫 interceptor.classes，它指定的是一组类的列表，每个类就是特定逻辑的拦截器实现类。拿上面的例子来说，假设第一个拦截器的完整类路径是 com.yourcompany.kafkaproject.interceptors.AddTimeStampInterceptor，第二个类是 com.yourcompany.kafkaproject.interceptors.UpdateCounterInterceptor，那么你需要按照以下方法在 Producer 端指定拦截器：
+Properties props = new Properties();List&amp;lt;String&amp;gt; interceptors = new ArrayList&amp;lt;&amp;gt;();interceptors.add(&amp;quot;com.yourcompany.kafkaproject.interceptors.AddTimestampInterceptor&amp;quot;); // 拦截器 1interceptors.add(&amp;quot;com.yourcompany.kafkaproject.interceptors.UpdateCounterInterceptor&amp;quot;); // 拦截器 2props.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, interceptors);……现在问题来了，我们应该怎么编写 AddTimeStampInterceptor 和 UpdateCounterInterceptor 类呢？其实很简单，这两个类以及你自己编写的所有 Producer 端拦截器实现类都要继承 org.</description>
+    </item>
+    
+    <item>
+      <title>11 无消息丢失配置怎么实现？</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/11-%E6%97%A0%E6%B6%88%E6%81%AF%E4%B8%A2%E5%A4%B1%E9%85%8D%E7%BD%AE%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:04 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/11-%E6%97%A0%E6%B6%88%E6%81%AF%E4%B8%A2%E5%A4%B1%E9%85%8D%E7%BD%AE%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的主题是：如何配置 Kafka 无消息丢失。
+一直以来，很多人对于 Kafka 丢失消息这件事情都有着自己的理解，因而也就有着自己的解决之道。在讨论具体的应对方法之前，我觉得我们首先要明确，在 Kafka 的世界里什么才算是消息丢失，或者说 Kafka 在什么情况下能保证消息不丢失。这点非常关键，因为很多时候我们容易混淆责任的边界，如果搞不清楚事情由谁负责，自然也就不知道由谁来出解决方案了。
+那 Kafka 到底在什么情况下才能保证消息不丢失呢？
+一句话概括，Kafka 只对“已提交”的消息（committed message）做有限度的持久化保证。
+这句话里面有两个核心要素，我们一一来看。
+第一个核心要素是“已提交的消息”。什么是已提交的消息？当 Kafka 的若干个 Broker 成功地接收到一条消息并写入到日志文件后，它们会告诉生产者程序这条消息已成功提交。此时，这条消息在 Kafka 看来就正式变为“已提交”消息了。
+那为什么是若干个 Broker 呢？这取决于你对“已提交”的定义。你可以选择只要有一个 Broker 成功保存该消息就算是已提交，也可以是令所有 Broker 都成功保存该消息才算是已提交。不论哪种情况，Kafka 只对已提交的消息做持久化保证这件事情是不变的。
+第二个核心要素就是“有限度的持久化保证”，也就是说 Kafka 不可能保证在任何情况下都做到不丢失消息。举个极端点的例子，如果地球都不存在了，Kafka 还能保存任何消息吗？显然不能！倘若这种情况下你依然还想要 Kafka 不丢消息，那么只能在别的星球部署 Kafka Broker 服务器了。
+现在你应该能够稍微体会出这里的“有限度”的含义了吧，其实就是说 Kafka 不丢消息是有前提条件的。假如你的消息保存在 N 个 Kafka Broker 上，那么这个前提条件就是这 N 个 Broker 中至少有 1 个存活。只要这个条件成立，Kafka 就能保证你的这条消息永远不会丢失。
+总结一下，Kafka 是能做到不丢失消息的，只不过这些消息必须是已提交的消息，而且还要满足一定的条件。当然，说明这件事并不是要为 Kafka 推卸责任，而是为了在出现该类问题时我们能够明确责任边界。
+“消息丢失”案例 好了，理解了 Kafka 是怎样做到不丢失消息的，那接下来我带你复盘一下那些常见的“Kafka 消息丢失”案例。注意，这里可是带引号的消息丢失哦，其实有些时候我们只是冤枉了 Kafka 而已。
+案例 1：生产者程序丢失数据
+Producer 程序丢失消息，这应该算是被抱怨最多的数据丢失场景了。我来描述一个场景：你写了一个 Producer 应用向 Kafka 发送消息，最后发现 Kafka 没有保存，于是大骂：“Kafka 真烂，消息发送居然都能丢失，而且还不告诉我？！”如果你有过这样的经历，那么请先消消气，我们来分析下可能的原因。</description>
+    </item>
+    
+    <item>
+      <title>10 生产者压缩算法面面观</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/10-%E7%94%9F%E4%BA%A7%E8%80%85%E5%8E%8B%E7%BC%A9%E7%AE%97%E6%B3%95%E9%9D%A2%E9%9D%A2%E8%A7%82/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:03 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/10-%E7%94%9F%E4%BA%A7%E8%80%85%E5%8E%8B%E7%BC%A9%E7%AE%97%E6%B3%95%E9%9D%A2%E9%9D%A2%E8%A7%82/</guid>
+      <description>你好，我是胡夕。今天我要和你分享的内容是：生产者压缩算法面面观。
+说起压缩（compression），我相信你一定不会感到陌生。它秉承了用时间去换空间的经典 trade-off 思想，具体来说就是用 CPU 时间去换磁盘空间或网络 I/O 传输量，希望以较小的 CPU 开销带来更少的磁盘占用或更少的网络 I/O 传输。在 Kafka 中，压缩也是用来做这件事的。今天我就来跟你分享一下 Kafka 中压缩的那些事儿。
+怎么压缩？ Kafka 是如何压缩消息的呢？要弄清楚这个问题，就要从 Kafka 的消息格式说起了。目前 Kafka 共有两大类消息格式，社区分别称之为 V1 版本和 V2 版本。V2 版本是 Kafka 0.11.0.0 中正式引入的。
+不论是哪个版本，Kafka 的消息层次都分为两层：消息集合（message set）以及消息（message）。一个消息集合中包含若干条日志项（record item），而日志项才是真正封装消息的地方。Kafka 底层的消息日志由一系列消息集合日志项组成。Kafka 通常不会直接操作具体的一条条消息，它总是在消息集合这个层面上进行写入操作。
+那么社区引入 V2 版本的目的是什么呢？V2 版本主要是针对 V1 版本的一些弊端做了修正，和我们今天讨论的主题相关的修正有哪些呢？先介绍一个，就是把消息的公共部分抽取出来放到外层消息集合里面，这样就不用每条消息都保存这些信息了。
+我来举个例子。原来在 V1 版本中，每条消息都需要执行 CRC 校验，但有些情况下消息的 CRC 值是会发生变化的。比如在 Broker 端可能会对消息时间戳字段进行更新，那么重新计算之后的 CRC 值也会相应更新；再比如 Broker 端在执行消息格式转换时（主要是为了兼容老版本客户端程序），也会带来 CRC 值的变化。鉴于这些情况，再对每条消息都执行 CRC 校验就有点没必要了，不仅浪费空间还耽误 CPU 时间，因此在 V2 版本中，消息的 CRC 校验工作就被移到了消息集合这一层。
+V2 版本还有一个和压缩息息相关的改进，就是保存压缩消息的方法发生了变化。之前 V1 版本中保存压缩消息的方法是把多条消息进行压缩然后保存到外层消息的消息体字段中；而 V2 版本的做法是对整个消息集合进行压缩。显然后者应该比前者有更好的压缩效果。</description>
+    </item>
+    
+    <item>
+      <title>09 生产者消息分区机制原理剖析</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/09-%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E6%81%AF%E5%88%86%E5%8C%BA%E6%9C%BA%E5%88%B6%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:02 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/09-%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E6%81%AF%E5%88%86%E5%8C%BA%E6%9C%BA%E5%88%B6%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/</guid>
+      <description>我们在使用 Apache Kafka 生产和消费消息的时候，肯定是希望能够将数据均匀地分配到所有服务器上。比如很多公司使用 Kafka 收集应用服务器的日志数据，这种数据都是很多的，特别是对于那种大批量机器组成的集群环境，每分钟产生的日志量都能以 GB 数，因此如何将这么大的数据量均匀地分配到 Kafka 的各个 Broker 上，就成为一个非常重要的问题。
+今天我就来和你说说 Kafka 生产者如何实现这个需求，我会以 Java API 为例进行分析，但实际上其他语言的实现逻辑也是类似的。
+为什么分区？ 如果你对 Kafka 分区（Partition）的概念还不熟悉，可以先返回专栏[第 2 期]回顾一下。专栏前面我说过 Kafka 有主题（Topic）的概念，它是承载真实数据的逻辑容器，而在主题之下还分为若干个分区，也就是说 Kafka 的消息组织方式实际上是三级结构：主题 - 分区 - 消息。主题下的每条消息只会保存在某一个分区中，而不会在多个分区中被保存多份。官网上的这张图非常清晰地展示了 Kafka 的三级结构，如下所示：
+现在我抛出一个问题你可以先思考一下：你觉得为什么 Kafka 要做这样的设计？为什么使用分区的概念而不是直接使用多个主题呢？
+其实分区的作用就是提供负载均衡的能力，或者说对数据进行分区的主要原因，就是为了实现系统的高伸缩性（Scalability）。不同的分区能够被放置到不同节点的机器上，而数据的读写操作也都是针对分区这个粒度而进行的，这样每个节点的机器都能独立地执行各自分区的读写请求处理。并且，我们还可以通过添加新的节点机器来增加整体系统的吞吐量。
+实际上分区的概念以及分区数据库早在 1980 年就已经有大牛们在做了，比如那时候有个叫 Teradata 的数据库就引入了分区的概念。
+值得注意的是，不同的分布式系统对分区的叫法也不尽相同。比如在 Kafka 中叫分区，在 MongoDB 和 Elasticsearch 中就叫分片 Shard，而在 HBase 中则叫 Region，在 Cassandra 中又被称作 vnode。从表面看起来它们实现原理可能不尽相同，但对底层分区（Partitioning）的整体思想却从未改变。
+除了提供负载均衡这种最核心的功能之外，利用分区也可以实现其他一些业务级别的需求，比如实现业务级别的消息顺序的问题，这一点我今天也会分享一个具体的案例来说明。
+都有哪些分区策略？ 下面我们说说 Kafka 生产者的分区策略。**所谓分区策略是决定生产者将消息发送到哪个分区的算法。**Kafka 为我们提供了默认的分区策略，同时它也支持你自定义分区策略。
+如果要自定义分区策略，你需要显式地配置生产者端的参数partitioner.class。这个参数该怎么设定呢？方法很简单，在编写生产者程序时，你可以编写一个具体的类实现org.apache.kafka.clients.producer.Partitioner接口。这个接口也很简单，只定义了两个方法：partition()和close()，通常你只需要实现最重要的 partition 方法。我们来看看这个方法的方法签名：
+int partition(String topic, Object key, byte[] keyBytes, Object value, byte[] valueBytes, Cluster cluster);这里的topic、key、keyBytes、value和valueBytes都属于消息数据，cluster则是集群信息（比如当前 Kafka 集群共有多少主题、多少 Broker 等）。Kafka 给你这么多信息，就是希望让你能够充分地利用这些信息对消息进行分区，计算出它要被发送到哪个分区中。只要你自己的实现类定义好了 partition 方法，同时设置partitioner.</description>
+    </item>
+    
+    <item>
+      <title>08 最最最重要的集群参数配置（下）</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/08-%E6%9C%80%E6%9C%80%E6%9C%80%E9%87%8D%E8%A6%81%E7%9A%84%E9%9B%86%E7%BE%A4%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE%E4%B8%8B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:01 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/08-%E6%9C%80%E6%9C%80%E6%9C%80%E9%87%8D%E8%A6%81%E7%9A%84%E9%9B%86%E7%BE%A4%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE%E4%B8%8B/</guid>
+      <description>今天我们继续来聊那些重要的 Kafka 集群配置，下半部分主要是 Topic 级别参数、JVM 参数以及操作系统参数的设置。
+在上一期中，我们讨论了 Broker 端参数设置的一些法则，但其实 Kafka 也支持为不同的 Topic 设置不同的参数值。当前最新的 2.2 版本总共提供了大约 25 个 Topic 级别的参数，当然我们也不必全部了解它们的作用，这里我挑出了一些最关键的参数，你一定要把它们掌握清楚。除了 Topic 级别的参数，我今天还会给出一些重要的 JVM 参数和操作系统参数，正确设置这些参数是搭建高性能 Kafka 集群的关键因素。
+Topic 级别参数 说起 Topic 级别的参数，你可能会有这样的疑问：如果同时设置了 Topic 级别参数和全局 Broker 参数，到底听谁的呢？哪个说了算呢？答案就是 Topic 级别参数会覆盖全局 Broker 参数的值，而每个 Topic 都能设置自己的参数值，这就是所谓的 Topic 级别参数。
+举个例子说明一下，上一期我提到了消息数据的留存时间参数，在实际生产环境中，如果为所有 Topic 的数据都保存相当长的时间，这样做既不高效也无必要。更适当的做法是允许不同部门的 Topic 根据自身业务需要，设置自己的留存时间。如果只能设置全局 Broker 参数，那么势必要提取所有业务留存时间的最大值作为全局参数值，此时设置 Topic 级别参数把它覆盖，就是一个不错的选择。
+下面我们依然按照用途分组的方式引出重要的 Topic 级别参数。从保存消息方面来考量的话，下面这组参数是非常重要的：
+ retention.ms：规定了该 Topic 消息被保存的时长。默认是 7 天，即该 Topic 只保存最近 7 天的消息。一旦设置了这个值，它会覆盖掉 Broker 端的全局参数值。 retention.bytes：规定了要为该 Topic 预留多大的磁盘空间。和全局参数作用相似，这个值通常在多租户的 Kafka 集群中会有用武之地。当前默认值是 -1，表示可以无限使用磁盘空间。  上面这些是从保存消息的维度来说的。如果从能处理的消息大小这个角度来看的话，有一个参数是必须要设置的，即max.</description>
+    </item>
+    
+    <item>
+      <title>07 最最最重要的集群参数配置（上）</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/07-%E6%9C%80%E6%9C%80%E6%9C%80%E9%87%8D%E8%A6%81%E7%9A%84%E9%9B%86%E7%BE%A4%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE%E4%B8%8A/</link>
+      <pubDate>Wed, 22 Dec 2021 01:46:00 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/07-%E6%9C%80%E6%9C%80%E6%9C%80%E9%87%8D%E8%A6%81%E7%9A%84%E9%9B%86%E7%BE%A4%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE%E4%B8%8A/</guid>
+      <description>你好，我是胡夕。今天我想和你聊聊最最最重要的 Kafka 集群配置。我这里用了 3 个“最”字并非哗众取宠，而是因为有些配置的重要性并未体现在官方文档中，并且从实际表现看，很多参数对系统的影响要比从文档上看更加明显，因此很有必要集中讨论一下。
+我希望通过两期内容把这些重要的配置讲清楚。严格来说这些配置并不单单指 Kafka 服务器端的配置，其中既有 Broker 端参数，也有主题（后面我用我们更熟悉的 Topic 表示）级别的参数、JVM 端参数和操作系统级别的参数。下面我先从 Broker 端参数说起。
+Broker 端参数 目前 Kafka Broker 提供了近 200 个参数，这其中绝大部分参数都不用你亲自过问。当谈及这些参数的用法时，网上的文章多是罗列出一些常见的参数然后一个一个地给出它们的定义，事实上我以前写文章时也是这么做的。不过今天我打算换个方法，按照大的用途类别一组一组地介绍它们，希望可以更有针对性，也更方便你记忆。
+首先 Broker 是需要配置存储信息的，即 Broker 使用哪些磁盘。那么针对存储信息的重要参数有以下这么几个：
+ log.dirs：这是非常重要的参数，指定了 Broker 需要使用的若干个文件目录路径。要知道这个参数是没有默认值的，这说明什么？这说明它必须由你亲自指定。 log.dir：注意这是 dir，结尾没有 s，说明它只能表示单个路径，它是补充上一个参数用的。  这两个参数应该怎么设置呢？很简单，你只要设置log.dirs，即第一个参数就好了，不要设置log.dir。而且更重要的是，在线上生产环境中一定要为log.dirs配置多个路径，具体格式是一个 CSV 格式，也就是用逗号分隔的多个路径，比如/home/kafka1,/home/kafka2,/home/kafka3这样。如果有条件的话你最好保证这些目录挂载到不同的物理磁盘上。这样做有两个好处：
+ 提升读写性能：比起单块磁盘，多块物理磁盘同时读写数据有更高的吞吐量。 能够实现故障转移：即 Failover。这是 Kafka 1.1 版本新引入的强大功能。要知道在以前，只要 Kafka Broker 使用的任何一块磁盘挂掉了，整个 Broker 进程都会关闭。但是自 1.1 开始，这种情况被修正了，坏掉的磁盘上的数据会自动地转移到其他正常的磁盘上，而且 Broker 还能正常工作。还记得上一期我们关于 Kafka 是否需要使用 RAID 的讨论吗？这个改进正是我们舍弃 RAID 方案的基础：没有这种 Failover 的话，我们只能依靠 RAID 来提供保障。  下面说说与 ZooKeeper 相关的设置。首先 ZooKeeper 是做什么的呢？它是一个分布式协调框架，负责协调管理并保存 Kafka 集群的所有元数据信息，比如集群都有哪些 Broker 在运行、创建了哪些 Topic，每个 Topic 都有多少分区以及这些分区的 Leader 副本都在哪些机器上等信息。</description>
+    </item>
+    
+    <item>
+      <title>06 Kafka线上集群部署方案怎么做？</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/06-kafka%E7%BA%BF%E4%B8%8A%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E6%96%B9%E6%A1%88%E6%80%8E%E4%B9%88%E5%81%9A/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:59 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/06-kafka%E7%BA%BF%E4%B8%8A%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E6%96%B9%E6%A1%88%E6%80%8E%E4%B9%88%E5%81%9A/</guid>
+      <description>专栏前面几期内容，我分别从 Kafka 的定位、版本的变迁以及功能的演进等几个方面循序渐进地梳理了 Apache Kafka 的发展脉络。通过这些内容，我希望你能清晰地了解 Kafka 是用来做什么的，以及在实际生产环境中该如何选择 Kafka 版本，更快地帮助你入门 Kafka。
+现在我们就来看看在生产环境中的 Kafka 集群方案该怎么做。既然是集群，那必然就要有多个 Kafka 节点机器，因为只有单台机器构成的 Kafka 伪集群只能用于日常测试之用，根本无法满足实际的线上生产需求。而真正的线上环境需要仔细地考量各种因素，结合自身的业务需求而制定。下面我就分别从操作系统、磁盘、磁盘容量和带宽等方面来讨论一下。
+操作系统 首先我们先看看要把 Kafka 安装到什么操作系统上。说起操作系统，可能你会问 Kafka 不是 JVM 系的大数据框架吗？Java 又是跨平台的语言，把 Kafka 安装到不同的操作系统上会有什么区别吗？其实区别相当大！
+的确，如你所知，Kafka 由 Scala 语言和 Java 语言编写而成，编译之后的源代码就是普通的“.class”文件。本来部署到哪个操作系统应该都是一样的，但是不同操作系统的差异还是给 Kafka 集群带来了相当大的影响。目前常见的操作系统有 3 种：Linux、Windows 和 macOS。应该说部署在 Linux 上的生产环境是最多的，也有一些 Kafka 集群部署在 Windows 服务器上。Mac 虽然也有 macOS Server，但是我怀疑是否有人（特别是国内用户）真的把生产环境部署在 Mac 服务器上。
+如果考虑操作系统与 Kafka 的适配性，Linux 系统显然要比其他两个特别是 Windows 系统更加适合部署 Kafka。虽然这个结论可能你不感到意外，但其中具体的原因你也一定要了解。主要是在下面这三个方面上，Linux 的表现更胜一筹。
+ I/O 模型的使用 数据网络传输效率 社区支持度  我分别来解释一下，首先来看 I/O 模型。什么是 I/O 模型呢？你可以近似地认为 I/O 模型就是操作系统执行 I/O 指令的方法。</description>
+    </item>
+    
+    <item>
+      <title>05 聊聊Kafka的版本号</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/05-%E8%81%8A%E8%81%8Akafka%E7%9A%84%E7%89%88%E6%9C%AC%E5%8F%B7/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:58 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/05-%E8%81%8A%E8%81%8Akafka%E7%9A%84%E7%89%88%E6%9C%AC%E5%8F%B7/</guid>
+      <description>你好，我是胡夕。今天我想和你聊聊如何选择 Kafka 版本号这个话题。今天要讨论的内容实在是太重要了，我觉得它甚至是你日后能否用好 Kafka 的关键。
+上一期我介绍了目前流行的几种 Kafka 发行版，其实不论是哪种 Kafka，本质上都内嵌了最核心的 Apache Kafka，也就是社区版 Kafka，那今天我们就来说说 Apache Kafka 版本号的问题。在开始之前，我想强调一下后面出现的所有“版本”这个词均表示 Kafka 具体的版本号，而非上一篇中的 Kafka 种类，这一点切记切记！
+那么现在你可能会有这样的疑问：我为什么需要关心版本号的问题呢？直接使用最新版本不就好了吗？当然了，这的确是一种有效的选择版本的策略，但我想强调的是这种策略并非在任何场景下都适用。如果你不了解各个版本之间的差异和功能变化，你怎么能够准确地评判某 Kafka 版本是不是满足你的业务需求呢？因此在深入学习 Kafka 之前，花些时间搞明白版本演进，实际上是非常划算的一件事。
+Kafka 版本命名 当前 Apache Kafka 已经迭代到 2.2 版本，社区正在为 2.3.0 发版日期进行投票，相信 2.3.0 也会马上发布。但是稍微有些令人吃惊的是，很多人对于 Kafka 的版本命名理解存在歧义。比如我们在官网上下载 Kafka 时，会看到这样的版本：
+于是有些同学就会纳闷，难道 Kafka 版本号不是 2.11 或 2.12 吗？其实不然，前面的版本号是编译 Kafka 源代码的 Scala 编译器版本。Kafka 服务器端的代码完全由 Scala 语言编写，Scala 同时支持面向对象编程和函数式编程，用 Scala 写成的源代码编译之后也是普通的“.class”文件，因此我们说 Scala 是 JVM 系的语言，它的很多设计思想都是为人称道的。
+事实上目前 Java 新推出的很多功能都是在不断向 Scala 语言靠近罢了，比如 Lambda 表达式、函数式接口、val 变量等。一个有意思的事情是，Kafka 新版客户端代码完全由 Java 语言编写，于是有些人展开了“Java VS Scala”的大讨论，并从语言特性的角度尝试分析 Kafka 社区为什么放弃 Scala 转而使用 Java 重写客户端代码。其实事情远没有那么复杂，仅仅是因为社区来了一批 Java 程序员而已，而以前老的 Scala 程序员隐退罢了。可能有点跑题了，但不管怎样我依然建议你有空去学学 Scala 语言。</description>
+    </item>
+    
+    <item>
+      <title>04 我应该选择哪种Kafka？</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/04-%E6%88%91%E5%BA%94%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E7%A7%8Dkafka/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:57 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/04-%E6%88%91%E5%BA%94%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E7%A7%8Dkafka/</guid>
+      <description>在专栏上一期中，我们谈了 Kafka 当前的定位问题，Kafka 不再是一个单纯的消息引擎系统，而是能够实现精确一次（Exactly-once）处理语义的实时流处理平台。
+你可能听说过 Apache Storm、Apache Spark Streaming 亦或是 Apache Flink，它们在大规模流处理领域可都是响当当的名字。令人高兴的是，Kafka 经过这么长时间不断的迭代，现在已经能够稍稍比肩这些框架了。我在这里使用了“稍稍”这个字眼，一方面想表达 Kafka 社区对于这些框架心存敬意；另一方面也想表达目前国内鲜有大厂将 Kafka 用于流处理的尴尬境地，毕竟 Kafka 是从消息引擎“半路出家”转型成流处理平台的，它在流处理方面的表现还需要经过时间的检验。
+如果我们把视角从流处理平台扩展到流处理生态圈，Kafka 更是还有很长的路要走。前面我提到过 Kafka Streams 组件，正是它提供了 Kafka 实时处理流数据的能力。但是其实还有一个重要的组件我没有提及，那就是 Kafka Connect。
+我们在评估流处理平台的时候，框架本身的性能、所提供操作算子（Operator）的丰富程度固然是重要的评判指标，但框架与上下游交互的能力也是非常重要的。能够与之进行数据传输的外部系统越多，围绕它打造的生态圈就越牢固，因而也就有更多的人愿意去使用它，从而形成正向反馈，不断地促进该生态圈的发展。就 Kafka 而言，Kafka Connect 通过一个个具体的连接器（Connector），串联起上下游的外部系统。
+整个 Kafka 生态圈如下图所示。值得注意的是，这张图中的外部系统只是 Kafka Connect 组件支持的一部分而已。目前还有一个可喜的趋势是使用 Kafka Connect 组件的用户越来越多，相信在未来会有越来越多的人开发自己的连接器。
+说了这么多你可能会问这和今天的主题有什么关系呢？其实清晰地了解 Kafka 的发展脉络和生态圈现状，对于指导我们选择合适的 Kafka 版本大有裨益。下面我们就进入今天的主题——如何选择 Kafka 版本？
+你知道几种 Kafka？ 咦？ Kafka 不是一个开源框架吗，什么叫有几种 Kafka 啊？ 实际上，Kafka 的确有好几种，这里我不是指它的版本，而是指存在多个组织或公司发布不同的 Kafka。你一定听说过 Linux 发行版吧，比如我们熟知的 CentOS、RedHat、Ubuntu 等，它们都是 Linux 系统，但为什么有不同的名字呢？其实就是因为它们是不同公司发布的 Linux 系统，即不同的发行版。虽说在 Kafka 领域没有发行版的概念，但你姑且可以这样近似地认为市面上的确存在着多个 Kafka“发行版”。</description>
+    </item>
+    
+    <item>
+      <title>03 Kafka只是消息引擎系统吗？</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/03-kafka%E5%8F%AA%E6%98%AF%E6%B6%88%E6%81%AF%E5%BC%95%E6%93%8E%E7%B3%BB%E7%BB%9F%E5%90%97/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:56 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/03-kafka%E5%8F%AA%E6%98%AF%E6%B6%88%E6%81%AF%E5%BC%95%E6%93%8E%E7%B3%BB%E7%BB%9F%E5%90%97/</guid>
+      <description>你好，我是胡夕。今天我们来聊一个老生常谈的话题：Kafka 只是消息引擎系统吗？
+要搞清楚这个问题，我们不可避免地要了解一下 Apache Kafka 的发展历程。有的时候我们会觉得说了解一个系统或框架的前世今生似乎没什么必要，直接开始学具体的技术不是更快更好吗？其实，不论是学习哪种技术，直接扎到具体的细节中，亦或是从一个很小的点开始学习，你很快就会感到厌烦。为什么呢？因为你虽然快速地搞定了某个技术细节，但无法建立全局的认知观，这会导致你只是在单个的点上有所进展，却没法将其串联成一条线进而扩展成一个面，从而实现系统地学习。
+我这么说是有依据的，因为这就是我当初学习 Kafka 的方式。你可能不会相信，我阅读 Kafka 源码就是从 utils 包开始的。显然，我们不用看源码也知道这玩意是干什么用的，对吧？就是个工具类包嘛，而且这种阅读源码的方式是极其低效的。就像我说的，我是在一个点一个点地学习，但全部学完之后压根没有任何感觉，依然不了解 Kafka，因为不知道这些包中的代码组合在一起能达成什么效果。所以我说它是很低效的学习方法。
+后来我修改了学习的方法，转而从自上而下的角度去理解 Kafka，竟然发现了很多之前学习过程中忽略掉的东西。更特别地是，我发现这种学习方法能够帮助我维持较长时间的学习兴趣，不会阶段性地产生厌烦情绪。特别是在了解 Apache Kafka 整个发展历史的过程中我愉快地学到了很多运营大型开源软件社区的知识和经验，可谓是技术之外的一大收获。
+纵观 Kafka 的发展脉络，它的确是从消息引擎起家的，但正如文章标题所问，Apache Kafka 真的只是消息引擎吗？通常，在回答这个问题之前很多文章可能就要这样展开了：那我们先来讨论下什么是消息引擎以及消息引擎能做什么事情。算了，我还是直给吧，就不从“唐尧虞舜”说起了。这个问题的答案是，Apache Kafka 是消息引擎系统，也是一个分布式流处理平台（Distributed Streaming Platform）。如果你通读全篇文字但只能记住一句话，我希望你记住的就是这句。再强调一遍，Kafka 是消息引擎系统，也是分布式流处理平台。
+众所周知，Kafka 是 LinkedIn 公司内部孵化的项目。根据我和 Kafka 创始团队成员的交流以及查阅到的公开信息显示，LinkedIn 最开始有强烈的数据强实时处理方面的需求，其内部的诸多子系统要执行多种类型的数据处理与分析，主要包括业务系统和应用程序性能监控，以及用户行为数据处理等。
+当时他们碰到的主要问题包括：
+ 数据正确性不足。因为数据的收集主要采用轮询（Polling）的方式，如何确定轮询的间隔时间就变成了一个高度经验化的事情。虽然可以采用一些类似于启发式算法（Heuristic）来帮助评估间隔时间值，但一旦指定不当，必然会造成较大的数据偏差。 系统高度定制化，维护成本高。各个业务子系统都需要对接数据收集模块，引入了大量的定制开销和人工成本。  为了解决这些问题，LinkedIn 工程师尝试过使用 ActiveMQ 来解决这些问题，但效果并不理想。显然需要有一个“大一统”的系统来取代现有的工作方式，而这个系统就是 Kafka。
+Kafka 自诞生伊始是以消息引擎系统的面目出现在大众视野中的。如果翻看 0.10.0.0 之前的官网说明，你会发现 Kafka 社区将其清晰地定位为一个分布式、分区化且带备份功能的提交日志（Commit Log）服务。
+这里引出一个题外话，你可能好奇 Kafka 这个名字的由来，实际上 Kafka 作者之一 Jay Kreps 曾经谈及过命名的原因。
+ 因为 Kafka 系统的写性能很强，所以找了个作家的名字来命名似乎是一个好主意。大学期间我上了很多文学课，非常喜欢 Franz Kafka 这个作家，另外为开源软件起这个名字听上去很酷。
+ 言归正传，Kafka 在设计之初就旨在提供三个方面的特性：</description>
+    </item>
+    
+    <item>
+      <title>02 一篇文章带你快速搞定Kafka术语</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/02-%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E5%B8%A6%E4%BD%A0%E5%BF%AB%E9%80%9F%E6%90%9E%E5%AE%9Akafka%E6%9C%AF%E8%AF%AD/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:55 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/02-%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E5%B8%A6%E4%BD%A0%E5%BF%AB%E9%80%9F%E6%90%9E%E5%AE%9Akafka%E6%9C%AF%E8%AF%AD/</guid>
+      <description>你好，我是胡夕。今天我们正式开启 Apache Kafka 学习之旅。
+在 Kafka 的世界中有很多概念和术语是需要你提前理解并熟练掌握的，这对于后面你深入学习 Kafka 各种功能和特性将大有裨益。下面我来盘点一下 Kafka 的各种术语。
+在专栏的第一期我说过 Kafka 属于分布式的消息引擎系统，它的主要功能是提供一套完备的消息发布与订阅解决方案。在 Kafka 中，发布订阅的对象是主题（Topic），你可以为每个业务、每个应用甚至是每类数据都创建专属的主题。
+向主题发布消息的客户端应用程序称为生产者（Producer），生产者程序通常持续不断地向一个或多个主题发送消息，而订阅这些主题消息的客户端应用程序就被称为消费者（Consumer）。和生产者类似，消费者也能够同时订阅多个主题的消息。我们把生产者和消费者统称为客户端（Clients）。你可以同时运行多个生产者和消费者实例，这些实例会不断地向 Kafka 集群中的多个主题生产和消费消息。
+有客户端自然也就有服务器端。Kafka 的服务器端由被称为 Broker 的服务进程构成，即一个 Kafka 集群由多个 Broker 组成，Broker 负责接收和处理客户端发送过来的请求，以及对消息进行持久化。虽然多个 Broker 进程能够运行在同一台机器上，但更常见的做法是将不同的 Broker 分散运行在不同的机器上，这样如果集群中某一台机器宕机，即使在它上面运行的所有 Broker 进程都挂掉了，其他机器上的 Broker 也依然能够对外提供服务。这其实就是 Kafka 提供高可用的手段之一。
+实现高可用的另一个手段就是备份机制（Replication）。备份的思想很简单，就是把相同的数据拷贝到多台机器上，而这些相同的数据拷贝在 Kafka 中被称为副本（Replica）。好吧，其实在整个分布式系统里好像都叫这个名字。副本的数量是可以配置的，这些副本保存着相同的数据，但却有不同的角色和作用。Kafka 定义了两类副本：领导者副本（Leader Replica）和追随者副本（Follower Replica）。前者对外提供服务，这里的对外指的是与客户端程序进行交互；而后者只是被动地追随领导者副本而已，不能与外界进行交互。当然了，你可能知道在很多其他系统中追随者副本是可以对外提供服务的，比如 MySQL 的从库是可以处理读操作的，但是在 Kafka 中追随者副本不会对外提供服务。对了，一个有意思的事情是现在已经不提倡使用 Master-Slave 来指代这种主从关系了，毕竟 Slave 有奴隶的意思，在美国这种严禁种族歧视的国度，这种表述有点政治不正确了，所以目前大部分的系统都改成 Leader-Follower 了。
+副本的工作机制也很简单：生产者总是向领导者副本写消息；而消费者总是从领导者副本读消息。至于追随者副本，它只做一件事：向领导者副本发送请求，请求领导者把最新生产的消息发给它，这样它能保持与领导者的同步。
+虽然有了副本机制可以保证数据的持久化或消息不丢失，但没有解决伸缩性的问题。伸缩性即所谓的 Scalability，是分布式系统中非常重要且必须要谨慎对待的问题。什么是伸缩性呢？我们拿副本来说，虽然现在有了领导者副本和追随者副本，但倘若领导者副本积累了太多的数据以至于单台 Broker 机器都无法容纳了，此时应该怎么办呢？一个很自然的想法就是，能否把数据分割成多份保存在不同的 Broker 上？如果你就是这么想的，那么恭喜你，Kafka 就是这么设计的。
+这种机制就是所谓的分区（Partitioning）。如果你了解其他分布式系统，你可能听说过分片、分区域等提法，比如 MongoDB 和 Elasticsearch 中的 Sharding、HBase 中的 Region，其实它们都是相同的原理，只是 Partitioning 是最标准的名称。</description>
+    </item>
+    
+    <item>
+      <title>01 消息引擎系统ABC</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/01-%E6%B6%88%E6%81%AF%E5%BC%95%E6%93%8E%E7%B3%BB%E7%BB%9Fabc/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:54 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/01-%E6%B6%88%E6%81%AF%E5%BC%95%E6%93%8E%E7%B3%BB%E7%BB%9Fabc/</guid>
+      <description>你好，我是胡夕。欢迎你来到“Kafka 核心技术与实战”专栏。如果你对 Kafka 及其背后的消息引擎、流处理感兴趣，很高兴我们可以在此相聚，并在未来的一段日子里一同学习有关 Kafka 的方方面面。
+毫无疑问，你现在对 Apache Kafka 一定充满了各种好奇，那么今天就允许我先来尝试回答下 Kafka 是什么这个问题。对了，先卖个关子，在下一期我还将继续回答这个问题，而且答案是不同的。那么，Kafka 是什么呢？用一句话概括一下：Apache Kafka 是一款开源的消息引擎系统。
+倘若“消息引擎系统”这个词对你来说有点陌生的话，那么“消息队列”“消息中间件”的提法想必你一定是有所耳闻的。不过说实话我更愿意使用消息引擎系统这个称谓，因为消息队列给出了一个很不明确的暗示，仿佛 Kafka 是利用队列的方式构建的；而消息中间件的提法有过度夸张“中间件”之嫌，让人搞不清楚这个中间件到底是做什么的。
+像 Kafka 这一类的系统国外有专属的名字叫 Messaging System，国内很多文献将其简单翻译成消息系统。我个人认为并不是很恰当，因为它片面强调了消息主体的作用，而忽视了这类系统引以为豪的消息传递属性，就像引擎一样，具备某种能量转换传输的能力，所以我觉得翻译成消息引擎反倒更加贴切。
+讲到这里，说点题外话。我觉得目前国内在翻译国外专有技术词汇方面做得不够标准化，各种名字和提法可谓五花八门。我举个例子，比如大名鼎鼎的 Raft 算法和 Paxos 算法。了解它的人都知道它们的作用是在分布式系统中让多个节点就某个决定达成共识，都属于 Consensus Algorithm 一族。如果你在搜索引擎中查找 Raft 算法，国内多是称呼它们为一致性算法。实际上我倒觉得翻译成共识算法是最准确的。我们使用“一致性”这个字眼太频繁了，国外的 Consistency 被称为一致性、Consensus 也唤作一致性，甚至是 Coherence 都翻译成一致性。
+还是拉回来继续聊消息引擎系统，那这类系统是做什么用的呢？我先来个官方严肃版本的答案。
+根据维基百科的定义，消息引擎系统是一组规范。企业利用这组规范在不同系统之间传递语义准确的消息，实现松耦合的异步式数据传递。
+果然是官方定义，有板有眼。如果觉得难于理解，那么可以试试我下面这个民间版：
+系统 A 发送消息给消息引擎系统，系统 B 从消息引擎系统中读取 A 发送的消息。
+最基础的消息引擎就是做这点事的！不论是上面哪个版本，它们都提到了两个重要的事实：
+ 消息引擎传输的对象是消息； 如何传输消息属于消息引擎设计机制的一部分。  既然消息引擎是用于在不同系统之间传输消息的，那么如何设计待传输消息的格式从来都是一等一的大事。试问一条消息如何做到信息表达业务语义而无歧义，同时它还要能最大限度地提供可重用性以及通用性？稍微停顿几秒去思考一下，如果是你，你要如何设计你的消息编码格式。
+一个比较容易想到的是使用已有的一些成熟解决方案，比如使用 CSV、XML 亦或是 JSON；又或者你可能熟知国外大厂开源的一些序列化框架，比如 Google 的 Protocol Buffer 或 Facebook 的 Thrift。这些都是很酷的办法。那么现在我告诉你 Kafka 的选择：它使用的是纯二进制的字节序列。当然消息还是结构化的，只是在使用之前都要将其转换成二进制的字节序列。
+消息设计出来之后还不够，消息引擎系统还要设定具体的传输协议，即我用什么方法把消息传输出去。常见的有两种方法：
+ 点对点模型：也叫消息队列模型。如果拿上面那个“民间版”的定义来说，那么系统 A 发送的消息只能被系统 B 接收，其他任何系统都不能读取 A 发送的消息。日常生活的例子比如电话客服就属于这种模型：同一个客户呼入电话只能被一位客服人员处理，第二个客服人员不能为该客户服务。 发布 / 订阅模型：与上面不同的是，它有一个主题（Topic）的概念，你可以理解成逻辑语义相近的消息容器。该模型也有发送方和接收方，只不过提法不同。发送方也称为发布者（Publisher），接收方称为订阅者（Subscriber）。和点对点模型不同的是，这个模型可能存在多个发布者向相同的主题发送消息，而订阅者也可能存在多个，它们都能接收到相同主题的消息。生活中的报纸订阅就是一种典型的发布 / 订阅模型。  比较酷的是 Kafka 同时支持这两种消息引擎模型，专栏后面我会分享 Kafka 是如何做到这一点的。</description>
+    </item>
+    
+    <item>
+      <title>00 开篇词 为什么要学习Kafka？</title>
+      <link>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/00-%E5%BC%80%E7%AF%87%E8%AF%8D-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6%E4%B9%A0kafka/</link>
+      <pubDate>Wed, 22 Dec 2021 01:45:52 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/00-%E5%BC%80%E7%AF%87%E8%AF%8D-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6%E4%B9%A0kafka/</guid>
+      <description>你好，我是胡夕，Apache Kafka 的一名代码贡献者，目前在社区的 Patch 提交总数位列第 22 位，应该说算是国内比较活跃的贡献者了。
+在过去 5 年中，我经历了 Kafka 从最初的 0.8 版本逐步演进到现在的 2.3 版本的完整过程，踩了很多坑也交了很多学费，慢慢地我梳理出了一个相对系统、完整的 Kafka 应用实战指南，最终以“Kafka 核心技术与实战”专栏的形式呈现给你，希望分享我对 Apache Kafka 的理解和实战方面的经验，帮你透彻理解 Kafka、更好地应用 Kafka。
+你可能会有这样的疑问，我为什么要学习 Kafka 呢？要回答这个问题，我们不妨从更大的视角来审视它，先聊聊我对这几年互联网技术发展的理解吧。
+互联网蓬勃发展的这些年涌现出了很多令人眼花缭乱的新技术。以我个人的浅见，截止到 2019 年，当下互联网行业最火的技术当属 ABC 了，即所谓的 AI 人工智能、BigData 大数据和 Cloud 云计算云平台。我个人对区块链技术发展前景存疑，毕竟目前没有看到特别好的落地应用场景，也许在未来几年它会更令人刮目相看吧。
+在这 ABC 当中，坦率说 A 和 C 是有点曲高和寡的，不是所有玩家都能入场。反观 B 要显得平民得多，几乎所有公司都能参与进来。我曾经到过一个理发厅，那里的人都宣称他们采用了大数据系统帮助客户设计造型，足见 BigData 是很“下里巴人”的。
+作为工程师或架构师，你在实际工作过程中一定参与到了很多大数据业务系统的构建。由于这些系统都是为公司业务服务的，所以通常来说它们仅仅是执行一些常规的业务逻辑，因此它们不能算是计算密集型应用，相反更应该是数据密集型的。
+对于数据密集型应用来说，如何应对数据量激增、数据复杂度增加以及数据变化速率变快，是彰显大数据工程师、架构师功力的最有效表征。我们欣喜地发现 Kafka 在帮助你应对这些问题方面能起到非常好的效果。就拿数据量激增来说，Kafka 能够有效隔离上下游业务，将上游突增的流量缓存起来，以平滑的方式传导到下游子系统中，避免了流量的不规则冲击。由此可见，如果你是一名大数据从业人员，熟练掌握 Kafka 是非常必要的一项技能。
+刚刚所举的例子仅仅是 Kafka 助力业务的一个场景罢了。事实上，Kafka 有着非常广阔的应用场景。不谦虚地说，目前 Apache Kafka 被认为是整个消息引擎领域的执牛耳者，仅凭这一点就值得我们好好学习一下它。另外，从学习技术的角度而言，Kafka 也是很有亮点的。我们仅需要学习一套框架就能在实际业务系统中实现消息引擎应用、应用程序集成、分布式存储构建，甚至是流处理应用的开发与部署，听起来还是很超值的吧。
+不仅如此，再给你看一个数据。援引美国 2019 年 Dice 技术薪资报告中的数据，在 10 大薪资最高的技术技能中，掌握 Kafka 以平均每年 12.</description>
+    </item>
+    
+  </channel>
+</rss>

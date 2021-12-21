@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+
+<title>23 监控实践：对 K8S 集群进行监控 | </title>
+  <meta name="description" content="整体概览 通过前面的学习，我们对 K8S 有了一定的了解，也具备了一定的集群管理和排错能力。但如果要应用于生产环境中，不可能随时随地的都盯着集群，我们需要扩展我们对集群的感知能力。
+本节，我们将介绍下 K8S 集群监控相关的内容。
+监控什么 除去 K8S 外，我们平时自己开发的系统或者负责的项目，一般都是有监控的。监控可以提升我们的感知能力，便于我们及时了解集群的变化，以及知道哪里出现了问题。
+K8S 是一个典型的分布式系统，组件很多，那么监控的目标，就变的很重要了。
+总体来讲，对 K8S 集群的监控的话，主要有以下方面：
+ 节点情况 K8S 集群自身状态 部署在 K8S 内的应用的状态  Prometheus 对于 K8S 的监控，我们选择 CNCF 旗下次于 K8S 毕业的项目 Prometheus 。
+Prometheus 是一个非常灵活易于扩展的监控系统，它通过各种 exporter 暴露数据，并由 prometheus server 定时去拉数据，然后存储。
+它自己提供了一个简单的前端界面，可在其中使用 PromQL 的语法进行查询，并进行图形化展示。
+安装 Prometheus  这里推荐一个项目 Prometheus Operator, 尽管该项目还处于 Beta 阶段，但是它给在 K8S 中搭建基于 Prometheus 的监控提供了很大的便利。
+ 我们此处选择以一般的方式进行部署，带你了解其整体的过程。
+  创建一个独立的 Namespace：
+apiVersion: v1kind: Namespacemetadata:name: monitoring# 将文件保存为 namespace.">
+<meta name="viewport", content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" type="text/css" href="/css/apollo.css">
+<meta name="author" content="">
+
+
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <div class="logo-link">
+                <a href="http://yipsen.github.io/">
+                    <img src="/favicon.png" alt="logo">
+                    <span></span>
+                </a>
+            </div>
+            <ul class="nav nav-list">
+    
+    <li class="nav-list-item">
+            <a class="nav-list-link " href="http://yipsen.github.io/about/">ABOUT</a>
+        </li><li class="nav-list-item">
+            <a class="nav-list-link " href="http://yipsen.github.io/categories/">categories</a>
+        </li>
+    
+</ul>
+
+        </header>
+        <main class="container">
+            
+<div class="post">
+    <article class="post-block">
+        <h1 class="post-title">23 监控实践：对 K8S 集群进行监控</h1>
+        <div class="post-info">
+            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/kubernetes">kubernetes</a>&nbsp;&nbsp;</div><div class="post-category">
+                
+                  <a href="/categories/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/"> Kubernetes从上手到实践 </a>
+                
+              </div></div>
+        <div class="post-content">
+            <h2 id="整体概览">整体概览</h2>
+<p>通过前面的学习，我们对 K8S 有了一定的了解，也具备了一定的集群管理和排错能力。但如果要应用于生产环境中，不可能随时随地的都盯着集群，我们需要扩展我们对集群的感知能力。</p>
+<p>本节，我们将介绍下 K8S 集群监控相关的内容。</p>
+<h2 id="监控什么">监控什么</h2>
+<p>除去 K8S 外，我们平时自己开发的系统或者负责的项目，一般都是有监控的。监控可以提升我们的感知能力，便于我们及时了解集群的变化，以及知道哪里出现了问题。</p>
+<p>K8S 是一个典型的分布式系统，组件很多，那么监控的目标，就变的很重要了。</p>
+<p>总体来讲，对 K8S 集群的监控的话，主要有以下方面：</p>
+<ul>
+<li>节点情况</li>
+<li>K8S 集群自身状态</li>
+<li>部署在 K8S 内的应用的状态</li>
+</ul>
+<h2 id="prometheus">Prometheus</h2>
+<p>对于 K8S 的监控，我们选择 CNCF 旗下次于 K8S 毕业的项目 <a href="https://prometheus.io/">Prometheus</a> 。</p>
+<p>Prometheus 是一个非常灵活易于扩展的监控系统，它通过各种 <code>exporter</code> 暴露数据，并由 <code>prometheus server</code> 定时去拉数据，然后存储。</p>
+<p>它自己提供了一个简单的前端界面，可在其中使用 <a href="https://prometheus.io/docs/prometheus/latest/querying/basics/">PromQL</a> 的语法进行查询，并进行图形化展示。</p>
+<h2 id="安装-prometheus">安装 Prometheus</h2>
+<blockquote>
+<p>这里推荐一个项目 <a href="https://github.com/coreos/prometheus-operator">Prometheus Operator</a>, 尽管该项目还处于 Beta 阶段，但是它给在 K8S 中搭建基于 Prometheus 的监控提供了很大的便利。</p>
+</blockquote>
+<p>我们此处选择以一般的方式进行部署，带你了解其整体的过程。</p>
+<ul>
+<li>
+<p>创建一个独立的 <code>Namespace</code>：</p>
+<pre tabindex="0"><code>apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+
+# 将文件保存为 namespace.yaml 的文件，并执行 kubectl apply -f namespace.yaml 即可，后面不再赘述。
+</code></pre><pre tabindex="0"><code>master $ kubectl apply -f namespace.yaml
+namespace/monitoring created
+</code></pre></li>
+<li>
+<p>RBAC</p>
+<p>我们的集群使用 <code>kubeadm</code> 创建，默认开启了 <code>RBAC</code>，所以现在需要创建相关的 Role 和 binding。</p>
+<pre tabindex="0"><code>apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: prometheus
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: prometheus
+subjects:
+- kind: ServiceAccount
+  name: prometheus-k8s
+  namespace: monitoring
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: prometheus
+rules:
+- apiGroups: [&quot;&quot;]
+  resources:
+  - nodes
+  - nodes/proxy
+  - services
+  - endpoints
+  - pods
+  verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;]
+- apiGroups: [&quot;&quot;]
+  resources:
+  - configmaps
+  verbs: [&quot;get&quot;]
+- nonResourceURLs: [&quot;/metrics&quot;]
+  verbs: [&quot;get&quot;]
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: prometheus-k8s
+  namespace: monitoring
+</code></pre><p>执行创建</p>
+<pre tabindex="0"><code>master $ kubectl  apply -f rbac.yaml
+clusterrolebinding.rbac.authorization.k8s.io/prometheus created
+clusterrole.rbac.authorization.k8s.io/prometheus created
+serviceaccount/prometheus-k8s created
+</code></pre></li>
+<li>
+<p>创建 Promethes 的配置文件</p>
+<p>其中的内容主要参考 <a href="https://github.com/prometheus/prometheus/blob/master/documentation/examples/prometheus-kubernetes.yml">Prometheus 官方提供的示例</a> 和 <a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/#kubernetes_sd_config">Prometheus 官方文档</a>。</p>
+<pre tabindex="0"><code>apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-core
+  namespace: monitoring
+data:
+  prometheus.yaml: |
+    global:
+      scrape_interval: 30s
+      scrape_timeout: 30s
+    scrape_configs:
+    - job_name: 'kubernetes-apiservers'
+
+      kubernetes_sd_configs:
+      - role: endpoints
+      scheme: https
+
+      tls_config:
+        ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+
+      relabel_configs:
+      - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name]
+        action: keep
+        regex: default;kubernetes;https
+
+    # Scrape config for nodes (kubelet).
+    - job_name: 'kubernetes-nodes'
+      scheme: https
+
+      tls_config:
+        ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+
+      kubernetes_sd_configs:
+      - role: node
+
+      relabel_configs:
+      - action: labelmap
+        regex: __meta_kubernetes_node_label_(.+)
+      - target_label: __address__
+        replacement: kubernetes.default.svc:443
+      - source_labels: [__meta_kubernetes_node_name]
+        regex: (.+)
+        target_label: __metrics_path__
+        replacement: /api/v1/nodes/${1}/proxy/metrics
+
+    # Scrape config for Kubelet cAdvisor.
+    - job_name: 'kubernetes-cadvisor'
+
+      scheme: https
+
+      tls_config:
+        ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+
+      kubernetes_sd_configs:
+      - role: node
+
+      relabel_configs:
+      - action: labelmap
+        regex: __meta_kubernetes_node_label_(.+)
+      - target_label: __address__
+        replacement: kubernetes.default.svc:443
+      - source_labels: [__meta_kubernetes_node_name]
+        regex: (.+)
+        target_label: __metrics_path__
+        replacement: /api/v1/nodes/${1}/proxy/metrics/cadvisor
+
+    - job_name: 'kubernetes-service-endpoints'
+
+      kubernetes_sd_configs:
+      - role: endpoints
+
+      relabel_configs:
+      - action: labelmap
+        regex: __meta_kubernetes_service_label_(.+)
+      - source_labels: [__meta_kubernetes_namespace]
+        action: replace
+        target_label: kubernetes_namespace
+      - source_labels: [__meta_kubernetes_service_name]
+        action: replace
+        target_label: kubernetes_name
+
+    - job_name: 'kubernetes-services'
+
+      metrics_path: /probe
+      params:
+        module: [http_2xx]
+
+      kubernetes_sd_configs:
+      - role: service
+
+      relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - target_label: __address__
+        replacement: blackbox-exporter.example.com:9115
+      - source_labels: [__param_target]
+        target_label: instance
+      - action: labelmap
+        regex: __meta_kubernetes_service_label_(.+)
+      - source_labels: [__meta_kubernetes_namespace]
+        target_label: kubernetes_namespace
+      - source_labels: [__meta_kubernetes_service_name]
+        target_label: kubernetes_name
+
+    - job_name: 'kubernetes-ingresses'
+
+      metrics_path: /probe
+      params:
+        module: [http_2xx]
+
+      kubernetes_sd_configs:
+      - role: ingress
+
+      relabel_configs:
+      - source_labels: [__meta_kubernetes_ingress_scheme,__address__,__meta_kubernetes_ingress_path]
+        regex: (.+);(.+);(.+)
+        replacement: ${1}://${2}${3}
+        target_label: __param_target
+      - target_label: __address__
+        replacement: blackbox-exporter.example.com:9115
+      - source_labels: [__param_target]
+        target_label: instance
+      - action: labelmap
+        regex: __meta_kubernetes_ingress_label_(.+)
+      - source_labels: [__meta_kubernetes_namespace]
+        target_label: kubernetes_namespace
+      - source_labels: [__meta_kubernetes_ingress_name]
+        target_label: kubernetes_name
+
+    - job_name: 'kubernetes-pods'
+
+      kubernetes_sd_configs:
+      - role: pod
+
+      relabel_configs:
+      - action: labelmap
+        regex: __meta_kubernetes_pod_label_(.+)
+      - source_labels: [__meta_kubernetes_namespace]
+        action: replace
+        target_label: kubernetes_namespace
+      - source_labels: [__meta_kubernetes_pod_name]
+        action: replace
+        target_label: kubernetes_pod_name
+</code></pre></li>
+<li>
+<p>部署 Prometheus</p>
+<pre tabindex="0"><code>apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: prometheus-core
+  namespace: monitoring
+  labels:
+    app: prometheus
+    component: core
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: prometheus-main
+      labels:
+        app: prometheus
+        component: core
+    spec:
+      serviceAccountName: prometheus-k8s
+      containers:
+      - name: prometheus
+        image: taobeier/prometheus:v2.6.0
+        args:
+          - '--storage.tsdb.retention=24h'
+          - '--storage.tsdb.path=/prometheus'
+          - '--config.file=/etc/prometheus/prometheus.yaml'
+        ports:
+        - name: webui
+          containerPort: 9090
+        resources:
+          requests:
+            cpu: 500m
+            memory: 500M
+          limits:
+            cpu: 500m
+            memory: 500M
+        volumeMounts:
+        - name: data
+          mountPath: /prometheus
+        - name: config-volume
+          mountPath: /etc/prometheus
+      volumes:
+      - name: data
+        emptyDir: {}
+      - name: config-volume
+        configMap:
+          name: prometheus-core
+</code></pre></li>
+<li>
+<p>查看部署情况</p>
+<pre tabindex="0"><code>master $ kubectl  -n monitoring get all
+NAME                                   READY     STATUS    RESTARTS   AGE
+pod/prometheus-core-86b8455f76-mvrn4   1/1       Running   0          12s
+
+NAME                              DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/prometheus-core   1         1         1            1           12s
+
+NAME                                         DESIRED   CURRENT   READY     AGE
+replicaset.apps/prometheus-core-86b8455f76   1         1         1         12s
+</code></pre><p>Prometheus 的主体就已经部署完成。</p>
+</li>
+<li>
+<p>使用 <code>Service</code> 将 <code>Promethes</code> 的服务暴露出来</p>
+<pre tabindex="0"><code>apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: prometheus
+    component: core
+  name: prometheus
+  namespace: monitoring
+spec:
+  ports:
+  - protocol: TCP
+    port: 9090
+    targetPort: 9090
+  selector:
+    app: prometheus
+    component: core
+  type: NodePort
+</code></pre><p>这里为了方便演示，直接使用了 <code>NodePort</code> 的方式暴露服务。当然你也可以参考上一节，使用 <code>Ingress</code> 的方式将服务暴露出来。</p>
+</li>
+<li>
+<p>查询当前状态</p>
+<p>我们使用 Promethes 自带的 PromQL 语法，查询在当前 <code>monitoring</code> Namespace 中 up 的任务。这里对查询的结果暂不进行展开。</p>
+</li>
+</ul>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Kubernetes%20%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/assets/167df2ab2fc5b19a" alt="img"></p>
+<h2 id="安装-node-exporter">安装 Node exporter</h2>
+<p>我们刚才在介绍时，提到过 <code>Promethes</code> 支持多种 <code>exporter</code> 暴露指标。我们现在使用 <a href="https://github.com/prometheus/node_exporter">Node exporter</a> 完成对集群中机器的基础监控。</p>
+<p>这里有一个需要考虑的点：</p>
+<ul>
+<li>
+<p>使用什么方式部署 Node exporter ？</p>
+<p>Node exporter 有已经编译好的二进制文件，可以很方便的进行部署。当我们要监控集群中所有的机器时，我们是该将它直接部署在机器上，还是部署在集群内？</p>
+<p>我建议是直接部署在集群内，使用 <code>DaemonSet</code> 的方式进行部署。这里的考虑是当我们直接部署在宿主机上时，我们最起码需要保证两点：1. Promethes 服务可与它正常通信（Promethes 采用 Pull 的方式采集数据） ；2. 需要服务保活，如果 exporter 挂掉了，那自然就取不到数据。</p>
+<p><code>DaemonSet</code> 是一种很合适的的部署方式，可直接将 Node exporter 部署至集群的每个节点上。</p>
+</li>
+<li>
+<p>创建 <code>DaemonSet</code></p>
+<pre tabindex="0"><code>apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: prometheus-node-exporter
+  namespace: monitoring
+  labels:
+    app: prometheus
+    component: node-exporter
+spec:
+  template:
+    metadata:
+      name: prometheus-node-exporter
+      labels:
+        app: prometheus
+        component: node-exporter
+    spec:
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      containers:
+      - image: taobeier/node-exporter:v0.17.0
+        name: prometheus-node-exporter
+        ports:
+        - name: prom-node-exp
+          containerPort: 9100
+          hostPort: 9100
+      hostNetwork: true
+      hostPID: true
+</code></pre></li>
+<li>
+<p>让 Promethes 抓取数据</p>
+<pre tabindex="0"><code>apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/scrape: 'true'
+  name: prometheus-node-exporter
+  namespace: monitoring
+  labels:
+    app: prometheus
+    component: node-exporter
+spec:
+  clusterIP: None
+  ports:
+    - name: prometheus-node-exporter
+      port: 9100
+      protocol: TCP
+  selector:
+    app: prometheus
+    component: node-exporter
+  type: ClusterIP
+</code></pre><p>这里我们直接使用了添加 <code>annotations</code> 的方式，让 Promethes 自动的通过 Kubernetes SD 发现我们新添加的 exporter （或者说资源）</p>
+<p>我们访问 Promethes 的 web 端，进行验证。</p>
+</li>
+</ul>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Kubernetes%20%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/assets/167df6106b58b2fb" alt="img"></p>
+<h2 id="总结">总结</h2>
+<p>在本节中，我们介绍了 <code>Prometheus</code> 的基本情况，也部署了 <code>Prometheus</code> 的主体服务。</p>
+<p>但这是结束么？这并不是，这才刚刚开始。</p>
+<p>我们提到 <code>Prometheus</code> 支持多种 <code>exporter</code> 暴露各种指标，而且我们还可以使用 <a href="https://grafana.com/">Grafana</a> 作为我们监控的展示手段。</p>
+<p>如果要做 Dashboard 推荐使用 <a href="https://grafana.com/dashboards/162">Kubernetes cluster monitoring (via Prometheus)</a> 。</p>
+<p>另外，监控其实涉及的内容很多，包括数据持久化方式。以及是否考虑与集群外的 Prometheus 集群做邦联模式等。这里需要考虑的实际情况较多，暂不一一展开了。</p>
+<p>Prometheus 已经从 CNCF 毕业，其在云原生时代下作为标准的监控技术栈也基本确立。至于应用监控，也可使用它的 SDK 来完成。</p>
+<p>下节，我们将对本小册进行一次总结。</p>
+
+        </div>
+    </article>
+</div>
+
+        </main>
+        <footer>
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/22-%E6%9C%8D%E5%8A%A1%E5%A2%9E%E5%BC%BAingress/"><span>22 服务增强：Ingress</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/24-%E6%80%BB%E7%BB%93/"><span>24 总结</span></a>
+    </div>
+</div>
+
+            <div class="copyright">
+    
+    
+    <p>&copy; 2021 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+</div>
+        </footer>
+    </div>
+    
+<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+
+
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function() {
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  var all = MathJax.Hub.getAllJax(), i;
+  console.log(all[0].SourceElement().parentNode.className);
+  for (var i = all.length - 1; i >= 0; i--) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MySQL实战宝典 on </title>
+    <link>http://yipsen.github.io/categories/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/</link>
+    <description>Recent content in MySQL实战宝典 on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 22 Dec 2021 01:53:28 +0800</lastBuildDate><atom:link href="http://yipsen.github.io/categories/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>27 分布式事务：我们到底要不要使用 2PC？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/27-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E6%88%91%E4%BB%AC%E5%88%B0%E5%BA%95%E8%A6%81%E4%B8%8D%E8%A6%81%E4%BD%BF%E7%94%A8-2pc/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:28 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/27-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E6%88%91%E4%BB%AC%E5%88%B0%E5%BA%95%E8%A6%81%E4%B8%8D%E8%A6%81%E4%BD%BF%E7%94%A8-2pc/</guid>
+      <description>你好，我是姜承尧，前面我们学习了分布式数据库中数据的分片设计、索引设计、中间件选型，全链路的条带化设计。但是我们一直在回避分布式数据库中最令人头疼的问题，那就是分布式事务。
+今天，我们就来学习分布式事务的概念，以及如何在海量互联网业务中实现它。
+分布式事务概念 事务的概念相信你已经非常熟悉了，事务就是要满足 ACID 的特性，总结来说。
+ A（Atomicity） 原子性：事务内的操作，要么都做，要么都不做； C（Consistency） 一致性：事务开始之前和事务结束以后，数据的完整性没有被破坏；如唯一性约束，外键约束等； I（Isolation）隔离性：一个事务所做的操作对另一个事务不可见，好似是串行执行； D（Durability）持久性：事务提交后，数据的修改是永久的。即使发生宕机，数据也能修复；  特别需要注意的是，当前数据库的默认事务隔离级别都没有达到隔离性的要求，MySQL、Oracle、PostgreSQL等关系型数据库都是如此。大多数数据库事务隔离级别都默认设置为 READ-COMMITTED，这种事务隔离级别没有解决可重复度和幻读问题。
+但由于在绝大部分业务中，都不会遇到这两种情况。若要达到完全隔离性的要求，性能往往又会比较低。因此在性能和绝对的隔离性前，大多数关系型数据库选择了一种折中。
+那什么是分布式事务呢？简单来说，就是要在分布式数据库的架构下实现事务的ACID特性。
+前面我们讲了分布式数据库架构设计的一个原则，即大部分的操作要能单元化。即在一个分片中完成。如对用户订单明细的查询，由于分片键都是客户ID，因此可以在一个分片中完成。那么他能满足事务的ACID特性。
+但是，如果是下面的一个电商核心业务逻辑，那就无法实现在一个分片中完成，即用户购买商品，其大致逻辑如下所示：
+START TRANSATION;INSERT INTO orders VALUES (......);INSERT INTO lineitem VALUES (......);UPDATE STOCK SET COUNT = COUNT - 1 WHERE sku_id = ?COMMIT;可以看到，在分布式数据库架构下，表orders、linitem的分片键是用户ID。但是表stock是库存品，是商品维度的数据，没有用户ID的信息。因此stock的分片规则肯定与表orders和lineitem不同。
+所以，上述的事务操作大部分情况下并不能在一个分片中完成单元化，因此就是一个分布式事务，它要求用户维度的表 orders、lineitem 和商品维度的表 stock 的变更，要么都完成，要么都完成不了。
+常见的分布式事务的实现就是通过 2PC（two phase commit 两阶段提交）实现，接着我们来看下 2PC。
+2PC的分布式事务实现 2PC 是数据库层面实现分布式事务的一种强一致性实现。在 2PC 中，引入事务协调者的角色用于协调管理各参与者（也可称之为各本地资源）的提交和回滚。而 2PC 所谓的两阶段是指parepare（准备）阶段和 commit（提交）两个阶段。
+在 2PC 的实现中，参与者就是分钟的 MySQL 数据库实例，那事务协调者是谁呢？这取决于分布式数据库的架构。若分布式数据库的架构采用业务通过分库分表规则直连分片的话，那么事务协调者就是业务程序本身。如下图所示：</description>
+    </item>
+    
+    <item>
+      <title>26 分布式设计之禅：全链路的条带化设计</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/26-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%BE%E8%AE%A1%E4%B9%8B%E7%A6%85%E5%85%A8%E9%93%BE%E8%B7%AF%E7%9A%84%E6%9D%A1%E5%B8%A6%E5%8C%96%E8%AE%BE%E8%AE%A1/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:27 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/26-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%BE%E8%AE%A1%E4%B9%8B%E7%A6%85%E5%85%A8%E9%93%BE%E8%B7%AF%E7%9A%84%E6%9D%A1%E5%B8%A6%E5%8C%96%E8%AE%BE%E8%AE%A1/</guid>
+      <description>前面几讲，我们已经学习了分布式数据库架构的基本设计，完成了数据分片、表结构、索引的设计，相信学完这几讲之后，你已经基本了解分布式数据库了，也能够设计出一个分布式数据库的基础架构。
+但这些远远不够，因为当我们提到分布式架构时，除了数据库要完成分布式架构的改造，业务层也要完成分布式架构的改造，最终完成条带化的设计。那什么是条带化，你又该怎么完成全链路的条带化设计呢？这就是我们今天探讨的话题。
+什么是条带化 条带化是存储的一种技术，将磁盘进行条带化后，可以把连续的数据分割成相同大小的数据块，简单的说，条带化就是把每段数据分别写入阵列中不同磁盘上的方法。
+可以看到，条带化的本质是通过将数据打散到多个磁盘，从而提升存储的整体性能，这与分布式数据库的分片理念是不是非常类似呢？下图显示了 RAID0 的条带化存储：
+从图中可以看到，进行 RAID 条带化后，数据存放在了三块磁盘上，分别是磁盘 1、磁盘 2、磁盘 3，存储的数据也进行了打散，分别存储在了条带 1、条带 2、条带 3 上。
+这样一来，当访问某一个数据的时候，可以并行地从 3 个磁盘上取出数据，写入也可以同时写入 3 个磁盘，提升了存储的性能。
+了解完条带化的基础知识之后，分布式数据库架构的“条带化”的访问情况又是怎么样的呢？
+全链路的条带化设计 在 22 讲中，我们已经讲过分布式数据库的本质是：将数据根据某个或几个列（称之为“分片键”），然后依据预先设定的算法（分片算法）进行打散，形成一个个的分片。
+更重要的是，分布式数据库中的表，要能选出一个统一的分片键，即大部分表都能根据这个分片键打散数据，这样当后续业务进行访问数据时，可以在一个分片中完成单元化的闭环操作，不用涉及跨分片的访问。
+下图显示了对于 tpch 分布式架构改造后的分片效果：
+从图中我们可以看到，这与我们之前所提倡的条带化的思想比较类似，即数据打散，性能得到提升，对于分布式数据库来说，分片越多，性能上限也就越高。
+但是，这只是对数据库层做了条带化，没有站在全链路的角度上进行条带化设计。我们来看一个例子，假设是电商中比较重要的订单服务，并且对表 orders 进行了分布式的条带化设计：
+可以看到，订单服务可以根据字段 o_custkey 访问不同分片的数据，这也是大部分业务会进行的设计（由于服务层通常是无状态的，因此这里不考虑高可用的情况）。但是，这样的设计不符合全链路的条带化设计思想。
+全链路的设计思想，要将上层服务也作为条带的一部分进行处理，也就是说，订单服务也要跟着分片进行分布式架构的改造。
+所以，如果进行全链路的条带化设计，那么上面的订单服务应该设计成：
+可以看到，如果要进行分布式的条带化设计时，上层业务服务也需要进行相应的分布式改造，将1个“大”订单服务层也拆分成多个“小”订单服务，其中每个订单服务访问自己分片的数据。
+这样设计的好处在于：
+ 安全性更好，每个服务可以校验访问用户是否本分片数据； 上层服务跟着数据分片进行条带化部署，业务性能更好； 上层服务跟着数据分片进行条带化部署，可用性更好；  第1点通常比较好理解，但是 2、3点 就不怎么好理解了。为什么性能也会更好呢？这里请你考虑一下业务的部署情况，也就是，经常听说的多活架构设计。
+多活架构 在前面的高可用的章节中，我们已经说过，对于高可用的架构设计要做到跨机房部署，实现的方式是无损半同复制，以及最新的 MySQL Group Rreplication 技术。数据库实例通过三园区进行部署。这样，当一个机房发生宕机，可以快速切换到另一个机房。我们再来回顾下三园区的架构设计：
+图中显示了通过无损半同步复制方式进行的三园区高可用架构设计，从而实现同城跨机房的切换能力。但这只是单实例 MySQL 数据库架构，如果到分布式架构呢？所有分片都是在一个机房吗？
+如果所有分片都在一个机房，你会发现，这时机房 2、机房3 中的数据库都只是从机，只能进行读取操作，而无法实现写入操作，这就是我们说的单活架构。
+与单活架构不同，多活架构是指不同地理位置上的系统，都能够提供业务读/写服务。这里的“活”是指实时提供读/写服务的意思，而不仅仅只是读服务。多活架构主要是为了提升系统的容灾能力，提高系统的可用性，保障业务持续可用。
+要实现多活架构，首先要进行分布式数据库的改造，然后是将不同数据分片的主服务器放到不同机房，最后是实现业务条带化的部署。如下面的这张图：
+可以看到，对于上一节的订单服务和订单数据分片，通过将其部署在不同的机房，使得订单服务1 部署在机房 1，可以对分片1进行读写；订单服务 2 部署在机房 1，可以对分片 2 进行读写；订单服务 3 部署在机房 3，可以对分片 3 进行读写。</description>
+    </item>
+    
+    <item>
+      <title>25 分布式数据库架构选型：分库分表 or 中间件 ？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/25-%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9E%B6%E6%9E%84%E9%80%89%E5%9E%8B%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8-or-%E4%B8%AD%E9%97%B4%E4%BB%B6-/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:26 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/25-%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9E%B6%E6%9E%84%E9%80%89%E5%9E%8B%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8-or-%E4%B8%AD%E9%97%B4%E4%BB%B6-/</guid>
+      <description>前面几讲我们学习了分布式数据库的分片设计、表结构设计、索引设计等，相信你已经有能力构建一个分布式数据库系统了。
+但现在数据分好了，索引也设计好了，但是如果访问这些数据和索引呢？这就是我们这一讲要讨论的话题。
+访问分布式数据库有两种模式：
+ 业务直接根据分库分表访问 MySQL 数据库节点； 根据中间件访问。  我们先来看一看业务直接访问分布式数据库的场景。
+分库分表直接访问 在设计分片时，我们已经明确了每张表的分片键信息，所以业务或服务可以直接根据分片键对应的数据库信息，直接访问底层的 MySQL 数据节点，比如在代码里可以做类似的处理：
+void InsertOrders(String orderKey, int userKey...) {int shard_id = userKey % 4;if (shard_id == 0) {conn = MySQLConncetion(&#39;shard1&#39;,...);conn.query(...);} else if (shard_id == 1) {conn = MySQLConncetion(&#39;shard2&#39;,...);conn.query(...); } else if (shard_id == 2) {conn = MySQLConncetion(&#39;shard3&#39;,...);conn.query(...); } else if (shard_id == 3) {conn = MySQLConncetion(&#39;shard4&#39;,...);conn.query(...); }}从这段代码中我们可以看到，在业务代码中会嵌入分库分表的路由逻辑，在业务层计算出对应分片的信息，然后访问数据库：</description>
+    </item>
+    
+    <item>
+      <title>24 分布式数据库索引设计：二级索引、全局索引的最佳设计实践</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/24-%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%E8%AE%BE%E8%AE%A1%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95%E5%85%A8%E5%B1%80%E7%B4%A2%E5%BC%95%E7%9A%84%E6%9C%80%E4%BD%B3%E8%AE%BE%E8%AE%A1%E5%AE%9E%E8%B7%B5/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:25 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/24-%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%E8%AE%BE%E8%AE%A1%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95%E5%85%A8%E5%B1%80%E7%B4%A2%E5%BC%95%E7%9A%84%E6%9C%80%E4%BD%B3%E8%AE%BE%E8%AE%A1%E5%AE%9E%E8%B7%B5/</guid>
+      <description>前面两讲，我们学习了 MySQL 分布式数据库架构的内容，相信现在你清楚地知道了分布式数据库的整体架构，以及数据如何进行分片。
+结合第一模块的“表结构设计”，基本上你已经能完成分布式数据库架构下，表结构的设计工作。
+而在分布式数据库架构下，索引的设计也需要做调整，否则无法充分发挥分布式架构线性可扩展的优势。所以这一讲，我们就来学习“在分布式数据库架构下，如何正确的设计索引？”。
+主键选择 对主键来说，要保证在所有分片中都唯一，它本质上就是一个全局唯一的索引。如果用大部分同学喜欢的自增作为主键，就会发现存在很大的问题。
+因为自增并不能在插入前就获得值，而是要通过填 NULL 值，然后再通过函数 last_insert_id()获得自增的值。所以，如果在每个分片上通过自增去实现主键，可能会出现同样的自增值存在于不同的分片上。
+比如，对于电商的订单表 orders，其表结构如下（分片键是o_custkey，表的主键是o_orderkey）：
+CREATE TABLE `orders` (`O_ORDERKEY` int NOT NULL auto_increment,`O_CUSTKEY` int NOT NULL,`O_ORDERSTATUS` char(1) NOT NULL,`O_TOTALPRICE` decimal(15,2) NOT NULL,`O_ORDERDATE` date NOT NULL,`O_ORDERPRIORITY` char(15) NOT NULL,`O_CLERK` char(15) NOT NULL,`O_SHIPPRIORITY` int NOT NULL,`O_COMMENT` varchar(79) NOT NULL,PRIMARY KEY (`O_ORDERKEY`),KEY (`O_CUSTKEY`)......) ENGINE=InnoDB如果把 o_orderkey 设计成上图所示的自增，那么很可能 o_orderkey 同为 1 的记录在不同的分片出现，如下图所示：
+所以，在分布式数据库架构下，尽量不要用自增作为表的主键，这也是我们在第一模块“表结构设计”中强调过的：自增性能很差、安全性不高、不适用于分布式架构。</description>
+    </item>
+    
+    <item>
+      <title>23 分布式数据库表结构设计：如何正确地将数据分片？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/23-%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%9C%B0%E5%B0%86%E6%95%B0%E6%8D%AE%E5%88%86%E7%89%87/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:24 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/23-%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%9C%B0%E5%B0%86%E6%95%B0%E6%8D%AE%E5%88%86%E7%89%87/</guid>
+      <description>前面 22 讲中，我们简单学习了分布式数据库的架构，知道各类分布式数据库都离不开计算层、存储层、元数据层这三层关系。
+另外，很重要的一点是，知道分布式数据库是把数据打散存储在一个个分片中。在基于MySQL 的分布式数据库架构中，分片就存在于 MySQL 实例中。
+今天这一讲，我们来学习分布式数据库中，一个非常重要的设计：正确地把数据分片，充分发挥分布式数据库架构的优势。
+选出分片键 在对表中的数据进行分片时，首先要选出一个分片键（Shard Key），即用户可以通过这个字段进行数据的水平拆分。
+对于我们之前使用的电商业务的订单表orders，其表结构如下所示：
+CREATE TABLE `orders` (`O_ORDERKEY` int NOT NULL,`O_CUSTKEY` int NOT NULL,`O_ORDERSTATUS` char(1) NOT NULL,`O_TOTALPRICE` decimal(15,2) NOT NULL,`O_ORDERDATE` date NOT NULL,`O_ORDERPRIORITY` char(15) NOT NULL,`O_CLERK` char(15) NOT NULL,`O_SHIPPRIORITY` int NOT NULL,`O_COMMENT` varchar(79) NOT NULL,PRIMARY KEY (`O_ORDERKEY`),KEY `idx_custkey_orderdate` (`O_CUSTKEY`,`O_ORDERDATE`),KEY `ORDERS_FK1` (`O_CUSTKEY`),KEY `idx_custkey_orderdate_totalprice` (`O_CUSTKEY`,`O_ORDERDATE`,`O_TOTALPRICE`),KEY `idx_orderdate` (`O_ORDERDATE`),KEY `idx_orderstatus` (`O_ORDERSTATUS`),CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`O_CUSTKEY`) REFERENCES `customer` (`C_CUSTKEY`)) ENGINE=InnoDB对于类似淘宝、京东、拼多多这样业务体量的应用来说，单实例 MySQL 数据库在性能和存储容量上肯定无法满足“双 11、618 ”大促的要求，所以要改造成分布式数据库架构。</description>
+    </item>
+    
+    <item>
+      <title>22 分布式数据库架构：彻底理解什么叫分布式数据库</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/22-%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9E%B6%E6%9E%84%E5%BD%BB%E5%BA%95%E7%90%86%E8%A7%A3%E4%BB%80%E4%B9%88%E5%8F%AB%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:23 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/22-%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9E%B6%E6%9E%84%E5%BD%BB%E5%BA%95%E7%90%86%E8%A7%A3%E4%BB%80%E4%B9%88%E5%8F%AB%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+      <description>前面的三个模块里，我们学习了 MySQL 架构设计中最核心的内容，表结构设计、索引设计、高可用设计。相信通过前面的内容，你已经能很好地完成 MySQL 数据库的架构设计工作。
+从这个模块开始，我们将进入架构设计的深水区，学习分布式数据库架构的设计。
+我们都知道，现在互联网应用已经普及，数据量不断增大。对淘宝、美团、百度等互联网业务来说，传统单实例数据库很难支撑其性能和存储的要求，所以分布式架构得到了很大发展。
+而开发同学、DBA 同学，一定要认识到数据库技术正在经历一场较大的变革，及早掌握好分布式架构设计，帮助公司从古老的单实例架构迁移到分布式架构，对自己在职场的竞争力来说，大有益处。
+话不多说，我们直接进入分布式架构设计环节。这一讲先来看一看“什么是分布式数据库？”
+分布式数据库概念 Wiki 官方对分布式数据库的定义为：
+ A distributed database is a database in which data is stored across different physical locations. It may be stored in multiple computers located in the same physical location (e.g. a data centre); or maybe dispersed over a network of interconnected computers.
+ 从定义来看，分布式数据库是一种把数据分散存储在不同物理位置的数据库。
+对比我们之前学习的数据库，数据都是存放在一个实例对应的物理存储上，而在分布式数据库中，数据将存放在不同的数据库实例上。
+分布式数据库的架构
+从图中我们可以看到，在分布式数据库下，分布式数据库本身分为计算层、元数据层和存储层：
+ 计算层就是之前单机数据库中的 SQL 层，用来对数据访问进行权限检查、路由访问，以及对计算结果等操作。 元数据层记录了分布式数据库集群下有多少个存储节点，对应 IP、端口等元数据信息是多少。当分布式数据库的计算层启动时，会先访问元数据层，获取所有集群信息，才能正确进行 SQL 的解析和路由等工作。另外，因为元数据信息存放在元数据层，那么分布式数据库的计算层可以有多个，用于实现性能的扩展。 存储层用来存放数据，但存储层要和计算层在同一台服务器上，甚至不求在同一个进程中。  我们可以看到，分布式数据库的优势是把数据打散到不同的服务器上，这种横向扩展的 Scale Out 能力，能解决单机数据库的性能与存储瓶颈。</description>
+    </item>
+    
+    <item>
+      <title>21 数据库备份：备份文件也要检查！</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/21-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B9%9F%E8%A6%81%E6%A3%80%E6%9F%A5/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:22 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/21-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B9%9F%E8%A6%81%E6%A3%80%E6%9F%A5/</guid>
+      <description>在前几讲中，我们学习了高可用的架构设计。你要牢记：高可用只是用来保证业务的连续性，当发生灾难时，MySQL 数据库可以进行切换（比如 20 讲基于复制或者 InnoDB Cluster 技术的高可用解决方案）。
+除了高可用设计外，对架构师来说，还要做好备份架构的设计。因为我们要防范意外情况的发生，比如黑客删除了数据库中所有的核心数据；又或者某个员工有意也罢、无意也好，删除了线上的数据。
+这种删库跑路的情况并不少见，几乎每过一段时间就成为头条新闻，比如 2020 年发生的微盟删库事件：
+ 2 月 23 日晚上，微盟核心员工贺某私自删除数据库，直接导致公司 SaaS 业务突然崩溃，基于微盟的商家小程序都处于宕机状态，300 万家商户生意基本停摆，生意快做不下去了。同时，微盟自身也蒙受巨大损失，短短几天公司市值就蒸发超过 20 亿港元。
+ 我们可以看到，破坏性的删除数据不但会对业务连续性产生影响，也会让公司经济遭受不可评估的破坏。所以这一讲，我们就来学习 “如何设计一个完整的备份系统”。
+数据库备份 复制技术（Replication）或 InnoDB Cluster 只负责业务的可用性，保障数据安全除了线上的副本数据库，我们还要构建一个完整的离线备份体系。这样即使线上数据库被全部破坏，用户也可以从离线备份恢复出数据。
+所以，第一步要做好：线上数据库与离线备份系统的权限隔离。
+也就是说，可以访问线上数据库权限的同学一定不能访问离线备份系统，反之亦然。否则，如果两边的数据都遭受破坏，依然无法恢复数据。
+而对于 MySQL 数据库来说，数据库备份分为全量备份、增量备份。
+全量备份 指备份当前时间点数据库中的所有数据，根据备份内容的不同，全量备份可以分为逻辑备份、物理备份两种方式。
+ 逻辑备份  指备份数据库的逻辑内容，就是每张表中的内容通过 INSERT 语句的形式进行备份。
+MySQL 官方提供的逻辑备份工具有 mysqldump 和 mysqlpump。通过 mysqldump 进行备份，可以使用以下 SQL 语句：
+mysqldump -A --single-transaction &amp;gt; backup.sql上面的命令就是通过 mysqldump 进行全量的逻辑备份：
+ 参数 -A 表示备份所有数据库； 参数 &amp;ndash;single-transaction 表示进行一致性的备份。  我特别强调，参数 &amp;ndash;single-transaction 是必须加的参数，否则备份文件的内容不一致，这样的备份几乎没有意义。</description>
+    </item>
+    
+    <item>
+      <title>20 InnoDB Cluster：改变历史的新产品</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/20-innodb-cluster%E6%94%B9%E5%8F%98%E5%8E%86%E5%8F%B2%E7%9A%84%E6%96%B0%E4%BA%A7%E5%93%81/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:21 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/20-innodb-cluster%E6%94%B9%E5%8F%98%E5%8E%86%E5%8F%B2%E7%9A%84%E6%96%B0%E4%BA%A7%E5%93%81/</guid>
+      <description>前面几讲，我们围绕 MySQL 复制技术构建了读写分离方案、数据库高可用解决方案，以及数据库的管理平台。可以看到，我们所有的讨论都是基于 MySQL 的复制技术。
+不过，MySQL 复制只是一种数据同步技术，如果要完成数据库的高可用解决方案，还要额外依赖外部的组件，比如 MHA、Orchestrator、数据库管理平台等。
+另一方面，之前介绍的所有切换判断都是通过一组外部的心跳检查机制完成，这依赖于高可用套件自身的能力，如果高可用套件本身不可靠，就意味着高可用的不可靠性。比如，当数据库真的发生宕机时，数据库是否一定能切换成功呢？
+最后，数据库复制技术的瓶颈在于：只能在一个节点完成写入，然后再将日志同步各个节点，这样单点写入会导致数据库性能无法进行扩展。那么能不能有一种技术，能实现 MySQL 多个节点写入，并且保证数据同步的能力呢？
+有的，这就是我们今天将要学习的 InnoDB Cluster，它的底层是由 MySQL Group Replication（下面简称MGR）实现。为了让你用好 InnoDB Cluster，今天这一讲我会侧重讲解 MGR 技术、多节点写入、InnoDB Cluster 解决方案、希望你在学完之后能掌握这种新的MySQL 高可用解决方案。
+MGR技术 MGR 是官方在 MySQL 5.7 版本推出的一种基于状态机的数据同步机制。与半同步插件类似，MGR 是通过插件的方式启用或禁用此功能。
+MGR 复制结构图
+注意，我们谈及 MGR，不要简单认为它是一种新的数据同步技术，而是应该把它理解为高可用解决方案，而且特别适合应用于对于数据一致性要求极高的金融级业务场景。
+首先，MGR 之间的数据同步并没有采用复制技术，而是采用 GCS（Group Communication System）协议的日志同步技术。
+GSC 本身是一种类似 Paxos 算法的协议，要求组中的大部分节点都接收到日志，事务才能提交。所以，MRG 是严格要求数据一致的，特别适合用于金融级的环境。由于是类 Paxos 算法，集群的节点要求数量是奇数个，这样才能满足大多数的要求。
+有的同学可能会问了：之前介绍的无损半同步也能保证数据强一致的要求吗？
+是的，虽然通过无损半同步复制也能保证主从数据的一致性，但通过 GCS 进行数据同步有着更好的性能：当启用 MGR 插件时，MySQL 会新开启一个端口用于数据的同步，而不是如复制一样使用MySQL 服务端口，这样会大大提升复制的效率。
+其次，MGR 有两种模式：
+ 单主（Single Primary）模式； 多主（Multi Primary）模式。  单主模式只有 1 个节点可以写入，多主模式能让每个节点都可以写入。而多个节点之间写入，如果存在变更同一行的冲突，MySQL 会自动回滚其中一个事务，自动保证数据在多个节点之间的完整性和一致性。
+最后，在单主模式下，MGR 可以自动进行 Failover 切换，不用依赖外部的各种高可用套件，所有的事情都由数据库自己完成，比如最复杂的选主（Primary Election）逻辑，都是由 MGR 自己完成，用户不用部署额外的 Agent 等组件。</description>
+    </item>
+    
+    <item>
+      <title>19 高可用套件：选择这么多，你该如何选？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/19-%E9%AB%98%E5%8F%AF%E7%94%A8%E5%A5%97%E4%BB%B6%E9%80%89%E6%8B%A9%E8%BF%99%E4%B9%88%E5%A4%9A%E4%BD%A0%E8%AF%A5%E5%A6%82%E4%BD%95%E9%80%89/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:20 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/19-%E9%AB%98%E5%8F%AF%E7%94%A8%E5%A5%97%E4%BB%B6%E9%80%89%E6%8B%A9%E8%BF%99%E4%B9%88%E5%A4%9A%E4%BD%A0%E8%AF%A5%E5%A6%82%E4%BD%95%E9%80%89/</guid>
+      <description>在 17、18 讲中，我们已经学习了 MySQL 数据库的高可用解决方案，并且学习了怎么根据金融业务的要求，通过无损半同步复制的方式进行三园区的同城容灾设计，以及三地务中心的跨城容灾设计。
+但是当数据库发生宕机时，MySQL 的主从复制并不会自动地切换，这需要高可用套件对数据库主从进行管理。
+这一讲，我们就来学习 MySQL 常用的高可用套件，希望你在学完今天的内容之后，能够理解高可用套件的实现原理，将高可用套件用于自己的生产环境。
+高可用套件 MySQL 的高可用套件用于负责数据库的 Failover 操作，也就是当数据库发生宕机时，MySQL 可以剔除原有主机，选出新的主机，然后对外提供服务，保证业务的连续性。
+可以看到，MySQL 复制是高可用的技术基础，用于将数据实时同步到从机。高可用套件是MySQL 高可用实现的解决方案，负责切换新主机。
+为了不让业务感知到数据库的宕机切换，这里要用到 VIP（Virtual IP）技术。其中，VIP 不是真实的物理 IP，而是可以随意绑定在任何一台服务器上。
+业务访问数据库，不是服务器上与网卡绑定的物理 IP，而是这台服务器上的 VIP。当数据库服务器发生宕机时，高可用套件会把 VIP 插拔到新的服务器上。数据库 Failover后，业务依旧访问的还是 VIP，所以使用 VIP 可以做到对业务透明。
+下面这张图显示了业务通过 VIP 进行数据库的访问：
+从上图可以看到，MySQL 的主服务器的 IP 地址是 192.168.1.10，两个从服务器的 IP 地址分别为 192.168.1.20、192.168.1.30。
+上层服务访问数据库并没有直接通过物理 IP 192.168.1.10，而是访问 VIP，地址为192.168.1.100。这时，如果 MySQL 数据库主服务器发生宕机，会进行如下的处理：
+我们可以看到，当发生 Failover 后，由于上层服务访问的是 VIP 192.168.1.100，所以切换对服务来说是透明的，只是在切换过程中，服务会收到连接数据库失败的提示。但是通过重试机制，当下层数据库完成切换后，服务就可以继续使用了。所以，上层服务一定要做好错误重试的逻辑，否则就算启用 VIP，也无法实现透明的切换。
+但是 VIP 也是有局限性的，仅限于同机房同网段的 IP 设定。如果是我们之前设计的三园区同城跨机房容灾架构，VIP 就不可用了。这时就要用名字服务，常见的名字服务就是 DNS（Domain Name Service），如下所示：
+从上图可以看到，这里将域名 m1.insidemysql.com 对应的 IP 指向为了 192.</description>
+    </item>
+    
+    <item>
+      <title>18 金融级高可用架构：必不可少的数据核对</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/18-%E9%87%91%E8%9E%8D%E7%BA%A7%E9%AB%98%E5%8F%AF%E7%94%A8%E6%9E%B6%E6%9E%84%E5%BF%85%E4%B8%8D%E5%8F%AF%E5%B0%91%E7%9A%84%E6%95%B0%E6%8D%AE%E6%A0%B8%E5%AF%B9/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:19 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/18-%E9%87%91%E8%9E%8D%E7%BA%A7%E9%AB%98%E5%8F%AF%E7%94%A8%E6%9E%B6%E6%9E%84%E5%BF%85%E4%B8%8D%E5%8F%AF%E5%B0%91%E7%9A%84%E6%95%B0%E6%8D%AE%E6%A0%B8%E5%AF%B9/</guid>
+      <description>在 17 讲中，我们学习了高可用的三大架构设计，基于数据层的高可用、基于业务层的高可用，以及融合的高可用架构设计。
+在这些架构中，仅仅解决了业务连续性的问题：也就是当服务器因为各种原因，发生宕机，导致MySQL 数据库不可用之后，快速恢复业务。但对有状态的数据库服务来说，在一些核心业务系统中，比如电商、金融等，还要保证数据一致性。
+这里的“数据一致性”是指在任何灾难场景下，一条数据都不允许丢失（一般也把这种数据复制方式叫作“强同步”）。
+今天我们就来看一看，怎么在这种最高要求（数据一致性）的业务场景中，设计 MySQL 的高可用架构。
+复制类型的选择 在 15 讲中，我们已经谈到银行、保险、证券等核心业务，需要严格保障数据一致性。那么要想实现数据的强同步，在进行复制的配置时，就要使用无损半同步复制模式。
+在 MySQL 内部就是要把参数 rpl_semi_sync_master_wait_point 设置成 AFTER_SYNC 。
+但是在高可用设计时，当数据库 FAILOVER 完后，有时还要对原来的主机做额外的操作，这样才能保证主从数据的完全一致性。
+我们来看这样一张图：
+从图中可以看到，即使启用无损半同步复制，依然存在当发生主机宕机时，最后一组事务没有上传到从机的可能。图中宕机的主机已经提交事务到 101，但是从机只接收到事务 100。如果这个时候 Failover，从机提升为主机，那么这时：
+可以看到当主从切换完成后，新的 MySQL 开始写入新的事务102，如果这时老的主服务器从宕机中恢复，则这时事务 101 不会同步到新主服务器，导致主从数据不一致。
+但设置 AFTER_SYNC 无损半同步的好处是，虽然事务 101 在原主机已经提交，但是在从机没有收到并返回 ACK 前，这个事务对用户是不可见的，所以，用户感受不到事务已经提交了。
+所以，在做高可用设计时，当老主机恢复时，需要做一次额外的处理，把事务101给“回滚”（具体怎么实现我们将在 20 讲，高可用套件中具体分析）。
+这里我们只要记住，设计数据强一致的高可用方案时，要选择无损半同步复制，另外在发生宕机FAILOVER 后，若老主机恢复，还需要额外处理老主机上已提交但还未发送到从机的数据。
+容灾级别 高可用用于处理各种宕机问题，而宕机可以分成服务器宕机、机房级宕机，甚至是一个城市发生宕机。
+ 机房级宕机： 机房光纤不通/被挖断，机房整体掉电（双路备用电源也不可用）； 城市级宕机： 一般指整个城市的进出口网络，骨干交换机发生的故障（这种情况发生的概率很小）。  如果综合考虑的话，高可用就成了一种容灾处理机制，对应的高可用架构的评判标准就上升了。
+ 机房内容灾： 机房内某台数据库服务器不可用，切换到同机房的数据库实例，保障业务连续性； 同城容灾： 机房不可用，切换到同城机房的数据库实例，保障业务连续性； 跨城容灾： 单个城市机房都不可用，切换到跨城机房的数据库实例，保障业务连续性。  前面我们谈到的高可用设计，都只是机房内的容灾。也就是说，我们的主服务器和从服务器都在一个机房内，现在我们来看一下同城和跨城的容灾设计（我提醒一下，不论是机房内容灾、同城容灾，还是跨城容灾，都是基于 MySQL 的无损半同步复制，只是物理部署方式不同，解决不同的问题）。
+对于同城容灾，我看到很多这样的设计：
+这种设计没有考虑到机房网络的抖动。如果机房 1 和机房 2 之间的网络发生抖动，那么因为事务提交需要机房 2 中的从服务器接收日志，所以会出现事务提交被 hang 住的问题。</description>
+    </item>
+    
+    <item>
+      <title>17 高可用设计：你怎么活用三大架构方案？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/17-%E9%AB%98%E5%8F%AF%E7%94%A8%E8%AE%BE%E8%AE%A1%E4%BD%A0%E6%80%8E%E4%B9%88%E6%B4%BB%E7%94%A8%E4%B8%89%E5%A4%A7%E6%9E%B6%E6%9E%84%E6%96%B9%E6%A1%88/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:18 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/17-%E9%AB%98%E5%8F%AF%E7%94%A8%E8%AE%BE%E8%AE%A1%E4%BD%A0%E6%80%8E%E4%B9%88%E6%B4%BB%E7%94%A8%E4%B8%89%E5%A4%A7%E6%9E%B6%E6%9E%84%E6%96%B9%E6%A1%88/</guid>
+      <description>我们前面学习了 MySQL 数据库复制的原理、优化，以及基于复制技术实现业务层的读写分离方案，这些内容都是为了铺垫 MySQL 数据库的高可用架构设计。因为复制是高可用的基础，但只用复制同步数据又远远不够，你还要结合自己的业务进行高可用设计。
+同时，高可用也不仅仅是数据库的事情，你要从业务的全流程出发，思考怎么设计一个真正健壮的高可用架构。
+现在，我们先来看看什么是高可用？为什么它如此重要。
+高可用概念 首先，我们来看一下 wiki 上对高可用（High Availability）的定义：
+ High availability (HA) is a characteristic of a system which aims to ensure an agreed level of operational performance, usually uptime, for a higher than normal period.
+ 从上面的描述来看，高可用（High Availability）是系统所能提供无故障服务的一种能力。 简单地说就是避免因服务器宕机而造成的服务不可用。
+我们都知道，高可用是每个业务系统设计时，开发人员必须考虑的关键点。比如你的系统在发生不可用时，业务表现如何？用户能否容忍你的不可用时长？
+而业界度量高可用能力也有统一标准：判断宕机时间，并以此计算出每年系统可用时间达到几个 9，来判断高可用架构是否健壮。具体如下表所示：
+通常来说，系统至少要达到 4 个 9（99.99%），也就是每年宕机时间不超过 52.56 分钟，否则用户体验会非常差，感觉系统不稳定。
+99.99% = 1 - 52.56 / (365*24*60)
+不过 4 个 9 宕机 52 分钟对于生产环境的影响还是比较大，但是 5 个 9 对大部分系统来说要求又太高。所以一些云服务商会提出一个 99.</description>
+    </item>
+    
+    <item>
+      <title>16 读写分离设计：复制延迟？其实是你用错了</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/16-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E8%AE%BE%E8%AE%A1%E5%A4%8D%E5%88%B6%E5%BB%B6%E8%BF%9F%E5%85%B6%E5%AE%9E%E6%98%AF%E4%BD%A0%E7%94%A8%E9%94%99%E4%BA%86/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:17 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/16-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E8%AE%BE%E8%AE%A1%E5%A4%8D%E5%88%B6%E5%BB%B6%E8%BF%9F%E5%85%B6%E5%AE%9E%E6%98%AF%E4%BD%A0%E7%94%A8%E9%94%99%E4%BA%86/</guid>
+      <description>上一讲我们学习了主从复制的原理，以及 4 种不同复制类型在不同业务中的选型，今天我们来看一下主从复制延迟的问题。
+很多同学会发现，自己的主从复制会存在主从数据延迟的问题，甚至会导致读写分离，架构设计在业务层出现较为严重的问题，比如迟迟无法读取到主库已经插入的数据。
+但这可能并不是 MySQL 复制的问题，而是你的业务没有根据 MySQL 复制的特点进行设计。
+所以这一讲，我们就来学习主从复制延迟的原因，以及如何避免这个令人头疼的问题。
+逻辑日志的优缺点 学完 15 讲之后，你应该注意到 MySQL 复制基于的二进制日志是一种逻辑日志，其写入的是每个事务中已变更的每条记录的前项、后项。
+有了每条记录的变化内容，用户可以方便地通过分析 MySQL 的二进制日志内容，准时地将 MySQL 中的数据同步到异构的数据平台，如 HBase、ES、Hive 等大数据平台。
+我们可以发现，逻辑日志简单易懂，方便数据之间的同步，但它的缺点是：事务不能太大，否则会导致二进制日志非常大，一个大事务的提交会非常慢。
+假设有个 DELETE 删除操作，删除当月数据，由于数据量可能有 1 亿条记录，可能会产生 100G 的二进制日志，则这条 SQL 在提交时需要等待 100G 的二进制日志写入磁盘，如果二进制日志磁盘每秒写入速度为 100M/秒，至少要等待 1000 秒才能完成这个事务的提交。
+所以在 MySQL 中，你一定要对大事务特别对待， 总结起来就是：
+ 设计时，把 DELETE 删除操作转化为 DROP TABLE/PARTITION 操作； 业务设计时，把大事务拆成小事务。  对于第一点（把 DELETE 删除操作转化为 DROP TABLE/PARTITION 操作），主要是在设计时把流水或日志类的表按时间分表或者分区，这样在删除时，二进制日志内容就是一条 DROP TABLE/PARITION 的 SQL，写入速度就非常快了。
+而第二点（把大事务拆分成小事务）也能控制二进制日志的大小。比如对于前面的 DELETE 操作，如果设计时没有分表或分区，那么你可以进行如下面的小事务拆分：
+DELETE FROM ...WHEREE time between .</description>
+    </item>
+    
+    <item>
+      <title>15 MySQL 复制：最简单也最容易配置出错</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/15-mysql-%E5%A4%8D%E5%88%B6%E6%9C%80%E7%AE%80%E5%8D%95%E4%B9%9F%E6%9C%80%E5%AE%B9%E6%98%93%E9%85%8D%E7%BD%AE%E5%87%BA%E9%94%99/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:16 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/15-mysql-%E5%A4%8D%E5%88%B6%E6%9C%80%E7%AE%80%E5%8D%95%E4%B9%9F%E6%9C%80%E5%AE%B9%E6%98%93%E9%85%8D%E7%BD%AE%E5%87%BA%E9%94%99/</guid>
+      <description>从今天开始，我们正式进入高可用架构的设计环节。
+在前两个模块中，我们学习了 MySQL 架构中的表结构设计、索引设计。对业务开发的同学来说，掌握这些内容已经能很好地面向业务逻辑进行编码工作了。
+但是业务需要上线，所以除了表和索引的结构设计之外，你还要做好高可用的设计。因为在真实的生产环境下，如果发生物理硬件故障，没有搭建高可用架构，会导致业务完全不可用。
+而这在海量并发访问的互联网业务中完全不敢想象。所以除了业务架构，还要做好可用性的架构设计。
+这一讲，我们就来学习 MySQL 高可用架构中最基础、最为核心的内容：MySQL 复制（Replication）。
+MySQL 复制架构 数据库复制本质上就是数据同步。MySQL 数据库是基于二进制日志（binary log）进行数据增量同步，而二进制日志记录了所有对于 MySQL 数据库的修改操作。
+在默认 ROW 格式二进制日志中，一条 SQL 操作影响的记录会被全部记录下来，比如一条 SQL语句更新了三行记录，在二进制日志中会记录被修改的这三条记录的前项（before image）和后项（after image）。
+对于 INSERT 或 DELETE 操作，则会记录这条被插入或删除记录所有列的信息，我们来看一个例子：
+DELETE FROM orders_test WHERE o_orderdate = &#39;1997-12-31&#39;;Query OK, 2482 rows affected (0.07 sec)可以看到，上面这条 SQL 执行的是删除操作，一共删除了有 2482 行记录。可以在 mysql 命令行下使用命令 SHOW BINLOG EVENTS 查看某个二进制日志文件的内容，比如上述删除操作发生在二进制日志文件 binlog.000004 中，你可以看到：
+通过 MySQL 数据库自带的命令 mysqlbinlog，可以解析二进制日志，观察到更为详细的每条记录的信息，比如：
+从图中，你可以通过二进制日志记录看到被删除记录的完整信息，还有每个列的属性，比如列的类型，是否允许为 NULL 值等。
+如果是 UPDATE 操作，二进制日志中还记录了被修改记录完整的前项和后项，比如：
+在有二进制日志的基础上，MySQL 数据库就可以通过数据复制技术实现数据同步了。而数据复制的本质就是把一台 MySQL 数据库上的变更同步到另一台 MySQL 数据库上。下面这张图显示了当前 MySQL 数据库的复制架构：</description>
+    </item>
+    
+    <item>
+      <title>14 分区表：哪些场景我不建议用分区表？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/14-%E5%88%86%E5%8C%BA%E8%A1%A8%E5%93%AA%E4%BA%9B%E5%9C%BA%E6%99%AF%E6%88%91%E4%B8%8D%E5%BB%BA%E8%AE%AE%E7%94%A8%E5%88%86%E5%8C%BA%E8%A1%A8/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:15 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/14-%E5%88%86%E5%8C%BA%E8%A1%A8%E5%93%AA%E4%BA%9B%E5%9C%BA%E6%99%AF%E6%88%91%E4%B8%8D%E5%BB%BA%E8%AE%AE%E7%94%A8%E5%88%86%E5%8C%BA%E8%A1%A8/</guid>
+      <description>前面几讲，我们通过索引的原理，索引覆盖的使用，结合复杂 SQL 的调优，学习了索引设计的各个方面。那么在模块二的最后一讲，我想来谈谈分区表的设计，用来对数据进行物理分区。
+分区表即涉及表结构设计，也涉及了索引的设计，以及一个数据库上的哲学问题：是否要使用分区表？
+接下来，我们就来学习分区表的相关知识（分区表的使用、注意事项、误区）以及在业务上的设计。
+分区表的使用 简单来说，分区表就是把物理表结构相同的几张表，通过一定算法，组成一张逻辑大表。这种算法叫“分区函数”，当前 MySQL 数据库支持的分区函数类型有 RANGE、LIST、HASH、KEY、COLUMNS。
+无论选择哪种分区函数，都要指定相关列成为分区算法的输入条件，这些列就叫“分区列”。另外，在 MySQL 分区表中，主键也必须是分区列的一部分，不然创建分区表时会失败，比如：
+CREATE TABLE t (a INT,b INT,c DATETIME(6),d VARCHAR(32),e INT,PRIMARY KEY (a,b))partition by range columns(c) (PARTITION p0000 VALUES LESS THAN (&#39;2019-01-01&#39;),PARTITION p2019 VALUES LESS THAN (&#39;2020-01-01&#39;),PARTITION p2020 VALUES LESS THAN (&#39;2021-01-01&#39;),PARTITION p9999 VALUES LESS THAN (MAXVALUE));ERROR 1503 (HY000): A PRIMARY KEY must include all columns in the table&#39;s partitioning function (prefixed columns are not considered).</description>
+    </item>
+    
+    <item>
+      <title>13 子查询：放心地使用子查询功能吧！</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/13-%E5%AD%90%E6%9F%A5%E8%AF%A2%E6%94%BE%E5%BF%83%E5%9C%B0%E4%BD%BF%E7%94%A8%E5%AD%90%E6%9F%A5%E8%AF%A2%E5%8A%9F%E8%83%BD%E5%90%A7/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:14 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/13-%E5%AD%90%E6%9F%A5%E8%AF%A2%E6%94%BE%E5%BF%83%E5%9C%B0%E4%BD%BF%E7%94%A8%E5%AD%90%E6%9F%A5%E8%AF%A2%E5%8A%9F%E8%83%BD%E5%90%A7/</guid>
+      <description>今天我想和你聊一聊“子查询”。
+上一讲，我提到了一种复杂的 SQL 情况，多表间的连接，以及怎么设计索引来提升 JOIN 的性能。
+除了多表连接之外，开发同学还会大量用子查询语句（subquery）。但是因为之前版本的MySQL 数据库对子查询优化有限，所以很多 OLTP 业务场合下，我们都要求在线业务尽可能不用子查询。
+然而，MySQL 8.0 版本中，子查询的优化得到大幅提升。所以从现在开始，放心大胆地在MySQL 中使用子查询吧！
+为什么开发同学这么喜欢写子查询？ 我工作这么多年，发现相当多的开发同学喜欢写子查询，而不是传统的 JOIN 语句。举一个简单的例子，如果让开发同学“找出1993年，没有下过订单的客户数量”，大部分同学会用子查询来写这个需求，比如：
+SELECTCOUNT(c_custkey) cntFROMcustomerWHEREc_custkey NOT IN (SELECTo_custkeyFROMordersWHEREo_orderdate &amp;gt;= &#39;1993-01-01&#39;AND o_orderdate &amp;lt; &#39;1994-01-01&#39;);从中可以看到，子查询的逻辑非常清晰：通过 NOT IN 查询不在订单表的用户有哪些。
+不过上述查询是一个典型的 LEFT JOIN 问题（即在表 customer 存在，在表 orders 不存在的问题）。所以，这个问题如果用 LEFT JOIN 写，那么 SQL 如下所示：
+SELECTCOUNT(c_custkey) cntFROMcustomerLEFT JOINorders ONcustomer.c_custkey = orders.o_custkeyAND o_orderdate &amp;gt;= &#39;1993-01-01&#39;AND o_orderdate &amp;lt; &#39;1994-01-01&#39;WHEREo_custkey IS NULL;可以发现，虽然 LEFT JOIN 也能完成上述需求，但不容易理解，因为 LEFT JOIN 是一个代数关系，而子查询更偏向于人类的思维角度进行理解。</description>
+    </item>
+    
+    <item>
+      <title>12 JOIN 连接：到底能不能写 JOIN？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/12-join-%E8%BF%9E%E6%8E%A5%E5%88%B0%E5%BA%95%E8%83%BD%E4%B8%8D%E8%83%BD%E5%86%99-join/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:13 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/12-join-%E8%BF%9E%E6%8E%A5%E5%88%B0%E5%BA%95%E8%83%BD%E4%B8%8D%E8%83%BD%E5%86%99-join/</guid>
+      <description>前面几讲，我带你学习了索引和优化器的工作原理，相信你已经可以对单表的 SQL 语句进行索引的设计和调优工作。但除了单表的 SQL 语句，还有两大类相对复杂的 SQL，多表 JOIN 和子查询语句，这就要在多张表上创建索引，难度相对提升不少。
+而很多开发人员下意识地认为 JOIN 会降低 SQL 的性能效率，所以就将一条多表 SQL 拆成单表的一条条查询，但这样反而会影响 SQL 执行的效率。究其原因，在于开发人员不了解 JOIN 的实现过程。
+那接下来，我们就来关注 JOIN 的工作原理，再在此基础上了解 JOIN 实现的算法和应用场景，从而让你放心大胆地使用 JOIN。
+JOIN连接算法 MySQL 8.0 版本支持两种 JOIN 算法用于表之间的关联：
+ Nested Loop Join； Hash Join。  通常认为，在 OLTP 业务中，因为查询数据量较小、语句相对简单，大多使用索引连接表之间的数据。这种情况下，优化器大多会用 Nested Loop Join 算法；而 OLAP 业务中的查询数据量较大，关联表的数量非常多，所以用 Hash Join 算法，直接扫描全表效率会更高。
+注意，这里仅讨论最新的 MySQL 8.0 版本中 JOIN 连接的算法，同时也推荐你在生产环境时优先用 MySQL 8.0。
+接下来，我们来分析一下这两个算法 Nested Loop Join 和 Hash Join。
+Nested Loop Join Nested Loop Join 之间的表关联是使用索引进行匹配的，假设表 R 和 S 进行连接，其算法伪代码大致如下：</description>
+    </item>
+    
+    <item>
+      <title>11 索引出错：请理解 CBO 的工作原理</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/11-%E7%B4%A2%E5%BC%95%E5%87%BA%E9%94%99%E8%AF%B7%E7%90%86%E8%A7%A3-cbo-%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:12 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/11-%E7%B4%A2%E5%BC%95%E5%87%BA%E9%94%99%E8%AF%B7%E7%90%86%E8%A7%A3-cbo-%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</guid>
+      <description>在前三讲中，我们学习了 B+ 树索引的原理、索引组织表的实现，组合索引的使用方法，相信你对 B+ 树索引的使用已经有了一定的了解。
+而在实际工作中，我也经常会遇到一些同学提出这样的问题：MySQL 并没有按照自己的预想来选择索引，比如创建了索引但是选择了全表扫描，这肯定是 MySQL 数据库的 Bug，或者是索引出错了。
+当然不是！ 这主要因为索引中的数据犯了错。
+为什么这么说呢？要理解该问题，要理解 MySQL 数据库中的优化器是怎么执行的，然后才能明白为什么最终优化器没有选择你预想的索引。
+接下来，我们就来理解 MySQL 数据库是怎么选择索引的。
+MySQL是如何选择索引的？ 在前面的表 orders 中，对于字段 o_custkey 已经创建了相关的 3 个索引，所以现在表 orders 的情况如下所示：
+ CREATE TABLE `orders` (`O_ORDERKEY` int NOT NULL,`O_CUSTKEY` int NOT NULL,`O_ORDERSTATUS` char(1) NOT NULL,`O_TOTALPRICE` decimal(15,2) NOT NULL,`O_ORDERDATE` date NOT NULL,`O_ORDERPRIORITY` char(15) NOT NULL,`O_CLERK` char(15) NOT NULL,`O_SHIPPRIORITY` int NOT NULL,`O_COMMENT` varchar(79) NOT NULL,PRIMARY KEY (`O_ORDERKEY`),KEY `idx_custkey_orderdate` (`O_CUSTKEY`,`O_ORDERDATE`),KEY `ORDERS_FK1` (`O_CUSTKEY`),KEY `idx_custkey_orderdate_totalprice` (`O_CUSTKEY`,`O_ORDERDATE`,`O_TOTALPRICE`),CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`O_CUSTKEY`) REFERENCES `customer` (`C_CUSTKEY`)) ENGINE=InnoDB在查询字段 o_custkey 时，理论上可以使用三个相关的索引：ORDERS_FK1、idx_custkey_orderdate、idx_custkey_orderdate_totalprice。那 MySQL 优化器是怎么从这三个索引中进行选择的呢？</description>
+    </item>
+    
+    <item>
+      <title>10 组合索引：用好，性能提升 10 倍！</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/10-%E7%BB%84%E5%90%88%E7%B4%A2%E5%BC%95%E7%94%A8%E5%A5%BD%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87-10-%E5%80%8D/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:11 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/10-%E7%BB%84%E5%90%88%E7%B4%A2%E5%BC%95%E7%94%A8%E5%A5%BD%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87-10-%E5%80%8D/</guid>
+      <description>在前两讲中，我带你学习了索引的数据结构和索引组织表，相信你应该掌握了怎么在 MySQL 数据库中创建索引以及一些基本的使用技巧。
+当然，前两讲我举的例子都是基于一个列进行索引排序和使用，比较简单。在实际业务中，我们会遇到很多复杂的场景，比如对多个列进行查询。这时，可能会要求用户创建多个列组成的索引，如列 a 和 b 创建的组合索引，但究竟是创建（a，b）的索引，还是（b，a）的索引，结果却是完全不同的。
+这一讲，我们就来学习更贴近业务实战的组合索引的创建与使用。希望学完这一讲之后，你能在自己的业务中用好组合索引，进一步提升系统的性能。
+组合索引 组合索引（Compound Index）是指由多个列所组合而成的 B+树索引，这和我们之前介绍的B+ 树索引的原理完全一样，只是之前是对一个列排序，现在是对多个列排序。
+组合索引既可以是主键索引，也可以是二级索引，下图显示的是一个二级组合索引：
+组合索引的 B+ 树结构
+从上图可以看到，组合索引只是排序的键值从 1 个变成了多个，本质还是一颗 B+ 树索引。但是你一定要意识到（a，b）和（b，a）这样的组合索引，其排序结果是完全不一样的。而索引的字段变多了，设计上更容易出问题，如：
+对组合索引（a，b）来说，因为其对列 a、b 做了排序，所以它可以对下面两个查询进行优化：
+SELECT * FROM table WHERE a = ?SELECT * FROM table WHERE a = ？ AND b = ？上述 SQL 查询中，WHERE 后查询列 a 和 b 的顺序无关，即使先写 b = ? AND a = ？依然可以使用组合索引（a，b）。
+但是下面的 SQL 无法使用组合索引（a，b），因为（a，b）排序并不能推出（b，a）排序：
+SELECT * FROM table WHERE b = ?</description>
+    </item>
+    
+    <item>
+      <title>09 索引组织表：万物皆索引</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/09-%E7%B4%A2%E5%BC%95%E7%BB%84%E7%BB%87%E8%A1%A8%E4%B8%87%E7%89%A9%E7%9A%86%E7%B4%A2%E5%BC%95/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:10 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/09-%E7%B4%A2%E5%BC%95%E7%BB%84%E7%BB%87%E8%A1%A8%E4%B8%87%E7%89%A9%E7%9A%86%E7%B4%A2%E5%BC%95/</guid>
+      <description>上一讲，我已经带你了解了 B+ 树索引的基本概念，以及 MySQL 中怎么对 B+ 树索引进行基本的管理。为了让你进一步深入了解 MySQL 的 B+ 树索引的具体使用，这一讲我想和你聊一聊 MySQL InnoDB 存储引擎的索引结构。
+InnoDB 存储引擎是 MySQL 数据库中使用最为广泛的引擎，在海量大并发的 OLTP 业务中，InnoDB 必选。它在数据存储方面有一个非常大的特点：索引组织表（Index Organized Table）。
+接下来我就带你了解最为核心的概念：索引组织表。希望你学完今天的内容之后能理解 MySQL 是怎么存储数据和索引对象的。
+索引组织表 数据存储有堆表和索引组织表两种方式。
+堆表中的数据无序存放， 数据的排序完全依赖于索引（Oracle、Microsoft SQL Server、PostgreSQL 早期默认支持的数据存储都是堆表结构）。
+从图中你能看到，堆表的组织结构中，数据和索引分开存储。索引是排序后的数据，而堆表中的数据是无序的，索引的叶子节点存放了数据在堆表中的地址，当堆表的数据发生改变，且位置发生了变更，所有索引中的地址都要更新，这非常影响性能，特别是对于 OLTP 业务。
+而索引组织表，数据根据主键排序存放在索引中，主键索引也叫聚集索引（Clustered Index）。在索引组织表中，数据即索引，索引即数据。
+MySQL InnoDB 存储引擎就是这样的数据组织方式；Oracle、Microsoft SQL Server 后期也推出了支持索引组织表的存储方式。
+但是，PostgreSQL 数据库因为只支持堆表存储，不适合 OLTP 的访问特性，虽然它后期对堆表有一定的优化，但本质是通过空间换时间，对海量并发的 OLTP 业务支持依然存在局限性。
+回看 08 讲中的 User 表，其就是索引组织表的方式：
+表 User 的主键是 id，所以表中的数据根据 id 排序存储，叶子节点存放了表中完整的记录，可以看到表中的数据存放在索引中，即表就是索引，索引就是表。
+在了解完 MySQL InnoDB 的主键索引存储方式之后，接下来我们继续了解二级索引。
+二级索引 InnoDB 存储引擎的数据是根据主键索引排序存储的，除了主键索引外，其他的索引都称之为二级索引（Secondeary Index）， 或非聚集索引（None Clustered Index）。</description>
+    </item>
+    
+    <item>
+      <title>08 索引：排序的艺术</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/08-%E7%B4%A2%E5%BC%95%E6%8E%92%E5%BA%8F%E7%9A%84%E8%89%BA%E6%9C%AF/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:09 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/08-%E7%B4%A2%E5%BC%95%E6%8E%92%E5%BA%8F%E7%9A%84%E8%89%BA%E6%9C%AF/</guid>
+      <description>在模块一中，我们学习了怎么根据合适的类型正确地创建一张表，但创建的表不能立刻用在真正的业务系统上。因为表结构设计只是设计数据库最初的环节之一，我们还缺少数据库设计中最为重要的一个环节——索引设计，只有正确设计索引，业务才能达到上线的初步标准。
+所以模块二我会讲索引的设计、业务应用与调优等案例。今天我们先来学习关系型数据库最核心的概念——索引，对索引做一个初步的概述，让你对数据库中的索引有一个体系的认知，并用好 B+ 树索引。
+索引是什么？ 相信你在面试时，通常会被问到“什么是索引？”而你一定要能脱口而出：索引是提升查询速度的一种数据结构。
+索引之所以能提升查询速度，在于它在插入时对数据进行了排序（显而易见，它的缺点是影响插入或者更新的性能）。
+所以，索引是一门排序的艺术，有效地设计并创建索引，会提升数据库系统的整体性能。在目前的 MySQL 8.0 版本中，InnoDB 存储引擎支持的索引有 B+ 树索引、全文索引、R 树索引。这一讲我们就先关注使用最为广泛的 B+ 树索引。
+B+树索引结构 B+ 树索引是数据库系统中最为常见的一种索引数据结构，几乎所有的关系型数据库都支持它。
+那为什么关系型数据库都热衷支持 B+树索引呢？因为它是目前为止排序最有效率的数据结构。像二叉树，哈希索引、红黑树、SkipList，在海量数据基于磁盘存储效率方面远不如 B+ 树索引高效。
+所以，上述的数据结构一般仅用于内存对象，基于磁盘的数据排序与存储，最有效的依然是 B+ 树索引。
+B+树索引的特点是： 基于磁盘的平衡树，但树非常矮，通常为 3~4 层，能存放千万到上亿的排序数据。树矮意味着访问效率高，从千万或上亿数据里查询一条数据，只用 3、4 次 I/O。
+又因为现在的固态硬盘每秒能执行至少 10000 次 I/O ，所以查询一条数据，哪怕全部在磁盘上，也只需要 0.003 ~ 0.004 秒。另外，因为 B+ 树矮，在做排序时，也只需要比较 3~4 次就能定位数据需要插入的位置，排序效率非常不错。
+B+ 树索引由根节点（root node）、中间节点（non leaf node）、叶子节点（leaf node）组成，其中叶子节点存放所有排序后的数据。当然也存在一种比较特殊的情况，比如高度为 1 的B+ 树索引：
+上图中，第一个列就是 B+ 树索引排序的列，你可以理解它是表 User 中的列 id，类型为 8 字节的 BIGINT，所以列 userId 就是索引键（key），类似下表：
+CREATE TABLE User (id BIGINT AUTO_INCREMENT PRIMARY KEY,name VARCHAR(128) NOT NULL,sex CHAR(6) NOT NULL,registerDate DATETIME NOT NULL,.</description>
+    </item>
+    
+    <item>
+      <title>07 表的访问设计：你该选择 SQL 还是 NoSQL？</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/07-%E8%A1%A8%E7%9A%84%E8%AE%BF%E9%97%AE%E8%AE%BE%E8%AE%A1%E4%BD%A0%E8%AF%A5%E9%80%89%E6%8B%A9-sql-%E8%BF%98%E6%98%AF-nosql/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:08 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/07-%E8%A1%A8%E7%9A%84%E8%AE%BF%E9%97%AE%E8%AE%BE%E8%AE%A1%E4%BD%A0%E8%AF%A5%E9%80%89%E6%8B%A9-sql-%E8%BF%98%E6%98%AF-nosql/</guid>
+      <description>到目前为止，我已经带你学习了表结构的字段类型选择和表的物理存储设计，这一讲我们将继续学习表的访问选型。这样一来，字段类型选择 + 物理存储设计 + 表的访问设计，就完成了表结构设计的所有内容。
+前面 6 讲，我演示的都是通过 SQL 的方式对表进行访问，但从 MySQL 5.6 版本开始，就支持除 SQL 外的其他访问方式，比如 NoSQL，甚至可以把 MySQL 打造成一个百万级并发访问的 KV 数据库或文档数据库。
+今天这一讲，我就带你从全局角度看 MySQL 数据库中表的访问方式，以及它们各自的使用场景，希望你能有所收获。
+MySQL 中表的访问方式 SQL 是访问数据库的一个通用接口，虽然数据库有很多种，但数据库中的 SQL 却是类似的，因为 SQL 有标准存在，如 SQL92、SQL2003 等。
+虽然有些数据库会扩展支持 SQL 标准外的语法，但 90% 的语法是兼容的，所以，不同数据库在 SQL 层面的学习成本是比较低的。也因为上述原因，从一种关系型数据库迁移到另一种关系型数据库，开发的迁移成本并不高。比如去 IOE，将 Oracle 数据库迁移到 MySQL 数据库，通常 SQL 语法并不是难题。
+MySQL 8.0 版本前，有不少同学会吐槽 MySQL 对于 SQL 标准的支持的程度。但是在当前 8.0 版本下，MySQL 对于 SQL 语法的支持度已经越来越好，甚至在某些方面超过了商业数据库 Oracle。
+上图是专家评估的不同数据库对 SQL 的支持程度，可以看到，MySQL 8.0 在这一块非常完善，特别是对 JSON_TABLE 的支持功能。
+通常来说，MySQL 数据库用于 OLTP 的在线系统中，不用特别复杂的 SQL 语法支持。但 MySQL 8.</description>
+    </item>
+    
+    <item>
+      <title>06 表压缩：不仅仅是空间压缩</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/06-%E8%A1%A8%E5%8E%8B%E7%BC%A9%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E7%A9%BA%E9%97%B4%E5%8E%8B%E7%BC%A9/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:07 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/06-%E8%A1%A8%E5%8E%8B%E7%BC%A9%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E7%A9%BA%E9%97%B4%E5%8E%8B%E7%BC%A9/</guid>
+      <description>前面几讲，我们从最早的各种列类型的选择，过渡到表结构的设计，相信学完前面几讲，你已经能够较好地设计出各种业务表，比如用户表、订单表。既然我们已经掌握了表的逻辑设计，那这一讲就继续学习不同业务表的物理存储设计。
+据我观察，很多同学不会在表结构设计之初就考虑存储的设计，只有当业务发展到一定规模才会意识到问题的严重性。而物理存储主要是考虑是否要启用表的压缩功能，默认情况下，所有表都是非压缩的。
+但一些同学一听到压缩，总会下意识地认为压缩会导致 MySQL 数据库的性能下降。这个观点说对也不对，需要根据不同场景进行区分。 这一讲，我们就来看一看表的物理存储设计：不同场景下，表压缩功能的使用。
+表压缩 数据库中的表是由一行行记录（rows）所组成，每行记录被存储在一个页中，在 MySQL 中，一个页的大小默认为 16K，一个个页又组成了每张表的表空间。
+通常我们认为，如果一个页中存放的记录数越多，数据库的性能越高。这是因为数据库表空间中的页是存放在磁盘上，MySQL 数据库先要将磁盘中的页读取到内存缓冲池，然后以页为单位来读取和管理记录。
+一个页中存放的记录越多，内存中能存放的记录数也就越多，那么存取效率也就越高。若想将一个页中存放的记录数变多，可以启用压缩功能。此外，启用压缩后，存储空间占用也变小了，同样单位的存储能存放的数据也变多了。
+若要启用压缩技术，数据库可以根据记录、页、表空间进行压缩，不过在实际工程中，我们普遍使用页压缩技术，这是为什么呢？
+ 压缩每条记录： 因为每次读写都要压缩和解压，过于依赖 CPU 的计算能力，性能会明显下降；另外，因为单条记录大小不会特别大，一般小于 1K，压缩效率也并不会特别好。 压缩表空间： 压缩效率非常不错，但要求表空间文件静态不增长，这对基于磁盘的关系型数据库来说，很难实现。  而基于页的压缩，既能提升压缩效率，又能在性能之间取得一种平衡。
+可能很多同学认为，启用表的页压缩功能后，性能有明显损失，因为压缩需要有额外的开销。的确，压缩需要消耗额外的 CPU 指令，但是压缩并不意味着性能下降，或许能额外提升性能，因为大部分的数据库业务系统，CPU 的处理能力是剩余的，而 I/O 负载才是数据库主要瓶颈。
+借助页压缩技术，MySQL 可以把一个 16K 的页压缩为 8K，甚至 4K，这样在从磁盘写入或读取时，就能将 I/O 请求大小减半，甚至更小，从而提升数据库的整体性能。
+当然，压缩是一种平衡，并非一定能提升数据库的性能。这种性能“平衡”取决于解压缩开销带来的收益和解压缩带来的开销之间的一种权衡。但无论如何，压缩都可以有效整理数据原本的容量，对存储空间来说，压缩的收益是巨大的。
+MySQL 压缩表设计 COMPRESS 页压缩 COMPRESS 页压缩是 MySQL 5.7 版本之前提供的页压缩功能。只要在创建表时指定ROW_FORMAT=COMPRESS，并设置通过选项 KEY_BLOCK_SIZE 设置压缩的比例。
+需要牢记的是， 虽然是通过选项 ROW_FORMAT 启用压缩功能，但这并不是记录级压缩，依然是根据页的维度进行压缩。
+下面这是一张日志表，ROW_FROMAT 设置为 COMPRESS，表示启用 COMPRESS 页压缩功能，KEY_BLOCK_SIZE 设置为 8，表示将一个 16K 的页压缩为 8K。
+CREATE TABLE Log (logId BINARY(16) PRIMARY KEY,.</description>
+    </item>
+    
+    <item>
+      <title>05 表结构设计：忘记范式准则</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/05-%E8%A1%A8%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%BF%98%E8%AE%B0%E8%8C%83%E5%BC%8F%E5%87%86%E5%88%99/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:06 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/05-%E8%A1%A8%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%BF%98%E8%AE%B0%E8%8C%83%E5%BC%8F%E5%87%86%E5%88%99/</guid>
+      <description>前面几讲我虽然带你了解了数字类型、字符串、日期类型，以及非结构化的 JSON 类型，但也只是每条记录每个字段的选择。
+而我们在对一张表进行设计时，还要遵守一些基本的原则，比如你经常听见的“范式准则”。但范式准则过于理论，在真实业务中，你不必严格遵守三范式的要求。而且有时为了性能考虑，你还可以进行反范式的设计，比如在数据仓库领域。这一讲我就会带你了解这些内容，希望你学完这一讲之后，能从更高一层的维度来看待 MySQL 数据库的表结构设计。
+忘记范式准则 相信你在大学学习《数据库系统概论》时，肯定学习过关系数据库的设计规范，比如第一范式、第二范式、第三范式，BC 范式等，它们是《数据库系统概论》考试中重要的考点。
+范式设计是非常重要的理论，是通过数学集合概念来推导范式的过程，在理论上，要求表结构设计必须至少满足三范式的要求。
+由于完全是数据推导过程，范式理论非常枯燥，但你只要记住几个要点就能抓住其中的精髓：
+ 一范式要求所有属性都是不可分的基本数据项； 二范式解决部分依赖； 三范式解决传递依赖。  虽然我已经提炼了范式设计的精髓，但要想真正理解范式设计，就要抛弃纯理论的范式设计准则，从业务角度出发，设计出符合范式准则要求的表结构。
+工程上的表结构设计实战 真实的业务场景是工程实现，表结构设计做好以下几点就已经足够：
+ 每张表一定要有一个主键（方法有自增主键设计、UUID 主键设计、业务自定义生成主键）； 消除冗余数据存在的可能。  我想再次强调一下，你不用过于追求所谓的数据库范式准则，甚至有些时候，我们还会进行反范式的设计。
+自增主键设计 主键用于唯一标识一行数据，所以一张表有主键，就已经直接满足一范式的要求了。在 01 讲的整型类型中，我提及可以使用 BIGINT 的自增类型作为主键，同时由于整型的自增性，数据库插入也是顺序的，性能较好。
+但你要注意，使用 BIGINT 的自增类型作为主键的设计仅仅适合非核心业务表，比如告警表、日志表等。真正的核心业务表，一定不要用自增键做主键，主要有 6 个原因：
+ 自增存在回溯问题； 自增值在服务器端产生，存在并发性能问题； 自增值做主键，只能在当前实例中保证唯一，不能保证全局唯一； 公开数据值，容易引发安全问题，例如知道地址http://www.example.com/User/10/，很容猜出 User 有 11、12 依次类推的值，容易引发数据泄露； MGR（MySQL Group Replication） 可能引起的性能问题； 分布式架构设计问题。  自增存在回溯问题，我在 01 讲中已经讲到，如果你想让核心业务表用自增作为主键，MySQL 数据库版本应该尽可能升级到 8.0 版本。
+又因为自增值是在 MySQL 服务端产生的值，需要有一把自增的 AI 锁保护，若这时有大量的插入请求，就可能存在自增引起的性能瓶颈。比如在 MySQL 数据库中，参数 innodb_autoinc_lock_mode 用于控制自增锁持有的时间。假设有一 SQL 语句，同时插入 3 条带有自增值的记录：</description>
+    </item>
+    
+    <item>
+      <title>04 非结构存储：用好 JSON 这张牌</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/04-%E9%9D%9E%E7%BB%93%E6%9E%84%E5%AD%98%E5%82%A8%E7%94%A8%E5%A5%BD-json-%E8%BF%99%E5%BC%A0%E7%89%8C/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:05 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/04-%E9%9D%9E%E7%BB%93%E6%9E%84%E5%AD%98%E5%82%A8%E7%94%A8%E5%A5%BD-json-%E8%BF%99%E5%BC%A0%E7%89%8C/</guid>
+      <description>前面几讲，我已经带你了解了 MySQL 数据库中常见的 3 种类型：数字类型、字符串类型和日期类型。然而，它们都属于传统关系型设计的范畴。
+关系型的结构化存储存在一定的弊端，因为它需要预先定义好所有的列以及列对应的类型。但是业务在发展过程中，或许需要扩展单个列的描述功能，这时，如果能用好 JSON 数据类型，那就能打通关系型和非关系型数据的存储之间的界限，为业务提供更好的架构选择。
+当然，很多同学在用 JSON 数据类型时会遇到各种各样的问题，其中最容易犯的误区就是将类型 JSON 简单理解成字符串类型。 但当你学完今天的内容之后，会真正认识到 JSON 数据类型的威力，从而在实际工作中更好地存储非结构化的数据。
+JSON 数据类型 JSON（JavaScript Object Notation）主要用于互联网应用服务之间的数据交换。MySQL 支持RFC 7159定义的 JSON 规范，主要有JSON 对象和JSON 数组两种类型。下面就是 JSON 对象，主要用来存储图片的相关信息：
+{&amp;quot;Image&amp;quot;: {&amp;quot;Width&amp;quot;: 800,&amp;quot;Height&amp;quot;: 600,&amp;quot;Title&amp;quot;: &amp;quot;View from 15th Floor&amp;quot;,&amp;quot;Thumbnail&amp;quot;: {&amp;quot;Url&amp;quot;: &amp;quot;http://www.example.com/image/481989943&amp;quot;,&amp;quot;Height&amp;quot;: 125,&amp;quot;Width&amp;quot;: 100},&amp;quot;IDs&amp;quot;: [116, 943, 234, 38793]}}从中你可以看到， JSON 类型可以很好地描述数据的相关内容，比如这张图片的宽度、高度、标题等（这里使用到的类型有整型、字符串类型）。
+JSON对象除了支持字符串、整型、日期类型，JSON 内嵌的字段也支持数组类型，如上代码中的 IDs 字段。
+另一种 JSON 数据类型是数组类型，如：
+[{&amp;quot;precision&amp;quot;: &amp;quot;zip&amp;quot;,&amp;quot;Latitude&amp;quot;: 37.</description>
+    </item>
+    
+    <item>
+      <title>03 日期类型：TIMESTAMP 可能是巨坑</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/03-%E6%97%A5%E6%9C%9F%E7%B1%BB%E5%9E%8Btimestamp-%E5%8F%AF%E8%83%BD%E6%98%AF%E5%B7%A8%E5%9D%91/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:04 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/03-%E6%97%A5%E6%9C%9F%E7%B1%BB%E5%9E%8Btimestamp-%E5%8F%AF%E8%83%BD%E6%98%AF%E5%B7%A8%E5%9D%91/</guid>
+      <description>前两讲我带你了解了 MySQL 数据库中常见的数字类型和字符串类型，除了这两种类型外，日期类型也较为常见。
+几乎每张业务表都带有一个日期列，用于记录每条记录产生和变更的时间。比如用户表会有一个日期列记录用户注册的时间、用户最后登录的时间。又比如，电商行业中的订单表（核心业务表）会有一个订单产生的时间列，当支付时间超过订单产生的时间，这个订单可能会被系统自动取消。
+日期类型虽然常见，但在表结构设计中也容易犯错，比如很多开发同学都倾向使用整型存储日期类型，同时也会忽略不同日期类型对于性能可能存在的潜在影响。所以你有必要认真学习这一讲，举一反三，在自己的业务中做好日期类型的设计。
+日期类型 MySQL 数据库中常见的日期类型有 YEAR、DATE、TIME、DATETIME、TIMESTAMEP。因为业务绝大部分场景都需要将日期精确到秒，所以在表结构设计中，常见使用的日期类型为DATETIME 和 TIMESTAMP。接下来，我就带你深入了解这两种类型，以及它们在设计中的应用实战。
+DATETIME 类型 DATETIME 最终展现的形式为：YYYY-MM-DD HH：MM：SS，固定占用 8 个字节。
+从 MySQL 5.6 版本开始，DATETIME 类型支持毫秒，DATETIME(N) 中的 N 表示毫秒的精度。例如，DATETIME(6) 表示可以存储 6 位的毫秒值。同时，一些日期函数也支持精确到毫秒，例如常见的函数 NOW、SYSDATE：
+mysql&amp;gt; SELECT NOW(6);+----------------------------+| NOW(6) |+----------------------------+| 2020-09-14 17:50:28.707971 |+----------------------------+1 row in set (0.00 sec)用户可以将 DATETIME 初始化值设置为当前时间，并设置自动更新当前时间的属性。例如之前已设计的用户表 User，我在其基础上，修改了register_date、last_modify_date的定义：
+CREATE TABLE User (id BIGINT NOT NULL AUTO_INCREMENT,name VARCHAR(255) NOT NULL,sex CHAR(1) NOT NULL,password VARCHAR(1024) NOT NULL,money INT NOT NULL DEFAULT 0,register_date DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),last_modify_date DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),CHECK (sex = &#39;M&#39; OR sex = &#39;F&#39;),PRIMARY KEY(id));在上面的表 User 中，列 register_date 表示注册时间，DEFAULT CURRENT_TIMESTAMP 表示记录插入时，若没有指定时间，默认就是当前时间。</description>
+    </item>
+    
+    <item>
+      <title>02 字符串类型：不能忽略的 COLLATION</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/02-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E5%9E%8B%E4%B8%8D%E8%83%BD%E5%BF%BD%E7%95%A5%E7%9A%84-collation/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:03 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/02-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E5%9E%8B%E4%B8%8D%E8%83%BD%E5%BF%BD%E7%95%A5%E7%9A%84-collation/</guid>
+      <description>今天我想和你聊一聊字符串类型的排序规则。
+上一讲我们了解了怎么在表结构设计中正确使用数字类型，除了数字类型，字符串类型在表结构设计时也比较常见，它通常用于描述具体的信息。
+MySQL 数据库的字符串类型有 CHAR、VARCHAR、BINARY、BLOB、TEXT、ENUM、SET。不同的类型在业务设计、数据库性能方面的表现完全不同，其中最常使用的是 CHAR、VARCHAR。今天我就带你深入了解字符串类型 CHAR、VARCHAR 的应用，希望学完这一讲，你能真正用好 MySQL 的字符串类型，从而设计出一个更为优美的业务表结构。
+CHAR 和 VARCHAR 的定义 CHAR(N) 用来保存固定长度的字符，N 的范围是 0 ~ 255，请牢记，N 表示的是字符，而不是字节。VARCHAR(N) 用来保存变长字符，N 的范围为 0 ~ 65536， N 表示字符。
+在超出 65536 个字符的情况下，可以考虑使用更大的字符类型 TEXT 或 BLOB，两者最大存储长度为 4G，其区别是 BLOB 没有字符集属性，纯属二进制存储。
+和 Oracle、Microsoft SQL Server 等传统关系型数据库不同的是，MySQL 数据库的 VARCHAR 字符类型，最大能够存储 65536 个字符，所以在 MySQL 数据库下，绝大部分场景使用类型 VARCHAR 就足够了。
+字符集 在表结构设计中，除了将列定义为 CHAR 和 VARCHAR 用以存储字符以外，还需要额外定义字符对应的字符集，因为每种字符在不同字符集编码下，对应着不同的二进制值。常见的字符集有 GBK、UTF8，通常推荐把默认字符集设置为 UTF8。
+而且随着移动互联网的飞速发展，推荐把 MySQL 的默认字符集设置为 UTF8MB4，否则，某些 emoji 表情字符无法在 UTF8 字符集下存储，比如 emoji 笑脸表情，对应的字符编码为 0xF09F988E：</description>
+    </item>
+    
+    <item>
+      <title>01 数字类型：避免自增踩坑</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/01-%E6%95%B0%E5%AD%97%E7%B1%BB%E5%9E%8B%E9%81%BF%E5%85%8D%E8%87%AA%E5%A2%9E%E8%B8%A9%E5%9D%91/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:02 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/01-%E6%95%B0%E5%AD%97%E7%B1%BB%E5%9E%8B%E9%81%BF%E5%85%8D%E8%87%AA%E5%A2%9E%E8%B8%A9%E5%9D%91/</guid>
+      <description>在进行表结构设计时，数字类型是最为常见的类型之一，但要用好数字类型并不如想象得那么简单，比如：
+ 怎么设计一个互联网海量并发业务的自增主键？用 INT 就够了？ 怎么设计账户的余额？用 DECIMAL 类型就万无一失了吗？  以上全错！
+数字类型看似简单，但在表结构架构设计中很容易出现上述“设计上思考不全面”的问题（特别是在海量并发的互联网场景下）。所以我将从业务架构设计的角度带你深入了解数字类型的使用，期待你学完后，能真正用好 MySQL 的数字类型（整型类型、浮点类型和高精度型）。
+数字类型 整型类型 MySQL 数据库支持 SQL 标准支持的整型类型：INT、SMALLINT。此外，MySQL 数据库也支持诸如 TINYINT、MEDIUMINT 和 BIGINT 整型类型（表 1 显示了各种整型所占用的存储空间及取值范围）：
+各 INT 类型的取值范围
+在整型类型中，有 signed 和 unsigned 属性，其表示的是整型的取值范围，默认为 signed。在设计时，我不建议你刻意去用 unsigned 属性，因为在做一些数据分析时，SQL 可能返回的结果并不是想要得到的结果。
+来看一个“销售表 sale”的例子，其表结构和数据如下。这里要特别注意，列 sale_count 用到的是 unsigned 属性（即设计时希望列存储的数值大于等于 0）：
+mysql&amp;gt; SHOW CREATE TABLE sale\G*************************** 1. row ***************************Table: saleCreate Table: CREATE TABLE `sale` (`sale_date` date NOT NULL,`sale_count` int unsigned DEFAULT NULL,PRIMARY KEY (`sale_date`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci1 row in set (0.</description>
+    </item>
+    
+    <item>
+      <title>00 开篇词 从业务出发，开启海量 MySQL 架构设计</title>
+      <link>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/00-%E5%BC%80%E7%AF%87%E8%AF%8D-%E4%BB%8E%E4%B8%9A%E5%8A%A1%E5%87%BA%E5%8F%91%E5%BC%80%E5%90%AF%E6%B5%B7%E9%87%8F-mysql-%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/</link>
+      <pubDate>Wed, 22 Dec 2021 01:53:00 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/00-%E5%BC%80%E7%AF%87%E8%AF%8D-%E4%BB%8E%E4%B8%9A%E5%8A%A1%E5%87%BA%E5%8F%91%E5%BC%80%E5%90%AF%E6%B5%B7%E9%87%8F-mysql-%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/</guid>
+      <description>你好，我是姜承尧（常用ID：破产码农），目前是腾讯金融数据平台与研发中心总监。
+我与 MySQL 结缘已有十余年，最开始在久游开启了数据库职业生涯，接着在网易负责数据库内核、云数据库开发，现在腾讯负责金融支付系统的数据库开发。
+毕业至今，我一直从事 MySQL 相关的工作（比如运维、平台开发、内核开发、云计算开发），经历了无数个 DBA 必经的通宵之旅，也因此累积了无数架构实战经验。
+我与 MySQL 相伴相随 在久游工作时，我负责全国最为热火的网游劲舞团，那时只要说你是负责劲舞团的 DBA，身上都闪着光芒，但谁又能想到，我曾遇到过连续 72 小时的加班回档全服游戏数据。为了避免再次发生类似情况，早在 2008 年我就在久游设计了多实例高可用架构，并结合 LVM 快照功能，防止下一次游戏升级可能导致的业务数据错乱等情况。
+我可以说是国内最早从事 MySQL 内核工作的 DBA。那时随着海量数据的不断发展，业务对于 MySQL 数据库的要求变得更为“苛刻”，不但要能够使用 MySQL，还要能对内核进行额外的开发。为此，我深入 MySQL 内核设计领域，为迎合 SSD 技术的发展，独立开发了 SBP（Secondary Buffer Pool）架构，并在久游、网易等业务中大规模使用。
+在网易期间，我发现 MySQL 数据半同步复制功能不断改进，当时就预见它将很快进入金融核心业务领域，于是主导网易开源 MySQL 分支版本 InnoSQL，设计并开发出金融级 MySQL 高可用架构 VSR，VSR 同时作为开源数据库组件，成功应用于某四大行核心系统。
+2017 年来到腾讯后，我主导了新一代腾讯金融核心数据库架构的设计与研发工作，让各位小伙伴所使用的金融与支付功能得到了更为安全的保障。
+可以说，MySQL 数据库在互联网业务中的成功，让我获益良多：
+ 收入不断攀升，比起其他种类数据库，MySQL 收入显然优势突出。目前，一线城市的数据库从业人员要达到 50 万是很轻松的一件事情，若去互联网公司，薪资可以说上不封顶。 作为一份职业的成就感，MySQL 带给我太多的“感动”。伴随着互联网的崛起，MySQL 已经成为互联网公司数据库的标准配置。看到自己运维开发的数据库能够支撑数以万计的用户，这种感觉真的是好极了。  我时常思考，如何将自己这么多年在 MySQL 方面的知识沉淀形成方法论进行输出，希望能有更多的同学享受到 MySQL 发展的红利。
+怎么用好 MySQL 呢 虽然这些年先后出版过 《MySQL技术内幕》《MySQL内核》 系列三本书，但相对理论，每本书的方向都较为专一，未能有效地从整个业务的全链路角度去分享一个互联网海量 MySQL 架构的实现。</description>
+    </item>
+    
+  </channel>
+</rss>

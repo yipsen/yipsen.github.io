@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+
+<title>50 使用 Future 有哪些注意点？Future 产生新的线程了吗？ | </title>
+  <meta name="description" content="在本课时我们将讲解使用 Future 有哪些注意点，以及 Future 产生新的线程了吗？
+Future 的注意点 1. 当 for 循环批量获取 Future 的结果时容易 block，get 方法调用时应使用 timeout 限制
+对于 Future 而言，第一个注意点就是，当 for 循环批量获取 Future 的结果时容易 block，在调用 get 方法时，应该使用 timeout 来限制。
+下面我们具体看看这是一个什么情况。
+首先，假设一共有四个任务需要执行，我们都把它放到线程池中，然后它获取的时候是按照从 1 到 4 的顺序，也就是执行 get() 方法来获取的，代码如下所示：
+public class FutureDemo {public static void main(String[] args) {//创建线程池ExecutorService service = Executors.newFixedThreadPool(10);//提交任务，并用 Future 接收返回结果ArrayList&amp;lt;Future&amp;gt; allFutures = new ArrayList&amp;lt;&amp;gt;();for (int i = 0; i &amp;lt; 4; i&#43;&#43;) {Future&amp;lt;String&amp;gt; future;if (i == 0 || i == 1) {future = service.">
+<meta name="viewport", content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" type="text/css" href="/css/apollo.css">
+<meta name="author" content="">
+
+
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <div class="logo-link">
+                <a href="http://yipsen.github.io/">
+                    <img src="/favicon.png" alt="logo">
+                    <span></span>
+                </a>
+            </div>
+            <ul class="nav nav-list">
+    
+    <li class="nav-list-item">
+            <a class="nav-list-link " href="http://yipsen.github.io/about/">ABOUT</a>
+        </li><li class="nav-list-item">
+            <a class="nav-list-link " href="http://yipsen.github.io/categories/">categories</a>
+        </li>
+    
+</ul>
+
+        </header>
+        <main class="container">
+            
+<div class="post">
+    <article class="post-block">
+        <h1 class="post-title">50 使用 Future 有哪些注意点？Future 产生新的线程了吗？</h1>
+        <div class="post-info">
+            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/java">java</a>&nbsp;&nbsp;</div><div class="post-category">
+                
+                  <a href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/"> Java并发编程78讲 </a>
+                
+              </div></div>
+        <div class="post-content">
+            <p>在本课时我们将讲解使用 Future 有哪些注意点，以及 Future 产生新的线程了吗？</p>
+<h3 id="future-的注意点">Future 的注意点</h3>
+<p><strong>1. 当 for 循环批量获取 Future 的结果时容易 block，get 方法调用时应使用 timeout 限制</strong></p>
+<p>对于 Future 而言，第一个注意点就是，当 for 循环批量获取 Future 的结果时容易 block，在调用 get 方法时，应该使用 timeout 来限制。</p>
+<p>下面我们具体看看这是一个什么情况。</p>
+<p>首先，假设一共有四个任务需要执行，我们都把它放到线程池中，然后它获取的时候是按照从 1 到 4 的顺序，也就是执行 get() 方法来获取的，代码如下所示：</p>
+<pre tabindex="0"><code>public class FutureDemo {
+
+    public static void main(String[] args) {
+
+        //创建线程池
+
+        ExecutorService service = Executors.newFixedThreadPool(10);
+
+        //提交任务，并用 Future 接收返回结果
+
+        ArrayList&lt;Future&gt; allFutures = new ArrayList&lt;&gt;();
+
+        for (int i = 0; i &lt; 4; i++) {
+
+            Future&lt;String&gt; future;
+
+            if (i == 0 || i == 1) {
+
+                future = service.submit(new SlowTask());
+
+            } else {
+
+                future = service.submit(new FastTask());
+
+            }
+
+            allFutures.add(future);
+
+        }
+
+        for (int i = 0; i &lt; 4; i++) {
+
+            Future&lt;String&gt; future = allFutures.get(i);
+
+            try {
+
+                String result = future.get();
+
+                System.out.println(result);
+
+            } catch (InterruptedException e) {
+
+                e.printStackTrace();
+
+            } catch (ExecutionException e) {
+
+                e.printStackTrace();
+
+            }
+
+        }
+
+        service.shutdown();
+
+    }
+
+    static class SlowTask implements Callable&lt;String&gt; {
+
+        @Override
+
+        public String call() throws Exception {
+
+            Thread.sleep(5000);
+
+            return &quot;速度慢的任务&quot;;
+
+        }
+
+    }
+
+    static class FastTask implements Callable&lt;String&gt; {
+
+        @Override
+
+        public String call() throws Exception {
+
+            return &quot;速度快的任务&quot;;
+
+        }
+
+    }
+
+}
+</code></pre><p>可以看出，在代码中我们新建了线程池，并且用一个 list 来保存 4 个 Future。其中，前两个 Future 所对应的任务是慢任务，也就是代码下方的 SlowTask，而后两个 Future 对应的任务是快任务。慢任务在执行的时候需要 5 秒钟的时间才能执行完毕，而快任务很快就可以执行完毕，几乎不花费时间。</p>
+<p>在提交完这 4 个任务之后，我们用 for 循环对它们依次执行 get 方法，来获取它们的执行结果，然后再把这个结果打印出来。</p>
+<p>执行结果如下：</p>
+<pre tabindex="0"><code>速度慢的任务
+
+速度慢的任务
+
+速度快的任务
+
+速度快的任务
+</code></pre><p>可以看到，这个执行结果是打印 4 行语句，前面两个是速度慢的任务，后面两个是速度快的任务。虽然结果是正确的，但实际上在执行的时候会先等待 5 秒，然后再很快打印出这 4 行语句。 <img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/assets/CgpOIF5Y0OGAKVKjAACCEFYDuCw593.png" alt="img"></p>
+<p>这里有一个问题，即第三个的任务量是比较小的，它可以很快返回结果，紧接着第四个任务也会返回结果。但是由于前两个任务速度很慢，所以我们在利用 get 方法执行时，会卡在第一个任务上。也就是说，虽然此时第三个和第四个任务很早就得到结果了，但我们在此时使用这种 for 循环的方式去获取结果，依然无法及时获取到第三个和第四个任务的结果。直到 5 秒后，第一个任务出结果了，我们才能获取到，紧接着也可以获取到第二个任务的结果，然后才轮到第三、第四个任务。</p>
+<p>假设由于网络原因，第一个任务可能长达 1 分钟都没办法返回结果，那么这个时候，我们的主线程会一直卡着，影响了程序的运行效率。</p>
+<p>此时我们就可以用 Future 的带超时参数的 get(long timeout, TimeUnit unit) 方法来解决这个问题。这个方法的作用是，如果在限定的时间内没能返回结果的话，那么便会抛出一个 TimeoutException 异常，随后就可以把这个异常捕获住，或者是再往上抛出去，这样就不会一直卡着了。</p>
+<p><strong>2. Future 的生命周期不能后退</strong></p>
+<p>Future 的生命周期不能后退，一旦完成了任务，它就永久停在了“已完成”的状态，不能从头再来，也不能让一个已经完成计算的 Future 再次重新执行任务。</p>
+<p>这一点和线程、线程池的状态是一样的，线程和线程池的状态也是不能后退的。关于线程的状态和流转路径，第 03 讲已经讲过了，如图所示。 <img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Java%20%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2078%20%E8%AE%B2-%E5%AE%8C/assets/CgpOIF5Y0PiAcNyAAADVM7mENKE892.png" alt="img"></p>
+<p>这个图也是我们当时讲解所用的图，如果有些遗忘，可以回去复习一下当时的内容。这一讲，我推荐你采用看视频的方式，因为视频中会把各个路径都标明清楚，看起来会更加清晰。</p>
+<h3 id="future-产生新的线程了吗">Future 产生新的线程了吗</h3>
+<p>最后我们再来回答这个问题：Future 是否产生新的线程了？</p>
+<p>有一种说法是，除了继承 Thread 类和实现 Runnable 接口之外，还有第三种产生新线程的方式，那就是采用 Callable 和 Future，这叫作有返回值的创建线程的方式。这种说法是不正确的。</p>
+<p>其实 Callable 和 Future 本身并不能产生新的线程，它们需要借助其他的比如 Thread 类或者线程池才能执行任务。例如，在把 Callable 提交到线程池后，真正执行 Callable 的其实还是线程池中的线程，而线程池中的线程是由 ThreadFactory 产生的，这里产生的新线程与 Callable、Future 都没有关系，所以 Future 并没有产生新的线程。</p>
+<p>以上就是本讲的内容了。首先介绍了 Future 的两个注意点：第一个，在 get 的时候应当使用超时限制；第二个，Future 生命周期不能后退；然后又讲解了 Callable 和 Future 实际上并不是新建线程的第三种方式。</p>
+
+        </div>
+    </article>
+</div>
+
+        </main>
+        <footer>
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/49-future-%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD%E6%98%AF%E4%BB%80%E4%B9%88/"><span>49 Future 的主要功能是什么？</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/51-%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8-completablefuture-%E5%AE%9E%E7%8E%B0%E6%97%85%E6%B8%B8%E5%B9%B3%E5%8F%B0%E9%97%AE%E9%A2%98/"><span>51 如何利用 CompletableFuture 实现“旅游平台”问题？</span></a>
+    </div>
+</div>
+
+            <div class="copyright">
+    
+    
+    <p>&copy; 2021 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+</div>
+        </footer>
+    </div>
+    
+<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+
+
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function() {
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  var all = MathJax.Hub.getAllJax(), i;
+  console.log(all[0].SourceElement().parentNode.className);
+  for (var i = all.length - 1; i >= 0; i--) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script>
+</body>
+</html>

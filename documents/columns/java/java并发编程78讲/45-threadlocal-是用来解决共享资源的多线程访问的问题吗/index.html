@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+
+<title>45 ThreadLocal 是用来解决共享资源的多线程访问的问题吗？ | </title>
+  <meta name="description" content="本课时主要讲解一个问题：ThreadLocal 是不是用来解决共享资源的多线程访问的。
+这是一个常见的面试问题，如果被问到了 ThreadLocal，则有可能在你介绍完它的作用、注意点等内容之后，再问你：ThreadLocal 是不是用来解决共享资源的多线程访问的呢？假如遇到了这样的问题，其思路一定要清晰。这里我给出一个参考答案。
+面试时被问到应如何回答 这道题的答案很明确——不是，ThreadLocal 并不是用来解决共享资源问题的。虽然 ThreadLocal 确实可以用于解决多线程情况下的线程安全问题，但其资源并不是共享的，而是每个线程独享的。所以这道题其实是有一定陷阱成分在内的。
+ThreadLocal 解决线程安全问题的时候，相比于使用“锁”而言，换了一个思路，把资源变成了各线程独享的资源，非常巧妙地避免了同步操作。具体而言，它可以在 initialValue 中 new 出自己线程独享的资源，而多个线程之间，它们所访问的对象本身是不共享的，自然就不存在任何并发问题。这是 ThreadLocal 解决并发问题的最主要思路。
+如果我们把放到 ThreadLocal 中的资源用 static 修饰，让它变成一个共享资源的话，那么即便使用了 ThreadLocal，同样也会有线程安全问题。比如我们对第 44 讲中的例子进行改造，如果我们在 SimpleDateFormat 之前加上一个 static 关键字来修饰，并且把这个静态对象放到 ThreadLocal 中去存储的话，代码如下所示：
+public class ThreadLocalStatic {public static ExecutorService threadPool = Executors.newFixedThreadPool(16);static SimpleDateFormat dateFormat = new SimpleDateFormat(&amp;quot;mm:ss&amp;quot;);public static void main(String[] args) throws InterruptedException {for (int i = 0; i &amp;lt; 1000; i&#43;&#43;) {int finalI = i;threadPool.">
+<meta name="viewport", content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" type="text/css" href="/css/apollo.css">
+<meta name="author" content="">
+
+
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <div class="logo-link">
+                <a href="http://yipsen.github.io/">
+                    <img src="/favicon.png" alt="logo">
+                    <span></span>
+                </a>
+            </div>
+            <ul class="nav nav-list">
+    
+    <li class="nav-list-item">
+            <a class="nav-list-link " href="http://yipsen.github.io/about/">ABOUT</a>
+        </li><li class="nav-list-item">
+            <a class="nav-list-link " href="http://yipsen.github.io/categories/">categories</a>
+        </li>
+    
+</ul>
+
+        </header>
+        <main class="container">
+            
+<div class="post">
+    <article class="post-block">
+        <h1 class="post-title">45 ThreadLocal 是用来解决共享资源的多线程访问的问题吗？</h1>
+        <div class="post-info">
+            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/java">java</a>&nbsp;&nbsp;</div><div class="post-category">
+                
+                  <a href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/"> Java并发编程78讲 </a>
+                
+              </div></div>
+        <div class="post-content">
+            <p>本课时主要讲解一个问题：ThreadLocal 是不是用来解决共享资源的多线程访问的。</p>
+<p>这是一个常见的面试问题，如果被问到了 ThreadLocal，则有可能在你介绍完它的作用、注意点等内容之后，再问你：ThreadLocal 是不是用来解决共享资源的多线程访问的呢？假如遇到了这样的问题，其思路一定要清晰。这里我给出一个参考答案。</p>
+<h3 id="面试时被问到应如何回答">面试时被问到应如何回答</h3>
+<p>这道题的答案很明确——不是，ThreadLocal 并不是用来解决共享资源问题的。虽然 ThreadLocal 确实可以用于解决多线程情况下的线程安全问题，但其资源并不是共享的，而是每个线程独享的。所以这道题其实是有一定陷阱成分在内的。</p>
+<p>ThreadLocal 解决线程安全问题的时候，相比于使用“锁”而言，换了一个思路，把资源变成了各线程独享的资源，非常巧妙地避免了同步操作。具体而言，它可以在 initialValue 中 new 出自己线程独享的资源，而多个线程之间，它们所访问的对象本身是不共享的，自然就不存在任何并发问题。这是 ThreadLocal 解决并发问题的最主要思路。</p>
+<p>如果我们把放到 ThreadLocal 中的资源用 static 修饰，让它变成一个共享资源的话，那么即便使用了 ThreadLocal，同样也会有线程安全问题。比如我们对第 44 讲中的例子进行改造，如果我们在 SimpleDateFormat 之前加上一个 static 关键字来修饰，并且把这个静态对象放到 ThreadLocal 中去存储的话，代码如下所示：</p>
+<pre tabindex="0"><code>public class ThreadLocalStatic {
+
+    public static ExecutorService threadPool = Executors.newFixedThreadPool(16);
+
+    static SimpleDateFormat dateFormat = new SimpleDateFormat(&quot;mm:ss&quot;);
+
+    public static void main(String[] args) throws InterruptedException {
+
+        for (int i = 0; i &lt; 1000; i++) {
+
+            int finalI = i;
+
+            threadPool.submit(new Runnable() {
+
+                @Override
+
+                public void run() {
+
+                    String date = new ThreadLocalStatic().date(finalI);
+
+                    System.out.println(date);
+
+                }
+
+            });
+
+        }
+
+        threadPool.shutdown();
+
+    }
+
+    public String date(int seconds) {
+
+        Date date = new Date(1000 * seconds);
+
+        SimpleDateFormat dateFormat = ThreadSafeFormatter.dateFormatThreadLocal.get();
+
+        return dateFormat.format(date);
+
+    }
+
+}
+
+class ThreadSafeFormatter {
+
+    public static ThreadLocal&lt;SimpleDateFormat&gt; dateFormatThreadLocal = new ThreadLocal&lt;SimpleDateFormat&gt;() {
+
+        @Override
+
+        protected SimpleDateFormat initialValue() {
+
+            return ThreadLocalStatic.dateFormat;
+
+        }
+
+    }
+
+}
+</code></pre><p>那么在多线程中去获取这个资源并且同时使用的话，同样会出现时间重复的问题，运行结果如下。</p>
+<pre tabindex="0"><code>00:15
+
+00:15
+
+00:05
+
+00:16
+
+...
+</code></pre><p>可以看出，00:15 被多次打印了，发生了线程安全问题。也就是说，如果我们需要放到 ThreadLocal 中的这个对象是共享的，是被 static 修饰的，那么此时其实根本就不需要用到 ThreadLocal，即使用了 ThreadLocal 并不能解决线程安全问题。</p>
+<p>相反，我们对于这种共享的变量，如果想要保证它的线程安全，应该用其他的方法，比如说可以使用 synchronized 或者是加锁等其他的方法来解决线程安全问题，而不是使用 ThreadLocal，因为这不是 ThreadLocal 应该使用的场景。</p>
+<p>这个问题回答到这里，可能会引申出下面这个问题。</p>
+<h4 id="threadlocal-和-synchronized-是什么关系">ThreadLocal 和 synchronized 是什么关系</h4>
+<p>面试官可能会问：你既然说 ThreadLocal 和 synchronized 它们两个都能解决线程安全问题，那么 ThreadLocal 和 synchronized 是什么关系呢？</p>
+<p>我们先说第一种情况。当 ThreadLocal 用于解决线程安全问题的时候，也就是把一个对象给每个线程都生成一份独享的副本的，在这种场景下，ThreadLocal 和 synchronized 都可以理解为是用来保证线程安全的手段。例如，在第 44 讲 SimpleDateFormat 的例子中，我们既使用了 synchronized 来达到目的，也使用了 ThreadLocal 作为实现方案。但是效果和实现原理不同：</p>
+<ul>
+<li>ThreadLocal 是通过让每个线程独享自己的副本，避免了资源的竞争。</li>
+<li>synchronized 主要用于临界资源的分配，在同一时刻限制最多只有一个线程能访问该资源。</li>
+</ul>
+<p>相比于 ThreadLocal 而言，synchronized 的效率会更低一些，但是花费的内存也更少。在这种场景下，ThreadLocal 和 synchronized 虽然有不同的效果，不过都可以达到线程安全的目的。</p>
+<p>但是对于 ThreadLocal 而言，它还有不同的使用场景。比如当 ThreadLocal 用于让多个类能更方便地拿到我们希望给每个线程独立保存这个信息的场景下时（比如每个线程都会对应一个用户信息，也就是 user 对象），在这种场景下，ThreadLocal 侧重的是避免传参，所以此时 ThreadLocal 和 synchronized 是两个不同维度的工具。</p>
+<p>以上就是本课时的内容。</p>
+<p>在本课时中，首先介绍了 ThreadLocal 是不是用来解决共享资源的多线程访问的问题的，答案是“不是”，因为对于 ThreadLocal 而言，每个线程中的资源并不共享；然后我们又介绍了 ThreadLocal 和 synchronized 的关系。</p>
+
+        </div>
+    </article>
+</div>
+
+        </main>
+        <footer>
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/44-threadlocal-%E9%80%82%E5%90%88%E7%94%A8%E5%9C%A8%E5%93%AA%E4%BA%9B%E5%AE%9E%E9%99%85%E7%94%9F%E4%BA%A7%E7%9A%84%E5%9C%BA%E6%99%AF%E4%B8%AD/"><span>44 ThreadLocal 适合用在哪些实际生产的场景中？</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/46-%E5%A4%9A%E4%B8%AA-threadlocal-%E5%9C%A8-thread-%E4%B8%AD%E7%9A%84-threadlocals-%E9%87%8C%E6%98%AF%E6%80%8E%E4%B9%88%E5%AD%98%E5%82%A8%E7%9A%84/"><span>46 多个 ThreadLocal 在 Thread 中的 threadlocals 里是怎么存储的？</span></a>
+    </div>
+</div>
+
+            <div class="copyright">
+    
+    
+    <p>&copy; 2021 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+</div>
+        </footer>
+    </div>
+    
+<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+
+
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function() {
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  var all = MathJax.Hub.getAllJax(), i;
+  console.log(all[0].SourceElement().parentNode.className);
+  for (var i = all.length - 1; i >= 0; i--) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script>
+</body>
+</html>

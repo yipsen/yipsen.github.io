@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>深入剖析MyBatis核心原理 on </title>
+    <link>http://yipsen.github.io/categories/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/</link>
+    <description>Recent content in 深入剖析MyBatis核心原理 on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 22 Dec 2021 01:51:25 +0800</lastBuildDate><atom:link href="http://yipsen.github.io/categories/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>23 结束语 会使用只能默默“搬砖”，懂原理才能快速晋升</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/23-%E7%BB%93%E6%9D%9F%E8%AF%AD-%E4%BC%9A%E4%BD%BF%E7%94%A8%E5%8F%AA%E8%83%BD%E9%BB%98%E9%BB%98%E6%90%AC%E7%A0%96%E6%87%82%E5%8E%9F%E7%90%86%E6%89%8D%E8%83%BD%E5%BF%AB%E9%80%9F%E6%99%8B%E5%8D%87/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:25 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/23-%E7%BB%93%E6%9D%9F%E8%AF%AD-%E4%BC%9A%E4%BD%BF%E7%94%A8%E5%8F%AA%E8%83%BD%E9%BB%98%E9%BB%98%E6%90%AC%E7%A0%96%E6%87%82%E5%8E%9F%E7%90%86%E6%89%8D%E8%83%BD%E5%BF%AB%E9%80%9F%E6%99%8B%E5%8D%87/</guid>
+      <description>你好，我是杨四正，到这里 MyBatis 的核心内容就介绍差不多了，你可能也需要一段时间来回顾和消化这些内容。在最后这结束语部分，我就不讲知识点了，咱们换个风格，从另一个角度来聊聊我们程序员这份工作。
+不得不说，现在互联网是一个越来越内卷的圈子了。不仅员工的工作时长一延再延，对员工的要求也是一升再升，就目前国内互联网的环境来看，很少有人能够一直奋斗在一线进行开发（当然，也有一些“骨骼惊奇、天赋异禀”的大佬，那就另当别论）。作为一名普通程序员，我们在做好本职工作之后，就需要花些时间来考虑一下如何“破圈”了。
+我个人觉得，要想“破圈”，需要有下面几个方面的操作。
+第一，选择一个上升期的行业或项目，也就是我们常说的“吃行业红利”。之所以把行业选择放在首位就是因为“选择大于努力”，在互联网这个大行业里面还有很多细分领域，例如，电商、在线教育、互联网医疗、短视频、各种游戏等，进入一个上升的行业或是上升的企业，拿到期权，等到公司上市是可以实现财富自由的。互联网的“造富”例子虽然减少了，但是依旧在不断发生，现在在风口上的“猪”依旧在飞。
+第二，选对 Leader，也就是所谓的“抱对大腿”。Leader 的能力决定了我们当前工作的上限，不仅是互联网行业，其实各个行业都是一样的。在遇到超出我们权限的资源问题、协调问题的时候，我们是需要向 Leader 求助的，如果我们的 Leader 也解决不来，可想而知这项工作的阻力会有多么大，做起来有多么艰辛。而我们的工作大多是以结果为导向的，不出成绩的话，再苦再难也无法被别人认可，所以说，选择一个靠谱的 Leader 是很重要的。
+第三，让自己变得可靠。在职场中，上级和下级之间是一个双向选择的关系，每个 Leader 身边围绕的人数是有限的，就那么几个位置。当我们千辛万苦找到一个靠谱的 Leader 之后，如何让 Leader 选择我们呢？那就是让我们自己变得靠谱。
+举个例子，我懂 MyBatis，我邻桌同事也懂 MyBatis，我带了没几天的应届生也知道如何用 MyBatis 写动态 SQL 代码了，看起来都只是个熟练工。假设碰到一个 MyBatis 的问题，应届生不懂，同事不懂，我也不懂，单就 MyBatis 这项技术来说，我们在 Leader 眼里是完全没有区别的，扩展到其他技术也是一样的。但如果在别人解决不了问题的时候，我能解决，如此往复几次，同事有什么技术难题都会请教我，Leader 在决定技术方案的时候也会咨询我，这时我的影响力就会发生变化。
+上面只是以 MyBatis 这种开源项目为例，其实面对公司内的项目也是一样，很多程序员会觉得自己公司项目代码写得非常垃圾，不愿意花时间读，这是非常错误的想法。其他同事都对“垃圾代码”嗤之以鼻，但是你能对“垃圾代码”了若指掌、如数家珍，这时 Leader 看到你这个人把一件大家不喜欢的事情都能做到八九十分，也会让 Leader 对你形成信任和依赖，更别说你可以通过阅读这些“垃圾代码”解决工作中的疑难问题了。Leader 就只会觉得你靠谱，觉得有你在项目就没有问题，即使有问题你也能解决，你说方案哪里不合理那多半就是不合理了，也就让你成为一个 Leader 和同事眼中靠谱的人，这就是在“垃圾山”里淘到的“宝藏”。
+第四，珍惜自己的时间，尽量将更多时间花到充实自己上，养成学习的惯性。我一直认为“拉勾教育 App”与手机里面的各种短视频 App、5v5 推塔 App、第一角色枪战类 App 是竞对，为什么这么说呢？因为这些 App 都是在竞争用户的时间，毕竟世界上最公平的事情就是每个人一天只有 24 小时。就算你守得了高地，推得了水晶，拿得了 5 杀，又能怎样呢？就算你杀得出 G 港，干得翻机场，拿得下 H 港，又能如何呢？都不如打开“拉勾教育 App”去学习、去巩固技能、去完善自己来得安心，所以需要养成学习的惯性。
+数年之后，当你站到事业巅峰的时候，再回首，会感谢现在坚持学习的自己。
+当然，如果你觉得我这门课程不错的话，也欢迎你推荐给身边的朋友。</description>
+    </item>
+    
+    <item>
+      <title>22 基于 MyBatis 的衍生框架一览</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/22-%E5%9F%BA%E4%BA%8E-mybatis-%E7%9A%84%E8%A1%8D%E7%94%9F%E6%A1%86%E6%9E%B6%E4%B8%80%E8%A7%88/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:24 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/22-%E5%9F%BA%E4%BA%8E-mybatis-%E7%9A%84%E8%A1%8D%E7%94%9F%E6%A1%86%E6%9E%B6%E4%B8%80%E8%A7%88/</guid>
+      <description>在前面的课时中，我们深入分析了 MyBatis 的内核，了解了 MyBatis 处理一条 SQL 的完整流程，剖析了 MyBatis 中动态 SQL、结果集映射、缓存等核心功能的实现原理。在日常工作中，除了单纯使用 MyBatis 之外，还可能会涉及 MyBatis 的衍生框架，这一讲我们就来介绍一下工作中常用的 MyBatis 衍生框架。
+MyBatis-Generator 虽然使用 MyBatis 编写 DAO 层已经非常方便，但是我们还是要编写 Mapper 接口和相应的 Mapper.xml 配置文件。为了进一步节省编码时间，我们可以选择 MyBatis-Generator 工具自动生成 Mapper 接口和 Mapper.xml 配置文件。
+这里我们通过一个简单示例介绍一下 MyBatis-Generator 工具的基本功能。
+MyBatis-Generator 目前最新的版本是 1.4.0 版本，首先我们需要下载这个最新的 zip 包，并进行解压，得到 mybatis-generator-core-1.4.0.jar 这个 jar 包。
+由于我们本地使用的是 MySQL 数据库，所以需要准备一个 mysql-connector-java 的 jar 包，我们可以从本地的 Maven 仓库中获得，具体的目录是：.m2/repository/mysql/mysql-connector-java/，在这个目录中选择一个最新版本的 jar 包拷贝到 mybatis-generator-core-1.4.0.jar 同目录下。
+接下来，我们需要编写一个 generatorConfig.xml 配置文件，其中会告诉 MyBatis-Generator 去连接哪个数据库、连接数据库的用户名和密码分别是什么、需要根据哪些表生成哪些配置文件和类，以及这些生成文件的存放位置。下面是一个 generatorConfig.xml 配置文件的完整示例：
+&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&amp;lt;!DOCTYPE generatorConfigurationPUBLIC &amp;quot;-//mybatis.</description>
+    </item>
+    
+    <item>
+      <title>21 深挖 MyBatis 与 Spring 集成底层原理</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/21-%E6%B7%B1%E6%8C%96-mybatis-%E4%B8%8E-spring-%E9%9B%86%E6%88%90%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:23 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/21-%E6%B7%B1%E6%8C%96-mybatis-%E4%B8%8E-spring-%E9%9B%86%E6%88%90%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/</guid>
+      <description>在实际开发过程中，一般我们不会只使用单个的开源框架，而是会使用多种开源框架和开源工具相互配合来实现需求。在 Java 世界中，最出名的开源框架就要数 Spring 了。Spring 是 2002 年出现的一个轻量级 Java 框架，它最开始就是为了替换掉 EJB 这种复杂的企业开发框架。时至 2021 年，几乎所有的 Java 后端项目都会使用到 Spring，Spring 已经成为业界标准，我们在实践中常用的 SSM 三层架构其实就是 Spring、Spring MVC和MyBatis这三个核心框架的简称。
+搭建一个 SSM 环境是非常简单的，今天这一讲我们不仅要搭建 SSM 开发环境，还要深入剖析这三个框架能够协同工作的原理。不过，在开始讲解 SSM 开发环境搭建之前，我们先来简单介绍一下 Spring 和 Spring MVC 的基础知识。
+Spring Spring 中最核心的概念就要数 IoC 了。IoC（Inversion of Control，控制反转）的核心思想是将业务对象交由 IoC 容器管理，由 IoC 容器控制业务对象的初始化以及不同业务对象之间的依赖关系，这样就可以降低代码的耦合性。
+依赖注入（Dependency Injection）是实现 IoC 的常见方式之一。所谓依赖注入，就是我们的系统不再主动维护业务对象之间的依赖关系，而是将依赖关系转移到 IoC 容器中动态维护。Spring 提供了依赖注入机制，我们只需要通过 XML 配置或注解，就可以确定业务对象之间的依赖关系，轻松实现业务逻辑的组合。
+Spring 中另一个比较重要的概念是 AOP（Aspect Oriented Programming），也就是面向切面编程。它是面向对象思想的补充和完善，毕竟在面对一个问题的时候，从更多的角度、用更多的思维模型去审视问题，才能更好地解决问题。
+在面向对象的思想中，我们关注的是代码的封装性、类间的继承关系和多态、对象之间的依赖关系等，通过对象的组合就可以实现核心的业务逻辑，但是总会有一些重要的重复性代码散落在业务逻辑类中，例如，权限检测、日志打印、事务管理相关的逻辑，这些重复逻辑与我们的核心业务逻辑并无直接关系，却又是系统正常运行不能缺少的功能。
+AOP 可以帮我们将这些碎片化的功能抽取出来，封装到一个组件中进行重用，这也被称为切面。通过 AOP 的方式，可以有效地减少散落在各处的碎片化代码，提高系统的可维护性。为了方便你后面理解 Spring AOP 的代码，这里我简单介绍 AOP中的几个关键概念。
+ 横切关注点：如果某些业务逻辑代码横跨业务系统的多个模块，我们可以将这些业务代码称为横切关注点。 切面：对横切关注点的抽象。面向对象思想中的类是事物特性的抽象，与之相对的切面则是对横切关注点的抽象。 连接点：业务逻辑中的某个方法，该方法会被 AOP 拦截。 切入点：对连接点进行拦截的定义。 通知：拦截到连接点之后要执行的代码，可以分为5类，分别是前置通知、后置通知、异常通知、最终通知和环绕通知。  Spring MVC Spring MVC 是 Spring 生态中的一个 Web 框架，也是现在市面上用得最多的 Web 框架，其底层的核心设计思想就是经典的 MVC 架构模式。</description>
+    </item>
+    
+    <item>
+      <title>20 插件体系让 MyBatis 世界更加精彩</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/20-%E6%8F%92%E4%BB%B6%E4%BD%93%E7%B3%BB%E8%AE%A9-mybatis-%E4%B8%96%E7%95%8C%E6%9B%B4%E5%8A%A0%E7%B2%BE%E5%BD%A9/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:22 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/20-%E6%8F%92%E4%BB%B6%E4%BD%93%E7%B3%BB%E8%AE%A9-mybatis-%E4%B8%96%E7%95%8C%E6%9B%B4%E5%8A%A0%E7%B2%BE%E5%BD%A9/</guid>
+      <description>插件是应用程序中最常见的一种扩展方式，比如，在Chrome 浏览器上我们可以安装各种插件来增强浏览器自身的功能。在 Java 世界中，很多开源框架也使用了插件扩展方式，例如，Dubbo 通过 SPI 方式实现了插件化的效果，SkyWalking 依赖“微内核+插件”的架构轻松加载插件，实现扩展效果。
+MyBatis 作为持久层框架中的佼佼者，也提供了类似的插件扩展机制。MyBatis 将插件单独分离出一个模块，位于 org.apache.ibatis.plugin 包中，在该模块中主要使用了两种设计模式：代理模式和责任链模式。
+插件模块使用的代理模式是通过 JDK 动态代理实现的，代理模式的基础知识以及 JDK 动态代理的核心原理我们已经在前面《06 | 日志框架千千万，MyBatis 都能兼容的秘密是什么？》中介绍过了。下面我们就重点来看一下责任链模式的基础知识。
+责任链模式 我们在写业务系统的时候，最常用的协议就是 HTTP 协议，最常用的 HTTP Server 是 Tomcat，所以这里我们就结合 Tomcat 处理 HTTP 请求的场景来说明责任链模式的核心思想。
+HTTP 协议可简单分为请求头和请求体两部分，Tomcat 在收到一条完整的 HTTP 请求时，也会将其分为请求头和请求体两部分进行处理的。不过在真正的 Tomcat 实现中，会将 HTTP 请求细分为更多部分，然后逐步进行处理，整个 Tomcat 代码处理 HTTP 请求的实现也更为复杂。
+试想一下，Tomcat 将处理请求的各个细节的实现代码都堆到一个类中，那这个类的代码会非常长，维护起来也非常痛苦，可以说是“牵一发而动全身”。如果 HTTP 请求升级，那就需要修改这个臃肿的类，显然是不符合“开放-封闭”原则的。
+为了实现像 HTTP 这种多部分构成的协议的处理逻辑，我们可以使用责任链模式来划分协议中各个部分的处理逻辑，将那些臃肿实现类拆分成多个 Handler（或 Interceptor）处理器，在每个 Handler（或 Interceptor）处理器中只专注于 HTTP 协议中一部分数据的处理。我们可以开发多个 Handler 处理器，然后按照业务需求将多个 Handler 对象组合成一个链条，从而实现整个 HTTP 请求的处理。
+这样做既可以将复杂、臃肿的逻辑拆分，便于维护，又能将不同的 Handler 处理器分配给不同的程序员开发，提高开发效率。
+在责任链模式中，Handler 处理器会持有对下一个 Handler 处理器的引用，也就是说当一个 Handler 处理器完成对关注部分的处理之后，会将请求通过这个引用传递给下一个 Handler 处理器，如此往复，直到整个责任链中全部的 Handler 处理器完成处理。责任链模式的核心类图如下所示：</description>
+    </item>
+    
+    <item>
+      <title>19 深入 MyBatis 内核与业务逻辑的桥梁——接口层</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/19-%E6%B7%B1%E5%85%A5-mybatis-%E5%86%85%E6%A0%B8%E4%B8%8E%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91%E7%9A%84%E6%A1%A5%E6%A2%81%E6%8E%A5%E5%8F%A3%E5%B1%82/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:21 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/19-%E6%B7%B1%E5%85%A5-mybatis-%E5%86%85%E6%A0%B8%E4%B8%8E%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91%E7%9A%84%E6%A1%A5%E6%A2%81%E6%8E%A5%E5%8F%A3%E5%B1%82/</guid>
+      <description>在前面的课时中，我们已经详细介绍了 MyBatis 的内核，其中涉及了 MyBatis 的初始化、SQL 参数的绑定、SQL 语句的执行、各类结果集的映射等，MyBatis 为了简化业务代码调用内核功能的成本，就为我们封装了一个接口层。
+这一讲我们就来重点看一下 MyBatis 接口层的实现以及其中涉及的设计模式。
+策略模式 在 MyBatis 接口层中用到了经典设计模式中的策略模式，所以这里我们就先来介绍一下策略模式相关的知识点。
+我们在编写业务逻辑的时候，可能有很多方式都可以实现某个具体的功能。例如，按照购买次数对一个用户购买的全部商品进行排序，从而粗略地得知该用户复购率最高的商品，我们可以使用多种排序算法来实现这个功能，例如，归并排序、插入排序、选择排序等。在不同的场景中，我们需要根据不同的输入条件、数据量以及运行时环境，选择不同的排序算法来完成这一个功能。很多同学可能在实现这个逻辑的时候，会用 if&amp;hellip;else&amp;hellip; 的硬编码方式来选择不同的算法，但这显然是不符合“开放-封闭”原则的，当需要添加新的算法时，只能修改这个 if&amp;hellip;else&amp;hellip;代码块，添加新的分支，这就破坏了代码原有的稳定性。
+在策略模式中，我们会将每个算法单独封装成不同的算法实现类（这些算法实现类都实现了相同的接口），每个算法实现类就可以被认为是一种策略实现，我们只需选择不同的策略实现来解决业务问题即可，这样每种算法相对独立，算法内的变化边界也就明确了，新增或减少算法实现也不会影响其他算法。
+如下是策略模式的核心类图，其中 StrategyUser 是算法的调用方，维护了一个 Strategy 对象的引用，用来选择具体的算法实现。
+策略模式的核心类图
+SqlSession SqlSession是MyBatis对外提供的一个 API 接口，整个MyBatis 接口层也是围绕 SqlSession接口展开的，SqlSession 接口中定义了下面几类方法。
+ select*() 方法：用来执行查询操作的方法，SqlSession 会将结果集映射成不同类型的结果对象，例如，selectOne() 方法返回单个 Java 对象，selectList()、selectMap() 方法返回集合对象。 insert()、update()、delete() 方法：用来执行 DML 语句。 commit()、rollback() 方法：用来控制事务。 getMapper()、getConnection()、getConfiguration() 方法：分别用来获取接口对应的 Mapper 对象、底层的数据库连接和全局的 Configuration 配置对象。  如下图所示，MyBatis 提供了两个 SqlSession接口的实现类，同时提供了SqlSessionFactory 工厂类来创建 SqlSession 对象。
+SqlSessionFactory 接口与 SqlSession 接口的实现类
+默认情况下，我们在使用 MyBatis 的时候用的都是 DefaultSqlSession 这个默认的 SqlSession 实现。DefaultSqlSession 中维护了一个 Executor 对象，通过它来完成数据库操作以及事务管理。DefaultSqlSession 在选择使用哪种 Executor 实现的时候，使用到了策略模式：DefaultSqlSession 扮演了策略模式中的 StrategyUser 角色，Executor 接口扮演的是 Strategy 角色，Executor 接口的不同实现则对应 StrategyImpl 的角色。</description>
+    </item>
+    
+    <item>
+      <title>18 Executor 才是执行 SQL 语句的幕后推手（下）</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/18-executor-%E6%89%8D%E6%98%AF%E6%89%A7%E8%A1%8C-sql-%E8%AF%AD%E5%8F%A5%E7%9A%84%E5%B9%95%E5%90%8E%E6%8E%A8%E6%89%8B%E4%B8%8B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:20 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/18-executor-%E6%89%8D%E6%98%AF%E6%89%A7%E8%A1%8C-sql-%E8%AF%AD%E5%8F%A5%E7%9A%84%E5%B9%95%E5%90%8E%E6%8E%A8%E6%89%8B%E4%B8%8B/</guid>
+      <description>在上一讲中，我们首先介绍了模板方法模式的相关知识，然后介绍了 Executor 接口的核心方法，最后分析了 BaseExecutor 抽象类是如何利用模板方法模式为其他 Executor 抽象了一级缓存和事务管理的能力。这一讲，我们再来介绍剩余的四个重点 Executor 实现。
+Executor 接口继承关系图
+SimpleExecutor 我们来看 BaseExecutor 的第一个子类—— SimpleExecutor，同时它也是 Executor 接口最简单的实现。
+正如上一讲中分析的那样，BaseExecutor 通过模板方法模式实现了读写一级缓存、事务管理等不随场景变化的基础方法，在 SimpleExecutor、ReuseExecutor、BatchExecutor 等实现类中，不再处理这些不变的逻辑，而只要关注 4 个 do*() 方法的实现即可。
+这里我们重点来看 SimpleExecutor 中 doQuery() 方法的实现逻辑。
+ 通过 newStatementHandler() 方法创建 StatementHandler 对象，其中会根据 MappedStatement.statementType 配置创建相应的 StatementHandler 实现对象，并添加 RoutingStatementHandler 装饰器。 通过 prepareStatement() 方法初始化 Statement 对象，其中还依赖 ParameterHandler 填充 SQL 语句中的占位符。 通过 StatementHandler.query() 方法执行 SQL 语句，并通过我们前面[14]和[15]讲介绍的 DefaultResultSetHandler 将 ResultSet 映射成结果对象并返回。  doQuery() 方法的核心代码实现如下所示：
+public &amp;lt;E&amp;gt; List&amp;lt;E&amp;gt; doQuery(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) throws SQLException {Statement stmt = null;try {Configuration configuration = ms.</description>
+    </item>
+    
+    <item>
+      <title>17 Executor 才是执行 SQL 语句的幕后推手（上）</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/17-executor-%E6%89%8D%E6%98%AF%E6%89%A7%E8%A1%8C-sql-%E8%AF%AD%E5%8F%A5%E7%9A%84%E5%B9%95%E5%90%8E%E6%8E%A8%E6%89%8B%E4%B8%8A/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:19 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/17-executor-%E6%89%8D%E6%98%AF%E6%89%A7%E8%A1%8C-sql-%E8%AF%AD%E5%8F%A5%E7%9A%84%E5%B9%95%E5%90%8E%E6%8E%A8%E6%89%8B%E4%B8%8A/</guid>
+      <description>在上一讲中，我们介绍了 MyBatis 中结果集映射的核心逻辑位于 DefaultResultSetHandler 之中，然后深入分析了 DefaultResultSetHandler 与简单结果集映射相关的核心实现，这是 MyBatis 整个结果集映射功能的基本。
+今天我们就紧接着上一讲，继续介绍 DefaultResultSetHandler 中关于嵌套映射、延迟加载以及多结果集处理的内容。
+嵌套映射 处理简单映射只是所有映射处理逻辑中的一个分支，handleRowValues() 方法还有另一条分支是用来处理嵌套映射的，也就是 handleRowValuesForNestedResultMap() 方法。
+handleRowValuesForNestedResultMap() 方法处理嵌套映射的核心流程如下所示。
+ 通过 skipRows() 方法将 ResultSet 的指针指向目标行。 执行 shouldProcessMoreRows() 方法检测 ResultSet 中是否包含能继续映射的数据行，如果包含，就开始映射一个具体的数据行。 通过 resolveDiscriminatedResultMap() 方法处理 ResultMap 中的 Discriminator 对象，确定最终使用的 ResultMap 映射规则。 为当前处理的数据行生成 CacheKey。除了作为缓存中的 key 值外，CacheKey 在嵌套映射中也作为唯一标识来标识结果对象。 根据步骤 4 生成的 CacheKey 从 DefaultResultSetHandler.nestedResultObjects 集合中查询中间结果。nestedResultObjects 是一个 HashMap 集合，在处理嵌套映射过程中产生的全部中间对象，都会记录到这个 Map 中，其中的 Key 就是 CacheKey。 检测 &amp;lt;select&amp;gt; 标签中 resultOrdered 属性的配置，并根据 resultOrdered 的配置决定是否提前释放 nestedResultObjects 集合中的中间数据，避免在进行嵌套映射时出现内存不足的情况。 通过 getRowValue() 方法完成当前记录行的映射，得到最终的结果对象，其中还会将结果对象添加到 nestedResultObjects 集合中。 通过 storeObject() 方法将生成的结果对象保存到 ResultHandler 中。  在上述过程中，有很多步骤的实现已经在上一讲的简单映射部分介绍过了，例如，前三步中使用到的 skipRows()、shouldProcessMoreRows() 和 resolveDiscriminatedResultMap() 三个方法。所以，下面我们就从（第 4 步）创建 CacheKey 开始介绍。</description>
+    </item>
+    
+    <item>
+      <title>16 StatementHandler：参数绑定、SQL 执行和结果映射的奠基者</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/16-statementhandler%E5%8F%82%E6%95%B0%E7%BB%91%E5%AE%9Asql-%E6%89%A7%E8%A1%8C%E5%92%8C%E7%BB%93%E6%9E%9C%E6%98%A0%E5%B0%84%E7%9A%84%E5%A5%A0%E5%9F%BA%E8%80%85/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:18 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/16-statementhandler%E5%8F%82%E6%95%B0%E7%BB%91%E5%AE%9Asql-%E6%89%A7%E8%A1%8C%E5%92%8C%E7%BB%93%E6%9E%9C%E6%98%A0%E5%B0%84%E7%9A%84%E5%A5%A0%E5%9F%BA%E8%80%85/</guid>
+      <description>StatementHandler 接口是 MyBatis 中非常重要的一个接口，其实现类完成 SQL 语句执行中最核心的一系列操作，这也是后面我们要介绍的 Executor 接口实现的基础。
+StatementHandler 接口的定义如下图所示：
+StatementHandler 接口中定义的方法
+可以看到，其中提供了创建 Statement 对象（prepare() 方法）、为 SQL 语句绑定实参（parameterize() 方法）、执行单条 SQL 语句（query() 方法和 update() 方法）、批量执行 SQL 语句（batch() 方法）等多种功能。
+下图展示了 MyBatis 中提供的所有 StatementHandler 接口实现类，以及它们的继承关系：
+StatementHandler 接口继承关系图
+今天这一讲我们就来详细分析该继承关系图中每个 StatementHandler 实现的核心逻辑。
+RoutingStatementHandler RoutingStatementHandler 这个 StatementHandler 实现，有点策略模式的意味。在 RoutingStatementHandler 的构造方法中，会根据 MappedStatement 中的 statementType 字段值，选择相应的 StatementHandler 实现进行创建，这个新建的 StatementHandler 对象由 RoutingStatementHandler 中的 delegate 字段维护。
+RoutingStatementHandler 的构造方法如下：
+public RoutingStatementHandler(Executor executor, MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {// 下面就是根据MappedStatement的配置，生成一个相应的StatementHandler对// 象，并设置到delegate字段中维护switch (ms.</description>
+    </item>
+    
+    <item>
+      <title>15 探究 MyBatis 结果集映射机制背后的秘密（下）</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/15-%E6%8E%A2%E7%A9%B6-mybatis-%E7%BB%93%E6%9E%9C%E9%9B%86%E6%98%A0%E5%B0%84%E6%9C%BA%E5%88%B6%E8%83%8C%E5%90%8E%E7%9A%84%E7%A7%98%E5%AF%86%E4%B8%8B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:17 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/15-%E6%8E%A2%E7%A9%B6-mybatis-%E7%BB%93%E6%9E%9C%E9%9B%86%E6%98%A0%E5%B0%84%E6%9C%BA%E5%88%B6%E8%83%8C%E5%90%8E%E7%9A%84%E7%A7%98%E5%AF%86%E4%B8%8B/</guid>
+      <description>在上一讲中，我们介绍了 MyBatis 中结果集映射的核心逻辑位于 DefaultResultSetHandler 之中，然后深入分析了 DefaultResultSetHandler 与简单结果集映射相关的核心实现，这是 MyBatis 整个结果集映射功能的基本。
+今天我们就紧接着上一讲，继续介绍 DefaultResultSetHandler 中关于嵌套映射、延迟加载以及多结果集处理的内容。
+嵌套映射 处理简单映射只是所有映射处理逻辑中的一个分支，handleRowValues() 方法还有另一条分支是用来处理嵌套映射的，也就是 handleRowValuesForNestedResultMap() 方法。
+handleRowValuesForNestedResultMap() 方法处理嵌套映射的核心流程如下所示。
+ 通过 skipRows() 方法将 ResultSet 的指针指向目标行。 执行 shouldProcessMoreRows() 方法检测 ResultSet 中是否包含能继续映射的数据行，如果包含，就开始映射一个具体的数据行。 通过 resolveDiscriminatedResultMap() 方法处理 ResultMap 中的 Discriminator 对象，确定最终使用的 ResultMap 映射规则。 为当前处理的数据行生成 CacheKey。除了作为缓存中的 key 值外，CacheKey 在嵌套映射中也作为唯一标识来标识结果对象。 根据步骤 4 生成的 CacheKey 从 DefaultResultSetHandler.nestedResultObjects 集合中查询中间结果。nestedResultObjects 是一个 HashMap 集合，在处理嵌套映射过程中产生的全部中间对象，都会记录到这个 Map 中，其中的 Key 就是 CacheKey。 检测 &amp;lt;select&amp;gt; 标签中 resultOrdered 属性的配置，并根据 resultOrdered 的配置决定是否提前释放 nestedResultObjects 集合中的中间数据，避免在进行嵌套映射时出现内存不足的情况。 通过 getRowValue() 方法完成当前记录行的映射，得到最终的结果对象，其中还会将结果对象添加到 nestedResultObjects 集合中。 通过 storeObject() 方法将生成的结果对象保存到 ResultHandler 中。  在上述过程中，有很多步骤的实现已经在上一讲的简单映射部分介绍过了，例如，前三步中使用到的 skipRows()、shouldProcessMoreRows() 和 resolveDiscriminatedResultMap() 三个方法。所以，下面我们就从（第 4 步）创建 CacheKey 开始介绍。</description>
+    </item>
+    
+    <item>
+      <title>14 探究 MyBatis 结果集映射机制背后的秘密（上）</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/14-%E6%8E%A2%E7%A9%B6-mybatis-%E7%BB%93%E6%9E%9C%E9%9B%86%E6%98%A0%E5%B0%84%E6%9C%BA%E5%88%B6%E8%83%8C%E5%90%8E%E7%9A%84%E7%A7%98%E5%AF%86%E4%B8%8A/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:16 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/14-%E6%8E%A2%E7%A9%B6-mybatis-%E7%BB%93%E6%9E%9C%E9%9B%86%E6%98%A0%E5%B0%84%E6%9C%BA%E5%88%B6%E8%83%8C%E5%90%8E%E7%9A%84%E7%A7%98%E5%AF%86%E4%B8%8A/</guid>
+      <description>在前面介绍 MyBatis 解析 Mapper.xml 映射文件的过程中，我们看到 &amp;lt;resultMap&amp;gt; 标签会被解析成 ResultMap 对象，其中定义了 ResultSet 与 Java 对象的映射规则，简单来说，也就是一行数据记录如何映射成一个 Java 对象，这种映射机制是 MyBatis 作为 ORM 框架的核心功能之一。
+ResultMap 只是定义了一个静态的映射规则，那在运行时，MyBatis 是如何根据映射规则将 ResultSet 映射成 Java 对象的呢？当 MyBatis 执行完一条 select 语句，拿到 ResultSet 结果集之后，会将其交给关联的 ResultSetHandler 进行后续的映射处理。
+ResultSetHandler 是一个接口，其中定义了三个方法，分别用来处理不同的查询返回值：
+public interface ResultSetHandler {// 将ResultSet映射成Java对象&amp;lt;E&amp;gt; List&amp;lt;E&amp;gt; handleResultSets(Statement stmt) throws SQLException;// 将ResultSet映射成游标对象&amp;lt;E&amp;gt; Cursor&amp;lt;E&amp;gt; handleCursorResultSets(Statement stmt) throws SQLException;// 处理存储过程的输出参数void handleOutputParameters(CallableStatement cs) throws SQLException;}在 MyBatis 中只提供了一个 ResultSetHandler 接口实现，即 DefaultResultSetHandler。下面我们就以 DefaultResultSetHandler 为中心，介绍 MyBatis 中 ResultSet 映射的核心流程。</description>
+    </item>
+    
+    <item>
+      <title>13 深入分析动态 SQL 语句解析全流程（下）</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/13-%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90%E5%8A%A8%E6%80%81-sql-%E8%AF%AD%E5%8F%A5%E8%A7%A3%E6%9E%90%E5%85%A8%E6%B5%81%E7%A8%8B%E4%B8%8B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:15 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/13-%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90%E5%8A%A8%E6%80%81-sql-%E8%AF%AD%E5%8F%A5%E8%A7%A3%E6%9E%90%E5%85%A8%E6%B5%81%E7%A8%8B%E4%B8%8B/</guid>
+      <description>在上一讲，我们讲解了 MyBatis 中动态 SQL 语句的相关内容，重点介绍了 MyBatis 使用到的 OGNL 表达式、组合模式、DynamicContext 上下文以及多个动态 SQL 标签对应的 SqlNode 实现。今天我们就紧接着上一讲，继续介绍剩余 SqlNode 实现以及 SqlSource 的相关内容。
+SqlNode 剩余实现类 在上一讲我们已经介绍了 StaticTextSqlNode、MixedSqlNode、TextSqlNode、IfSqlNode、TrimSqlNode 这几个 SqlNode 的实现，下面我们再把剩下的三个 SqlNode 实现类也说明下。
+1. ForeachSqlNode 在动态 SQL 语句中，我们可以使用 标签对一个集合进行迭代。在迭代过程中，我们可以通过 index 属性值指定的变量作为元素的下标索引（迭代 Map 集合的话，就是 Key 值），使用 item 属性值指定的变量作为集合元素（迭代 Map 集合的话，就是 Value 值）。另外，我们还可以通过 open 和 close 属性在迭代开始前和结束后添加相应的字符串，也允许使用 separator 属性自定义分隔符。这里要介绍的 ForeachSqlNode 就是 &amp;lt;foreach&amp;gt; 标签的抽象。
+下面我们就来分析一下 ForeachSqlNode 的 apply() 方法是如何实现循环的。
+首先，向 DynamicContext.sqlBuilder 中追加 open 属性值指定的字符串，然后通过 ExpressionEvaluator 工具类解析 &amp;lt;foreach&amp;gt; 标签中 collection 属性指定的表达式，得到一个集合对象，并遍历这个集合。</description>
+    </item>
+    
+    <item>
+      <title>12 深入分析动态 SQL 语句解析全流程（上）</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/12-%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90%E5%8A%A8%E6%80%81-sql-%E8%AF%AD%E5%8F%A5%E8%A7%A3%E6%9E%90%E5%85%A8%E6%B5%81%E7%A8%8B%E4%B8%8A/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:14 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/12-%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90%E5%8A%A8%E6%80%81-sql-%E8%AF%AD%E5%8F%A5%E8%A7%A3%E6%9E%90%E5%85%A8%E6%B5%81%E7%A8%8B%E4%B8%8A/</guid>
+      <description>在前面两讲中，我们详细介绍了 mybatis-config.xml 全局配置文件以及 Mapper.xml 映射文件的解析流程，MyBatis 会将 Mapper 映射文件中定义的 SQL 语句解析成 SqlSource 对象，其中的动态标签、SQL 语句文本等，会解析成对应类型的 SqlNode 对象。
+在开始介绍 SqlSource 接口、SqlNode 接口等核心接口的相关内容之前，我们需要先来了解一下动态 SQL 中使用到的基础知识和基础组件。
+OGNL 表达式语言 OGNL 表达式语言是一款成熟的、面向对象的表达式语言。在动态 SQL 语句中使用到了 OGNL 表达式读写 JavaBean 属性值、执行 JavaBean 方法这两个基础功能。
+OGNL 表达式是相对完备的一门表达式语言，我们可以通过“对象变量名称.方法名称（或属性名称）”调用一个 JavaBean 对象的方法（或访问其属性），还可以通过“@[类的完全限定名]@[静态方法（或静态字段）]”调用一个 Java 类的静态方法（或访问静态字段）。OGNL 表达式还支持很多更复杂、更强大的功能，这里不再一一介绍。
+下面我就通过一个示例来帮助你快速了解 OGNL 表达式的基础使用：
+public class OGNLDemo {private static Customer customer;private static OgnlContext context;private static Customer createCustomer() {customer = new Customer();customer.setId(1);customer.setName(&amp;quot;Test Customer&amp;quot;);customer.setPhone(&amp;quot;1234567&amp;quot;);Address address = new Address();address.</description>
+    </item>
+    
+    <item>
+      <title>11 鸟瞰 MyBatis 初始化，把握 MyBatis 启动流程脉络（下）</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/11-%E9%B8%9F%E7%9E%B0-mybatis-%E5%88%9D%E5%A7%8B%E5%8C%96%E6%8A%8A%E6%8F%A1-mybatis-%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E8%84%89%E7%BB%9C%E4%B8%8B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:13 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/11-%E9%B8%9F%E7%9E%B0-mybatis-%E5%88%9D%E5%A7%8B%E5%8C%96%E6%8A%8A%E6%8F%A1-mybatis-%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E8%84%89%E7%BB%9C%E4%B8%8B/</guid>
+      <description>在上一讲，我们深入分析了MyBatis 初始化过程中对 mybatis-config.xml 全局配置文件的解析，详细介绍了其中每个标签的解析流程以及涉及的经典设计模式——构造者模式。这一讲我们就紧接着上一讲的内容，继续介绍 MyBatis 初始化流程，重点介绍Mapper.xml 配置文件的解析以及 SQL 语句的处理逻辑。
+Mapper.xml 映射文件解析全流程 在上一讲分析 mybatis-config.xml 配置文件解析流程的时候我们看到，在 mybatis-config.xml 配置文件中可以定义多个 &amp;lt;mapper&amp;gt; 标签指定 Mapper 配置文件的地址，MyBatis 会为每个 Mapper.xml 映射文件创建一个 XMLMapperBuilder 实例完成解析。
+与 XMLConfigBuilder 类似，XMLMapperBuilder也是具体构造者的角色，继承了 BaseBuilder 这个抽象类，解析 Mapper.xml 映射文件的入口是 XMLMapperBuilder.parse() 方法，其核心步骤如下：
+ 执行 configurationElement() 方法解析整个Mapper.xml 映射文件的内容； 获取当前 Mapper.xml 映射文件指定的 Mapper 接口，并进行注册； 处理 configurationElement() 方法中解析失败的 &amp;lt;resultMap&amp;gt; 标签； 处理 configurationElement() 方法中解析失败的 &amp;lt;cache-ref&amp;gt; 标签； 处理 configurationElement() 方法中解析失败的SQL 语句标签。  可以清晰地看到，configurationElement() 方法才是真正解析 Mapper.xml 映射文件的地方，其中定义了处理 Mapper.xml 映射文件的核心流程：
+ 获取 &amp;lt;mapper&amp;gt; 标签中的 namespace 属性，同时会进行多种边界检查； 解析 &amp;lt;cache&amp;gt; 标签； 解析 &amp;lt;cache-ref&amp;gt; 标签； 解析 &amp;lt;resultMap&amp;gt; 标签； 解析 &amp;lt;sql&amp;gt; 标签； 解析 &amp;lt;select&amp;gt;、&amp;lt;insert&amp;gt;、&amp;lt;update&amp;gt;、&amp;lt;delete&amp;gt; 等 SQL 标签。  下面我们就按照顺序逐一介绍这些方法的核心实现。</description>
+    </item>
+    
+    <item>
+      <title>10 鸟瞰 MyBatis 初始化，把握 MyBatis 启动流程脉络（上）</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/10-%E9%B8%9F%E7%9E%B0-mybatis-%E5%88%9D%E5%A7%8B%E5%8C%96%E6%8A%8A%E6%8F%A1-mybatis-%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E8%84%89%E7%BB%9C%E4%B8%8A/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:12 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/10-%E9%B8%9F%E7%9E%B0-mybatis-%E5%88%9D%E5%A7%8B%E5%8C%96%E6%8A%8A%E6%8F%A1-mybatis-%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E8%84%89%E7%BB%9C%E4%B8%8A/</guid>
+      <description>很多开源框架之所以能够流行起来，是因为它们解决了领域内的一些通用问题。但在实际使用这些开源框架的时候，我们都是要解决通用问题中的一个特例问题，所以这时我们就需要使用一种方式来控制开源框架的行为，这就是开源框架提供各种各样配置的核心原因之一。
+现在控制开源框架行为主流的配置方式就是 XML 配置方式和注解方式。在《02 | 订单系统持久层示例分析，20 分钟带你快速上手 MyBatis》这一讲中我们介绍过，MyBatis 有两方面的 XML 配置，一个是 mybatis-config.xml 配置文件中的整体配置，另一个是 Mapper.xml 配置文件中的 SQL 语句。当然，MyBatis 中也有注解，前面的课程中也多少有涉及，其核心实现与 XML 配置基本类似，所以这一讲我们就重点分析 XML 配置的初始化过程，注解相关的内容就留给你自己分析了。
+在初始化的过程中，MyBatis 会读取 mybatis-config.xml 这个全局配置文件以及所有的 Mapper 映射配置文件，同时还会加载这两个配置文件中指定的类，解析类中的相关注解，最终将解析得到的信息转换成配置对象。完成配置加载之后，MyBatis 就会根据得到的配置对象初始化各个模块。
+MyBatis 在加载配置文件、创建配置对象的时候，会使用到经典设计模式中的构造者模式，所以下面我们就来先介绍一下构造者模式的知识点。
+构造者模式 构造者模式最核心的思想就是将创建复杂对象的过程与复杂对象本身进行拆分。通俗来讲，构造者模式是将复杂对象的创建过程分解成了多个简单步骤，在创建复杂对象的时候，只需要了解复杂对象的基本属性即可，而不需要关心复杂对象的内部构造过程。这样的话，使用方只需要关心这个复杂对象要什么数据，而不再关心内部细节。
+构造者模式的类图如下所示：
+构造者模式类图
+从图中，我们可以看到构造者模式的四个核心组件。
+ Product 接口：复杂对象的接口，定义了要创建的目标对象的行为。 ProductImpl 类：Product 接口的实现，它真正要创建的复杂对象，其中实现了我们需要的复杂业务逻辑。 Builder 接口：定义了构造 Product 对象的每一步行为。 BuilderImpl 类：Builder 接口的具体实现，其中具体实现了构造一个 Product 的每一个步骤，例如上图中的 setPart1()、setPart2() 等方法，都是用来构造 ProductImpl 对象的各个部分。在完成整个 Product 对象的构造之后，我们会通过 build() 方法返回这个构造好的 Product 对象。  使用构造者模式一般有两个目的。第一个目的是将使用方与复杂对象的内部细节隔离，从而实现解耦的效果。使用方提供的所有信息，都是由 Builder 这个“中间商”接收的，然后由 Builder 消化这些信息并构造出一个完整可用的 Product 对象。第二个目的是简化复杂对象的构造过程。在很多场景中，复杂对象可能有很多默认属性，这时我们就可以将这些默认属性封装到 Builder 中，这样就可以简化创建复杂对象所需的信息。</description>
+    </item>
+    
+    <item>
+      <title>09 基于 MyBatis 缓存分析装饰器模式的最佳实践</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/09-%E5%9F%BA%E4%BA%8E-mybatis-%E7%BC%93%E5%AD%98%E5%88%86%E6%9E%90%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:11 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/09-%E5%9F%BA%E4%BA%8E-mybatis-%E7%BC%93%E5%AD%98%E5%88%86%E6%9E%90%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</guid>
+      <description>缓存是优化数据库性能的常用手段之一，我们在实践中经常使用的是 Memcached、Redis 等外部缓存组件，很多持久化框架提供了集成这些外部缓存的功能，同时自身也提供了内存级别的缓存，MyBatis 作为持久化框架中的佼佼者，自然也提供了这些功能。
+MyBatis 的缓存分为一级缓存、二级缓存两个级别，并且都实现了 Cache 接口，所以这一讲我们就重点来介绍 Cache 接口及其核心实现类，这也是一级缓存和二级缓存依赖的基础实现。
+不过在讲解这些内容之前，我先来介绍下装饰器模式，因为 Cache 模块除了提供基础的缓存功能外，还提供了多种扩展功能，而这些功能都是通过装饰器的形式提供的。
+装饰器模式 我们在做一个产品的时候，需求会以多期的方式执行，随着产品的不断迭代，新需求也会不断出现，我们开始设计一个类的时候，可能并没有考虑到新需求的场景，此时就需要为某些组件添加新的功能来满足这些需求。
+如果要符合开放-封闭的原则，我们最好不要直接修改已有的具体实现类，因为会破坏其已有的稳定性，在自测、集成测试以及线上回测的时候，除了要验证新需求外，还要回归测试波及的历史功能，这是让开发人员和测试人员都非常痛苦的地方，也是违反开放-封闭原则带来的最严重的问题之一。
+除了修改原有实现之外，还有一种修改方案，那就是继承，也就是需要创建一个新的子类，然后在子类中覆盖父类的相关方法，并添加实现新需求的扩展。
+但继承在某些场景下是不可行的，例如，要覆盖的方法被 final 关键字修饰了，那么在 Java 的语法中就无法被覆盖。使用继承方案的另一个缺点就是整个继承树的膨胀，例如，当新需求存在多种排列组合或是复杂的判断时，那就需要写非常多的子类实现。
+正是由于这些缺点的存在，所以应该尽量多地使用组合方式进行扩展，尽量少使用继承方式进行扩展，除非迫不得已。
+装饰器模式就是一种通过组合方式实现扩展的设计模式，它可以完美地解决上述功能增强的问题。装饰器的核心思想是为已有实现类创建多个包装类，由这些新增的包装类完成新需求的扩展。
+装饰器模式使用的是组合方式，相较于继承这种静态的扩展方式，装饰器模式可以在运行时根据系统状态，动态决定为一个实现类添加哪些扩展功能。
+装饰器模式的核心类图，如下所示：
+装饰器模式类图
+从图中可以看到，装饰器模式中的核心类主要有下面四个。
+ Component 接口：已有的业务接口，是整个功能的核心抽象，定义了 Decorator 和 ComponentImpl 这些实现类的核心行为。JDK 中的 IO 流体系就使用了装饰器模式，其中的 InputStream 接口就扮演了 Component 接口的角色。 ComponentImpl 实现类：实现了上面介绍的 Component 接口，其中实现了 Component 接口最基础、最核心的功能，也就是被装饰的、原始的基础类。在 JDK IO 流体系之中的 FileInputStream 就扮演了 ComponentImpl 的角色，它实现了读取文件的基本能力，例如，读取单个 byte、读取 byte[] 数组。 Decorator 抽象类：所有装饰器的父类，实现了 Component 接口，其核心不是提供新的扩展能力，而是封装一个 Component 类型的字段，也就是被装饰的目标对象。需要注意的是，这个被装饰的对象可以是 ComponentImpl 对象，也可以是 Decorator 实现类的对象，之所以这么设计，就是为了实现下图的装饰器嵌套。这里的 DecoratorImpl1 装饰了 DecoratorImpl2，DecoratorImpl2 装饰了 ComponentImpl，经过了这一系列装饰之后得到的 Component 对象，除了具有 ComponentImpl 的基础能力之外，还拥有了 DecoratorImpl1 和 DecoratorImpl2 的扩展能力。JDK IO 流体系中的 FilterInputStream 就扮演了 Decorator 的角色。  Decorator 与 Component 的引用关系</description>
+    </item>
+    
+    <item>
+      <title>08 Mapper 文件与 Java 接口的优雅映射之道</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/08-mapper-%E6%96%87%E4%BB%B6%E4%B8%8E-java-%E6%8E%A5%E5%8F%A3%E7%9A%84%E4%BC%98%E9%9B%85%E6%98%A0%E5%B0%84%E4%B9%8B%E9%81%93/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:10 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/08-mapper-%E6%96%87%E4%BB%B6%E4%B8%8E-java-%E6%8E%A5%E5%8F%A3%E7%9A%84%E4%BC%98%E9%9B%85%E6%98%A0%E5%B0%84%E4%B9%8B%E9%81%93/</guid>
+      <description>在&amp;lt;使用 MyBatis 实现订单系统示例的时候&amp;gt;，我们会为每个 Mapper.xml 配置文件创建一个对应的 Mapper 接口，例如，订单系统示例中的 CustomerMapper.xml 配置文件与 CustomerMapper 接口，定义完 CustomerMapper 接口之后，我们无须提供 CustomerMapper 接口实现，就可以直接调用 CustomerMapper 对象的方法执行 CustomerMapper.xml 配置文件中的 SQL 语句。
+这里你可能会有几个疑惑：
+ 为什么需要 CustomerMapper 接口来执行对应的 SQL 语句呢？ 为什么无须提供 CustomerMapper 接口的实现类呢？ 实际使用的 CustomerMapper 对象是什么呢？CustomerMapper 对象是怎么创建的呢？底层原理是什么呢？  学习完这一讲，你就会找到这些问题的答案。
+MyBatis 的前身是 iBatis，我们在使用 iBatis 的时候，如果想查询一个 Customer 对象的话，可以调用 SqlSession.queryForObject (&amp;ldquo;find&amp;rdquo;, customerId) 方法，queryForObject() 方法的这两个参数分别是要执行的 SQL 语句唯一标识（示例中就是定义在 CustomerMapper.xml 中的 id 为 find 的 SQL 语句），以及 SQL 语句执行时需要的实参（示例中就是顾客 ID）。
+这里 SQL 语句的唯一标识是一个字符串，如果我们在写代码的时候，不小心写错了这个唯一标识，例如将“find”写成了“finb”，在代码编译以及 iBatis 初始化的过程中，根本发现不了这个问题，而是在真正执行到这行代码的时候才会抛出异常，这样其实对流量是有损的。
+MyBatis 中的 Mapper 接口就可以很好地解决这个问题。</description>
+    </item>
+    
+    <item>
+      <title>07 深入数据源和事务，把握持久化框架的两个关键命脉</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/07-%E6%B7%B1%E5%85%A5%E6%95%B0%E6%8D%AE%E6%BA%90%E5%92%8C%E4%BA%8B%E5%8A%A1%E6%8A%8A%E6%8F%A1%E6%8C%81%E4%B9%85%E5%8C%96%E6%A1%86%E6%9E%B6%E7%9A%84%E4%B8%A4%E4%B8%AA%E5%85%B3%E9%94%AE%E5%91%BD%E8%84%89/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:09 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/07-%E6%B7%B1%E5%85%A5%E6%95%B0%E6%8D%AE%E6%BA%90%E5%92%8C%E4%BA%8B%E5%8A%A1%E6%8A%8A%E6%8F%A1%E6%8C%81%E4%B9%85%E5%8C%96%E6%A1%86%E6%9E%B6%E7%9A%84%E4%B8%A4%E4%B8%AA%E5%85%B3%E9%94%AE%E5%91%BD%E8%84%89/</guid>
+      <description>数据源是持久层框架中最核心的组件之一，在实际工作中比较常见的数据源有 C3P0、Apache Common DBCP、Proxool 等。作为一款成熟的持久化框架，MyBatis 不仅自己提供了一套数据源实现，而且还能够方便地集成第三方数据源。
+javax.sql.DataSource 是 Java 语言中用来抽象数据源的接口，其中定义了所有数据源实现的公共行为，MyBatis 自身提供的数据源实现也要实现该接口。MyBatis 提供了两种类型的数据源实现，分别是 PooledDataSource 和 UnpooledDataSource，继承关系如下图所示：
+针对不同的 DataSource 实现，MyBatis 提供了不同的工厂实现来进行创建，如下图所示，这是工厂方法模式的一个典型应用场景。
+编写一个设计合理、性能优秀的数据源只是第一步，在通过数据源拿到数据库连接之后，还需要开启事务，才能进行数据的修改。MyBatis 对数据库事务进行了一层抽象，也就是我们这一讲后面要介绍的 Transaction 接口，它可以管理事务的开启、提交和回滚。
+工厂方法模式 工厂方法模式中定义了 Factory 这个工厂接口，如下图所示，其中定义了 createProduct() 方法创建右侧继承树中的对象，不同的工厂接口实现类会创建右侧继承树中不同 Product 实现类（例如 ProductImpl 1 和 ProductImpl 2）。
+从上图中，我们可以看到工厂方法模式由四个核心角色构成。
+ Factory 接口：工厂方法模式的核心接口之一。使用方会依赖 Factory 接口创建 Product 对象实例。 Factory 实现类（图中的 FactoryImpl 1 和 FactoryImpl 2）：用于创建 Product 对象。不同的 Factory 实现会根据需求创建不同的 Product 实现类。 Product 接口：用于定义业务类的核心功能。Factory 接口创建出来的所有对象都需要实现 Product 接口。使用方依赖 Product 接口编写其他业务实现，所以使用方关心的是 Product 接口这个抽象，而不是其中的具体实现逻辑。 Product 实现类（图中的 ProductImpl 1 和 ProductImpl 2）：实现了 Product 接口中定义的方法，完成了具体的业务逻辑。  这里假设一个场景：目前我们要做一个注册中心模块，已经有了 ZookeeperImpl 和 EtcdImpl 两个业务实现类，分别支持了与 ZooKeeper 交互和与 etcd 交互，此时来了个新需求，需要支持与 Consul 交互。该怎么解决这个需求呢？那就是使用工厂方法模式，我们只需要添加新的 ConsulFactory 实现类和 ConsulImpl 实现类即可完成扩展。</description>
+    </item>
+    
+    <item>
+      <title>06 日志框架千千万，MyBatis 都能兼容的秘密是什么？</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/06-%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6%E5%8D%83%E5%8D%83%E4%B8%87mybatis-%E9%83%BD%E8%83%BD%E5%85%BC%E5%AE%B9%E7%9A%84%E7%A7%98%E5%AF%86%E6%98%AF%E4%BB%80%E4%B9%88/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:08 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/06-%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6%E5%8D%83%E5%8D%83%E4%B8%87mybatis-%E9%83%BD%E8%83%BD%E5%85%BC%E5%AE%B9%E7%9A%84%E7%A7%98%E5%AF%86%E6%98%AF%E4%BB%80%E4%B9%88/</guid>
+      <description>Apache Commons Logging、Log4j、Log4j2、java.util.logging 等是 Java 开发中常用的几款日志框架，这些日志框架来源于不同的开源组织，给用户暴露的接口也有很多不同之处，所以很多开源框架会自己定义一套统一的日志接口，兼容上述第三方日志框架，供上层使用。
+一般实现的方式是使用适配器模式，将各个第三方日志框架接口转换为框架内部自定义的日志接口。MyBatis 也提供了类似的实现。
+适配器模式 适配器模式主要解决的是由于接口不能兼容而导致类无法使用的问题，这在处理遗留代码以及集成第三方框架的时候用得比较多。其核心原理是：通过组合的方式，将需要适配的类转换成使用者能够使用的接口。
+适配器模式的类图如下所示：
+适配器模式类图
+在该类图中，你可以看到适配器模式涉及的三个核心角色。
+ 目标接口（Target）：使用者能够直接使用的接口。以处理遗留代码为例，Target 就是最新定义的业务接口。 需要适配的类/要使用的实现类（Adaptee）：定义了真正要执行的业务逻辑，但是其接口不能被使用者直接使用。这里依然以处理遗留代码为例，Adaptee 就是遗留业务实现，由于编写 Adaptee 的时候还没有定义 Target 接口，所以 Adaptee 无法实现 Target 接口。 适配器（Adapter）：在实现 Target 接口的同时，维护了一个指向 Adaptee 对象的引用。Adapter 底层会依赖 Adaptee 的逻辑来实现 Target 接口的功能，这样就能够复用 Adaptee 类中的遗留逻辑来完成业务。  适配器模式带来的最大好处就是复用已有的逻辑，避免直接去修改 Adaptee 实现的接口，这符合开放-封闭原则（也就是程序要对扩展开放、对修改关闭）。
+MyBatis 使用的日志接口是自己定义的 Log 接口，但是 Apache Commons Logging、Log4j、Log4j2 等日志框架提供给用户的都是自己的 Logger 接口。为了统一这些第三方日志框架，MyBatis 使用适配器模式添加了针对不同日志框架的 Adapter 实现，使得第三方日志框架的 Logger 接口转换成 MyBatis 中的 Log 接口，从而实现集成第三方日志框架打印日志的功能。
+日志模块 MyBatis 自定义的 Log 接口位于 org.apache.ibatis.logging 包中，相关的适配器也位于该包中，下面我们就来看看该模块的具体实现。
+首先是 LogFactory 工厂类，它负责创建 Log 对象。这些 Log 接口的实现类中，就包含了多种第三方日志框架的适配器，如下图所示：</description>
+    </item>
+    
+    <item>
+      <title>05 数据库类型体系与 Java 类型体系之间的“爱恨情仇”</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/05-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B1%BB%E5%9E%8B%E4%BD%93%E7%B3%BB%E4%B8%8E-java-%E7%B1%BB%E5%9E%8B%E4%BD%93%E7%B3%BB%E4%B9%8B%E9%97%B4%E7%9A%84%E7%88%B1%E6%81%A8%E6%83%85%E4%BB%87/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:07 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/05-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B1%BB%E5%9E%8B%E4%BD%93%E7%B3%BB%E4%B8%8E-java-%E7%B1%BB%E5%9E%8B%E4%BD%93%E7%B3%BB%E4%B9%8B%E9%97%B4%E7%9A%84%E7%88%B1%E6%81%A8%E6%83%85%E4%BB%87/</guid>
+      <description>作为一个 Java 程序员，你应该已经具备了使用 JDBC 操作数据库的基础技能。在使用 JDBC 的时候，你会发现 JDBC 的数据类型与 Java 语言中的数据类型虽然有点对应关系，如下图所示，但还是无法做到一一对应，也自然无法做到自动映射。
+数据库类型与 Java 类型对应图表
+在使用 PreparedStatement 执行 SQL 语句之前，都是需要手动调用 setInt()、setString() 等 set 方法绑定参数，这不仅仅是告诉 JDBC 一个 SQL 模板中哪个占位符需要使用哪个实参，还会将数据从 Java 类型转换成 JDBC 类型。当从 ResultSet 中获取数据的时候，则是一个逆过程，数据会从 JDBC 类型转换为 Java 类型。
+可以使用 MyBatis 中的类型转换器，完成上述两次类型转换，如下图所示：
+JDBC 类型数据与 Java 类型数据转换示意图
+深入 TypeHandler 说了这么多，类型转换器到底是怎么定义的呢？其实，MyBatis 中的类型转换器就是 TypeHandler 这个接口，其定义如下：
+public interface TypeHandler&amp;lt;T&amp;gt; {// 在通过PreparedStatement为SQL语句绑定参数时，会将传入的实参数据由JdbcType类型转换成Java类型void setParameter(PreparedStatement ps, int i, T parameter, JdbcType jdbcType) throws SQLException;// 从ResultSet中获取数据时会使用getResult()方法，其中会将读取到的数据由Java类型转换成JdbcType类型T getResult(ResultSet rs, String columnName) throws SQLException;T getResult(ResultSet rs, int columnIndex) throws SQLException;T getResult(CallableStatement cs, int columnIndex) throws SQLException;}MyBatis 中定义了 BaseTypeHandler 抽象类来实现一些 TypeHandler 的公共逻辑，BaseTypeHandler 在实现 TypeHandler 的同时，还实现了 TypeReference 抽象类。其继承关系如下图所示：</description>
+    </item>
+    
+    <item>
+      <title>04 MyBatis 反射工具箱：带你领略不一样的反射设计思路</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/04-mybatis-%E5%8F%8D%E5%B0%84%E5%B7%A5%E5%85%B7%E7%AE%B1%E5%B8%A6%E4%BD%A0%E9%A2%86%E7%95%A5%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84%E5%8F%8D%E5%B0%84%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:06 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/04-mybatis-%E5%8F%8D%E5%B0%84%E5%B7%A5%E5%85%B7%E7%AE%B1%E5%B8%A6%E4%BD%A0%E9%A2%86%E7%95%A5%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84%E5%8F%8D%E5%B0%84%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF/</guid>
+      <description>反射是 Java 世界中非常强大、非常灵活的一种机制。在面向对象的 Java 语言中，我们只能按照 public、private 等关键字的规范去访问一个 Java 对象的属性和方法，但反射机制可以让我们在运行时拿到任何 Java 对象的属性或方法。
+有人说反射打破了类的封装性，破坏了我们的面向对象思维，我倒不这么认为。我觉得正是由于 Java 的反射机制，解决了很多面向对象无法解决的问题，才受到众多 Java 开源框架的青睐，也出现了有很多惊艳的反射实践，当然，这也包括 MyBatis 中的反射工具箱。
+凡事都有两面性，越是灵活、越是强大的工具，用起来的门槛就越高，反射亦如此。这也是写业务代码时，很少用到反射的原因。反过来说，如果必须要用反射解决业务问题的时候，就需要停下来思考我们的系统设计是不是有问题了。
+为了降低反射使用门槛，MyBatis 内部封装了一个反射工具箱，其中包含了 MyBatis 自身常用的反射操作，MyBatis 其他模块只需要调用反射工具箱暴露的简洁 API 即可实现想要的反射功能。
+反射工具箱的具体代码实现位于 org.apache.ibatis.reflection 包中，下面我就带你一起深入分析该模块的核心实现。
+Reflector Reflector 是 MyBatis 反射模块的基础。要使用反射模块操作一个 Class，都会先将该 Class 封装成一个 Reflector 对象，在 Reflector 中缓存 Class 的元数据信息，这可以提高反射执行的效率。
+1. 核心初始化流程 既然是涉及反射操作，Reflector 必然要管理类的属性和方法，这些信息都记录在它的核心字段中，具体情况如下所示。
+ type（Class&amp;lt;?&amp;gt; 类型）：该 Reflector 对象封装的 Class 类型。 readablePropertyNames、writablePropertyNames（String[] 类型）：可读、可写属性的名称集合。 getMethods、setMethods（Map&amp;lt;String, Invoker&amp;gt; 类型）：可读、可写属性对应的 getter 方法和 setter 方法集合，key 是属性的名称，value 是一个 Invoker 对象。Invoker 是对 Method 对象的封装。 getTypes、setTypes（Map&amp;lt;String, Class&amp;lt;?</description>
+    </item>
+    
+    <item>
+      <title>03 MyBatis 源码环境搭建及整体架构解析</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/03-mybatis-%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%8F%8A%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:05 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/03-mybatis-%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%8F%8A%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90/</guid>
+      <description>在上一讲中，我通过一个订单系统的示例，展示了 MyBatis 在实践项目中的基本使用，以帮助你快速上手使用 MyBatis 框架。在这一讲，我就来带你搭建 MyBatis 源码调试的环境，并为你解析 MyBatis 的源码结构，这些都是在为后面的源码分析做铺垫。
+MySQL 安装与启动 安装并启动一个关系型数据是调试 MyBatis 源码的基础。目前很多互联网公司都将 MySQL 作为首选数据库，所以这里我也就选用 MySQL 数据库来配合调试 MyBatis 源码。
+1. 下载 MySQL 首先，从 MySQL 官网下载最新版本的 MySQL Community Server。MySQL Community Server 是社区版本的 MySQL 服务端，可以免费试用。这里我选择使用 tar.gz 的方式进行安装，所以需要下载对应的 tar.gz 安装包，如下图红框所示：
+MySQL 下载界面
+2. 配置 MySQL 下载完 tar.gz 安装包后，我执行如下命令，就可以解压缩该 tar.gz 包，得到 mysql-8.0.22-macos10.15-x86_64 目录。
+tar -zxf mysql-8.0.22-macos10.15-x86_64.tar.gz紧接着执行如下命令进入 support-files 目录：
+cd ./mysql-8.0.22-macos10.15-x86_64/support-files执行如下命令打开 mysql.server 文件进行编辑：
+vim mysql.server这里我需要将 basedir 和 datadir 变量分别设置为 MySQL 所在根目录以及 MySQL 目录下的 data 目录（如下图所示），最后再执行 :wq 命令保存 mysql.</description>
+    </item>
+    
+    <item>
+      <title>02 订单系统持久层示例分析，20 分钟带你快速上手 MyBatis</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/02-%E8%AE%A2%E5%8D%95%E7%B3%BB%E7%BB%9F%E6%8C%81%E4%B9%85%E5%B1%82%E7%A4%BA%E4%BE%8B%E5%88%86%E6%9E%9020-%E5%88%86%E9%92%9F%E5%B8%A6%E4%BD%A0%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B-mybatis/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:04 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/02-%E8%AE%A2%E5%8D%95%E7%B3%BB%E7%BB%9F%E6%8C%81%E4%B9%85%E5%B1%82%E7%A4%BA%E4%BE%8B%E5%88%86%E6%9E%9020-%E5%88%86%E9%92%9F%E5%B8%A6%E4%BD%A0%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B-mybatis/</guid>
+      <description>在开始深入分析 MyBatis 核心架构以及具体代码实现之前，我先通过一个示例来帮助你快速了解 MyBatis 中的常见概念以及其基础使用方法。
+这里我会以一个简易订单系统的持久化层为例进行讲解，整体的讲解逻辑是这样的：
+ 首先介绍订单系统 domain 层的设计，了解如何将业务概念抽象成 Java 类； 接下来介绍数据库表的设计，同时说明关系型的数据库表与面向对象模型的类之间的映射关系； 随后介绍订单系统的 DAO 接口层，DAO 接口层是操作数据的最小化单元，也是读写数据库的地基； 最后再简单提供了一个 Service 层和测试用例，用来检测前面的代码实现是否能正常工作。  现在几乎所有的 Java 工程都会使用 Maven 来管理 jar 包依赖，所以我们首先创建一个 Maven 项目，然后在 pom.xml 中添加如下 jar 依赖，这些 jar 包都是订单示例系统必不可少的依赖：
+&amp;lt;dependencies&amp;gt;&amp;lt;!--MyBatis依赖--&amp;gt;&amp;lt;dependency&amp;gt;&amp;lt;groupId&amp;gt;org.mybatis&amp;lt;/groupId&amp;gt;&amp;lt;artifactId&amp;gt;mybatis&amp;lt;/artifactId&amp;gt;&amp;lt;version&amp;gt;3.5.6&amp;lt;/version&amp;gt;&amp;lt;/dependency&amp;gt;&amp;lt;!--MySQL JDBC依赖，用来连接数据库--&amp;gt;&amp;lt;dependency&amp;gt;&amp;lt;groupId&amp;gt;mysql&amp;lt;/groupId&amp;gt;&amp;lt;artifactId&amp;gt;mysql-connector-java&amp;lt;/artifactId&amp;gt;&amp;lt;version&amp;gt;8.0.15&amp;lt;/version&amp;gt;&amp;lt;/dependency&amp;gt;&amp;lt;!--Guava依赖--&amp;gt;&amp;lt;dependency&amp;gt;&amp;lt;groupId&amp;gt;com.google.guava&amp;lt;/groupId&amp;gt;&amp;lt;artifactId&amp;gt;guava&amp;lt;/artifactId&amp;gt;&amp;lt;version&amp;gt;19.0&amp;lt;/version&amp;gt;&amp;lt;/dependency&amp;gt;&amp;lt;!--Junit依赖，用来执行单元测试--&amp;gt;&amp;lt;dependency&amp;gt;&amp;lt;groupId&amp;gt;junit&amp;lt;/groupId&amp;gt;&amp;lt;artifactId&amp;gt;junit&amp;lt;/artifactId&amp;gt;&amp;lt;version&amp;gt;4.10&amp;lt;/version&amp;gt;&amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;&amp;lt;/dependency&amp;gt;&amp;lt;/dependencies&amp;gt;domain 设计 在业务系统的开发中，domain 层的主要目的就是将业务上的概念抽象成面向对象模型中的类，这些类是业务系统运作的基础。在我们的简易订单系统中，有用户、地址、订单、订单条目和商品这五个核心的概念。
+订单系统中 domain 层的设计，如下图所示：</description>
+    </item>
+    
+    <item>
+      <title>01 常见持久层框架赏析，到底是什么让你选择 MyBatis？</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/01-%E5%B8%B8%E8%A7%81%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6%E8%B5%8F%E6%9E%90%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E4%B9%88%E8%AE%A9%E4%BD%A0%E9%80%89%E6%8B%A9-mybatis/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:03 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/01-%E5%B8%B8%E8%A7%81%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6%E8%B5%8F%E6%9E%90%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E4%B9%88%E8%AE%A9%E4%BD%A0%E9%80%89%E6%8B%A9-mybatis/</guid>
+      <description>在绝大多数在线应用场景中，数据是存储在关系型数据库中的，当然，有特殊要求的场景中，我们也会将其他持久化存储（如 ElasticSearch、HBase、MongoDB 等）作为辅助存储。但不可否认的是，关系型数据库凭借几十年的发展、生态积累、众多成功的案例，依然是互联网企业的核心存储。
+作为一个 Java 开发者，几乎天天与关系型数据库打交道，在生产环境中常用的关系型数据库产品有 SQL Server、MySQL、Oracle 等。在使用这些数据库产品的时候，基本上是如下思路：
+ 在写 Java 代码的过程中，使用的是面向对象的思维去实现业务逻辑； 在设计数据库表的时候，考虑的是第一范式、第二范式和第三范式； 在操作数据库记录的时候，使用 SQL 语句以及集合思维去考虑表的连接、条件语句、子查询等的编写。  这个时候，就需要一座桥梁将 Java 类（或是其他数据结构）与关系型数据库中的表，以及 Java 对象与表中的数据映射起来，实现 Java 程序与数据库之间的交互。
+JDBC（Java DataBase Connectivity）是 Java 程序与关系型数据库交互的统一 API。实际上，JDBC 由两部分 API 构成：第一部分是面向 Java 开发者的 Java API，它是一个统一的、标准的 Java API，独立于各个数据库产品的接口规范；第二部分是面向数据库驱动程序开发者的 API，它是由各个数据库厂家提供的数据库驱动，是第一部分接口规范的底层实现，用于连接具体的数据库产品。
+在实际开发 Java 程序时，我们可以通过 JDBC 连接到数据库，并完成各种各样的数据库操作，例如 CRUD 数据、执行 DDL 语句。这里以 JDBC 编程中执行一条 Select 查询语句作为例子，说明 JDBC 操作的核心步骤，具体如下：
+ 注册数据库驱动类，指定数据库地址，其中包括 DB 的用户名、密码及其他连接信息； 调用 DriverManager.getConnection() 方法创建 Connection 连接到数据库； 调用 Connection 的 createStatement() 或 prepareStatement() 方法，创建 Statement 对象，此时会指定 SQL（或是 SQL 语句模板 + SQL 参数）； 通过 Statement 对象执行 SQL 语句，得到 ResultSet 对象，也就是查询结果集； 遍历 ResultSet，从结果集中读取数据，并将每一行数据库记录转换成一个 JavaBean 对象； 关闭 ResultSet 结果集、Statement 对象及数据库 Connection，从而释放这些对象占用的底层资源。  无论是执行查询操作，还是执行其他 DML 操作，1、2、3、4、6 这些步骤都会重复出现。为了简化重复逻辑，提高代码的可维护性，可以将上述重复逻辑封装到一个类似 DBUtils 的工具类中，在使用时只需要调用 DBUtils 工具类中的方法即可。当然，我们也可以使用“反射+配置”的方式，将步骤 5 中关系模型到对象模型的转换进行封装，但是这种封装要做到通用化且兼顾灵活性，就需要一定的编程功底。</description>
+    </item>
+    
+    <item>
+      <title>00 开篇词 领略 MyBatis 设计思维，突破持久化技术瓶颈</title>
+      <link>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/00-%E5%BC%80%E7%AF%87%E8%AF%8D-%E9%A2%86%E7%95%A5-mybatis-%E8%AE%BE%E8%AE%A1%E6%80%9D%E7%BB%B4%E7%AA%81%E7%A0%B4%E6%8C%81%E4%B9%85%E5%8C%96%E6%8A%80%E6%9C%AF%E7%93%B6%E9%A2%88/</link>
+      <pubDate>Wed, 22 Dec 2021 01:51:02 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/00-%E5%BC%80%E7%AF%87%E8%AF%8D-%E9%A2%86%E7%95%A5-mybatis-%E8%AE%BE%E8%AE%A1%E6%80%9D%E7%BB%B4%E7%AA%81%E7%A0%B4%E6%8C%81%E4%B9%85%E5%8C%96%E6%8A%80%E6%9C%AF%E7%93%B6%E9%A2%88/</guid>
+      <description>你好，我是杨四正，在接下来的几个月里，我会带你一起来探究 MyBatis 这个 Java 持久化框架。
+我曾在电商、新零售、短视频、直播等领域的多家互联网企业任职，这期间我在业务线没日没夜地“搬过砖”，在基础组件部门“造过轮子”，也在架构部门搞过架构设计，参与了公司数据库中间件的设计与开发。目前，我依旧从事基础架构相关的工作，主要负责公司的数据库中间件、Framework、RPC 框架、任务调度等方向的开发和运维工作。
+在工作之余，我深入研究过多个开源中间件，因为要负责新员工以及毕业生入职时的数据库中间件培训，所以对 MyBatis 的研究尤为深入。
+你为什么要学习 MyBatis MyBatis 是 Java 生态中非常著名的一款 ORM 框架，也是我们此次课程要介绍的主角。这是一款很值得你学习和研究的 Java 持久化框架。原因主要有两个：
+ MyBatis 自身有很多亮点值得你深挖； MyBatis 在一线互联网大厂中应用广泛，已经成为你进入大厂的必备技能。  1. MyBatis 自身亮点 结合工作实践来讲，MyBatis 所具备的亮点可总结为如下三个方面。
+第一，MyBatis 本身就是一款设计非常精良、架构设计非常清晰的持久层框架，并且 MyBatis 中还使用到了很多经典的设计模式，例如，工厂方法模式、适配器模式、装饰器模式、代理模式等。 在阅读 MyBatis 代码的时候，你也许会惊奇地发现：原来大师设计出来的代码真的是一种艺术。所以，从这个层面来讲，深入研究 MyBatis 原理，甚至阅读它的源码，不仅可以帮助你快速解决工作中遇到的 MyBatis 相关问题，还可以提高你的设计思维。
+第二，MyBatis 提供了很多扩展点，例如，MyBatis 的插件机制、对第三方日志框架和第三方数据源的兼容等。 正由于这种可扩展的能力，让 MyBatis 的生命力非常旺盛，这也是很多 Java 开发人员将 MyBatis 作为自己首选 Java 持久化框架的原因之一，反过来促进了 MyBatis 用户的不断壮大。
+第三，开发人员使用 MyBatis 上手会非常快，具有很强的易用性和可靠性。这也是 MyBatis 流行的一个很重要的原因。当你具备了 MySQL 和 JDBC 的基础知识之后，学习 MyBatis 的难度远远小于 Hibernate 等持久化框架。
+例如，你在 MyBatis 中编写的是原生的 SQL 语句，随着业务发展和变化，SQL 语句也会变得复杂，拆分和优化 SQL 是非常重要的提高系统性能的手段，这个时候你只要了解 SQL 本身的优化即可；而使用 Hibernate、EclipseLink 等框架的时候，还需要了解 HQL、JPQL 以及 Criteria API 生成原生 SQL 的机制。相较之下，MyBatis 会更加容易一些。这一优势对于很多互联网公司和软件企业来说，是非常有诱惑力的，毕竟企业可以在保证软件质量的前提下，快速培养出能够在一线工作的员工。</description>
+    </item>
+    
+  </channel>
+</rss>

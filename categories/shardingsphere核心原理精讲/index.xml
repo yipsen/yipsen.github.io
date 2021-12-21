@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ShardingSphere核心原理精讲 on </title>
+    <link>http://yipsen.github.io/categories/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/</link>
+    <description>Recent content in ShardingSphere核心原理精讲 on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 22 Dec 2021 01:56:14 +0800</lastBuildDate><atom:link href="http://yipsen.github.io/categories/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>35 结语：ShardingSphere 总结及展望</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/35-%E7%BB%93%E8%AF%ADshardingsphere-%E6%80%BB%E7%BB%93%E5%8F%8A%E5%B1%95%E6%9C%9B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:56:14 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/35-%E7%BB%93%E8%AF%ADshardingsphere-%E6%80%BB%E7%BB%93%E5%8F%8A%E5%B1%95%E6%9C%9B/</guid>
+      <description>终于到了专栏的最后一讲。今天，我们将对整个 ShardingSphere 课程进行总结和展望。作为一款在业界领先的分布式数据库中间件，ShardingSphere 受到越来越多人的追捧，它可以为我们提供多项核心功能，并帮忙我们构建完整的分库分表解决方案。
+首先，我们还是总结一下专栏中讲解过的 ShardingSphere 核心功能，然后再梳理我在写作过程中的一些思考和心得，最后，我会向你讲解 ShardingSphere 4.X 版本至未来 5.X 版本的演进变化。
+ShardingSphere 核心功能 ShardingSphere 官网展示了数据分片、分布式事务、数据库治理等三大块核心功能，对于这些功能，我分别在本专栏的第四部分、第五部分、第六部分都进行了详细介绍，你可回顾重温一遍。
+1.数据分片 数据分片是 ShardingSphere 的基本功能。ShardingSphere 支持常规的基于垂直拆分和水平拆分的分库分表操作。在分库分表的基础上，ShardingSphere 也实现了基于数据库主从架构的读写分离机制，而且这种读写分离机制可以和数据分片完美地进行整合。
+另一方面，作为一款具有高度可扩展性的开源框架，ShardingSphere 也预留了分片扩展点，开发人员可以基于需要实现分片策略的定制化开发。
+2.分布式事务 分布式事务用于确保分布式环境下的数据一致性，这也是 ShardingSphere 区别于普通分库分表框架的关键功能，并且该功能使得分布式事务能够称为一种分布式数据库中间件。
+ShardingSphere 对分布式事务的支持首先体现在抽象层面上。ShardingSphere 抽象了一组标准化的事务处理接口，并通过分片事务管理器 ShardingTransactionManager 进行统一管理。同样，在扩展性上，我们也可以根据需要实现自己的 ShardingTransactionManager 从而对分布式事务进行扩展。在事务类型上，ShardingSphere 也同时支持强一致性事务和柔性事务。
+当具备数据分片和分布式事务功能之后，相当于就可以基于 ShardingSphere 实现日常的分库分表操作了。但这还不够，因为我们需要对系统中的数据库资源，以及服务的运行时状态进行跟踪和监控。因此，ShardingSphere 中也提供了多种有助于我们进行数据库治理的技术体系。
+3.数据库治理 如果你一直在学习我们的专栏，相信你已经知道使用 ShardingSphere 的主要手段就是利用它的配置体系。关于配置信息的管理，我们可以基于配置文件完成配置信息的维护，这在 ShardingSphere 中都得到了支持。
+更进一步，在ShardingSphere 中，它还提供了配置信息动态化管理机制，即可支持数据源、表与分片及读写分离策略的动态切换。而对于系统中当前正在运行的数据库实例，我们也需要进行动态的管理。在具体应用场景上，我们可以基于注册中心完成数据库实例管理、数据库熔断禁用等治理功能。
+一旦 ShardingSphere 被应用到生产环境，开发和运维人员都需要关注通过 ShardingSphere 所执行的 SQL 语句的执行情况，以及 ShardingSphere 内核的运行时状态。在 ShardingSphere 中，使用 OpenTracing API 发送性能追踪数据。而在 SQL 解析与 SQL 执行等核心环节，ShardingSphere 都会把采集到的运行时数据通过标准协议提交到链路跟踪系统供我们进行分析和监控。
+关于数据库治理的最后一项核心功能是数据脱敏。严格意义上讲，与其说数据脱敏是一项数据库治理功能，不如说它更多的是一项面向业务场景的特定功能。数据脱敏是业务系统中确保数据访问安全的常见需求，我们需要实现对原文数据进行加密并存储在数据库中。而在用户查询数据时，它又从数据库中取出密文数据并解密，最终将解密后的原始数据返回给用户。
+ShardingSphere 对这一数据脱敏过程实现了自动化和透明化，开发人员无须关注数据脱敏的实现细节。</description>
+    </item>
+    
+    <item>
+      <title>33 链路跟踪：如何基于 Hook 机制以及 OpenTracing 协议实现数据访问链路跟踪？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/33-%E9%93%BE%E8%B7%AF%E8%B7%9F%E8%B8%AA%E5%A6%82%E4%BD%95%E5%9F%BA%E4%BA%8E-hook-%E6%9C%BA%E5%88%B6%E4%BB%A5%E5%8F%8A-opentracing-%E5%8D%8F%E8%AE%AE%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E9%93%BE%E8%B7%AF%E8%B7%9F%E8%B8%AA/</link>
+      <pubDate>Wed, 22 Dec 2021 01:56:13 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/33-%E9%93%BE%E8%B7%AF%E8%B7%9F%E8%B8%AA%E5%A6%82%E4%BD%95%E5%9F%BA%E4%BA%8E-hook-%E6%9C%BA%E5%88%B6%E4%BB%A5%E5%8F%8A-opentracing-%E5%8D%8F%E8%AE%AE%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E9%93%BE%E8%B7%AF%E8%B7%9F%E8%B8%AA/</guid>
+      <description>今天我们来讨论 ShardingSphere 中关于编排治理的另一个主题，即链路跟踪。在分布式系统开发过程中，链路跟踪是一项基础设施类的功能。作为一款分布式数据库中间件，ShardingSphere 中也内置了简单而完整的链路跟踪机制。
+链路跟踪基本原理和工具 在介绍具体的实现过程之前，我们有必要先来了解一些关于链路跟踪的理论知识。
+1.链路跟踪基本原理 分布式环境下的服务跟踪原理上实际上并不复杂，我们首先需要引入两个基本概念，即 TraceId 和 SpanId。
+ TraceId  TraceId 即跟踪 Id。在微服务架构中，每个请求生成一个全局的唯一性 Id，通过这个 Id 可以串联起整个调用链，也就是说请求在分布式系统内部流转时，系统需要始终保持传递其唯一性 Id，直到请求返回，这个唯一性 Id 就是 TraceId。
+ SpanId  除了 TraceId 外，我们还需要 SpanId，SpanId 一般被称为跨度 Id。当请求到达各个服务组件时，通过 SpanId 来标识它的开始、具体执行过程和结束。对于每个 Span 而言，它必须有开始和结束两个节点，通过记录开始 Span 和结束 Span 的时间戳统计其 Span 的时间延迟。
+整个调用过程中每个请求都要透传 TraceId 和 SpanId。每个服务将该次请求附带的 SpanId 作为父 SpanId 进行记录，并且生成自己的 SpanId。一个没有父 SpanId 的 Span 即为根 Span，可以看成调用链入口。所以要查看某次完整的调用只需根据 TraceId 查出所有调用记录，然后通过父 SpanId 和 SpanId 组织起整个调用父子关系。事实上，围绕如何构建 Trace 和 Span 之间统一的关联关系，业界也存在一个通用的链接跟踪协议，这就是 OpenTracing 协议。
+2.OpenTracing 协议和应用方式 OpenTracing 是一种协议，也使用与上面介绍的类似的术语来表示链路跟踪的过程。通过提供平台无关、厂商无关的 API，OpenTracing 使得开发人员能够方便的添加或更换链路跟踪系统的实现。目前，诸如 Java、Go、Python 等主流开发语言都提供了对 OpenTracing 协议的支持。</description>
+    </item>
+    
+    <item>
+      <title>32 注册中心：如何基于注册中心实现数据库访问熔断机制？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/32-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%A6%82%E4%BD%95%E5%9F%BA%E4%BA%8E%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BF%E9%97%AE%E7%86%94%E6%96%AD%E6%9C%BA%E5%88%B6/</link>
+      <pubDate>Wed, 22 Dec 2021 01:56:12 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/32-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%A6%82%E4%BD%95%E5%9F%BA%E4%BA%8E%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BF%E9%97%AE%E7%86%94%E6%96%AD%E6%9C%BA%E5%88%B6/</guid>
+      <description>上一课时我们讨论了 ShardingSphere 中关于配置中心的相关内容。今天我们继续讨论编排治理模块的另一个核心功能，即注册中心。相较配置中心，注册中心在 ShardingSphere 中的应用更为广泛。
+ShardingSphere 中的注册中心实现类 与配置中心一样，ShardingSphere 中的注册中心在代码结构上也包含三个独立的工程，即代表抽象接口的 API 工程，以及两个具体的实现 nacos 和 zookeeper-curator 工程。可以看到，这里同样使用上一课时中介绍的 Zookeeper 作为注册中心的一种实现方式，而另一种实现方式就是基于阿里巴巴的 Nacos。
+我们先来看 ShardingSphere 中对注册中心的抽象，即如下所示的 RegistryCenter 接口：
+public interface RegistryCenter extends TypeBasedSPI {//根据配置信息初始化注册中心void init(RegistryCenterConfiguration config);//获取数据String get(String key);//直接获取数据String getDirectly(String key);//是否存在数据项boolean isExisted(String key);//获取子数据项列表List&amp;lt;String&amp;gt; getChildrenKeys(String key);//持久化数据项void persist(String key, String value);//更新数据项void update(String key, String value);//持久化临时数据void persistEphemeral(String key, String value);//对数据项或路径进行监听void watch(String key, DataChangedEventListener dataChangedEventListener);//关闭注册中心void close();//对数据项初始化锁void initLock(String key);//对数据项获取锁boolean tryLock();//对数据项释放锁void tryRelease();}我们发现，除了最后几个关于锁处理的方法，RegistryCenter 实际上与上一课时中介绍的 ConfigCenter 非常类似。从这点上，我们就不难想象为什么 Zookeeper 既可以用来做配置中心，也可以是实现注册中心的一种典型方案。沿着这个思路，我们就先来看一下 CuratorZookeeperRegistryCenter 这个基于 Zookeeper 的注册中心实现类。</description>
+    </item>
+    
+    <item>
+      <title>31 配置中心：如何基于配置中心实现配置信息的动态化管理？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/31-%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E5%A6%82%E4%BD%95%E5%9F%BA%E4%BA%8E%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E5%AE%9E%E7%8E%B0%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E7%9A%84%E5%8A%A8%E6%80%81%E5%8C%96%E7%AE%A1%E7%90%86/</link>
+      <pubDate>Wed, 22 Dec 2021 01:56:11 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/31-%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E5%A6%82%E4%BD%95%E5%9F%BA%E4%BA%8E%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E5%AE%9E%E7%8E%B0%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E7%9A%84%E5%8A%A8%E6%80%81%E5%8C%96%E7%AE%A1%E7%90%86/</guid>
+      <description>ShardingSphere 在编排治理方面包括配置动态化、注册中心、数据库熔断禁用、调用链路等治理能力。
+今天我们先来介绍最简单的配置中心，即如何基于配置中心从而实现配置信息的动态化管理。
+ShardingSphere 中对配置中心的抽象过程 配置中心的核心接口 ConfigCenter 位于 sharding-orchestration-config-api 工程中，定义如下：
+public interface ConfigCenter extends TypeBasedSPI {//初始化配置中心void init(ConfigCenterConfiguration config);//获取配置项数据String get(String key);//直接获取配置项数据String getDirectly(String key);//是否存在配置项boolean isExisted(String key);//获取子配置项列表List&amp;lt;String&amp;gt; getChildrenKeys(String key);//持久化配置项void persist(String key, String value);//更新配置项void update(String key, String value);//持久化临时数据void persistEphemeral(String key, String value);//对配置项或路径进行监听void watch(String key, DataChangedEventListener dataChangedEventListener);//关闭配置中心void close();}上述方法中，唯一值得展开的就是 watch 方法，该方法传入了一个代表事件监听器的 DataChangedEventListener 接口，如下所示：
+public interface DataChangedEventListener {//当数据变动时进行触发void onChange(DataChangedEvent dataChangedEvent);}这里用到的 DataChangedEvent 类定义如下，可以看到事件的类型有三种，分别是 UPDATED、DELETED 和 IGNORED：</description>
+    </item>
+    
+    <item>
+      <title>30 数据脱敏：如何基于改写引擎实现低侵入性数据脱敏方案？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/30-%E6%95%B0%E6%8D%AE%E8%84%B1%E6%95%8F%E5%A6%82%E4%BD%95%E5%9F%BA%E4%BA%8E%E6%94%B9%E5%86%99%E5%BC%95%E6%93%8E%E5%AE%9E%E7%8E%B0%E4%BD%8E%E4%BE%B5%E5%85%A5%E6%80%A7%E6%95%B0%E6%8D%AE%E8%84%B1%E6%95%8F%E6%96%B9%E6%A1%88/</link>
+      <pubDate>Wed, 22 Dec 2021 01:56:10 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/30-%E6%95%B0%E6%8D%AE%E8%84%B1%E6%95%8F%E5%A6%82%E4%BD%95%E5%9F%BA%E4%BA%8E%E6%94%B9%E5%86%99%E5%BC%95%E6%93%8E%E5%AE%9E%E7%8E%B0%E4%BD%8E%E4%BE%B5%E5%85%A5%E6%80%A7%E6%95%B0%E6%8D%AE%E8%84%B1%E6%95%8F%E6%96%B9%E6%A1%88/</guid>
+      <description>今天，我们讨论 ShardingSphere 中的数据脱敏模块。通过在 “10 | 数据脱敏：如何确保敏感数据的安全访问？” 课时中的介绍，我们知道 ShardingSphere 提供了一套自动的数据加解密机制来实现透明化的数据脱敏。
+数据脱敏模块整体架构 与普通的编程模式一样，对于数据脱敏而言，我们同样先获取一个 DataSource 作为整个流程的入口，当然这里获取的不是一个普通的 DataSource，而是一个专门针对数据脱敏的 EncryptDataSource。对于数据脱敏模块，我们的思路还是从上到下，从 EncryptDataSource 开始进入到 ShardingSphere 数据脱敏的世界中。
+同时，我们这次讲解数据脱敏模块不是零基础，因为在前面介绍 ShardingDataSource、ShardingConnection、ShardingStatement 等内容时，已经对整个 SQL 执行流程的抽象过程做了全面介绍，所涉及的很多内容对于数据脱敏模块而言也都是适用的。
+让我们结合下图来做一些回顾：
+上图中，可以看到与数据脱敏模块相关的类实际上都继承了一个抽象类，而这些抽象类在前面的内容都已经做了介绍。因此，我们对数据脱敏模块将重点关注于几个核心类的讲解，对于已经介绍过的内容我们会做一些回顾，但不会面面俱到。
+基于上图，我们从 EncryptDataSource 开始入手，EncryptDataSource 的创建依赖于工厂类 EncryptDataSourceFactory，其实现如下所示：
+public final class EncryptDataSourceFactory {public static DataSource createDataSource(final DataSource dataSource, final EncryptRuleConfiguration encryptRuleConfiguration, final Properties props) throws SQLException {return new EncryptDataSource(dataSource, new EncryptRule(encryptRuleConfiguration), props);}}这里直接创建了一个 EncryptDataSource，依赖于 EncryptRule 规则对象，我们先来梳理一下 EncryptRule 中具体包含了哪些内容。
+EncryptRule EncryptRule 是数据脱敏模块的一个核心对象，值得我们专门进行展开。在 EncryptRule 中，定义了如下所示的三个核心变量：</description>
+    </item>
+    
+    <item>
+      <title>29 分布式事务：ShardingSphere 中如何集成强一致性事务和柔性事务支持？（下）</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/29-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1shardingsphere-%E4%B8%AD%E5%A6%82%E4%BD%95%E9%9B%86%E6%88%90%E5%BC%BA%E4%B8%80%E8%87%B4%E6%80%A7%E4%BA%8B%E5%8A%A1%E5%92%8C%E6%9F%94%E6%80%A7%E4%BA%8B%E5%8A%A1%E6%94%AF%E6%8C%81%E4%B8%8B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:56:09 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/29-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1shardingsphere-%E4%B8%AD%E5%A6%82%E4%BD%95%E9%9B%86%E6%88%90%E5%BC%BA%E4%B8%80%E8%87%B4%E6%80%A7%E4%BA%8B%E5%8A%A1%E5%92%8C%E6%9F%94%E6%80%A7%E4%BA%8B%E5%8A%A1%E6%94%AF%E6%8C%81%E4%B8%8B/</guid>
+      <description>在上一课时中，我们针对 ShardingSphere 中支持强一致性事务的 XAShardingTransactionManager 的部分内容进行了详细的展开，今天我们继续讲解该类的剩余内容，同时也会介绍支持柔性事务的 SeataATShardingTransactionManager。
+XAShardingTransactionManager 关于 XAShardingTransactionManager，上一讲中我们介绍了 XADataSource、XAConnection 和 XATransactionDataSource 等核心类。
+接下来，我们在上一讲的基础上给出 XATransactionManager 和 ShardingConnection 类的实现过程。
+1.XATransactionManager 让我们先回到 XAShardingTransactionManager。我们已经在前面介绍了 XAShardingTransactionManager 中的变量，接下来看一下它所实现的方法，首先是如下所示的 init 方法：
+public void init(final DatabaseType databaseType, final Collection&amp;lt;ResourceDataSource&amp;gt; resourceDataSources) {for (ResourceDataSource each : resourceDataSources) {//创建XATransactionDataSource并进行缓存cachedDataSources.put(each.getOriginalName(), new XATransactionDataSource(databaseType, each.getUniqueResourceName(), each.getDataSource(), xaTransactionManager));}//初始化XATransactionManagerxaTransactionManager.init();}上述方法根据传入的 ResourceDataSource 构建了 XATransactionDataSource 并放入缓存中，同时对通过 SPI 机制创建的 XATransactionManager 也执行了它的 init 方法进行初始化。
+XAShardingTransactionManager 的 getTransactionType、isInTransaction 和 getConnection 方法都比较简单，如下所示：
+@Overridepublic TransactionType getTransactionType() {return TransactionType.</description>
+    </item>
+    
+    <item>
+      <title>28 分布式事务：ShardingSphere 中如何集成强一致性事务和柔性事务支持？（上）</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/28-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1shardingsphere-%E4%B8%AD%E5%A6%82%E4%BD%95%E9%9B%86%E6%88%90%E5%BC%BA%E4%B8%80%E8%87%B4%E6%80%A7%E4%BA%8B%E5%8A%A1%E5%92%8C%E6%9F%94%E6%80%A7%E4%BA%8B%E5%8A%A1%E6%94%AF%E6%8C%81%E4%B8%8A/</link>
+      <pubDate>Wed, 22 Dec 2021 01:56:08 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/28-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1shardingsphere-%E4%B8%AD%E5%A6%82%E4%BD%95%E9%9B%86%E6%88%90%E5%BC%BA%E4%B8%80%E8%87%B4%E6%80%A7%E4%BA%8B%E5%8A%A1%E5%92%8C%E6%9F%94%E6%80%A7%E4%BA%8B%E5%8A%A1%E6%94%AF%E6%8C%81%E4%B8%8A/</guid>
+      <description>今天我们将在上一课时的基础上，详细展开 ShardingSphere 中分布式事务的具体实现过程。首先，我们将介绍支持强一致性事务的 XAShardingTransactionManager。
+XAShardingTransactionManager 让我们回到 ShardingSphere，来到 sharding-transaction-xa-core 工程的 XAShardingTransactionManager 类，该类是分布式事务的 XA 实现类。
+我们先来看 XAShardingTransactionManager 类的定义和所包含的变量：
+public final class XAShardingTransactionManager implements ShardingTransactionManager {private final Map&amp;lt;String, XATransactionDataSource&amp;gt; cachedDataSources = new HashMap&amp;lt;&amp;gt;();private final XATransactionManager xaTransactionManager = XATransactionManagerLoader.getInstance().getTransactionManager();}可以看到 XAShardingTransactionManager 实现了上一课时中介绍的 ShardingTransactionManager 接口，并保存着一组 XATransactionDataSource。同时，XATransactionManager 实例的加载仍然是采用了 JDK 中的 ServiceLoader 类，如下所示：
+private XATransactionManager load() {Iterator&amp;lt;XATransactionManager&amp;gt; xaTransactionManagers = ServiceLoader.load(XATransactionManager.class).iterator();if (!xaTransactionManagers.hasNext()) {return new AtomikosTransactionManager();}XATransactionManager result = xaTransactionManagers.next();if (xaTransactionManagers.hasNext()) {log.</description>
+    </item>
+    
+    <item>
+      <title>27 分布式事务：如何理解 ShardingSphere 中对分布式事务的抽象过程？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/27-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3-shardingsphere-%E4%B8%AD%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%9A%84%E6%8A%BD%E8%B1%A1%E8%BF%87%E7%A8%8B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:56:06 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/27-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3-shardingsphere-%E4%B8%AD%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%9A%84%E6%8A%BD%E8%B1%A1%E8%BF%87%E7%A8%8B/</guid>
+      <description>从今天开始，我们将进入一个全新模块，即ShardingSphere 分布式事务。这是一个非常重要的主题，我们将通过三个课时来全面介绍 ShardingSphere 的事务实现机制。
+ShardingTransactionManagerEngine 在第 18 课时和第 19 课时的“分布式事务：如何使用强一致事务与柔性事务？”中，我们已经对分布式事务的基本概念做了介绍。
+在了解完一些基本概念之后，我们来看 ShardingSphere 中分布式事务模块的代码工程组织结构，我们发现存在三个底层的工程，即 sharding-transaction-core、sharding-transaction-2pc 和 sharding-transaction-base。
+从命名上，我们不难看出 sharding-transaction-core 应该包含了分布式事务相关的一些基础核心类，而 sharding-transaction-2pc 和 sharding-transaction-base 分别基于强一致性和最终一致性的两种实现。
+这些包结构的命名实际上可以体现在事务类型 TransactionType 的定义上，它是一个枚举，分别代表了本地事务、XA 二阶段提交事务和 BASE 柔性事务，如下所示：
+public enum TransactionType {LOCAL, XA, BASE}TransactionType 类位于 sharding-transaction-core 工程中，让我们先来看一下这个工程中的其他内容，首先其冲的就是 ShardingTransactionManagerEngine 接口。
+在前面的课程中，我们在 ShardingRuntimeContext 这个上下文对象中第一次看到这个分布式事务管理器的入口，如下所示：
+public final class ShardingRuntimeContext extends AbstractRuntimeContext&amp;lt;ShardingRule&amp;gt; {…private final ShardingTransactionManagerEngine shardingTransactionManagerEngine;public ShardingRuntimeContext(final Map&amp;lt;String, DataSource&amp;gt; dataSourceMap, final ShardingRule rule, final Properties props, final DatabaseType databaseType) throws SQLException {…//创建分布式事务管理器引擎并初始化shardingTransactionManagerEngine = new ShardingTransactionManagerEngine();shardingTransactionManagerEngine.</description>
+    </item>
+    
+    <item>
+      <title>26 读写分离：普通主从架构和分片主从架构分别是如何实现的？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/26-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E6%99%AE%E9%80%9A%E4%B8%BB%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%92%8C%E5%88%86%E7%89%87%E4%B8%BB%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%88%86%E5%88%AB%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%9A%84/</link>
+      <pubDate>Wed, 22 Dec 2021 01:56:05 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/26-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E6%99%AE%E9%80%9A%E4%B8%BB%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%92%8C%E5%88%86%E7%89%87%E4%B8%BB%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%88%86%E5%88%AB%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%9A%84/</guid>
+      <description>在 “17 | 路由引擎：如何理解分片路由核心类 ShardingRouter 的运作机制？” 课时中介绍 ShardingSphere 的路由引擎时，我们提到了 ShardingMasterSlaveRouter 类，该类用于进行对分片信息进行读写分离。
+今天我们就将关注这个话题，看看 ShardingSphere 是如何实现主从架构下的读写分离路由的？
+ShardingMasterSlaveRouter 我们来到 ShardingMasterSlaveRouter 类。从效果上讲，读写分离实际上也是一种路由策略，所以该类同样位于 sharding-core-route 工程下。
+ShardingMasterSlaveRouter 的入口函数 route 如下所示：
+public SQLRouteResult route(final SQLRouteResult sqlRouteResult) {for (MasterSlaveRule each : masterSlaveRules) {//根据每条 MasterSlaveRule 执行路由方法route(each, sqlRouteResult);}return sqlRouteResult;}这里引入了一个规则类 MasterSlaveRule，根据每条 MasterSlaveRule 会执行独立的 route 方法，并最终返回组合的 SQLRouteResult。
+这个 route 方法如下所示：
+private void route(final MasterSlaveRule masterSlaveRule, final SQLRouteResult sqlRouteResult) {Collection&amp;lt;RoutingUnit&amp;gt; toBeRemoved = new LinkedList&amp;lt;&amp;gt;();Collection&amp;lt;RoutingUnit&amp;gt; toBeAdded = new LinkedList&amp;lt;&amp;gt;();for (RoutingUnit each : sqlRouteResult.</description>
+    </item>
+    
+    <item>
+      <title>25 归并引擎：如何理解流式归并和内存归并在复杂归并场景下的应用方式？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/25-%E5%BD%92%E5%B9%B6%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E6%B5%81%E5%BC%8F%E5%BD%92%E5%B9%B6%E5%92%8C%E5%86%85%E5%AD%98%E5%BD%92%E5%B9%B6%E5%9C%A8%E5%A4%8D%E6%9D%82%E5%BD%92%E5%B9%B6%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%BA%94%E7%94%A8%E6%96%B9%E5%BC%8F/</link>
+      <pubDate>Wed, 22 Dec 2021 01:56:04 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/25-%E5%BD%92%E5%B9%B6%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E6%B5%81%E5%BC%8F%E5%BD%92%E5%B9%B6%E5%92%8C%E5%86%85%E5%AD%98%E5%BD%92%E5%B9%B6%E5%9C%A8%E5%A4%8D%E6%9D%82%E5%BD%92%E5%B9%B6%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%BA%94%E7%94%A8%E6%96%B9%E5%BC%8F/</guid>
+      <description>承接上一课时的内容，今天我们继续介绍 ShardingSphere 中剩余的归并策略，包括分组归并、聚合归并和分页归并。
+ 其中分组归并是最复杂的一种归并类型； 聚合归并是在分组归并的基础上追加的归并； 分页归并则是典型的通过装饰器模式实现的归并类型。  最复杂的归并：分组归并 在 ShardingSphere 的所有归并机制中，分组归并的情况最为复杂，它同样可以分为流式分组归并和内存分组归并两种实现方案。
+其中，流式分组归并要求 SQL 的排序项与分组项的字段，以及排序类型必须保持一致，否则只能通过内存归并才能保证其数据的正确性。
+因为分组归并非常复杂，所以，我们还是继续通过一个示例然后结合源码，给大家介绍分组归并的实现过程，先看这样一句 SQL：
+SELECT task_name, SUM(health_point) FROM health_task GROUP BY task_name ORDER BY task_name;显然，上述 SQL 的分组项与排序项完全一致，都是用到了 task_name 列，所以取得的数据是连续的。这样，分组所需的数据全部存在于各个数据结果集的当前游标所指向的数据值，因此可以采用流式归并。
+如下图所示，我们在每个 health_task 结果集中，根据 task_name 进行了排序：
+我们先来看一些代码的初始化工作，回到 DQLMergeEngine，找到用于分组归并的 getGroupByMergedResult 方法，如下所示：
+private MergedResult getGroupByMergedResult(final Map&amp;lt;String, Integer&amp;gt; columnLabelIndexMap) throws SQLException {return selectSQLStatementContext.isSameGroupByAndOrderByItems()? new GroupByStreamMergedResult(columnLabelIndexMap, queryResults, selectSQLStatementContext): new GroupByMemoryMergedResult(queryResults, selectSQLStatementContext);}可以看到这里有一个 isSameGroupByAndOrderByItems 判断，该判断就是用来明确分组条件和排序条件是否相同。根据前面的分析，如果分组条件和排序条件相同，则执行流式分组归并方式 GroupByStreamMergedResult，否则使用内存分组归并 GroupByMemoryMergedResult。
+我们以流式归并为例来介绍 ShardingSphere 中的分组归并实现机制，在对代码进行详细展开之前，我们还是需要先从感性认识上明确流式分组归并具体要执行的步骤。这里仍然使用一系列的示意图来进行说明。</description>
+    </item>
+    
+    <item>
+      <title>24 归并引擎：如何理解数据归并的类型以及简单归并策略的实现过程？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/24-%E5%BD%92%E5%B9%B6%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E6%95%B0%E6%8D%AE%E5%BD%92%E5%B9%B6%E7%9A%84%E7%B1%BB%E5%9E%8B%E4%BB%A5%E5%8F%8A%E7%AE%80%E5%8D%95%E5%BD%92%E5%B9%B6%E7%AD%96%E7%95%A5%E7%9A%84%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:56:03 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/24-%E5%BD%92%E5%B9%B6%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E6%95%B0%E6%8D%AE%E5%BD%92%E5%B9%B6%E7%9A%84%E7%B1%BB%E5%9E%8B%E4%BB%A5%E5%8F%8A%E7%AE%80%E5%8D%95%E5%BD%92%E5%B9%B6%E7%AD%96%E7%95%A5%E7%9A%84%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B/</guid>
+      <description>在上一课时，我们提到在 ShardingStatement 和 ShardingPreparedStatement 中，执行 executeQuery 或 executeUpdate 方法时会使用到归并引擎 MergeEngine：
+//调用归并引擎MergeEngine mergeEngine = MergeEngineFactory.newInstance(connection.getRuntimeContext().getDatabaseType(), connection.getRuntimeContext().getRule(), sqlRouteResult, connection.getRuntimeContext().getMetaData().getRelationMetas(), statementExecutor.executeQuery());//获取归并结果result = getResultSet(mergeEngine);在 ShardingSphere 整个分片机制的结构中，归并引擎是执行引擎后的下一环，也是整个数据分片引擎的最后一环。
+在今天以及下一课时中，我将带领大家对 ShardingSphere 中的归并引擎做详细的展开，让我们先从归并这一基本概念说起。
+归并与归并引擎 我们知道，在分库分表环境下，一句逻辑 SQL 会最终解析成多条真正的 SQL，并被路由到不同的数据库中进行执行，每个数据库都可能返回最终结果中的一部分数据。
+这样我们就会碰到一个问题，即如何把这些来自不同数据库的部分数据组合成最终结果呢？这就需要引入归并的概念。
+1.归并的分类及其实现方案 所谓归并，就是将从各个数据节点获取的多数据结果集，通过一定的策略组合成为一个结果集并正确的返回给请求客户端的过程。
+按照不同的 SQL 类型以及应用场景划分，归并的类型可以分为遍历、排序、分组、分页和聚合 5 种类型，这 5 种类型是组合而非互斥的关系。
+其中遍历归并是最简单的归并，而排序归并是最常用地归并，在下文我会对两者分别详细介绍。
+归并的五大类型
+按照归并实现的结构划分，ShardingSphere 中又存在流式归并、内存归并和装饰者归并这三种归并方案。
+ 所谓的流式归并，类似于 JDBC 中从 ResultSet 获取结果的处理方式，也就是说通过逐条获取的方式返回正确的单条数据； 内存归并的思路则不同，是将结果集的所有数据先存储在内存中，通过统一的计算之后，再将其封装成为逐条访问的数据结果集进行返回。 最后的装饰者归并是指，通过装饰器模式对所有的结果集进行归并，并进行统一的功能增强，类似于改写引擎中 SQLRewriteContextDecorator 对 SQLRewriteContext 进行装饰的过程。  显然，流式归并和内存归并是互斥的，装饰者归并可以在流式归并和内存归并之上做进一步的处理。
+归并方案与归并类型之间同样存在一定的关联关系，其中遍历、排序以及流式分组都属于流式归并的一种，内存归并可以作用于统一的分组、排序以及聚合，而装饰者归并有分页归并和聚合归并这 2 种类型，它们之间的对应关系如下图所示：
+归并类型与归并方案之间的对应关系图
+2.归并引擎 讲完概念回到代码，我们首先来到 shardingsphere-merge 代码工程中的 MergeEngine 接口：</description>
+    </item>
+    
+    <item>
+      <title>23 执行引擎：如何把握 ShardingSphere 中的 Executor 执行模型？（下）</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/23-%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E6%8A%8A%E6%8F%A1-shardingsphere-%E4%B8%AD%E7%9A%84-executor-%E6%89%A7%E8%A1%8C%E6%A8%A1%E5%9E%8B%E4%B8%8B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:56:02 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/23-%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E6%8A%8A%E6%8F%A1-shardingsphere-%E4%B8%AD%E7%9A%84-executor-%E6%89%A7%E8%A1%8C%E6%A8%A1%E5%9E%8B%E4%B8%8B/</guid>
+      <description>在上一课时，我们已经对 ShardingSphere 执行引擎中关于底层的 SQLExecuteTemplate，以及上层的 StatementExecutor 和 PreparedStatementExecutor 对象进行了全面介绍。
+今天，我们在此基础上更上一层，重点关注 ShardingStatement 和 ShardingPreparedStatement 对象，这两个对象分别是 StatementExecutor 和 PreparedStatementExecutor 的使用者。
+ShardingStatement 我们先来看 ShardingStatement 类，该类中的变量在前面的内容中都已经有过介绍：
+private final ShardingConnection connection;private final StatementExecutor statementExecutor;private boolean returnGeneratedKeys;private SQLRouteResult sqlRouteResult;private ResultSet currentResultSet;ShardingStatement 类的构造函数同样不是很复杂，我们发现 StatementExecutor 就是在这个构造函数中完成了其创建过程：
+public ShardingStatement(final ShardingConnection connection, final int resultSetType, final int resultSetConcurrency, final int resultSetHoldability) {super(Statement.class);this.connection = connection;//创建 StatementExecutorstatementExecutor = new StatementExecutor(resultSetType, resultSetConcurrency, resultSetHoldability, connection);}在继续介绍 ShardingStatement 之前，我们先梳理一下与它相关的类层结构。我们在 “06 | 规范兼容：JDBC 规范与 ShardingSphere 是什么关系？” 中的 ShardingConnection 提到，ShardingSphere 通过适配器模式包装了自己的实现类，除了已经介绍的 ShardingConnection 类之外，还包含今天要介绍的 ShardingStatement 和 ShardingPreparedStament。</description>
+    </item>
+    
+    <item>
+      <title>22 执行引擎：如何把握 ShardingSphere 中的 Executor 执行模型？（上）</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/22-%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E6%8A%8A%E6%8F%A1-shardingsphere-%E4%B8%AD%E7%9A%84-executor-%E6%89%A7%E8%A1%8C%E6%A8%A1%E5%9E%8B%E4%B8%8A/</link>
+      <pubDate>Wed, 22 Dec 2021 01:56:01 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/22-%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E6%8A%8A%E6%8F%A1-shardingsphere-%E4%B8%AD%E7%9A%84-executor-%E6%89%A7%E8%A1%8C%E6%A8%A1%E5%9E%8B%E4%B8%8A/</guid>
+      <description>在上一课时中，我们对 ShardingGroupExecuteCallback 和 SQLExecuteTemplate 做了介绍。从设计上讲，前者充当 ShardingExecuteEngine 的回调入口；而后者则是一个模板类，完成对 ShardingExecuteEngine 的封装并提供了对外的统一入口，这些类都位于底层的 sharding-core-execute 工程中。
+从今天开始，我们将进入到 sharding-jdbc-core 工程，来看看 ShardingSphere 中执行引擎上层设计中的几个核心类。
+AbstractStatementExecutor 如上图所示，根据上一课时中的执行引擎整体结构图，可以看到SQLExecuteTemplate的直接使用者是AbstractStatementExecutor 类，今天我们就从这个类开始展开讨论，该类的变量比较多，我们先来看一下：
+//数据库类型private final DatabaseType databaseType;//JDBC中用于指定结果处理方式的 resultSetTypeprivate final int resultSetType;//JDBC中用于指定是否可对结果集进行修改的 resultSetConcurrencyprivate final int resultSetConcurrency; //JDBC中用于指定事务提交或回滚后结果集是否仍然可用的 resultSetConcurrencyprivate final int resultSetHoldability;//分片 Connectionprivate final ShardingConnection connection;//用于数据准备的模板类private final SQLExecutePrepareTemplate sqlExecutePrepareTemplate;//SQL 执行模板类private final SQLExecuteTemplate sqlExecuteTemplate;//JDBC的Connection列表private final Collection&amp;lt;Connection&amp;gt; connections = new LinkedList&amp;lt;&amp;gt;();//SQLStatement 上下文private SQLStatementContext sqlStatementContext;//参数集private final List&amp;lt;List&amp;lt;Object&amp;gt;&amp;gt; parameterSets = new LinkedList&amp;lt;&amp;gt;(); //JDBC的Statement 列表private final List&amp;lt;Statement&amp;gt; statements = new LinkedList&amp;lt;&amp;gt;(); //JDBC的ResultSet 列表private final List&amp;lt;ResultSet&amp;gt; resultSets = new CopyOnWriteArrayList&amp;lt;&amp;gt;();//ShardingExecuteGroup 列表private final Collection&amp;lt;ShardingExecuteGroup&amp;lt;StatementExecuteUnit&amp;gt;&amp;gt; executeGroups = new LinkedList&amp;lt;&amp;gt;();从这个类开始，我们会慢慢接触 JDBC 规范相关的对象，因为 ShardingSphere 的设计目标是，重写一套与目前的 JDBC 规范完全兼容的体系。这里，我们看到的 Connection、Statement 和 ResultSet 等对象，以及 resultSetType、resultSetConcurrency、resultSetHoldability 等参数，都是属于 JDBC 规范中的内容，我们在注释上做了特别的说明，你对此也都比较熟悉。</description>
+    </item>
+    
+    <item>
+      <title>21 执行引擎：分片环境下 SQL 执行的整体流程应该如何进行抽象？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/21-%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E%E5%88%86%E7%89%87%E7%8E%AF%E5%A2%83%E4%B8%8B-sql-%E6%89%A7%E8%A1%8C%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%8A%BD%E8%B1%A1/</link>
+      <pubDate>Wed, 22 Dec 2021 01:56:00 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/21-%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E%E5%88%86%E7%89%87%E7%8E%AF%E5%A2%83%E4%B8%8B-sql-%E6%89%A7%E8%A1%8C%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%8A%BD%E8%B1%A1/</guid>
+      <description>从今天开始，我们将开始一个全新的主题，即 ShardingSphere 的执行引擎（ExecuteEngine）。一旦我们获取了从路由引擎和改写引擎中所生成的 SQL，执行引擎就会完成这些SQL在具体数据库中的执行。
+执行引擎是 ShardingSphere 的核心模块，接下来我们将通过三个课时来对其进行全面介绍。今天，我们先讨论在分片环境下，ShardingSphere 对 SQL 执行的整体流程的抽象过程，后两个课时会向你讲解“如何把握 ShardingSphere 中的 Executor 执行模型”。
+ShardingSphere 执行引擎总体结构 在讲解具体的源代码之前，我们从《17 | 路由引擎：如何理解分片路由核心类 ShardingRouter 的运作机制？》中的 PreparedQueryShardingEngine 和 SimpleQueryShardingEngine 这两个类出发，看看在 ShardingSphere 中使用它们的入口。
+我们在ShardingStatement类中找到了如下所示的一个 shard 方法，这里用到了 SimpleQueryShardingEngine：
+private void shard(final String sql) {//从 Connection 中获取 ShardingRuntimeContext 上下文ShardingRuntimeContext runtimeContext = connection.getRuntimeContext(); //创建 SimpleQueryShardingEngineSimpleQueryShardingEngine shardingEngine = new SimpleQueryShardingEngine(runtimeContext.getRule(), runtimeContext.getProps(), runtimeContext.getMetaData(), runtimeContext.getParseEngine()); //执行分片路由并获取路由结果sqlRouteResult = shardingEngine.shard(sql, Collections.emptyList());}而在ShardingPreparedStatement中也存在一个类似的 shard 方法。
+从设计模式上讲，ShardingStatement 和 ShardingPreparedStatement 实际上就是很典型的外观类，它们把与 SQL 路由和执行的入口类都整合在一起。</description>
+    </item>
+    
+    <item>
+      <title>20 改写引擎：如何理解装饰器模式下的 SQL 改写实现机制？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/20-%E6%94%B9%E5%86%99%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84-sql-%E6%94%B9%E5%86%99%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6/</link>
+      <pubDate>Wed, 22 Dec 2021 01:55:59 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/20-%E6%94%B9%E5%86%99%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84-sql-%E6%94%B9%E5%86%99%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6/</guid>
+      <description>回想在“17 | 路由引擎：如何理解分片路由核心类 ShardingRouter 的运作机制？”课时中，我们在 BaseShardingEngine 的 Shard 方法中看到了 ShardingSphere 中另一个重要的概念，即 SQL 改写（Rewrite）。
+SQL 改写在分库分表框架中通常位于路由之后，也是整个 SQL 执行流程中的重要环节，因为开发人员是面向逻辑库与逻辑表所书写的 SQL，并不能够直接在真实的数据库中执行，SQL 改写，用于将逻辑 SQL 改写为在真实数据库中可以正确执行的 SQL。
+事实上，我们已经在前面的案例中看到了 SQL 改写的应用场景，这个场景就是分布式主键的自动生成过程。在关系型数据库中，自增主键是常见的功能特性，而对于 ShardingSphere 而言，这也是 SQL 改写的典型应用场景。
+今天，我们就将基于自增主键这一场景来探讨 ShardingSphere 中 SQL 改写的实现过程。
+ShardingSphere 改写引擎基本结构 让我们先来看一下 BaseShardingEngine 中，用于执行改写逻辑的 rewriteAndConvert 方法：
+private Collection&amp;lt;RouteUnit&amp;gt; rewriteAndConvert(final String sql, final List&amp;lt;Object&amp;gt; parameters, final SQLRouteResult sqlRouteResult) { //构建 SQLRewriteContext SQLRewriteContext sqlRewriteContext = new SQLRewriteContext(metaData.getRelationMetas(), sqlRouteResult.getSqlStatementContext(), sql, parameters); //构建 ShardingSQLRewriteContextDecorator 对 SQLRewriteContext 进行装饰 new ShardingSQLRewriteContextDecorator(shardingRule, sqlRouteResult).</description>
+    </item>
+    
+    <item>
+      <title>19 路由引擎：如何在路由过程中集成多种路由策略和路由算法？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/19-%E8%B7%AF%E7%94%B1%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E5%9C%A8%E8%B7%AF%E7%94%B1%E8%BF%87%E7%A8%8B%E4%B8%AD%E9%9B%86%E6%88%90%E5%A4%9A%E7%A7%8D%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E5%92%8C%E8%B7%AF%E7%94%B1%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Wed, 22 Dec 2021 01:55:58 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/19-%E8%B7%AF%E7%94%B1%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E5%9C%A8%E8%B7%AF%E7%94%B1%E8%BF%87%E7%A8%8B%E4%B8%AD%E9%9B%86%E6%88%90%E5%A4%9A%E7%A7%8D%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E5%92%8C%E8%B7%AF%E7%94%B1%E7%AE%97%E6%B3%95/</guid>
+      <description>上一课时《18 | 路由引擎：如何实现数据访问的分片路由和广播路由？》，我们在介绍 ShardingRule 对象时，引出了 ShardingSphere 路由引擎中的分片策略 ShardingStrategy，分片策略是路由引擎中的一个核心概念，直接影响了最终的路由结果。今天，我们将围绕这一核心概念展开讨论。
+分片策略整体结构 我们先来看分片策略 ShardingStrategy 的定义，ShardingStrategy 位于 sharding-core-common 工程的 org.apache.shardingsphere.core.strategy.route 包中，其定义如下所示：
+public interface ShardingStrategy { //获取分片 Column Collection&amp;lt;String&amp;gt; getShardingColumns(); //执行分片 Collection&amp;lt;String&amp;gt; doSharding(Collection&amp;lt;String&amp;gt; availableTargetNames, Collection&amp;lt;RouteValue&amp;gt; shardingValues); }可以看到 ShardingStrategy 包含两个核心方法：一个用于指定分片的 Column，而另一个负责执行分片并返回目标 DataSource 和 Table。ShardingSphere 中为我们提供了一系列的分片策略实例，类层结构如下所示：
+ShardingStrategy 实现类图
+如果我们翻阅这些具体 ShardingStrategy 实现类的代码，会发现每个 ShardingStrategy 中都会包含另一个与路由相关的核心概念，即分片算法 ShardingAlgorithm，我们发现 ShardingAlgorithm 是一个空接口，但包含了四个继承接口，即
+ PreciseShardingAlgorithm RangeShardingAlgorithm ComplexKeysShardingAlgorithm HintShardingAlgorithm  而这四个接口又分别具有一批实现类，ShardingAlgorithm 的类层结构如下所示：
+ShardingAlgorithm 子接口和实现类图
+请注意，ShardingStrategy 与 ShardingAlgorithm 之间并不是一对一的关系。在一个 ShardingStrategy 中，可以同时使用多个 ShardingAlgorithm 来完成具体的路由执行策略。因此，我们具有如下所示的类层结构关系图：
+由于分片算法的独立性，ShardingSphere 将其进行单独抽离。从关系上讲，分片策略中包含了分片算法和分片键，我们可以把分片策略的组成结构简单抽象成如下所示的公式：</description>
+    </item>
+    
+    <item>
+      <title>18 路由引擎：如何实现数据访问的分片路由和广播路由？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/18-%E8%B7%AF%E7%94%B1%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E7%9A%84%E5%88%86%E7%89%87%E8%B7%AF%E7%94%B1%E5%92%8C%E5%B9%BF%E6%92%AD%E8%B7%AF%E7%94%B1/</link>
+      <pubDate>Wed, 22 Dec 2021 01:55:57 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/18-%E8%B7%AF%E7%94%B1%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E7%9A%84%E5%88%86%E7%89%87%E8%B7%AF%E7%94%B1%E5%92%8C%E5%B9%BF%E6%92%AD%E8%B7%AF%E7%94%B1/</guid>
+      <description>在上一课时中，我们看到起到承上启下作用的 ShardingRouter 会调用 RoutingEngine 获取路由结果，而在 ShardingSphere 中存在多种不同类型的 RoutingEngine，分别针对不同的应用场景。
+我们可以按照是否携带分片键信息将这些路由方式分成两大类，即分片路由和广播路由，而这两类路由中又存在一些常见的 RoutingEngine 实现类型，如下图所示：
+我们无意对所有这些 RoutingEngine 进行详细 的 展开，但在接下来的内容中，我们会分别对分片路由和广播路由中具有代表性的 RoutingEngine 进行讨论。
+分片路由 对于分片路由而言，我们将重点介绍标准路由，标准路由是 ShardingSphere 推荐使用的分片方式。
+在使用过程中，我们需要首先考虑标准路由的适用范围。标准路由适用范围有两大场景：一种面向不包含关联查询的 SQL；另一种则适用于仅包含绑定表关联查询的 SQL。前面一种场景比较好理解，而针对后者，我们就需要引入绑定表这个 ShardingSphere 中的重要概念。
+关于绑定表，我们已经在 [《06 | 数据分片：如何实现分库、分表、分库+分表以及强制路由（上）？》]中进行了讨论，在明确了这些概念之后，我们来看标准路由的具体实现过程。
+1.StandardRoutingEngine 的创建过程 明确了标准路由的基本含义之后，我们回顾一下上一课时中介绍的工厂类 RoutingEngineFactory。RoutingEngineFactory 类根据上下文中的路由信息构建对应的 RoutingEngine，但在其 newInstance 方法中，我们并没有发现直接创建StandardRoutingEngine 的代码。事实上，StandardRoutingEngine 的创建是在 newInstance 方法中的最后一个代码分支，即当所有前置的判断都不成立时会进入到最后的 getShardingRoutingEngine 代码分支中，如下所示：
+private static RoutingEngine getShardingRoutingEngine(final ShardingRule shardingRule, final SQLStatementContext sqlStatementContext,final ShardingConditions shardingConditions, final Collection&amp;lt;String&amp;gt; tableNames) { //根据分片规则获取分片表 Collection&amp;lt;String&amp;gt; shardingTableNames = shardingRule.getShardingLogicTableNames(tableNames); //如果目标表只要一张，或者说目标表都是绑定表关系，则构建StandardRoutingEngine if (1 == shardingTableNames.</description>
+    </item>
+    
+    <item>
+      <title>17 路由引擎：如何理解分片路由核心类 ShardingRouter 的运作机制？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/17-%E8%B7%AF%E7%94%B1%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E5%88%86%E7%89%87%E8%B7%AF%E7%94%B1%E6%A0%B8%E5%BF%83%E7%B1%BB-shardingrouter-%E7%9A%84%E8%BF%90%E4%BD%9C%E6%9C%BA%E5%88%B6/</link>
+      <pubDate>Wed, 22 Dec 2021 01:55:56 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/17-%E8%B7%AF%E7%94%B1%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E5%88%86%E7%89%87%E8%B7%AF%E7%94%B1%E6%A0%B8%E5%BF%83%E7%B1%BB-shardingrouter-%E7%9A%84%E8%BF%90%E4%BD%9C%E6%9C%BA%E5%88%B6/</guid>
+      <description>前面我们花了几个课时对 ShardingSphere 中的 SQL 解析引擎做了介绍，我们明白 SQL 解析的作用就是根据输入的 SQL 语句生成一个 SQLStatement 对象。
+从今天开始，我们将进入 ShardingSphere 的路由（Routing）引擎部分的源码解析。从流程上讲，路由引擎是整个分片引擎执行流程中的第二步，即基于 SQL 解析引擎所生成的 SQLStatement，通过解析执行过程中所携带的上下文信息，来获取匹配数据库和表的分片策略，并生成路由结果。
+分层：路由引擎整体架构 与介绍 SQL 解析引擎时一样，我们通过翻阅 ShardingSphere 源码，首先梳理了如下所示的包结构：
+上述包图总结了与路由机制相关的各个核心类，我们可以看到整体呈一种对称结构，即根据是 PreparedStatement 还是普通 Statement 分成两个分支流程。
+同时，我们也可以把这张图中的类按照其所属的包结构分成两个层次：位于底层的 sharding-core-route 和位于上层的 sharding-core-entry，这也是 ShardingSphere 中所普遍采用的一种分包原则，即根据类的所属层级来组织包结构。关于 ShardingSphere 的分包原则我们在 [《12 | 从应用到原理：如何高效阅读 ShardingSphere 源码？》]中也已经进行了介绍，接下来我们具体分析这一原则在路由引擎中的应用。
+1.sharding-core-route 工程 我们先来看图中的 ShardingRouter 类，该类是整个路由流程的启动点。ShardingRouter 类直接依赖于解析引擎 SQLParseEngine 类完成 SQL 解析并获取 SQLStatement 对象，然后供 PreparedStatementRoutingEngine 和 StatementRoutingEngine 进行使用。注意到这几个类都位于 sharding-core-route 工程中，处于底层组件。
+2.sharding-core-entry 工程 另一方面，上图中的 PreparedQueryShardingEngine 和 SimpleQueryShardingEngine 则位于 sharding-core-entry 工程中。从包的命名上看，entry 相当于是访问的入口，所以我们可以判断这个工程中所提供的类属于面向应用层组件，处于更加上层的位置。PreparedQueryShardingEngine 和 SimpleQueryShardingEngine 的使用者分别是 ShardingPreparedStatement 和 ShardingStatement。这两个类再往上就是 ShardingConnection 以及 ShardingDataSource 这些直接面向应用层的类了。</description>
+    </item>
+    
+    <item>
+      <title>16 解析引擎：SQL 解析流程应该包括哪些核心阶段？（下）</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/16-%E8%A7%A3%E6%9E%90%E5%BC%95%E6%93%8Esql-%E8%A7%A3%E6%9E%90%E6%B5%81%E7%A8%8B%E5%BA%94%E8%AF%A5%E5%8C%85%E6%8B%AC%E5%93%AA%E4%BA%9B%E6%A0%B8%E5%BF%83%E9%98%B6%E6%AE%B5%E4%B8%8B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:55:55 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/16-%E8%A7%A3%E6%9E%90%E5%BC%95%E6%93%8Esql-%E8%A7%A3%E6%9E%90%E6%B5%81%E7%A8%8B%E5%BA%94%E8%AF%A5%E5%8C%85%E6%8B%AC%E5%93%AA%E4%BA%9B%E6%A0%B8%E5%BF%83%E9%98%B6%E6%AE%B5%E4%B8%8B/</guid>
+      <description>我们知道整个 SQL 解析引擎可以分成三个阶段（如下图所示），上一课时我们主要介绍了 ShardingSphere 中 SQL 解析引擎的第一个阶段，那么今天我将承接上一课时，继续讲解 ShardingSphere 中 SQL 解析流程中剩余的两个阶段。
+SQL 解析引擎的三大阶段 在 SQL 解析引擎的第一阶段中，我们详细介绍了 ShardingSphere 生成 SQL 抽象语法树的过程，并引出了 SQLStatementRule 规则类。今天我们将基于这个规则类来分析如何提取 SQLSegment 以及如何填充 SQL 语句的实现机制。
+1.第二阶段：提取 SQL 片段 要理解 SQLStatementRule，就需要先介绍 ParseRuleRegistry 类。从命名上看，该类就是一个规则注册表，保存着各种解析规则信息。ParseRuleRegistry 类中的核心变量包括如下所示的三个 Loader 类：
+private final ExtractorRuleDefinitionEntityLoader extractorRuleLoader = new ExtractorRuleDefinitionEntityLoader(); private final FillerRuleDefinitionEntityLoader fillerRuleLoader = new FillerRuleDefinitionEntityLoader(); private final SQLStatementRuleDefinitionEntityLoader statementRuleLoader = new SQLStatementRuleDefinitionEntityLoader(); 从命名上可以看到这三个 Loader 类分别处理对 SQLStatementRule、ExtractorRule 和 FillerRule 这三种规则定义的加载。
+我们先来看 SQLStatementRule，它们的定义位于 sql-statement-rule-definition.xml 配置文件中。我们以 Mysql 为例，这个配置文件位于 shardingsphere-sql-parser-mysql 工程中的 META-INF/parsing-rule-definition/mysql 目录下。我们截取该配置文件中的部分配置信息作为演示，如下所示：</description>
+    </item>
+    
+    <item>
+      <title>15 解析引擎：SQL 解析流程应该包括哪些核心阶段？（上）</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/15-%E8%A7%A3%E6%9E%90%E5%BC%95%E6%93%8Esql-%E8%A7%A3%E6%9E%90%E6%B5%81%E7%A8%8B%E5%BA%94%E8%AF%A5%E5%8C%85%E6%8B%AC%E5%93%AA%E4%BA%9B%E6%A0%B8%E5%BF%83%E9%98%B6%E6%AE%B5%E4%B8%8A/</link>
+      <pubDate>Wed, 22 Dec 2021 01:55:54 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/15-%E8%A7%A3%E6%9E%90%E5%BC%95%E6%93%8Esql-%E8%A7%A3%E6%9E%90%E6%B5%81%E7%A8%8B%E5%BA%94%E8%AF%A5%E5%8C%85%E6%8B%AC%E5%93%AA%E4%BA%9B%E6%A0%B8%E5%BF%83%E9%98%B6%E6%AE%B5%E4%B8%8A/</guid>
+      <description>你好，欢迎进入第 15 课时的学习，结束了对 ShardingSphere 中微内核架构等基础设施相关实现机制的介绍后，今天我们将正式进入到分片引擎的学习。
+对于一款分库分表中间件而言，分片是其最核心的功能。下图展示了整个 ShardingSphere 分片引擎的组成结构，我们已经在[《12 | 从应用到原理：如何高效阅读 ShardingSphere 源码》]这个课时中对分片引擎中所包含的各个组件进行了简单介绍。我们知道，对于分片引擎而言，第一个核心组件就是 SQL 解析引擎。
+对于多数开发人员而言，SQL 解析是一个陌生的话题，但对于一个分库分表中间件来说却是一个基础组件，目前主流的分库分表中间件都包含了对解析组件的实现策略。可以说，SQL 解析引擎所生成的结果贯穿整个 ShardingSphere。如果我们无法很好地把握 SQL 的解析过程，在阅读 ShardingSphere 源码时就会遇到一些障碍。
+另一方面，SQL 的解析过程本身也很复杂，你在拿到 ShardingSphere 框架的源代码时，可能首先会问这样一个问题：SQL 的解析过程应该包含哪些核心阶段呢？接下来我将带你深度剖析这个话题。
+从 DataSource 到 SQL 解析引擎入口 在对分片引擎的整体介绍中可以看到，要想完成分片操作，首先需要引入 SQL 解析引擎。对于刚接触 ShardingSphere 源码的同学而言，想要找到 SQL 解析引擎的入口有一定难度。这里引用在[《04 | 应用集成：在业务系统中使用 ShardingSphere 的方式有哪些？》]这个课时中介绍的代码示例，来分析 SQL 解析引擎的入口。
+我们回顾如下所示的代码片段，这些代码片段基于 Java 语言提供了数据分片的实现方式：
+//创建分片规则配置类 ShardingRuleConfiguration shardingRuleConfig = new ShardingRuleConfiguration(); //创建分表规则配置类 TableRuleConfiguration tableRuleConfig = new TableRuleConfiguration(&amp;quot;user&amp;quot;, &amp;quot;ds${0..1}.user${0..1}&amp;quot;); //创建分布式主键生成配置类 Properties properties = new Properties(); result.setProperty(&amp;quot;worker.id&amp;quot;, &amp;quot;33&amp;quot;); KeyGeneratorConfiguration keyGeneratorConfig = new KeyGeneratorConfiguration(&amp;quot;SNOWFLAKE&amp;quot;, &amp;quot;id&amp;quot;, properties);result.</description>
+    </item>
+    
+    <item>
+      <title>14 分布式主键：ShardingSphere 中有哪些分布式主键实现方式？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/14-%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%BB%E9%94%AEshardingsphere-%E4%B8%AD%E6%9C%89%E5%93%AA%E4%BA%9B%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%BB%E9%94%AE%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</link>
+      <pubDate>Wed, 22 Dec 2021 01:55:53 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/14-%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%BB%E9%94%AEshardingsphere-%E4%B8%AD%E6%9C%89%E5%93%AA%E4%BA%9B%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%BB%E9%94%AE%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</guid>
+      <description>本课时我将为你讲解 ShardingSphere 中的分布式主键实现方式。
+在传统数据库软件开发过程中，主键自动生成技术是基本需求。各个数据库对该需求也提供了相应的支持，比如 MySQL 的自增键，Oracle 的自增序列等。而在分片场景下，问题就变得有点复杂，我们不能依靠单个实例上的自增键来实现不同数据节点之间的全局唯一主键，这时分布式主键的需求就应运而生。ShardingSphere 作为一款优秀的分库分表开源软件，同样提供了分布式主键的实现机制，今天，我们就对这一机制的基本原理和实现方式展开讨论。
+ShardingSphere 中的自动生成键方案 在介绍 ShardingSphere 提供的具体分布式主键实现方式之前，我们有必要先对框架中抽象的自动生成键 GeneratedKey 方案进行讨论，从而帮助你明确分布式主键的具体使用场景和使用方法。
+ShardingSphere 中的 GeneratedKey GeneratedKey 并不是 ShardingSphere 所创造的概念。如果你熟悉 Mybatis 这种 ORM 框架，对它就不会陌生。事实上，我们在《数据分片：如何实现分库、分表、分库+分表以及强制路由（上）？》中已经介绍了在 Mybatis 中嵌入 GeneratedKey 的实现方法。通常，我们会在 Mybatis 的 Mapper 文件中设置 useGeneratedKeys 和 keyProperty 属性：
+ &amp;lt;insert id=&amp;quot;addEntity&amp;quot; useGeneratedKeys=&amp;quot;true&amp;quot; keyProperty=&amp;quot;recordId&amp;quot; &amp;gt; INSERT INTO health_record (user_id, level_id, remark) VALUES (#{userId,jdbcType=INTEGER}, #{levelId,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}) &amp;lt;/insert&amp;gt; 在执行这个 insert 语句时，返回的对象中自动包含了生成的主键值。当然，这种方式能够生效的前提是对应的数据库本身支持自增长的主键。
+当我们使用 ShardingSphere 提供的自动生成键方案时，开发过程以及效果和上面描述的完全一致。在 ShardingSphere 中，同样实现了一个 GeneratedKey 类。请注意，该类位于 sharding-core-route 工程下。我们先看该类提供的 getGenerateKey 方法：
+ public static Optional&amp;lt;GeneratedKey&amp;gt; getGenerateKey(final ShardingRule shardingRule, final TableMetas tableMetas, final List&amp;lt;Object&amp;gt; parameters, final InsertStatement insertStatement) { //找到自增长列 Optional&amp;lt;String&amp;gt; generateKeyColumnName = shardingRule.</description>
+    </item>
+    
+    <item>
+      <title>13 微内核架构：ShardingSphere 如何实现系统的扩展性？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/13-%E5%BE%AE%E5%86%85%E6%A0%B8%E6%9E%B6%E6%9E%84shardingsphere-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%89%A9%E5%B1%95%E6%80%A7/</link>
+      <pubDate>Wed, 22 Dec 2021 01:55:52 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/13-%E5%BE%AE%E5%86%85%E6%A0%B8%E6%9E%B6%E6%9E%84shardingsphere-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%89%A9%E5%B1%95%E6%80%A7/</guid>
+      <description>我们已经在课程中多次提到 ShardingSphere 使用了微内核架构来实现框架的扩展性。随着课程的演进，我们会发现，用于实现配置中心的 ConfigCenter、用于数据脱敏的 ShardingEncryptor 以及用于数据库治理的注册中心接口 RegistryCenter 等大量组件的实现也都使用了微内核架构。那么，究竟什么是微内核架构呢？今天我们就来讨论这个架构模式的基本原理以及在 ShardingSphere 中的应用。
+什么是微内核架构？ 微内核是一种典型的架构模式 ，区别于普通的设计模式，架构模式是一种高层模式，用于描述系统级的结构组成、相互关系及相关约束。微内核架构在开源框架中的应用也比较广泛，除了 ShardingSphere 之外，在主流的 PRC 框架 Dubbo 中也实现了自己的微内核架构。那么，在介绍什么是微内核架构之前，我们有必要先阐述这些开源框架会使用微内核架构的原因。
+为什么要使用微内核架构？ 微内核架构本质上是为了提高系统的扩展性 。所谓扩展性，是指系统在经历不可避免的变更时所具有的灵活性，以及针对提供这样的灵活性所需要付出的成本间的平衡能力。也就是说，当在往系统中添加新业务时，不需要改变原有的各个组件，只需把新业务封闭在一个新的组件中就能完成整体业务的升级，我们认为这样的系统具有较好的可扩展性。
+就架构设计而言，扩展性是软件设计的永恒话题。而要实现系统扩展性，一种思路是提供可插拔式的机制来应对所发生的变化。当系统中现有的某个组件不满足要求时，我们可以实现一个新的组件来替换它，而整个过程对于系统的运行而言应该是无感知的，我们也可以根据需要随时完成这种新旧组件的替换。
+比如在下个课时中我们将要介绍的 ShardingSphere 中提供的分布式主键功能，分布式主键的实现可能有很多种，而扩展性在这个点上的体现就是， 我们可以使用任意一种新的分布式主键实现来替换原有的实现，而不需要依赖分布式主键的业务代码做任何的改变 。
+微内核架构模式为这种实现扩展性的思路提供了架构设计上的支持，ShardingSphere 基于微内核架构实现了高度的扩展性。在介绍如何实现微内核架构之前，我们先对微内核架构的具体组成结构和基本原理做简要的阐述。
+什么是微内核架构？ 从组成结构上讲， 微内核架构包含两部分组件：内核系统和插件 。这里的内核系统通常提供系统运行所需的最小功能集，而插件是独立的组件，包含自定义的各种业务代码，用来向内核系统增强或扩展额外的业务能力。在 ShardingSphere 中，前面提到的分布式主键就是插件，而 ShardingSphere 的运行时环境构成了内核系统。
+那么这里的插件具体指的是什么呢？这就需要我们明确两个概念，一个概念就是经常在说的 API ，这是系统对外暴露的接口。而另一个概念就是 SPI（Service Provider Interface，服务提供接口），这是插件自身所具备的扩展点。就两者的关系而言，API 面向业务开发人员，而 SPI 面向框架开发人员，两者共同构成了 ShardingSphere 本身。
+可插拔式的实现机制说起来简单，做起来却不容易，我们需要考虑两方面内容。一方面，我们需要梳理系统的变化并把它们抽象成多个 SPI 扩展点。另一方面， 当我们实现了这些 SPI 扩展点之后，就需要构建一个能够支持这种可插拔机制的具体实现，从而提供一种 SPI 运行时环境 。
+那么，ShardingSphere 是如何实现微内核架构的呢？让我们来一起看一下。
+如何实现微内核架构？ 事实上，JDK 已经为我们提供了一种微内核架构的实现方式，这种实现方式针对如何设计和实现 SPI 提出了一些开发和配置上的规范，ShardingSphere 使用的就是这种规范。首先，我们需要设计一个服务接口，并根据需要提供不同的实现类。接下来，我们将模拟实现分布式主键的应用场景。
+基于 SPI 的约定，创建一个单独的工程来存放服务接口，并给出接口定义。请注意 这个服务接口的完整类路径为 com.</description>
+    </item>
+    
+    <item>
+      <title>12 从应用到原理：如何高效阅读 ShardingSphere 源码？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/12-%E4%BB%8E%E5%BA%94%E7%94%A8%E5%88%B0%E5%8E%9F%E7%90%86%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E9%98%85%E8%AF%BB-shardingsphere-%E6%BA%90%E7%A0%81/</link>
+      <pubDate>Wed, 22 Dec 2021 01:55:51 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/12-%E4%BB%8E%E5%BA%94%E7%94%A8%E5%88%B0%E5%8E%9F%E7%90%86%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E9%98%85%E8%AF%BB-shardingsphere-%E6%BA%90%E7%A0%81/</guid>
+      <description>从本课时开始，专栏将进入：“ShardingSphere 源码解析之基础设施”的模块。在介绍完 ShardingSphere 所具备的分库分表、读写分离、分布式事务、数据脱敏等各项核心功能之后，我将带领你全面剖析这些核心功能背后的实现原理和机制。我们将通过深入解析 ShardingSphere 源码这一途径来实现这一目标。
+如何系统剖析 ShardingSphere 的代码结构？ 在阅读开源框架时，我们碰到的一大问题在于，常常会不由自主地陷入代码的细节而无法把握框架代码的整体结构。市面上主流的、被大家所熟知而广泛应用的代码框架肯定考虑得非常周全，其代码结构不可避免存在一定的复杂性。对 ShardingSphere 而言，情况也是一样，我们发现 ShardingSphere 源码的一级代码结构目录就有 15 个，而这些目录内部包含的具体 Maven 工程则多达 50 余个：
+ShardingSphere 源码一级代码结构目录
+如何快速把握 ShardingSphere 的代码结构呢？这是我们剖析源码时需要回答的第一个问题，为此我们需要梳理剖析 ShardingSphere 框架代码结构的系统方法。
+本课时我们将对如何系统剖析 ShardingSphere 代码结构这一话题进行抽象，梳理出应对这一问题的六大系统方法（如下图）：
+接下来，我们将结合 ShardingSphere 框架对这些方法进行展开。
+基于可扩展性设计阅读源码 ShardingSphere 在设计上采用了微内核架构模式来确保系统具有高度的可扩展性，并使用了 JDK 提供的 SPI 机制来具体实现微内核架构。在 ShardingSphere 源代码的根目录下，存在一个独立工程 shardingsphere-spi。显然，从命名上看，这个工程中应该包含了 ShardingSphere 实现 SPI 的相关代码。该工程中存在一个 TypeBasedSPI 接口，它的类层结构比较丰富，课程后面将要讲到的很多核心接口都继承了该接口，包括实现配置中心的 ConfigCenter、注册中心的 RegistryCenter 等，如下所示：
+ShardingSphere 中 TypeBasedSPI 接口的类层结构
+这些接口的实现都遵循了 JDK 提供的 SPI 机制。在我们阅读 ShardingSphere 的各个代码工程时，一旦发现在代码工程中的 META-INF/services 目录里创建了一个以服务接口命名的文件，就说明这个代码工程中包含了用于实现扩展性的 SPI 定义。
+在 ShardingSphere 中，大量使用了微内核架构和 SPI 机制实现系统的扩展性。只要掌握了微内核架构的基本原理以及 SPI 的实现方式就会发现，原来在 ShardingSphere 中，很多代码结构上的组织方式就是为了满足这些扩展性的需求。ShardingSphere 中实现微内核架构的方式就是直接对 JDK 的 ServiceLoader 类进行一层简单的封装，并添加属性设置等自定义的功能，其本身并没有太多复杂的内容。</description>
+    </item>
+    
+    <item>
+      <title>11 编排治理：如何实现分布式环境下的动态配置管理？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/11-%E7%BC%96%E6%8E%92%E6%B2%BB%E7%90%86%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86/</link>
+      <pubDate>Wed, 22 Dec 2021 01:55:50 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/11-%E7%BC%96%E6%8E%92%E6%B2%BB%E7%90%86%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86/</guid>
+      <description>随着分布式系统和微服务架构的持续发展，对系统中存在的各种服务和资源进行统一治理已经成为系统架构设计过程中的一个基础要点。ShardingSphere 作为一款分布式数据库中间件，同样集成了编制治理方面的功能。
+今天的内容围绕如何使用 ShardingSphere 所提供的编排治理功能进行展开，课时思路与上一课时的风格一致，即先讨论 ShardingSphere 对编排治理的抽象过程，然后给出在开发过程中，基于配置中心介绍集成编排治理功能的系统改造方案。
+ShardingSphere 如何抽象编排治理？ ShardingSphere 的编排治理功能非常丰富，与日常开发紧密相关的是它的配置中心和注册中心功能。ShardingSphere 对这两个功能提供了自己的抽象和实现方案。
+ShardingSphere 中的配置中心 关于配置信息的管理，常见的做法是把它们存放在配置文件中，我们可以基于 YAML 格式或 XML 格式的配置文件完成配置信息的维护，这在 ShardingSphere 中也都得到了支持。在单块系统中，配置文件能够满足需求，围绕配置文件展开的配置管理工作通常不会有太大挑战。但在分布式系统中，越来越多的运行时实例使得散落的配置难于管理，并且，配置不同步导致的问题十分严重。将配置集中于配置中心，可以更加有效地进行管理。
+采用配置中心也就意味着采用集中式配置管理的设计思想。在集中式配置中心内，开发、测试和生产等不同的环境配置信息统一保存在配置中心内，这是一个维度。另一个维度就是需要确保分布式集群中同一类服务的所有服务实例保存同一份配置文件并且能够同步更新。配置中心的示意图如下所示：
+集中式配置管理的设计思想
+在 ShardingSphere 中，提供了多种配置中心的实现方案，包括主流的 ZooKeeeper、Etcd、Apollo 和 Nacos。开发人员也可以根据需要实现自己的配置中心并通过 SPI 机制加载到 ShardingSphere 运行时环境中。
+另一方面，配置信息不是一成不变的。对修改后的配置信息的统一分发，是配置中心可以提供的另一个重要能力。配置中心中配置信息的任何变化都可以实时同步到各个服务实例中。在 ShardingSphere 中，通过配置中心可以支持数据源、数据表、分片以及读写分离策略的动态切换。
+同时，在集中式配置信息管理方案的基础上，ShardingSphere 也支持从本地加载配置信息的实现方案。如果我们希望以本地的配置信息为准，并将本地配置覆盖配置中心的配置，通过一个开关就可以做到这一点。
+ShardingSphere 中的注册中心 在实现方式上，注册中心与配置中心非常类似，ShardingSphere 也提供了基于 ZooKeeeper 和 Etcd 这两款第三方工具的注册中心实现方案，而 ZooKeeeper 和 Etcd 同样也可以被用作配置中心。
+注册中心与配置中心的不同之处在于两者保存的数据类型。配置中心管理的显然是配置数据，但注册中心存放的是 ShardingSphere 运行时的各种动态/临时状态数据，最典型的运行时状态数据就是当前的 Datasource 实例。那么，保存这些动态和临时状态数据有什么用呢？我们来看一下这张图：
+注册中心的数据存储和监听机制示意图
+注册中心一般都提供了分布式协调机制。在注册中心中，所有 DataSource 在指定路径根目录下创建临时节点，所有访问这些 DataSource 的业务服务都会监听该目录。当有新 DataSource 加入时，注册中心实时通知到所有业务服务，由业务服务做相应路由信息维护；而当某个 DataSource 宕机时，业务服务通过监听机制同样会收到通知。
+基于这种机制，我们就可以提供针对 DataSource 的治理能力，包括熔断对某一个 DataSource 的数据访问，或禁用对从库 DataSource 的访问等。</description>
+    </item>
+    
+    <item>
+      <title>10 数据脱敏：如何确保敏感数据的安全访问？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/10-%E6%95%B0%E6%8D%AE%E8%84%B1%E6%95%8F%E5%A6%82%E4%BD%95%E7%A1%AE%E4%BF%9D%E6%95%8F%E6%84%9F%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE/</link>
+      <pubDate>Wed, 22 Dec 2021 01:55:49 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/10-%E6%95%B0%E6%8D%AE%E8%84%B1%E6%95%8F%E5%A6%82%E4%BD%95%E7%A1%AE%E4%BF%9D%E6%95%8F%E6%84%9F%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE/</guid>
+      <description>从今天开始，我们又将开始一个全新的主题：介绍 ShardingSphere 中的数据脱敏功能。所谓数据脱敏，是指对某些敏感信息通过脱敏规则进行数据转换，从而实现敏感隐私数据的可靠保护。在日常开发过程中，数据安全一直是一个非常重要和敏感的话题。相较传统的私有化部署方案，互联网应用对数据安全的要求更高，所涉及的范围也更广。根据不同行业和业务场景的属性，不同系统的敏感信息可能有所不同，但诸如身份证号、手机号、卡号、用户姓名、账号密码等个人信息一般都需要进行脱敏处理。
+ShardingSphere 如何抽象数据脱敏？ 数据脱敏从概念上讲比较容易理解，但在具体实现过程中存在很多方案。在介绍基于数据脱敏的具体开发过程之前，我们有必要先来梳理实现数据脱敏的抽象过程。这里，我将从敏感数据的存储方式、敏感数据的加解密过程以及在业务代码中嵌入加解密的过程这三个维度来抽象数据脱敏。
+针对每一个维度，我也将基于 ShardingSphere 给出这个框架的具体抽象过程，从而方便你理解使用它的方法和技巧，让我们来一起看一下。
+敏感数据如何存储？ 关于这个问题，要讨论的点在于是否需要将敏感数据以明文形式存储在数据库中。这个问题的答案并不是绝对的。
+我们先来考虑第一种情况。对于一些敏感数据而言，我们显然应该直接以密文的形式将加密之后的数据进行存储，防止有任何一种途径能够从数据库中获取这些数据明文。 在这类敏感数据中，最典型的就是用户密码，我们通常会采用 MD5 等不可逆的加密算法对其进行加密，而使用这些数据的方法也只是依赖于它的密文形式，不会涉及对明文的直接处理。
+但对于用户姓名、手机号等信息，由于统计分析等方面的需要，显然我们不能直接采用不可逆的加密算法对其进行加密，还需要将明文信息进行处理**。**一种常见的处理方式是将一个字段用两列来进行保存，一列保存明文，一列保存密文，这就是第二种情况。
+显然，我们可以将第一种情况看作是第二种情况的特例。也就是说，在第一种情况中没有明文列，只有密文列。
+ShardingSphere 同样基于这两种情况进行了抽象，它将这里的明文列命名为 plainColumn，而将密文列命名为 cipherColumn。其中 plainColumn 属于选填，而 cipherColumn 则是必填。同时，ShardingSphere 还提出了一个逻辑列 logicColumn 的概念，该列代表一种虚拟列，只面向开发人员进行编程使用：
+敏感数据如何加解密？ 数据脱敏本质上就是一种加解密技术应用场景，自然少不了对各种加解密算法和技术的封装。传统的加解密方式有两种，一种是对称加密，常见的包括 DEA 和 AES；另一种是非对称加密，常见的包括 RSA。
+ShardingSphere 内部也抽象了一个 ShardingEncryptor 组件专门封装各种加解密操作：
+public interface ShardingEncryptor extends TypeBasedSPI {//初始化void init();//加密String encrypt(Object plaintext);//解密Object decrypt(String ciphertext);}目前，ShardingSphere 内置了 AESShardingEncryptor 和 MD5ShardingEncryptor 这两个具体的 ShardingEncryptor 实现。当然，由于 ShardingEncryptor 扩展了 TypeBasedSPI 接口，所以开发人员完全可以基于微内核架构和 JDK 所提供的 SPI 机制来实现和动态加载自定义的各种 ShardingEncryptor。我们会在“微内核架构：ShardingSphere 如何实现系统的扩展性？”这个课时中对 ShardingSphere 中的微内核架构和 SPI 机制进行详细的讨论。</description>
+    </item>
+    
+    <item>
+      <title>09 分布式事务：如何使用强一致性事务与柔性事务？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/09-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%BC%BA%E4%B8%80%E8%87%B4%E6%80%A7%E4%BA%8B%E5%8A%A1%E4%B8%8E%E6%9F%94%E6%80%A7%E4%BA%8B%E5%8A%A1/</link>
+      <pubDate>Wed, 22 Dec 2021 01:55:48 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/09-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%BC%BA%E4%B8%80%E8%87%B4%E6%80%A7%E4%BA%8B%E5%8A%A1%E4%B8%8E%E6%9F%94%E6%80%A7%E4%BA%8B%E5%8A%A1/</guid>
+      <description>你好，欢迎进入第 09 课时的学习。今天，我们将介绍一个分布式环境下的重要主题，即分布式事务。在介绍 ShardingSphere 中的具体应用方式之前，我们有必要对分布式事务的基本概念做简要介绍。
+如何理解分布式事务？ 在传统的关系型数据库中，事务是一个标准组件，几乎所有成熟的关系型数据库都提供了对本地事务的原生支持。本地事务提供了 ACID 事务特性。基于本地事务，为了保证数据的一致性，我们先开启一个事务后，才可以执行数据操作，最后提交或回滚就可以了。更进一步，借助于 Spring 等集成化框架，开发人员只需关注引起数据改变的业务即可。
+但在分布式环境下，事情就会变得比较复杂。假设系统中存在多个独立的数据库，为了确保数据在这些独立的数据库中保持一致，我们需要把这些数据库纳入同一个事务中。这时本地事务就无能为力了，我们需要使用分布式事务。
+业界关于如何实现分布式事务也有一些通用的实现机制，例如支持两阶段提交的 XA 协议以及以 Saga 为代表的柔性事务。针对不同的实现机制，也存在一些供应商和开发工具。因为这些开发工具在使用方式上和实现原理上都有较大的差异性，所以开发人员的一大诉求在于，希望能有一套统一的解决方案能够屏蔽这些差异。同时，我们也希望这种解决方案能够提供友好的系统集成性。
+ShardingSphere 作为一款分布式数据库中间件，势必要考虑分布式事务的实现方案。而在设计上，ShardingSphere 从一开始就充分考虑到了开发人员的这些诉求，接下来让我们一起来看一下。
+ShardingSphere 中的分布式事务 在 ShardingSphere 中，除本地事务之外，还提供针对分布式事务的两种实现方案，分别是 XA 事务和柔性事务。这点可以从事务类型枚举值 TransactionType 中得到验证：
+public enum TransactionType {LOCAL, XA, BASE}XA 事务 XA 事务提供基于两阶段提交协议的实现机制。所谓两阶段提交，顾名思义分成两个阶段，一个是准备阶段，一个是执行阶段。在准备阶段中，协调者发起一个提议，分别询问各参与者是否接受。在执行阶段，协调者根据参与者的反馈，提交或终止事务。如果参与者全部同意则提交，只要有一个参与者不同意就终止。
+两阶段提交示意图
+目前，业界在实现 XA 事务时也存在一些主流工具库，包括 Atomikos、Narayana 和 Bitronix。ShardingSphere 对这三种工具库都进行了集成，并默认使用 Atomikos 来完成两阶段提交。
+BASE 事务 XA 事务是典型的强一致性事务，也就是完全遵循事务的 ACID 设计原则。与 XA 事务这种“刚性”不同，柔性事务则遵循 BASE 设计理论，追求的是最终一致性。这里的 BASE 来自基本可用（Basically Available）、软状态（Soft State）和最终一致性（Eventual Consistency）这三个概念。
+关于如何实现基于 BASE 原则的柔性事务，业界也存在一些优秀的框架，例如阿里巴巴提供的 Seata。ShardingSphere 内部也集成了对 Seata 的支持。当然，我们也可以根据需要，集成其他分布式事务类开源框架，并基于微内核架构嵌入到 ShardingSphere 运行时环境中。</description>
+    </item>
+    
+    <item>
+      <title>05 配置驱动：ShardingSphere 中的配置体系是如何设计的？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/05-%E9%85%8D%E7%BD%AE%E9%A9%B1%E5%8A%A8shardingsphere-%E4%B8%AD%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BD%93%E7%B3%BB%E6%98%AF%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E7%9A%84/</link>
+      <pubDate>Wed, 22 Dec 2021 01:55:47 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/05-%E9%85%8D%E7%BD%AE%E9%A9%B1%E5%8A%A8shardingsphere-%E4%B8%AD%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BD%93%E7%B3%BB%E6%98%AF%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E7%9A%84/</guid>
+      <description>在上一课时中，我们介绍了在业务系统中应用 ShardingSphere 的几种方法。事实上，我们发现，除了掌握 Spring、Spring Boot、Mybatis 等常见框架的功能特性之外，使用 ShardingSphere 的主要工作在于根据业务需求完成各种分片操作相关配置项的设置。今天，我就来带领你剖析 ShardingSphere 中的配置体系到底是如何进行设计并实现的，这也是我们介绍 ShardingSphere 核心功能的前提。
+什么是行表达式？ 在引入配置体系的学习之前，我们先来介绍 ShardingSphere 框架为开发人员提供的一个辅助功能，这个功能就是行表达式。
+行表达式是 ShardingSphere 中用于实现简化和统一配置信息的一种工具，在日常开发过程中应用得非常广泛。 它的使用方式非常直观，只需要在配置中使用 ${expression} 或 $-&amp;gt;{expression} 表达式即可。
+例如上一课时中使用的&amp;quot;ds${0..1}.user${0..1}&amp;ldquo;就是一个行表达式，用来设置可用的数据源或数据表名称。基于行表达式语法，${begin..end} 表示的是一个从&amp;quot;begin&amp;quot;到&amp;quot;end&amp;quot;的范围区间，而多个 ${expression} 之间可以用&amp;rdquo;.&amp;ldquo;符号进行连接，代表多个表达式数值之间的一种笛卡尔积关系。这样，如果采用图形化的表现形式，&amp;ldquo;ds${0..1}.user${0..1}&amp;ldquo;表达式最终会解析成这样一种结果：
+当然，类似场景也可以使用枚举的方式来列举所有可能值。行表达式也提供了 ${[enum1, enum2,…, enumx]} 语法来表示枚举值，所以&amp;quot;ds${0..1}.user${0..1}&amp;ldquo;的效果等同于&amp;quot;ds${[0,1]}.user${[0,1]}&amp;quot;。
+同样，在上一课时中使用到的 ds${age % 2} 表达式，它表示根据 age 字段进行对 2 取模，从而自动计算目标数据源是 ds0 还是 ds1。所以，除了配置数据源和数据表名称之外，行表达式在 ShardingSphere 中另一个常见的应用场景就是配置各种分片算法，我们会在后续的示例中大量看到这种使用方法。
+由于 ${expression} 与 Spring 本身的属性文件占位符冲突，而 Spring 又是目前主流的开发框架，因此在正式环境中建议你使用 $-&amp;gt;{expression} 来进行配置。
+ShardingSphere 有哪些核心配置？ 对于分库分表、读写分离操作而言，配置的主要任务是完成各种规则的创建和初始化。配置是整个 ShardingSphere 的核心，也是我们在日常开发过程中的主要工作。可以说，只要我们掌握了 ShardingSphere 的核心配置项，就相当于掌握了这个框架的使用方法。那么，ShardingSphere 有哪些核心配置呢？这里以分片引擎为例介绍最常用的几个配置项，而与读写分离、数据脱敏、编排治理相关的配置项我们会在介绍具体的应用场景时再做展开。
+ShardingRuleConfiguration 我们在上一课时中已经了解了如何通过框架之间的集成方法来创建一个 DataSource，这个 DataSource 就是我们使用 ShardingSphere 的入口。我们也看到在创建 DataSource 的过程中使用到了一个 ShardingDataSourceFactory 类，这个工厂类的构造函数中需要传入一个 ShardingRuleConfiguration 对象。显然，从命名上看，这个 ShardingRuleConfiguration 就是用于分片规则的配置入口。</description>
+    </item>
+    
+    <item>
+      <title>04 应用集成：在业务系统中使用 ShardingSphere 的方式有哪些？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/04-%E5%BA%94%E7%94%A8%E9%9B%86%E6%88%90%E5%9C%A8%E4%B8%9A%E5%8A%A1%E7%B3%BB%E7%BB%9F%E4%B8%AD%E4%BD%BF%E7%94%A8-shardingsphere-%E7%9A%84%E6%96%B9%E5%BC%8F%E6%9C%89%E5%93%AA%E4%BA%9B/</link>
+      <pubDate>Wed, 22 Dec 2021 01:55:46 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/04-%E5%BA%94%E7%94%A8%E9%9B%86%E6%88%90%E5%9C%A8%E4%B8%9A%E5%8A%A1%E7%B3%BB%E7%BB%9F%E4%B8%AD%E4%BD%BF%E7%94%A8-shardingsphere-%E7%9A%84%E6%96%B9%E5%BC%8F%E6%9C%89%E5%93%AA%E4%BA%9B/</guid>
+      <description>在上一课时中，我详细介绍了 ShardingSphere 与 JDBC 规范之间的兼容性关系，我们知道 ShardingSphere 对 JDBC 规范进行了重写，并嵌入了分片机制。基于这种兼容性，开发人员使用 ShardingSphere 时就像在使用 JDBC 规范所暴露的各个接口一样。这一课时，我们将讨论如何在业务系统中使用 ShardingSphere 的具体方式。
+如何抽象开源框架的应用方式？ 当我们自己在设计和实现一款开源框架时，如何规划它的应用方式呢？作为一款与数据库访问相关的开源框架，ShardingSphere 提供了多个维度的应用方式，我们可以对这些应用方式进行抽象，从而提炼出一种模版。这个模版由四个维度组成，分别是底层工具、基础规范、开发框架和领域框架，如下图所示：
+底层工具 底层工具指的是这个开源框架所面向的目标工具或所依赖的第三方工具。这种底层工具往往不是框架本身可以控制和管理的，框架的作用只是在它上面添加一个应用层，用于封装对这些底层工具的使用方式。
+对于 ShardingSphere 而言，这里所说的底层工具实际上指的是关系型数据库。目前，ShardingSphere 支持包括 MySQL、Oracle、SQLServer、PostgreSQL 以及任何遵循 SQL92 标准的数据库。
+基础规范 作为一个开源框架，很多时候需要兼容业界已经形成标准的基础性规范。换句话说，想要框架被其他开发人员所认可，就得要考虑开发人员目前在使用的基础规范。例如，如果设计一个与链路跟踪相关的开源框架，一般都需要兼容 OpenTracing 这一开放式分布式追踪规范。
+对于 ShardingSphere 而言，所涉及的基础规范很明确，就是我们在上一课时中所详细阐述的 JDBC 规范。
+开发框架 开源框架本身也是一个开发框架，但我们通常不会自己设计和实现一个全新的开发框架，而是更倾向于与现有的主流开发框架进行集成。目前，Java 世界中最主流的开发框架就是 Spring 家族系列框架。
+ShardingSphere 同时集成了 Spring 和 Spring Boot 这两款 Spring 家族的主流开发框架。熟悉这两款框架的开发人员在应用 ShardingSphere 进行开发时将不需要任何学习成本。
+领域框架 对于某些开源框架而言，也需要考虑和领域框架进行集成，以便提供更好的用户体验和使用友好性，区别于前面提到的适用于任何场景的开发框架。所谓领域框架，是指与所设计的开源框架属于同一专业领域的开发框架。 业务开发人员已经习惯在日常开发过程中使用这些特定于某一领域的开发框架，所以在设计自己的开源框架时，也需要充分考虑与这些框架的整合和集成。
+对于 ShardingSphere 而言，领域框架指的是 MyBatis、Hibernate 等常见的 ORM 框架。ShardingSphere 对这领域框架提供了无缝集成的实现方案，熟悉 ORM 框架的开发人员在应用 ShardingSphere 进行开发时同样不需要任何学习成本。
+接下来，我们就结合前面抽象的开源框架应用方式来具体分析 ShardingSphere 框架为开发人员提供了哪些开发上的支持。</description>
+    </item>
+    
+    <item>
+      <title>03 规范兼容：JDBC 规范与 ShardingSphere 是什么关系？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/03-%E8%A7%84%E8%8C%83%E5%85%BC%E5%AE%B9jdbc-%E8%A7%84%E8%8C%83%E4%B8%8E-shardingsphere-%E6%98%AF%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB/</link>
+      <pubDate>Wed, 22 Dec 2021 01:55:45 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/03-%E8%A7%84%E8%8C%83%E5%85%BC%E5%AE%B9jdbc-%E8%A7%84%E8%8C%83%E4%B8%8E-shardingsphere-%E6%98%AF%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB/</guid>
+      <description>我们知道 ShardingSphere 是一种典型的客户端分片解决方案，而客户端分片的实现方式之一就是重写 JDBC 规范。在上一课时中，我们也介绍了，ShardingSphere 在设计上从一开始就完全兼容 JDBC 规范，ShardingSphere 对外暴露的一套分片操作接口与 JDBC 规范中所提供的接口完全一致。
+讲到这里，你可能会觉得有点神奇，ShardingSphere 究竟是通过什么方式，实现了与 JDBC 规范完全兼容的 API 来提供分片功能呢？
+这个问题非常重要，值得我们专门花一个课时的内容来进行分析和讲解。可以说，理解 JDBC 规范以及 ShardingSphere 对 JDBC 规范的重写方式，是正确使用 ShardingSphere 实现数据分片的前提。今天，我们就深入讨论 JDBC 规范与 ShardingSphere 的这层关系，帮你从底层设计上解开其中的神奇之处。
+JDBC 规范简介 ShardingSphere 提供了与 JDBC 规范完全兼容的实现过程，在对这一过程进行详细展开之前，先来回顾一下 JDBC 规范。JDBC（Java Database Connectivity）的设计初衷是提供一套用于各种数据库的统一标准，而不同的数据库厂家共同遵守这套标准，并提供各自的实现方案供应用程序调用。作为统一标准，JDBC 规范具有完整的架构体系，如下图所示：
+JDBC 架构中的 Driver Manager 负责加载各种不同的驱动程序（Driver），并根据不同的请求，向调用者返回相应的数据库连接（Connection）。而应用程序通过调用 JDBC API 来实现对数据库的操作。对于开发人员而言，JDBC API 是我们访问数据库的主要途径，也是 ShardingSphere 重写 JDBC 规范并添加分片功能的入口。如果我们使用 JDBC 开发一个访问数据库的处理流程，常见的代码风格如下所示：
+// 创建池化的数据源PooledDataSource dataSource = new PooledDataSource ();// 设置MySQL DriverdataSource.setDriver (&amp;quot;com.mysql.jdbc.Driver&amp;quot;);// 设置数据库URL、用户名和密码dataSource.</description>
+    </item>
+    
+    <item>
+      <title>02 顶级项目：ShardingSphere 是一款什么样的 Apache 开源软件？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/02-%E9%A1%B6%E7%BA%A7%E9%A1%B9%E7%9B%AEshardingsphere-%E6%98%AF%E4%B8%80%E6%AC%BE%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84-apache-%E5%BC%80%E6%BA%90%E8%BD%AF%E4%BB%B6/</link>
+      <pubDate>Wed, 22 Dec 2021 01:55:44 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/02-%E9%A1%B6%E7%BA%A7%E9%A1%B9%E7%9B%AEshardingsphere-%E6%98%AF%E4%B8%80%E6%AC%BE%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84-apache-%E5%BC%80%E6%BA%90%E8%BD%AF%E4%BB%B6/</guid>
+      <description>本课时将为你讲解 ShardingSphere 是一款什么样的 Apache 开源软件。
+在上一课时中，我详细分析了分库分表的表现形式以及分片架构的解决方案和代表性框架。可以看到，ShardingSphere 同时实现了客户端分片和代理服务器组件，并提供了分布式数据库的相关功能特性。作为一款优秀的开源软件，ShardingSphere 能够取得目前的成就也不是一蹴而就，下面我们先来回顾一下 ShardingSphere 的发展历程。
+ShardingSphere 的发展历程：从 Sharding-JDBC 到 Apache 顶级项目 说到 ShardingSphere 的起源，我们不得不提 Sharding-JDBC 框架，该框架是一款起源于当当网内部的应用框架，并于 2017 年初正式开源。从 Sharding-JDBC 到 Apache 顶级项目，ShardingSphere 的发展经历了不同的演进阶段。纵观整个 ShardingSphere 的发展历史，我们可以得到时间线与阶段性里程碑的演进过程图：
+从版本发布角度，我们也可以进一步梳理 ShardingSphere 发展历程中主线版本与核心功能之间的演进关系图：
+基于 GitHub 上星数的增长轨迹，也可以从另一个维度很好地反映出 ShardingSphere 的发展历程：
+ShardingSphere 的设计理念：不是颠覆，而是兼容 对于一款开源中间件来说，要得到长足的发展，一方面依赖于社区的贡献，另外在很大程度上还取决于自身的设计和发展理念。
+ShardingSphere 的定位非常明确，就是一种关系型数据库中间件，而并非一个全新的关系型数据库。ShardingSphere 认为，在当下，关系型数据库依然占有巨大市场，但凡涉及数据的持久化，关系型数据库仍然是系统的标准配置，也是各个公司核心业务的基石，在可预见的未来中，这点很难撼动。所以，ShardingSphere 在当前阶段更加关注在原有基础上进行兼容和扩展，而非颠覆。那么 ShardingSphere 是如何做到这一点呢？
+ShardingSphere 构建了一个生态圈，这个生态圈由一套开源的分布式数据库中间件解决方案所构成。按照目前的规划，ShardingSphere 由 Sharding-JDBC、Sharding-Proxy 和 Sharding-Sidecar 这三款相互独立的产品组成，其中前两款已经正式发布，而 Sharding-Sidecar 正在规划中。我们可以从这三款产品出发，分析 ShardingSphere 的设计理念。
+Sharding-JDBC ShardingSphere 的前身是 Sharding-JDBC，所以这是整个框架中最为成熟的组件。Sharding-JDBC 的定位是一个轻量级 Java 框架，在 JDBC 层提供了扩展性服务。我们知道 JDBC 是一种开发规范，指定了 DataSource、Connection、Statement、PreparedStatement、ResultSet 等一系列接口。而各大数据库供应商通过实现这些接口提供了自身对 JDBC 规范的支持，使得 JDBC 规范成为 Java 领域中被广泛采用的数据库访问标准。</description>
+    </item>
+    
+    <item>
+      <title>01 从理论到实践：如何让分库分表真正落地？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/01-%E4%BB%8E%E7%90%86%E8%AE%BA%E5%88%B0%E5%AE%9E%E8%B7%B5%E5%A6%82%E4%BD%95%E8%AE%A9%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E7%9C%9F%E6%AD%A3%E8%90%BD%E5%9C%B0/</link>
+      <pubDate>Wed, 22 Dec 2021 01:55:43 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/01-%E4%BB%8E%E7%90%86%E8%AE%BA%E5%88%B0%E5%AE%9E%E8%B7%B5%E5%A6%82%E4%BD%95%E8%AE%A9%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E7%9C%9F%E6%AD%A3%E8%90%BD%E5%9C%B0/</guid>
+      <description>本课时主要讲解如何让分库分表真正落地。
+在互联网系统开发过程中，分库分表并不是一个新概念，很多开发人员对分库分表或多或少都有所了解，也知道其使用场景。但是对究竟如何实现分库分表并不是很明确。当然，分库分表的含义与实现远比字面意思要复杂得多，这就引出了今天我要阐述的核心话题：如何让分库分表真正落地。
+从数据存储和访问的演进过程说起 要想回答“如何让分库分表真正落地？”这个问题，我先从一个典型案例说起：试想在一个电商系统中存在订单表，系统在初始运行期间，一般使用单库和单表的方式来存储和访问数据。因为数据量不大，所以数据库访问的瓶颈并不明显。
+随着业务的演进，当需要支撑大规模电商业务时，系统每天可能会生成数十万甚至上百万级别的订单数据，订单表的访问就会开始出现瓶颈。
+以互联网系统中常用的 MySQL 数据库为例，虽然单表存储的数据原则上可以达到亿条级别，但此时访问性能会变得很差，即使采用各种调优策略，效果也通常微乎其微。业界普遍认为，MySQL 单表容量在 1 千万以下是一种最佳状态，一旦超过这个量级，就需要考虑采用其他方案了。
+既然以 MySQL 为代表的关系型数据库中的单表无法支持大数据量的存储和访问方案，自然而然的，你可能会想到是否可以采用诸如 MongoDB 等 NoSQL 的方式来管理数据？
+但这并不是一个很好的选项，原因有很多：一方面，关系型生态系统非常完善，关系型数据库经过几十年的持续发展，具有 NoSQL 无法比拟的稳定性和可靠性；另一方面，关系型数据库的事务特性，也是其他数据存储工具所不具备的一项核心功能。目前绝大部分公司的核心数据都存储在关系型数据库中，就互联网公司而言，MySQL 是主流的数据存储方案。
+现在，我们选择了关系型数据库，就可以考虑采用分库分表的方案来解决单库表的瓶颈问题，这是目前互联网行业处理海量数据的通用方法。分库分表方案更多的是对关系型数据库数据存储和访问机制的一种补充，而不是颠覆。那么究竟什么是分库分表呢？
+什么是数据分库分表？ 分库和分表是两个概念，但通常会把它们合在一起简称为分库分表。所谓分库分表，业界并没有一个统一的定义，你可以简单理解为：
+ 为了解决由于数据量过大而导致的数据库性能降低的问题，将原来独立的数据库拆分成若干数据库，把原来数据量大的表拆分成若干数据表，使得单一数据库、单一数据表的数据量变得足够小，从而达到提升数据库性能的效果。
+ 分库分表的表现形式也有很多种，一起来看一下。
+分库分表的表现形式 分库分表包括分库和分表两个维度，在开发过程中，对于每个维度都可以采用两种拆分思路，即垂直拆分和水平拆分：
+先来讨论垂直拆分的应用方式，相比水平拆分，垂直拆分相对比较容易理解和实现。在电商系统中，用户在打开首页时，往往会加载一些用户性别、地理位置等基础数据。对于用户表而言，这些位于首页的基础数据访问频率显然要比用户头像等数据更高。基于这两种数据的不同访问特性，可以把用户单表进行拆分，将访问频次低的用户头像等信息单独存放在一张表中，把访问频次较高的用户信息单独放在另一张表中：
+从这里可以看到，垂直分表的处理方式就是将一个表按照字段分成多张表，每个表存储其中一部分字段。 在实现上，我们通常会把头像等 blob 类型的大字段数据或热度较低的数据放在一张独立的表中，将经常需要组合查询的列放在一张表中，这也可以认为是分表操作的一种表现形式。
+通过垂直分表能得到一定程度的性能提升，但数据毕竟仍然位于同一个数据库中，也就是把操作范围限制在一台服务器上，每个表还是会竞争同一台服务器中的 CPU、内存、网络 IO 等资源。基于这个考虑，在有了垂直分表之后，就可以进一步引入垂直分库。
+对于前面介绍的场景，分表之后的用户信息同样还是跟其他的商品、订单信息存放在同一台服务器中。基于垂直分库思想，这时候就可以把用户相关的数据表单独拆分出来，放在一个独立的数据库中。
+这样的效果就是垂直分库。从定义上讲，垂直分库是指按照业务将表进行分类，然后分布到不同的数据库上。然后，每个库可以位于不同的服务器上，其核心理念是专库专用。而从实现上讲，垂直分库很大程度上取决于业务的规划和系统边界的划分。比如说，用户数据的独立拆分就需要考虑到系统用户体系与其他业务模块之间的关联关系，而不是简单地创建一个用户库就可以了。在高并发场景下，垂直分库能够在一定程度上提升 IO 访问效率和数据库连接数，并降低单机硬件资源的瓶颈。
+从前面的分析中我们不难明白，垂直拆分尽管实现起来比较简单，但并不能解决单表数据量过大这一核心问题。所以，现实中我们往往需要在垂直拆分的基础上添加水平拆分机制。例如，可以对用户库中的用户信息按照用户 ID 进行取模，然后分别存储在不同的数据库中，这就是水平分库的常见做法：
+可以看到，水平分库是把同一个表的数据按一定规则拆分到不同的数据库中，每个库同样可以位于不同的服务器上。这种方案往往能解决单库存储量及性能瓶颈问题，但由于同一个表被分配在不同的数据库中，数据的访问需要额外的路由工作，因此大大提升了系统复杂度。这里所谓的规则实际上就是一系列的算法，常见的包括：
+ 取模算法，取模的方式有很多，比如前面介绍的按照用户 ID 进行取模，当然也可以通过表的一列或多列字段进行 hash 求值来取模； 范围限定算法，范围限定也很常见，比如可以采用按年份、按时间等策略路由到目标数据库或表； 预定义算法，是指事先规划好具体库或表的数量，然后直接路由到指定库或表中。  按照水平分库的思路，也可以对用户库中的用户表进行水平拆分，效果如下图所示。也就是说，水平分表是在同一个数据库内，把同一个表的数据按一定规则拆到多个表中。
+显然，系统的数据存储架构演变到现在已经非常复杂了。与拆分前的单库单表相比，现在面临着一系列具有挑战性的问题，比如：
+ 如何对多数据库进行高效治理？ 如何进行跨节点关联查询？ 如何实现跨节点的分页和排序操作？ 如何生成全局唯一的主键？ 如何确保事务一致性？ 如何对数据进行迁移？ &amp;hellip;  如果没有很好的工具来支持数据的存储和访问，数据一致性将很难得到保障，这就是以 ShardingSphere 为代表的分库分表中间件的价值所在。</description>
+    </item>
+    
+    <item>
+      <title>00 如何正确学习一款分库分表开源框架？</title>
+      <link>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/00-%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%AD%A6%E4%B9%A0%E4%B8%80%E6%AC%BE%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6/</link>
+      <pubDate>Wed, 22 Dec 2021 01:55:42 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/00-%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%AD%A6%E4%B9%A0%E4%B8%80%E6%AC%BE%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6/</guid>
+      <description>你好，我是萧然，长期从事分布式系统的构建和优化工作，负责过大型电商以及物联网系统的设计和开发，曾带领团队完成业界领先的物联网数据平台建设工作，对基于 ShardingSphere 进行数据分库分表和治理工作有着丰富的实践经验。
+互联网高速发展带来海量的信息化数据，也带来更多的技术挑战。以我工作多年的物联网行业为例，各种智能终端设备（比如摄像头或车载设备等）以每天千万级的数据量上报业务数据，电商、社交等互联网行业更不必说。这样量级的数据处理，已经远不是传统关系型数据库的单库单表架构所能支撑的，如何高效存储和访问这些数据，成为一个非常现实且亟待解决的问题。
+但由于生态系统的完善性，关系型数据库仍然是数据平台核心业务的基石，具有巨大市场。虽然业界存在一批 NoSQL 数据库，可以天然集成类似分布式分片这样的功能，然而并不具备诸如事务管理等核心功能。
+面对系统中日益增长的海量数据，业界普遍做法是引入分库分表架构，我们可以整合纵向分库和横向分表的设计方法来应对海量数据的存储和访问。
+ShardingSphere：让分库分表真正落地 想要实现支持海量数据存储和访问的分库分表架构，抛开业务层面的规划和设计，开发人员在技术实现层面也面临着一系列的问题，比如：
+ 数据分片：如何用最小的成本来实现关系型数据库的分库分表操作？ 代理机制：如何基于普通的客户端工具对分库分表架构下的数据进行访问？ 分布式事务：如何确保分布在不同数据库和表中同一份业务数据的一致性？ 数据库治理：如何确保分散在各个环境下的数据源和配置信息等数据库资源的一致性？  分布式数据库中间件 ShardingSphere 作为一个分库分表的“利器”，可以很好地解决这些痛点问题，并且相比其他分库分表框架（如 Cobar、MyCat 等）具有以下几点优势：
+ 技术权威性，是 Apache 基金会历史上第一个分布式数据库中间件项目，代表着这一领域的最新技术方向； 解决方案完备性，它集客户端分片、代理服务器，以及分布式数据库的核心功能于一身，提供了一套适用于互联网应用架构、云服务架构的，完整的开源分布式数据库中间件解决方案和生态圈。 开发友好性，提供了友好的集成方式，业务开发人员只需要引入一个 JAR 包就能在业务代码中嵌入数据分片、读写分离、分布式事务、数据库治理等一系列功能。 可插拔的系统扩展性：它的很多核心功能均通过插件的形式提供，供开发者排列组合来定制属于自己的独特系统。  这些优秀的特性，让 ShardingSphere 在分库分表中间件领域占据了领先地位，并被越来越多的知名企业（比如京东、当当、电信、中通快递、哔哩哔哩等）用来构建自己强大而健壮的数据平台。如果你苦于找不到一款成熟稳定的分库分表中间件，那么 ShardingSphere 恰能帮助你解决这个痛点。
+你为什么需要学习这个课程？ 但凡涉及海量数据处理的企业，就一定要用到分库分表。如何进行海量数据的分库分表设计和迁移，有效存储和访问海量业务数据，已经成为很多架构师和开发人员需要规划和落实的一大课题，也成为像拼多多、趣头条、爱库存等很多优质公司高薪诚聘的岗位需求。
+但优质人才非常短缺，一是因为从事海量数据处理需要相应的应用场景和较高的技术门槛，二是业界也缺乏成熟的框架来完成实际需求。掌握诸如 ShardingSphere 这样的主流分库分表和分布式数据库中间件框架的技术人员也成了各大公司争抢的对象。
+鉴于市面上还没有对 ShardingSphere 进行系统化介绍的内容，我希望能来弥补这个空白。此外，分库分表概念虽然比较简单，但在实际开发过程中要落地却也不容易，也需要一个系统的、由浅入深的学习过程。
+课程设计 本课程共 6 大部分，基于 ShardingSphere 开源框架，介绍主流的分库分表解决方案和工程实践，是业界第一个全面介绍 ShardingSphere 核心功能和实现原理的体系化课程，填补了这块空白。
+ 第一部分：引入 ShardingSphere。 这一部分将从如何正确理解分库分表架构讲起，引出 JDBC 规范与 ShardingSphere 的关系，并介绍如何基于 ShardingSphere 所提供的配置体系，给出在业务系统中使用 ShardingSphere 的多种具体方式。 第二部分：ShardingSphere 核心功能。 ShardingSphere 包含很多功能特性，这部分会给出数据分片、读写分离、分布式事务、数据脱敏、编排治理等核心功能的具体使用方法和开发技巧。  第三~六部分是课程的重点，从不同维度深入剖析 ShardingSphere 的内核架构，从源码级别给出分库分表的设计和实现机制，并且有助于你提升源码理解能力。</description>
+    </item>
+    
+  </channel>
+</rss>
