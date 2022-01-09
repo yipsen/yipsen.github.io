@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>深入拆解Java虚拟机 on </title>
+    <link>http://yipsen.github.io/categories/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/</link>
+    <description>Recent content in 深入拆解Java虚拟机 on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 09 Jan 2022 11:11:28 +0800</lastBuildDate><atom:link href="http://yipsen.github.io/categories/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>工具篇 常用工具介绍</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/%E5%B7%A5%E5%85%B7%E7%AF%87-%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:28 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/%E5%B7%A5%E5%85%B7%E7%AF%87-%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D/</guid>
+      <description>在前面的文章中，我曾使用了不少工具来辅助讲解，也收到了不少同学留言，说不了解这些工具，不知道都有什么用，应该怎么用。那么今天我便统一做一次具体的介绍。本篇代码较多，你可以点击文稿查看。
+javap：查阅 Java 字节码 javap 是一个能够将 class 文件反汇编成人类可读格式的工具。在本专栏中，我们经常借助这个工具来查阅 Java 字节码。
+举个例子，在讲解异常处理那一篇中，我曾经展示过这么一段代码。
+public class Foo {private int tryBlock;private int catchBlock;private int finallyBlock;private int methodExit;public void test() {try {tryBlock = 0;} catch (Exception e) {catchBlock = 1;} finally {finallyBlock = 2;}methodExit = 3;}}编译过后，我们便可以使用 javap 来查阅 Foo.test 方法的字节码。
+$ javac Foo.java$ javap -p -v FooClassfile .</description>
+    </item>
+    
+    <item>
+      <title>尾声丨道阻且长，努力加餐.html</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/%E5%B0%BE%E5%A3%B0%E4%B8%A8%E9%81%93%E9%98%BB%E4%B8%94%E9%95%BF%E5%8A%AA%E5%8A%9B%E5%8A%A0%E9%A4%90.html/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:27 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/%E5%B0%BE%E5%A3%B0%E4%B8%A8%E9%81%93%E9%98%BB%E4%B8%94%E9%95%BF%E5%8A%AA%E5%8A%9B%E5%8A%A0%E9%A4%90.html/</guid>
+      <description>说句实话，我也不知道是怎么写完这 36 篇技术文章的。
+一周三篇的文章接近近万字，说多不多，对我而言还是挺困难的一件事。基本上，我连续好几个月的业余时间都贡献给写作，甚至一度重温了博士阶段被论文支配的恐怖。我想，这大概也算是在工作相对清闲的国外环境下，体验了一把 997 的生活。
+这一路下来，我感觉写专栏的最大问题，其实并不在于写作本身，而在于它对你精力的消耗，这种消耗甚至会让你无法专注于本职工作。因此，我也愈发地佩服能够持续分享技术的同行们。还好我的工作挺有趣的，每天开开心心地上班写代码，只是一到下班时间就蔫了，不得不应付编辑的催稿回家码字。
+我在写作的中途，多次感受到存稿不足的压力，以致于需要请年假来填补写作的空缺。不过，最后做到了风雨无阻、节假无休地一周三更，也算是幸不辱命吧。
+说回专栏吧。在思考专栏大纲时，我想着，最好能够和杨晓峰老师的 Java 核心技术专栏形成互补，呈现给大家的内容相对更偏向于技术实现。
+因此，有读者曾反馈讲解的知识点是否太偏，不实用。当时我的回答是，我并不希望将专栏单纯写成一本工具书，这样的知识你可以从市面上任意买到一本书获得。
+我更希望的是，能够通过介绍 Java 虚拟机各个组件的设计和实现，让你之后遇到虚拟机相关的问题时，能够联想到具体的模块，甚至是对于其他语言的运行时，也可以举一反三相互对照。
+不过，当我看到 Aleksey Shipilev介绍 JMH 的讲座时，发现大部分的内容专栏里都有涉及。于是心想，我还能够在上述答复中加一句：看老外的技术讲座再也不费劲了。
+还有一个想说的是关于专栏知识点的正确性。我认为虚拟机的设计可以写一些自己的理解，但是具体到目前 HotSpot 的工程实现则是确定的。
+为此，几乎每篇专栏我都会大量阅读 HotSpot 的源代码，和同事讨论实现背后的设计理念，在这个过程中，我也发现了一些 HotSpot 中的 Bug，或者年久失修的代码，又或者是设计不合理的地方。这大概也能够算作写专栏和我本职工作重叠的地方吧。
+我会仔细斟酌文章中每一句是否可以做到达意。即便是这样，文章肯定还有很多不足，比如叙述不够清楚，内容存在误导等问题。许多读者都热心地指了出来，在此感谢各位的宝贵意见。接下来一段时间，我会根据大家的建议，对前面的文章进行修订。
+专栏虽然到此已经结束了，但是并不代表你对 Java 虚拟机学习的停止， 我想，专栏的内容仅仅是为你打开了 JVM 学习的大门，里面的风景，还是需要你自己来探索。在文章的后面，我列出了一系列的 Java 虚拟机技术的相关博客和阅读资料，你仍然可以继续加餐。
+你可以关注国内几位 Java 虚拟机大咖的微信公众号：R 大，个人认为是中文圈子里最了解 Java 虚拟机设计实现的人，你可以关注他的知乎账号；你假笨，原阿里 Java 虚拟机团队成员，现PerfMa CEO；江南白衣，唯品会资深架构师；占小狼，美团基础架构部技术专家；杨晓峰，前甲骨文首席工程师。
+如果英文阅读没问题的话，你可以关注Cliff Click、Aleksey Shipilëv（他的JVM Anatomy Park十分有趣）和Nitsan Wakart的博客。你也可以关注Java Virtual Machine Language Submit和Oracle Code One（前身是 JavaOne 大会）中关于 Java 虚拟机的演讲，以便掌握 Java 的最新发展动向。
+当然，如果对 GraalVM 感兴趣的话，你可以订阅我们团队的博客。我会在之后考虑将文章逐一进行翻译。
+其他的阅读材料，你可以参考 R 大的这份书单，或者这个汇总贴。</description>
+    </item>
+    
+    <item>
+      <title>36 SubstrateVM：AOT编译框架</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/36-substratevmaot%E7%BC%96%E8%AF%91%E6%A1%86%E6%9E%B6/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:26 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/36-substratevmaot%E7%BC%96%E8%AF%91%E6%A1%86%E6%9E%B6/</guid>
+      <description>今天我们来聊聊 GraalVM 中的 Ahead-Of-Time（AOT）编译框架 SubstrateVM。
+先来介绍一下 AOT 编译，所谓 AOT 编译，是与即时编译相对立的一个概念。我们知道，即时编译指的是在程序的运行过程中，将字节码转换为可在硬件上直接运行的机器码，并部署至托管环境中的过程。
+而 AOT 编译指的则是，在程序运行之前，便将字节码转换为机器码的过程。它的成果可以是需要链接至托管环境中的动态共享库，也可以是独立运行的可执行文件。
+狭义的 AOT 编译针对的目标代码需要与即时编译的一致，也就是针对那些原本可以被即时编译的代码。不过，我们也可以简单地将 AOT 编译理解为类似于 GCC 的静态编译器。
+AOT 编译的优点显而易见：我们无须在运行过程中耗费 CPU 资源来进行即时编译，而程序也能够在启动伊始就达到理想的性能。
+然而，与即时编译相比，AOT 编译无法得知程序运行时的信息，因此也无法进行基于类层次分析的完全虚方法内联，或者基于程序 profile 的投机性优化（并非硬性限制，我们可以通过限制运行范围，或者利用上一次运行的程序 profile 来绕开这两个限制）。这两者都会影响程序的峰值性能。
+Java 9 引入了实验性 AOT 编译工具jaotc。它借助了 Graal 编译器，将所输入的 Java 类文件转换为机器码，并存放至生成的动态共享库之中。
+在启动过程中，Java 虚拟机将加载参数-XX:AOTLibrary所指定的动态共享库，并部署其中的机器码。这些机器码的作用机理和即时编译生成的机器码作用机理一样，都是在方法调用时切入，并能够去优化至解释执行。
+由于 Java 虚拟机可能通过 Java agent 或者 C agent 改动所加载的字节码，或者这份 AOT 编译生成的机器码针对的是旧版本的 Java 类，因此它需要额外的验证机制，来保证即将链接的机器码的语义与对应的 Java 类的语义是一致的。
+jaotc 使用的机制便是类指纹（class fingerprinting）。它会在动态共享库中保存被 AOT 编译的 Java 类的摘要信息。在运行过程中，Java 虚拟机负责将该摘要信息与已加载的 Java 类相比较，一旦不匹配，则直接舍弃这份 AOT 编译的机器码。
+jaotc 的一大应用便是编译 java.</description>
+    </item>
+    
+    <item>
+      <title>35 Truffle：语言实现框架</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/35-truffle%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E6%A1%86%E6%9E%B6/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:25 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/35-truffle%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E6%A1%86%E6%9E%B6/</guid>
+      <description>今天我们来聊聊 GraalVM 中的语言实现框架 Truffle。
+我们知道，实现一门新编程语言的传统做法是实现一个编译器，也就是把用该语言编写的程序转换成可直接在硬件上运行的机器码。
+通常来说，编译器分为前端和后端：前端负责词法分析、语法分析、类型检查和中间代码生成，后端负责编译优化和目标代码生成。
+不过，许多编译器教程只涉及了前端中的词法分析和语法分析，并没有真正生成可以运行的目标代码，更谈不上编译优化，因此在生产环境中并不实用。
+另一种比较取巧的做法则是将新语言编译成某种已知语言，或者已知的中间形式，例如将 Scala、Kotlin 编译成 Java 字节码。
+这样做的好处是可以直接享用 Java 虚拟机自带的各项优化，包括即时编译、自动内存管理等等。因此，这种做法对所生成的 Java 字节码的优化程度要求不高。
+不过，不管是附带编译优化的编译器，还是生成中间形式并依赖于其他运行时的即时编译优化的编译器，它们所针对的都是编译型语言，在运行之前都需要这一额外的编译步骤。
+与编译型语言相对应的则是解释型语言，例如 JavaScript、Ruby、Python 等。对于这些语言来说，它们无须额外的编译步骤，而是依赖于解释执行器进行解析并执行。
+为了让该解释执行器能够高效地运行大型程序，语言实现开发人员通常会将其包装在虚拟机里，并实现诸如即时编译、垃圾回收等其他组件。这些组件对语言设计 本身并无太大贡献，仅仅是为了实用性而不得不进行的工程实现。
+在理想情况下，我们希望在不同的语言实现中复用这些组件。也就是说，每当开发一门新语言时，我们只需要实现它的解释执行器，便能够直接复用即时编译、垃圾回收等组件，从而达到高性能的效果。这也是 Truffle 项目的目标。接下来，我们就来讲讲这个项目。
+Truffle 项目简介 Truffle 是一个用 Java 写就的语言实现框架。基于 Truffle 的语言实现仅需用 Java 实现词法分析、语法分析以及针对语法分析所生成的抽象语法树（Abstract Syntax Tree，AST）的解释执行器，便可以享用由 Truffle 提供的各项运行时优化。
+就一个完整的 Truffle 语言实现而言，由于实现本身以及其所依赖的 Truffle 框架部分都是用 Java 实现的，因此它可以运行在任何 Java 虚拟机之上。
+当然，如果 Truffle 运行在附带了 Graal 编译器的 Java 虚拟机之上，那么它将调用 Graal 编译器所提供的 API，主动触发对 Truffle 语言的即时编译，将对 AST 的解释执行转换为执行即时编译后的机器码。
+在这种情况下，Graal 编译器相当于一个提供了即时编译功能的库，宿主虚拟机本身仍可使用 C2 作为其唯一的即时编译器，或者分层编译模式下的 4 层编译器。
+我们团队实现并且开源了多个 Truffle 语言，例如JavaScript，Ruby，R，Python，以及可用来解释执行 LLVM bitcode 的Sulong。关于 Sulong 项目，任何能够编译为 LLVM bitcode 的编程语言，例如 C/C++，都能够在这上面运行。</description>
+    </item>
+    
+    <item>
+      <title>34 Graal：用Java编译Java</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/34-graal%E7%94%A8java%E7%BC%96%E8%AF%91java/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:24 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/34-graal%E7%94%A8java%E7%BC%96%E8%AF%91java/</guid>
+      <description>最后这三篇文章，我将介绍 Oracle Labs 的 GraalVM 项目。
+GraalVM 是一个高性能的、支持多种编程语言的执行环境。它既可以在传统的 OpenJDK 上运行，也可以通过 AOT（Ahead-Of-Time）编译成可执行文件单独运行，甚至可以集成至数据库中运行。
+除此之外，它还移除了编程语言之间的边界，并且支持通过即时编译技术，将混杂了不同的编程语言的代码编译到同一段二进制码之中，从而实现不同语言之间的无缝切换。
+今天这一篇，我们就来讲讲 GraalVM 的基石 Graal 编译器。
+在之前的篇章中，特别是介绍即时编译技术的第二部分，我们反反复复提到了 Graal 编译器。这是一个用 Java 写就的即时编译器，它从 Java 9u 开始便被集成自 JDK 中，作为实验性质的即时编译器。
+Graal 编译器可以通过 Java 虚拟机参数-XX:+UnlockExperimentalVMOptions -XX:+UseJVMCICompiler启用。当启用时，它将替换掉 HotSpot 中的 C2 编译器，并响应原本由 C2 负责的编译请求。
+在今天的文章中，我将详细跟你介绍一下 Graal 与 Java 虚拟机的交互、Graal 和 C2 的区别以及 Graal 的实现细节。
+Graal 和 Java 虚拟机的交互 我们知道，即时编译器是 Java 虚拟机中相对独立的模块，它主要负责接收 Java 字节码，并生成可以直接运行的二进制码。
+具体来说，即时编译器与 Java 虚拟机的交互可以分为如下三个方面。
+ 响应编译请求； 获取编译所需的元数据（如类、方法、字段）和反映程序执行状态的 profile； 将生成的二进制码部署至代码缓存（code cache）里。  即时编译器通过这三个功能组成了一个响应编译请求、获取编译所需的数据，完成编译并部署的完整编译周期。
+传统情况下，即时编译器是与 Java 虚拟机紧耦合的。也就是说，对即时编译器的更改需要重新编译整个 Java 虚拟机。这对于开发相对活跃的 Graal 来说显然是不可接受的。</description>
+    </item>
+    
+    <item>
+      <title>33 Java Agent与字节码注入</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/33-java-agent%E4%B8%8E%E5%AD%97%E8%8A%82%E7%A0%81%E6%B3%A8%E5%85%A5/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:23 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/33-java-agent%E4%B8%8E%E5%AD%97%E8%8A%82%E7%A0%81%E6%B3%A8%E5%85%A5/</guid>
+      <description>关于 Java agent，大家可能都听过大名鼎鼎的premain方法。顾名思义，这个方法指的就是在main方法之前执行的方法。
+package org.example;public class MyAgent {public static void premain(String args) {System.out.println(&amp;quot;premain&amp;quot;);}}我在上面这段代码中定义了一个premain方法。这里需要注意的是，Java 虚拟机所能识别的premain方法接收的是字符串类型的参数，而并非类似于main方法的字符串数组。
+为了能够以 Java agent 的方式运行该premain方法，我们需要将其打包成 jar 包，并在其中的 MANIFEST.MF 配置文件中，指定所谓的Premain-class。具体的命令如下所示：
+# 注意第一条命令会向 manifest.txt 文件写入两行数据，其中包括一行空行$ echo &#39;Premain-Class: org.example.MyAgent&#39; &amp;gt; manifest.txt$ jar cvmf manifest.txt myagent.jar org/$ java -javaagent:myagent.jar HelloWorldpremainHello, World除了在命令行中指定 Java agent 之外，我们还可以通过 Attach API 远程加载。具体用法如下面的代码所示：
+import java.io.IOException;import com.sun.tools.attach.*;public class AttachTest {public static void main(String[] args)throws AttachNotSupportedException, IOException, AgentLoadException, AgentInitializationException {if (args.</description>
+    </item>
+    
+    <item>
+      <title>32 JNI的运行机制</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/32-jni%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:22 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/32-jni%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/</guid>
+      <description>我们经常会遇见 Java 语言较难表达，甚至是无法表达的应用场景。比如我们希望使用汇编语言（如 X86_64 的 SIMD 指令）来提升关键代码的性能；再比如，我们希望调用 Java 核心类库无法提供的，某个体系架构或者操作系统特有的功能。
+在这种情况下，我们往往会牺牲可移植性，在 Java 代码中调用 C/C++ 代码（下面简述为 C 代码），并在其中实现所需功能。这种跨语言的调用，便需要借助 Java 虚拟机的 Java Native Interface（JNI）机制。
+关于 JNI 的例子，你应该特别熟悉 Java 中标记为native的、没有方法体的方法（下面统称为 native 方法）。当在 Java 代码中调用这些 native 方法时，Java 虚拟机将通过 JNI，调用至对应的 C 函数（下面将 native 方法对应的 C 实现统称为 C 函数）中。
+public class Object {public native int hashCode();}举个例子，Object.hashCode方法便是一个 native 方法。它对应的 C 函数将计算对象的哈希值，并缓存在对象头、栈上锁记录（轻型锁）或对象监视锁（重型锁所使用的 monitor）中，以确保该值在对象的生命周期之内不会变更。
+native 方法的链接 在调用 native 方法前，Java 虚拟机需要将该 native 方法链接至对应的 C 函数上。
+链接方式主要有两种。第一种是让 Java 虚拟机自动查找符合默认命名规范的 C 函数，并且链接起来。</description>
+    </item>
+    
+    <item>
+      <title>31 Java虚拟机的监控及诊断工具（GUI篇）</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/31-java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E7%9B%91%E6%8E%A7%E5%8F%8A%E8%AF%8A%E6%96%AD%E5%B7%A5%E5%85%B7gui%E7%AF%87/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:21 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/31-java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E7%9B%91%E6%8E%A7%E5%8F%8A%E8%AF%8A%E6%96%AD%E5%B7%A5%E5%85%B7gui%E7%AF%87/</guid>
+      <description>今天我们来继续了解 Java 虚拟机的监控及诊断工具。
+eclipse MAT 在上一篇中，我介绍了jmap工具，它支持导出 Java 虚拟机堆的二进制快照。eclipse 的MAT 工具便是其中一个能够解析这类二进制快照的工具。
+MAT 本身也能够获取堆的二进制快照。该功能将借助jps列出当前正在运行的 Java 进程，以供选择并获取快照。由于jps会将自己列入其中，因此你会在列表中发现一个已经结束运行的jps进程。
+MAT 获取二进制快照的方式有三种，一是使用 Attach API，二是新建一个 Java 虚拟机来运行 Attach API，三是使用jmap工具。
+这三种本质上都是在使用 Attach API。不过，在目标进程启用了DisableAttachMechanism参数时，前两者将不在选取列表中显示，后者将在运行时报错。
+当加载完堆快照之后，MAT 的主界面将展示一张饼状图，其中列举占据的 Retained heap 最多的几个对象。
+这里讲一下 MAT 计算对象占据内存的两种方式。第一种是 Shallow heap，指的是对象自身所占据的内存。第二种是 Retained heap，指的是当对象不再被引用时，垃圾回收器所能回收的总内存，包括对象自身所占据的内存，以及仅能够通过该对象引用到的其他对象所占据的内存。上面的饼状图便是基于 Retained heap 的。
+MAT 包括了两个比较重要的视图，分别是直方图（histogram）和支配树（dominator tree）。
+MAT 的直方图和jmap的-histo子命令一样，都能够展示各个类的实例数目以及这些实例的 Shallow heap 总和。但是，MAT 的直方图还能够计算 Retained heap，并支持基于实例数目或 Retained heap 的排序方式（默认为 Shallow heap）。此外，MAT 还可以将直方图中的类按照超类、类加载器或者包名分组。
+当选中某个类时，MAT 界面左上角的 Inspector 窗口将展示该类的 Class 实例的相关信息，如类加载器等。（下图中的ClassLoader @ 0x0指的便是启动类加载器。）
+支配树的概念源自图论。在一则流图（flow diagram）中，如果从入口节点到 b 节点的所有路径都要经过 a 节点，那么 a 支配（dominate）b。</description>
+    </item>
+    
+    <item>
+      <title>30 Java虚拟机的监控及诊断工具（命令行篇）</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/30-java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E7%9B%91%E6%8E%A7%E5%8F%8A%E8%AF%8A%E6%96%AD%E5%B7%A5%E5%85%B7%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%AF%87/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:20 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/30-java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E7%9B%91%E6%8E%A7%E5%8F%8A%E8%AF%8A%E6%96%AD%E5%B7%A5%E5%85%B7%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%AF%87/</guid>
+      <description>今天，我们来一起了解一下 JDK 中用于监控及诊断工具。本篇中我将使用刚刚发布的 Java 11 版本的工具进行示范。
+jps 你可能用过ps命令，打印所有正在运行的进程的相关信息。JDK 中的jps命令（帮助文档）沿用了同样的概念：它将打印所有正在运行的 Java 进程的相关信息。
+在默认情况下，jps的输出信息包括 Java 进程的进程 ID 以及主类名。我们还可以通过追加参数，来打印额外的信息。例如，-l将打印模块名以及包名；-v将打印传递给 Java 虚拟机的参数（如-XX:+UnlockExperimentalVMOptions -XX:+UseZGC）；-m将打印传递给主类的参数。
+具体的示例如下所示：
+$ jps -mlv18331 org.example.Foo Hello World18332 jdk.jcmd/sun.tools.jps.Jps -mlv -Dapplication.home=/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home -Xms8m -Djdk.module.main=jdk.jcmd需要注意的是，如果某 Java 进程关闭了默认开启的UsePerfData参数（即使用参数-XX:-UsePerfData），那么jps命令（以及下面介绍的jstat）将无法探知该 Java 进程。
+当获得 Java 进程的进程 ID 之后，我们便可以调用接下来介绍的各项监控及诊断工具了。
+jstat jstat命令（帮助文档）可用来打印目标 Java 进程的性能数据。它包括多条子命令，如下所示：
+$ jstat -options-class-compiler-gc-gccapacity-gccause-gcmetacapacity-gcnew-gcnewcapacity-gcold-gcoldcapacity-gcutil-printcompilation在这些子命令中，-class将打印类加载相关的数据，-compiler和-printcompilation将打印即时编译相关的数据。剩下的都是以-gc为前缀的子命令，它们将打印垃圾回收相关的数据。
+默认情况下，jstat只会打印一次性能数据。我们可以将它配置为每隔一段时间打印一次，直至目标 Java 进程终止，或者达到我们所配置的最大打印次数。具体示例如下所示：
+# Usage: jstat -outputOptions [-t] [-hlines] VMID [interval [count]]$ jstat -gc 22126 1s 4S0C S1C S0U S1U EC EU OC OU MC MU CCSC CCSU YGC YGCT FGC FGCT CGC CGCT GCT 17472,0 17472,0 0,0 0,0 139904,0 47146,4 349568,0 21321,0 30020,0 28001,8 4864,0 4673,4 22 0,080 3 0,270 0 0,000 0,35017472,0 17472,0 420,6 0,0 139904,0 11178,4 349568,0 21321,0 30020,0 28090,1 4864,0 4674,2 28 0,084 3 0,270 0 0,000 0,35417472,0 17472,0 0,0 403,9 139904,0 139538,4 349568,0 21323,4 30020,0 28137,2 4864,0 4674,2 34 0,088 4 0,359 0 0,000 0,44617472,0 17472,0 0,0 0,0 139904,0 0,0 349568,0 21326,1 30020,0 28093,6 4864,0 4673,4 38 0,091 5 0,445 0 0,000 0,536 当监控本地环境的 Java 进程时，VMID 可以简单理解为 PID。如果需要监控远程环境的 Java 进程，你可以参考 jstat 的帮助文档。</description>
+    </item>
+    
+    <item>
+      <title>29 基准测试框架JMH（下）</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/29-%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6jmh%E4%B8%8B/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:19 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/29-%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6jmh%E4%B8%8B/</guid>
+      <description>今天我们来继续学习基准测试框架 JMH。
+@Fork 和 @BenchmarkMode 在上一篇的末尾，我们已经运行过由 JMH 项目编译生成的 jar 包了。下面是它的输出结果：
+$ java -jar target/benchmarks.jar...# JMH version: 1.21# VM version: JDK 10.0.2, Java HotSpot(TM) 64-Bit Server VM, 10.0.2+13# VM invoker: /Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/bin/java# VM options: &amp;lt;none&amp;gt;# Warmup: 5 iterations, 10 s each# Measurement: 5 iterations, 10 s each# Timeout: 10 min per iteration# Threads: 1 thread, will synchronize iterations# Benchmark mode: Throughput, ops/time# Benchmark: org.</description>
+    </item>
+    
+    <item>
+      <title>28 基准测试框架JMH（上）</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/28-%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6jmh%E4%B8%8A/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:18 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/28-%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6jmh%E4%B8%8A/</guid>
+      <description>今天我们来聊聊性能基准测试（benchmarking）。
+大家或许都看到过一些不严谨的性能测试，以及基于这些测试结果得出的令人匪夷所思的结论。
+static int foo() {int i = 0;while (i &amp;lt; 1_000_000_000) {i++;}return i;}举个例子，上面这段代码中的foo方法，将进行 10^9 次加法操作及跳转操作。
+不少开发人员，包括我在介绍反射调用那一篇中所做的性能测试，都使用了下面这段代码的测量方式，即通过System.nanoTime或者System.currentTimeMillis来测量每若干个操作（如连续调用 1000 次foo方法）所花费的时间。
+public class LoopPerformanceTest {static int foo() { ... }public static void main(String[] args) {// warmupfor (int i = 0; i &amp;lt; 20_000; i++) {foo();}// measurementlong current = System.nanoTime();for (int i = 1; i &amp;lt;= 10_000; i++) {foo();if (i % 1000 == 0) {long temp = System.</description>
+    </item>
+    
+    <item>
+      <title>27 注解处理器</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/27-%E6%B3%A8%E8%A7%A3%E5%A4%84%E7%90%86%E5%99%A8/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:17 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/27-%E6%B3%A8%E8%A7%A3%E5%A4%84%E7%90%86%E5%99%A8/</guid>
+      <description>注解（annotation）是 Java 5 引入的，用来为类、方法、字段、参数等 Java 结构提供额外信息的机制。我先举个例子，比如，Java 核心类库中的@Override注解是被用来声明某个实例方法重写了父类的同名同参数类型的方法。
+package java.lang;@Target(ElementType.METHOD)@Retention(RetentionPolicy.SOURCE)public @interface Override {}@Override注解本身被另外两个元注解（即作用在注解上的注解）所标注。其中，@Target用来限定目标注解所能标注的 Java 结构，这里@Override便只能被用来标注方法。
+@Retention则用来限定当前注解生命周期。注解共有三种不同的生命周期：SOURCE，CLASS或RUNTIME，分别表示注解只出现在源代码中，只出现在源代码和字节码中，以及出现在源代码、字节码和运行过程中。
+这里@Override便只能出现在源代码中。一旦标注了@Override的方法所在的源代码被编译为字节码，该注解便会被擦除。
+我们不难猜到，@Override仅对 Java 编译器有用。事实上，它会为 Java 编译器引入了一条新的编译规则，即如果所标注的方法不是 Java 语言中的重写方法，那么编译器会报错。而当编译完成时，它的使命也就结束了。
+我们知道，Java 的注解机制允许开发人员自定义注解。这些自定义注解同样可以为 Java 编译器添加编译规则。不过，这种功能需要由开发人员提供，并且以插件的形式接入 Java 编译器中，这些插件我们称之为注解处理器（annotation processor）。
+除了引入新的编译规则之外，注解处理器还可以用于修改已有的 Java 源文件（不推荐），或者生成新的 Java 源文件。下面，我将用几个案例来详细阐述注解处理器的这些功能，以及它背后的原理。
+注解处理器的原理 在介绍注解处理器之前，我们先来了解一下 Java 编译器的工作流程。
+如上图所示 出处 [1]，Java 源代码的编译过程可分为三个步骤：
+ 将源文件解析为抽象语法树； 调用已注册的注解处理器； 生成字节码。  如果在第 2 步调用注解处理器过程中生成了新的源文件，那么编译器将重复第 1、2 步，解析并且处理新生成的源文件。每次重复我们称之为一轮（Round）。
+也就是说，第一轮解析、处理的是输入至编译器中的已有源文件。如果注解处理器生成了新的源文件，则开始第二轮、第三轮，解析并且处理这些新生成的源文件。当注解处理器不再生成新的源文件，编译进入最后一轮，并最终进入生成字节码的第 3 步。
+package foo;import java.lang.annotation.*;@Target({ ElementType.TYPE, ElementType.FIELD })@Retention(RetentionPolicy.SOURCE)public @interface CheckGetter {}在上面这段代码中，我定义了一个注解@CheckGetter。它既可以用来标注类，也可以用来标注字段。此外，它和@Override相同，其生命周期被限定在源代码中。</description>
+    </item>
+    
+    <item>
+      <title>26 向量化</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/26-%E5%90%91%E9%87%8F%E5%8C%96/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:16 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/26-%E5%90%91%E9%87%8F%E5%8C%96/</guid>
+      <description>在上一篇的实践环节中，我给你留了一个题目：如何进一步优化下面这段代码。
+void foo(byte[] dst, byte[] src) {for (int i = 0; i &amp;lt; dst.length - 4; i += 4) {dst[i] = src[i];dst[i+1] = src[i+1];dst[i+2] = src[i+2];dst[i+3] = src[i+3];}... // post-loop}由于 X86_64 平台不支持内存间的直接移动，上面代码中的dst[i] = src[i]通常会被编译为两条内存访问指令：第一条指令把src[i]的值读取至寄存器中，而第二条指令则把寄存器中的值写入至dst[i]中。
+因此，上面这段代码中的一个循环迭代将会执行四条内存读取指令，以及四条内存写入指令。
+由于数组元素在内存中是连续的，当从src[i]的内存地址处读取 32 位的内容时，我们将一并读取src[i]至src[i+3]的值。同样，当向dst[i]的内存地址处写入 32 位的内容时，我们将一并写入dst[i]至dst[i+3]的值。
+通过综合这两个批量操作，我们可以使用一条内存读取指令以及一条内存写入指令，完成上面代码中循环体内的全部工作。如果我们用x[i:i+3]来指代x[i]至x[i+3]合并后的值，那么上述优化可以被表述成如下所示的代码：
+void foo(byte[] dst, byte[] src) {for (int i = 0; i &amp;lt; dst.length - 4; i += 4) {dst[i:i+3] = src[i:i+3];}.</description>
+    </item>
+    
+    <item>
+      <title>25 循环优化</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/25-%E5%BE%AA%E7%8E%AF%E4%BC%98%E5%8C%96/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:15 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/25-%E5%BE%AA%E7%8E%AF%E4%BC%98%E5%8C%96/</guid>
+      <description>在许多应用程序中，循环都扮演着非常重要的角色。为了提升循环的运行效率，研发编译器的工程师提出了不少面向循环的编译优化方式，如循环无关代码外提，循环展开等。
+今天，我们便来了解一下，Java 虚拟机中的即时编译器都应用了哪些面向循环的编译优化。
+循环无关代码外提 所谓的循环无关代码（Loop-invariant Code），指的是循环中值不变的表达式。如果能够在不改变程序语义的情况下，将这些循环无关代码提出循环之外，那么程序便可以避免重复执行这些表达式，从而达到性能提升的效果。
+int foo(int x, int y, int[] a) {int sum = 0;for (int i = 0; i &amp;lt; a.length; i++) {sum += x * y + a[i];}return sum;}// 对应的字节码int foo(int, int, int[]);Code:0: iconst_01: istore 43: iconst_04: istore 56: goto 25// 循环体开始9: iload 4 // load sum11: iload_1 // load x12: iload_2 // load y13: imul // x*y14: aload_3 // load a15: iload 5 // load i17: iaload // a[i]18: iadd // x*y + a[i]19: iadd // sum + (x*y + a[i])20: istore 4 // sum = sum + (x*y + a[i])22: iinc 5, 1 // i++25: iload 5 // load i27: aload_3 // load a28: arraylength // a.</description>
+    </item>
+    
+    <item>
+      <title>24 字段访问相关优化</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/24-%E5%AD%97%E6%AE%B5%E8%AE%BF%E9%97%AE%E7%9B%B8%E5%85%B3%E4%BC%98%E5%8C%96/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:14 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/24-%E5%AD%97%E6%AE%B5%E8%AE%BF%E9%97%AE%E7%9B%B8%E5%85%B3%E4%BC%98%E5%8C%96/</guid>
+      <description>在上一篇文章中，我介绍了逃逸分析，也介绍了基于逃逸分析的优化方式锁消除、栈上分配以及标量替换等内容。
+其中的标量替换，可以看成将对象本身拆散为一个个字段，并把原本对对象字段的访问，替换为对一个个局部变量的访问。
+class Foo {int a = 0;}static int bar(int x) {Foo foo = new Foo();foo.a = x;return foo.a;}举个例子，上面这段代码中的bar方法，经过逃逸分析以及标量替换后，其优化结果如下所示。（确切地说，是指所生成的 IR 图与下述代码所生成的 IR 图类似。之后不再重复解释。）
+static int bar(int x) {int a = x;return a;}由于 Sea-of-Nodes IR 的特性，局部变量不复存在，取而代之的是一个个值。在例子对应的 IR 图中，返回节点将直接返回所输入的参数。
+经过标量替换的bar方法
+下面我列举了bar方法经由 C2 即时编译生成的机器码（这里略去了指令地址的前 48 位）。
+ # {method} &#39;bar&#39; &#39;(I)I&#39; in &#39;FieldAccessTest&#39;# parm0: rsi = int // 参数 x# [sp+0x20] (sp of caller)0x06a0: sub rsp,0x18 // 创建方法栈桢0x06a7: mov QWORD PTR [rsp+0x10],rbp // 无关指令0x06ac: mov eax,esi // 将参数 x 存入返回值 eax 中0x06ae: add rsp,0x10 // 弹出方法栈桢0x06b2: pop rbp // 无关指令0x06b3: mov r10,QWORD PTR [r15+0x70] // 安全点测试0x06b7: test DWORD PTR [r10],eax // 安全点测试0x06ba: ret 在 X86_64 的机器码中，每当使用 call 指令进入目标方法的方法体中时，我们需要在栈上为当前方法分配一块内存作为其栈桢。而在退出该方法时，我们需要弹出当前方法所使用的栈桢。</description>
+    </item>
+    
+    <item>
+      <title>23 逃逸分析</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/23-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:13 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/23-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/</guid>
+      <description>我们知道，Java 中Iterable对象的 foreach 循环遍历是一个语法糖，Java 编译器会将该语法糖编译为调用Iterable对象的iterator方法，并用所返回的Iterator对象的hasNext以及next方法，来完成遍历。
+public void forEach(ArrayList&amp;lt;Object&amp;gt; list, Consumer&amp;lt;Object&amp;gt; f) {for (Object obj : list) {f.accept(obj);}}举个例子，上面的 Java 代码将使用 foreach 循环来遍历一个ArrayList对象，其等价的代码如下所示：
+public void forEach(ArrayList&amp;lt;Object&amp;gt; list, Consumer&amp;lt;Object&amp;gt; f) {Iterator&amp;lt;Object&amp;gt; iter = list.iterator();while (iter.hasNext()) {Object obj = iter.next();f.accept(obj);}}这里我也列举了所涉及的ArrayList代码。我们可以看到，ArrayList.iterator方法将创建一个ArrayList$Itr实例。
+public class ArrayList ... {public Iterator&amp;lt;E&amp;gt; iterator() {return new Itr();}private class Itr implements Iterator&amp;lt;E&amp;gt; {int cursor; // index of next element to returnint lastRet = -1; // index of last element returned; -1 if no suchint expectedModCount = modCount;.</description>
+    </item>
+    
+    <item>
+      <title>22 HotSpot虚拟机的intrinsic</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/22-hotspot%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84intrinsic/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:12 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/22-hotspot%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84intrinsic/</guid>
+      <description>前不久，有同学问我，String.indexOf方法和自己实现的indexOf方法在字节码层面上差不多，为什么执行效率却有天壤之别呢？今天我们就来看一看。
+public int indexOf(String str) {if (coder() == str.coder()) {return isLatin1() ? StringLatin1.indexOf(value, str.value): StringUTF16.indexOf(value, str.value);}if (coder() == LATIN1) { // str.coder == UTF16return -1;}return StringUTF16.indexOfLatin1(value, str.value);}为了解答这个问题，我们来读一下String.indexOf方法的源代码（上面的代码截取自 Java 10.0.2）。
+ 在 Java 9 之前，字符串是用 char 数组来存储的，主要为了支持非英文字符。然而，大多数 Java 程序中的字符串都是由 Latin1 字符组成的。也就是说每个字符仅需占据一个字节，而使用 char 数组的存储方式将极大地浪费内存空间。
+Java 9 引入了 Compact Strings[1] 的概念，当字符串仅包含 Latin1 字符时，使用一个字节代表一个字符的编码格式，使得内存使用效率大大提高。
+ 假设我们调用String.indexOf方法的调用者以及参数均为只包含 Latin1 字符的字符串，那么该方法的关键在于对StringLatin1.indexOf方法的调用。
+下面我列举了StringLatin1.indexOf方法的源代码。你会发现，它并没有使用特别高明的算法，唯一值得注意的便是方法声明前的@HotSpotIntrinsicCandidate注解。
+@HotSpotIntrinsicCandidatepublic static int indexOf(byte[] value, byte[] str) {if (str.</description>
+    </item>
+    
+    <item>
+      <title>21 方法内联（下）</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/21-%E6%96%B9%E6%B3%95%E5%86%85%E8%81%94%E4%B8%8B/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:11 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/21-%E6%96%B9%E6%B3%95%E5%86%85%E8%81%94%E4%B8%8B/</guid>
+      <description>在上一篇中，我举的例子都是静态方法调用，即时编译器可以轻易地确定唯一的目标方法。
+然而，对于需要动态绑定的虚方法调用来说，即时编译器则需要先对虚方法调用进行去虚化（devirtualize），即转换为一个或多个直接调用，然后才能进行方法内联。
+即时编译器的去虚化方式可分为完全去虚化以及条件去虚化（guarded devirtualization）。
+完全去虚化是通过类型推导或者类层次分析（class hierarchy analysis），识别虚方法调用的唯一目标方法，从而将其转换为直接调用的一种优化手段。它的关键在于证明虚方法调用的目标方法是唯一的。
+条件去虚化则是将虚方法调用转换为若干个类型测试以及直接调用的一种优化手段。它的关键在于找出需要进行比较的类型。
+在介绍具体的去虚化方式之前，我们先来看一段代码。这里我定义了一个抽象类 BinaryOp，其中包含一个抽象方法 apply。BinaryOp 类有两个子类 Add 和 Sub，均实现了 apply 方法。
+abstract class BinaryOp {public abstract int apply(int a, int b);}class Add extends BinaryOp {public int apply(int a, int b) {return a + b;}}class Sub extends BinaryOp {public int apply(int a, int b) {return a - b;}}下面我便用这个例子来逐一讲解这几种去虚化方式。
+基于类型推导的完全去虚化 基于类型推导的完全去虚化将通过数据流分析推导出调用者的动态类型，从而确定具体的目标方法。
+public static int foo() {BinaryOp op = new Add();return op.</description>
+    </item>
+    
+    <item>
+      <title>20 方法内联（上）</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/20-%E6%96%B9%E6%B3%95%E5%86%85%E8%81%94%E4%B8%8A/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:10 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/20-%E6%96%B9%E6%B3%95%E5%86%85%E8%81%94%E4%B8%8A/</guid>
+      <description>在前面的篇章中，我多次提到了方法内联这项技术。它指的是：在编译过程中遇到方法调用时，将目标方法的方法体纳入编译范围之中，并取代原方法调用的优化手段。
+方法内联不仅可以消除调用本身带来的性能开销，还可以进一步触发更多的优化。因此，它可以算是编译优化里最为重要的一环。
+以 getter/setter 为例，如果没有方法内联，在调用 getter/setter 时，程序需要保存当前方法的执行位置，创建并压入用于 getter/setter 的栈帧、访问字段、弹出栈帧，最后再恢复当前方法的执行。而当内联了对 getter/setter 的方法调用后，上述操作仅剩字段访问。
+在 C2 中，方法内联是在解析字节码的过程中完成的。每当碰到方法调用字节码时，C2 将决定是否需要内联该方法调用。如果需要内联，则开始解析目标方法的字节码。
+ 复习一下：即时编译器首先解析字节码，并生成 IR 图，然后在该 IR 图上进行优化。优化是由一个个独立的优化阶段（optimization phase）串联起来的。每个优化阶段都会对 IR 图进行转换。最后即时编译器根据 IR 图的节点以及调度顺序生成机器码。
+ 同 C2 一样，Graal 也会在解析字节码的过程中进行方法调用的内联。此外，Graal 还拥有一个独立的优化阶段，来寻找指代方法调用的 IR 节点，并将之替换为目标方法的 IR 图。这个过程相对来说比较形象一些，因此，今天我就利用它来给你讲解一下方法内联。
+方法内联的过程public static boolean flag = true;public static int value0 = 0;public static int value1 = 1;public static int foo(int value) {int result = bar(flag);if (result != 0) {return result;} else {return value;}}public static int bar(boolean flag) {return flag ?</description>
+    </item>
+    
+    <item>
+      <title>19 Java字节码（基础篇）</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/19-java%E5%AD%97%E8%8A%82%E7%A0%81%E5%9F%BA%E7%A1%80%E7%AF%87/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:08 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/19-java%E5%AD%97%E8%8A%82%E7%A0%81%E5%9F%BA%E7%A1%80%E7%AF%87/</guid>
+      <description>在前面的篇章中，有不少同学反馈对 Java 字节码并不是特别熟悉。那么今天我便来系统性地介绍一遍 Java 字节码。
+操作数栈 我们知道，Java 字节码是 Java 虚拟机所使用的指令集。因此，它与 Java 虚拟机基于栈的计算模型是密不可分的。
+在解释执行过程中，每当为 Java 方法分配栈桢时，Java 虚拟机往往需要开辟一块额外的空间作为操作数栈，来存放计算的操作数以及返回结果。
+具体来说便是：执行每一条指令之前，Java 虚拟机要求该指令的操作数已被压入操作数栈中。在执行指令时，Java 虚拟机会将该指令所需的操作数弹出，并且将指令的结果重新压入栈中。
+以加法指令 iadd 为例。假设在执行该指令前，栈顶的两个元素分别为 int 值 1 和 int 值 2，那么 iadd 指令将弹出这两个 int，并将求得的和 int 值 3 压入栈中。
+由于 iadd 指令只消耗栈顶的两个元素，因此，对于离栈顶距离为 2 的元素，即图中的问号，iadd 指令并不关心它是否存在，更加不会对其进行修改。
+Java 字节码中有好几条指令是直接作用在操作数栈上的。最为常见的便是 dup： 复制栈顶元素，以及 pop：舍弃栈顶元素。
+dup 指令常用于复制 new 指令所生成的未经初始化的引用。例如在下面这段代码的 foo 方法中，当执行 new 指令时，Java 虚拟机将指向一块已分配的、未初始化的内存的引用压入操作数栈中。
+ public void foo() {Object o = new Object();}// 对应的字节码如下：public void foo();0 new java.</description>
+    </item>
+    
+    <item>
+      <title>18 即时编译器的中间表达形式</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/18-%E5%8D%B3%E6%97%B6%E7%BC%96%E8%AF%91%E5%99%A8%E7%9A%84%E4%B8%AD%E9%97%B4%E8%A1%A8%E8%BE%BE%E5%BD%A2%E5%BC%8F/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:07 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/18-%E5%8D%B3%E6%97%B6%E7%BC%96%E8%AF%91%E5%99%A8%E7%9A%84%E4%B8%AD%E9%97%B4%E8%A1%A8%E8%BE%BE%E5%BD%A2%E5%BC%8F/</guid>
+      <description>在上一章中，我利用了程序控制流图以及伪代码，来展示即时编译器中基于 profile 的优化。不过，这并非实际的优化过程。
+1. 中间表达形式（IR） 在编译原理课程中，我们通常将编译器分为前端和后端。其中，前端会对所输入的程序进行词法分析、语法分析、语义分析，然后生成中间表达形式，也就是 IR（Intermediate Representation ）。后端会对 IR 进行优化，然后生成目标代码。
+如果不考虑解释执行的话，从 Java 源代码到最终的机器码实际上经过了两轮编译：Java 编译器将 Java 源代码编译成 Java 字节码，而即时编译器则将 Java 字节码编译成机器码。
+对于即时编译器来说，所输入的 Java 字节码剥离了很多高级的 Java 语法，而且其采用的基于栈的计算模型非常容易建模。因此，即时编译器并不需要重新进行词法分析、语法分析以及语义分析，而是直接将 Java 字节码作为一种 IR。
+不过，Java 字节码本身并不适合直接作为可供优化的 IR。这是因为现代编译器一般采用静态单赋值（Static Single Assignment，SSA）IR。这种 IR 的特点是每个变量只能被赋值一次，而且只有当变量被赋值之后才能使用。
+y = 1;y = 2;x = y;举个例子（来源），上面这段代码所对应的 SSA 形式伪代码是下面这段：
+y1 = 1;y2 = 2;x1 = y2;在源代码中，我们可以轻易地发现第一个对 y 的赋值是冗余的，但是编译器不能。传统的编译器需要借助数据流分析（具体的优化叫reaching definition），从后至前依次确认哪些变量的值被覆盖（kill）掉。
+不过，如果借助了 SSA IR，编译器则可以通过查找赋值了但是没有使用的变量，来识别冗余赋值。
+除此之外，SSA IR 对其他优化方式也有很大的帮助，例如常量折叠（constant folding）、常量传播（constant propagation）、强度削减（strength reduction）以及死代码删除（dead code elimination）等。</description>
+    </item>
+    
+    <item>
+      <title>17 即时编译（下）</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/17-%E5%8D%B3%E6%97%B6%E7%BC%96%E8%AF%91%E4%B8%8B/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:06 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/17-%E5%8D%B3%E6%97%B6%E7%BC%96%E8%AF%91%E4%B8%8B/</guid>
+      <description>今天我们来继续讲解 Java 虚拟机中的即时编译。
+Profiling 上篇提到，分层编译中的 0 层、2 层和 3 层都会进行 profiling，收集能够反映程序执行状态的数据。其中，最为基础的便是方法的调用次数以及循环回边的执行次数。它们被用于触发即时编译。
+此外，0 层和 3 层还会收集用于 4 层 C2 编译的数据，比如说分支跳转字节码的分支 profile（branch profile），包括跳转次数和不跳转次数，以及非私有实例方法调用指令、强制类型转换 checkcast 指令、类型测试 instanceof 指令，和引用类型的数组存储 aastore 指令的类型 profile（receiver type profile）。
+分支 profile 和类型 profile 的收集将给应用程序带来不少的性能开销。据统计，正是因为这部分额外的 profiling，使得 3 层 C1 代码的性能比 2 层 C1 代码的低 30%。
+在通常情况下，我们不会在解释执行过程中收集分支 profile 以及类型 profile。只有在方法触发 C1 编译后，Java 虚拟机认为该方法有可能被 C2 编译，方才在该方法的 C1 代码中收集这些 profile。
+只要在比较极端的情况下，例如等待 C1 编译的方法数目太多时，Java 虚拟机才会开始在解释执行过程中收集这些 profile。
+那么这些耗费巨大代价收集而来的 profile 具体有什么作用呢？
+答案是，C2 可以根据收集得到的数据进行猜测，假设接下来的执行同样会按照所收集的 profile 进行，从而作出比较激进的优化。
+基于分支 profile 的优化 举个例子，下面这段代码中包含两个条件判断。第一个条件判断将测试所输入的 boolean 值。</description>
+    </item>
+    
+    <item>
+      <title>16 即时编译（上）</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/16-%E5%8D%B3%E6%97%B6%E7%BC%96%E8%AF%91%E4%B8%8A/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:05 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/16-%E5%8D%B3%E6%97%B6%E7%BC%96%E8%AF%91%E4%B8%8A/</guid>
+      <description>在专栏的第一篇中，我曾经简单地介绍过即时编译。这是一项用来提升应用程序运行效率的技术。通常而言，代码会先被 Java 虚拟机解释执行，之后反复执行的热点代码则会被即时编译成为机器码，直接运行在底层硬件之上。
+今天我们便来详细剖析一下 Java 虚拟机中的即时编译。
+分层编译模式 HotSpot 虚拟机包含多个即时编译器 C1、C2 和 Graal。
+其中，Graal 是一个实验性质的即时编译器，可以通过参数 -XX:+UnlockExperimentalVMOptions -XX:+UseJVMCICompiler 启用，并且替换 C2。
+在 Java 7 以前，我们需要根据程序的特性选择对应的即时编译器。对于执行时间较短的，或者对启动性能有要求的程序，我们采用编译效率较快的 C1，对应参数 -client。
+对于执行时间较长的，或者对峰值性能有要求的程序，我们采用生成代码执行效率较快的 C2，对应参数 -server。
+Java 7 引入了分层编译（对应参数 -XX:+TieredCompilation）的概念，综合了 C1 的启动性能优势和 C2 的峰值性能优势。
+分层编译将 Java 虚拟机的执行状态分为了五个层次。为了方便阐述，我用“C1 代码”来指代由 C1 生成的机器码，“C2 代码”来指代由 C2 生成的机器码。五个层级分别是：
+ 解释执行； 执行不带 profiling 的 C1 代码； 执行仅带方法调用次数以及循环回边执行次数 profiling 的 C1 代码； 执行带所有 profiling 的 C1 代码； 执行 C2 代码。  通常情况下，C2 代码的执行效率要比 C1 代码的高出 30% 以上。然而，对于 C1 代码的三种状态，按执行效率从高至低则是 1 层 &amp;gt; 2 层 &amp;gt; 3 层。</description>
+    </item>
+    
+    <item>
+      <title>15 Java语法糖与Java编译器</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/15-java%E8%AF%AD%E6%B3%95%E7%B3%96%E4%B8%8Ejava%E7%BC%96%E8%AF%91%E5%99%A8/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:04 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/15-java%E8%AF%AD%E6%B3%95%E7%B3%96%E4%B8%8Ejava%E7%BC%96%E8%AF%91%E5%99%A8/</guid>
+      <description>在前面的篇章中，我们多次提到了 Java 语法和 Java 字节码的差异之处。这些差异之处都是通过 Java 编译器来协调的。今天我们便来列举一下 Java 编译器的协调工作。
+自动装箱与自动拆箱 首先要提到的便是 Java 的自动装箱（auto-boxing）和自动拆箱（auto-unboxing）。
+我们知道，Java 语言拥有 8 个基本类型，每个基本类型都有对应的包装（wrapper）类型。
+之所以需要包装类型，是因为许多 Java 核心类库的 API 都是面向对象的。举个例子，Java 核心类库中的容器类，就只支持引用类型。
+当需要一个能够存储数值的容器类时，我们往往定义一个存储包装类对象的容器。
+对于基本类型的数值来说，我们需要先将其转换为对应的包装类，再存入容器之中。在 Java 程序中，这个转换可以是显式，也可以是隐式的，后者正是 Java 中的自动装箱。
+public int foo() {ArrayList&amp;lt;Integer&amp;gt; list = new ArrayList&amp;lt;&amp;gt;();list.add(0);int result = list.get(0);return result;}以上图中的 Java 代码为例。我构造了一个 Integer 类型的 ArrayList，并且向其中添加一个 int 值 0。然后，我会获取该 ArrayList 的第 0 个元素，并作为 int 值返回给调用者。这段代码对应的 Java 字节码如下所示：
+public int foo();Code:0: new java/util/ArrayList3: dup4: invokespecial java/util/ArrayList.</description>
+    </item>
+    
+    <item>
+      <title>14 Java虚拟机是怎么实现synchronized的？</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/14-java%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0synchronized%E7%9A%84/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:03 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/14-java%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0synchronized%E7%9A%84/</guid>
+      <description>在 Java 程序中，我们可以利用 synchronized 关键字来对程序进行加锁。它既可以用来声明一个 synchronized 代码块，也可以直接标记静态方法或者实例方法。
+当声明 synchronized 代码块时，编译而成的字节码将包含 monitorenter 和 monitorexit 指令。这两种指令均会消耗操作数栈上的一个引用类型的元素（也就是 synchronized 关键字括号里的引用），作为所要加锁解锁的锁对象。
+ public void foo(Object lock) {synchronized (lock) {lock.hashCode();}}// 上面的 Java 代码将编译为下面的字节码public void foo(java.lang.Object);Code:0: aload_11: dup2: astore_23: monitorenter4: aload_15: invokevirtual java/lang/Object.hashCode:()I8: pop9: aload_210: monitorexit11: goto 1914: astore_315: aload_216: monitorexit17: aload_318: athrow19: returnException table:from to target type4 11 14 any14 17 14 any我在文稿中贴了一段包含 synchronized 代码块的 Java 代码，以及它所编译而成的字节码。你可能会留意到，上面的字节码中包含一个 monitorenter 指令以及多个 monitorexit 指令。这是因为 Java 虚拟机需要确保所获得的锁在正常执行路径，以及异常执行路径上都能够被解锁。</description>
+    </item>
+    
+    <item>
+      <title>13 Java内存模型</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/13-java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:02 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/13-java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/</guid>
+      <description>我们先来看一个反常识的例子。
+int a=0, b=0;public void method1() {int r2 = a;b = 1;}public void method2() {int r1 = b;a = 2;}这里我定义了两个共享变量 a 和 b，以及两个方法。第一个方法将局部变量 r2 赋值为 a，然后将共享变量 b 赋值为 1。第二个方法将局部变量 r1 赋值为 b，然后将共享变量 a 赋值为 2。请问（r1，r2）的可能值都有哪些？
+在单线程环境下，我们可以先调用第一个方法，最终（r1，r2）为（1，0）；也可以先调用第二个方法，最终为（0，2）。
+在多线程环境下，假设这两个方法分别跑在两个不同的线程之上，如果 Java 虚拟机在执行了任一方法的第一条赋值语句之后便切换线程，那么最终结果将可能出现（0，0）的情况。
+除上述三种情况之外，Java 语言规范第 17.4 小节 [1] 还介绍了一种看似不可能的情况（1，2）。
+造成这一情况的原因有三个，分别为即时编译器的重排序，处理器的乱序执行，以及内存系统的重排序。由于后两种原因涉及具体的体系架构，我们暂且放到一边。下面我先来讲一下编译器优化的重排序是怎么一回事。
+首先需要说明一点，即时编译器（和处理器）需要保证程序能够遵守 as-if-serial 属性。通俗地说，就是在单线程情况下，要给程序一个顺序执行的假象。即经过重排序的执行结果要与顺序执行的结果保持一致。
+另外，如果两个操作之间存在数据依赖，那么即时编译器（和处理器）不能调整它们的顺序，否则将会造成程序语义的改变。
+int a=0, b=0;public void method1() {int r2 = a;b = 1;.</description>
+    </item>
+    
+    <item>
+      <title>12 垃圾回收（下）</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/12-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E4%B8%8B/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:01 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/12-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E4%B8%8B/</guid>
+      <description>在读博士的时候，我曾经写过一个统计 Java 对象生命周期的动态分析，并且用它来跑了一些基准测试。
+其中一些程序的结果，恰好验证了许多研究人员的假设，即大部分的 Java 对象只存活一小段时间，而存活下来的小部分 Java 对象则会存活很长一段时间。
+（pmd 中 Java 对象生命周期的直方图，红色的表示被逃逸分析优化掉的对象）
+之所以要提到这个假设，是因为它造就了 Java 虚拟机的分代回收思想。简单来说，就是将堆空间划分为两代，分别叫做新生代和老年代。新生代用来存储新建的对象。当对象存活时间够长时，则将其移动到老年代。
+Java 虚拟机可以给不同代使用不同的回收算法。对于新生代，我们猜测大部分的 Java 对象只存活一小段时间，那么便可以频繁地采用耗时较短的垃圾回收算法，让大部分的垃圾都能够在新生代被回收掉。
+对于老年代，我们猜测大部分的垃圾已经在新生代中被回收了，而在老年代中的对象有大概率会继续存活。当真正触发针对老年代的回收时，则代表这个假设出错了，或者堆的空间已经耗尽了。
+这时候，Java 虚拟机往往需要做一次全堆扫描，耗时也将不计成本。（当然，现代的垃圾回收器都在并发收集的道路上发展，来避免这种全堆扫描的情况。）
+今天这一篇我们来关注一下针对新生代的 Minor GC。首先，我们来看看 Java 虚拟机中的堆具体是怎么划分的。
+Java 虚拟机的堆划分 前面提到，Java 虚拟机将堆划分为新生代和老年代。其中，新生代又被划分为 Eden 区，以及两个大小相同的 Survivor 区。
+默认情况下，Java 虚拟机采取的是一种动态分配的策略（对应 Java 虚拟机参数 -XX:+UsePSAdaptiveSurvivorSizePolicy），根据生成对象的速率，以及 Survivor 区的使用情况动态调整 Eden 区和 Survivor 区的比例。
+当然，你也可以通过参数 -XX:SurvivorRatio 来固定这个比例。但是需要注意的是，其中一个 Survivor 区会一直为空，因此比例越低浪费的堆空间将越高。
+通常来说，当我们调用 new 指令时，它会在 Eden 区中划出一块作为存储对象的内存。由于堆空间是线程共享的，因此直接在这里边划空间是需要进行同步的。
+否则，将有可能出现两个对象共用一段内存的事故。如果你还记得前两篇我用“停车位”打的比方的话，这里就相当于两个司机（线程）同时将车停入同一个停车位，因而发生剐蹭事故。
+Java 虚拟机的解决方法是为每个司机预先申请多个停车位，并且只允许该司机停在自己的停车位上。那么当司机的停车位用完了该怎么办呢（假设这个司机代客泊车）？
+答案是：再申请多个停车位便可以了。这项技术被称之为 TLAB（Thread Local Allocation Buffer，对应虚拟机参数 -XX:+UseTLAB，默认开启）。
+具体来说，每个线程可以向 Java 虚拟机申请一段连续的内存，比如 2048 字节，作为线程私有的 TLAB。</description>
+    </item>
+    
+    <item>
+      <title>11 垃圾回收（上）</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/11-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E4%B8%8A/</link>
+      <pubDate>Sun, 09 Jan 2022 11:11:00 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/11-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E4%B8%8A/</guid>
+      <description>你应该听说过这么一句话：免费的其实是最贵的。
+Java 虚拟机的自动内存管理，将原本需要由开发人员手动回收的内存，交给垃圾回收器来自动回收。不过既然是自动机制，肯定没法做到像手动回收那般精准高效 [1] ，而且还会带来不少与垃圾回收实现相关的问题。
+接下来的两篇，我们会深入探索 Java 虚拟机中的垃圾回收器。今天这一篇，我们来回顾一下垃圾回收的基础知识。
+引用计数法与可达性分析 垃圾回收，顾名思义，便是将已经分配出去的，但却不再使用的内存回收回来，以便能够再次分配。在 Java 虚拟机的语境下，垃圾指的是死亡的对象所占据的堆空间。这里便涉及了一个关键的问题：如何辨别一个对象是存是亡？
+我们先来讲一种古老的辨别方法：引用计数法（reference counting）。它的做法是为每个对象添加一个引用计数器，用来统计指向该对象的引用个数。一旦某个对象的引用计数器为 0，则说明该对象已经死亡，便可以被回收了。
+它的具体实现是这样子的：如果有一个引用，被赋值为某一对象，那么将该对象的引用计数器 +1。如果一个指向某一对象的引用，被赋值为其他值，那么将该对象的引用计数器 -1。也就是说，我们需要截获所有的引用更新操作，并且相应地增减目标对象的引用计数器。
+除了需要额外的空间来存储计数器，以及繁琐的更新操作，引用计数法还有一个重大的漏洞，那便是无法处理循环引用对象。
+举个例子，假设对象 a 与 b 相互引用，除此之外没有其他引用指向 a 或者 b。在这种情况下，a 和 b 实际上已经死了，但由于它们的引用计数器皆不为 0，在引用计数法的心中，这两个对象还活着。因此，这些循环引用对象所占据的空间将不可回收，从而造成了内存泄露。
+目前 Java 虚拟机的主流垃圾回收器采取的是可达性分析算法。这个算法的实质在于将一系列 GC Roots 作为初始的存活对象合集（live set），然后从该合集出发，探索所有能够被该集合引用到的对象，并将其加入到该集合中，这个过程我们也称之为标记（mark）。最终，未被探索到的对象便是死亡的，是可以回收的。
+那么什么是 GC Roots 呢？我们可以暂时理解为由堆外指向堆内的引用，一般而言，GC Roots 包括（但不限于）如下几种：
+ Java 方法栈桢中的局部变量； 已加载类的静态变量； JNI handles； 已启动且未停止的 Java 线程。  可达性分析可以解决引用计数法所不能解决的循环引用问题。举例来说，即便对象 a 和 b 相互引用，只要从 GC Roots 出发无法到达 a 或者 b，那么可达性分析便不会将它们加入存活对象合集之中。
+虽然可达性分析的算法本身很简明，但是在实践中还是有不少其他问题需要解决的。
+比如说，在多线程环境下，其他线程可能会更新已经访问过的对象中的引用，从而造成误报（将引用设置为 null）或者漏报（将引用设置为未被访问过的对象）。
+误报并没有什么伤害，Java 虚拟机至多损失了部分垃圾回收的机会。漏报则比较麻烦，因为垃圾回收器可能回收事实上仍被引用的对象内存。一旦从原引用访问已经被回收了的对象，则很有可能会直接导致 Java 虚拟机崩溃。</description>
+    </item>
+    
+    <item>
+      <title>10 Java对象的内存布局</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/10-java%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/</link>
+      <pubDate>Sun, 09 Jan 2022 11:10:59 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/10-java%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/</guid>
+      <description>在 Java 程序中，我们拥有多种新建对象的方式。除了最为常见的 new 语句之外，我们还可以通过反射机制、Object.clone 方法、反序列化以及 Unsafe.allocateInstance 方法来新建对象。
+其中，Object.clone 方法和反序列化通过直接复制已有的数据，来初始化新建对象的实例字段。Unsafe.allocateInstance 方法则没有初始化实例字段，而 new 语句和反射机制，则是通过调用构造器来初始化实例字段。
+以 new 语句为例，它编译而成的字节码将包含用来请求内存的 new 指令，以及用来调用构造器的 invokespecial 指令。
+// Foo foo = new Foo(); 编译而成的字节码0 new Foo3 dup4 invokespecial Foo()7 astore_1提到构造器，就不得不提到 Java 对构造器的诸多约束。首先，如果一个类没有定义任何构造器的话， Java 编译器会自动添加一个无参数的构造器。
+// Foo 类构造器会调用其父类 Object 的构造器public Foo();0 aload_0 [this]1 invokespecial java.lang.Object() [8]4 return然后，子类的构造器需要调用父类的构造器。如果父类存在无参数构造器的话，该调用可以是隐式的，也就是说 Java 编译器会自动添加对父类构造器的调用。但是，如果父类没有无参数构造器，那么子类的构造器则需要显式地调用父类带参数的构造器。
+显式调用又可分为两种，一是直接使用“super”关键字调用父类构造器，二是使用“this”关键字调用同一个类中的其他构造器。无论是直接的显式调用，还是间接的显式调用，都需要作为构造器的第一条语句，以便优先初始化继承而来的父类字段。（不过这可以通过调用其他生成参数的方法，或者字节码注入来绕开。）
+总而言之，当我们调用一个构造器时，它将优先调用父类的构造器，直至 Object 类。这些构造器的调用者皆为同一对象，也就是通过 new 指令新建而来的对象。
+你应该已经发现了其中的玄机：通过 new 指令新建出来的对象，它的内存其实涵盖了所有父类中的实例字段。也就是说，虽然子类无法访问父类的私有实例字段，或者子类的实例字段隐藏了父类的同名实例字段，但是子类的实例还是会为这些父类实例字段分配内存的。</description>
+    </item>
+    
+    <item>
+      <title>09 JVM是怎么实现invokedynamic的？（下）</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/09-jvm%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0invokedynamic%E7%9A%84%E4%B8%8B/</link>
+      <pubDate>Sun, 09 Jan 2022 11:10:58 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/09-jvm%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0invokedynamic%E7%9A%84%E4%B8%8B/</guid>
+      <description>上回讲到，为了让所有的动物都能参加赛马，Java 7 引入了 invokedynamic 机制，允许调用任意类的“赛跑”方法。不过，我们并没有讲解 invokedynamic，而是深入地探讨了它所依赖的方法句柄。
+今天，我便来正式地介绍 invokedynamic 指令，讲讲它是如何生成调用点，并且允许应用程序自己决定链接至哪一个方法中的。
+invokedynamic 指令 invokedynamic 是 Java 7 引入的一条新指令，用以支持动态语言的方法调用。具体来说，它将调用点（CallSite）抽象成一个 Java 类，并且将原本由 Java 虚拟机控制的方法调用以及方法链接暴露给了应用程序。在运行过程中，每一条 invokedynamic 指令将捆绑一个调用点，并且会调用该调用点所链接的方法句柄。
+在第一次执行 invokedynamic 指令时，Java 虚拟机会调用该指令所对应的启动方法（BootStrap Method），来生成前面提到的调用点，并且将之绑定至该 invokedynamic 指令中。在之后的运行过程中，Java 虚拟机则会直接调用绑定的调用点所链接的方法句柄。
+在字节码中，启动方法是用方法句柄来指定的。这个方法句柄指向一个返回类型为调用点的静态方法。该方法必须接收三个固定的参数，分别为一个 Lookup 类实例，一个用来指代目标方法名字的字符串，以及该调用点能够链接的方法句柄的类型。
+除了这三个必需参数之外，启动方法还可以接收若干个其他的参数，用来辅助生成调用点，或者定位所要链接的目标方法。
+import java.lang.invoke.*;class Horse {public void race() {System.out.println(&amp;quot;Horse.race()&amp;quot;); }}class Deer {public void race() {System.out.println(&amp;quot;Deer.race()&amp;quot;);}}// javac Circuit.java// java Circuitpublic class Circuit {public static void startRace(Object obj) {// aload obj// invokedynamic race()}public static void main(String[] args) {startRace(new Horse());// startRace(new Deer());}public static CallSite bootstrap(MethodHandles.</description>
+    </item>
+    
+    <item>
+      <title>08 JVM是怎么实现invokedynamic的？（上）</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/08-jvm%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0invokedynamic%E7%9A%84%E4%B8%8A/</link>
+      <pubDate>Sun, 09 Jan 2022 11:10:57 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/08-jvm%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0invokedynamic%E7%9A%84%E4%B8%8A/</guid>
+      <description>前不久，“虚拟机”赛马俱乐部来了个年轻人，标榜自己是动态语言，是先进分子。
+这一天，先进分子牵着一头鹿进来，说要参加赛马。咱部里的老学究 Java 就不同意了呀，鹿又不是马，哪能参加赛马。
+当然了，这种墨守成规的调用方式，自然是先进分子所不齿的。现在年轻人里流行的是鸭子类型（duck typing）[1]，只要是跑起来像只马的，它就是一只马，也就能够参加赛马比赛。
+class Horse {public void race() {System.out.println(&amp;quot;Horse.race()&amp;quot;); }}class Deer {public void race() {System.out.println(&amp;quot;Deer.race()&amp;quot;);}}class Cobra {public void race() {System.out.println(&amp;quot;How do you turn this on?&amp;quot;);}}(如何用同一种方式调用他们的赛跑方法？)
+说到了这里，如果我们将赛跑定义为对赛跑方法（对应上述代码中的 race()）的调用的话，那么这个故事的关键，就在于能不能在马场中调用非马类型的赛跑方法。
+为了解答这个问题，我们先来回顾一下 Java 里的方法调用。在 Java 中，方法调用会被编译为 invokestatic，invokespecial，invokevirtual 以及 invokeinterface 四种指令。这些指令与包含目标方法类名、方法名以及方法描述符的符号引用捆绑。在实际运行之前，Java 虚拟机将根据这个符号引用链接到具体的目标方法。
+可以看到，在这四种调用指令中，Java 虚拟机明确要求方法调用需要提供目标方法的类名。在这种体系下，我们有两个解决方案。一是调用其中一种类型的赛跑方法，比如说马类的赛跑方法。对于非马的类型，则给它套一层马甲，当成马来赛跑。
+另外一种解决方式，是通过反射机制，来查找并且调用各个类型中的赛跑方法，以此模拟真正的赛跑。
+显然，比起直接调用，这两种方法都相当复杂，执行效率也可想而知。为了解决这个问题，Java 7 引入了一条新的指令 invokedynamic。该指令的调用机制抽象出调用点这一个概念，并允许应用程序将调用点链接至任意符合条件的方法上。
+ public static void startRace(java.lang.Object)0: aload_0 // 加载一个任意对象1: invokedynamic race // 调用赛跑方法(理想的调用方式)</description>
+    </item>
+    
+    <item>
+      <title>07 JVM是如何实现反射的？</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/07-jvm%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%8F%8D%E5%B0%84%E7%9A%84/</link>
+      <pubDate>Sun, 09 Jan 2022 11:10:56 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/07-jvm%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%8F%8D%E5%B0%84%E7%9A%84/</guid>
+      <description>今天我们来聊聊 Java 里的反射机制。
+反射是 Java 语言中一个相当重要的特性，它允许正在运行的 Java 程序观测，甚至是修改程序的动态行为。
+举例来说，我们可以通过 Class 对象枚举该类中的所有方法，我们还可以通过 Method.setAccessible（位于 java.lang.reflect 包，该方法继承自 AccessibleObject）绕过 Java 语言的访问权限，在私有方法所在类之外的地方调用该方法。
+反射在 Java 中的应用十分广泛。开发人员日常接触到的 Java 集成开发环境（IDE）便运用了这一功能：每当我们敲入点号时，IDE 便会根据点号前的内容，动态展示可以访问的字段或者方法。
+另一个日常应用则是 Java 调试器，它能够在调试过程中枚举某一对象所有字段的值。
+（图中 eclipse 的自动提示使用了反射）
+在 Web 开发中，我们经常能够接触到各种可配置的通用框架。为了保证框架的可扩展性，它们往往借助 Java 的反射机制，根据配置文件来加载不同的类。举例来说，Spring 框架的依赖反转（IoC），便是依赖于反射机制。
+然而，我相信不少开发人员都嫌弃反射机制比较慢。甚至是甲骨文关于反射的教学网页 [1]，也强调了反射性能开销大的缺点。
+今天我们便来了解一下反射的实现机制，以及它性能糟糕的原因。如果你对反射 API 不是特别熟悉的话，你可以查阅我放在文稿末尾的附录。
+反射调用的实现 首先，我们来看看方法的反射调用，也就是 Method.invoke，是怎么实现的。
+public final class Method extends Executable {...public Object invoke(Object obj, Object... args) throws ... {... // 权限检查MethodAccessor ma = methodAccessor;if (ma == null) {ma = acquireMethodAccessor();}return ma.</description>
+    </item>
+    
+    <item>
+      <title>06 JVM是如何处理异常的？</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/06-jvm%E6%98%AF%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8%E7%9A%84/</link>
+      <pubDate>Sun, 09 Jan 2022 11:10:55 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/06-jvm%E6%98%AF%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8%E7%9A%84/</guid>
+      <description>今天我们来讲讲 Java 虚拟机的异常处理。首先提醒你一下，本篇文章代码较多，你可以点击文稿查看具体代码。
+众所周知，异常处理的两大组成要素是抛出异常和捕获异常。这两大要素共同实现程序控制流的非正常转移。
+抛出异常可分为显式和隐式两种。显式抛异常的主体是应用程序，它指的是在程序中使用“throw”关键字，手动将异常实例抛出。
+隐式抛异常的主体则是 Java 虚拟机，它指的是 Java 虚拟机在执行过程中，碰到无法继续执行的异常状态，自动抛出异常。举例来说，Java 虚拟机在执行读取数组操作时，发现输入的索引值是负数，故而抛出数组索引越界异常（ArrayIndexOutOfBoundsException）。
+捕获异常则涉及了如下三种代码块。
+ try 代码块：用来标记需要进行异常监控的代码。 catch 代码块：跟在 try 代码块之后，用来捕获在 try 代码块中触发的某种指定类型的异常。除了声明所捕获异常的类型之外，catch 代码块还定义了针对该异常类型的异常处理器。在 Java 中，try 代码块后面可以跟着多个 catch 代码块，来捕获不同类型的异常。Java 虚拟机会从上至下匹配异常处理器。因此，前面的 catch 代码块所捕获的异常类型不能覆盖后边的，否则编译器会报错。 finally 代码块：跟在 try 代码块和 catch 代码块之后，用来声明一段必定运行的代码。它的设计初衷是为了避免跳过某些关键的清理代码，例如关闭已打开的系统资源。  在程序正常执行的情况下，这段代码会在 try 代码块之后运行。否则，也就是 try 代码块触发异常的情况下，如果该异常没有被捕获，finally 代码块会直接运行，并且在运行之后重新抛出该异常。
+如果该异常被 catch 代码块捕获，finally 代码块则在 catch 代码块之后运行。在某些不幸的情况下，catch 代码块也触发了异常，那么 finally 代码块同样会运行，并会抛出 catch 代码块触发的异常。在某些极端不幸的情况下，finally 代码块也触发了异常，那么只好中断当前 finally 代码块的执行，并往外抛异常。
+上面这段听起来有点绕，但是等我讲完 Java 虚拟机的异常处理机制之后，你便会明白这其中的道理。
+异常的基本概念 在 Java 语言规范中，所有异常都是 Throwable 类或者其子类的实例。Throwable 有两大直接子类。第一个是 Error，涵盖程序不应捕获的异常。当程序触发 Error 时，它的执行状态已经无法恢复，需要中止线程甚至是中止虚拟机。第二子类则是 Exception，涵盖程序可能需要捕获并且处理的异常。</description>
+    </item>
+    
+    <item>
+      <title>05 JVM是如何执行方法调用的？（下）</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/05-jvm%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E7%9A%84%E4%B8%8B/</link>
+      <pubDate>Sun, 09 Jan 2022 11:10:54 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/05-jvm%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E7%9A%84%E4%B8%8B/</guid>
+      <description>我在读博士的时候，最怕的事情就是被问有没有新的 Idea。有一次我被老板问急了，就随口说了一个。
+这个 Idea 究竟是什么呢，我们知道，设计模式大量使用了虚方法来实现多态。但是虚方法的性能效率并不高，所以我就说，是否能够在此基础上写篇文章，评估每一种设计模式因为虚方法调用而造成的性能开销，并且在文章中强烈谴责一下？
+当时呢，我老板教的是一门高级程序设计的课，其中有好几节课刚好在讲设计模式的各种好处。所以，我说完这个 Idea，就看到老板的神色略有不悦了，脸上写满了“小郑啊，你这是舍本逐末啊”，于是，我就连忙挽尊，说我是开玩笑的。
+在这里呢，我犯的错误其实有两个。第一，我不应该因为虚方法的性能效率，而放弃良好的设计。第二，通常来说，Java 虚拟机中虚方法调用的性能开销并不大，有些时候甚至可以完全消除。第一个错误是原则上的，这里就不展开了。至于第二个错误，我们今天便来聊一聊 Java 虚拟机中虚方法调用的具体实现。
+首先，我们来看一个模拟出国边检的小例子。
+abstract class Passenger {abstract void passThroughImmigration();@Overridepublic String toString() { ... }}class ForeignerPassenger extends Passenger {@Overridevoid passThroughImmigration() { /* 进外国人通道 */ }}class ChinesePassenger extends Passenger {@Overridevoid passThroughImmigration() { /* 进中国人通道 */ }void visitDutyFreeShops() { /* 逛免税店 */ }}Passenger passenger = ...passenger.passThroughImmigration();这里我定义了一个抽象类，叫做 Passenger，这个类中有一个名为 passThroughImmigration 的抽象方法，以及重写自 Object 类的 toString 方法。</description>
+    </item>
+    
+    <item>
+      <title>04 JVM是如何执行方法调用的？（上）</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/04-jvm%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E7%9A%84%E4%B8%8A/</link>
+      <pubDate>Sun, 09 Jan 2022 11:10:53 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/04-jvm%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E7%9A%84%E4%B8%8A/</guid>
+      <description>前不久在写代码的时候，我不小心踩到一个可变长参数的坑。你或许已经猜到了，它正是可变长参数方法的重载造成的。（注：官方文档建议避免重载可变长参数方法，见 [1] 的最后一段。）
+我把踩坑的过程放在了文稿里，你可以点击查看。
+void invoke(Object obj, Object... args) { ... }void invoke(String s, Object obj, Object... args) { ... }invoke(null, 1); // 调用第二个 invoke 方法invoke(null, 1, 2); // 调用第二个 invoke 方法invoke(null, new Object[]{1}); // 只有手动绕开可变长参数的语法糖，// 才能调用第一个 invoke 方法当时情况是这样子的，某个 API 定义了两个同名的重载方法。其中，第一个接收一个 Object，以及声明为 Object…的变长参数；而第二个则接收一个 String、一个 Object，以及声明为 Object…的变长参数。
+这里我想调用第一个方法，传入的参数为 (null, 1)。也就是说，声明为 Object 的形式参数所对应的实际参数为 null，而变长参数则对应 1。
+通常来说，之所以不提倡可变长参数方法的重载，是因为 Java 编译器可能无法决定应该调用哪个目标方法。
+在这种情况下，编译器会报错，并且提示这个方法调用有二义性。然而，Java 编译器直接将我的方法调用识别为调用第二个方法，这究竟是为什么呢？
+带着这个问题，我们来看一看 Java 虚拟机是怎么识别目标方法的。
+重载与重写 在 Java 程序里，如果同一个类中出现多个名字相同，并且参数类型相同的方法，那么它无法通过编译。也就是说，在正常情况下，如果我们想要在同一个类中定义名字相同的方法，那么它们的参数类型必须不同。这些方法之间的关系，我们称之为重载。</description>
+    </item>
+    
+    <item>
+      <title>03 Java虚拟机是如何加载Java类的</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/03-java%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%98%AF%E5%A6%82%E4%BD%95%E5%8A%A0%E8%BD%BDjava%E7%B1%BB%E7%9A%84/</link>
+      <pubDate>Sun, 09 Jan 2022 11:10:52 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/03-java%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%98%AF%E5%A6%82%E4%BD%95%E5%8A%A0%E8%BD%BDjava%E7%B1%BB%E7%9A%84/</guid>
+      <description>听我的意大利同事说，他们那边有个习俗，就是父亲要帮儿子盖栋房子。
+这事要放在以前还挺简单，亲朋好友搭把手，盖个小砖房就可以住人了。现在呢，整个过程要耗费好久的时间。首先你要请建筑师出个方案，然后去市政部门报备、验证，通过后才可以开始盖房子。盖好房子还要装修，之后才能住人。
+盖房子这个事，和 Java 虚拟机中的类加载还是挺像的。从 class 文件到内存中的类，按先后顺序需要经过加载、链接以及初始化三大步骤。其中，链接过程中同样需要验证；而内存中的类没有经过初始化，同样不能使用。那么，是否所有的 Java 类都需要经过这几步呢？
+我们知道 Java 语言的类型可以分为两大类：基本类型（primitive types）和引用类型（reference types）。在上一篇中，我已经详细介绍过了 Java 的基本类型，它们是由 Java 虚拟机预先定义好的。
+至于另一大类引用类型，Java 将其细分为四种：类、接口、数组类和泛型参数。由于泛型参数会在编译过程中被擦除（我会在专栏的第二部分详细介绍），因此 Java 虚拟机实际上只有前三种。在类、接口和数组类中，数组类是由 Java 虚拟机直接生成的，其他两种则有对应的字节流。
+说到字节流，最常见的形式要属由 Java 编译器生成的 class 文件。除此之外，我们也可以在程序内部直接生成，或者从网络中获取（例如网页中内嵌的小程序 Java applet）字节流。这些不同形式的字节流，都会被加载到 Java 虚拟机中，成为类或接口。为了叙述方便，下面我就用“类”来统称它们。
+无论是直接生成的数组类，还是加载的类，Java 虚拟机都需要对其进行链接和初始化。接下来，我会详细给你介绍一下每个步骤具体都在干些什么。
+加载 加载，是指查找字节流，并且据此创建类的过程。前面提到，对于数组类来说，它并没有对应的字节流，而是由 Java 虚拟机直接生成的。对于其他的类来说，Java 虚拟机则需要借助类加载器来完成查找字节流的过程。
+以盖房子为例，村里的 Tony 要盖个房子，那么按照流程他得先找个建筑师，跟他说想要设计一个房型，比如说“一房、一厅、四卫”。你或许已经听出来了，这里的房型相当于类，而建筑师，就相当于类加载器。
+村里有许多建筑师，他们等级森严，但有着共同的祖师爷，叫启动类加载器（bootstrap class loader）。启动类加载器是由 C++ 实现的，没有对应的 Java 对象，因此在 Java 中只能用 null 来指代。换句话说，祖师爷不喜欢像 Tony 这样的小角色来打扰他，所以谁也没有祖师爷的联系方式。
+除了启动类加载器之外，其他的类加载器都是 java.lang.ClassLoader 的子类，因此有对应的 Java 对象。这些类加载器需要先由另一个类加载器，比如说启动类加载器，加载至 Java 虚拟机中，方能执行类加载。
+村里的建筑师有一个潜规则，就是接到单子自己不能着手干，得先给师傅过过目。师傅不接手的情况下，才能自己来。在 Java 虚拟机中，这个潜规则有个特别的名字，叫双亲委派模型。每当一个类加载器接收到加载请求时，它会先将请求转发给父类加载器。在父类加载器没有找到所请求的类的情况下，该类加载器才会尝试去加载。
+在 Java 9 之前，启动类加载器负责加载最为基础、最为重要的类，比如存放在 JRE 的 lib 目录下 jar 包中的类（以及由虚拟机参数 -Xbootclasspath 指定的类）。除了启动类加载器之外，另外两个重要的类加载器是扩展类加载器（extension class loader）和应用类加载器（application class loader），均由 Java 核心类库提供。</description>
+    </item>
+    
+    <item>
+      <title>02 Java的基本类型</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/02-java%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Sun, 09 Jan 2022 11:10:51 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/02-java%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/</guid>
+      <description>如果你了解面向对象语言的发展史，那你可能听说过 Smalltalk 这门语言。它的影响力之大，以至于之后诞生的面向对象语言，或多或少都借鉴了它的设计和实现。
+在 Smalltalk 中，所有的值都是对象。因此，许多人认为它是一门纯粹的面向对象语言。
+Java 则不同，它引进了八个基本类型，来支持数值计算。Java 这么做的原因主要是工程上的考虑，因为使用基本类型能够在执行效率以及内存使用两方面提升软件性能。
+今天，我们就来了解一下基本类型在 Java 虚拟机中的实现。
+public class Foo {public static void main(String[] args) {boolean 吃过饭没 = 2; // 直接编译的话 javac 会报错if (吃过饭没) System.out.println(&amp;quot; 吃了 &amp;quot;);if (true == 吃过饭没) System.out.println(&amp;quot; 真吃了 &amp;quot;);}}在上一篇结尾的小作业里，我构造了这么一段代码，它将一个 boolean 类型的局部变量赋值为 2。为了方便记忆，我们给这个变量起个名字，就叫“吃过饭没”。
+赋值语句后边我设置了两个看似一样的 if 语句。第一个 if 语句，也就是直接判断“吃过饭没”，在它成立的情况下，代码会打印“吃了”。
+第二个 if 语句，也就是判断“吃过饭没”和 true 是否相等，在它成立的情况下，代码会打印“真吃了”。
+当然，直接编译这段代码，编译器是会报错的。所以，我迂回了一下，采用一个 Java 字节码的汇编工具，直接对字节码进行更改。
+那么问题就来了：当一个 boolean 变量的值是 2 时，它究竟是 true 还是 false 呢？</description>
+    </item>
+    
+    <item>
+      <title>01 Java代码是怎么运行的？</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/01-java%E4%BB%A3%E7%A0%81%E6%98%AF%E6%80%8E%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84/</link>
+      <pubDate>Sun, 09 Jan 2022 11:10:50 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/01-java%E4%BB%A3%E7%A0%81%E6%98%AF%E6%80%8E%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84/</guid>
+      <description>我们学院的一位教授之前去美国开会，入境的时候海关官员就问他：既然你会计算机，那你说说你用的都是什么语言吧？
+教授随口就答了个 Java。海关一看是懂行的，也就放行了，边敲章还边说他们上学那会学的是 C+。我还特意去查了下，真有叫 C+ 的语言，但是这里海关官员应该指的是 C++。
+事后教授告诉我们，他当时差点就问海关，是否知道 Java 和 C++ 在运行方式上的区别。但是又担心海关官员拿他的问题来考别人，也就没问出口。那么，下次你去美国，不幸地被海关官员问这个问题，你懂得如何回答吗？
+作为一名 Java 程序员，你应该知道，Java 代码有很多种不同的运行方式。比如说可以在开发工具中运行，可以双击执行 jar 文件运行，也可以在命令行中运行，甚至可以在网页中运行。当然，这些执行方式都离不开 JRE，也就是 Java 运行时环境。
+实际上，JRE 仅包含运行 Java 程序的必需组件，包括 Java 虚拟机以及 Java 核心类库等。我们 Java 程序员经常接触到的 JDK（Java 开发工具包）同样包含了 JRE，并且还附带了一系列开发、诊断工具。
+然而，运行 C++ 代码则无需额外的运行时。我们往往把这些代码直接编译成 CPU 所能理解的代码格式，也就是机器码。
+比如下图的中间列，就是用 C 语言写的 Helloworld 程序的编译结果。可以看到，C 程序编译而成的机器码就是一个个的字节，它们是给机器读的。那么为了让开发人员也能够理解，我们可以用反汇编器将其转换成汇编代码（如下图的最右列所示）。
+; 最左列是偏移；中间列是给机器读的机器码；最右列是给人读的汇编代码0x00: 55 push rbp0x01: 48 89 e5 mov rbp,rsp0x04: 48 83 ec 10 sub rsp,0x100x08: 48 8d 3d 3b 00 00 00 lea rdi,[rip+0x3b] ; 加载 &amp;quot;Hello, World!</description>
+    </item>
+    
+    <item>
+      <title>00 开篇词 为什么我们要学习Java虚拟机？</title>
+      <link>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/00-%E5%BC%80%E7%AF%87%E8%AF%8D-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E8%A6%81%E5%AD%A6%E4%B9%A0java%E8%99%9A%E6%8B%9F%E6%9C%BA/</link>
+      <pubDate>Sun, 09 Jan 2022 11:10:48 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/00-%E5%BC%80%E7%AF%87%E8%AF%8D-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E8%A6%81%E5%AD%A6%E4%B9%A0java%E8%99%9A%E6%8B%9F%E6%9C%BA/</guid>
+      <description>前不久我参加了一个国外程序员的讲座，讲座的副标题很有趣，叫做：“我如何学会停止恐惧，并且爱上 Java 虚拟机”。
+这句话来自一部黑色幽默电影《奇爱博士》，电影描述了冷战时期剑拔弩张的氛围。
+程序员之间的语言之争又未尝不是如此。写系统语言的鄙视托管语言低下的执行效率；写托管语言的则取笑系统语言需要手动管理内存；写动态语言的不屑于静态语言那冗余的类型系统；写静态语言的则嘲讽动态语言里面各种光怪陆离的运行时错误。
+Java 作为应用最广的语言，自然吸引了不少的攻击，而身为 Java 程序员的你，或许在口水战中落了下风，忿忿于没有足够的知识武装自己；又或许想要深入学习 Java 语言，却又无从下手。甚至是在实践中被 Java 的启动性能、内存耗费所震惊，因此对 Java 语言本身产生了种种的怀疑与顾虑。
+别担心，我就是来解答你对 Java 的种种疑虑的。“知其然”也要“知其所以然”，学习 Java 虚拟机的本质，更多是了解 Java 程序是如何被执行且优化的。这样一来，你才可以从内部入手，达到高效编程的目的。与此同时，你也可以为学习更深层级、更为核心的 Java 技术打好基础。
+我相信在不少程序员的观念里，Java 虚拟机是透明的。在大家看来，我们仅需知道 Java 核心类库，以及第三方类库里 API 的用法，便可以专注于实现具体业务，并且依赖 Java 虚拟机自动执行乃至优化我们的应用程序。那么，我们还需要了解 Java 虚拟机吗？
+我认为是非常有必要的。如果我们把核心类库的 API 比做数学公式的话，那么 Java 虚拟机的知识就好比公式的推导过程。掌握数学公式固然可以应付考试，但是了解背后的推导过程更加有助于记忆和理解。并且，在遇到那些没法套公式的情况下，我们也能知道如何解决。
+具体来说，了解 Java 虚拟机有如下（但不限于）好处。
+首先，Java 虚拟机提供了许多配置参数，用于满足不同应用场景下，对程序性能的需求。学习 Java 虚拟机，你可以针对自己的应用，最优化匹配运行参数。（你可以用下面这个例子看一下自己虚拟机的参数列表。）
+举例来说，macOS 上的 Java 10 共有近千个配置参数：$ java -XX:+PrintFlagsFinal -XX:+UnlockDiagnosticVMOptions -version | wc -ljava version &amp;quot;10&amp;quot; 2018-03-20Java(TM) SE Runtime Environment 18.3 (build 10+46)Java HotSpot(TM) 64-Bit Server VM 18.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -6,8 +6,8 @@ header = '---\ntitle: %s\ndate: "%s"\ntags: ["%s"]\ncolumns: ["%s"]\ncategories:
 
 ROOT = os.path.join('documents','columns')
 remove_existing_front_matter = False
-tag = 'zookeeper'
-categories = 'ZooKeeper源码分析与实战'
+tag = 'java'
+categories = '深入浅出Java虚拟机'
 categories_weight = 1
 path = os.path.join(ROOT, tag, categories)
 
