@@ -5,14 +5,35 @@
     <link>http://yipsen.github.io/posts/</link>
     <description>Recent content in Posts on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 11 Dec 2021 12:53:54 +0800</lastBuildDate><atom:link href="http://yipsen.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 19 Jan 2022 16:15:37 +0000</lastBuildDate><atom:link href="http://yipsen.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>About</title>
-      <link>http://yipsen.github.io/posts/test/</link>
-      <pubDate>Sat, 11 Dec 2021 12:53:54 +0800</pubDate>
+      <title>【DHT】基础知识（五）Magnet磁链与torrent文件</title>
+      <link>http://yipsen.github.io/posts/dht%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BA%94magnet%E7%A3%81%E9%93%BE%E4%B8%8Etorrent%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Wed, 19 Jan 2022 16:15:37 +0000</pubDate>
       
-      <guid>http://yipsen.github.io/posts/test/</guid>
-      <description>AboutMe </description>
+      <guid>http://yipsen.github.io/posts/dht%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BA%94magnet%E7%A3%81%E9%93%BE%E4%B8%8Etorrent%E6%96%87%E4%BB%B6/</guid>
+      <description>磁链结构  magnet:?xt=urn:btih:60c423137f453492ca34c2d69f6f573408dca35a &amp;amp;dn=Inglourious.Basterds.DVDRip.XviD-iMBT.avi &amp;amp;tr=http%3A%2F%2Ftracker.publicbt.com%2Fannounce
+    字段 全称 解析     magnet magnet 协议名。   xt exact topic 包含文件哈希值的统一资源名称。   urn uniform resource name URN 表示资源名   btih BitTorrent info hash 种子散列函数，这里还可以使用ED2K，AICH，SHA1和MD5等。这个值是文件的标识符，是不可缺少的。   dn display name 表示向用户显示的文件名。这一项是选填的。   tr tracker 表示tracker服务器的地址。这一项也是选填的。   ws webseed 表示网络种子。     注：btih是应用程序定义的实验参数，必须以&amp;quot;x.&amp;ldquo;开头。[4-5] 标准还建议同类的多个参数可以在参数名称后面加上&amp;rdquo;.1&amp;quot;, &amp;ldquo;.2&amp;quot;等来使用， 例如： magnet:?xt.1=urn:sha1:YNCKHTQCWBTRNJIV4WNAE52SJUQCZO5C&amp;amp;xt.2=urn:sha1:TXGCZQTH26NL6OUQAJJPFALHG2LTGBC7
+ TORRENT文件结构 { &amp;#34;announce&amp;#34;: &amp;#34;&amp;#34;, // tracker的主服务器  &amp;#34;announce-list&amp;#34;: [], // tracker服务器列表  &amp;#34;comment&amp;#34;: &amp;#34;&amp;#34;, // 种子文件的注释  &amp;#34;comment.</description>
+    </item>
+    
+    <item>
+      <title>缓存数据，持久数据，数据的共享</title>
+      <link>http://yipsen.github.io/posts/%E5%B9%B6%E5%8F%91%E7%BC%93%E5%AD%98%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E6%95%B0%E6%8D%AE%E6%95%B0%E6%8D%AE%E7%9A%84%E5%85%B1%E4%BA%AB/</link>
+      <pubDate>Sat, 15 Jan 2022 10:21:16 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E5%B9%B6%E5%8F%91%E7%BC%93%E5%AD%98%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E6%95%B0%E6%8D%AE%E6%95%B0%E6%8D%AE%E7%9A%84%E5%85%B1%E4%BA%AB/</guid>
+      <description>数据共享 按数据由底层到上层，又深至大的顺序
+   级别 对象 涉及技术     0 CPU多内核之间数据共享 L1、L2、L3缓存，内存，CAS技术   1 线程之间数据共享 volatile,CHL,AQS,synchronze, ReentranLock   2 进程之间数据共享 互斥量，磁盘， 文件锁？   3 网络之间数据共享 分布式事务，一致性，数据同步，浏览器缓存，网页静态化   4 集群之间数据共享 脑裂   5 区域之间数据共享 延迟,路由，CDN技术    </description>
+    </item>
+    
+    <item>
+      <title>常用颜色</title>
+      <link>http://yipsen.github.io/posts/%E5%9B%BE%E8%B0%B1%E9%A2%9C%E8%89%B2%E8%A1%A8/</link>
+      <pubDate>Mon, 10 Jan 2022 23:36:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E5%9B%BE%E8%B0%B1%E9%A2%9C%E8%89%B2%E8%A1%A8/</guid>
+      <description>古代颜色 bootstrap主题    颜色 色值 示例 用途     黑色 #000000 #000000 庄重   红色 xxxx dx 2    </description>
     </item>
     
   </channel>

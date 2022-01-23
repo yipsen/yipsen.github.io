@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+
+<title>【DHT】基础知识（五）Magnet磁链与torrent文件 | </title>
+  <meta name="description" content="磁链结构  magnet:?xt=urn:btih:60c423137f453492ca34c2d69f6f573408dca35a &amp;amp;dn=Inglourious.Basterds.DVDRip.XviD-iMBT.avi &amp;amp;tr=http%3A%2F%2Ftracker.publicbt.com%2Fannounce
+    字段 全称 解析     magnet magnet 协议名。   xt exact topic 包含文件哈希值的统一资源名称。   urn uniform resource name URN 表示资源名   btih BitTorrent info hash 种子散列函数，这里还可以使用ED2K，AICH，SHA1和MD5等。这个值是文件的标识符，是不可缺少的。   dn display name 表示向用户显示的文件名。这一项是选填的。   tr tracker 表示tracker服务器的地址。这一项也是选填的。   ws webseed 表示网络种子。     注：btih是应用程序定义的实验参数，必须以&amp;quot;x.&amp;ldquo;开头。[4-5] 标准还建议同类的多个参数可以在参数名称后面加上&amp;rdquo;.1&amp;quot;, &amp;ldquo;.2&amp;quot;等来使用， 例如： magnet:?xt.1=urn:sha1:YNCKHTQCWBTRNJIV4WNAE52SJUQCZO5C&amp;amp;xt.2=urn:sha1:TXGCZQTH26NL6OUQAJJPFALHG2LTGBC7
+ TORRENT文件结构 { &amp;#34;announce&amp;#34;: &amp;#34;&amp;#34;, // tracker的主服务器  &amp;#34;announce-list&amp;#34;: [], // tracker服务器列表  &amp;#34;comment&amp;#34;: &amp;#34;&amp;#34;, // 种子文件的注释  &amp;#34;comment.">
+<meta name="viewport", content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" type="text/css" href="/css/apollo.css">
+<meta name="author" content="yipsen">
+
+
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <div class="logo-link">
+                <a href="http://yipsen.github.io/">
+                    <img src="/favicon.png" alt="logo">
+                    <span></span>
+                </a>
+            </div>
+            <ul class="nav nav-list">
+    
+    <li class="nav-list-item">
+            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
+        </li><li class="nav-list-item">
+            <a class="nav-list-link " href="http://yipsen.github.io/posts/">图谱</a>
+        </li><li class="nav-list-item">
+            <a class="nav-list-link " href="http://yipsen.github.io/posts/">瑞士军刀</a>
+        </li><li class="nav-list-item">
+            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于我</a>
+        </li>
+    
+</ul>
+
+        </header>
+        <main class="container">
+            
+<div class="post">
+    <article class="post-block">
+        <h1 class="post-title">【DHT】基础知识（五）Magnet磁链与torrent文件</h1>
+        <div class="post-info">
+            <div >2022-01-19</div><div class="post-category">
+                
+                  <a href="/categories/dht/"> DHT </a>
+                
+              </div></div>
+        <div class="post-content">
+            <h3 id="磁链结构">磁链结构</h3>
+<blockquote>
+<p>magnet:?xt=urn:btih:60c423137f453492ca34c2d69f6f573408dca35a
+&amp;dn=Inglourious.Basterds.DVDRip.XviD-iMBT.avi
+&amp;tr=http%3A%2F%2Ftracker.publicbt.com%2Fannounce</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>全称</th>
+<th>解析</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>magnet</td>
+<td>magnet</td>
+<td>协议名。</td>
+</tr>
+<tr>
+<td>xt</td>
+<td>exact topic</td>
+<td>包含文件哈希值的统一资源名称。</td>
+</tr>
+<tr>
+<td>urn</td>
+<td>uniform resource name</td>
+<td>URN 表示资源名</td>
+</tr>
+<tr>
+<td>btih</td>
+<td>BitTorrent info hash</td>
+<td>种子散列函数，这里还可以使用ED2K，AICH，SHA1和MD5等。这个值是文件的标识符，是不可缺少的。</td>
+</tr>
+<tr>
+<td>dn</td>
+<td>display name</td>
+<td>表示向用户显示的文件名。这一项是选填的。</td>
+</tr>
+<tr>
+<td>tr</td>
+<td>tracker</td>
+<td>表示tracker服务器的地址。这一项也是选填的。</td>
+</tr>
+<tr>
+<td>ws</td>
+<td>webseed</td>
+<td>表示网络种子。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>注：btih是应用程序定义的实验参数，必须以&quot;x.&ldquo;开头。[4-5] 标准还建议同类的多个参数可以在参数名称后面加上&rdquo;.1&quot;, &ldquo;.2&quot;等来使用，
+例如： magnet:?xt.1=urn:sha1:YNCKHTQCWBTRNJIV4WNAE52SJUQCZO5C&amp;xt.2=urn:sha1:TXGCZQTH26NL6OUQAJJPFALHG2LTGBC7</p>
+</blockquote>
+<h3 id="torrent文件结构">TORRENT文件结构</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;announce&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,              <span style="color:#75715e">// tracker的主服务器
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">&#34;announce-list&#34;</span>: [],         <span style="color:#75715e">// tracker服务器列表
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">&#34;comment&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,               <span style="color:#75715e">// 种子文件的注释
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">&#34;comment.utf-8&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,         <span style="color:#75715e">// 种子文件的注释(UTF-8编码格式)
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">&#34;creation date&#34;</span>: <span style="color:#ae81ff">0</span>,          <span style="color:#75715e">// 种子文件的创建时间，格式为时间戳
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">&#34;encoding&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,              <span style="color:#75715e">// 种子文件的默认编码，比如GB2312，Big5，utf-8等
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">&#34;info&#34;</span>: {                    <span style="color:#75715e">// 种子的实际资源信息，包含所有的文件信息
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,                <span style="color:#75715e">// 推荐的文件/文件夹名，下载时可更改
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;name.utf-8&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,          <span style="color:#75715e">// 推荐的文件/文件夹名(UTF-8编码格式)
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;pieces&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,              <span style="color:#75715e">// 资源总内容分块后，每块内容的SHA1值连接起来的二进制串
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;piece length&#34;</span>: <span style="color:#ae81ff">0</span>,         <span style="color:#75715e">// 资源总内容分块后，每块内容的大小，单位是字节Byte
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;publisher&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,           <span style="color:#75715e">// 文件发布者的名字
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;publisher.utf-8&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,     <span style="color:#75715e">// 文件发布者的名字(UTF-8编码格式)
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;publisher-url&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,       <span style="color:#75715e">// 文件发布者的网址
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;publisher-url.utf-8&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#75715e">// 文件发布者的网址(UTF-8编码格式)
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;length&#34;</span>: <span style="color:#ae81ff">0</span>,               <span style="color:#75715e">// 如果该种子包含单个文件，则表示文件的大小(单位字节)
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;files&#34;</span>: [{                <span style="color:#75715e">// 如果该种子包含多个文件，则所有文件信息在该数组中
+</span><span style="color:#75715e"></span>      <span style="color:#f92672">&#34;length&#34;</span>: <span style="color:#ae81ff">0</span>,             <span style="color:#75715e">// 文件的大小，单位是字节Byte
+</span><span style="color:#75715e"></span>      <span style="color:#f92672">&#34;path&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,              <span style="color:#75715e">// 文件的名字，在下载时不可更改
+</span><span style="color:#75715e"></span>      <span style="color:#f92672">&#34;path.utf-8&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>         <span style="color:#75715e">// 文件的名字(UTF-8编码格式)
+</span><span style="color:#75715e"></span>    }]
+  },
+  <span style="color:#f92672">&#34;nodes&#34;</span>: []                  <span style="color:#75715e">// DHT初始node节点列表，包含node机器的连接信息ip/port等
+</span><span style="color:#75715e"></span>}
+</code></pre></div><blockquote>
+<p>注：pieces为资源的特征信息，为便于分段分享下载，会对资源总内容按piece length分块。分块后每块内容计算出的SHA1值为20字节，所以该字段的长度总是20字节的整数倍。如果是大文件而分块又很细，则此字段内容将很大，因为块数更多了。</p>
+</blockquote>
+
+        </div>
+    </article>
+</div>
+
+        </main>
+        <footer>
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="/posts/%E5%B9%B6%E5%8F%91%E7%BC%93%E5%AD%98%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E6%95%B0%E6%8D%AE%E6%95%B0%E6%8D%AE%E7%9A%84%E5%85%B1%E4%BA%AB/"><span>缓存数据，持久数据，数据的共享</span></a>
+    </div>
+    <div class="next">
+        
+    </div>
+</div>
+
+            <div class="copyright">
+    
+    
+    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+</div>
+        </footer>
+    </div>
+    
+<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+
+
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function() {
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  var all = MathJax.Hub.getAllJax(), i;
+  console.log(all[0].SourceElement().parentNode.className);
+  for (var i = all.length - 1; i >= 0; i--) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script>
+</body>
+</html>
