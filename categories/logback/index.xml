@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>logback on </title>
+    <link>http://yipsen.github.io/categories/logback/</link>
+    <description>Recent content in logback on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 19 Jan 2022 15:22:11 +0000</lastBuildDate><atom:link href="http://yipsen.github.io/categories/logback/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【logback】pattern layout</title>
+      <link>http://yipsen.github.io/posts/logbackpattern-layout/</link>
+      <pubDate>Wed, 19 Jan 2022 15:22:11 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/logbackpattern-layout/</guid>
+      <description>配置解释    Conversion Effect     c{length}lo{length}logger{length} 输出日志名，length参数可以指定数字用以缩短控制长度   C{length}class{length} 输出类名.   d{pattern}date{pattern} 输出时间，使用方法与格式效果见：时间格式   micros ms    F file    caller{depth} 输出调用方   kvp{NONE,SINGLE,DOUBLE}    m msg message 日志信息   M method 方法名   n 换行符   p le level 日志级别   r relative    t thread 输出线程名   X{key:-defaultVal}mdc{key:-defaultVal}    ex{depth}exception{depth}throwable{depth} 输出异常堆栈信息   xEx{depth}xException{depth}xThrowable{depth} 输出异常堆栈信息及其所在jar包   nopexnopexception    marker    property{key}    replace(p){r, t}    prefix(p)    rEx{depth}rootException{depth}     配置示例 时间格式    Pattern Result     %d 2006-10-20 14:06:49,812   %date 2006-10-20 14:06:49,812   %date{ISO8601} 2006-10-20 14:06:49,812   %date{HH:mm:ss.</description>
+    </item>
+    
+  </channel>
+</rss>
