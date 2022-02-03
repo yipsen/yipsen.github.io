@@ -1,58 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>07 最最最重要的集群参数配置（上） | </title>
-  <meta name="description" content="你好，我是胡夕。今天我想和你聊聊最最最重要的 Kafka 集群配置。我这里用了 3 个“最”字并非哗众取宠，而是因为有些配置的重要性并未体现在官方文档中，并且从实际表现看，很多参数对系统的影响要比从文档上看更加明显，因此很有必要集中讨论一下。
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>07 最最最重要的集群参数配置（上） | Yipsen Ye</title>
+<meta name="description" content="你好，我是胡夕。今天我想和你聊聊最最最重要的 Kafka 集群配置。我这里用了 3 个“最”字并非哗众取宠，而是因为有些配置的重要性并未体现在官方文档中，并且从实际表现看，很多参数对系统的影响要比从文档上看更加明显，因此很有必要集中讨论一下。
 我希望通过两期内容把这些重要的配置讲清楚。严格来说这些配置并不单单指 Kafka 服务器端的配置，其中既有 Broker 端参数，也有主题（后面我用我们更熟悉的 Topic 表示）级别的参数、JVM 端参数和操作系统级别的参数。下面我先从 Broker 端参数说起。
 Broker 端参数 目前 Kafka Broker 提供了近 200 个参数，这其中绝大部分参数都不用你亲自过问。当谈及这些参数的用法时，网上的文章多是罗列出一些常见的参数然后一个一个地给出它们的定义，事实上我以前写文章时也是这么做的。不过今天我打算换个方法，按照大的用途类别一组一组地介绍它们，希望可以更有针对性，也更方便你记忆。
 首先 Broker 是需要配置存储信息的，即 Broker 使用哪些磁盘。那么针对存储信息的重要参数有以下这么几个：
  log.dirs：这是非常重要的参数，指定了 Broker 需要使用的若干个文件目录路径。要知道这个参数是没有默认值的，这说明什么？这说明它必须由你亲自指定。 log.dir：注意这是 dir，结尾没有 s，说明它只能表示单个路径，它是补充上一个参数用的。  这两个参数应该怎么设置呢？很简单，你只要设置log.dirs，即第一个参数就好了，不要设置log.dir。而且更重要的是，在线上生产环境中一定要为log.dirs配置多个路径，具体格式是一个 CSV 格式，也就是用逗号分隔的多个路径，比如/home/kafka1,/home/kafka2,/home/kafka3这样。如果有条件的话你最好保证这些目录挂载到不同的物理磁盘上。这样做有两个好处：
  提升读写性能：比起单块磁盘，多块物理磁盘同时读写数据有更高的吞吐量。 能够实现故障转移：即 Failover。这是 Kafka 1.1 版本新引入的强大功能。要知道在以前，只要 Kafka Broker 使用的任何一块磁盘挂掉了，整个 Broker 进程都会关闭。但是自 1.1 开始，这种情况被修正了，坏掉的磁盘上的数据会自动地转移到其他正常的磁盘上，而且 Broker 还能正常工作。还记得上一期我们关于 Kafka 是否需要使用 RAID 的讨论吗？这个改进正是我们舍弃 RAID 方案的基础：没有这种 Failover 的话，我们只能依靠 RAID 来提供保障。  下面说说与 ZooKeeper 相关的设置。首先 ZooKeeper 是做什么的呢？它是一个分布式协调框架，负责协调管理并保存 Kafka 集群的所有元数据信息，比如集群都有哪些 Broker 在运行、创建了哪些 Topic，每个 Topic 都有多少分区以及这些分区的 Leader 副本都在哪些机器上等信息。">
-<meta name="viewport", content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" type="text/css" href="/css/apollo.css">
-<meta name="author" content="">
+<meta name="author"
+  content="">
 
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
-<body>
-    <div class="wrap">
-        <header>
-            <div class="logo-link">
-                <a href="http://yipsen.github.io/">
-                    <img src="/favicon.png" alt="logo">
-                    <span></span>
-                </a>
-            </div>
-            <ul class="nav nav-list">
-    
-    <li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/attachs/">图谱</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/tools/">瑞士军刀</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于</a>
-        </li>
-    
-</ul>
 
-        </header>
-        <main class="container">
-            
-<div class="post">
+<body>
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">图集</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container">
     <article class="post-block">
         <h1 class="post-title">07 最最最重要的集群参数配置（上）</h1>
         <div class="post-info">
-            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/kafka">kafka</a>&nbsp;&nbsp;</div><div class="post-category">
+            <div>2021-12-22|<a class="post-tag" href="/tags/kafka/">kafka</a></div><div class="post-category">
                 
-                  <a href="/categories/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/"> Kafka核心技术与实战 </a>
+                <a href="/categories/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/"> Kafka核心技术与实战 </a>
                 
-              </div></div>
+            </div></div>
         <div class="post-content">
             <p>你好，我是胡夕。今天我想和你聊聊最最最重要的 Kafka 集群配置。我这里用了 3 个“最”字并非哗众取宠，而是因为有些配置的重要性并未体现在官方文档中，并且从实际表现看，很多参数对系统的影响要比从文档上看更加明显，因此很有必要集中讨论一下。</p>
 <p>我希望通过两期内容把这些重要的配置讲清楚。严格来说这些配置并不单单指 Kafka 服务器端的配置，其中既有 Broker 端参数，也有主题（后面我用我们更熟悉的 Topic 表示）级别的参数、JVM 端参数和操作系统级别的参数。下面我先从 Broker 端参数说起。</p>
@@ -114,8 +124,9 @@ Broker 端参数 目前 Kafka Broker 提供了近 200 个参数，这其中绝�
     </article>
 </div>
 
-        </main>
-        <footer>
+    </main>
+    <footer>
+        <div id="pagination">
             
 <div class="paginator">
     <div class="prev">
@@ -128,63 +139,14 @@ Broker 端参数 目前 Kafka Broker 提供了近 200 个参数，这其中绝�
     </div>
 </div>
 
-            <div class="copyright">
+        </div>
+        <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
-        </footer>
-    </div>
+    </footer>
     
-<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  var all = MathJax.Hub.getAllJax(), i;
-  console.log(all[0].SourceElement().parentNode.className);
-  for (var i = all.length - 1; i >= 0; i--) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script>
 </body>
+
 </html>

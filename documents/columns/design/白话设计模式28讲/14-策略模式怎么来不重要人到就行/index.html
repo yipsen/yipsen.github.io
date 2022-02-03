@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>14 策略模式：怎么来不重要，人到就行 | </title>
-  <meta name="description" content="【故事剧情】
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>14 策略模式：怎么来不重要，人到就行 | Yipsen Ye</title>
+<meta name="description" content="【故事剧情】
  Tony 在北京漂泊了三年，在这期间有很多的美好，也有很多心酸，有很多期待，也有很多失落；可终究还是要离开了，原因很简单：一来北京压力太大，生活成本太高；二来北京离家太远。离开北京，Tony 也没有回家，而是选择了新的城市——杭州。
 Tony 并不是班里最早逃离北京的人，但却是毕业后仍然坚持做技术且由一线城市退居到二线城市最早的人（不是回老家或都转行）。Tony 还有十几个同学在北京，一说要离开北京，肯定是要和这些同学道别的。Tony 的学姐 Leaf（也是学校时的辅导员）为他精心组织和安排了一次聚餐，地点选在了健德门附近的一家江西餐饮——西江美食舫，大家约好晚上 19：00 不见不散……
 时间和地点都定了，把能来的这些人建了一个群，大家便开始热闹地聊起来了：
@@ -18,48 +22,54 @@ Tony：大家有心，万分感谢，安全最重要！
  用程序来模拟生活 随着社会的发展、时代的进步，出行交通的方式可谓是越来越多样，可以说是丰富到了千奇百怪的地步了。除了上面提到的共享单车、公交车、地铁、快车（或出租车），也可以是自驾、电动车、平衡车，甚至都可以踏个轮滑、踩个滑板过来！采用什么交通方式并不重要，重要的是你能准时来共聚晚餐，不然就只能吃残羹冷炙了，哈哈！下面用代码来模拟一下大家使用不同的出行方式参加聚餐的情景吧。
 源码示例：
 class IVehicle:&amp;quot;交通工具的抽象类&amp;quot;def running(self):passclass SharedBicycle(IVehicle):&amp;quot;共享单车&amp;quot;def running(self):print(&amp;quot;骑共享单车(轻快便捷)&amp;quot;, end=&#39;&#39;)class ExpressBus(IVehicle):&amp;quot;快速公交&amp;quot;def running(self):print(&amp;quot;坐快速公交(经济绿色)&amp;quot;, end=&#39;&#39;)class Express(IVehicle):&amp;quot;快车&amp;quot;def running(self):print(&amp;quot;打快车(快速方便)&amp;quot;, end=&#39;&#39;)class Subway(IVehicle):&amp;quot;地铁&amp;quot;def running(self):print(&amp;quot;坐地铁(高效安全)&amp;quot;, end=&#39;&#39;)class Classmate:&amp;quot;参加聚餐的同学&amp;quot;def __init__(self, name, vechicle):self.__name = nameself.">
-<meta name="viewport", content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" type="text/css" href="/css/apollo.css">
-<meta name="author" content="">
+<meta name="author"
+  content="">
 
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
-<body>
-    <div class="wrap">
-        <header>
-            <div class="logo-link">
-                <a href="http://yipsen.github.io/">
-                    <img src="/favicon.png" alt="logo">
-                    <span></span>
-                </a>
-            </div>
-            <ul class="nav nav-list">
-    
-    <li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/attachs/">图谱</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/tools/">瑞士军刀</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于</a>
-        </li>
-    
-</ul>
 
-        </header>
-        <main class="container">
-            
-<div class="post">
+<body>
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">图集</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container">
     <article class="post-block">
         <h1 class="post-title">14 策略模式：怎么来不重要，人到就行</h1>
         <div class="post-info">
-            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/design">design</a>&nbsp;&nbsp;</div><div class="post-category">
+            <div>2021-12-22|<a class="post-tag" href="/tags/design/">design</a></div><div class="post-category">
                 
-                  <a href="/categories/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/"> 白话设计模式28讲 </a>
+                <a href="/categories/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/"> 白话设计模式28讲 </a>
                 
-              </div></div>
+            </div></div>
         <div class="post-content">
             <p>【故事剧情】</p>
 <blockquote>
@@ -321,8 +331,9 @@ def testPersonListInPython():
     </article>
 </div>
 
-        </main>
-        <footer>
+    </main>
+    <footer>
+        <div id="pagination">
             
 <div class="paginator">
     <div class="prev">
@@ -335,63 +346,14 @@ def testPersonListInPython():
     </div>
 </div>
 
-            <div class="copyright">
+        </div>
+        <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
-        </footer>
-    </div>
+    </footer>
     
-<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  var all = MathJax.Hub.getAllJax(), i;
-  console.log(all[0].SourceElement().parentNode.className);
-  for (var i = all.length - 1; i >= 0; i--) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script>
 </body>
+
 </html>

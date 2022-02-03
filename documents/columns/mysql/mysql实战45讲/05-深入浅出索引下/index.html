@@ -1,59 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>05 深入浅出索引（下） | </title>
-  <meta name="description" content="在上一篇文章中，我和你介绍了 InnoDB 索引的数据结构模型，今天我们再继续聊聊跟 MySQL 索引有关的概念。
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>05 深入浅出索引（下） | Yipsen Ye</title>
+<meta name="description" content="在上一篇文章中，我和你介绍了 InnoDB 索引的数据结构模型，今天我们再继续聊聊跟 MySQL 索引有关的概念。
 在开始这篇文章之前，我们先来看一下这个问题：
 在下面这个表 T 中，如果我执行 select * from T where k between 3 and 5，需要执行几次树的搜索操作，会扫描多少行？
 下面是这个表的初始化语句。
 mysql&amp;gt; create table T (ID int primary key,k int NOT NULL DEFAULT 0, s varchar(16) NOT NULL DEFAULT &#39;&#39;,index k(k))engine=InnoDB;insert into T values(100,1, &#39;aa&#39;),(200,2,&#39;bb&#39;),(300,3,&#39;cc&#39;),(500,5,&#39;ee&#39;),(600,6,&#39;ff&#39;),(700,7,&#39;gg&#39;);图 1 InnoDB 的索引组织结构
 现在，我们一起来看看这条 SQL 查询语句的执行流程：
  在 k 索引树上找到 k=3 的记录，取得 ID = 300； 再到 ID 索引树查到 ID=300 对应的 R3； 在 k 索引树取下一个值 k=5，取得 ID=500； 再回到 ID 索引树查到 ID=500 对应的 R4； 在 k 索引树取下一个值 k=6，不满足条件，循环结束。  在这个过程中，回到主键索引树搜索的过程，我们称为回表。可以看到，这个查询过程读了 k 索引树的 3 条记录（步骤 1、3 和 5），回表了两次（步骤 2 和 4）。">
-<meta name="viewport", content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" type="text/css" href="/css/apollo.css">
-<meta name="author" content="">
+<meta name="author"
+  content="">
 
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
-<body>
-    <div class="wrap">
-        <header>
-            <div class="logo-link">
-                <a href="http://yipsen.github.io/">
-                    <img src="/favicon.png" alt="logo">
-                    <span></span>
-                </a>
-            </div>
-            <ul class="nav nav-list">
-    
-    <li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/attachs/">图谱</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/tools/">瑞士军刀</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于</a>
-        </li>
-    
-</ul>
 
-        </header>
-        <main class="container">
-            
-<div class="post">
+<body>
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">图集</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container">
     <article class="post-block">
         <h1 class="post-title">05 深入浅出索引（下）</h1>
         <div class="post-info">
-            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/mysql">mysql</a>&nbsp;&nbsp;</div><div class="post-category">
+            <div>2021-12-22|<a class="post-tag" href="/tags/mysql/">mysql</a></div><div class="post-category">
                 
-                  <a href="/categories/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/"> MySQL实战45讲 </a>
+                <a href="/categories/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/"> MySQL实战45讲 </a>
                 
-              </div></div>
+            </div></div>
         <div class="post-content">
             <p>在上一篇文章中，我和你介绍了 InnoDB 索引的数据结构模型，今天我们再继续聊聊跟 MySQL 索引有关的概念。</p>
 <p>在开始这篇文章之前，我们先来看一下这个问题：</p>
@@ -159,8 +169,9 @@ select * from geek where c=N order by b limit 1;
     </article>
 </div>
 
-        </main>
-        <footer>
+    </main>
+    <footer>
+        <div id="pagination">
             
 <div class="paginator">
     <div class="prev">
@@ -173,63 +184,14 @@ select * from geek where c=N order by b limit 1;
     </div>
 </div>
 
-            <div class="copyright">
+        </div>
+        <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
-        </footer>
-    </div>
+    </footer>
     
-<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  var all = MathJax.Hub.getAllJax(), i;
-  console.log(all[0].SourceElement().parentNode.className);
-  for (var i = all.length - 1; i >= 0; i--) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script>
 </body>
+
 </html>

@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>23 RPC框架：10万QPS下如何实现毫秒级的服务调用？ | </title>
-  <meta name="description" content="你好，我是唐扬。
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>23 RPC框架：10万QPS下如何实现毫秒级的服务调用？ | Yipsen Ye</title>
+<meta name="description" content="你好，我是唐扬。
 在21 讲和22 讲中，你的团队已经决定对垂直电商系统做服务化拆分，以便解决扩展性和研发成本高的问题。与此同时，你们在不断学习的过程中还发现，系统做了服务化拆分之后，会引入一些新的问题，这些问题我在上节课提到过，归纳起来主要是两点：
 服务拆分单独部署后，引入的服务跨网络通信的问题；
 在拆分成多个小服务之后，服务如何治理的问题。
@@ -18,48 +22,54 @@
 而 RPC 框架就封装了网络调用的细节，让你像调用本地服务一样，调用远程部署的服务。你也许觉得只有像 Dubbo、Grpc、Thrift 这些新兴的框架才算是 RPC 框架，其实严格来说，你很早之前就接触到与 RPC 相关的技术了。
 比如，Java 原生就有一套远程调用框架叫做 RMI（Remote Method Invocation）， 它可以让 Java 程序通过网络，调用另一台机器上的 Java 对象的方法。它是一种远程调用的方法，也是 J2EE 时代大名鼎鼎的 EJB 的实现基础。
 时至今日，你仍然可以通过 Spring 的“RmiServiceExporter”将 Spring 管理的 bean 暴露成一个 RMI 的服务，从而继续使用 RMI 来实现跨进程的方法调用。之所以 RMI 没有像 Dubbo，Grpc 一样大火，是因为它存在着一些缺陷：">
-<meta name="viewport", content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" type="text/css" href="/css/apollo.css">
-<meta name="author" content="">
+<meta name="author"
+  content="">
 
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
-<body>
-    <div class="wrap">
-        <header>
-            <div class="logo-link">
-                <a href="http://yipsen.github.io/">
-                    <img src="/favicon.png" alt="logo">
-                    <span></span>
-                </a>
-            </div>
-            <ul class="nav nav-list">
-    
-    <li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/attachs/">图谱</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/tools/">瑞士军刀</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于</a>
-        </li>
-    
-</ul>
 
-        </header>
-        <main class="container">
-            
-<div class="post">
+<body>
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">图集</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container">
     <article class="post-block">
         <h1 class="post-title">23 RPC框架：10万QPS下如何实现毫秒级的服务调用？</h1>
         <div class="post-info">
-            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/design">design</a>&nbsp;&nbsp;</div><div class="post-category">
+            <div>2021-12-22|<a class="post-tag" href="/tags/design/">design</a></div><div class="post-category">
                 
-                  <a href="/categories/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/"> 高并发系统设计40问 </a>
+                <a href="/categories/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/"> 高并发系统设计40问 </a>
                 
-              </div></div>
+            </div></div>
         <div class="post-content">
             <p>你好，我是唐扬。</p>
 <p>在21 讲和22 讲中，你的团队已经决定对垂直电商系统做服务化拆分，以便解决扩展性和研发成本高的问题。与此同时，你们在不断学习的过程中还发现，系统做了服务化拆分之后，会引入一些新的问题，这些问题我在上节课提到过，归纳起来主要是两点：</p>
@@ -147,8 +157,9 @@
     </article>
 </div>
 
-        </main>
-        <footer>
+    </main>
+    <footer>
+        <div id="pagination">
             
 <div class="paginator">
     <div class="prev">
@@ -161,63 +172,14 @@
     </div>
 </div>
 
-            <div class="copyright">
+        </div>
+        <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
-        </footer>
-    </div>
+    </footer>
     
-<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  var all = MathJax.Hub.getAllJax(), i;
-  console.log(all[0].SourceElement().parentNode.className);
-  for (var i = all.length - 1; i >= 0; i--) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script>
 </body>
+
 </html>

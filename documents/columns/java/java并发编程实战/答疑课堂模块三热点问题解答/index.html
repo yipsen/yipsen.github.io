@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>答疑课堂：模块三热点问题解答 | </title>
-  <meta name="description" content="你好，我是刘超。
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>答疑课堂：模块三热点问题解答 | Yipsen Ye</title>
+<meta name="description" content="你好，我是刘超。
 不知不觉“多线程性能优化“已经讲完了，今天这讲我来解答下各位同学在这个模块集中提出的两大问题，第一个是有关监测上下文切换异常的命令排查工具，第二个是有关 blockingQueue 的内容。
 也欢迎你积极留言给我，让我知晓你想了解的内容，或者说出你的困惑，我们共同探讨。下面我就直接切入今天的主题了。
 使用系统命令查看上下文切换 在第 15 讲中我提到了上下文切换，其中有用到一些工具进行监测，由于篇幅关系就没有详细介绍，今天我就补充总结几个常用的工具给你。
@@ -13,48 +17,54 @@
 vmstat 1 3 命令行代表每秒收集一次性能指标，总共获取 3 次。以下为上图中各个性能指标的注释：
  procs r：等待运行的进程数 b：处于非中断睡眠状态的进程数 memory swpd：虚拟内存使用情况 free：空闲的内存 buff：用来作为缓冲的内存数 cache：缓存大小 swap si：从磁盘交换到内存的交换页数量 so：从内存交换到磁盘的交换页数量 io bi：发送到快设备的块数 bo：从块设备接收到的块数 system in：每秒中断数 cs：每秒上下文切换次数 cpu us：用户 CPU 使用事件 sy：内核 CPU 系统使用时间 id：空闲时间 wa：等待 I/O 时间 st：运行虚拟机窃取的时间  2. Linux 命令行工具之 pidstat 命令 我们通过上述的 vmstat 命令只能观察到哪个进程的上下文切换出现了异常，那如果是要查看哪个线程的上下文出现了异常呢？
 pidstat 命令就可以帮助我们监测到具体线程的上下文切换。pidstat 是 Sysstat 中一个组件，也是一款功能强大的性能监测工具。我们可以通过命令 yum install sysstat 安装该监控组件。">
-<meta name="viewport", content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" type="text/css" href="/css/apollo.css">
-<meta name="author" content="">
+<meta name="author"
+  content="">
 
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
-<body>
-    <div class="wrap">
-        <header>
-            <div class="logo-link">
-                <a href="http://yipsen.github.io/">
-                    <img src="/favicon.png" alt="logo">
-                    <span></span>
-                </a>
-            </div>
-            <ul class="nav nav-list">
-    
-    <li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/attachs/">图谱</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/tools/">瑞士军刀</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于</a>
-        </li>
-    
-</ul>
 
-        </header>
-        <main class="container">
-            
-<div class="post">
+<body>
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">图集</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container">
     <article class="post-block">
         <h1 class="post-title">答疑课堂：模块三热点问题解答</h1>
         <div class="post-info">
-            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/java">java</a>&nbsp;&nbsp;</div><div class="post-category">
+            <div>2021-12-22|<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
                 
-                  <a href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/"> Java并发编程实战 </a>
+                <a href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/"> Java并发编程实战 </a>
                 
-              </div></div>
+            </div></div>
         <div class="post-content">
             <p>你好，我是刘超。</p>
 <p>不知不觉“多线程性能优化“已经讲完了，今天这讲我来解答下各位同学在这个模块集中提出的两大问题，第一个是有关监测上下文切换异常的命令排查工具，第二个是有关 blockingQueue 的内容。</p>
@@ -195,8 +205,9 @@ private static class Node&lt;E&gt; {
     </article>
 </div>
 
-        </main>
-        <footer>
+    </main>
+    <footer>
+        <div id="pagination">
             
 <div class="paginator">
     <div class="prev">
@@ -209,63 +220,14 @@ private static class Node&lt;E&gt; {
     </div>
 </div>
 
-            <div class="copyright">
+        </div>
+        <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
-        </footer>
-    </div>
+    </footer>
     
-<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  var all = MathJax.Hub.getAllJax(), i;
-  console.log(all[0].SourceElement().parentNode.className);
-  for (var i = all.length - 1; i >= 0; i--) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script>
 </body>
+
 </html>

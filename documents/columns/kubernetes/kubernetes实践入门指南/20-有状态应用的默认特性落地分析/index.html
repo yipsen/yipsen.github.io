@@ -1,56 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>20 有状态应用的默认特性落地分析 | </title>
-  <meta name="description" content="一直以来跑在 Kubernetes 的应用都是无状态的应用，所有数据都是不落盘的，应用死掉之后，应用状态也不复存在，比如 Nginx 作为反向代理的场景。如果你的应用涉及业务逻辑，一般都会涉及把数据在本地放一份。如果应用实例死掉了可以再拉起一个新应用实例继续服务当前的连接请求。那么有状态应用在 Kubernetes 场景下又有哪些特性需要我们记住呢？请随着笔者的章节一步一步了解它。
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>20 有状态应用的默认特性落地分析 | Yipsen Ye</title>
+<meta name="description" content="一直以来跑在 Kubernetes 的应用都是无状态的应用，所有数据都是不落盘的，应用死掉之后，应用状态也不复存在，比如 Nginx 作为反向代理的场景。如果你的应用涉及业务逻辑，一般都会涉及把数据在本地放一份。如果应用实例死掉了可以再拉起一个新应用实例继续服务当前的连接请求。那么有状态应用在 Kubernetes 场景下又有哪些特性需要我们记住呢？请随着笔者的章节一步一步了解它。
 StatefulSet 对象 当我们使用 Deployment 对象部署应用容器实例的时候，一定会注意到 Pod 实例后缀总是带有随机字符串，这是无状态应用区分实例的一种策略。现实应用中，对于分布式系统的编排，随机的字符串标识是无法应用的。它要求在启动 Pod 之前，就能明确标记应用实例，这个场景下 StatefulSet 对象应景而生。如下 Pod 例子中显示顺序索引如下：
 kubectl get pods -l app=nginxNAME READY STATUS RESTARTS AGEweb-0 1/1 Running 0 1mweb-1 1/1 Running 0 1m当你在终端中把所有 Pod 删掉后，StatefulSet 会自动重启它们：
 kubectl delete pod -l app=nginxpod &amp;quot;web-0&amp;quot; deletedpod &amp;quot;web-1&amp;quot; deletedkubectl get pod -w -l app=nginxNAME READY STATUS RESTARTS AGEweb-0 0/1 ContainerCreating 0 0sNAME READY STATUS RESTARTS AGEweb-0 1/1 Running 0 2sweb-1 0/1 Pending 0 0sweb-1 0/1 Pending 0 0sweb-1 0/1 ContainerCreating 0 0sweb-1 1/1 Running 0 34s使用 kubectl exec 和 kubectl run 查看 Pod 的主机名和集群内部的 DNS 项如下：">
-<meta name="viewport", content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" type="text/css" href="/css/apollo.css">
-<meta name="author" content="">
+<meta name="author"
+  content="">
 
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
-<body>
-    <div class="wrap">
-        <header>
-            <div class="logo-link">
-                <a href="http://yipsen.github.io/">
-                    <img src="/favicon.png" alt="logo">
-                    <span></span>
-                </a>
-            </div>
-            <ul class="nav nav-list">
-    
-    <li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/attachs/">图谱</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/tools/">瑞士军刀</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于</a>
-        </li>
-    
-</ul>
 
-        </header>
-        <main class="container">
-            
-<div class="post">
+<body>
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">图集</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container">
     <article class="post-block">
         <h1 class="post-title">20 有状态应用的默认特性落地分析</h1>
         <div class="post-info">
-            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/kubernetes">kubernetes</a>&nbsp;&nbsp;</div><div class="post-category">
+            <div>2021-12-22|<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
                 
-                  <a href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/"> Kubernetes实践入门指南 </a>
+                <a href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/"> Kubernetes实践入门指南 </a>
                 
-              </div></div>
+            </div></div>
         <div class="post-content">
             <p>一直以来跑在 Kubernetes 的应用都是无状态的应用，所有数据都是不落盘的，应用死掉之后，应用状态也不复存在，比如 Nginx 作为反向代理的场景。如果你的应用涉及业务逻辑，一般都会涉及把数据在本地放一份。如果应用实例死掉了可以再拉起一个新应用实例继续服务当前的连接请求。那么有状态应用在 Kubernetes 场景下又有哪些特性需要我们记住呢？请随着笔者的章节一步一步了解它。</p>
 <h3 id="statefulset-对象">StatefulSet 对象</h3>
@@ -241,8 +251,9 @@ spec:
     </article>
 </div>
 
-        </main>
-        <footer>
+    </main>
+    <footer>
+        <div id="pagination">
             
 <div class="paginator">
     <div class="prev">
@@ -255,63 +266,14 @@ spec:
     </div>
 </div>
 
-            <div class="copyright">
+        </div>
+        <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
-        </footer>
-    </div>
+    </footer>
     
-<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  var all = MathJax.Hub.getAllJax(), i;
-  console.log(all[0].SourceElement().parentNode.className);
-  for (var i = all.length - 1; i >= 0; i--) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script>
 </body>
+
 </html>

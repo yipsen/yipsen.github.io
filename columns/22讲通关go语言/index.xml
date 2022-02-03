@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>22讲通关Go语言 on </title>
+    <title>22讲通关Go语言 on Yipsen Ye</title>
     <link>http://yipsen.github.io/columns/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/</link>
-    <description>Recent content in 22讲通关Go语言 on </description>
+    <description>Recent content in 22讲通关Go语言 on Yipsen Ye</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Wed, 22 Dec 2021 01:33:16 +0800</lastBuildDate><atom:link href="http://yipsen.github.io/columns/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/index.xml" rel="self" type="application/rss+xml" />
     <item>

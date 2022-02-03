@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Netty核心原理剖析与RPC实践 on </title>
+    <title>Netty核心原理剖析与RPC实践 on Yipsen Ye</title>
     <link>http://yipsen.github.io/columns/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/</link>
-    <description>Recent content in Netty核心原理剖析与RPC实践 on </description>
+    <description>Recent content in Netty核心原理剖析与RPC实践 on Yipsen Ye</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Wed, 22 Dec 2021 01:54:53 +0800</lastBuildDate><atom:link href="http://yipsen.github.io/columns/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/index.xml" rel="self" type="application/rss+xml" />
     <item>

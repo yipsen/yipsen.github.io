@@ -1,59 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>14 应用网关 OpenResty 对接 K8s 实践 | </title>
-  <meta name="description" content="当前云原生应用网关有很多选择，例如：Nginx/OpenResty、Traefik、Envoy 等，从部署流行度来看 OpenResty 毋容置疑是最流行的反向代理网关。本篇探讨的就是 Kubernetes 为了统一对外的入口网关而引入的 Ingress 对象是如何利用 OpenResty 来优化入口网关的能力的。
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>14 应用网关 OpenResty 对接 K8s 实践 | Yipsen Ye</title>
+<meta name="description" content="当前云原生应用网关有很多选择，例如：Nginx/OpenResty、Traefik、Envoy 等，从部署流行度来看 OpenResty 毋容置疑是最流行的反向代理网关。本篇探讨的就是 Kubernetes 为了统一对外的入口网关而引入的 Ingress 对象是如何利用 OpenResty 来优化入口网关的能力的。
 为什么需要 OpenResty 原生 Kubernetes Service 提供对外暴露服务的能力，通过唯一的 ClusterIP 接入 Pod 业务负载容器组对外提供服务名（附注：服务发现使用，采用内部 kube-dns 解析服务名称）并提供流量的软负载均衡。缺点是 Service 的 ClusterIP 地址只能在集群内部被访问，如果需要对集群外部用户提供此 Service 的访问能力，Kubernetes 需要通过另外两种方式来实现此类需求，一种是 NodePort，另一种是 LoadBalancer。
 当容器应用采用 NodePort 方式来暴露 Service 并让外部用户访问时会有如下困扰：
  外部访问服务时需要带 NodePort 每次部署服务后，NodePort 端口会改变  当容器应用采用 LoadBalancer 方式时，主要应用场景还是对接云厂商提供负载均衡上，当然云厂商都提供对应的负载均衡插件方便 Kubernetes 一键集成。
 对于大部分场景下，我们仍然需要采用私有的入口应用网关来对外提供服务暴露。这个时候通过暴露七层 Web 端口把外部流量挡在外面访问。同时对于用户来讲屏蔽了 NodePort 的存在，频繁部署应用的时候用户是不需要关心 NodePort 端口占用的。
 在早期 Kubernetes 引入的 ingress controller 的方案是采用的 Nginx 作为引擎的，它在使用中有一些比较突出的问题：
 reload 问题 Kubernetes 原生 Ingress 在设计上，将 YAML 配置文件交由 Ingress Controller 处理，转换为 nginx.">
-<meta name="viewport", content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" type="text/css" href="/css/apollo.css">
-<meta name="author" content="">
+<meta name="author"
+  content="">
 
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
-<body>
-    <div class="wrap">
-        <header>
-            <div class="logo-link">
-                <a href="http://yipsen.github.io/">
-                    <img src="/favicon.png" alt="logo">
-                    <span></span>
-                </a>
-            </div>
-            <ul class="nav nav-list">
-    
-    <li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/attachs/">图谱</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/tools/">瑞士军刀</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于</a>
-        </li>
-    
-</ul>
 
-        </header>
-        <main class="container">
-            
-<div class="post">
+<body>
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">图集</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container">
     <article class="post-block">
         <h1 class="post-title">14 应用网关 OpenResty 对接 K8s 实践</h1>
         <div class="post-info">
-            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/kubernetes">kubernetes</a>&nbsp;&nbsp;</div><div class="post-category">
+            <div>2021-12-22|<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
                 
-                  <a href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/"> Kubernetes实践入门指南 </a>
+                <a href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/"> Kubernetes实践入门指南 </a>
                 
-              </div></div>
+            </div></div>
         <div class="post-content">
             <p>当前云原生应用网关有很多选择，例如：Nginx/OpenResty、Traefik、Envoy 等，从部署流行度来看 OpenResty 毋容置疑是最流行的反向代理网关。本篇探讨的就是 Kubernetes 为了统一对外的入口网关而引入的 Ingress 对象是如何利用 OpenResty 来优化入口网关的能力的。</p>
 <h3 id="为什么需要-openresty">为什么需要 OpenResty</h3>
@@ -190,8 +200,9 @@ kubectl delete namespace ingress-temp
     </article>
 </div>
 
-        </main>
-        <footer>
+    </main>
+    <footer>
+        <div id="pagination">
             
 <div class="paginator">
     <div class="prev">
@@ -204,63 +215,14 @@ kubectl delete namespace ingress-temp
     </div>
 </div>
 
-            <div class="copyright">
+        </div>
+        <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
-        </footer>
-    </div>
+    </footer>
     
-<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  var all = MathJax.Hub.getAllJax(), i;
-  console.log(all[0].SourceElement().parentNode.className);
-  for (var i = all.length - 1; i >= 0; i--) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script>
 </body>
+
 </html>

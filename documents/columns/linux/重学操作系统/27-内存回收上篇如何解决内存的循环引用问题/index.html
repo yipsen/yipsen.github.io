@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>27 内存回收上篇：如何解决内存的循环引用问题？ | </title>
-  <meta name="description" content="内存泄漏一直是很多大型系统故障的根源，也是一个面试热点。那么在编程语言层面已经提供了内存回收机制，为什么还会产生内存泄漏呢？
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>27 内存回收上篇：如何解决内存的循环引用问题？ | Yipsen Ye</title>
+<meta name="description" content="内存泄漏一直是很多大型系统故障的根源，也是一个面试热点。那么在编程语言层面已经提供了内存回收机制，为什么还会产生内存泄漏呢？
 这是因为应用的内存管理一直处于一个和应用程序执行并发的状态，如果应用程序申请内存的速度，超过内存回收的速度，内存就会被用满。当内存用满，操作系统就开始需要频繁地切换页面，进行频繁地磁盘读写。所以我们观察到的系统性能下降，往往是一种突然的崩溃，因为一旦内存被占满，系统性能就开始雪崩式下降。
 特别是有时候程序员不懂内存回收的原理，错误地使用内存回收器，导致部分对象没有被回收。而在高并发场景下，每次并发都产生一点不能回收的内存，不用太长时间内存就满了，这就是泄漏通常的成因。
 这一块知识点关联着很多常见的面试题，比如。
@@ -15,48 +19,54 @@
 下面我们具体来看一下 GC 都需要承担哪些“工作”，这里我总结为以下 4 种。
  GC 要和操作系统进行交互，负责申请内存，并把不用的内存还给操作系统（释放内存）。 应用会向 GC 申请内存。 GC 要承担我们通常意义上说的垃圾回收能力，标记不用的对象，并回收他们。 GC 还需要针对应用特性进行动态的优化。  所以现在程序语言实现的 GC 模块通常是实际负责应用内存管理的模块。在程序语言实现 GC 的时候，会关注下面这几个指标。
  吞吐量（Throughput）：执行程序（不包括 GC 执行的时间）和总是间的占比。注意这个吞吐量和通常意义上应用去处理作业的吞吐量是不一样的，这是从 GC 的角度去看应用。只要不在 GC，就认为是吞吐量的一部分。 足迹（FootPrint）： 一个程序使用了多少硬件的资源，也称作程序在硬件上的足迹。GC 里面说的足迹，通常就是应用对内存的占用情况。比如说应用运行需要 2G 内存，但是好的 GC 算法能够帮助我们减少 500MB 的内存使用，满足足迹这个指标。 暂停时间（Pause Time）： GC 执行的时候，通常需要停下应用（避免同步问题），这称为 Stop The World，或者暂停。不同应用对某次内存回收可以暂停的时间需求是不同的，比如说一个游戏应用，暂停了几毫秒用户都可能有很大意见；而看网页的用户，稍微慢了几毫秒是没有感觉的。  GC 目标的思考 如果单纯从让 GC 尽快把工作做完的角度来讲，其实是提升吞吐量。比如利用好多核优势就是一种最直观的方法。">
-<meta name="viewport", content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" type="text/css" href="/css/apollo.css">
-<meta name="author" content="">
+<meta name="author"
+  content="">
 
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
-<body>
-    <div class="wrap">
-        <header>
-            <div class="logo-link">
-                <a href="http://yipsen.github.io/">
-                    <img src="/favicon.png" alt="logo">
-                    <span></span>
-                </a>
-            </div>
-            <ul class="nav nav-list">
-    
-    <li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/attachs/">图谱</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/tools/">瑞士军刀</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于</a>
-        </li>
-    
-</ul>
 
-        </header>
-        <main class="container">
-            
-<div class="post">
+<body>
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">图集</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container">
     <article class="post-block">
         <h1 class="post-title">27 内存回收上篇：如何解决内存的循环引用问题？</h1>
         <div class="post-info">
-            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/linux">linux</a>&nbsp;&nbsp;</div><div class="post-category">
+            <div>2021-12-22|<a class="post-tag" href="/tags/linux/">linux</a></div><div class="post-category">
                 
-                  <a href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"> 重学操作系统 </a>
+                <a href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"> 重学操作系统 </a>
                 
-              </div></div>
+            </div></div>
         <div class="post-content">
             <p>内存泄漏一直是很多大型系统故障的根源，也是一个面试热点。那么在编程语言层面已经提供了内存回收机制，为什么还会产生内存泄漏呢？</p>
 <p>这是因为应用的内存管理一直处于一个和应用程序执行并发的状态，如果应用程序申请内存的速度，超过内存回收的速度，内存就会被用满。当内存用满，操作系统就开始需要频繁地切换页面，进行频繁地磁盘读写。<strong>所以我们观察到的系统性能下降，往往是一种突然的崩溃，因为一旦内存被占满，系统性能就开始雪崩式下降</strong>。</p>
@@ -177,8 +187,9 @@
     </article>
 </div>
 
-        </main>
-        <footer>
+    </main>
+    <footer>
+        <div id="pagination">
             
 <div class="paginator">
     <div class="prev">
@@ -191,63 +202,14 @@
     </div>
 </div>
 
-            <div class="copyright">
+        </div>
+        <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
-        </footer>
-    </div>
+    </footer>
     
-<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  var all = MathJax.Hub.getAllJax(), i;
-  console.log(all[0].SourceElement().parentNode.className);
-  for (var i = all.length - 1; i >= 0; i--) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script>
 </body>
+
 </html>

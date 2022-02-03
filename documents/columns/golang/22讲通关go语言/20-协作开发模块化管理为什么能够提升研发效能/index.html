@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>20 协作开发：模块化管理为什么能够提升研发效能？ | </title>
-  <meta name="description" content="任何业务，都是从简单向复杂演进的。而在业务演进的过程中，技术是从单体向多模块、多服务演进的。技术的这种演进方式的核心目的是复用代码、提高效率，这一讲，我会为你介绍 Go 语言是如何通过模块化的管理，提升开发效率的。
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>20 协作开发：模块化管理为什么能够提升研发效能？ | Yipsen Ye</title>
+<meta name="description" content="任何业务，都是从简单向复杂演进的。而在业务演进的过程中，技术是从单体向多模块、多服务演进的。技术的这种演进方式的核心目的是复用代码、提高效率，这一讲，我会为你介绍 Go 语言是如何通过模块化的管理，提升开发效率的。
 Go 语言中的包 什么是包 在业务非常简单的时候，你甚至可以把代码写到一个 Go 文件中。但随着业务逐渐复杂，你会发现，如果代码都放在一个 Go 文件中，会变得难以维护，这时候你就需要抽取代码，把相同业务的代码放在一个目录中。在 Go 语言中，这个目录叫作包。
 在 Go 语言中，一个包是通过package 关键字定义的，最常见的就是main 包，它的定义如下所示：
 package main此外，前面章节演示示例经常使用到的 fmt 包，也是通过 package 关键字声明的。
@@ -16,48 +20,54 @@ import (&amp;quot;fmt&amp;quot;&amp;quot;os&amp;quot;)从以上示例可以�
 作用域 讲到了包之间的导入和使用，就不得不提作用域这个概念，因为只有满足作用域的函数才可以被调用。
  在Java 语言中，通过 public、private 这些修饰符修饰一个类的作用域； 但是在Go 语言中，并没有这样的作用域修饰符，它是通过首字母是否大写来区分的，这同时也体现了 Go 语言的简洁。  如上述示例中 fmt 包中的Println 函数：
  它的首字母就是大写的 P，所以该函数才可以在 main 包中使用； 如果 Println 函数的首字母是小写的 p，那么它只能在 fmt 包中被使用，不能跨包使用。  这里我为你总结下 Go 语言的作用域：">
-<meta name="viewport", content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" type="text/css" href="/css/apollo.css">
-<meta name="author" content="">
+<meta name="author"
+  content="">
 
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
-<body>
-    <div class="wrap">
-        <header>
-            <div class="logo-link">
-                <a href="http://yipsen.github.io/">
-                    <img src="/favicon.png" alt="logo">
-                    <span></span>
-                </a>
-            </div>
-            <ul class="nav nav-list">
-    
-    <li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/attachs/">图谱</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/tools/">瑞士军刀</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于</a>
-        </li>
-    
-</ul>
 
-        </header>
-        <main class="container">
-            
-<div class="post">
+<body>
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">图集</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container">
     <article class="post-block">
         <h1 class="post-title">20 协作开发：模块化管理为什么能够提升研发效能？</h1>
         <div class="post-info">
-            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/golang">golang</a>&nbsp;&nbsp;</div><div class="post-category">
+            <div>2021-12-22|<a class="post-tag" href="/tags/golang/">golang</a></div><div class="post-category">
                 
-                  <a href="/categories/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/"> 22讲通关Go语言 </a>
+                <a href="/categories/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/"> 22讲通关Go语言 </a>
                 
-              </div></div>
+            </div></div>
         <div class="post-content">
             <p>任何业务，都是从简单向复杂演进的。而在业务演进的过程中，技术是从单体向多模块、多服务演进的。技术的这种演进方式的核心目的是<strong>复用代码、提高效率</strong>，这一讲，我会为你介绍 Go 语言是如何通过模块化的管理，提升开发效率的。</p>
 <h3 id="go-语言中的包">Go 语言中的包</h3>
@@ -230,8 +240,9 @@ require (
     </article>
 </div>
 
-        </main>
-        <footer>
+    </main>
+    <footer>
+        <div id="pagination">
             
 <div class="paginator">
     <div class="prev">
@@ -244,63 +255,14 @@ require (
     </div>
 </div>
 
-            <div class="copyright">
+        </div>
+        <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
-        </footer>
-    </div>
+    </footer>
     
-<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  var all = MathJax.Hub.getAllJax(), i;
-  console.log(all[0].SourceElement().parentNode.className);
-  for (var i = all.length - 1; i >= 0; i--) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script>
 </body>
+
 </html>

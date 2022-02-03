@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>36 (1)加餐 练习题详解（七） | </title>
-  <meta name="description" content="今天我会带你把《模块七：网络和安全》中涉及的课后练习题，逐一讲解，并给出每个课时练习题的解题思路和答案。
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>36 (1)加餐 练习题详解（七） | Yipsen Ye</title>
+<meta name="description" content="今天我会带你把《模块七：网络和安全》中涉及的课后练习题，逐一讲解，并给出每个课时练习题的解题思路和答案。
 练习题详解 33 | 互联网协议群（TCP/IP）：多路复用是怎么回事？ 【问题】IPv4 和 IPv6 有什么区别？
 【解析】 IPv4 和 IPv6 最大的区别是地址空间大小不同。
  IPv4 是用 32 位描述 IP 地址，理论极限约在 40 亿 IP 地址； IPv6 是用 128 位描述 IP 地址，IPv6 可以大到给每个人都分配 40 亿个 IP 地址，甚至更多的 IP 地址。  IPv4 地址不够用，因此需要划分子网。比如公司的几千台机器（计算机、手机），复用一个出口 IP 地址。子网内部，就用 192.168 开头的 IP 地址。
@@ -13,48 +17,54 @@
 因为地址数目的不同导致这两个协议在分配 IP 地址的时候行为也不一样。
 IPv4 地址，空间小，如果没有一个中心的服务为所有设备分配地址，那么产生的冲突非常严重。所以IPv4 地址分配，是一种中心化的请求/返回的模式。客户端向服务端请求，分配地址。服务端，将计算好可以分配的地址返回给客户端。
 而 IPv6 可以采用先计算，再申请的模式。由客户端自己随机抽取得出一个 IP 地址（能这样做是因为闲置的 IP 地址太多，随机抽取一个大概率没有设备使用），然后再向这个 IP 地址发送信息。如果没有得到返回，那么说明这个 IP 地址还没有设备使用。大体来说，这就是 IPv6 邻居发现协议，但上述内容只是其中该协议的一小部分。">
-<meta name="viewport", content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" type="text/css" href="/css/apollo.css">
-<meta name="author" content="">
+<meta name="author"
+  content="">
 
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
-<body>
-    <div class="wrap">
-        <header>
-            <div class="logo-link">
-                <a href="http://yipsen.github.io/">
-                    <img src="/favicon.png" alt="logo">
-                    <span></span>
-                </a>
-            </div>
-            <ul class="nav nav-list">
-    
-    <li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/attachs/">图谱</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/tools/">瑞士军刀</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于</a>
-        </li>
-    
-</ul>
 
-        </header>
-        <main class="container">
-            
-<div class="post">
+<body>
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">图集</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container">
     <article class="post-block">
         <h1 class="post-title">36 (1)加餐 练习题详解（七）</h1>
         <div class="post-info">
-            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/linux">linux</a>&nbsp;&nbsp;</div><div class="post-category">
+            <div>2021-12-22|<a class="post-tag" href="/tags/linux/">linux</a></div><div class="post-category">
                 
-                  <a href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"> 重学操作系统 </a>
+                <a href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"> 重学操作系统 </a>
                 
-              </div></div>
+            </div></div>
         <div class="post-content">
             <p>今天我会带你把《模块七：网络和安全》中涉及的课后练习题，逐一讲解，并给出每个课时练习题的解题思路和答案。</p>
 <h3 id="练习题详解">练习题详解</h3>
@@ -112,8 +122,9 @@ IPv4 地址，空间小，如果没有一个中心的服务为所有设备分配
     </article>
 </div>
 
-        </main>
-        <footer>
+    </main>
+    <footer>
+        <div id="pagination">
             
 <div class="paginator">
     <div class="prev">
@@ -126,63 +137,14 @@ IPv4 地址，空间小，如果没有一个中心的服务为所有设备分配
     </div>
 </div>
 
-            <div class="copyright">
+        </div>
+        <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
-        </footer>
-    </div>
+    </footer>
     
-<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  var all = MathJax.Hub.getAllJax(), i;
-  console.log(all[0].SourceElement().parentNode.className);
-  for (var i = all.length - 1; i >= 0; i--) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script>
 </body>
+
 </html>

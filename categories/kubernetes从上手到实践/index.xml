@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Kubernetes从上手到实践 on </title>
+    <title>Kubernetes从上手到实践 on Yipsen Ye</title>
     <link>http://yipsen.github.io/categories/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/</link>
-    <description>Recent content in Kubernetes从上手到实践 on </description>
+    <description>Recent content in Kubernetes从上手到实践 on Yipsen Ye</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Wed, 22 Dec 2021 01:47:51 +0800</lastBuildDate><atom:link href="http://yipsen.github.io/categories/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/index.xml" rel="self" type="application/rss+xml" />
     <item>

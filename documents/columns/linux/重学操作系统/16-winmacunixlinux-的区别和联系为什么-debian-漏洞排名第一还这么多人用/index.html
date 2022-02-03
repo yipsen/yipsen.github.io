@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>16 WinMacUnixLinux 的区别和联系：为什么 Debian 漏洞排名第一还这么多人用？ | </title>
-  <meta name="description" content="在我的印象中 Windows 才是最容易被攻击的操作系统，没想到 2020 年美国 NIST 的报告中， Debian 竟然是过去 20 年中漏洞最多的操作系统。Debain 以 3067 个漏洞稳居第一，第二名是 Android，第三名是 Linux Kernel。那么为什么 Debian 漏洞数会排在第一位呢？
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>16 WinMacUnixLinux 的区别和联系：为什么 Debian 漏洞排名第一还这么多人用？ | Yipsen Ye</title>
+<meta name="description" content="在我的印象中 Windows 才是最容易被攻击的操作系统，没想到 2020 年美国 NIST 的报告中， Debian 竟然是过去 20 年中漏洞最多的操作系统。Debain 以 3067 个漏洞稳居第一，第二名是 Android，第三名是 Linux Kernel。那么为什么 Debian 漏洞数会排在第一位呢？
 NIST的数据报告：软件漏洞排名
 今天我们就以这个问题为引，带你了解更多的操作系统。这就要追溯到 20 世纪操作系统蓬勃发展的年代。那是一个惊艳绝伦的时代，一个个天才黑客，一场场激烈的商战，一次次震撼的产品发布会——每个人都想改变世界，都在积极的抓住时机，把握时代赋予的机会。我们今天的工程师文化——一种最纯粹的、崇尚知识，崇尚创造的文化，也是传承于此。
 本课时作为内核部分的最后一课，我会带你了解一些操作系统的历史，希望通过这种方式，把这种文化传承下去，让你更有信心去挑战未来的变化。当然，你也可以把本课时当作一个选学的内容，不会影响你继续学习我后面的课程。
@@ -14,48 +18,54 @@ IBM 话不多说，我们正式开始。1880 年美国进行了一次人口普�
 直到 1914 年托马斯·约翰·沃森（老沃森）加盟CRT，帮助霍尔列斯管理 CRT，情况才逐渐好转。老沃森是一个销售出身，很懂得建立销售团队的文化，所以才能逐渐把 CRT 的业务做起来，成为 CRT 的实际掌控者。在 1924 年 CRT 正式更名为 IBM，开启了沃森的时代。
 IBM（International Business Machines Corporation）一开始是卖机器的。后来沃森的儿子，也就是小沃森后来逐渐接管了 IBM。小沃森对蓬勃发展的计算机产业非常感兴趣，同时也很看好计算机市场。但也正因如此，沃森父子间发生了一场冲突。老沃森的著名论断也是出自这场冲突：世界上对计算机有需求的人不会超过 5 个。于是我们都成了这幸运的 5 个人之一。
 所以 IBM 真正开始做计算机是 1949 年小沃森逐渐掌权后。1954 年，IBM 推出了世界上第一个拥有操作系统的商用计算机——IBM 704，并且在 1956 年时独占了计算机市场的 70% 的份额。">
-<meta name="viewport", content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" type="text/css" href="/css/apollo.css">
-<meta name="author" content="">
+<meta name="author"
+  content="">
 
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
-<body>
-    <div class="wrap">
-        <header>
-            <div class="logo-link">
-                <a href="http://yipsen.github.io/">
-                    <img src="/favicon.png" alt="logo">
-                    <span></span>
-                </a>
-            </div>
-            <ul class="nav nav-list">
-    
-    <li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/attachs/">图谱</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/tools/">瑞士军刀</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于</a>
-        </li>
-    
-</ul>
 
-        </header>
-        <main class="container">
-            
-<div class="post">
+<body>
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">图集</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container">
     <article class="post-block">
         <h1 class="post-title">16 WinMacUnixLinux 的区别和联系：为什么 Debian 漏洞排名第一还这么多人用？</h1>
         <div class="post-info">
-            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/linux">linux</a>&nbsp;&nbsp;</div><div class="post-category">
+            <div>2021-12-22|<a class="post-tag" href="/tags/linux/">linux</a></div><div class="post-category">
                 
-                  <a href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"> 重学操作系统 </a>
+                <a href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"> 重学操作系统 </a>
                 
-              </div></div>
+            </div></div>
         <div class="post-content">
             <p>在我的印象中 Windows 才是最容易被攻击的操作系统，没想到 2020 年美国 NIST 的报告中， Debian 竟然是过去 20 年中漏洞最多的操作系统。Debain 以 3067 个漏洞稳居第一，第二名是 Android，第三名是 Linux Kernel。那么为什么 Debian 漏洞数会排在第一位呢？</p>
 <p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E5%AE%8C/assets/Ciqc1F-bn1-AS5raAAS__DN2p5g400.png" alt="sm6HBMt28BODYgyh__thumbnail.png"></p>
@@ -157,8 +167,9 @@ IBM（International Business Machines Corporation）一开始是卖机器的。�
     </article>
 </div>
 
-        </main>
-        <footer>
+    </main>
+    <footer>
+        <div id="pagination">
             
 <div class="paginator">
     <div class="prev">
@@ -171,63 +182,14 @@ IBM（International Business Machines Corporation）一开始是卖机器的。�
     </div>
 </div>
 
-            <div class="copyright">
+        </div>
+        <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
-        </footer>
-    </div>
+    </footer>
     
-<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  var all = MathJax.Hub.getAllJax(), i;
-  console.log(all[0].SourceElement().parentNode.className);
-  for (var i = all.length - 1; i >= 0; i--) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script>
 </body>
+
 </html>

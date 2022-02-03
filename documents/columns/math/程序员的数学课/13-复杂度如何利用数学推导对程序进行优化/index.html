@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>13 复杂度：如何利用数学推导对程序进行优化？ | </title>
-  <meta name="description" content="这一讲开始，我们进入到这个专栏“模块三 数据结构与算法”的学习，在这个模块，我们会重点学习数学与算法、代码之间的关系。
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>13 复杂度：如何利用数学推导对程序进行优化？ | Yipsen Ye</title>
+<meta name="description" content="这一讲开始，我们进入到这个专栏“模块三 数据结构与算法”的学习，在这个模块，我们会重点学习数学与算法、代码之间的关系。
 在一个程序开发的过程中，常常需要我们去关注程序的复杂度。这一讲，我们就先从复杂度出发，来看看数学的思想是如何应用在程序复杂度优化的。
 程序的时间损耗 程序就是计算机执行运算动作的指令，运算就是对数据进行的处理。
 例如，1&#43;2 这样的加法运算，就是对两个数据 1 和 2 执行加法的处理。同样地，加法运算还可以针对更多的数据，比如 1&#43;2&#43;3&#43;&amp;hellip;&#43;50，这就是对 1～50 这 50 个数据，执行加法运算的处理。
@@ -13,48 +17,54 @@
 我们看一个例子，下面一段代码的任务，是给定一个正整数 n，计算从 1～n 之间所有整数之和。
 import timeimport syst1 = int(time.time()*1000000)n = int(sys.argv[1])result = 0for i in range(n):result &#43;= it2 = int(time.time()*1000000)print t2 - t1我们对代码进行走读：
  第 4 行，记录了程序开始执行的毫秒级时间戳； 第 5 行，得到输入参数 n； 第 7～8 行，执行 1 加到 n 的循环求和； 第 9 行，记录了程序结束计算的毫秒级时间戳； 最后，第 10 行打印出程序执行的时间损耗。  当输入分别是 100、1000 和 10000 时，程序的执行结果如下图所示：">
-<meta name="viewport", content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" type="text/css" href="/css/apollo.css">
-<meta name="author" content="">
+<meta name="author"
+  content="">
 
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
-<body>
-    <div class="wrap">
-        <header>
-            <div class="logo-link">
-                <a href="http://yipsen.github.io/">
-                    <img src="/favicon.png" alt="logo">
-                    <span></span>
-                </a>
-            </div>
-            <ul class="nav nav-list">
-    
-    <li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/attachs/">图谱</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/tools/">瑞士军刀</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于</a>
-        </li>
-    
-</ul>
 
-        </header>
-        <main class="container">
-            
-<div class="post">
+<body>
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">图集</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container">
     <article class="post-block">
         <h1 class="post-title">13 复杂度：如何利用数学推导对程序进行优化？</h1>
         <div class="post-info">
-            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/math">math</a>&nbsp;&nbsp;</div><div class="post-category">
+            <div>2021-12-22|<a class="post-tag" href="/tags/math/">math</a></div><div class="post-category">
                 
-                  <a href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/"> 程序员的数学课 </a>
+                <a href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/"> 程序员的数学课 </a>
                 
-              </div></div>
+            </div></div>
         <div class="post-content">
             <p>这一讲开始，我们进入到这个专栏“模块三 数据结构与算法”的学习，在这个模块，我们会重点学习数学与算法、代码之间的关系。</p>
 <p>在一个程序开发的过程中，常常需要我们去关注程序的复杂度。这一讲，我们就先从复杂度出发，来看看数学的思想是如何应用在程序复杂度优化的。</p>
@@ -282,8 +292,9 @@ print nn * a1 + 2 * nn * (nn - 1) / d
     </article>
 </div>
 
-        </main>
-        <footer>
+    </main>
+    <footer>
+        <div id="pagination">
             
 <div class="paginator">
     <div class="prev">
@@ -296,63 +307,14 @@ print nn * a1 + 2 * nn * (nn - 1) / d
     </div>
 </div>
 
-            <div class="copyright">
+        </div>
+        <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
-        </footer>
-    </div>
+    </footer>
     
-<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  var all = MathJax.Hub.getAllJax(), i;
-  console.log(all[0].SourceElement().parentNode.className);
-  for (var i = all.length - 1; i >= 0; i--) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script>
 </body>
+
 </html>

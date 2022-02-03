@@ -1,59 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>12 练习篇：K8s 集群配置测验 | </title>
-  <meta name="description" content="第二部分的内容围绕 Kubernetes 核心组件的安装配置一一给大家拆解了一遍，当前集群组件最主流的配置就是这些：containerd、kubeadm、IPVS、Calico、kube-dns。读者通过官方文档就可以独立配置一套集群，只是笔者发现，因为集群配置的过度复杂，能获得的环境也是千差万别，很难得到统一的认知。本篇测验的目的就是带着大家一起校验一遍我们学习到的经验，一起搭建一套集群的全过程，以此来校验我们掌握的集群知识。
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>12 练习篇：K8s 集群配置测验 | Yipsen Ye</title>
+<meta name="description" content="第二部分的内容围绕 Kubernetes 核心组件的安装配置一一给大家拆解了一遍，当前集群组件最主流的配置就是这些：containerd、kubeadm、IPVS、Calico、kube-dns。读者通过官方文档就可以独立配置一套集群，只是笔者发现，因为集群配置的过度复杂，能获得的环境也是千差万别，很难得到统一的认知。本篇测验的目的就是带着大家一起校验一遍我们学习到的经验，一起搭建一套集群的全过程，以此来校验我们掌握的集群知识。
 环境 从第一天接触容器技术之后，我们想解决的问题就是环境依赖问题。因为 Docker 是让环境包裹这应用一起制作成镜像分发的。等我们配置 Kubernetes 集群的时候，我们操作的最小单元是 Pod，你可以理解为是一个容器组，这个容器组并不是简单的把一组容器放一起就完事了。它的设计巧妙之处在于以 pause 为核心的基础容器把相关应用的所有环境依赖都掌握在自己的运行时里面。其它相关业务容器只是加入到这个运行时里面，这些业务容器出现问题并不会破坏环境。这是 Kubernetes 构建业务集群的核心设计，非常巧妙的解决了应用服务的可用性问题。
 现在我们要选择操作系统的版本了。你会发现并没有任何官方文档说过，哪一个版本是指定的。其实官方并没有这样的约定。因为容器的目的就是解决环境的依赖，但是这么多年的演进，说的更清楚一点，我们仍然有一个核心依赖就是 Kernel 依赖搞不定。Kernel 的特性会决定容器的特性，我们一般在选择上会参考 Docker 的版本来定，主流的有 18.09、19.03 等。你发现没有，你并不能保证在特定的环境下这些 Docker 版本没有问题，这就是我们在配置生产环境中出现问题自己埋下的坑。
 如果你是企业内部使用，最好的办法是建立基准线，明确版本号，在大量实践的基础上投入人力来维护这个版本的稳定性。因为容器技术发展很快，现在 Kubernetes 已经和 Docker 越来越规避，都在使用 containerd 来支持底层容器运行时的管理，作为用户我们是无法回避这个。这里又突显一个问题，因为组件的变革，我到底应该选择哪个版本呢，它们稳定吗？因为 Kubernetes 是开源社区推动的软件，我们一定要遵循开源的方式来使用这些软件才能得到正确的经验。
 我总结出来的经验如下，方便大家参考：
 1. x86-64 仍然是当前对容器最好的系统架构体系，目前主流的系统聚集在 redhat/centos 7.x 系列，Ubuntu 16.04 系列。对于内核红帽系主要在 3.10 以上，Ubuntu 能到 4.4 以上。有些用户会通过开源 kernel 仓库把红帽系的 Kernel 升级到 4.4，也比较常见。升级内核的代价就是引入很多未知的模块，让系统变得不稳定。ARM 系统架构会对整个 Kubernetes 组件的文件格式产生兼容性要求，在选择适配的时候，一定要注意有没有准备好 Kubernetes 相应的组件。总结下来，主流的操作系统主要是红帽的 7.x 系列和 Ubuntu LTS 系列 16.04。升级大版本操作系统对 Kubernetes 来说，需要做很多适配工作，目前开源社区是不太可能帮用户做的。一定注意。
 2. Kubernetes 的版本更新很快，整个社区会维护 3 个主线版本，如现在主要为 1.">
-<meta name="viewport", content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" type="text/css" href="/css/apollo.css">
-<meta name="author" content="">
+<meta name="author"
+  content="">
 
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
-<body>
-    <div class="wrap">
-        <header>
-            <div class="logo-link">
-                <a href="http://yipsen.github.io/">
-                    <img src="/favicon.png" alt="logo">
-                    <span></span>
-                </a>
-            </div>
-            <ul class="nav nav-list">
-    
-    <li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/attachs/">图谱</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/tools/">瑞士军刀</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于</a>
-        </li>
-    
-</ul>
 
-        </header>
-        <main class="container">
-            
-<div class="post">
+<body>
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">图集</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container">
     <article class="post-block">
         <h1 class="post-title">12 练习篇：K8s 集群配置测验</h1>
         <div class="post-info">
-            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/kubernetes">kubernetes</a>&nbsp;&nbsp;</div><div class="post-category">
+            <div>2021-12-22|<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
                 
-                  <a href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/"> Kubernetes实践入门指南 </a>
+                <a href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/"> Kubernetes实践入门指南 </a>
                 
-              </div></div>
+            </div></div>
         <div class="post-content">
             <p>第二部分的内容围绕 Kubernetes 核心组件的安装配置一一给大家拆解了一遍，当前集群组件最主流的配置就是这些：containerd、kubeadm、IPVS、Calico、kube-dns。读者通过官方文档就可以独立配置一套集群，只是笔者发现，因为集群配置的过度复杂，能获得的环境也是千差万别，很难得到统一的认知。本篇测验的目的就是带着大家一起校验一遍我们学习到的经验，一起搭建一套集群的全过程，以此来校验我们掌握的集群知识。</p>
 <h3 id="环境">环境</h3>
@@ -89,8 +99,9 @@
     </article>
 </div>
 
-        </main>
-        <footer>
+    </main>
+    <footer>
+        <div id="pagination">
             
 <div class="paginator">
     <div class="prev">
@@ -103,63 +114,14 @@
     </div>
 </div>
 
-            <div class="copyright">
+        </div>
+        <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
-        </footer>
-    </div>
+    </footer>
     
-<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  var all = MathJax.Hub.getAllJax(), i;
-  console.log(all[0].SourceElement().parentNode.className);
-  for (var i = all.length - 1; i >= 0; i--) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script>
 </body>
+
 </html>

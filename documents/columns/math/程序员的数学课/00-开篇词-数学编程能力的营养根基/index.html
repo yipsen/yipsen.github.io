@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>00 开篇词 数学，编程能力的营养根基 | </title>
-  <meta name="description" content="你好，我是公瑾，欢迎来到《程序员的数学课》。一些同学可能知道，之前我在拉勾教育就开设了一个[《数据结构与算法》]课程，目的是帮助大家提升编码能力，打牢代码基础，在结课时也受到许多同学的好评，表示所讲的内容在面试和工作中都很有实用性。
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>00 开篇词 数学，编程能力的营养根基 | Yipsen Ye</title>
+<meta name="description" content="你好，我是公瑾，欢迎来到《程序员的数学课》。一些同学可能知道，之前我在拉勾教育就开设了一个[《数据结构与算法》]课程，目的是帮助大家提升编码能力，打牢代码基础，在结课时也受到许多同学的好评，表示所讲的内容在面试和工作中都很有实用性。
 编程一类的基础能力固然重要，但这些依旧不是程序员全部的“立足之本”。个人角度而言，从我在中科院的博士研究生经历，再到后来从事机器学习、数据挖掘等算法研发工作，都是数学作为我的基础思维能力支撑我一路走来。
 程序员为什么要注重数学？ 在[《数据结构与算法》]课程中，许多留言问题高频集中在：复杂度如何计算、某个代码优化是否降低了时间复杂度，或者是动态规划的状态转移方程问题，等等。这的确是在学习数据结构中遇到的困难，但剥离了外壳之后，你会发现本质上都是数学问题。
 举个例子，对于一个有序数组中查找目标值的问题，应该采用二分查找算法。而且随着数组元素越来越多，二分查找相对全局遍历而言，性能上的优势会越来越明显。从数学视角来看，这是因为当 x 很大时，lnx &amp;laquo;x。比如 x=100，ln100=4.6 &amp;laquo; 100。
@@ -17,48 +21,54 @@ y=lnx 与 y=x 的函数图
 这是个在无序数组中，涉及与其他元素匹配的查找问题。常规解法的复杂度应该是：O(n²) 时间复杂度、O(1) 空间复杂度，或者 O(n) 时间复杂度、O(n) 空间复杂度。显然，这并不符合题目的约束。
 要想解决这个问题，需要借助数学的异或运算。异或有这样两个性质：第一，任何数异或自己为零；第二，任何数异或零，是它自己。借助异或运算，你只需要把数组 a 中所有元素计算一下异或就可以得到 obj 了。实现起来，就是如下所示的 O(n) 时间复杂度的 for 循环，且不需要额外开辟复杂变量。
 a = [2,1,4,3,4,2,3]result = a[0]for i in range(1,len(a)):result = result ^ a[i]print result从上面的例子中你便能认识到数学的重要性，越是优雅的程序，越是能用简单的代码实现同样的需求。">
-<meta name="viewport", content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" type="text/css" href="/css/apollo.css">
-<meta name="author" content="">
+<meta name="author"
+  content="">
 
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
-<body>
-    <div class="wrap">
-        <header>
-            <div class="logo-link">
-                <a href="http://yipsen.github.io/">
-                    <img src="/favicon.png" alt="logo">
-                    <span></span>
-                </a>
-            </div>
-            <ul class="nav nav-list">
-    
-    <li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/attachs/">图谱</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/tools/">瑞士军刀</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于</a>
-        </li>
-    
-</ul>
 
-        </header>
-        <main class="container">
-            
-<div class="post">
+<body>
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">图集</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container">
     <article class="post-block">
         <h1 class="post-title">00 开篇词 数学，编程能力的营养根基</h1>
         <div class="post-info">
-            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/math">math</a>&nbsp;&nbsp;</div><div class="post-category">
+            <div>2021-12-22|<a class="post-tag" href="/tags/math/">math</a></div><div class="post-category">
                 
-                  <a href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/"> 程序员的数学课 </a>
+                <a href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/"> 程序员的数学课 </a>
                 
-              </div></div>
+            </div></div>
         <div class="post-content">
             <p>你好，我是公瑾，欢迎来到《程序员的数学课》。一些同学可能知道，之前我在拉勾教育就开设了一个[《数据结构与算法》]课程，目的是帮助大家提升编码能力，打牢代码基础，在结课时也受到许多同学的好评，表示所讲的内容在面试和工作中都很有实用性。</p>
 <p>编程一类的基础能力固然重要，但这些依旧不是程序员全部的“立足之本”。个人角度而言，从我在中科院的博士研究生经历，再到后来从事机器学习、数据挖掘等算法研发工作，都是数学作为我的基础思维能力支撑我一路走来。</p>
@@ -113,8 +123,9 @@ print result
     </article>
 </div>
 
-        </main>
-        <footer>
+    </main>
+    <footer>
+        <div id="pagination">
             
 <div class="paginator">
     <div class="prev">
@@ -127,63 +138,14 @@ print result
     </div>
 </div>
 
-            <div class="copyright">
+        </div>
+        <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
-        </footer>
-    </div>
+    </footer>
     
-<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  var all = MathJax.Hub.getAllJax(), i;
-  console.log(all[0].SourceElement().parentNode.className);
-  for (var i = all.length - 1; i >= 0; i--) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script>
 </body>
+
 </html>

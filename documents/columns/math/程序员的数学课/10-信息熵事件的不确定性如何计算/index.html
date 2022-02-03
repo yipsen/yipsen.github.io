@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>10 信息熵：事件的不确定性如何计算？ | </title>
-  <meta name="description" content="你好，欢迎来到第 10 课时——信息熵：事件的不确定性如何计算？
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>10 信息熵：事件的不确定性如何计算？ | Yipsen Ye</title>
+<meta name="description" content="你好，欢迎来到第 10 课时——信息熵：事件的不确定性如何计算？
 从加乘法则开始，我们基于事情的不确定性出发，尝试计算事情发生的可能性。然而，对于事件与事件之间的不确定性如何相比和衡量，单独靠概率就无法说清楚了。我说的这句话是什么意思呢？下面我举个例子来说明。
 假设有两场足球赛，也就是两个事件。第一场足球赛，对阵的双方是老挝队和巴西队，标记为事件 A；第二场足球赛，对阵的双方是阿根廷队和葡萄牙队，标记为事件 B。显然，在比赛开始前，这两个事件的比赛结果都具备一定的不确定性。人们也会根据历史数据，分别计算两场足球赛结果的概率。
 现在我们思考这样的问题：事件 A 和事件 B 的比赛结果，哪个不确定性更大？
@@ -19,48 +23,54 @@
 我们给一个计算的例子。假设在“巴西队 vs 老挝队”的比赛中，巴西获胜的概率为 0.9，巴西队不胜的概率为 0.1，计算这场比赛的熵。根据定义式计算，可以得出 H(p) = -0.9 * log2 0.9 - 0.1 * log2 0.1 =0.4690。
 对于熵的计算，涉及取对数的计算，我们给出下面的代码。
 import mathdef entropy(*c):result = 0islegal = 0for x in c:islegal &#43;= xresult = result &#43; (-x) * math.">
-<meta name="viewport", content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" type="text/css" href="/css/apollo.css">
-<meta name="author" content="">
+<meta name="author"
+  content="">
 
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
-<body>
-    <div class="wrap">
-        <header>
-            <div class="logo-link">
-                <a href="http://yipsen.github.io/">
-                    <img src="/favicon.png" alt="logo">
-                    <span></span>
-                </a>
-            </div>
-            <ul class="nav nav-list">
-    
-    <li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/attachs/">图谱</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/tools/">瑞士军刀</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于</a>
-        </li>
-    
-</ul>
 
-        </header>
-        <main class="container">
-            
-<div class="post">
+<body>
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">图集</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container">
     <article class="post-block">
         <h1 class="post-title">10 信息熵：事件的不确定性如何计算？</h1>
         <div class="post-info">
-            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/math">math</a>&nbsp;&nbsp;</div><div class="post-category">
+            <div>2021-12-22|<a class="post-tag" href="/tags/math/">math</a></div><div class="post-category">
                 
-                  <a href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/"> 程序员的数学课 </a>
+                <a href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/"> 程序员的数学课 </a>
                 
-              </div></div>
+            </div></div>
         <div class="post-content">
             <p>你好，欢迎来到第 10 课时——信息熵：事件的不确定性如何计算？</p>
 <p>从加乘法则开始，我们基于事情的不确定性出发，尝试计算事情发生的可能性。然而，<strong>对于事件与事件之间的不确定性如何相比和衡量，单独靠概率就无法说清楚了</strong>。我说的这句话是什么意思呢？下面我举个例子来说明。</p>
@@ -169,8 +179,9 @@ print entropy(0.9,0.1)
     </article>
 </div>
 
-        </main>
-        <footer>
+    </main>
+    <footer>
+        <div id="pagination">
             
 <div class="paginator">
     <div class="prev">
@@ -183,63 +194,14 @@ print entropy(0.9,0.1)
     </div>
 </div>
 
-            <div class="copyright">
+        </div>
+        <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
-        </footer>
-    </div>
+    </footer>
     
-<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  var all = MathJax.Hub.getAllJax(), i;
-  console.log(all[0].SourceElement().parentNode.className);
-  for (var i = all.length - 1; i >= 0; i--) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script>
 </body>
+
 </html>

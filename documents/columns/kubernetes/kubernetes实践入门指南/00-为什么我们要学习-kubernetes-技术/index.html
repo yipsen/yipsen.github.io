@@ -1,59 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>00 为什么我们要学习 Kubernetes 技术 | </title>
-  <meta name="description" content="Kubernetes 是谷歌开源的分布式容器编排和资源管理系统。因为它的英文术语字数太长，社区专门给它定义了一个缩写单词：K8s。从 2014 年发布至今，已经成为 GitHub 社区中最炙手可热的开源项目。因为以 K8s 为核心的云原生技术已经成为业界企业数字化转型的事实标准技术栈。国内企业纷纷效仿并开始计划落地 K8s 集群作为企业应用发布的默认基础设施，但是具体怎么落实这项云原生技术其实并没有特别好实施的工具，大部分情况下我们必须结合现有企业的实际情况来落地企业应用。当然，这个说起来容易，真正开始落地的时候，技术人员就会发现遇到一点问题能在网上查到的都是一些碎片化的知识，很难系统的解决实际应用发布和部署问题。所以，笔者借着这个场景机会，秉着布道云原生技术的信心带着大家来一起探讨 K8s 落地的各项技术细节和实际的决策思路，让 K8s 的用户可以从容自如的应对落地容器集群编排技术。
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>00 为什么我们要学习 Kubernetes 技术 | Yipsen Ye</title>
+<meta name="description" content="Kubernetes 是谷歌开源的分布式容器编排和资源管理系统。因为它的英文术语字数太长，社区专门给它定义了一个缩写单词：K8s。从 2014 年发布至今，已经成为 GitHub 社区中最炙手可热的开源项目。因为以 K8s 为核心的云原生技术已经成为业界企业数字化转型的事实标准技术栈。国内企业纷纷效仿并开始计划落地 K8s 集群作为企业应用发布的默认基础设施，但是具体怎么落实这项云原生技术其实并没有特别好实施的工具，大部分情况下我们必须结合现有企业的实际情况来落地企业应用。当然，这个说起来容易，真正开始落地的时候，技术人员就会发现遇到一点问题能在网上查到的都是一些碎片化的知识，很难系统的解决实际应用发布和部署问题。所以，笔者借着这个场景机会，秉着布道云原生技术的信心带着大家来一起探讨 K8s 落地的各项技术细节和实际的决策思路，让 K8s 的用户可以从容自如的应对落地容器集群编排技术。
 在学习 K8s 技术之前，我想给大家梳理下当前社区在学习 K8s 过程中遇到的几个问题：
 选择多： K8s 系统是一套专注容器应用管理的集群系统，它的组件一般按功能分别部署在主控节点（master node）和计算节点(agent node)。对于主控节点，主要包含有 etcd 集群，controller manager 组件，scheduler 组件，api-server 组件。对于计算节点，主要包含 kubelet 组件和 kubelet-proxy 组件。初学者会发现其实 K8s 的组件并不是特别多，为什么给人的印象就是特别难安装呢？ 这里需要特别强调的是，即使到了 2020 年，我们基础软硬件设施并不能保证装完就是最优的配置，仍然需要系统工程师解决一些兼容性问题。所以当你把这些 K8s 系统组件安装到物理机、虚拟机中，并不能保证就是最优的部署配置。因为这个原因，当你作为用户在做一份新的集群部署的方案的时候，需要做很多选择题才能调优到最优解。
 另外，企业业务系统的发布，并不止依赖于 K8s，它还需要包括网络、存储等。我们知道容器模型是基于单机设计的，当初设计的时候并没有考虑大规模的容器在跨主机的情况下通信问题。Pod 和 Pod 之间的网络只定义了接口标准，具体实现还要依赖第三方的网络解决方案。一直发展到今天，你仍然需要面对选择，选择适合的网络方案和网络存储。
 这里特别强调的是，目前容器网络并没有完美方案出现，它需要结合你的现有环境和基础硬件的情况来做选择。但是，当前很多书籍资料只是介绍当前最流行的开源解决方案，至于这个方案是否能在你的系统里面跑的更好是不承担责任的。这个给系统运维人员带来的痛苦是非常巨大的。一直到现在，我遇到很多维护 K8s 系统的开发运维还是对这种选择题很头疼。是的，开源社区的方案是多头驱动并带有竞争关系的，我们不能拍脑袋去选择一个容器网络之后就不在关心它的发展的。今天的最优网络方案可能过半年就不是最优的了。同理这种问题在应对选择容器存储解决方案过程中也是一样的道理。
 排错难： 当前 K8s 社区提供了各种各样的 K8s 运维工具，有 ansible 的，dind 容器化的，有 mac-desktop 桌面版本的，还有其他云原生的部署工具。每种工具都不是简单的几行代码就能熟悉，用户需要投入很大的精力来学习和试用。因为各种底层系统的多样性，你会遇到各种各样的问题，比如容器引擎 Docker 版本低，时间同步组件 ntp 没有安装，容器网络不兼容底层网络等。任何一个点出了问题，你都需要排错。加上企业的系统环境本来就很复杂，很多场景下都是没有互联网可以查资料的，对排错来说即使所有的日志都收集起来做分析也很难轻易的排错。
 你可能会觉得这是公司的基础设施没有建设好，可以考虑专家看看。用户倒是想解决这个问题，但是不管是商业方案还是开源方案都只是片面的考虑到 K8s 核心组件的排错，而真正企业关心的应用容器，集群，主机，网络，存储，监控日志，持续集成发布等方面的排错实践就只能靠自己摸索，你很难系统的学习到。还有，K8s 集群的版本是每个季度有一个大版本的更新。对于企业用户来说怎么才能在保证业务没有影响的情况下平滑更新 K8s 组件呢？ 头疼的问题就是这么出来的。一旦发生不可知问题，如何排错和高效的解决问题呢。这就是本系列专栏和大家探讨的问题。">
-<meta name="viewport", content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" type="text/css" href="/css/apollo.css">
-<meta name="author" content="">
+<meta name="author"
+  content="">
 
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
-<body>
-    <div class="wrap">
-        <header>
-            <div class="logo-link">
-                <a href="http://yipsen.github.io/">
-                    <img src="/favicon.png" alt="logo">
-                    <span></span>
-                </a>
-            </div>
-            <ul class="nav nav-list">
-    
-    <li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/attachs/">图谱</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/tools/">瑞士军刀</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于</a>
-        </li>
-    
-</ul>
 
-        </header>
-        <main class="container">
-            
-<div class="post">
+<body>
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">图集</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container">
     <article class="post-block">
         <h1 class="post-title">00 为什么我们要学习 Kubernetes 技术</h1>
         <div class="post-info">
-            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/kubernetes">kubernetes</a>&nbsp;&nbsp;</div><div class="post-category">
+            <div>2021-12-22|<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
                 
-                  <a href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/"> Kubernetes实践入门指南 </a>
+                <a href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/"> Kubernetes实践入门指南 </a>
                 
-              </div></div>
+            </div></div>
         <div class="post-content">
             <p>Kubernetes 是谷歌开源的分布式容器编排和资源管理系统。因为它的英文术语字数太长，社区专门给它定义了一个缩写单词：K8s。从 2014 年发布至今，已经成为 GitHub 社区中最炙手可热的开源项目。因为以 K8s 为核心的云原生技术已经成为业界企业数字化转型的事实标准技术栈。国内企业纷纷效仿并开始计划落地 K8s 集群作为企业应用发布的默认基础设施，但是具体怎么落实这项云原生技术其实并没有特别好实施的工具，大部分情况下我们必须结合现有企业的实际情况来落地企业应用。当然，这个说起来容易，真正开始落地的时候，技术人员就会发现遇到一点问题能在网上查到的都是一些碎片化的知识，很难系统的解决实际应用发布和部署问题。所以，笔者借着这个场景机会，秉着布道云原生技术的信心带着大家来一起探讨 <strong>K8s 落地的各项技术细节和实际的决策思路</strong>，让 K8s 的用户可以从容自如的应对落地容器集群编排技术。</p>
 <p>在学习 K8s 技术之前，我想给大家梳理下当前社区在学习 K8s 过程中遇到的几个问题：</p>
@@ -91,8 +101,9 @@
     </article>
 </div>
 
-        </main>
-        <footer>
+    </main>
+    <footer>
+        <div id="pagination">
             
 <div class="paginator">
     <div class="prev">
@@ -105,63 +116,14 @@
     </div>
 </div>
 
-            <div class="copyright">
+        </div>
+        <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
-        </footer>
-    </div>
+    </footer>
     
-<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  var all = MathJax.Hub.getAllJax(), i;
-  console.log(all[0].SourceElement().parentNode.className);
-  for (var i = all.length - 1; i >= 0; i--) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script>
 </body>
+
 </html>

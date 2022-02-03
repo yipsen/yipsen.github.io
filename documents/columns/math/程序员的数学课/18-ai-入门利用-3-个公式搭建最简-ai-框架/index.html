@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>18 AI 入门：利用 3 个公式搭建最简 AI 框架 | </title>
-  <meta name="description" content="你知道，你的网购 app 是如何成为你肚中蛔虫，向你“智能推荐”你的心仪之物的吗？地图 app 又是如何“智能预测”，你家门口的每日交通状况的吗？
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>18 AI 入门：利用 3 个公式搭建最简 AI 框架 | Yipsen Ye</title>
+<meta name="description" content="你知道，你的网购 app 是如何成为你肚中蛔虫，向你“智能推荐”你的心仪之物的吗？地图 app 又是如何“智能预测”，你家门口的每日交通状况的吗？
 如今 AI 变得无所不知，但原因并不是它真的能“窥探”万物，仅仅是因为它学会了从“数据”中学习，寻得了万物的规律。你与“淘友们”的浏览、购买数据，让它了解了你这个类群消费者的偏好；你与“出行者们”的日复一日的交通记录，让它轻松掌握所有人的出行规律。
 所以 AI 的本质就是“从大数据中学习”，那么想要了解 AI，是不是真的需要先用千万级的数据练手呢？不是的。接下来我仅用四对数据，便能从中带你找出“人工智能建模框架”的关键公式。
 这一模块，我们就开始从数学的视角来学习一下人工智能。
@@ -24,48 +28,54 @@
 人工智能的目标是要让模型预测的结果尽可能正确，而决定模型预测结果的就是模型的参数。因此，建模的过程更像是找到最合适的参数值，让模型的预测结果尽可能正确。
 这句话有些隐讳，我们尝试用数学语言来描述它。
 围绕“模型预测结果尽可能正确”，就是说预测的结果和真实的结果之间的偏差尽可能小，我们就需要用一个数学式子来表达。在先前的课时中，我们提到过利用平方误差来描述两个值的偏差程度，即 (y1-y2)2，代入到这里就是 (y-ŷ)2。">
-<meta name="viewport", content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" type="text/css" href="/css/apollo.css">
-<meta name="author" content="">
+<meta name="author"
+  content="">
 
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
-<body>
-    <div class="wrap">
-        <header>
-            <div class="logo-link">
-                <a href="http://yipsen.github.io/">
-                    <img src="/favicon.png" alt="logo">
-                    <span></span>
-                </a>
-            </div>
-            <ul class="nav nav-list">
-    
-    <li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/attachs/">图谱</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/tools/">瑞士军刀</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于</a>
-        </li>
-    
-</ul>
 
-        </header>
-        <main class="container">
-            
-<div class="post">
+<body>
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">图集</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container">
     <article class="post-block">
         <h1 class="post-title">18 AI 入门：利用 3 个公式搭建最简 AI 框架</h1>
         <div class="post-info">
-            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/math">math</a>&nbsp;&nbsp;</div><div class="post-category">
+            <div>2021-12-22|<a class="post-tag" href="/tags/math/">math</a></div><div class="post-category">
                 
-                  <a href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/"> 程序员的数学课 </a>
+                <a href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/"> 程序员的数学课 </a>
                 
-              </div></div>
+            </div></div>
         <div class="post-content">
             <p>你知道，你的网购 app 是如何成为你肚中蛔虫，向你“智能推荐”你的心仪之物的吗？地图 app 又是如何“智能预测”，你家门口的每日交通状况的吗？</p>
 <p>如今 AI 变得无所不知，但原因并不是它真的能“窥探”万物，仅仅是因为它学会了从“数据”中学习，寻得了万物的规律。你与“淘友们”的浏览、购买数据，让它了解了你这个类群消费者的偏好；你与“出行者们”的日复一日的交通记录，让它轻松掌握所有人的出行规律。</p>
@@ -153,8 +163,9 @@
     </article>
 </div>
 
-        </main>
-        <footer>
+    </main>
+    <footer>
+        <div id="pagination">
             
 <div class="paginator">
     <div class="prev">
@@ -167,63 +178,14 @@
     </div>
 </div>
 
-            <div class="copyright">
+        </div>
+        <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
-        </footer>
-    </div>
+    </footer>
     
-<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  var all = MathJax.Hub.getAllJax(), i;
-  console.log(all[0].SourceElement().parentNode.className);
-  for (var i = all.length - 1; i >= 0; i--) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script>
 </body>
+
 </html>

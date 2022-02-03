@@ -1,59 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>02 初步认识：Kubernetes 基础概念 | </title>
-  <meta name="description" content="好了，总算开始进入正题，抛弃掉死板的说教模式，我们以一个虚构的新成立的项目组为例开始我们的 Kubernetes 探索。(以下统一将 Kubernetes 简写为 K8S) 项目组目前就只有一个成员，我们称他为小张。项目组刚成立的时候，小张也没想好，具体要做什么，但肯定要对外提供服务的，所以先向公司申请了一台服务器。
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>02 初步认识：Kubernetes 基础概念 | Yipsen Ye</title>
+<meta name="description" content="好了，总算开始进入正题，抛弃掉死板的说教模式，我们以一个虚构的新成立的项目组为例开始我们的 Kubernetes 探索。(以下统一将 Kubernetes 简写为 K8S) 项目组目前就只有一个成员，我们称他为小张。项目组刚成立的时候，小张也没想好，具体要做什么，但肯定要对外提供服务的，所以先向公司申请了一台服务器。
 Node 这台服务器可以用来做什么呢？跑服务，跑数据库，跑测试之类的都可以，我们将它所做的事情统称为工作(work) 那么，它便是工作节点 (worker Node) 对应于 K8S 中，这就是我们首先要认识的 Node 。
 Node 可以是一台物理机，也可以是虚拟机，对于我们此处的项目来讲，这台服务器便是 K8S 中的 Node 。
 Node 状态 当我们拿到这台服务器后，首先我们登录服务器查看下服务器的基本配置和信息。其实对于一个新加入 K8S 集群的 Node 也是一样，需要先检查它的状态，并将状态上报至集群的 master 。我们来看看服务器有哪些信息是我们所关心的。
 地址 首先，我们所关心的是我们服务器的 IP 地址，包括内网 IP 和外网 IP。对应于 K8S 集群的话这个概念是类似的，内部 IP 可在 K8S 集群内访问，外部 IP 可在集群外访问。
 其次，我们也会关心一下我们的主机名，比如在服务器上执行 hostname 命令，便可得到主机名。K8S 集群中，每个 Node 的主机名也会被记录下来。当然，我们可以通过给 Kubelet 传递一个 --hostname-override 的参数来覆盖默认的主机名。 (Kubelet 是什么，我们后面会解释)
 信息 再之后，我们需要看下服务器的基本信息，比如看看系统版本信息， cat /etc/issue 或者 cat /etc/os-release 等方法均可查看。对于 K8S 集群会将每个 Node 的这些基础信息都记录下来。">
-<meta name="viewport", content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" type="text/css" href="/css/apollo.css">
-<meta name="author" content="">
+<meta name="author"
+  content="">
 
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
-<body>
-    <div class="wrap">
-        <header>
-            <div class="logo-link">
-                <a href="http://yipsen.github.io/">
-                    <img src="/favicon.png" alt="logo">
-                    <span></span>
-                </a>
-            </div>
-            <ul class="nav nav-list">
-    
-    <li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/attachs/">图谱</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/tools/">瑞士军刀</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于</a>
-        </li>
-    
-</ul>
 
-        </header>
-        <main class="container">
-            
-<div class="post">
+<body>
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">图集</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container">
     <article class="post-block">
         <h1 class="post-title">02 初步认识：Kubernetes 基础概念</h1>
         <div class="post-info">
-            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/kubernetes">kubernetes</a>&nbsp;&nbsp;</div><div class="post-category">
+            <div>2021-12-22|<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
                 
-                  <a href="/categories/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/"> Kubernetes从上手到实践 </a>
+                <a href="/categories/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/"> Kubernetes从上手到实践 </a>
                 
-              </div></div>
+            </div></div>
         <div class="post-content">
             <p>好了，总算开始进入正题，抛弃掉死板的说教模式，我们以一个虚构的新成立的项目组为例开始我们的 Kubernetes 探索。(以下统一将 Kubernetes 简写为 K8S) 项目组目前就只有一个成员，我们称他为小张。项目组刚成立的时候，小张也没想好，具体要做什么，但肯定要对外提供服务的，所以先向公司申请了一台服务器。</p>
 <h2 id="node">Node</h2>
@@ -98,8 +108,9 @@ Node 状态 当我们拿到这台服务器后，首先我们登录服务器查�
     </article>
 </div>
 
-        </main>
-        <footer>
+    </main>
+    <footer>
+        <div id="pagination">
             
 <div class="paginator">
     <div class="prev">
@@ -112,63 +123,14 @@ Node 状态 当我们拿到这台服务器后，首先我们登录服务器查�
     </div>
 </div>
 
-            <div class="copyright">
+        </div>
+        <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
-        </footer>
-    </div>
+    </footer>
     
-<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  var all = MathJax.Hub.getAllJax(), i;
-  console.log(all[0].SourceElement().parentNode.className);
-  for (var i = all.length - 1; i >= 0; i--) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script>
 </body>
+
 </html>

@@ -1,59 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>19 访问模式：一千个读者一千个哈姆雷特 | </title>
-  <meta name="description" content="【故事剧情】
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>19 访问模式：一千个读者一千个哈姆雷特 | Yipsen Ye</title>
+<meta name="description" content="【故事剧情】
  光阴似箭，转眼间作为 IT 狗的 Tony 已在职场上混迹快五年了，都说五年一个瓶颈，Tony 能否跳出这个瓶颈，他心里也没底，但他总觉得该留下点什么了。Tony 喜欢写博客，经常把自己对行业的看法及对应用到的技术的总结写成文章分享出来，这一习惯从大二开始一直坚持了下来，目前已经写了不少原创文章了。
 喜欢写作的人都有一个共同的梦想，就是希望有一天能写出一本书。Tony 也一样，出一本畅销书是隐藏在他内心的一个梦想，时刻有一种声音在呼唤着他！这也是他能一直坚持写作的动力，正好在这五年的一个拐点，他该行动了！
 Tony 真的动笔了，写起了他酝酿已久的一个主题《从生活的角度解读设计模式》，文章一经发表，便收到了很多读者的好评，同是技术圈的朋友评价：能抓住模式的核心思想、深入浅出，很有见地！做产品和设计的朋友评价：配图非常有趣，文章很有层次感！那些 IT 圈外的朋友则评价：技术的内容一脸懵圈，但故事很精彩，像是看小说或是故事集！真是一千个读者一千个哈姆雷特啊。
  用程序来模拟生活 Tony 的书是以完全一样的内容呈现给他们，但他的那些朋友却因为专业和工作性质的不同，看到了不同的内容和角度。我们用程序来模拟一下这个场景。
 源码示例：
 from abc import ABCMeta, abstractmethod# 引入ABCMeta和abstractmethod来定义抽象类和抽象方法class DesignPatternBook:&amp;quot;《从生活的角度解读设计模式》一书&amp;quot;def getName(self):return &amp;quot;《从生活的角度解读设计模式》&amp;quot;class Reader(metaclass=ABCMeta):&amp;quot;访问者，也就是读者&amp;quot;@abstractmethoddef read(self, book):passclass Engineer(Reader):def read(self, book):print(&amp;quot;技术狗读&amp;quot; &#43; book.getName() &#43; &amp;quot;一书后的感受：能抓住模式的核心思想，深入浅出，很有见地！&amp;quot;)class ProductManager(Reader):&amp;quot;产品经理&amp;quot;def read(self, book):print(&amp;quot;产品经理读&amp;quot; &#43; book.getName() &#43; &amp;quot;一书后的感受：配图非常有趣，文章很有层次感！&amp;quot;)class OtherFriend(Reader):&amp;quot;IT圈外的朋友&amp;quot;def read(self, book):print(&amp;quot;IT圈外的朋友读&amp;quot; &#43; book.">
-<meta name="viewport", content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" type="text/css" href="/css/apollo.css">
-<meta name="author" content="">
+<meta name="author"
+  content="">
 
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
-<body>
-    <div class="wrap">
-        <header>
-            <div class="logo-link">
-                <a href="http://yipsen.github.io/">
-                    <img src="/favicon.png" alt="logo">
-                    <span></span>
-                </a>
-            </div>
-            <ul class="nav nav-list">
-    
-    <li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/attachs/">图谱</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/tools/">瑞士军刀</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于</a>
-        </li>
-    
-</ul>
 
-        </header>
-        <main class="container">
-            
-<div class="post">
+<body>
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">图集</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container">
     <article class="post-block">
         <h1 class="post-title">19 访问模式：一千个读者一千个哈姆雷特</h1>
         <div class="post-info">
-            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/design">design</a>&nbsp;&nbsp;</div><div class="post-category">
+            <div>2021-12-22|<a class="post-tag" href="/tags/design/">design</a></div><div class="post-category">
                 
-                  <a href="/categories/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/"> 白话设计模式28讲 </a>
+                <a href="/categories/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/"> 白话设计模式28讲 </a>
                 
-              </div></div>
+            </div></div>
         <div class="post-content">
             <p>【故事剧情】</p>
 <blockquote>
@@ -370,8 +380,9 @@ class AgeCounter(Visitor):
     </article>
 </div>
 
-        </main>
-        <footer>
+    </main>
+    <footer>
+        <div id="pagination">
             
 <div class="paginator">
     <div class="prev">
@@ -384,63 +395,14 @@ class AgeCounter(Visitor):
     </div>
 </div>
 
-            <div class="copyright">
+        </div>
+        <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
-        </footer>
-    </div>
+    </footer>
     
-<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  var all = MathJax.Hub.getAllJax(), i;
-  console.log(all[0].SourceElement().parentNode.className);
-  for (var i = all.length - 1; i >= 0; i--) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script>
 </body>
+
 </html>

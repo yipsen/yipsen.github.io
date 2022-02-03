@@ -1,56 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>17 应用流量的优雅无损切换实践 | </title>
-  <meta name="description" content="Kubernetes 的部署基本上都是默认滚动式的，并且保证零宕机，但是它是有一个前置条件的。正是这个前置条件让零宕机部署表现为一个恼人的问题。为了实现 Kubernetes 真正的零宕机部署，不中断或不丢失任何一个运行中的请求，我们需要深入应用部署的运行细节并找到根源进行深入的根源分析。本篇的实践内容继承之前的知识体系，将更深入的总结零宕机部署方法。
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>17 应用流量的优雅无损切换实践 | Yipsen Ye</title>
+<meta name="description" content="Kubernetes 的部署基本上都是默认滚动式的，并且保证零宕机，但是它是有一个前置条件的。正是这个前置条件让零宕机部署表现为一个恼人的问题。为了实现 Kubernetes 真正的零宕机部署，不中断或不丢失任何一个运行中的请求，我们需要深入应用部署的运行细节并找到根源进行深入的根源分析。本篇的实践内容继承之前的知识体系，将更深入的总结零宕机部署方法。
 刨根问底 滚动更新 我们首先来谈谈滚动更新的问题。根据默认情况，Kubernetes 部署会以滚动更新策略推动 Pod 容器版本更新。该策略的思想就是在执行更新的过程中，至少要保证部分老实例在此时是启动并运行的，这样就可以防止应用程序出现服务停止的情况了。在这个策略的执行过程中，新版的 Pod 启动成功并已经可以引流时才会关闭旧 Pod。
 Kubernetes 在更新过程中如何兼顾多个副本的具体运行方式提供了策略参数。根据我们配置的工作负载和可用的计算资源，滚动更新策略可以细调超额运行的 Pods（maxSurge）和多少不可用的 Pods （maxUnavailable）。例如，给定一个部署对象要求包含三个复制体，我们是应该立即创建三个新的 Pod，并等待所有的 Pod 启动，并终止除一个 Pod 之外的所有旧 Pod，还是逐一进行更新？下面的代码显示了一个名为 Demo 应用的 Deployment 对象，该应用采用默认的 RollingUpdate 升级策略，在更新过程中最多只能有一个超额运行的 Pods（maxSurge）并且没有不可用的 Pods。
 kind: DeploymentapiVersion: apps/v1metadata:name: demospec:replicas: 3template:# with image docker.example.com/demo:1# ...strategy:type: RollingUpdaterollingUpdate:maxSurge: 1maxUnavailable: 0此部署对象将一次创建一个带有新版本的 Pod，等待 Pod 启动并准备好后触发其中一个旧 Pod 的终止，并继续进行下一个新 Pod，直到所有的副本都被更新。下面显示了 kubectl get pods 的输出和新旧 Pods 随时间的变化。">
-<meta name="viewport", content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" type="text/css" href="/css/apollo.css">
-<meta name="author" content="">
+<meta name="author"
+  content="">
 
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
-<body>
-    <div class="wrap">
-        <header>
-            <div class="logo-link">
-                <a href="http://yipsen.github.io/">
-                    <img src="/favicon.png" alt="logo">
-                    <span></span>
-                </a>
-            </div>
-            <ul class="nav nav-list">
-    
-    <li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/attachs/">图谱</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/tools/">瑞士军刀</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于</a>
-        </li>
-    
-</ul>
 
-        </header>
-        <main class="container">
-            
-<div class="post">
+<body>
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">图集</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container">
     <article class="post-block">
         <h1 class="post-title">17 应用流量的优雅无损切换实践</h1>
         <div class="post-info">
-            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/kubernetes">kubernetes</a>&nbsp;&nbsp;</div><div class="post-category">
+            <div>2021-12-22|<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
                 
-                  <a href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/"> Kubernetes实践入门指南 </a>
+                <a href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/"> Kubernetes实践入门指南 </a>
                 
-              </div></div>
+            </div></div>
         <div class="post-content">
             <p>Kubernetes 的部署基本上都是默认滚动式的，并且保证零宕机，但是它是有一个前置条件的。正是这个前置条件让零宕机部署表现为一个恼人的问题。为了实现 Kubernetes 真正的零宕机部署，不中断或不丢失任何一个运行中的请求，我们需要深入应用部署的运行细节并找到根源进行深入的根源分析。本篇的实践内容继承之前的知识体系，将更深入的总结零宕机部署方法。</p>
 <h3 id="刨根问底">刨根问底</h3>
@@ -177,8 +187,9 @@ Response Body/Total Sizes : count 10000 avg 168.852 +/- 2.52 min 161 max 171 sum
     </article>
 </div>
 
-        </main>
-        <footer>
+    </main>
+    <footer>
+        <div id="pagination">
             
 <div class="paginator">
     <div class="prev">
@@ -191,63 +202,14 @@ Response Body/Total Sizes : count 10000 avg 168.852 +/- 2.52 min 161 max 171 sum
     </div>
 </div>
 
-            <div class="copyright">
+        </div>
+        <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
-        </footer>
-    </div>
+    </footer>
     
-<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  var all = MathJax.Hub.getAllJax(), i;
-  console.log(all[0].SourceElement().parentNode.className);
-  for (var i = all.length - 1; i >= 0; i--) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script>
 </body>
+
 </html>

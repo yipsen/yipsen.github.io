@@ -1,38 +1,27 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on </title>
+    <title>Posts on Yipsen Ye</title>
     <link>http://yipsen.github.io/posts/</link>
-    <description>Recent content in Posts on </description>
+    <description>Recent content in Posts on Yipsen Ye</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 19 Jan 2022 16:15:37 +0000</lastBuildDate><atom:link href="http://yipsen.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 19 Jan 2022 15:22:11 +0000</lastBuildDate><atom:link href="http://yipsen.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>【DHT】基础知识（五）Magnet磁链与torrent文件</title>
-      <link>http://yipsen.github.io/posts/dht%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BA%94magnet%E7%A3%81%E9%93%BE%E4%B8%8Etorrent%E6%96%87%E4%BB%B6/</link>
-      <pubDate>Wed, 19 Jan 2022 16:15:37 +0000</pubDate>
-      
-      <guid>http://yipsen.github.io/posts/dht%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BA%94magnet%E7%A3%81%E9%93%BE%E4%B8%8Etorrent%E6%96%87%E4%BB%B6/</guid>
-      <description>磁链结构  magnet:?xt=urn:btih:60c423137f453492ca34c2d69f6f573408dca35a &amp;amp;dn=Inglourious.Basterds.DVDRip.XviD-iMBT.avi &amp;amp;tr=http%3A%2F%2Ftracker.publicbt.com%2Fannounce
-    字段 全称 解析     magnet magnet 协议名。   xt exact topic 包含文件哈希值的统一资源名称。   urn uniform resource name URN 表示资源名   btih BitTorrent info hash 种子散列函数，这里还可以使用ED2K，AICH，SHA1和MD5等。这个值是文件的标识符，是不可缺少的。   dn display name 表示向用户显示的文件名。这一项是选填的。   tr tracker 表示tracker服务器的地址。这一项也是选填的。   ws webseed 表示网络种子。     注：btih是应用程序定义的实验参数，必须以&amp;quot;x.&amp;ldquo;开头。[4-5] 标准还建议同类的多个参数可以在参数名称后面加上&amp;rdquo;.1&amp;quot;, &amp;ldquo;.2&amp;quot;等来使用， 例如： magnet:?xt.1=urn:sha1:YNCKHTQCWBTRNJIV4WNAE52SJUQCZO5C&amp;amp;xt.2=urn:sha1:TXGCZQTH26NL6OUQAJJPFALHG2LTGBC7
- TORRENT文件结构 { &amp;#34;announce&amp;#34;: &amp;#34;&amp;#34;, // tracker的主服务器  &amp;#34;announce-list&amp;#34;: [], // tracker服务器列表  &amp;#34;comment&amp;#34;: &amp;#34;&amp;#34;, // 种子文件的注释  &amp;#34;comment.</description>
-    </item>
-    
-    <item>
-      <title>【logback】pattern layout</title>
-      <link>http://yipsen.github.io/posts/logbackpattern-layout/</link>
+      <title>logback pattern layout</title>
+      <link>http://yipsen.github.io/posts/logback/pattern-layout/</link>
       <pubDate>Wed, 19 Jan 2022 15:22:11 +0000</pubDate>
       
-      <guid>http://yipsen.github.io/posts/logbackpattern-layout/</guid>
+      <guid>http://yipsen.github.io/posts/logback/pattern-layout/</guid>
       <description>配置解释    Conversion Effect     c{length}lo{length}logger{length} 输出日志名，length参数可以指定数字用以缩短控制长度   C{length}class{length} 输出类名.   d{pattern}date{pattern} 输出时间，使用方法与格式效果见：时间格式   micros ms    F file    caller{depth} 输出调用方   kvp{NONE,SINGLE,DOUBLE}    m msg message 日志信息   M method 方法名   n 换行符   p le level 日志级别   r relative    t thread 输出线程名   X{key:-defaultVal}mdc{key:-defaultVal}    ex{depth}exception{depth}throwable{depth} 输出异常堆栈信息   xEx{depth}xException{depth}xThrowable{depth} 输出异常堆栈信息及其所在jar包   nopexnopexception    marker    property{key}    replace(p){r, t}    prefix(p)    rEx{depth}rootException{depth}     配置示例 时间格式    Pattern Result     %d 2006-10-20 14:06:49,812   %date 2006-10-20 14:06:49,812   %date{ISO8601} 2006-10-20 14:06:49,812   %date{HH:mm:ss.</description>
     </item>
     
     <item>
-      <title>常用颜色</title>
-      <link>http://yipsen.github.io/posts/%E5%9B%BE%E8%B0%B1%E9%A2%9C%E8%89%B2%E8%A1%A8/</link>
-      <pubDate>Mon, 10 Jan 2022 23:36:41 +0800</pubDate>
+      <title>SSH登录过程</title>
+      <link>http://yipsen.github.io/posts/ssh%E7%99%BB%E5%BD%95%E8%BF%87%E7%A8%8B/</link>
+      <pubDate>Sat, 15 Jan 2022 10:40:52 +0800</pubDate>
       
-      <guid>http://yipsen.github.io/posts/%E5%9B%BE%E8%B0%B1%E9%A2%9C%E8%89%B2%E8%A1%A8/</guid>
-      <description>古代颜色 bootstrap主题    颜色 色值 示例 用途     黑色 #000000 #000000 庄重   红色 xxxx dx 2    </description>
+      <guid>http://yipsen.github.io/posts/ssh%E7%99%BB%E5%BD%95%E8%BF%87%E7%A8%8B/</guid>
+      <description>SSH登录 SSH登录流程 sequenceDiagramparticipant A as User Host Aparticipant B as Server Host BA -&amp;gt;&amp;gt; B : 发送SSH登录请求B -&amp;gt;&amp;gt; A : 发送公钥bbb.pub给用户A -&amp;gt;&amp;gt; A : 使用公钥bbb.pub加密登录密码A -&amp;gt;&amp;gt; B : 发送加密后的登录密码B -&amp;gt;&amp;gt; B : 使用私钥bbb进行解密opt 密码正确B -&amp;gt;&amp;gt; A : 登录成功end公钥登录 先发布公钥 sequenceDiagramparticipant A as User Host Aparticipant B as Server Host BA -&amp;gt;&amp;gt; B : 发布自己的公钥aaa.pub给服务器B -&amp;gt;&amp;gt; B : 保存用户公钥aaa.</description>
     </item>
     
   </channel>

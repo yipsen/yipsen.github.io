@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>06 目录结构和文件管理指令：rm -rf 指令的作用是？ | </title>
-  <meta name="description" content="通过模块一的学习，你应该掌握了计算机组成原理的重点知识，到了模块二，我们开始学习 Linux 指令，它是操作系统的前端，学好这部分内容一方面可以帮助你应对工作场景，另一方面可以让你在学习操作系统底层知识前，对 Linux 有一个大概的了解。
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>06 目录结构和文件管理指令：rm -rf 指令的作用是？ | Yipsen Ye</title>
+<meta name="description" content="通过模块一的学习，你应该掌握了计算机组成原理的重点知识，到了模块二，我们开始学习 Linux 指令，它是操作系统的前端，学好这部分内容一方面可以帮助你应对工作场景，另一方面可以让你在学习操作系统底层知识前，对 Linux 有一个大概的了解。
 接下来，我们依然通过一道常见的高频面试题，引出今天的主要内容。面试题如下：请你说说rm / -rf的作用？
 相信 90% 的同学是知道这个指令的。这里先预警一下，你千万不要轻易在服务器上尝试。要想知道这条指令是做什么的，能够帮助我们解决哪些问题，那就请你认真学习今天的内容。在本课时的最后我会公布这道题目的分析过程和答案。
 什么是 Shell 在我们学习 Linux 指令之前，先来说一下什么是 Shell？Shell 把我们输入的指令，传递给操作系统去执行，所以 Shell 是一个命令行的用户界面。
@@ -22,48 +26,54 @@ Linux 对文件目录的抽象 Linux 对文件进行了一个树状的抽象。/
 相对路径（Relative path）是以工作目录为基点的路径。比如：
  当用户在/usr目录下的时候，rm文件的相对路径就是bin/rm； 如果用户在/usr/bin目录下的时候，rm文件的路径就是./rm或者rm，这里用.代表当前目录； 如果用户在/usr/bin/somedir下，那么rm的相对路径就是../rm，这里用..代表上一级目录。  我们使用cd（change directory）指令切换工作目录，既可以用绝对路径，也可以用相对路径。 这里我要强调几个注意事项：
  输入cd，不带任何参数会切换到用户的家目录，Linux 中通常是/home/{用户名}。以我自己为例，我的家目录是/home/ramroll； 输入cd .">
-<meta name="viewport", content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" type="text/css" href="/css/apollo.css">
-<meta name="author" content="">
+<meta name="author"
+  content="">
 
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
-<body>
-    <div class="wrap">
-        <header>
-            <div class="logo-link">
-                <a href="http://yipsen.github.io/">
-                    <img src="/favicon.png" alt="logo">
-                    <span></span>
-                </a>
-            </div>
-            <ul class="nav nav-list">
-    
-    <li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/attachs/">图谱</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/tools/">瑞士军刀</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于</a>
-        </li>
-    
-</ul>
 
-        </header>
-        <main class="container">
-            
-<div class="post">
+<body>
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">图集</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container">
     <article class="post-block">
         <h1 class="post-title">06 目录结构和文件管理指令：rm -rf 指令的作用是？</h1>
         <div class="post-info">
-            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/linux">linux</a>&nbsp;&nbsp;</div><div class="post-category">
+            <div>2021-12-22|<a class="post-tag" href="/tags/linux/">linux</a></div><div class="post-category">
                 
-                  <a href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"> 重学操作系统 </a>
+                <a href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"> 重学操作系统 </a>
                 
-              </div></div>
+            </div></div>
         <div class="post-content">
             <p>通过模块一的学习，你应该掌握了计算机组成原理的重点知识，到了模块二，我们开始学习 Linux 指令，它是操作系统的前端，学好这部分内容一方面可以帮助你应对工作场景，另一方面可以让你在学习操作系统底层知识前，对 Linux 有一个大概的了解。</p>
 <p><strong>接下来，我们依然通过一道常见的高频面试题，引出今天的主要内容。面试题如下：请你说说</strong><code>rm / -rf</code><strong>的作用</strong>？</p>
@@ -227,8 +237,9 @@ Linux 对文件目录的抽象 Linux 对文件进行了一个树状的抽象。/
     </article>
 </div>
 
-        </main>
-        <footer>
+    </main>
+    <footer>
+        <div id="pagination">
             
 <div class="paginator">
     <div class="prev">
@@ -241,63 +252,14 @@ Linux 对文件目录的抽象 Linux 对文件进行了一个树状的抽象。/
     </div>
 </div>
 
-            <div class="copyright">
+        </div>
+        <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
-        </footer>
-    </div>
+    </footer>
     
-<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  var all = MathJax.Hub.getAllJax(), i;
-  console.log(all[0].SourceElement().parentNode.className);
-  for (var i = all.length - 1; i >= 0; i--) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script>
 </body>
+
 </html>

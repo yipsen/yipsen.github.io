@@ -1,57 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>19 使用 Rook 构建生产可用存储环境实践 | </title>
-  <meta name="description" content="Rook 是基于 Kubernetes 之上构建的存储服务框架。它支持 Ceph、NFS 等多种底层存储的创建和管理。帮助系统管理员自动化维护存储的整个生命周期。存储的整个生命周期包括部署、启动、配置、申请、扩展、升级、迁移、灾难恢复、监控和资源管理等，看着就让笔者觉得事情不少，Rook 的目标就是降低运维的难度，让 Kubernetes 和 Rook 来帮你托管解决这些任务。
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>19 使用 Rook 构建生产可用存储环境实践 | Yipsen Ye</title>
+<meta name="description" content="Rook 是基于 Kubernetes 之上构建的存储服务框架。它支持 Ceph、NFS 等多种底层存储的创建和管理。帮助系统管理员自动化维护存储的整个生命周期。存储的整个生命周期包括部署、启动、配置、申请、扩展、升级、迁移、灾难恢复、监控和资源管理等，看着就让笔者觉得事情不少，Rook 的目标就是降低运维的难度，让 Kubernetes 和 Rook 来帮你托管解决这些任务。
 Rook 管理 Ceph 集群 Ceph 分布式存储是 Rook 支持的第一个标记为 Stable 的编排存储引擎，在笔者验证 Rook 操作 Ceph 的过程中发现，其社区文档、脚本都放在一起，初次新手很难知道如何一步一步体验 Rook 搭建 Ceph 的过程。这从一个侧面反应了分布式存储的技术难度和兼容性是一个长期的迭代过程，Rook 的本意是为了降低部署管理 Ceph 集群的难度，但是事与愿违，初期使用的过程并不友好，有很多不知名的问题存在官方文档中。
 在安装 Ceph 前要注意，目前最新的 Ceph 支持的存储后端 BlueStore 仅支持裸设备，不支持在本地文件系统之上建立存储块。因为 Rook 文档的混乱，一开始我们需要自己找到安装脚本目录，它在
  https://github.com/rook/rook/tree/master/cluster/examples/kubernetes/ceph
  $ git clone https://github.com/rook/rook.git$ cd rook$ git checkout release-1.4$ cd cluster/examples/kubernetes/ceph$ kubectl create -f common.yaml# 检查 namesapce 是否有 rook-ceph 了$ kubectl get namespace$ kubectl create -f operator.">
-<meta name="viewport", content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" type="text/css" href="/css/apollo.css">
-<meta name="author" content="">
+<meta name="author"
+  content="">
 
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
-<body>
-    <div class="wrap">
-        <header>
-            <div class="logo-link">
-                <a href="http://yipsen.github.io/">
-                    <img src="/favicon.png" alt="logo">
-                    <span></span>
-                </a>
-            </div>
-            <ul class="nav nav-list">
-    
-    <li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/attachs/">图谱</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/tools/">瑞士军刀</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于</a>
-        </li>
-    
-</ul>
 
-        </header>
-        <main class="container">
-            
-<div class="post">
+<body>
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">图集</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container">
     <article class="post-block">
         <h1 class="post-title">19 使用 Rook 构建生产可用存储环境实践</h1>
         <div class="post-info">
-            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/kubernetes">kubernetes</a>&nbsp;&nbsp;</div><div class="post-category">
+            <div>2021-12-22|<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
                 
-                  <a href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/"> Kubernetes实践入门指南 </a>
+                <a href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/"> Kubernetes实践入门指南 </a>
                 
-              </div></div>
+            </div></div>
         <div class="post-content">
             <p>Rook 是基于 Kubernetes 之上构建的存储服务框架。它支持 Ceph、NFS 等多种底层存储的创建和管理。帮助系统管理员自动化维护存储的整个生命周期。存储的整个生命周期包括部署、启动、配置、申请、扩展、升级、迁移、灾难恢复、监控和资源管理等，看着就让笔者觉得事情不少，Rook 的目标就是降低运维的难度，让 Kubernetes 和 Rook 来帮你托管解决这些任务。</p>
 <h3 id="rook-管理-ceph-集群">Rook 管理 Ceph 集群</h3>
@@ -286,8 +296,9 @@ nfs-busybox-w3s4t
     </article>
 </div>
 
-        </main>
-        <footer>
+    </main>
+    <footer>
+        <div id="pagination">
             
 <div class="paginator">
     <div class="prev">
@@ -300,63 +311,14 @@ nfs-busybox-w3s4t
     </div>
 </div>
 
-            <div class="copyright">
+        </div>
+        <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
-        </footer>
-    </div>
+    </footer>
     
-<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  var all = MathJax.Hub.getAllJax(), i;
-  console.log(all[0].SourceElement().parentNode.className);
-  for (var i = all.length - 1; i >= 0; i--) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script>
 </body>
+
 </html>

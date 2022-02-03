@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-<meta name="X-UA-Compatible", content="IE=edge,chrome=1">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>35 结语：ShardingSphere 总结及展望 | </title>
-  <meta name="description" content="终于到了专栏的最后一讲。今天，我们将对整个 ShardingSphere 课程进行总结和展望。作为一款在业界领先的分布式数据库中间件，ShardingSphere 受到越来越多人的追捧，它可以为我们提供多项核心功能，并帮忙我们构建完整的分库分表解决方案。
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>35 结语：ShardingSphere 总结及展望 | Yipsen Ye</title>
+<meta name="description" content="终于到了专栏的最后一讲。今天，我们将对整个 ShardingSphere 课程进行总结和展望。作为一款在业界领先的分布式数据库中间件，ShardingSphere 受到越来越多人的追捧，它可以为我们提供多项核心功能，并帮忙我们构建完整的分库分表解决方案。
 首先，我们还是总结一下专栏中讲解过的 ShardingSphere 核心功能，然后再梳理我在写作过程中的一些思考和心得，最后，我会向你讲解 ShardingSphere 4.X 版本至未来 5.X 版本的演进变化。
 ShardingSphere 核心功能 ShardingSphere 官网展示了数据分片、分布式事务、数据库治理等三大块核心功能，对于这些功能，我分别在本专栏的第四部分、第五部分、第六部分都进行了详细介绍，你可回顾重温一遍。
 1.数据分片 数据分片是 ShardingSphere 的基本功能。ShardingSphere 支持常规的基于垂直拆分和水平拆分的分库分表操作。在分库分表的基础上，ShardingSphere 也实现了基于数据库主从架构的读写分离机制，而且这种读写分离机制可以和数据分片完美地进行整合。
@@ -18,48 +22,54 @@ ShardingSphere 对分布式事务的支持首先体现在抽象层面上。Shard
 一旦 ShardingSphere 被应用到生产环境，开发和运维人员都需要关注通过 ShardingSphere 所执行的 SQL 语句的执行情况，以及 ShardingSphere 内核的运行时状态。在 ShardingSphere 中，使用 OpenTracing API 发送性能追踪数据。而在 SQL 解析与 SQL 执行等核心环节，ShardingSphere 都会把采集到的运行时数据通过标准协议提交到链路跟踪系统供我们进行分析和监控。
 关于数据库治理的最后一项核心功能是数据脱敏。严格意义上讲，与其说数据脱敏是一项数据库治理功能，不如说它更多的是一项面向业务场景的特定功能。数据脱敏是业务系统中确保数据访问安全的常见需求，我们需要实现对原文数据进行加密并存储在数据库中。而在用户查询数据时，它又从数据库中取出密文数据并解密，最终将解密后的原始数据返回给用户。
 ShardingSphere 对这一数据脱敏过程实现了自动化和透明化，开发人员无须关注数据脱敏的实现细节。">
-<meta name="viewport", content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" type="text/css" href="/css/apollo.css">
-<meta name="author" content="">
+<meta name="author"
+  content="">
 
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
-<body>
-    <div class="wrap">
-        <header>
-            <div class="logo-link">
-                <a href="http://yipsen.github.io/">
-                    <img src="/favicon.png" alt="logo">
-                    <span></span>
-                </a>
-            </div>
-            <ul class="nav nav-list">
-    
-    <li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/posts/">札记</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/attachs/">图谱</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/tools/">瑞士军刀</a>
-        </li><li class="nav-list-item">
-            <a class="nav-list-link " href="http://yipsen.github.io/about/">关于</a>
-        </li>
-    
-</ul>
 
-        </header>
-        <main class="container">
-            
-<div class="post">
+<body>
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">图集</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container">
     <article class="post-block">
         <h1 class="post-title">35 结语：ShardingSphere 总结及展望</h1>
         <div class="post-info">
-            <div >2021-12-22&nbsp;&nbsp;|&nbsp;&nbsp;<a class="post-tag" href="/tags/sharding">sharding</a>&nbsp;&nbsp;</div><div class="post-category">
+            <div>2021-12-22|<a class="post-tag" href="/tags/sharding/">sharding</a></div><div class="post-category">
                 
-                  <a href="/categories/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/"> ShardingSphere核心原理精讲 </a>
+                <a href="/categories/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/"> ShardingSphere核心原理精讲 </a>
                 
-              </div></div>
+            </div></div>
         <div class="post-content">
             <p>终于到了专栏的最后一讲。今天，我们将对整个 ShardingSphere 课程进行总结和展望。作为一款在业界领先的分布式数据库中间件，ShardingSphere 受到越来越多人的追捧，它可以为我们提供多项核心功能，并帮忙我们构建完整的分库分表解决方案。</p>
 <p>首先，我们还是总结一下专栏中讲解过的 ShardingSphere 核心功能，然后再梳理我在写作过程中的一些思考和心得，最后，我会向你讲解 ShardingSphere 4.X 版本至未来 5.X 版本的演进变化。</p>
@@ -108,8 +118,9 @@ ShardingSphere 对这一数据脱敏过程实现了自动化和透明化，开�
     </article>
 </div>
 
-        </main>
-        <footer>
+    </main>
+    <footer>
+        <div id="pagination">
             
 <div class="paginator">
     <div class="prev">
@@ -122,63 +133,14 @@ ShardingSphere 对这一数据脱敏过程实现了自动化和透明化，开�
     </div>
 </div>
 
-            <div class="copyright">
+        </div>
+        <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2022 <a href="/"></a>, powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a> and apollo</p>
+    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
-        </footer>
-    </div>
+    </footer>
     
-<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript">
-
-
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[','\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Queue(function() {
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  var all = MathJax.Hub.getAllJax(), i;
-  console.log(all[0].SourceElement().parentNode.className);
-  for (var i = all.length - 1; i >= 0; i--) {
-    all[i].SourceElement().parentNode.className += ' has-jax';
-  }
-});
-</script>
 </body>
+
 </html>
