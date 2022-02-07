@@ -22,7 +22,7 @@ Binary 方式的序列化 首先我们来看一下 Jute 中的第 1 种序列化
 
 </head>
 
-<body>
+<body id="page">
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
@@ -226,13 +226,19 @@ ByteBuffer stringToByteBuffer(CharSeuquece s){
 </div>
 
         </div>
+        <div class="toggler" onclick="toggleLight();">T</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 8080 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
+<script>
+    function toggleLight() {
+        document.getElementById('page').classList.toggle('night');
+    }
+</script>
 </body>
 
 </html>

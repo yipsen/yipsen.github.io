@@ -22,7 +22,7 @@ create table t1(id int primary key, a int, b int, index(a));create table t2 lik
 
 </head>
 
-<body>
+<body id="page">
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
@@ -249,13 +249,19 @@ insert into ... // 初始化三张表的数据
 </div>
 
         </div>
+        <div class="toggler" onclick="toggleLight();">T</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 8080 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
+<script>
+    function toggleLight() {
+        document.getElementById('page').classList.toggle('night');
+    }
+</script>
 </body>
 
 </html>

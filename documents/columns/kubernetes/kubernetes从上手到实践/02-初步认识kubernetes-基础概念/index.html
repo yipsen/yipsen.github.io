@@ -23,7 +23,7 @@ Node 状态 当我们拿到这台服务器后，首先我们登录服务器查�
 
 </head>
 
-<body>
+<body id="page">
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
@@ -84,7 +84,7 @@ Node 状态 当我们拿到这台服务器后，首先我们登录服务器查�
 <p>现在小张拿到的服务器已经是可用状态，虽然此时尚不知要具体做什么，但姑且先部署一个主页来宣布下项目组的成立。</p>
 <p>我们来看下一般情况下的做法，先写一个静态页面，比如叫 index.html 然后在服务器上启动一个 Nginx 或者其他任何 Web 服务器，来提供对 index.html 的访问。</p>
 <p>Nginx 的安装及配置可参考 <a href="https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-open-source/">Nginx 的官方文档</a>。最简单的配置大概类似下面这样（仅保留关键部分）：</p>
-<pre tabindex="0"><code>location / {
+<pre tabindex="0"><code class="language-config" data-lang="config">location / {
     root   /www;
     index  index.html;
 }
@@ -124,13 +124,19 @@ Node 状态 当我们拿到这台服务器后，首先我们登录服务器查�
 </div>
 
         </div>
+        <div class="toggler" onclick="toggleLight();">T</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 8080 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
+<script>
+    function toggleLight() {
+        document.getElementById('page').classList.toggle('night');
+    }
+</script>
 </body>
 
 </html>

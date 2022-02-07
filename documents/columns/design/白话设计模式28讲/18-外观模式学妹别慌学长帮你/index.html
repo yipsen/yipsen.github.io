@@ -31,7 +31,7 @@ class Register:&amp;quot;入学报到&amp;quot;def register(self, name):print
 
 </head>
 
-<body>
+<body id="page">
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
@@ -321,13 +321,19 @@ RAR模块正在进行 'E:\压缩文件\生活中的外观模式——学妹别�
 </div>
 
         </div>
+        <div class="toggler" onclick="toggleLight();">T</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 8080 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
+<script>
+    function toggleLight() {
+        document.getElementById('page').classList.toggle('night');
+    }
+</script>
 </body>
 
 </html>

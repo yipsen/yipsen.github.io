@@ -29,7 +29,7 @@ cas(&amp;amp;version, 100, 108); // 成功cas(&amp;amp;version, 100, 106); // �
 
 </head>
 
-<body>
+<body id="page">
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
@@ -173,13 +173,19 @@ from=B1, to=A, object=iphonex2, signature=另一个苹果店的签名
 </div>
 
         </div>
+        <div class="toggler" onclick="toggleLight();">T</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 8080 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
+<script>
+    function toggleLight() {
+        document.getElementById('page').classList.toggle('night');
+    }
+</script>
 </body>
 
 </html>

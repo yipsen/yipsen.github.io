@@ -23,7 +23,7 @@
     <loc>http://yipsen.github.io/</loc>
     <lastmod>2022-01-19T15:22:11+00:00</lastmod>
   </url><url>
-    <loc>http://yipsen.github.io/posts/ssh%E7%99%BB%E5%BD%95%E8%BF%87%E7%A8%8B/</loc>
+    <loc>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/ssh%E7%99%BB%E5%BD%95%E8%BF%87%E7%A8%8B/</loc>
     <lastmod>2022-01-15T10:40:52+08:00</lastmod>
   </url><url>
     <loc>http://yipsen.github.io/collections/</loc>
@@ -2258,6 +2258,14 @@
     <loc>http://yipsen.github.io/about/</loc>
     <lastmod>2021-12-11T06:55:43+00:00</lastmod>
   </url><url>
+    <loc>http://yipsen.github.io/targets/2022/</loc>
+  </url><url>
+    <loc>http://yipsen.github.io/tools/json%E6%A0%BC%E5%BC%8F%E5%8C%96/</loc>
+  </url><url>
     <loc>http://yipsen.github.io/series/</loc>
+  </url><url>
+    <loc>http://yipsen.github.io/targets/</loc>
+  </url><url>
+    <loc>http://yipsen.github.io/tools/</loc>
   </url>
 </urlset>

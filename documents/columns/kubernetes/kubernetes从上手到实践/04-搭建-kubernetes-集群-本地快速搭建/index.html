@@ -12,9 +12,9 @@
 <meta name="description" content="通过之前的学习，我们已经知道了 K8S 中有一些组件是必须的，集群中有不同的角色。本节，我们在本地快速搭建一个集群，以加深我们学习到的东西。
 方案选择 在上一节中，我们知道 K8S 中有多种功能组件，而这些组件要在本地全部搭建好，需要一些基础知识，以及在搭建过程中会浪费不少的时间，从而可能会影响我们正常的搭建集群的目标。
 所以，我们这里提供两个最简单，最容易实现我们目标的工具
- KIND 。 Minikube 。  KIND 介绍 KIND（Kubernetes in Docker）是为了能提供更加简单，高效的方式来启动 K8S 集群，目前主要用于比如 Kubernetes 自身的 CI 环境中。
-安装  可以直接在项目的 Release 页面 下载已经编译好的二进制文件。(下文中使用的是 v0.1.0 版本的二进制包)  注意：如果不直接使用二进制包，而是使用 go get sigs.k8s.io/kind 的方式下载，则与下文中的配置文件不兼容。请参考使用 Kind 搭建你的本地 Kubernetes 集群 这篇文章。
-更新（2020年2月5日）：KIND 已经发布了 v0.7.0 版本，如果你想使用新版本，建议参考 使用 Kind 在离线环境创建 K8S 集群 ，这篇文章使用了最新版本的 KIND。
+ KIND Minikube  KIND 介绍 KIND（Kubernetes in Docker）是为了能提供更加简单，高效的方式来启动 K8S 集群，目前主要用于比如 Kubernetes 自身的 CI 环境中。
+安装  可以直接在项目的 Release 页面 下载已经编译好的二进制文件。(下文中使用的是 v0.1.0 版本的二进制包)   注意：如果不直接使用二进制包，而是使用 go get sigs.k8s.io/kind 的方式下载，则与下文中的配置文件不兼容。请参考使用 Kind 搭建你的本地 Kubernetes 集群 这篇文章。
+ 更新（2020年2月5日）：KIND 已经发布了 v0.7.0 版本，如果你想使用新版本，建议参考 使用 Kind 在离线环境创建 K8S 集群 ，这篇文章使用了最新版本的 KIND。
 创建集群 在使用 KIND 之前，你需要本地先安装好 Docker 的环境 ，此处暂不做展开。
 由于网络问题，我们此处也需要写一个配置文件，以便让 kind 可以使用国内的镜像源。（KIND 最新版本中已经内置了所有需要的镜像，无需此操作）
 apiVersion: kind.sigs.k8s.io/v1alpha1kind: ConfigkubeadmConfigPatches:- |apiVersion: kubeadm.">
@@ -25,7 +25,7 @@ apiVersion: kind.sigs.k8s.io/v1alpha1kind: ConfigkubeadmConfigPatches:- |api
 
 </head>
 
-<body>
+<body id="page">
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
@@ -72,8 +72,8 @@ apiVersion: kind.sigs.k8s.io/v1alpha1kind: ConfigkubeadmConfigPatches:- |api
 <p>在上一节中，我们知道 K8S 中有多种功能组件，而这些组件要在本地全部搭建好，需要一些基础知识，以及在搭建过程中会浪费不少的时间，从而可能会影响我们正常的搭建集群的目标。</p>
 <p>所以，我们这里提供两个最简单，最容易实现我们目标的工具</p>
 <ul>
-<li><a href="https://github.com/kubernetes-sigs/kind/">KIND</a> 。</li>
-<li><a href="https://github.com/kubernetes/minikube">Minikube</a> 。</li>
+<li><a href="https://github.com/kubernetes-sigs/kind/">KIND</a></li>
+<li><a href="https://github.com/kubernetes/minikube">Minikube</a></li>
 </ul>
 <h2 id="kind">KIND</h2>
 <h3 id="介绍">介绍</h3>
@@ -82,13 +82,15 @@ apiVersion: kind.sigs.k8s.io/v1alpha1kind: ConfigkubeadmConfigPatches:- |api
 <ul>
 <li>可以直接在项目的 <a href="https://github.com/kubernetes-sigs/kind/releases">Release 页面</a> 下载已经编译好的二进制文件。(下文中使用的是 v0.1.0 版本的二进制包)</li>
 </ul>
+<blockquote>
 <p>注意：如果不直接使用二进制包，而是使用 <code>go get sigs.k8s.io/kind</code> 的方式下载，则与下文中的配置文件不兼容。<strong>请参考使用 Kind 搭建你的本地 Kubernetes 集群</strong> 这篇文章。</p>
+</blockquote>
 <p>更新（2020年2月5日）：KIND 已经发布了 v0.7.0 版本，如果你想使用新版本，建议参考 <a href="https://zhuanlan.zhihu.com/p/105173589">使用 Kind 在离线环境创建 K8S 集群</a> ，这篇文章使用了最新版本的 KIND。</p>
 <p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Kubernetes%20%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/assets/16898b9e3d57fcab" alt="img"></p>
 <h3 id="创建集群">创建集群</h3>
 <p><strong>在使用 KIND 之前，你需要本地先安装好 Docker 的环境</strong> ，此处暂不做展开。</p>
 <p>由于网络问题，我们此处也需要写一个配置文件，以便让 <code>kind</code> 可以使用国内的镜像源。（KIND 最新版本中已经内置了所有需要的镜像，无需此操作）</p>
-<pre tabindex="0"><code>apiVersion: kind.sigs.k8s.io/v1alpha1
+<pre tabindex="0"><code class="language-config" data-lang="config">apiVersion: kind.sigs.k8s.io/v1alpha1
 kind: Config
 
 kubeadmConfigPatches:
@@ -106,10 +108,10 @@ kubeadmConfigPatches:
   networking:
     serviceSubnet: 10.0.0.0/16
 </code></pre><p>将上面的内容保存成 <code>kind-config.yaml</code> 文件，执行以下命令即可。</p>
-<pre tabindex="0"><code>kind create cluster --image kindest/node:v1.12.2 --config kind-config.yaml --name moelove                  
-</code></pre><p>下面为在我机器上执行的程序输出：</p>
-<pre tabindex="0"><code>(MoeLove) ➜  kind ✗ kind create cluster --image kindest/node:v1.12.2 --config kind-config.yaml --name moelove                  
-Creating cluster 'kind-moelove' ...
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kind create cluster --image kindest/node:v1.12.2 --config kind-config.yaml --name moelove                  
+</code></pre></div><p>下面为在我机器上执行的程序输出：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">(MoeLove) ➜  kind ✗ kind create cluster --image kindest/node:v1.12.2 --config kind-config.yaml --name moelove                  
+Creating cluster &#39;kind-moelove&#39; ...
  ✓ Ensuring node image (kindest/node:v1.12.2) 🖼
  ✓ [kind-moelove-control-plane] Creating node container 📦                                                         
  ✓ [kind-moelove-control-plane] Fixing mounts 🗻
@@ -118,23 +120,23 @@ Creating cluster 'kind-moelove' ...
  ✓ [kind-moelove-control-plane] Starting Kubernetes (this may take a minute) ☸                                     
 Cluster creation complete. You can now use the cluster with:
 
-export KUBECONFIG=&quot;$(kind get kubeconfig-path --name=&quot;moelove&quot;)&quot;
+export KUBECONFIG=&#34;$(kind get kubeconfig-path --name=&#34;moelove&#34;)&#34;
 kubectl cluster-info
-</code></pre><p>这里，通过传递上面的 <code>kind-config.yaml</code> 文件给 <code>kind create cluster</code>, 并传递了一个名字通过 <code>--name</code> 参数。</p>
+</code></pre></div><p>这里，通过传递上面的 <code>kind-config.yaml</code> 文件给 <code>kind create cluster</code>, 并传递了一个名字通过 <code>--name</code> 参数。</p>
 <p>我们按照程序输出的提示进行操作：</p>
-<pre tabindex="0"><code>export KUBECONFIG=&quot;$(kind get kubeconfig-path --name=&quot;moelove&quot;)&quot;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">export KUBECONFIG<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>kind get kubeconfig-path --name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;moelove&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
 kubectl cluster-info
-</code></pre><p>下面为在我机器上执行的程序输出：</p>
-<pre tabindex="0"><code>(MoeLove) ➜  kind ✗ export KUBECONFIG=&quot;$(kind get kubeconfig-path --name=&quot;moelove&quot;)&quot;
+</code></pre></div><p>下面为在我机器上执行的程序输出：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">(MoeLove) ➜  kind ✗ export KUBECONFIG=&#34;$(kind get kubeconfig-path --name=&#34;moelove&#34;)&#34;
 (MoeLove) ➜  kind ✗ kubectl cluster-info
 Kubernetes master is running at https://localhost:35911
 KubeDNS is running at https://localhost:35911/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 
-To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+To further debug and diagnose cluster problems, use &#39;kubectl cluster-info dump&#39;.
 (MoeLove) ➜  kind ✗ kubectl version
-Client Version: version.Info{Major:&quot;1&quot;, Minor:&quot;11&quot;, GitVersion:&quot;v1.11.3&quot;, GitCommit:&quot;a4529464e4629c21224b3d52edfe0ea91b072862&quot;, GitTreeState:&quot;clean&quot;, BuildDate:&quot;2018-09-09T18:02:47Z&quot;, GoVersion:&quot;go1.10.3&quot;, Compiler:&quot;gc&quot;, Platform:&quot;linux/amd64&quot;}
-Server Version: version.Info{Major:&quot;1&quot;, Minor:&quot;12&quot;, GitVersion:&quot;v1.12.2&quot;, GitCommit:&quot;17c77c7898218073f14c8d573582e8d2313dc740&quot;, GitTreeState:&quot;clean&quot;, BuildDate:&quot;2018-10-24T06:43:59Z&quot;, GoVersion:&quot;go1.10.4&quot;, Compiler:&quot;gc&quot;, Platform:&quot;linux/amd64&quot;}
-</code></pre><p>注意，这里需要安装 <code>kubectl</code>。 <code>kubectl</code> 的安装可参考下面的内容。</p>
+Client Version: version.Info{Major:&#34;1&#34;, Minor:&#34;11&#34;, GitVersion:&#34;v1.11.3&#34;, GitCommit:&#34;a4529464e4629c21224b3d52edfe0ea91b072862&#34;, GitTreeState:&#34;clean&#34;, BuildDate:&#34;2018-09-09T18:02:47Z&#34;, GoVersion:&#34;go1.10.3&#34;, Compiler:&#34;gc&#34;, Platform:&#34;linux/amd64&#34;}
+Server Version: version.Info{Major:&#34;1&#34;, Minor:&#34;12&#34;, GitVersion:&#34;v1.12.2&#34;, GitCommit:&#34;17c77c7898218073f14c8d573582e8d2313dc740&#34;, GitTreeState:&#34;clean&#34;, BuildDate:&#34;2018-10-24T06:43:59Z&#34;, GoVersion:&#34;go1.10.4&#34;, Compiler:&#34;gc&#34;, Platform:&#34;linux/amd64&#34;}
+</code></pre></div><p>注意，这里需要安装 <code>kubectl</code>。 <code>kubectl</code> 的安装可参考下面的内容。</p>
 <p>当你执行 <code>kubectl cluster-info</code> 如果可以看到类似我上面的输出，那你本地的 K8S 集群就已经部署好了。你可以直接阅读第 5 节或者第 6 节的内容。</p>
 <p>如果你已经对 K8S 有所了解，并且对 Dashboard 有比较强烈需求的话, 可直接参考第 20 节的内容。</p>
 <h2 id="minikube">Minikube</h2>
@@ -276,13 +278,19 @@ kubectl: Correctly Configured: pointing to minikube-vm at 192.168.99.100
 </div>
 
         </div>
+        <div class="toggler" onclick="toggleLight();">T</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 8080 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
+<script>
+    function toggleLight() {
+        document.getElementById('page').classList.toggle('night');
+    }
+</script>
 </body>
 
 </html>

@@ -17,10 +17,10 @@
     
     <item>
       <title>SSH登录过程</title>
-      <link>http://yipsen.github.io/posts/ssh%E7%99%BB%E5%BD%95%E8%BF%87%E7%A8%8B/</link>
+      <link>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/ssh%E7%99%BB%E5%BD%95%E8%BF%87%E7%A8%8B/</link>
       <pubDate>Sat, 15 Jan 2022 10:40:52 +0800</pubDate>
       
-      <guid>http://yipsen.github.io/posts/ssh%E7%99%BB%E5%BD%95%E8%BF%87%E7%A8%8B/</guid>
+      <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/ssh%E7%99%BB%E5%BD%95%E8%BF%87%E7%A8%8B/</guid>
       <description>SSH登录 SSH登录流程 sequenceDiagramparticipant A as User Host Aparticipant B as Server Host BA -&amp;gt;&amp;gt; B : 发送SSH登录请求B -&amp;gt;&amp;gt; A : 发送公钥bbb.pub给用户A -&amp;gt;&amp;gt; A : 使用公钥bbb.pub加密登录密码A -&amp;gt;&amp;gt; B : 发送加密后的登录密码B -&amp;gt;&amp;gt; B : 使用私钥bbb进行解密opt 密码正确B -&amp;gt;&amp;gt; A : 登录成功end公钥登录 先发布公钥 sequenceDiagramparticipant A as User Host Aparticipant B as Server Host BA -&amp;gt;&amp;gt; B : 发布自己的公钥aaa.pub给服务器B -&amp;gt;&amp;gt; B : 保存用户公钥aaa.</description>
     </item>
     
@@ -6896,9 +6896,9 @@ kubeadm 是 Kubernetes 官方提供的一个 CLI 工具，可以很方便的搭�
       <description>通过之前的学习，我们已经知道了 K8S 中有一些组件是必须的，集群中有不同的角色。本节，我们在本地快速搭建一个集群，以加深我们学习到的东西。
 方案选择 在上一节中，我们知道 K8S 中有多种功能组件，而这些组件要在本地全部搭建好，需要一些基础知识，以及在搭建过程中会浪费不少的时间，从而可能会影响我们正常的搭建集群的目标。
 所以，我们这里提供两个最简单，最容易实现我们目标的工具
- KIND 。 Minikube 。  KIND 介绍 KIND（Kubernetes in Docker）是为了能提供更加简单，高效的方式来启动 K8S 集群，目前主要用于比如 Kubernetes 自身的 CI 环境中。
-安装  可以直接在项目的 Release 页面 下载已经编译好的二进制文件。(下文中使用的是 v0.1.0 版本的二进制包)  注意：如果不直接使用二进制包，而是使用 go get sigs.k8s.io/kind 的方式下载，则与下文中的配置文件不兼容。请参考使用 Kind 搭建你的本地 Kubernetes 集群 这篇文章。
-更新（2020年2月5日）：KIND 已经发布了 v0.7.0 版本，如果你想使用新版本，建议参考 使用 Kind 在离线环境创建 K8S 集群 ，这篇文章使用了最新版本的 KIND。
+ KIND Minikube  KIND 介绍 KIND（Kubernetes in Docker）是为了能提供更加简单，高效的方式来启动 K8S 集群，目前主要用于比如 Kubernetes 自身的 CI 环境中。
+安装  可以直接在项目的 Release 页面 下载已经编译好的二进制文件。(下文中使用的是 v0.1.0 版本的二进制包)   注意：如果不直接使用二进制包，而是使用 go get sigs.k8s.io/kind 的方式下载，则与下文中的配置文件不兼容。请参考使用 Kind 搭建你的本地 Kubernetes 集群 这篇文章。
+ 更新（2020年2月5日）：KIND 已经发布了 v0.7.0 版本，如果你想使用新版本，建议参考 使用 Kind 在离线环境创建 K8S 集群 ，这篇文章使用了最新版本的 KIND。
 创建集群 在使用 KIND 之前，你需要本地先安装好 Docker 的环境 ，此处暂不做展开。
 由于网络问题，我们此处也需要写一个配置文件，以便让 kind 可以使用国内的镜像源。（KIND 最新版本中已经内置了所有需要的镜像，无需此操作）
 apiVersion: kind.sigs.k8s.io/v1alpha1kind: ConfigkubeadmConfigPatches:- |apiVersion: kubeadm.</description>
@@ -6912,7 +6912,7 @@ apiVersion: kind.sigs.k8s.io/v1alpha1kind: ConfigkubeadmConfigPatches:- |api
       <guid>http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/03-%E5%AE%8F%E8%A7%82%E8%AE%A4%E8%AF%86%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/</guid>
       <description>工欲善其事，必先利其器。本节我们来从宏观上认识下 K8S 的整体架构，以便于后续在此基础上进行探索和实践。
 C/S 架构 从更高层来看，K8S 整体上遵循 C/S 架构，从这个角度来看，可用下面的图来表示其结构：
- +-------------+ | | | | +---------------+| | +-----&amp;gt; | Node 1 || Kubernetes | | +---------------++-----------------+ | Server | | | CLI | | | | +---------------+| (Kubectl) |-----------&amp;gt;| ( Master ) |&amp;lt;------+-----&amp;gt; | Node 2 || | | | | +---------------++-----------------+ | | | | | | +---------------+| | +-----&amp;gt; | Node 3 || | +---------------++-------------+ 左侧是一个官方提供的名为 kubectl 的 CLI （Command Line Interface）工具，用于使用 K8S 开放的 API 来管理集群和操作对象等。</description>
++-------------+ | | | | +---------------+ | | +-----&amp;gt; | Node 1 | | Kubernetes | | +---------------+ +-----------------+ | Server | | | CLI | | | | +---------------+ | (Kubectl) |-----------&amp;gt;| ( Master ) |&amp;lt;------+-----&amp;gt; | Node 2 | | | | | | +---------------+ +-----------------+ | | | | | | +---------------+ | | +-----&amp;gt; | Node 3 | | | +---------------+ +-------------+ 左侧是一个官方提供的名为 kubectl 的 CLI （Command Line Interface）工具，用于使用 K8S 开放的 API 来管理集群和操作对象等。</description>
     </item>
     
     <item>
@@ -12866,6 +12866,24 @@ Go 语言为开发者的需求而设计 K8s、Docker、etcd 这类耳熟能详�
       <guid>http://yipsen.github.io/about/</guid>
       <description>Yipsen Ye
 public static void main(String[] args) { System.out.println(&amp;#34;Hello, I&amp;#39;m Yipsen Ye.&amp;#34;); } </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://yipsen.github.io/targets/2022/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/targets/2022/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://yipsen.github.io/tools/json%E6%A0%BC%E5%BC%8F%E5%8C%96/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/tools/json%E6%A0%BC%E5%BC%8F%E5%8C%96/</guid>
+      <description></description>
     </item>
     
   </channel>

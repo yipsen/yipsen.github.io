@@ -13,6 +13,15 @@
     box-sizing: border-box;
 }
 
+::selection {
+    color: #FEFEFE;
+    background-color: #f4974a;
+}
+
+html {
+    height: 100%;
+}
+
 html, body {
     font-family: Consolas;
     -webkit-font-smoothing: antialiased;
@@ -20,11 +29,8 @@ html, body {
     color: #2c3e50;
     background-color: #FEFEFE;
     line-height: 1.5;
-}
-
-body {
-    width: 800px;
-    margin: auto;
+    margin: 0;
+    min-height: 100%;
 }
 
 header {
@@ -34,10 +40,23 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 20px;
+    width: 800px;
+    margin: auto;
+}
+
+main {
+    width: 800px;
+    margin: auto;
 }
 
 footer {
-    padding: 20px 20px 40px 20px;
+    padding: 20px 0px 40px 0px;
+    width: 800px;
+    margin: auto;
+}
+
+ul {
+    padding-inline-start: 1em;
 }
 
 /* nav */
@@ -70,18 +89,12 @@ footer {
 }
 
 .nav-link:hover {
-    color: #CA6924;
+    color: #f4974a;
 }
 
 .nav-link.active {
-    color: #CA6924;
-    border-bottom: 2px solid #CA6924;
-}
-
-/* main */
-
-main {
-    margin: 2rem 0 3rem 0;
+    color: #f4974a;
+    border-bottom: 2px solid #f4974a;
 }
 
 /* table */
@@ -109,8 +122,7 @@ table>tbody>tr:nth-of-type(even)>* {
     color: #212529;
 }
 thead {
-    color: #CA6924;
-    border-color: #bcd0c7;
+    color: #eb7716;
     background-color: #ffdcc3;
     text-align: left;
 }
@@ -118,27 +130,56 @@ thead {
 /* link */
 a {
     text-decoration: none;
-    color:#003371;
+    color:#f4974a;
 }
 
 /* head */
 
 h1, h2, h3, h4, h5, h6 {
-    color: #CA6924;
+    color: #f4974a;
+    position: relative;
 }
 
-h1, h2, h3 {
+h1 {
+    font-size: 2em;
+}
 
+.container h2:before, .container h3:before {
+    color: #f4974a;
+    position: absolute;
+    left: -1.2rem;
+    top: -0.2rem;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.container h2:after {
+    border-bottom: 1px solid #e5b899;
+    content: " ";
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: -0.3em;
+}
+
+.container h2:before {
+    content: "#";
+}
+
+.container h3:before {
+    content: "*";
 }
 
 /* code */
-
 pre {
+    padding: 0.6rem 1rem 0.3rem 1rem;
+}
+
+pre, pre code {
     color: #f8f8f2;
     background-color: #272822;
     border-radius: 2.5px;
     tab-size: 4;
-    padding: 1rem;
     overflow: auto;
     font-size: 0.9rem;
 }
@@ -149,13 +190,18 @@ pre::-webkit-scrollbar {
 }
 
 pre::-webkit-scrollbar-thumb {
-    background-color: #CA6924;
+    background-color: #f4974a;
     border-radius: 2.5px;
 }
 
 code {
     font-family: Consolas;
+    font-size: 0.5rem;
+    color: #ab0000;
+    background-color: #ffdee3;
     display: inline-block;
+    padding: 0 4px;
+    border-radius: 2.5px;
 }
 
 /* image */
@@ -169,7 +215,7 @@ blockquote {
     padding: 0 1rem;
     margin: 1.25rem 0;
     border: 1px solid #e9ecef;
-    border-left-color: #CA6924;
+    border-left-color: #f4974a;
     border-left-width: 0.25rem;
 }
 
@@ -192,7 +238,7 @@ blockquote {
     margin-right: 1rem;
 }
 .post-link {
-    color: #CA6924;
+    color: #f4974a;
 }
 .post-link:hover {
     color: #6E511E;
@@ -211,4 +257,59 @@ blockquote {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.paginator .prev::before {
+    content: "⬅️";
+}
+
+.paginator .next::after {
+    content: "➡️";
+}
+
+/* toggler */
+.toggler {
+    position: fixed;
+    bottom: 4rem;
+    right: 4rem;
+    border-radius: 100%;
+    height: 2.5em;
+    width: 2.5em;
+    overflow: hidden;
+    line-height: 2.5em;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    color: #d1d1d1;
+    background-color: #1d1d1d;
+}
+.toggler:hover {
+    background-color: gray;
+}
+
+/************************************ NIGHT ****************************************/
+
+.night {
+    color: #d1d1d1;
+    background-color: #1d1d1d;
+}
+
+.night .nav-link {
+    color: #d1d1d1;
+}
+.night .nav-link:hover {
+    color: #f4974a;
+}
+.night .nav-link.active {
+    color: #f4974a;
+    border-bottom: 2px solid #f4974a;
+}
+
+.night table {
+    color: #d1d1d1;
+}
+
+.night .toggler {
+    color: #1d1d1d;
+    background-color: #d1d1d1;
 }

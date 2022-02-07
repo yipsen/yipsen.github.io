@@ -11,7 +11,7 @@
 <title>03 宏观认识：整体架构 | Yipsen Ye</title>
 <meta name="description" content="工欲善其事，必先利其器。本节我们来从宏观上认识下 K8S 的整体架构，以便于后续在此基础上进行探索和实践。
 C/S 架构 从更高层来看，K8S 整体上遵循 C/S 架构，从这个角度来看，可用下面的图来表示其结构：
- &#43;-------------&#43; | | | | &#43;---------------&#43;| | &#43;-----&amp;gt; | Node 1 || Kubernetes | | &#43;---------------&#43;&#43;-----------------&#43; | Server | | | CLI | | | | &#43;---------------&#43;| (Kubectl) |-----------&amp;gt;| ( Master ) |&amp;lt;------&#43;-----&amp;gt; | Node 2 || | | | | &#43;---------------&#43;&#43;-----------------&#43; | | | | | | &#43;---------------&#43;| | &#43;-----&amp;gt; | Node 3 || | &#43;---------------&#43;&#43;-------------&#43; 左侧是一个官方提供的名为 kubectl 的 CLI （Command Line Interface）工具，用于使用 K8S 开放的 API 来管理集群和操作对象等。">
+&#43;-------------&#43; | | | | &#43;---------------&#43; | | &#43;-----&amp;gt; | Node 1 | | Kubernetes | | &#43;---------------&#43; &#43;-----------------&#43; | Server | | | CLI | | | | &#43;---------------&#43; | (Kubectl) |-----------&amp;gt;| ( Master ) |&amp;lt;------&#43;-----&amp;gt; | Node 2 | | | | | | &#43;---------------&#43; &#43;-----------------&#43; | | | | | | &#43;---------------&#43; | | &#43;-----&amp;gt; | Node 3 | | | &#43;---------------&#43; &#43;-------------&#43; 左侧是一个官方提供的名为 kubectl 的 CLI （Command Line Interface）工具，用于使用 K8S 开放的 API 来管理集群和操作对象等。">
 <meta name="author"
   content="">
 
@@ -19,7 +19,7 @@ C/S 架构 从更高层来看，K8S 整体上遵循 C/S 架构，从这个角度
 
 </head>
 
-<body>
+<body id="page">
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
@@ -64,7 +64,7 @@ C/S 架构 从更高层来看，K8S 整体上遵循 C/S 架构，从这个角度
             <p>工欲善其事，必先利其器。本节我们来从宏观上认识下 K8S 的整体架构，以便于后续在此基础上进行探索和实践。</p>
 <h2 id="cs-架构">C/S 架构</h2>
 <p>从更高层来看，K8S 整体上遵循 C/S 架构，从这个角度来看，可用下面的图来表示其结构：</p>
-<pre tabindex="0"><code>                               +-------------+                              
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">                               +-------------+                              
                                |             |                              
                                |             |               +---------------+
                                |             |       +-----&gt; |     Node 1    |
@@ -78,7 +78,7 @@ C/S 架构 从更高层来看，K8S 整体上遵循 C/S 架构，从这个角度
                                |             |       +-----&gt; |     Node 3    |
                                |             |               +---------------+
                                +-------------+               
-</code></pre><p>左侧是一个官方提供的名为 <code>kubectl</code> 的 CLI （Command Line Interface）工具，用于使用 K8S 开放的 API 来管理集群和操作对象等。</p>
+</code></pre></div><p>左侧是一个官方提供的名为 <code>kubectl</code> 的 CLI （Command Line Interface）工具，用于使用 K8S 开放的 API 来管理集群和操作对象等。</p>
 <p>右侧则是 K8S 集群的后端服务及开放出的 API 等。根据上一节的内容，我们知道 Node 是用于工作的机器，而 Master 是一种角色（Role），表示在这个 Node 上包含着管理集群的一些必要组件。具体组件的详细介绍参考第 11 小节对各组件的详细剖析。</p>
 <p>当然在这里，只画出了一个 Master，在生产环境中，为了保障集群的高可用，我们通常会部署多个 Master 。</p>
 <h2 id="master">Master</h2>
@@ -89,7 +89,7 @@ C/S 架构 从更高层来看，K8S 整体上遵循 C/S 架构，从这个角度
 <li>存储：存储</li>
 </ul>
 <p>这些功能，也通过一些组件来共同完成，通常情况下，我们将其称为 control plane 。如下图所示：</p>
-<pre tabindex="0"><code>+----------------------------------------------------------+          
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">+----------------------------------------------------------+          
 | Master                                                   |          
 |              +-------------------------+                 |          
 |     +-------&gt;|        API Server       |&lt;--------+       |          
@@ -106,7 +106,7 @@ C/S 架构 从更高层来看，K8S 整体上遵循 C/S 架构，从这个角度
 | |                                                      | |          
 | +------------------------------------------------------+ |          
 +----------------------------------------------------------+          
-</code></pre><p>它主要包含以下几个重要的组成部分。</p>
+</code></pre></div><p>它主要包含以下几个重要的组成部分。</p>
 <h3 id="cluster-state-store">Cluster state store</h3>
 <p>存储集群所有需持久化的状态，并且提供 watch 的功能支持，可以快速的通知各组件的变更等操作。</p>
 <p>因为目前 Kubernetes 的存储层选择是 etcd ，所以一般情况下，大家都直接以 etcd 来代表集群状态存储服务。即：将所有状态存储到 etcd 实例中。</p>
@@ -135,7 +135,7 @@ C/S 架构 从更高层来看，K8S 整体上遵循 C/S 架构，从这个角度
 <h2 id="node">Node</h2>
 <p>Node 的概念我们在上节已经提过了，这里不再过多赘述，简单点理解为加入集群中的机器即可。</p>
 <p>那 Node 是如何加入集群接受调度，并运行服务的呢？这都要归功于运行在 Node 上的几个核心组件。我们先来看下整体结构：</p>
-<pre tabindex="0"><code>+--------------------------------------------------------+       
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">+--------------------------------------------------------+       
 | +---------------------+        +---------------------+ |       
 | |      kubelet        |        |     kube-proxy      | |       
 | |                     |        |                     | |       
@@ -151,7 +151,7 @@ C/S 架构 从更高层来看，K8S 整体上遵循 C/S 架构，从这个角度
 | | +---------------------+    +---------------------+ | |       
 | +----------------------------------------------------+ |       
 +--------------------------------------------------------+  
-</code></pre><h3 id="kubelet">Kubelet</h3>
+</code></pre></div><h3 id="kubelet">Kubelet</h3>
 <p>Kubelet 实现了集群中最重要的关于 Node 和 Pod 的控制功能，如果没有 Kubelet 的存在，那 Kubernetes 很可能就只是一个纯粹的通过 API Server CRUD 的应用程序。</p>
 <p>K8S 原生的执行模式是操作应用程序的容器，而不像传统模式那样，直接操作某个包或者是操作某个进程。基于这种模式，可以让应用程序之间相互隔离，互不影响。此外，由于是操作容器，所以应用程序可以说和主机也是相互隔离的，毕竟它不依赖于主机，在任何的容器运行时（比如 Docker）上都可以部署和运行。</p>
 <p>我们在上节介绍过 Pod，Pod 可以是一组容器（也可以包含存储卷），K8S 将 Pod 作为可调度的基本单位， 分离开了构建时和部署时的关注点：</p>
@@ -193,13 +193,19 @@ C/S 架构 从更高层来看，K8S 整体上遵循 C/S 架构，从这个角度
 </div>
 
         </div>
+        <div class="toggler" onclick="toggleLight();">T</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 4040 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 8080 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
+<script>
+    function toggleLight() {
+        document.getElementById('page').classList.toggle('night');
+    }
+</script>
 </body>
 
 </html>
