@@ -55,8 +55,8 @@ footer {
     margin: auto;
 }
 
-ul {
-    padding-inline-start: 1em;
+ol, ul {
+    padding-inline-start: 1.55em;
 }
 
 /* nav */
@@ -144,6 +144,16 @@ h1 {
     font-size: 2em;
 }
 
+h3 {
+    margin-block-start: 1.2em;
+    margin-block-end: 1.2em;
+}
+
+h4 {
+    margin-block-start: 0.8em;
+    margin-block-end: 0.8em;
+}
+
 .container h2:before, .container h3:before {
     color: #f4974a;
     position: absolute;
@@ -166,9 +176,9 @@ h1 {
     content: "#";
 }
 
-.container h3:before {
+/* .container h3:before {
     content: "*";
-}
+} */
 
 /* code */
 pre {
@@ -259,13 +269,13 @@ blockquote {
     justify-content: space-between;
 }
 
-.paginator .prev::before {
+/* .paginator .prev::before {
     content: "⬅️";
-}
+} */
 
-.paginator .next::after {
+/* .paginator .next::after {
     content: "➡️";
-}
+} */
 
 /* toggler */
 .toggler {

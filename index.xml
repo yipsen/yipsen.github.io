@@ -5,7 +5,53 @@
     <link>http://yipsen.github.io/</link>
     <description>Recent content on Yipsen Ye</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 19 Jan 2022 15:22:11 +0000</lastBuildDate><atom:link href="http://yipsen.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 06 Feb 2022 16:31:43 +0000</lastBuildDate><atom:link href="http://yipsen.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java安装</title>
+      <link>http://yipsen.github.io/posts/java%E5%9F%BA%E7%A1%80/java%E5%AE%89%E8%A3%85/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/java%E5%9F%BA%E7%A1%80/java%E5%AE%89%E8%A3%85/</guid>
+      <description>一、移除已有 Java 版本（可选） sudo yum remove -y java 二、下载并安装 Java8 wget --no-cookies --no-check-certificate --header &amp;#34;Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie&amp;#34; &amp;#34;http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.tar.gz&amp;#34; tar -xzvf jdk-8u131-linux-x64.tar.gz cp -a jdk1.8.0_131/ /usr/local/java rm -rf jdk-8u131-linux-x64.tar.gz 三、配置 JAVA_HOME   打开bashrc
+sudo vim ~/.bashrc   在文件末尾追加
+export JAVA_HOME=~/jdk1.8.0_131 export JRE_HOME=~/jdk1.8.0_131/jre export PATH=$PATH:~/jdk1.8.0_131/bin:/~/jdk1.8.0_131/jre/bin   配置立即生效
+source ~/.bashrc   查看java版本，看配置是否已生效
+java -version   </description>
+    </item>
+    
+    <item>
+      <title>创建型-单例模式（常用）</title>
+      <link>http://yipsen.github.io/posts/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</guid>
+      <description>定义 单例模式（Singleton Pattern）属于创建类型的一种常用的软件设计模式。
+单例对象保证全局（或指定上下文中，如进程，线程内唯一）仅有一个实例存在，并提供一个该唯一实例的访问点。
+为什么需要单例模式 打井喝水，并不是每个人想喝水就要打一口井。
+优点 在内存里只有一个实例，所以能够节约系统资源，减少了内存的开销，尤其是频繁的创建和销毁实例，可以提高系统效率，同时也能够严格控制客户对它的访问。
+缺点 也正是因为系统中只有一个实例，这样就导致了单例类的职责过重，违背了“单一职责原则”，同时也没有抽象类，这样扩展起来有一定的困难。 优点即缺点，所以更应该说是特点，在特定场景下使用。
+常见应用场景  spring bean 数据库连接 需要频繁的进行创建和销毁的对象 创建对象时耗时过多或耗费资源过多(重量级对象) 经常用到的对象、工具类对象、频繁访问数据库或文件的对象(数据源、session工厂)  结构 classDiagramclass Singleton {-Singleton instance-Singleton()+static getInstance() Singleton}Singleton --o Singleton实现方式 要实现单例模式，关键有 3 个要素：
+ 单例类只有一个实例对象；如instance；此为单例模式的核心要素。 该单例对象必须由单例类自行创建；一般情况下会将构造函数声明为私有的，如private Singleton()；这样外部无法实例化，也无法被继承，此举为保证唯一性，从而避免勿用。 单例类对外提供一个访问该单例的全局访问点；如getInstance()；由于已阻止外部构建，即单例类是一个只读类，外部不能创建或修改，需提供一个读取接口。  具体常用的几种实现方法：
+  饿汉式
+饿汉式顾名思义就是把食物（对象）提前做好，需要时直接拿取即可使用（吃掉）。简而言之即预先构建。
+// 饿汉式单例 public class Eager { // 提前把对象实例化，此对象实例全局唯一  private final static Eager instance = new Eager(); // 私有化构造器，不允许外部使用，以免破坏唯一性  private Eager() { System.</description>
+    </item>
+    
+    <item>
+      <title>行为型-观察者模式（常用）</title>
+      <link>http://yipsen.github.io/posts/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A1%8C%E4%B8%BA%E5%9E%8B-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A1%8C%E4%B8%BA%E5%9E%8B-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</guid>
+      <description>定义 观察者模式（Observer Pattern）属于行为类型的一种常用的软件设计模式。还有其他的称谓如，发布-订阅模式，模型-视图模式，而最常见的应用就是事件-通知机制了。
+该模式定义了一种一对多的依赖关系，并对关系进行解耦。即一个对象发生变化时，将通知所有依赖他的对象，以进一步处理相应变化。通过变化产生事件，进而通知处理相应变化的方式，实现了两个对象的解耦，并提供了灵活的依赖关系。
+为什么需要观察者模式  解耦  常见应用场景  spring event  结构 实现方式 要实现观察者模式，其关键有 4 个对象，分别是：
+   对象 称谓 特性     Subject 被观察者 被观察者提供一系列方法以维护观察者列表（可随时进行增删），同时定义通知方法，以在发生变化时通知已维护在列表中的观察者们。   ConcreteSubject 具体的被观察者 被观察者的具体实现类，实现具体场景下发送变化通知。   Observer 观察者 观察者可以是一个或多个，当被观察者Subject发生变化时，观察者将收到通知。   ConcreteObserver 具体的观察者 观察者的具体实现类，不同的观察者在收到通知后可实现不同的操作。    观察者模式实现如下：
+  定义被观察者
+关键定义三个特性：添加观察者，移除观察者，通知观察者。其中通知观察者可由具体实现类按需在具体场景下处理发送逻辑。
+public abstract class Subject { protected List&amp;lt;Observer&amp;gt; observers = new ArrayList&amp;lt;&amp;gt;(); public void addObserver(Observer observer) { observers.</description>
+    </item>
+    
     <item>
       <title>logback pattern layout</title>
       <link>http://yipsen.github.io/posts/logback/pattern-layout/</link>
@@ -21,7 +67,28 @@
       <pubDate>Sat, 15 Jan 2022 10:40:52 +0800</pubDate>
       
       <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/ssh%E7%99%BB%E5%BD%95%E8%BF%87%E7%A8%8B/</guid>
-      <description>SSH登录 SSH登录流程 sequenceDiagramparticipant A as User Host Aparticipant B as Server Host BA -&amp;gt;&amp;gt; B : 发送SSH登录请求B -&amp;gt;&amp;gt; A : 发送公钥bbb.pub给用户A -&amp;gt;&amp;gt; A : 使用公钥bbb.pub加密登录密码A -&amp;gt;&amp;gt; B : 发送加密后的登录密码B -&amp;gt;&amp;gt; B : 使用私钥bbb进行解密opt 密码正确B -&amp;gt;&amp;gt; A : 登录成功end公钥登录 先发布公钥 sequenceDiagramparticipant A as User Host Aparticipant B as Server Host BA -&amp;gt;&amp;gt; B : 发布自己的公钥aaa.pub给服务器B -&amp;gt;&amp;gt; B : 保存用户公钥aaa.</description>
+      <description>一、SSH登录 SSH登录流程 sequenceDiagramparticipant A as User Host Aparticipant B as Server Host BA -&amp;gt;&amp;gt; B : 发送SSH登录请求B -&amp;gt;&amp;gt; A : 发送公钥bbb.pub给用户A -&amp;gt;&amp;gt; A : 使用公钥bbb.pub加密登录密码A -&amp;gt;&amp;gt; B : 发送加密后的登录密码B -&amp;gt;&amp;gt; B : 使用私钥bbb进行解密opt 密码正确B -&amp;gt;&amp;gt; A : 登录成功end二、公钥登录 公钥登录流程 公钥登录方式跟SSH登录方式有所不同。
+  首先发布公钥
+sequenceDiagramparticipant A as User Host Aparticipant B as Server Host BA -&amp;gt;&amp;gt; B : 发布自己的公钥aaa.</description>
+    </item>
+    
+    <item>
+      <title>MySQL事务机制</title>
+      <link>http://yipsen.github.io/posts/mysql/mysql%E4%BA%8B%E5%8A%A1%E6%9C%BA%E5%88%B6/</link>
+      <pubDate>Mon, 10 Jan 2022 23:36:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/mysql/mysql%E4%BA%8B%E5%8A%A1%E6%9C%BA%E5%88%B6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MySQL用户管理</title>
+      <link>http://yipsen.github.io/posts/mysql/mysql%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/</link>
+      <pubDate>Mon, 10 Jan 2022 23:36:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/mysql/mysql%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/</guid>
+      <description>一、MySQL最常用新增用户并授权脚本 -- 创建用户test_user，并设置密码为123456。 CREATE USER test_user IDENTIFIED BY &amp;#39;123456&amp;#39;; -- 授权所有数据库下所有表(*.*)的所有权限(ALL)，并且指定所有ip的客户端(%)都可以采用该用户登录。 GRANT ALL PRIVILEGES ON *.* TO &amp;#39;test_user&amp;#39;@&amp;#39;%&amp;#39; IDENTIFIED by &amp;#39;123456&amp;#39;; -- 刷新权限使其生效。事实上可以省略 FLUSH PRIVILEGES; -- 查看用户test_user授权信息。 SHOW GRANTS FOR &amp;#39;test_user&amp;#39;@&amp;#39;%&amp;#39;; 二、用户管理 2.1、概述 mysql中的用户信息和权限等都存储在一个名为mysql的数据库中。其中主要用到如下五张表：
+   表名 数据 描述     user表 存储全局权限 适用于一个给定服务器中的所有数据库，在命令中展现形式为*.*   db表 存储数据库权限 适用于一个给定数据库中的所有表，在命令中展现形式为[数据库名].*   tables_priv表 存储表权限 适用于一个给定表中的所有列，在命令中展现形式为[数据库名].[表名]   columns_priv表 存储列权限 适用于一个给定表中的单一列，在命令中展现形式为   procs_priv表 xxx xxx    mysql中所有的用户（指mysql客户端用户）信息都是保存在mysql数据库下的user表中。该表采用复合主键（host + user）。</description>
     </item>
     
     <item>
