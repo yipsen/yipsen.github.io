@@ -11,10 +11,9 @@
 <title>MySQL用户管理 | Yipsen Ye</title>
 <meta name="description" content="一、MySQL最常用新增用户并授权脚本 -- 创建用户test_user，并设置密码为123456。 CREATE USER test_user IDENTIFIED BY &amp;#39;123456&amp;#39;; -- 授权所有数据库下所有表(*.*)的所有权限(ALL)，并且指定所有ip的客户端(%)都可以采用该用户登录。 GRANT ALL PRIVILEGES ON *.* TO &amp;#39;test_user&amp;#39;@&amp;#39;%&amp;#39; IDENTIFIED by &amp;#39;123456&amp;#39;; -- 刷新权限使其生效。事实上可以省略 FLUSH PRIVILEGES; -- 查看用户test_user授权信息。 SHOW GRANTS FOR &amp;#39;test_user&amp;#39;@&amp;#39;%&amp;#39;; 二、用户管理 2.1、概述 mysql中的用户信息和权限等都存储在一个名为mysql的数据库中。其中主要用到如下五张表：
    表名 数据 描述     user表 存储全局权限 适用于一个给定服务器中的所有数据库，在命令中展现形式为*.*   db表 存储数据库权限 适用于一个给定数据库中的所有表，在命令中展现形式为[数据库名].*   tables_priv表 存储表权限 适用于一个给定表中的所有列，在命令中展现形式为[数据库名].[表名]   columns_priv表 存储列权限 适用于一个给定表中的单一列，在命令中展现形式为   procs_priv表 xxx xxx    mysql中所有的用户（指mysql客户端用户）信息都是保存在mysql数据库下的user表中。该表采用复合主键（host &#43; user）。">
-<meta name="author"
-  content="yipsen">
+<meta name="author" content="yipsen">
 
-<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
 
 </head>
 
@@ -22,7 +21,7 @@
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
         <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
     </a>
 </div>
@@ -37,7 +36,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/collections/">图集</a>
+                href="http://yipsen.github.io/collections/">附表</a>
         </li>
         
         <li class="nav-item">
@@ -50,11 +49,11 @@
     </header>
     <main id="content">
         
-<div class="container">
-    <article class="post-block">
+<div class="container"><article class="post-block">
         <h1 class="post-title">MySQL用户管理</h1>
         <div class="post-info">
-            <div>2022-01-10</div></div>
+            <div> 
+                <span class="post-date">📅&nbsp;2022-01-10 23:36:41</span></div></div>
         <div class="post-content">
             <h3 id="一mysql最常用新增用户并授权脚本">一、MySQL最常用新增用户并授权脚本</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- 创建用户test_user，并设置密码为123456。
@@ -294,11 +293,11 @@ flush <span style="color:#66d9ef">privileges</span>;
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight();">T</div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 11110 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     

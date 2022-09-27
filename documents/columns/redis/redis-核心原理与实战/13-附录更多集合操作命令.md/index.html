@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title> | Yipsen Ye</title>
+<meta name="description" content="移除并返回集合中的一个随机元素 语法：spop key [count] 示例：
+127.0.0.1:6379&amp;gt; smembers myset 1) &amp;quot;v1&amp;quot; 2) &amp;quot;v2&amp;quot; 127.0.0.1:6379&amp;gt; spop myset 1 1) &amp;quot;v2&amp;quot; 127.0.0.1:6379&amp;gt; smembers myset 1) &amp;quot;v1&amp;quot; 随机返回集合中指定数量的元素列表 语法：srandmember key [count] 示例：
+127.0.0.1:6379&amp;gt; srandmember myset 2 1) &amp;quot;v4&amp;quot; 2) &amp;quot;v2&amp;quot; 返回一个集合或多个集合的交集 语法：sinter key [key &amp;hellip;] 示例：
+127.0.0.1:6379&amp;gt; smembers myset 1) &amp;quot;v1&amp;quot; 2) &amp;quot;v3&amp;quot; 3) &amp;quot;v2&amp;quot; 127.0.0.1:6379&amp;gt; smembers myset2 1) &amp;quot;v1&amp;quot; 2) &amp;quot;v8&amp;quot; 127.0.0.1:6379&amp;gt; sinter myset myset2 1) &amp;quot;v1&amp;quot; 把集合的交集复制到新的集合中 语法：sinterstore destination key [key &amp;hellip;] 示例：">
+<meta name="author" content="">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title"></h1>
+        <div class="post-info">
+            <div> 
+                <span class="post-date">📅&nbsp;0001-01-01 00:00:00</span></div></div>
+        <div class="post-content">
+            <h3 id="移除并返回集合中的一个随机元素">移除并返回集合中的一个随机元素</h3>
+<p>语法：spop key [count] 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; smembers myset
+1) &quot;v1&quot;
+2) &quot;v2&quot;
+127.0.0.1:6379&gt; spop myset 1
+1) &quot;v2&quot;
+127.0.0.1:6379&gt; smembers myset
+1) &quot;v1&quot;
+
+</code></pre><h3 id="随机返回集合中指定数量的元素列表">随机返回集合中指定数量的元素列表</h3>
+<p>语法：srandmember key [count] 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; srandmember myset 2
+1) &quot;v4&quot;
+2) &quot;v2&quot;
+
+</code></pre><h3 id="返回一个集合或多个集合的交集">返回一个集合或多个集合的交集</h3>
+<p>语法：sinter key [key &hellip;] 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; smembers myset
+1) &quot;v1&quot;
+2) &quot;v3&quot;
+3) &quot;v2&quot;
+127.0.0.1:6379&gt; smembers myset2
+1) &quot;v1&quot;
+2) &quot;v8&quot;
+127.0.0.1:6379&gt; sinter myset myset2
+1) &quot;v1&quot;
+
+</code></pre><h3 id="把集合的交集复制到新的集合中">把集合的交集复制到新的集合中</h3>
+<p>语法：sinterstore destination key [key &hellip;] 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; smembers myset
+1) &quot;v1&quot;
+2) &quot;v3&quot;
+3) &quot;v2&quot;
+127.0.0.1:6379&gt; smembers myset2
+1) &quot;v1&quot;
+2) &quot;v8&quot;
+127.0.0.1:6379&gt; sinterstore myset3 myset myset2
+(integer) 1
+127.0.0.1:6379&gt; smembers myset3
+1) &quot;v1&quot;
+
+</code></pre><p>命令解析：从以上代码可以看出，我们把集合 myset 和 集合 myset2 的合集元素 v1 复制到了新的集合 myset3 中，但 v1 并不会从原有集合中移除。</p>
+<h3 id="查询一个或多个集合的并集">查询一个或多个集合的并集</h3>
+<p>语法：sunion key [key &hellip;] 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; smembers group1
+1) &quot;java&quot;
+127.0.0.1:6379&gt; smembers group2
+1) &quot;golang&quot;
+127.0.0.1:6379&gt; sunion group1 group2
+1) &quot;java&quot;
+2) &quot;golang&quot;
+
+</code></pre><h3 id="把一个或多个集合的并集复制到新集合中">把一个或多个集合的并集复制到新集合中</h3>
+<p>语法：sunionstore destination key [key &hellip;] 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; smembers group1
+1) &quot;java&quot;
+127.0.0.1:6379&gt; smembers group2
+1) &quot;golang&quot;
+127.0.0.1:6379&gt; sunionstore group3 group1 group2
+(integer) 2
+127.0.0.1:6379&gt; smembers group3
+1) &quot;java&quot;
+2) &quot;golang&quot;
+
+</code></pre><p>注意：只是把一个或多个集合的并集复制到新集合中，并不会在原集合中删除复制的元素。</p>
+<h3 id="查询一个或多个集合的错集">查询一个或多个集合的错集</h3>
+<p>语法：sdiff key [key &hellip;] 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; smembers group1
+1) &quot;java&quot;
+2) &quot;golang&quot;
+127.0.0.1:6379&gt; smembers group2
+1) &quot;golang&quot;
+127.0.0.1:6379&gt; sdiff group1 group2
+1) &quot;java&quot;
+
+</code></pre><p>注意：执行命令时集合的先后顺序会影响返回的结果，如下所示：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; sdiff group1 group2
+1) &quot;java&quot;
+127.0.0.1:6379&gt; sdiff group2 group1
+(empty list or set)
+
+</code></pre><p>这是因为查询错集是以第一个集合为主的，当第二个元素包含第一个元素时，查询的错集结果就是空。</p>
+<h3 id="把一个或多个集合的错集复制到新集合">把一个或多个集合的错集复制到新集合</h3>
+<p>语法：sdiffstore destination key [key &hellip;] 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; smembers group1
+1) &quot;java&quot;
+2) &quot;golang&quot;
+127.0.0.1:6379&gt; smembers group2
+1) &quot;golang&quot;
+127.0.0.1:6379&gt; sdiffstore group3 group1 group2
+(integer) 1
+127.0.0.1:6379&gt; smembers group3
+1) &quot;java&quot;
+
+</code></pre>
+        </div>
+    </article>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/14-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.md/"><span></span></a>
+    </div>
+    <div class="next">
+        
+        <a href="/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/12-%E9%9B%86%E5%90%88%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.md/"><span></span></a>
+    </div>
+</div>
+
+        </div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    function toggleLight() {
+        document.getElementById('page').classList.toggle('night');
+    }
+</script>
+</body>
+
+</html>

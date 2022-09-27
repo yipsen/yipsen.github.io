@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title> | Yipsen Ye</title>
+<meta name="description" content="列表类型 (List) 是一个使用链表结构存储的有序结构，它的元素插入会按照先后顺序存储到链表结构中，因此它的元素操作 (插入\删除) 时间复杂度为 O(1)，所以相对来说速度还是比较快的，但它的查询时间复杂度为 O(n)，因此查询可能会比较慢。
+1 基础使用 列表类型的使用相对来说比较简单，对它的操作就相当操作一个没有任何 key 值的 value 集合，如下图所示： 1）给列表添加一个或多个元素 语法：lpush key value [value …] 示例：
+127.0.0.1:6379&amp;gt; lpush list 1 2 3 (integer) 3 2）给列表尾部添加一个或多个元素 语法：rpush key value [value …] 示例：
+127.0.0.1:6379&amp;gt; rpush list2 1 2 3 (integer) 3 3）返回列表指定区间内的元素 语法：lrange key start stop 示例：
+127.0.0.1:6379&amp;gt; lrange list 0 -1 &amp;quot;3&amp;quot; &amp;quot;2&amp;quot; &amp;quot;1&amp;quot; 127.0.0.1:6379&amp;gt; lrange list2 0 -1 &amp;quot;1&amp;quot; &amp;quot;2&amp;quot; &amp;quot;3&amp;quot; 其中 -1 代表列表中的最后一个元素。
+4）获取并删除列表的第一个元素 语法：lpop key 示例：">
+<meta name="author" content="">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title"></h1>
+        <div class="post-info">
+            <div> 
+                <span class="post-date">📅&nbsp;0001-01-01 00:00:00</span></div></div>
+        <div class="post-content">
+            <p>列表类型 (List) 是一个使用链表结构存储的有序结构，它的元素插入会按照先后顺序存储到链表结构中，因此它的元素操作 (插入\删除) 时间复杂度为 O(1)，所以相对来说速度还是比较快的，但它的查询时间复杂度为 O(n)，因此查询可能会比较慢。</p>
+<h3 id="1-基础使用">1 基础使用</h3>
+<p>列表类型的使用相对来说比较简单，对它的操作就相当操作一个没有任何 key 值的 value 集合，如下图所示： <img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Redis%20%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/assets/2020-02-28-031229.png" alt="列表类型使用-列表结构图.png"></p>
+<h4 id="1给列表添加一个或多个元素">1）给列表添加一个或多个元素</h4>
+<p>语法：lpush key value [value …] 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; lpush list 1 2 3
+(integer) 3
+
+</code></pre><h4 id="2给列表尾部添加一个或多个元素">2）给列表尾部添加一个或多个元素</h4>
+<p>语法：rpush key value [value …] 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; rpush list2 1 2 3
+(integer) 3
+
+</code></pre><h4 id="3返回列表指定区间内的元素">3）返回列表指定区间内的元素</h4>
+<p>语法：lrange key start stop 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; lrange list 0 -1
+&quot;3&quot;
+&quot;2&quot;
+&quot;1&quot;
+127.0.0.1:6379&gt; lrange list2 0 -1
+&quot;1&quot;
+&quot;2&quot;
+&quot;3&quot;
+
+</code></pre><p>其中 -1 代表列表中的最后一个元素。</p>
+<h4 id="4获取并删除列表的第一个元素">4）获取并删除列表的第一个元素</h4>
+<p>语法：lpop key 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; lrange list 0 -1
+1) &quot;d&quot;
+2) &quot;c&quot;
+3) &quot;b&quot;
+4) &quot;a&quot;
+127.0.0.1:6379&gt; lpop list
+&quot;d&quot;
+127.0.0.1:6379&gt; lrange list 0 -1
+1) &quot;c&quot;
+2) &quot;b&quot;
+3) &quot;a&quot;
+
+</code></pre><h4 id="5获取并删除列表的最后一个元素">5）获取并删除列表的最后一个元素</h4>
+<p>语法：rpop key 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; lrange list 0 -1
+1) &quot;c&quot;
+2) &quot;b&quot;
+3) &quot;a&quot;
+127.0.0.1:6379&gt; rpop list
+&quot;a&quot;
+127.0.0.1:6379&gt; lrange list 0 -1
+1) &quot;c&quot;
+2) &quot;b&quot;
+
+</code></pre><h4 id="6根据下标获取对应的元素">6）根据下标获取对应的元素</h4>
+<p>语法：lindex key index 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; rpush list3 a b c
+(integer) 3
+127.0.0.1:6379&gt; lindex list3 0
+&quot;a&quot;
+
+</code></pre><p>更多操作命令，详见附录部分。</p>
+<h3 id="2-代码实战">2 代码实战</h3>
+<p>下面来看列表类型在 Java 中的使用，同样先添加 Jedis 框架，使用代码如下：</p>
+<pre tabindex="0"><code>public class ListExample {
+    public static void main(String[] args) {
+        Jedis jedis = new Jedis(&quot;127.0.0.1&quot;, 6379);
+        // 声明 Redis key
+        final String REDISKEY = &quot;list&quot;;
+        // 在头部插入一个或多个元素
+        Long lpushResult = jedis.lpush(REDISKEY, &quot;Java&quot;, &quot;Sql&quot;);
+        System.out.println(lpushResult); // 输出：2
+        // 获取第 0 个元素的值
+        String idValue = jedis.lindex(REDISKEY, 0);
+        System.out.println(idValue); // 输出：Sql
+        // 查询指定区间的元素
+        List&lt;String&gt; list = jedis.lrange(REDISKEY, 0, -1);
+        System.out.println(list); // 输出：[Sql, Java]
+        // 在元素 Java 前面添加 MySQL 元素
+        jedis.linsert(REDISKEY, ListPosition.BEFORE, &quot;Java&quot;, &quot;MySQL&quot;);
+        System.out.println(jedis.lrange(REDISKEY, 0, -1)); // 输出：[Sql, MySQL, Java]
+        jedis.close();
+    }
+}
+
+</code></pre><p>程序运行结果如下：</p>
+<blockquote>
+<p>2 Sql [Sql, Java] [Sql, MySQL, Java]</p>
+</blockquote>
+<h3 id="3-内部实现">3 内部实现</h3>
+<p>我们先用 <code>debug encoding key</code> 来查看列表类型的内部存储类型，如下所示：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; object encoding list
+&quot;quicklist&quot;
+
+</code></pre><p>从结果可以看出，列表类型的底层数据类型是 quicklist。</p>
+<p>quicklist (快速列表) 是 Redis 3.2 引入的数据类型，早期的列表类型使用的是ziplist (压缩列表) 和双向链表组成的，Redis 3.2 改为用 quicklist 来存储列表元素。</p>
+<p>我们来看下 quicklist 的实现源码：</p>
+<pre tabindex="0"><code>typedef struct quicklist { // src/quicklist.h
+    quicklistNode *head;
+    quicklistNode *tail;
+    unsigned long count;        /* ziplist 的个数 */
+    unsigned long len;          /* quicklist 的节点数 */
+    unsigned int compress : 16; /* LZF 压缩算法深度 */
+    //...
+} quicklist;
+typedef struct quicklistNode {
+    struct quicklistNode *prev;
+    struct quicklistNode *next;
+    unsigned char *zl;           /* 对应的 ziplist */
+    unsigned int sz;             /* ziplist 字节数 */
+    unsigned int count : 16;     /* ziplist 个数 */
+    unsigned int encoding : 2;   /* RAW==1 or LZF==2 */
+    unsigned int container : 2;  /* NONE==1 or ZIPLIST==2 */
+    unsigned int recompress : 1; /* 该节点先前是否被压缩 */
+    unsigned int attempted_compress : 1; /* 节点太小无法压缩 */
+    //...
+} quicklistNode;
+typedef struct quicklistLZF {
+    unsigned int sz; 
+    char compressed[];
+} quicklistLZF;
+
+</code></pre><p>从以上源码可以看出 quicklist 是一个双向链表，链表中的每个节点实际上是一个 ziplist，它们的结构如下图所示： <img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Redis%20%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/assets/2020-02-28-31230.png" alt="列表类型使用-quicklist结构图.png"></p>
+<p>ziplist 作为 quicklist 的实际存储结构，它本质是一个字节数组，ziplist 数据结构如下图所示：</p>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Redis%20%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/assets/2020-02-28-031231.png" alt="列表类型使用-压缩列表结构图.png"></p>
+<p>其中的字段含义如下：</p>
+<ul>
+<li>zlbytes：压缩列表字节长度，占 4 字节；</li>
+<li>zltail：压缩列表尾元素相对于起始元素地址的偏移量，占 4 字节；</li>
+<li>zllen：压缩列表的元素个数；</li>
+<li>entryX：压缩列表存储的所有元素，可以是字节数组或者是整数；</li>
+<li>zlend：压缩列表的结尾，占 1 字节。</li>
+</ul>
+<h3 id="4-源码解析">4 源码解析</h3>
+<p>下面我们来看一下更多关于列表类型的源码实现。</p>
+<h4 id="1添加功能源码分析">1）添加功能源码分析</h4>
+<p>quicklist 添加操作对应函数是 quicklistPush，源码如下：</p>
+<pre tabindex="0"><code>void quicklistPush(quicklist *quicklist, void *value, const size_t sz,
+                   int where) {
+    if (where == QUICKLIST_HEAD) {
+        // 在列表头部添加元素
+        quicklistPushHead(quicklist, value, sz);
+    } else if (where == QUICKLIST_TAIL) {
+        // 在列表尾部添加元素
+        quicklistPushTail(quicklist, value, sz);
+    }
+}
+
+</code></pre><p>以 quicklistPushHead 为例，源码如下：</p>
+<pre tabindex="0"><code>int quicklistPushHead(quicklist *quicklist, void *value, size_t sz) {
+    quicklistNode *orig_head = quicklist-&gt;head;
+    if (likely(
+            _quicklistNodeAllowInsert(quicklist-&gt;head, quicklist-&gt;fill, sz))) {
+        // 在头部节点插入元素
+        quicklist-&gt;head-&gt;zl =
+            ziplistPush(quicklist-&gt;head-&gt;zl, value, sz, ZIPLIST_HEAD);
+        quicklistNodeUpdateSz(quicklist-&gt;head);
+    } else {
+        // 头部节点不能继续插入，需要新建 quicklistNode、ziplist 进行插入
+        quicklistNode *node = quicklistCreateNode();
+        node-&gt;zl = ziplistPush(ziplistNew(), value, sz, ZIPLIST_HEAD);
+        quicklistNodeUpdateSz(node);
+        // 将新建的 quicklistNode 插入到 quicklist 结构中
+        _quicklistInsertNodeBefore(quicklist, quicklist-&gt;head, node);
+    }
+    quicklist-&gt;count++;
+    quicklist-&gt;head-&gt;count++;
+    return (orig_head != quicklist-&gt;head);
+}
+
+</code></pre><p>quicklistPushHead 函数的执行流程，先判断 quicklist 的 head 节点是否可以插入数据，如果可以插入则使用 ziplist 的接口进行插入，否则就新建 quicklistNode 节点进行插入。</p>
+<p>函数的入参是待插入的 quicklist，还有需要插入的值 value 以及他的大小 sz。</p>
+<p>函数的返回值为 int，0 表示没有新建 head，1 表示新建了 head。 quicklistPushHead 执行流程，如下图所示：</p>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Redis%20%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/assets/2020-02-28-031232.png" alt="列表类型使用-插入流程图.png"></p>
+<h4 id="2删除功能源码分析">2）删除功能源码分析</h4>
+<p>quicklist 元素删除分为两种情况：单一元素删除和区间元素删除，它们都位于 src/quicklist.c 文件中。</p>
+<h5 id="-单一元素删除">① 单一元素删除</h5>
+<p>单一元素的删除函数是 quicklistDelEntry，源码如下：</p>
+<pre tabindex="0"><code>void quicklistDelEntry(quicklistIter *iter, quicklistEntry *entry) {
+    quicklistNode *prev = entry-&gt;node-&gt;prev;
+    quicklistNode *next = entry-&gt;node-&gt;next;
+    // 删除指定位置的元素
+    int deleted_node = quicklistDelIndex((quicklist *)entry-&gt;quicklist,
+                                         entry-&gt;node, &amp;entry-&gt;zi);
+    //...
+}
+
+</code></pre><p>可以看出 quicklistDelEntry 函数的底层，依赖 quicklistDelIndex 函数进行元素删除。</p>
+<h5 id="-区间元素删除">② 区间元素删除</h5>
+<p>区间元素删除的函数是 quicklistDelRange，源码如下：</p>
+<pre tabindex="0"><code>// start 表示开始删除的下标，count 表示要删除的个数
+int quicklistDelRange(quicklist *quicklist, const long start,
+                      const long count) {
+    if (count &lt;= 0)
+        return 0;
+    unsigned long extent = count; 
+    if (start &gt;= 0 &amp;&amp; extent &gt; (quicklist-&gt;count - start)) {
+        // 删除的元素个数大于已有元素
+        extent = quicklist-&gt;count - start;
+    } else if (start &lt; 0 &amp;&amp; extent &gt; (unsigned long)(-start)) {
+        // 删除指定的元素个数
+        extent = -start; /* c.f. LREM -29 29; just delete until end. */
+    }
+    //...
+    // extent 为剩余需要删除的元素个数，
+    while (extent) {
+        // 保存下个 quicklistNode，因为本节点可能会被删除
+        quicklistNode *next = node-&gt;next;
+        unsigned long del;
+        int delete_entire_node = 0;
+        if (entry.offset == 0 &amp;&amp; extent &gt;= node-&gt;count) {
+            // 删除整个 quicklistNode
+            delete_entire_node = 1;
+            del = node-&gt;count;
+        } else if (entry.offset &gt;= 0 &amp;&amp; extent &gt;= node-&gt;count) {
+           // 删除本节点的所有元素
+            del = node-&gt;count - entry.offset;
+        } else if (entry.offset &lt; 0) {
+            // entry.offset&lt;0 表示从后向前，相反则表示从前向后剩余的元素个数
+            del = -entry.offset;
+            if (del &gt; extent)
+                del = extent;
+        } else {
+            // 删除本节点部分元素
+            del = extent;
+        }
+        D(&quot;[%ld]: asking to del: %ld because offset: %d; (ENTIRE NODE: %d), &quot;
+          &quot;node count: %u&quot;,
+          extent, del, entry.offset, delete_entire_node, node-&gt;count);
+        if (delete_entire_node) {
+            __quicklistDelNode(quicklist, node);
+        } else {
+            quicklistDecompressNodeForUse(node);
+            node-&gt;zl = ziplistDeleteRange(node-&gt;zl, entry.offset, del);
+            quicklistNodeUpdateSz(node);
+            node-&gt;count -= del;
+            quicklist-&gt;count -= del;
+            quicklistDeleteIfEmpty(quicklist, node);
+            if (node)
+                quicklistRecompressOnly(quicklist, node);
+        }
+        // 剩余待删除元素的个数
+        extent -= del;
+        // 下个 quicklistNode
+        node = next;
+        // 从下个 quicklistNode 起始位置开始删除
+        entry.offset = 0;
+    }
+    return 1;
+}
+
+</code></pre><p>从上面代码可以看出，quicklist 在区间删除时，会先找到 start 所在的 quicklistNode，计算删除的元素是否小于要删除的 count，如果不满足删除的个数，则会移动至下一个 quicklistNode 继续删除，依次循环直到删除完成为止。</p>
+<p>quicklistDelRange 函数的返回值为 int 类型，当返回 1 时表示成功的删除了指定区间的元素，返回 0 时表示没有删除任何元素。</p>
+<h4 id="3更多源码">3）更多源码</h4>
+<p>除了上面介绍的几个常用函数之外，还有一些更多的函数，例如：</p>
+<ul>
+<li>quicklistCreate：创建 quicklist；</li>
+<li>quicklistInsertAfter：在某个元素的后面添加数据；</li>
+<li>quicklistInsertBefore：在某个元素的前面添加数据；</li>
+<li>quicklistPop：取出并删除列表的第一个或最后一个元素；</li>
+<li>quicklistReplaceAtIndex：替换某个元素。</li>
+</ul>
+<h3 id="5-使用场景">5 使用场景</h3>
+<p>列表的典型使用场景有以下两个：</p>
+<ul>
+<li>消息队列：列表类型可以使用 rpush 实现先进先出的功能，同时又可以使用 lpop 轻松的弹出（查询并删除）第一个元素，所以列表类型可以用来实现消息队列；</li>
+<li>文章列表：对于博客站点来说，当用户和文章都越来越多时，为了加快程序的响应速度，我们可以把用户自己的文章存入到 List 中，因为 List 是有序的结构，所以这样又可以完美的实现分页功能，从而加速了程序的响应速度。</li>
+</ul>
+<h3 id="6-小结">6 小结</h3>
+<p>通过本文我们可以知道列表类型并不是简单的双向链表，而是采用了 quicklist 的数据结构对数据进行存取，quicklist 是 Redis 3.2 新增的数据类型，它的底层采取的是压缩列表加双向链表的存储结构，quicklist 为了存储更多的数据，会对每个 quicklistNode 节点进行压缩，这样就可以有效的存储更多的消息队列或者文章的数据了。</p>
+
+        </div>
+    </article>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/11-%E9%99%84%E5%BD%95%E6%9B%B4%E5%A4%9A%E5%88%97%E8%A1%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4.md/"><span></span></a>
+    </div>
+    <div class="next">
+        
+        <a href="/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/09-%E9%99%84%E5%BD%95%E6%9B%B4%E5%A4%9A%E5%AD%97%E5%85%B8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4.md/"><span></span></a>
+    </div>
+</div>
+
+        </div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    function toggleLight() {
+        document.getElementById('page').classList.toggle('night');
+    }
+</script>
+</body>
+
+</html>

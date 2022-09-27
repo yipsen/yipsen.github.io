@@ -16,10 +16,9 @@
 kubeadm 同时支持以上两种技术架构的高可用部署，两种架构对比起来，最明显的区别在于外置型 etcd 集群模式需要的 etcd 数据面机器节点数量不需要和控制面机器节点数量一致，可以按照集群规模提供 3 个或者 5 个 etcd 节点来保证业务高可用能力。社区的开发兴趣小组 k8s-sig-cluster-lifecycle 还发布了 etcdadm 开源工具来自动化部署外置 etcd 集群。
 安装前的基准检查工作 集群主机首要需要检查的就是硬件信息的唯一性，防止集群信息的冲突。确保每个节点上 MAC 地址和 product_uuid 的唯一性。检查办法如下：
  您可以使用命令 ip link 或 ifconfig -a 来获取网络接口的 MAC 地址 可以使用 sudo cat /sys/class/dmi/id/product_uuid 命令对 product_uuid 校验  检查硬件信息的唯一性，主要是为了应对虚拟机模板创建后产生的虚拟机环境重复导致，通过检查就可以规避。">
-<meta name="author"
-  content="">
+<meta name="author" content="">
 
-<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
 
 </head>
 
@@ -27,7 +26,7 @@ kubeadm 同时支持以上两种技术架构的高可用部署，两种架构对
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
         <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
     </a>
 </div>
@@ -42,7 +41,7 @@ kubeadm 同时支持以上两种技术架构的高可用部署，两种架构对
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/collections/">图集</a>
+                href="http://yipsen.github.io/collections/">附表</a>
         </li>
         
         <li class="nav-item">
@@ -55,13 +54,156 @@ kubeadm 同时支持以上两种技术架构的高可用部署，两种架构对
     </header>
     <main id="content">
         
-<div class="container">
-    <article class="post-block">
+<div class="container"><aside>
+    <div>
+        
+        
+            
+            
+            <div class="post-category-icon"></div>
+            <a href="/categories/kubernetes%e5%ae%9e%e8%b7%b5%e5%85%a5%e9%97%a8%e6%8c%87%e5%8d%97/">Kubernetes实践入门指南</a>
+            <ul>
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/00-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E8%A6%81%E5%AD%A6%E4%B9%A0-kubernetes-%E6%8A%80%E6%9C%AF/">00 为什么我们要学习 Kubernetes 技术</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/01-%E9%87%8D%E6%96%B0%E8%AE%A4%E8%AF%86-kubernetes-%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/">01 重新认识 Kubernetes 的核心组件</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/02-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3-kubernets-%E7%9A%84%E7%BC%96%E6%8E%92%E5%AF%B9%E8%B1%A1/">02 深入理解 Kubernets 的编排对象</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/03-devops-%E5%9C%BA%E6%99%AF%E4%B8%8B%E8%90%BD%E5%9C%B0-k8s-%E7%9A%84%E5%9B%B0%E9%9A%BE%E5%88%86%E6%9E%90/">03 DevOps 场景下落地 K8s 的困难分析</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/04-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E8%90%BD%E5%9C%B0-k8s-%E7%9A%84%E5%9B%B0%E9%9A%BE%E5%88%86%E6%9E%90/">04 微服务应用场景下落地 K8s 的困难分析</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/05-%E8%A7%A3%E5%86%B3-k8s-%E8%90%BD%E5%9C%B0%E9%9A%BE%E9%A2%98%E7%9A%84%E6%96%B9%E6%B3%95%E8%AE%BA%E6%8F%90%E7%82%BC/">05 解决 K8s 落地难题的方法论提炼</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/06-%E7%BB%83%E4%B9%A0%E7%AF%87k8s-%E6%A0%B8%E5%BF%83%E5%AE%9E%E8%B7%B5%E7%9F%A5%E8%AF%86%E6%8E%8C%E6%8F%A1/">06 练习篇：K8s 核心实践知识掌握</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/07-%E5%AE%B9%E5%99%A8%E5%BC%95%E6%93%8E-containerd-%E8%90%BD%E5%9C%B0%E5%AE%9E%E8%B7%B5/">07 容器引擎 containerd 落地实践</a></li>
+                
+                
+                
+                    <li>08 K8s 集群安装工具 kubeadm 的落地实践</li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/09-%E5%8D%97%E5%8C%97%E5%90%91%E6%B5%81%E9%87%8F%E7%BB%84%E4%BB%B6-ipvs-%E7%9A%84%E8%90%BD%E5%9C%B0%E5%AE%9E%E8%B7%B5/">09 南北向流量组件 IPVS 的落地实践</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/10-%E4%B8%9C%E8%A5%BF%E5%90%91%E6%B5%81%E9%87%8F%E7%BB%84%E4%BB%B6-calico-%E7%9A%84%E8%90%BD%E5%9C%B0%E5%AE%9E%E8%B7%B5/">10 东西向流量组件 Calico 的落地实践</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/11-%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0-dns-%E7%9A%84%E8%90%BD%E5%9C%B0%E5%AE%9E%E8%B7%B5/">11 服务发现 DNS 的落地实践</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/12-%E7%BB%83%E4%B9%A0%E7%AF%87k8s-%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE%E6%B5%8B%E9%AA%8C/">12 练习篇：K8s 集群配置测验</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/13-%E7%90%86%E8%A7%A3%E5%AF%B9%E6%96%B9%E6%9A%B4%E9%9C%B2%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AF%B9%E8%B1%A1-ingress-%E5%92%8C-service/">13 理解对方暴露服务的对象 Ingress 和 Service</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/14-%E5%BA%94%E7%94%A8%E7%BD%91%E5%85%B3-openresty-%E5%AF%B9%E6%8E%A5-k8s-%E5%AE%9E%E8%B7%B5/">14 应用网关 OpenResty 对接 K8s 实践</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/15-service-%E5%B1%82%E5%BC%95%E6%B5%81%E6%8A%80%E6%9C%AF%E5%AE%9E%E8%B7%B5/">15 Service 层引流技术实践</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/16-cilium-%E5%AE%B9%E5%99%A8%E7%BD%91%E7%BB%9C%E7%9A%84%E8%90%BD%E5%9C%B0%E5%AE%9E%E8%B7%B5/">16 Cilium 容器网络的落地实践</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/17-%E5%BA%94%E7%94%A8%E6%B5%81%E9%87%8F%E7%9A%84%E4%BC%98%E9%9B%85%E6%97%A0%E6%8D%9F%E5%88%87%E6%8D%A2%E5%AE%9E%E8%B7%B5/">17 应用流量的优雅无损切换实践</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/18-%E7%BB%83%E4%B9%A0%E7%AF%87%E5%BA%94%E7%94%A8%E6%B5%81%E9%87%8F%E6%97%A0%E6%8D%9F%E5%88%87%E6%8D%A2%E6%8A%80%E6%9C%AF%E6%B5%8B%E9%AA%8C/">18 练习篇：应用流量无损切换技术测验</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/19-%E4%BD%BF%E7%94%A8-rook-%E6%9E%84%E5%BB%BA%E7%94%9F%E4%BA%A7%E5%8F%AF%E7%94%A8%E5%AD%98%E5%82%A8%E7%8E%AF%E5%A2%83%E5%AE%9E%E8%B7%B5/">19 使用 Rook 构建生产可用存储环境实践</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/20-%E6%9C%89%E7%8A%B6%E6%80%81%E5%BA%94%E7%94%A8%E7%9A%84%E9%BB%98%E8%AE%A4%E7%89%B9%E6%80%A7%E8%90%BD%E5%9C%B0%E5%88%86%E6%9E%90/">20 有状态应用的默认特性落地分析</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/21-%E6%A1%88%E4%BE%8B%E5%88%86%E5%B8%83%E5%BC%8F-mysql-%E9%9B%86%E7%BE%A4%E5%B7%A5%E5%85%B7-vitess-%E5%AE%9E%E8%B7%B5%E5%88%86%E6%9E%90/">21 案例：分布式 MySQL 集群工具 Vitess 实践分析</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/22-%E5%AD%98%E5%82%A8%E5%AF%B9%E8%B1%A1-pvpvcstorage-classes-%E7%9A%84%E7%AE%A1%E7%90%86%E8%90%BD%E5%9C%B0%E5%AE%9E%E8%B7%B5/">22 存储对象 PV、PVC、Storage Classes 的管理落地实践</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/23-k8s-%E9%9B%86%E7%BE%A4%E4%B8%AD%E5%AD%98%E5%82%A8%E5%AF%B9%E8%B1%A1%E7%81%BE%E5%A4%87%E7%9A%84%E8%90%BD%E5%9C%B0%E5%AE%9E%E8%B7%B5/">23 K8s 集群中存储对象灾备的落地实践</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/24-%E7%BB%83%E4%B9%A0%E7%AF%87k8s-%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE%E6%B5%8B%E9%AA%8C/">24 练习篇：K8s 集群配置测验</a></li>
+                
+                
+            </ul>
+        
+    </div>
+</aside>
+
+<style>
+    aside {
+        position: fixed;
+        left: 20px;
+        background: #ffdee3;
+        border-radius: 6px;
+        padding: 20px;
+        padding-top: 60px;
+        box-shadow: 5px 10px #888;
+        list-style-type: none;
+        display: none;
+    }
+
+    .post-category-icon {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        left: 50%;
+        margin-left: -40px;
+        text-align: center;
+        font-size: 36px;
+        content: 'J';
+        background: #ffdee3;
+        border-radius: 100%;
+        border: 10px solid #fff;
+        box-shadow: 5px 10px #888;
+    }
+</style><article class="post-block">
         <h1 class="post-title">08 K8s 集群安装工具 kubeadm 的落地实践</h1>
         <div class="post-info">
-            <div>2021-12-22|<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
+            <div> 
+                <span class="post-date">📅&nbsp;2021-12-22 01:48:14</span>🏷️&nbsp;<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
                 
-                <a href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/"> Kubernetes实践入门指南 </a>
+                📚&nbsp;<a href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/">Kubernetes实践入门指南</a>
                 
             </div></div>
         <div class="post-content">
@@ -192,11 +334,11 @@ sysctl --system
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight();">T</div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 11110 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     

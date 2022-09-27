@@ -19,10 +19,9 @@ mysql&amp;gt; alter table SUser add index index1(email);或mysql&amp;gt; alter
 那么，这两种不同的定义在数据结构和存储上有什么区别呢？如图 2 和 3 所示，就是这两个索引的示意图。
 图 1 email 索引结构
 图 2 email(6) 索引结构">
-<meta name="author"
-  content="">
+<meta name="author" content="">
 
-<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
 
 </head>
 
@@ -30,7 +29,7 @@ mysql&amp;gt; alter table SUser add index index1(email);或mysql&amp;gt; alter
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
         <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
     </a>
 </div>
@@ -45,7 +44,7 @@ mysql&amp;gt; alter table SUser add index index1(email);或mysql&amp;gt; alter
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/collections/">图集</a>
+                href="http://yipsen.github.io/collections/">附表</a>
         </li>
         
         <li class="nav-item">
@@ -58,13 +57,248 @@ mysql&amp;gt; alter table SUser add index index1(email);或mysql&amp;gt; alter
     </header>
     <main id="content">
         
-<div class="container">
-    <article class="post-block">
+<div class="container"><aside>
+    <div>
+        
+        
+            
+            
+            <div class="post-category-icon"></div>
+            <a href="/categories/mysql%e5%ae%9e%e6%88%9845%e8%ae%b2/">MySQL实战45讲</a>
+            <ul>
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/00-%E5%BC%80%E7%AF%87%E8%AF%8D-%E8%BF%99%E4%B8%80%E6%AC%A1%E8%AE%A9%E6%88%91%E4%BB%AC%E4%B8%80%E8%B5%B7%E6%9D%A5%E6%90%9E%E6%87%82mysql/">00 开篇词 这一次，让我们一起来搞懂MySQL</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/01-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84%E4%B8%80%E6%9D%A1sql%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84/">01 基础架构：一条SQL查询语句是如何执行的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/02-%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F%E4%B8%80%E6%9D%A1sql%E6%9B%B4%E6%96%B0%E8%AF%AD%E5%8F%A5%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84/">02 日志系统：一条SQL更新语句是如何执行的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/03-%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%A0%E6%94%B9%E4%BA%86%E6%88%91%E8%BF%98%E7%9C%8B%E4%B8%8D%E8%A7%81/">03 事务隔离：为什么你改了我还看不见？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/04-%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E7%B4%A2%E5%BC%95%E4%B8%8A/">04 深入浅出索引（上）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/05-%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E7%B4%A2%E5%BC%95%E4%B8%8B/">05 深入浅出索引（下）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/06-%E5%85%A8%E5%B1%80%E9%94%81%E5%92%8C%E8%A1%A8%E9%94%81-%E7%BB%99%E8%A1%A8%E5%8A%A0%E4%B8%AA%E5%AD%97%E6%AE%B5%E6%80%8E%E4%B9%88%E6%9C%89%E8%BF%99%E4%B9%88%E5%A4%9A%E9%98%BB%E7%A2%8D/">06 全局锁和表锁 ：给表加个字段怎么有这么多阻碍？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/07-%E8%A1%8C%E9%94%81%E5%8A%9F%E8%BF%87%E6%80%8E%E4%B9%88%E5%87%8F%E5%B0%91%E8%A1%8C%E9%94%81%E5%AF%B9%E6%80%A7%E8%83%BD%E7%9A%84%E5%BD%B1%E5%93%8D/">07 行锁功过：怎么减少行锁对性能的影响？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/08-%E4%BA%8B%E5%8A%A1%E5%88%B0%E5%BA%95%E6%98%AF%E9%9A%94%E7%A6%BB%E7%9A%84%E8%BF%98%E6%98%AF%E4%B8%8D%E9%9A%94%E7%A6%BB%E7%9A%84/">08 事务到底是隔离的还是不隔离的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/09-%E6%99%AE%E9%80%9A%E7%B4%A2%E5%BC%95%E5%92%8C%E5%94%AF%E4%B8%80%E7%B4%A2%E5%BC%95%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E9%80%89%E6%8B%A9/">09 普通索引和唯一索引，应该怎么选择？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/10-mysql%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95/">10 MySQL为什么有时候会选错索引？</a></li>
+                
+                
+                
+                    <li>11 怎么给字符串字段加索引？</li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/12-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E7%9A%84mysql%E4%BC%9A%E6%8A%96%E4%B8%80%E4%B8%8B/">12 为什么我的MySQL会“抖”一下？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/13-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A1%A8%E6%95%B0%E6%8D%AE%E5%88%A0%E6%8E%89%E4%B8%80%E5%8D%8A%E8%A1%A8%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E4%B8%8D%E5%8F%98/">13 为什么表数据删掉一半，表文件大小不变？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/14-count%E8%BF%99%E4%B9%88%E6%85%A2%E6%88%91%E8%AF%A5%E6%80%8E%E4%B9%88%E5%8A%9E/">14 count()这么慢，我该怎么办？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/15-%E7%AD%94%E7%96%91%E6%96%87%E7%AB%A0%E4%B8%80%E6%97%A5%E5%BF%97%E5%92%8C%E7%B4%A2%E5%BC%95%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/">15 答疑文章（一）：日志和索引相关问题</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/16-order-by%E6%98%AF%E6%80%8E%E4%B9%88%E5%B7%A5%E4%BD%9C%E7%9A%84/">16 “order by”是怎么工作的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/17-%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%9C%B0%E6%98%BE%E7%A4%BA%E9%9A%8F%E6%9C%BA%E6%B6%88%E6%81%AF/">17 如何正确地显示随机消息？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/18-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%BA%9Bsql%E8%AF%AD%E5%8F%A5%E9%80%BB%E8%BE%91%E7%9B%B8%E5%90%8C%E6%80%A7%E8%83%BD%E5%8D%B4%E5%B7%AE%E5%BC%82%E5%B7%A8%E5%A4%A7/">18 为什么这些SQL语句逻辑相同，性能却差异巨大？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/19-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E5%8F%AA%E6%9F%A5%E4%B8%80%E8%A1%8C%E7%9A%84%E8%AF%AD%E5%8F%A5%E4%B9%9F%E6%89%A7%E8%A1%8C%E8%BF%99%E4%B9%88%E6%85%A2/">19 为什么我只查一行的语句，也执行这么慢？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/20-%E5%B9%BB%E8%AF%BB%E6%98%AF%E4%BB%80%E4%B9%88%E5%B9%BB%E8%AF%BB%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98/">20 幻读是什么，幻读有什么问题？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/21-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E5%8F%AA%E6%94%B9%E4%B8%80%E8%A1%8C%E7%9A%84%E8%AF%AD%E5%8F%A5%E9%94%81%E8%BF%99%E4%B9%88%E5%A4%9A/">21 为什么我只改一行的语句，锁这么多？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/22-mysql%E6%9C%89%E5%93%AA%E4%BA%9B%E9%A5%AE%E9%B8%A9%E6%AD%A2%E6%B8%B4%E6%8F%90%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E6%96%B9%E6%B3%95/">22 MySQL有哪些“饮鸩止渴”提高性能的方法？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/23-mysql%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E4%B8%8D%E4%B8%A2%E7%9A%84/">23 MySQL是怎么保证数据不丢的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/24-mysql%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84/">24 MySQL是怎么保证主备一致的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/25-mysql%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84/">25 MySQL是怎么保证高可用的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/26-%E5%A4%87%E5%BA%93%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%BB%B6%E8%BF%9F%E5%A5%BD%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%97%B6/">26 备库为什么会延迟好几个小时？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/27-%E4%B8%BB%E5%BA%93%E5%87%BA%E9%97%AE%E9%A2%98%E4%BA%86%E4%BB%8E%E5%BA%93%E6%80%8E%E4%B9%88%E5%8A%9E/">27 主库出问题了，从库怎么办？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/28-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E6%9C%89%E5%93%AA%E4%BA%9B%E5%9D%91/">28 读写分离有哪些坑？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/29-%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93%E6%98%AF%E4%B8%8D%E6%98%AF%E5%87%BA%E9%97%AE%E9%A2%98%E4%BA%86/">29 如何判断一个数据库是不是出问题了？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/30-%E7%AD%94%E7%96%91%E6%96%87%E7%AB%A0%E4%BA%8C%E7%94%A8%E5%8A%A8%E6%80%81%E7%9A%84%E8%A7%82%E7%82%B9%E7%9C%8B%E5%8A%A0%E9%94%81/">30 答疑文章（二）：用动态的观点看加锁</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/31-%E8%AF%AF%E5%88%A0%E6%95%B0%E6%8D%AE%E5%90%8E%E9%99%A4%E4%BA%86%E8%B7%91%E8%B7%AF%E8%BF%98%E8%83%BD%E6%80%8E%E4%B9%88%E5%8A%9E/">31 误删数据后除了跑路，还能怎么办？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/32-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%98%E6%9C%89kill%E4%B8%8D%E6%8E%89%E7%9A%84%E8%AF%AD%E5%8F%A5/">32 为什么还有kill不掉的语句？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/33-%E6%88%91%E6%9F%A5%E8%BF%99%E4%B9%88%E5%A4%9A%E6%95%B0%E6%8D%AE%E4%BC%9A%E4%B8%8D%E4%BC%9A%E6%8A%8A%E6%95%B0%E6%8D%AE%E5%BA%93%E5%86%85%E5%AD%98%E6%89%93%E7%88%86/">33 我查这么多数据，会不会把数据库内存打爆？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/34-%E5%88%B0%E5%BA%95%E5%8F%AF%E4%B8%8D%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8join/">34 到底可不可以使用join？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/35-join%E8%AF%AD%E5%8F%A5%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96/">35 join语句怎么优化？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/36-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%B4%E6%97%B6%E8%A1%A8%E5%8F%AF%E4%BB%A5%E9%87%8D%E5%90%8D/">36 为什么临时表可以重名？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/37-%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BC%9A%E4%BD%BF%E7%94%A8%E5%86%85%E9%83%A8%E4%B8%B4%E6%97%B6%E8%A1%A8/">37 什么时候会使用内部临时表？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/38-%E9%83%BD%E8%AF%B4innodb%E5%A5%BD%E9%82%A3%E8%BF%98%E8%A6%81%E4%B8%8D%E8%A6%81%E4%BD%BF%E7%94%A8memory%E5%BC%95%E6%93%8E/">38 都说InnoDB好，那还要不要使用Memory引擎？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/39-%E8%87%AA%E5%A2%9E%E4%B8%BB%E9%94%AE%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E6%98%AF%E8%BF%9E%E7%BB%AD%E7%9A%84/">39 自增主键为什么不是连续的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/40-insert%E8%AF%AD%E5%8F%A5%E7%9A%84%E9%94%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E5%A4%9A/">40 insert语句的锁为什么这么多？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/41-%E6%80%8E%E4%B9%88%E6%9C%80%E5%BF%AB%E5%9C%B0%E5%A4%8D%E5%88%B6%E4%B8%80%E5%BC%A0%E8%A1%A8/">41 怎么最快地复制一张表？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/42-grant%E4%B9%8B%E5%90%8E%E8%A6%81%E8%B7%9F%E7%9D%80flush-privileges%E5%90%97/">42 grant之后要跟着flush privileges吗？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/43-%E8%A6%81%E4%B8%8D%E8%A6%81%E4%BD%BF%E7%94%A8%E5%88%86%E5%8C%BA%E8%A1%A8/">43 要不要使用分区表？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/44-%E7%AD%94%E7%96%91%E6%96%87%E7%AB%A0%E4%B8%89%E8%AF%B4%E4%B8%80%E8%AF%B4%E8%BF%99%E4%BA%9B%E5%A5%BD%E9%97%AE%E9%A2%98/">44 答疑文章（三）：说一说这些好问题</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/45-%E8%87%AA%E5%A2%9Eid%E7%94%A8%E5%AE%8C%E6%80%8E%E4%B9%88%E5%8A%9E/">45 自增id用完怎么办？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/%E6%88%91%E7%9A%84mysql%E5%BF%83%E8%B7%AF%E5%8E%86%E7%A8%8B/">我的MySQL心路历程</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/%E7%BB%93%E6%9D%9F%E8%AF%AD-%E7%82%B9%E7%BA%BF%E7%BD%91%E9%9D%A2%E4%B8%80%E8%B5%B7%E6%9E%84%E5%BB%BAmysql%E7%9F%A5%E8%AF%86%E7%BD%91%E7%BB%9C/">结束语 点线网面，一起构建MySQL知识网络</a></li>
+                
+                
+            </ul>
+        
+    </div>
+</aside>
+
+<style>
+    aside {
+        position: fixed;
+        left: 20px;
+        background: #ffdee3;
+        border-radius: 6px;
+        padding: 20px;
+        padding-top: 60px;
+        box-shadow: 5px 10px #888;
+        list-style-type: none;
+        display: none;
+    }
+
+    .post-category-icon {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        left: 50%;
+        margin-left: -40px;
+        text-align: center;
+        font-size: 36px;
+        content: 'J';
+        background: #ffdee3;
+        border-radius: 100%;
+        border: 10px solid #fff;
+        box-shadow: 5px 10px #888;
+    }
+</style><article class="post-block">
         <h1 class="post-title">11 怎么给字符串字段加索引？</h1>
         <div class="post-info">
-            <div>2021-12-22|<a class="post-tag" href="/tags/mysql/">mysql</a></div><div class="post-category">
+            <div> 
+                <span class="post-date">📅&nbsp;2021-12-22 01:52:08</span>🏷️&nbsp;<a class="post-tag" href="/tags/mysql/">mysql</a></div><div class="post-category">
                 
-                <a href="/categories/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/"> MySQL实战45讲 </a>
+                📚&nbsp;<a href="/categories/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/">MySQL实战45讲</a>
                 
             </div></div>
         <div class="post-content">
@@ -197,11 +431,11 @@ from SUser;
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight();">T</div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 11110 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     

@@ -17,10 +17,9 @@ MySQL 下载界面
 tar -zxf mysql-8.0.22-macos10.15-x86_64.tar.gz紧接着执行如下命令进入 support-files 目录：
 cd ./mysql-8.0.22-macos10.15-x86_64/support-files执行如下命令打开 mysql.server 文件进行编辑：
 vim mysql.server这里我需要将 basedir 和 datadir 变量分别设置为 MySQL 所在根目录以及 MySQL 目录下的 data 目录（如下图所示），最后再执行 :wq 命令保存 mysql.">
-<meta name="author"
-  content="">
+<meta name="author" content="">
 
-<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
 
 </head>
 
@@ -28,7 +27,7 @@ vim mysql.server这里我需要将 basedir 和 datadir 变量分别设置为 My
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
         <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
     </a>
 </div>
@@ -43,7 +42,7 @@ vim mysql.server这里我需要将 basedir 和 datadir 变量分别设置为 My
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/collections/">图集</a>
+                href="http://yipsen.github.io/collections/">附表</a>
         </li>
         
         <li class="nav-item">
@@ -56,13 +55,152 @@ vim mysql.server这里我需要将 basedir 和 datadir 变量分别设置为 My
     </header>
     <main id="content">
         
-<div class="container">
-    <article class="post-block">
+<div class="container"><aside>
+    <div>
+        
+        
+            
+            
+            <div class="post-category-icon"></div>
+            <a href="/categories/%e6%b7%b1%e5%85%a5%e5%89%96%e6%9e%90mybatis%e6%a0%b8%e5%bf%83%e5%8e%9f%e7%90%86/">深入剖析MyBatis核心原理</a>
+            <ul>
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/00-%E5%BC%80%E7%AF%87%E8%AF%8D-%E9%A2%86%E7%95%A5-mybatis-%E8%AE%BE%E8%AE%A1%E6%80%9D%E7%BB%B4%E7%AA%81%E7%A0%B4%E6%8C%81%E4%B9%85%E5%8C%96%E6%8A%80%E6%9C%AF%E7%93%B6%E9%A2%88/">00 开篇词 领略 MyBatis 设计思维，突破持久化技术瓶颈</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/01-%E5%B8%B8%E8%A7%81%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6%E8%B5%8F%E6%9E%90%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E4%B9%88%E8%AE%A9%E4%BD%A0%E9%80%89%E6%8B%A9-mybatis/">01 常见持久层框架赏析，到底是什么让你选择 MyBatis？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/02-%E8%AE%A2%E5%8D%95%E7%B3%BB%E7%BB%9F%E6%8C%81%E4%B9%85%E5%B1%82%E7%A4%BA%E4%BE%8B%E5%88%86%E6%9E%9020-%E5%88%86%E9%92%9F%E5%B8%A6%E4%BD%A0%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B-mybatis/">02 订单系统持久层示例分析，20 分钟带你快速上手 MyBatis</a></li>
+                
+                
+                
+                    <li>03 MyBatis 源码环境搭建及整体架构解析</li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/04-mybatis-%E5%8F%8D%E5%B0%84%E5%B7%A5%E5%85%B7%E7%AE%B1%E5%B8%A6%E4%BD%A0%E9%A2%86%E7%95%A5%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84%E5%8F%8D%E5%B0%84%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF/">04 MyBatis 反射工具箱：带你领略不一样的反射设计思路</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/05-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B1%BB%E5%9E%8B%E4%BD%93%E7%B3%BB%E4%B8%8E-java-%E7%B1%BB%E5%9E%8B%E4%BD%93%E7%B3%BB%E4%B9%8B%E9%97%B4%E7%9A%84%E7%88%B1%E6%81%A8%E6%83%85%E4%BB%87/">05 数据库类型体系与 Java 类型体系之间的“爱恨情仇”</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/06-%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6%E5%8D%83%E5%8D%83%E4%B8%87mybatis-%E9%83%BD%E8%83%BD%E5%85%BC%E5%AE%B9%E7%9A%84%E7%A7%98%E5%AF%86%E6%98%AF%E4%BB%80%E4%B9%88/">06 日志框架千千万，MyBatis 都能兼容的秘密是什么？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/07-%E6%B7%B1%E5%85%A5%E6%95%B0%E6%8D%AE%E6%BA%90%E5%92%8C%E4%BA%8B%E5%8A%A1%E6%8A%8A%E6%8F%A1%E6%8C%81%E4%B9%85%E5%8C%96%E6%A1%86%E6%9E%B6%E7%9A%84%E4%B8%A4%E4%B8%AA%E5%85%B3%E9%94%AE%E5%91%BD%E8%84%89/">07 深入数据源和事务，把握持久化框架的两个关键命脉</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/08-mapper-%E6%96%87%E4%BB%B6%E4%B8%8E-java-%E6%8E%A5%E5%8F%A3%E7%9A%84%E4%BC%98%E9%9B%85%E6%98%A0%E5%B0%84%E4%B9%8B%E9%81%93/">08 Mapper 文件与 Java 接口的优雅映射之道</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/09-%E5%9F%BA%E4%BA%8E-mybatis-%E7%BC%93%E5%AD%98%E5%88%86%E6%9E%90%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">09 基于 MyBatis 缓存分析装饰器模式的最佳实践</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/10-%E9%B8%9F%E7%9E%B0-mybatis-%E5%88%9D%E5%A7%8B%E5%8C%96%E6%8A%8A%E6%8F%A1-mybatis-%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E8%84%89%E7%BB%9C%E4%B8%8A/">10 鸟瞰 MyBatis 初始化，把握 MyBatis 启动流程脉络（上）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/11-%E9%B8%9F%E7%9E%B0-mybatis-%E5%88%9D%E5%A7%8B%E5%8C%96%E6%8A%8A%E6%8F%A1-mybatis-%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E8%84%89%E7%BB%9C%E4%B8%8B/">11 鸟瞰 MyBatis 初始化，把握 MyBatis 启动流程脉络（下）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/12-%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90%E5%8A%A8%E6%80%81-sql-%E8%AF%AD%E5%8F%A5%E8%A7%A3%E6%9E%90%E5%85%A8%E6%B5%81%E7%A8%8B%E4%B8%8A/">12 深入分析动态 SQL 语句解析全流程（上）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/13-%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90%E5%8A%A8%E6%80%81-sql-%E8%AF%AD%E5%8F%A5%E8%A7%A3%E6%9E%90%E5%85%A8%E6%B5%81%E7%A8%8B%E4%B8%8B/">13 深入分析动态 SQL 语句解析全流程（下）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/14-%E6%8E%A2%E7%A9%B6-mybatis-%E7%BB%93%E6%9E%9C%E9%9B%86%E6%98%A0%E5%B0%84%E6%9C%BA%E5%88%B6%E8%83%8C%E5%90%8E%E7%9A%84%E7%A7%98%E5%AF%86%E4%B8%8A/">14 探究 MyBatis 结果集映射机制背后的秘密（上）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/15-%E6%8E%A2%E7%A9%B6-mybatis-%E7%BB%93%E6%9E%9C%E9%9B%86%E6%98%A0%E5%B0%84%E6%9C%BA%E5%88%B6%E8%83%8C%E5%90%8E%E7%9A%84%E7%A7%98%E5%AF%86%E4%B8%8B/">15 探究 MyBatis 结果集映射机制背后的秘密（下）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/16-statementhandler%E5%8F%82%E6%95%B0%E7%BB%91%E5%AE%9Asql-%E6%89%A7%E8%A1%8C%E5%92%8C%E7%BB%93%E6%9E%9C%E6%98%A0%E5%B0%84%E7%9A%84%E5%A5%A0%E5%9F%BA%E8%80%85/">16 StatementHandler：参数绑定、SQL 执行和结果映射的奠基者</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/17-executor-%E6%89%8D%E6%98%AF%E6%89%A7%E8%A1%8C-sql-%E8%AF%AD%E5%8F%A5%E7%9A%84%E5%B9%95%E5%90%8E%E6%8E%A8%E6%89%8B%E4%B8%8A/">17 Executor 才是执行 SQL 语句的幕后推手（上）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/18-executor-%E6%89%8D%E6%98%AF%E6%89%A7%E8%A1%8C-sql-%E8%AF%AD%E5%8F%A5%E7%9A%84%E5%B9%95%E5%90%8E%E6%8E%A8%E6%89%8B%E4%B8%8B/">18 Executor 才是执行 SQL 语句的幕后推手（下）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/19-%E6%B7%B1%E5%85%A5-mybatis-%E5%86%85%E6%A0%B8%E4%B8%8E%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91%E7%9A%84%E6%A1%A5%E6%A2%81%E6%8E%A5%E5%8F%A3%E5%B1%82/">19 深入 MyBatis 内核与业务逻辑的桥梁——接口层</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/20-%E6%8F%92%E4%BB%B6%E4%BD%93%E7%B3%BB%E8%AE%A9-mybatis-%E4%B8%96%E7%95%8C%E6%9B%B4%E5%8A%A0%E7%B2%BE%E5%BD%A9/">20 插件体系让 MyBatis 世界更加精彩</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/21-%E6%B7%B1%E6%8C%96-mybatis-%E4%B8%8E-spring-%E9%9B%86%E6%88%90%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/">21 深挖 MyBatis 与 Spring 集成底层原理</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/22-%E5%9F%BA%E4%BA%8E-mybatis-%E7%9A%84%E8%A1%8D%E7%94%9F%E6%A1%86%E6%9E%B6%E4%B8%80%E8%A7%88/">22 基于 MyBatis 的衍生框架一览</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/23-%E7%BB%93%E6%9D%9F%E8%AF%AD-%E4%BC%9A%E4%BD%BF%E7%94%A8%E5%8F%AA%E8%83%BD%E9%BB%98%E9%BB%98%E6%90%AC%E7%A0%96%E6%87%82%E5%8E%9F%E7%90%86%E6%89%8D%E8%83%BD%E5%BF%AB%E9%80%9F%E6%99%8B%E5%8D%87/">23 结束语 会使用只能默默“搬砖”，懂原理才能快速晋升</a></li>
+                
+                
+            </ul>
+        
+    </div>
+</aside>
+
+<style>
+    aside {
+        position: fixed;
+        left: 20px;
+        background: #ffdee3;
+        border-radius: 6px;
+        padding: 20px;
+        padding-top: 60px;
+        box-shadow: 5px 10px #888;
+        list-style-type: none;
+        display: none;
+    }
+
+    .post-category-icon {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        left: 50%;
+        margin-left: -40px;
+        text-align: center;
+        font-size: 36px;
+        content: 'J';
+        background: #ffdee3;
+        border-radius: 100%;
+        border: 10px solid #fff;
+        box-shadow: 5px 10px #888;
+    }
+</style><article class="post-block">
         <h1 class="post-title">03 MyBatis 源码环境搭建及整体架构解析</h1>
         <div class="post-info">
-            <div>2021-12-22|<a class="post-tag" href="/tags/mybatis/">mybatis</a></div><div class="post-category">
+            <div> 
+                <span class="post-date">📅&nbsp;2021-12-22 01:51:05</span>🏷️&nbsp;<a class="post-tag" href="/tags/mybatis/">mybatis</a></div><div class="post-category">
                 
-                <a href="/categories/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/"> 深入剖析MyBatis核心原理 </a>
+                📚&nbsp;<a href="/categories/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/">深入剖析MyBatis核心原理</a>
                 
             </div></div>
         <div class="post-content">
@@ -214,11 +352,11 @@ vim mysql.server这里我需要将 basedir 和 datadir 变量分别设置为 My
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight();">T</div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 11110 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     

@@ -12,14 +12,13 @@
 <meta name="description" content="从本节开始，我们来学习 K8S 集群管理相关的知识。通过前面的学习，我们知道 K8S 遵循 C/S 架构，官方也提供了 CLI 工具 kubectl 用于完成大多数集群管理相关的功能。当然凡是你可以通过 kubectl 完成的与集群交互的功能，都可以直接通过 API 完成。
 对于我们来说 kubectl 并不陌生，在第 3 章讲 K8S 整体架构时，我们首次提到了它。在第 4 章和第 5 章介绍了两种安装 kubectl 的方式故而本章不再赘述安装的部分。
 整体概览 首先我们在终端下执行下 kubectl:
-➜ ~ kubectl kubectl controls the Kubernetes cluster manager....Usage:kubectl [flags] [options]kubectl 已经将命令做了基本的归类，同时显示了其一般的用法 kubectl [flags] [options] 。
+➜ ~ kubectl kubectl controls the Kubernetes cluster manager. ... Usage: kubectl [flags] [options] kubectl 已经将命令做了基本的归类，同时显示了其一般的用法 kubectl [flags] [options] 。
 使用 kubectl options 可以看到所有全局可用的配置项。
 基础配置 在我们的用户家目录，可以看到一个名为 .kube/config 的配置文件，我们来看下其中的内容（此处以本地的 minikube 集群为例）。
-➜ ~ ls $HOME/.kube/config /home/tao/.kube/config➜ ~ cat $HOME/.kube/configapiVersion: v1clusters:- cluster:certificate-authority: /home/tao/.">
-<meta name="author"
-  content="">
+➜ ~ ls $HOME/.kube/config /home/tao/.kube/config ➜ ~ cat $HOME/.kube/config apiVersion: v1 clusters: - cluster: certificate-authority: /home/tao/.">
+<meta name="author" content="">
 
-<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
 
 </head>
 
@@ -27,7 +26,7 @@
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
         <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
     </a>
 </div>
@@ -42,7 +41,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/collections/">图集</a>
+                href="http://yipsen.github.io/collections/">附表</a>
         </li>
         
         <li class="nav-item">
@@ -55,13 +54,152 @@
     </header>
     <main id="content">
         
-<div class="container">
-    <article class="post-block">
+<div class="container"><aside>
+    <div>
+        
+        
+            
+            
+            <div class="post-category-icon"></div>
+            <a href="/categories/kubernetes%e4%bb%8e%e4%b8%8a%e6%89%8b%e5%88%b0%e5%ae%9e%e8%b7%b5/">Kubernetes从上手到实践</a>
+            <ul>
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/01-%E5%BC%80%E7%AF%87-kubernetes-%E6%98%AF%E4%BB%80%E4%B9%88%E4%BB%A5%E5%8F%8A%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%AE%83/">01 开篇： Kubernetes 是什么以及为什么需要它</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/02-%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86kubernetes-%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">02 初步认识：Kubernetes 基础概念</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/03-%E5%AE%8F%E8%A7%82%E8%AE%A4%E8%AF%86%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/">03 宏观认识：整体架构</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/04-%E6%90%AD%E5%BB%BA-kubernetes-%E9%9B%86%E7%BE%A4-%E6%9C%AC%E5%9C%B0%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA/">04 搭建 Kubernetes 集群 - 本地快速搭建</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/05-%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA-kubernetes-%E9%9B%86%E7%BE%A4-%E7%94%9F%E4%BA%A7%E5%8F%AF%E7%94%A8/">05 动手实践：搭建一个 Kubernetes 集群 - 生产可用</a></li>
+                
+                
+                
+                    <li>06 集群管理：初识 kubectl</li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/07-%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86%E4%BB%A5-redis-%E4%B8%BA%E4%BE%8B-%E9%83%A8%E7%BD%B2%E5%8F%8A%E8%AE%BF%E9%97%AE/">07 集群管理：以 Redis 为例-部署及访问</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/08-%E5%AE%89%E5%85%A8%E9%87%8D%E7%82%B9-%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83/">08 安全重点 认证和授权</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/09-%E5%BA%94%E7%94%A8%E5%8F%91%E5%B8%83%E9%83%A8%E7%BD%B2%E5%AE%9E%E9%99%85%E9%A1%B9%E7%9B%AE/">09 应用发布：部署实际项目</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/10-%E5%BA%94%E7%94%A8%E7%AE%A1%E7%90%86%E5%88%9D%E8%AF%86-helm/">10 应用管理：初识 Helm</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/11-%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5%E4%BB%A5-helm-%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE/">11 部署实践：以 Helm 部署项目</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/12-%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9Bkube-apiserver/">12 庖丁解牛：kube-apiserver</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/13-%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9Betcd/">13 庖丁解牛：etcd</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/14-%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9Bcontroller-manager/">14 庖丁解牛：controller-manager</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/15-%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9Bkube-scheduler/">15 庖丁解牛：kube-scheduler</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/16-%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9Bkubelet/">16 庖丁解牛：kubelet</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/17-%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9Bkube-proxy/">17 庖丁解牛：kube-proxy</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/18-%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9Bcontainer-runtime-docker/">18 庖丁解牛：Container Runtime （Docker）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/19-troubleshoot/">19 Troubleshoot</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/20-%E6%89%A9%E5%B1%95%E5%A2%9E%E5%BC%BAdashboard/">20 扩展增强：Dashboard</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/21-%E6%89%A9%E5%B1%95%E5%A2%9E%E5%BC%BAcoredns/">21 扩展增强：CoreDNS</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/22-%E6%9C%8D%E5%8A%A1%E5%A2%9E%E5%BC%BAingress/">22 服务增强：Ingress</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/23-%E7%9B%91%E6%8E%A7%E5%AE%9E%E8%B7%B5%E5%AF%B9-k8s-%E9%9B%86%E7%BE%A4%E8%BF%9B%E8%A1%8C%E7%9B%91%E6%8E%A7/">23 监控实践：对 K8S 集群进行监控</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/24-%E6%80%BB%E7%BB%93/">24 总结</a></li>
+                
+                
+            </ul>
+        
+    </div>
+</aside>
+
+<style>
+    aside {
+        position: fixed;
+        left: 20px;
+        background: #ffdee3;
+        border-radius: 6px;
+        padding: 20px;
+        padding-top: 60px;
+        box-shadow: 5px 10px #888;
+        list-style-type: none;
+        display: none;
+    }
+
+    .post-category-icon {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        left: 50%;
+        margin-left: -40px;
+        text-align: center;
+        font-size: 36px;
+        content: 'J';
+        background: #ffdee3;
+        border-radius: 100%;
+        border: 10px solid #fff;
+        box-shadow: 5px 10px #888;
+    }
+</style><article class="post-block">
         <h1 class="post-title">06 集群管理：初识 kubectl</h1>
         <div class="post-info">
-            <div>2021-12-22|<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
+            <div> 
+                <span class="post-date">📅&nbsp;2021-12-22 01:47:32</span>🏷️&nbsp;<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
                 
-                <a href="/categories/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/"> Kubernetes从上手到实践 </a>
+                📚&nbsp;<a href="/categories/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/">Kubernetes从上手到实践</a>
                 
             </div></div>
         <div class="post-content">
@@ -69,16 +207,16 @@
 <p>对于我们来说 <code>kubectl</code> 并不陌生，在第 3 章讲 K8S 整体架构时，我们首次提到了它。在第 4 章和第 5 章介绍了两种安装 <code>kubectl</code> 的方式故而本章不再赘述安装的部分。</p>
 <h2 id="整体概览">整体概览</h2>
 <p>首先我们在终端下执行下 <code>kubectl</code>:</p>
-<pre tabindex="0"><code>➜  ~ kubectl                
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  ~ kubectl                
 kubectl controls the Kubernetes cluster manager.
 ...
 Usage:
-  kubectl [flags] [options]
-</code></pre><p><code>kubectl</code> 已经将命令做了基本的归类，同时显示了其一般的用法 <code>kubectl [flags] [options]</code> 。</p>
+  kubectl <span style="color:#f92672">[</span>flags<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>options<span style="color:#f92672">]</span>
+</code></pre></div><p><code>kubectl</code> 已经将命令做了基本的归类，同时显示了其一般的用法 <code>kubectl [flags] [options]</code> 。</p>
 <p>使用 <code>kubectl options</code> 可以看到所有全局可用的配置项。</p>
 <h2 id="基础配置">基础配置</h2>
 <p>在我们的用户家目录，可以看到一个名为 <code>.kube/config</code> 的配置文件，我们来看下其中的内容（此处以本地的 minikube 集群为例）。</p>
-<pre tabindex="0"><code>➜  ~ ls $HOME/.kube/config 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  ~ ls $HOME/.kube/config 
 /home/tao/.kube/config
 ➜  ~ cat $HOME/.kube/config
 apiVersion: v1
@@ -94,26 +232,26 @@ contexts:
   name: minikube
 current-context: minikube
 kind: Config
-preferences: {}
+preferences: <span style="color:#f92672">{}</span>
 users:
 - name: minikube
   user:
     client-certificate: /home/tao/.minikube/client.crt
     client-key: /home/tao/.minikube/client.key
-</code></pre><p><code>$HOME/.kube/config</code> 中主要包含着：</p>
+</code></pre></div><p><code>$HOME/.kube/config</code> 中主要包含着：</p>
 <ul>
 <li>K8S 集群的 API 地址</li>
 <li>用于认证的证书地址</li>
 </ul>
 <p>当然，我们在第 5 章时，也已经说过，也可以使用 <code>--kubeconfig</code> 或者环境变量 <code>KUBECONFIG</code> 来传递配置文件。</p>
 <p>另外如果你并不想使用配置文件的话，你也可以通过使用直接传递相关参数来使用，例如：</p>
-<pre tabindex="0"><code>➜  ~ kubectl --client-key='/home/tao/.minikube/client.key' --client-certificate='/home/tao/.minikube/client.crt' --server='https://192.168.99.101:8443'  get nodes
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  ~ kubectl --client-key<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/home/tao/.minikube/client.key&#39;</span> --client-certificate<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/home/tao/.minikube/client.crt&#39;</span> --server<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;https://192.168.99.101:8443&#39;</span>  get nodes
 NAME       STATUS    ROLES     AGE       VERSION
 minikube   Ready     master    2d        v1.11.3
-</code></pre><h2 id="从-get-说起">从 <code>get</code> 说起</h2>
+</code></pre></div><h2 id="从-get-说起">从 <code>get</code> 说起</h2>
 <p>无论是第 4 章还是第 5 章，当我们创建集群后，我们都做了两个相同的事情，一个是执行 <code>kubectl get nodes</code> 另一个则是 <code>kubectl cluster-info</code>，我们先从查看集群内 <code>Node</code> 开始。</p>
 <p>这里我们使用了一个本地已创建好的 <code>minikube</code> 集群。</p>
-<pre tabindex="0"><code>➜  ~ kubectl get nodes
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  ~ kubectl get nodes
 NAME       STATUS    ROLES     AGE       VERSION
 minikube   Ready     master    2d        v1.11.3
 ➜  ~ kubectl get node
@@ -122,42 +260,42 @@ minikube   Ready     master    2d        v1.11.3
 ➜  ~ kubectl get no
 NAME       STATUS    ROLES     AGE       VERSION
 minikube   Ready     master    2d        v1.11.3
-</code></pre><p>可以看到以上三种“名称”均可获取当前集群内 <code>Node</code> 信息。这是为了便于使用而增加的别名和缩写。</p>
+</code></pre></div><p>可以看到以上三种“名称”均可获取当前集群内 <code>Node</code> 信息。这是为了便于使用而增加的别名和缩写。</p>
 <p>如果我们想要看到更详细的信息呢？可以通过传递 <code>-o</code> 参数以得到不同格式的输出。</p>
-<pre tabindex="0"><code>➜  ~ kubectl get nodes -o wide 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  ~ kubectl get nodes -o wide 
 NAME       STATUS    ROLES     AGE       VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE            KERNEL-VERSION   CONTAINER-RUNTIME
 minikube   Ready     master    2d        v1.11.3   10.0.2.15     &lt;none&gt;        Buildroot 2018.05   4.15.0           docker://17.12.1-ce
-</code></pre><p>当然也可以传递 <code>-o yaml</code> 或者 <code>-o json</code> 得到更加详尽的信息。</p>
+</code></pre></div><p>当然也可以传递 <code>-o yaml</code> 或者 <code>-o json</code> 得到更加详尽的信息。</p>
 <p>使用 <code>-o json</code> 将内容以 JSON 格式输出时，可以配合 <a href="https://stedolan.github.io/jq/"><code>jq</code></a> 进行内容提取。例如：</p>
-<pre tabindex="0"><code>➜  ~ kubectl get nodes -o json | jq &quot;.items[] | {name: .metadata.name} + .status.nodeInfo&quot;
-{
-  &quot;name&quot;: &quot;minikube&quot;,
-  &quot;architecture&quot;: &quot;amd64&quot;,
-  &quot;bootID&quot;: &quot;d675d75b-e58e-40db-8910-6e5dda9e7cf9&quot;,
-  &quot;containerRuntimeVersion&quot;: &quot;docker://17.12.1-ce&quot;,
-  &quot;kernelVersion&quot;: &quot;4.15.0&quot;,
-  &quot;kubeProxyVersion&quot;: &quot;v1.11.3&quot;,
-  &quot;kubeletVersion&quot;: &quot;v1.11.3&quot;,
-  &quot;machineID&quot;: &quot;078e2d22629747178397e29cf1c96cc7&quot;,
-  &quot;operatingSystem&quot;: &quot;linux&quot;,
-  &quot;osImage&quot;: &quot;Buildroot 2018.05&quot;,
-  &quot;systemUUID&quot;: &quot;4073906D-69A1-46EE-A08C-0252D9F79893&quot;
-}
-</code></pre><p>以此方法可得到 <code>Node</code> 的基础信息。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  ~ kubectl get nodes -o json | jq <span style="color:#e6db74">&#34;.items[] | {name: .metadata.name} + .status.nodeInfo&#34;</span>
+<span style="color:#f92672">{</span>
+  <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;minikube&#34;</span>,
+  <span style="color:#e6db74">&#34;architecture&#34;</span>: <span style="color:#e6db74">&#34;amd64&#34;</span>,
+  <span style="color:#e6db74">&#34;bootID&#34;</span>: <span style="color:#e6db74">&#34;d675d75b-e58e-40db-8910-6e5dda9e7cf9&#34;</span>,
+  <span style="color:#e6db74">&#34;containerRuntimeVersion&#34;</span>: <span style="color:#e6db74">&#34;docker://17.12.1-ce&#34;</span>,
+  <span style="color:#e6db74">&#34;kernelVersion&#34;</span>: <span style="color:#e6db74">&#34;4.15.0&#34;</span>,
+  <span style="color:#e6db74">&#34;kubeProxyVersion&#34;</span>: <span style="color:#e6db74">&#34;v1.11.3&#34;</span>,
+  <span style="color:#e6db74">&#34;kubeletVersion&#34;</span>: <span style="color:#e6db74">&#34;v1.11.3&#34;</span>,
+  <span style="color:#e6db74">&#34;machineID&#34;</span>: <span style="color:#e6db74">&#34;078e2d22629747178397e29cf1c96cc7&#34;</span>,
+  <span style="color:#e6db74">&#34;operatingSystem&#34;</span>: <span style="color:#e6db74">&#34;linux&#34;</span>,
+  <span style="color:#e6db74">&#34;osImage&#34;</span>: <span style="color:#e6db74">&#34;Buildroot 2018.05&#34;</span>,
+  <span style="color:#e6db74">&#34;systemUUID&#34;</span>: <span style="color:#e6db74">&#34;4073906D-69A1-46EE-A08C-0252D9F79893&#34;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>以此方法可得到 <code>Node</code> 的基础信息。</p>
 <p>那么除了 <code>Node</code> 外我们还可以查看那些资源或别名呢？可以通过 <code>kubectl api-resources</code> 查看服务端支持的 API 资源及别名和描述等信息。</p>
 <h2 id="答疑解惑-explain">答疑解惑 <code>explain</code></h2>
 <p>当通过上面的命令拿到所有支持的 API 资源列表后，虽然后面基本都有一个简单的说明，是不是仍然感觉一头雾水？</p>
 <p>别担心，在我们使用 Linux 的时候，我们有 <code>man</code> ，在使用 <code>kubectl</code> 的时候，我们除了 <code>--help</code> 外还有 <code>explain</code> 可帮我们进行说明。 例如：</p>
-<pre tabindex="0"><code>➜  ~ kubectl explain node                                                                                                              
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  ~ kubectl explain node                                                                                                              
 KIND:     Node
 VERSION:  v1
 
 DESCRIPTION:              
      Node is a worker node in Kubernetes. Each node will have a unique
-     identifier in the cache (i.e. in etcd).
+     identifier in the cache <span style="color:#f92672">(</span>i.e. in etcd<span style="color:#f92672">)</span>.
 
-# ... 省略输出
-</code></pre><h2 id="总结">总结</h2>
+<span style="color:#75715e"># ... 省略输出</span>
+</code></pre></div><h2 id="总结">总结</h2>
 <p>本节我们大致介绍了 <code>kubectl</code> 的基础使用，尤其是最常见的 <code>get</code> 命令。可通过传递不同参数获取不同格式的输出，配合 <code>jq</code> 工具可方便的进行内容提取。</p>
 <p>以及关于 <code>kubectl</code> 的配置文件和无配置文件下通过传递参数直接使用等。</p>
 <p>对应于我们前面提到的 K8S 架构，本节相当于 <code>CURD</code> 中的 <code>R</code> 即查询。查询对于我们来说，既是我们了解集群的第一步，同时也是后续验证操作结果或集群状态必不可少的技能。</p>
@@ -184,11 +322,11 @@ DESCRIPTION:
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight();">T</div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 11110 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     

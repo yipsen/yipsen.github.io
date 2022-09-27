@@ -25,10 +25,9 @@ Java 虚拟机的堆划分 前面提到，Java 虚拟机将堆划分为新生代
 Java 虚拟机的解决方法是为每个司机预先申请多个停车位，并且只允许该司机停在自己的停车位上。那么当司机的停车位用完了该怎么办呢（假设这个司机代客泊车）？
 答案是：再申请多个停车位便可以了。这项技术被称之为 TLAB（Thread Local Allocation Buffer，对应虚拟机参数 -XX:&#43;UseTLAB，默认开启）。
 具体来说，每个线程可以向 Java 虚拟机申请一段连续的内存，比如 2048 字节，作为线程私有的 TLAB。">
-<meta name="author"
-  content="">
+<meta name="author" content="">
 
-<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
 
 </head>
 
@@ -36,7 +35,7 @@ Java 虚拟机的解决方法是为每个司机预先申请多个停车位，并
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
         <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
     </a>
 </div>
@@ -51,7 +50,7 @@ Java 虚拟机的解决方法是为每个司机预先申请多个停车位，并
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/collections/">图集</a>
+                href="http://yipsen.github.io/collections/">附表</a>
         </li>
         
         <li class="nav-item">
@@ -64,13 +63,212 @@ Java 虚拟机的解决方法是为每个司机预先申请多个停车位，并
     </header>
     <main id="content">
         
-<div class="container">
-    <article class="post-block">
+<div class="container"><aside>
+    <div>
+        
+        
+            
+            
+            <div class="post-category-icon"></div>
+            <a href="/categories/%e6%b7%b1%e5%85%a5%e6%8b%86%e8%a7%a3java%e8%99%9a%e6%8b%9f%e6%9c%ba/">深入拆解Java虚拟机</a>
+            <ul>
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/00-%E5%BC%80%E7%AF%87%E8%AF%8D-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E8%A6%81%E5%AD%A6%E4%B9%A0java%E8%99%9A%E6%8B%9F%E6%9C%BA/">00 开篇词 为什么我们要学习Java虚拟机？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/01-java%E4%BB%A3%E7%A0%81%E6%98%AF%E6%80%8E%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84/">01 Java代码是怎么运行的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/02-java%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/">02 Java的基本类型</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/03-java%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%98%AF%E5%A6%82%E4%BD%95%E5%8A%A0%E8%BD%BDjava%E7%B1%BB%E7%9A%84/">03 Java虚拟机是如何加载Java类的</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/04-jvm%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E7%9A%84%E4%B8%8A/">04 JVM是如何执行方法调用的？（上）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/05-jvm%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E7%9A%84%E4%B8%8B/">05 JVM是如何执行方法调用的？（下）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/06-jvm%E6%98%AF%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8%E7%9A%84/">06 JVM是如何处理异常的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/07-jvm%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%8F%8D%E5%B0%84%E7%9A%84/">07 JVM是如何实现反射的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/08-jvm%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0invokedynamic%E7%9A%84%E4%B8%8A/">08 JVM是怎么实现invokedynamic的？（上）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/09-jvm%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0invokedynamic%E7%9A%84%E4%B8%8B/">09 JVM是怎么实现invokedynamic的？（下）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/10-java%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/">10 Java对象的内存布局</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/11-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E4%B8%8A/">11 垃圾回收（上）</a></li>
+                
+                
+                
+                    <li>12 垃圾回收（下）</li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/13-java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/">13 Java内存模型</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/14-java%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0synchronized%E7%9A%84/">14 Java虚拟机是怎么实现synchronized的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/15-java%E8%AF%AD%E6%B3%95%E7%B3%96%E4%B8%8Ejava%E7%BC%96%E8%AF%91%E5%99%A8/">15 Java语法糖与Java编译器</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/16-%E5%8D%B3%E6%97%B6%E7%BC%96%E8%AF%91%E4%B8%8A/">16 即时编译（上）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/17-%E5%8D%B3%E6%97%B6%E7%BC%96%E8%AF%91%E4%B8%8B/">17 即时编译（下）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/18-%E5%8D%B3%E6%97%B6%E7%BC%96%E8%AF%91%E5%99%A8%E7%9A%84%E4%B8%AD%E9%97%B4%E8%A1%A8%E8%BE%BE%E5%BD%A2%E5%BC%8F/">18 即时编译器的中间表达形式</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/19-java%E5%AD%97%E8%8A%82%E7%A0%81%E5%9F%BA%E7%A1%80%E7%AF%87/">19 Java字节码（基础篇）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/20-%E6%96%B9%E6%B3%95%E5%86%85%E8%81%94%E4%B8%8A/">20 方法内联（上）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/21-%E6%96%B9%E6%B3%95%E5%86%85%E8%81%94%E4%B8%8B/">21 方法内联（下）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/22-hotspot%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84intrinsic/">22 HotSpot虚拟机的intrinsic</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/23-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/">23 逃逸分析</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/24-%E5%AD%97%E6%AE%B5%E8%AE%BF%E9%97%AE%E7%9B%B8%E5%85%B3%E4%BC%98%E5%8C%96/">24 字段访问相关优化</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/25-%E5%BE%AA%E7%8E%AF%E4%BC%98%E5%8C%96/">25 循环优化</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/26-%E5%90%91%E9%87%8F%E5%8C%96/">26 向量化</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/27-%E6%B3%A8%E8%A7%A3%E5%A4%84%E7%90%86%E5%99%A8/">27 注解处理器</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/28-%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6jmh%E4%B8%8A/">28 基准测试框架JMH（上）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/29-%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6jmh%E4%B8%8B/">29 基准测试框架JMH（下）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/30-java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E7%9B%91%E6%8E%A7%E5%8F%8A%E8%AF%8A%E6%96%AD%E5%B7%A5%E5%85%B7%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%AF%87/">30 Java虚拟机的监控及诊断工具（命令行篇）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/31-java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E7%9B%91%E6%8E%A7%E5%8F%8A%E8%AF%8A%E6%96%AD%E5%B7%A5%E5%85%B7gui%E7%AF%87/">31 Java虚拟机的监控及诊断工具（GUI篇）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/32-jni%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/">32 JNI的运行机制</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/33-java-agent%E4%B8%8E%E5%AD%97%E8%8A%82%E7%A0%81%E6%B3%A8%E5%85%A5/">33 Java Agent与字节码注入</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/34-graal%E7%94%A8java%E7%BC%96%E8%AF%91java/">34 Graal：用Java编译Java</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/35-truffle%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E6%A1%86%E6%9E%B6/">35 Truffle：语言实现框架</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/36-substratevmaot%E7%BC%96%E8%AF%91%E6%A1%86%E6%9E%B6/">36 SubstrateVM：AOT编译框架</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/%E5%B0%BE%E5%A3%B0%E4%B8%A8%E9%81%93%E9%98%BB%E4%B8%94%E9%95%BF%E5%8A%AA%E5%8A%9B%E5%8A%A0%E9%A4%90.html/">尾声丨道阻且长，努力加餐.html</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/%E5%B7%A5%E5%85%B7%E7%AF%87-%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D/">工具篇 常用工具介绍</a></li>
+                
+                
+            </ul>
+        
+    </div>
+</aside>
+
+<style>
+    aside {
+        position: fixed;
+        left: 20px;
+        background: #ffdee3;
+        border-radius: 6px;
+        padding: 20px;
+        padding-top: 60px;
+        box-shadow: 5px 10px #888;
+        list-style-type: none;
+        display: none;
+    }
+
+    .post-category-icon {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        left: 50%;
+        margin-left: -40px;
+        text-align: center;
+        font-size: 36px;
+        content: 'J';
+        background: #ffdee3;
+        border-radius: 100%;
+        border: 10px solid #fff;
+        box-shadow: 5px 10px #888;
+    }
+</style><article class="post-block">
         <h1 class="post-title">12 垃圾回收（下）</h1>
         <div class="post-info">
-            <div>2022-01-09|<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
+            <div> 
+                <span class="post-date">📅&nbsp;2022-01-09 11:11:01</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
                 
-                <a href="/categories/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/"> 深入拆解Java虚拟机 </a>
+                📚&nbsp;<a href="/categories/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入拆解Java虚拟机</a>
                 
             </div></div>
         <div class="post-content">
@@ -190,11 +388,11 @@ class ObjectOf64Bytes {
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight();">T</div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 11110 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     

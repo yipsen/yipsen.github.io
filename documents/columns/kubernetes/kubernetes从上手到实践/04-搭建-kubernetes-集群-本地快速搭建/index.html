@@ -18,10 +18,9 @@
 创建集群 在使用 KIND 之前，你需要本地先安装好 Docker 的环境 ，此处暂不做展开。
 由于网络问题，我们此处也需要写一个配置文件，以便让 kind 可以使用国内的镜像源。（KIND 最新版本中已经内置了所有需要的镜像，无需此操作）
 apiVersion: kind.sigs.k8s.io/v1alpha1kind: ConfigkubeadmConfigPatches:- |apiVersion: kubeadm.">
-<meta name="author"
-  content="">
+<meta name="author" content="">
 
-<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
 
 </head>
 
@@ -29,7 +28,7 @@ apiVersion: kind.sigs.k8s.io/v1alpha1kind: ConfigkubeadmConfigPatches:- |api
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
         <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
     </a>
 </div>
@@ -44,7 +43,7 @@ apiVersion: kind.sigs.k8s.io/v1alpha1kind: ConfigkubeadmConfigPatches:- |api
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/collections/">图集</a>
+                href="http://yipsen.github.io/collections/">附表</a>
         </li>
         
         <li class="nav-item">
@@ -57,13 +56,152 @@ apiVersion: kind.sigs.k8s.io/v1alpha1kind: ConfigkubeadmConfigPatches:- |api
     </header>
     <main id="content">
         
-<div class="container">
-    <article class="post-block">
+<div class="container"><aside>
+    <div>
+        
+        
+            
+            
+            <div class="post-category-icon"></div>
+            <a href="/categories/kubernetes%e4%bb%8e%e4%b8%8a%e6%89%8b%e5%88%b0%e5%ae%9e%e8%b7%b5/">Kubernetes从上手到实践</a>
+            <ul>
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/01-%E5%BC%80%E7%AF%87-kubernetes-%E6%98%AF%E4%BB%80%E4%B9%88%E4%BB%A5%E5%8F%8A%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%AE%83/">01 开篇： Kubernetes 是什么以及为什么需要它</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/02-%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86kubernetes-%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">02 初步认识：Kubernetes 基础概念</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/03-%E5%AE%8F%E8%A7%82%E8%AE%A4%E8%AF%86%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/">03 宏观认识：整体架构</a></li>
+                
+                
+                
+                    <li>04 搭建 Kubernetes 集群 - 本地快速搭建</li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/05-%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA-kubernetes-%E9%9B%86%E7%BE%A4-%E7%94%9F%E4%BA%A7%E5%8F%AF%E7%94%A8/">05 动手实践：搭建一个 Kubernetes 集群 - 生产可用</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/06-%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86%E5%88%9D%E8%AF%86-kubectl/">06 集群管理：初识 kubectl</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/07-%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86%E4%BB%A5-redis-%E4%B8%BA%E4%BE%8B-%E9%83%A8%E7%BD%B2%E5%8F%8A%E8%AE%BF%E9%97%AE/">07 集群管理：以 Redis 为例-部署及访问</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/08-%E5%AE%89%E5%85%A8%E9%87%8D%E7%82%B9-%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83/">08 安全重点 认证和授权</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/09-%E5%BA%94%E7%94%A8%E5%8F%91%E5%B8%83%E9%83%A8%E7%BD%B2%E5%AE%9E%E9%99%85%E9%A1%B9%E7%9B%AE/">09 应用发布：部署实际项目</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/10-%E5%BA%94%E7%94%A8%E7%AE%A1%E7%90%86%E5%88%9D%E8%AF%86-helm/">10 应用管理：初识 Helm</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/11-%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5%E4%BB%A5-helm-%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE/">11 部署实践：以 Helm 部署项目</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/12-%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9Bkube-apiserver/">12 庖丁解牛：kube-apiserver</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/13-%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9Betcd/">13 庖丁解牛：etcd</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/14-%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9Bcontroller-manager/">14 庖丁解牛：controller-manager</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/15-%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9Bkube-scheduler/">15 庖丁解牛：kube-scheduler</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/16-%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9Bkubelet/">16 庖丁解牛：kubelet</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/17-%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9Bkube-proxy/">17 庖丁解牛：kube-proxy</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/18-%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9Bcontainer-runtime-docker/">18 庖丁解牛：Container Runtime （Docker）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/19-troubleshoot/">19 Troubleshoot</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/20-%E6%89%A9%E5%B1%95%E5%A2%9E%E5%BC%BAdashboard/">20 扩展增强：Dashboard</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/21-%E6%89%A9%E5%B1%95%E5%A2%9E%E5%BC%BAcoredns/">21 扩展增强：CoreDNS</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/22-%E6%9C%8D%E5%8A%A1%E5%A2%9E%E5%BC%BAingress/">22 服务增强：Ingress</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/23-%E7%9B%91%E6%8E%A7%E5%AE%9E%E8%B7%B5%E5%AF%B9-k8s-%E9%9B%86%E7%BE%A4%E8%BF%9B%E8%A1%8C%E7%9B%91%E6%8E%A7/">23 监控实践：对 K8S 集群进行监控</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/24-%E6%80%BB%E7%BB%93/">24 总结</a></li>
+                
+                
+            </ul>
+        
+    </div>
+</aside>
+
+<style>
+    aside {
+        position: fixed;
+        left: 20px;
+        background: #ffdee3;
+        border-radius: 6px;
+        padding: 20px;
+        padding-top: 60px;
+        box-shadow: 5px 10px #888;
+        list-style-type: none;
+        display: none;
+    }
+
+    .post-category-icon {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        left: 50%;
+        margin-left: -40px;
+        text-align: center;
+        font-size: 36px;
+        content: 'J';
+        background: #ffdee3;
+        border-radius: 100%;
+        border: 10px solid #fff;
+        box-shadow: 5px 10px #888;
+    }
+</style><article class="post-block">
         <h1 class="post-title">04 搭建 Kubernetes 集群 - 本地快速搭建</h1>
         <div class="post-info">
-            <div>2021-12-22|<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
+            <div> 
+                <span class="post-date">📅&nbsp;2021-12-22 01:47:30</span>🏷️&nbsp;<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
                 
-                <a href="/categories/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/"> Kubernetes从上手到实践 </a>
+                📚&nbsp;<a href="/categories/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/">Kubernetes从上手到实践</a>
                 
             </div></div>
         <div class="post-content">
@@ -86,7 +224,7 @@ apiVersion: kind.sigs.k8s.io/v1alpha1kind: ConfigkubeadmConfigPatches:- |api
 <p>注意：如果不直接使用二进制包，而是使用 <code>go get sigs.k8s.io/kind</code> 的方式下载，则与下文中的配置文件不兼容。<strong>请参考使用 Kind 搭建你的本地 Kubernetes 集群</strong> 这篇文章。</p>
 </blockquote>
 <p>更新（2020年2月5日）：KIND 已经发布了 v0.7.0 版本，如果你想使用新版本，建议参考 <a href="https://zhuanlan.zhihu.com/p/105173589">使用 Kind 在离线环境创建 K8S 集群</a> ，这篇文章使用了最新版本的 KIND。</p>
-<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Kubernetes%20%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/assets/16898b9e3d57fcab" alt="img"></p>
+<p><img src="/images/f220f46a43fecc9b2fcb66e5cf8feec3c85a6d740c239a94fd19d081b5a6de06.png" alt="picture 1"></p>
 <h3 id="创建集群">创建集群</h3>
 <p><strong>在使用 KIND 之前，你需要本地先安装好 Docker 的环境</strong> ，此处暂不做展开。</p>
 <p>由于网络问题，我们此处也需要写一个配置文件，以便让 <code>kind</code> 可以使用国内的镜像源。（KIND 最新版本中已经内置了所有需要的镜像，无需此操作）</p>
@@ -164,31 +302,33 @@ Server Version: version.Info{Major:&#34;1&#34;, Minor:&#34;12&#34;, GitVersion:&
 <ul>
 <li>访问 K8S 主仓库的 <a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md">CHANGELOG 文件</a> 找到你所需要的版本。 由于我们将要使用的 Minikube 是官方最新的稳定版 v0.28.2，而它内置的 Kubernetes 的版本是 v1.10 所以，我们选择使用对应的 <a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md">1.10 版本</a>的 <code>kubectl</code>。当然，我们也可以通过传递参数的方式来创建不同版本的集群。如 <code>minikube start --kubernetes-version v1.11.3</code> 用此命令创建 <code>v1.11.3</code> 版本的集群，当然 <code>kubectl</code> 的版本也需要相应升级。</li>
 </ul>
-<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Kubernetes%20%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/assets/165d772ecb0454f6" alt="img"></p>
+<p><img src="/images/a471f2aa35d45ceb6f94c60176a4a25c3b7819a1c9f30cc6c2ed2a448144634d.png" alt="picture 2"></p>
 <p>点击<a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#client-binaries">Client Binaries</a> 找到你符合所需系统架构的对应包下载即可。这里我以 <a href="https://dl.k8s.io/v1.10.7/kubernetes-client-linux-amd64.tar.gz">Linux 下 64 位的包</a>为例。</p>
-<pre tabindex="0"><code>➜  wget https://dl.k8s.io/v1.10.7/kubernetes-client-linux-amd64.tar.gz
-➜  echo '169b57c6707ed8d8be9643b0088631e5c0c6a37a5e99205f03c1199cd32bc61e  kubernetes-client-linux-amd64.tar.gz' | sha256sum -c -
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  wget https://dl.k8s.io/v1.10.7/kubernetes-client-linux-amd64.tar.gz
+➜  echo <span style="color:#e6db74">&#39;169b57c6707ed8d8be9643b0088631e5c0c6a37a5e99205f03c1199cd32bc61e  kubernetes-client-linux-amd64.tar.gz&#39;</span> | sha256sum -c -
 kubernetes-client-linux-amd64.tar.gz: 成功
 ➜  tar zxf kubernetes-client-linux-amd64.tar.gz
 ➜  sudo mv kubernetes/client/bin/kubectl /usr/local/bin/kubectl
 ➜  /usr/local/bin/kubectl version --client
-Client Version: version.Info{Major:&quot;1&quot;, Minor:&quot;10&quot;, GitVersion:&quot;v1.10.7&quot;, GitCommit:&quot;0c38c362511b20a098d7cd855f1314dad92c2780&quot;, GitTreeState:&quot;clean&quot;, BuildDate:&quot;2018-08-20T10:09:03Z&quot;, GoVersion:&quot;go1.9.3&quot;, Compiler:&quot;gc&quot;, Platform:&quot;linux/amd64&quot;}
-</code></pre><p>执行以上命令即可完成 <code>kubectl</code> 的安装，最后一步会看到当前安装的版本信息等。</p>
+Client Version: version.Info<span style="color:#f92672">{</span>Major:<span style="color:#e6db74">&#34;1&#34;</span>, Minor:<span style="color:#e6db74">&#34;10&#34;</span>, GitVersion:<span style="color:#e6db74">&#34;v1.10.7&#34;</span>, GitCommit:<span style="color:#e6db74">&#34;0c38c362511b20a098d7cd855f1314dad92c2780&#34;</span>, GitTreeState:<span style="color:#e6db74">&#34;clean&#34;</span>, BuildDate:<span style="color:#e6db74">&#34;2018-08-20T10:09:03Z&#34;</span>, GoVersion:<span style="color:#e6db74">&#34;go1.9.3&#34;</span>, Compiler:<span style="color:#e6db74">&#34;gc&#34;</span>, Platform:<span style="color:#e6db74">&#34;linux/amd64&#34;</span><span style="color:#f92672">}</span>
+</code></pre></div><p>执行以上命令即可完成 <code>kubectl</code> 的安装，最后一步会看到当前安装的版本信息等。</p>
 <h3 id="安装-minikube">安装 Minikube</h3>
 <p>先查看 Minikube 的 <a href="https://github.com/kubernetes/minikube/releases">Release 页面</a>，当前最新的稳定版本是 v0.28.2，找到你所需系统的版本，点击下载，并将下载好的可执行文件加入你的 PATH 中。</p>
-<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Kubernetes%20%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/assets/165d772a6493a287" alt="img"></p>
+<p><img src="/images/92c974f57a363e4c2991572f2641597f6bb7ed1125beeb4a40bc1de122c172f6.png" alt="picture 3"></p>
+<blockquote>
 <p><strong>注：当前 Windows 系统下的安装包还处于实验性质，如果你是在 Windows 环境下，同样是可以下载安装使用的</strong></p>
+</blockquote>
 <p>以 Linux 下的安装为例：</p>
-<pre tabindex="0"><code>➜  wget -O minikube https://github.com/kubernetes/minikube/releases/download/v0.28.2/minikube-linux-amd64
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  wget -O minikube https://github.com/kubernetes/minikube/releases/download/v0.28.2/minikube-linux-amd64
 ➜  chmod +x minikube
 ➜  sudo mv minikube /usr/local/bin/minikube
 
 ➜  /usr/local/bin/minikube version
 minikube version: v0.28.2
-</code></pre><p>最后一步可查看当前已安装好的 Minikube 的版本信息。如果安装成功将会看到和我上面内容相同的结果。</p>
+</code></pre></div><p>最后一步可查看当前已安装好的 Minikube 的版本信息。如果安装成功将会看到和我上面内容相同的结果。</p>
 <h3 id="创建第一个-k8s-集群">创建第一个 K8S 集群</h3>
 <p>使用 Minikube 创建集群，只要简单的执行 <code>minikube start</code> 即可。正常情况下，你会看到和我类似的输出。</p>
-<pre tabindex="0"><code>➜  ~ minikube start
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  ~ minikube start
 Starting local Kubernetes v1.10.0 cluster...
 Starting VM...
 Getting VM IP address...
@@ -204,18 +344,18 @@ Loading cached images from config file.
 minikube: Running
 cluster: Running
 kubectl: Correctly Configured: pointing to minikube-vm at 192.168.99.100         
-</code></pre><p>为了验证我们的集群目前是否均已配置正确，可以执行以下命令查看。</p>
-<pre tabindex="0"><code>➜  ~ kubectl cluster-info 
+</code></pre></div><p>为了验证我们的集群目前是否均已配置正确，可以执行以下命令查看。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  ~ kubectl cluster-info 
 Kubernetes master is running at https://192.168.99.100:8443
 KubeDNS is running at https://192.168.99.100:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 
-To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+To further debug and diagnose cluster problems, use <span style="color:#e6db74">&#39;kubectl cluster-info dump&#39;</span>.
 
 ➜  ~ kubectl get nodes
 NAME       STATUS    ROLES     AGE       VERSION
 minikube   Ready     master    1d       v1.10.0
-</code></pre><p>如果出现类似拒绝连接之类的提示，那可能是因为你的 <code>kubectl</code> 配置不正确，可查看 <code>$HOME/.kube/config</code> 文件检查配置。示例输出如下：</p>
-<pre tabindex="0"><code>➜  ~ cat .kube/config
+</code></pre></div><p>如果出现类似拒绝连接之类的提示，那可能是因为你的 <code>kubectl</code> 配置不正确，可查看 <code>$HOME/.kube/config</code> 文件检查配置。示例输出如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜  ~ cat .kube/config
 apiVersion: v1
 clusters:
 - cluster:
@@ -229,25 +369,25 @@ contexts:
   name: minikube
 current-context: minikube
 kind: Config
-preferences: {}
+preferences: <span style="color:#f92672">{}</span>
 users:
 - name: minikube
   user:
     client-certificate: /home/tao/.minikube/client.crt
     client-key: /home/tao/.minikube/client.key
-</code></pre><p>如果没有该文件，可按上面示例内容进行创建，替换掉其中的路径及 <code>server</code> 地址配置。 <code>server</code> 地址可通过 <code>minikube status</code> 或者 <code>minikube ip</code> 查看或检查。</p>
-<pre tabindex="0"><code>(Tao) ➜  ~ minikube ip
+</code></pre></div><p>如果没有该文件，可按上面示例内容进行创建，替换掉其中的路径及 <code>server</code> 地址配置。 <code>server</code> 地址可通过 <code>minikube status</code> 或者 <code>minikube ip</code> 查看或检查。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">(</span>Tao<span style="color:#f92672">)</span> ➜  ~ minikube ip
 192.168.99.100
 
-(Tao) ➜  ~ minikube status
+<span style="color:#f92672">(</span>Tao<span style="color:#f92672">)</span> ➜  ~ minikube status
 minikube: Running
 cluster: Running
 kubectl: Correctly Configured: pointing to minikube-vm at 192.168.99.100
-</code></pre><h3 id="通过-dashboard-查看集群当前状态">通过 Dashboard 查看集群当前状态</h3>
+</code></pre></div><h3 id="通过-dashboard-查看集群当前状态">通过 Dashboard 查看集群当前状态</h3>
 <p>使用 <code>Minikube</code> 的另一个好处在于，你可以不用关注太多安装方面的过程，直接在终端下输入 <code>minikube dashboard</code> 打开系统 Dashboard 并通过此来查看集群相关状态。</p>
 <p>执行 <code>minikube dashboard</code> 后会自动打开浏览器，默认情况下监听在通过 <code>minikube ip</code> 所获得 IP 的 3000 端口。如下图所示：</p>
-<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Kubernetes%20%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/assets/165de25c7c517d78" alt="img"></p>
-<h3 id="相关链接">相关链接:</h3>
+<p><img src="/images/9dfc59dbf0a7462c5715a908a3bfe52e11360dad5b117673f2ea1973912db9a5.png" alt="picture 4"></p>
+<h3 id="相关链接">相关链接</h3>
 <ul>
 <li><a href="https://websiteforstudents.com/installing-virtualbox-ubuntu-17-04/">安装 VirtualBox</a></li>
 <li><a href="https://juejin.im/post/6844903807562989582">使用 Kind 搭建你的本地 Kubernetes 集群</a></li>
@@ -278,11 +418,11 @@ kubectl: Correctly Configured: pointing to minikube-vm at 192.168.99.100
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight();">T</div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 11110 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     

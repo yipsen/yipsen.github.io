@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title> | Yipsen Ye</title>
+<meta name="description" content="前言 谈到并发，我们不得不说AQS(AbstractQueuedSynchronizer)，所谓的AQS即是抽象的队列式的同步器，内部定义了很多锁相关的方法，我们熟知的ReentrantLock、ReentrantReadWriteLock、CountDownLatch、Semaphore等都是基于AQS来实现的。
+我们先看下AQS相关的UML图：
+思维导图：
+AQS 实现原理 AQS中 维护了一个volatile int state（代表共享资源）和一个FIFO线程等待队列（多线程争用资源被阻塞时会进入此队列）。
+这里volatile能够保证多线程下的可见性，当state=1则代表当前对象锁已经被占有，其他线程来加锁时则会失败，加锁失败的线程会被放入一个FIFO的等待队列中，比列会被UNSAFE.park()操作挂起，等待其他获取锁的线程释放锁才能够被唤醒。
+另外state的操作都是通过CAS来保证其并发修改的安全性。
+具体原理我们可以用一张图来简单概括：
+AQS 中提供了很多关于锁的实现方法，
+ getState()：获取锁的标志 state 值 setState()：设置锁的标志 state 值 tryAcquire(int)：独占方式获取锁。尝试获取资源，成功则返回 true，失败则返回 false。 tryRelease(int)：独占方式释放锁。尝试释放资源，成功则返回 true，失败则返回 false。  这里还有一些方法并没有列出来，接下来我们以ReentrantLock作为突破点通过源码和画图的形式一步步了解AQS内部实现原理。
+目录结构 文章准备模拟多线程竞争锁、释放锁的场景来进行分析AQS源码：
+三个线程(线程一、线程二、线程三)同时来加锁/释放锁
+目录如下：
+ 线程一加锁成功时AQS内部实现 线程二/三加锁失败时AQS中等待队列的数据模型 线程一释放锁及线程二获取锁实现原理 通过线程场景来讲解公平锁具体实现原理 通过线程场景来讲解 Condition 中 await()和signal()实现原理  这里会通过画图来分析每个线程加锁、释放锁后AQS内部的数据结构和实现原理
+场景分析 线程一加锁成功 如果同时有三个线程并发抢占锁，此时线程一抢占锁成功，线程二和线程三抢占锁失败，具体执行流程如下：
+此时AQS内部数据为：
+线程二、线程三加锁失败：
+有图可以看出，等待队列中的节点Node是一个双向链表，这里SIGNAL是Node中waitStatus属性，Node中还有一个nextWaiter属性，这个并未在图中画出来，这个到后面Condition会具体讲解的。
+具体看下抢占锁代码实现：
+java.util.concurrent.locks.ReentrantLock .NonfairSync: static final class NonfairSync extends Sync { final void lock() { if (compareAndSetState(0, 1)) setExclusiveOwnerThread(Thread.currentThread()); else acquire(1); } protected final boolean tryAcquire(int acquires) { return nonfairTryAcquire(acquires); } } 这里使用的ReentrantLock 非公平锁，线程进来直接利用CAS尝试抢占锁，如果抢占成功state值回被改为 1，且设置对象独占锁线程为当前线程。如下所示：">
+<meta name="author" content="">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title"></h1>
+        <div class="post-info">
+            <div> 
+                <span class="post-date">📅&nbsp;0001-01-01 00:00:00</span></div></div>
+        <div class="post-content">
+            <h3 id="前言">前言</h3>
+<p>谈到并发，我们不得不说<code>AQS(AbstractQueuedSynchronizer)</code>，所谓的<code>AQS</code>即是抽象的队列式的同步器，内部定义了很多锁相关的方法，我们熟知的<code>ReentrantLock</code>、<code>ReentrantReadWriteLock</code>、<code>CountDownLatch</code>、<code>Semaphore</code>等都是基于<code>AQS</code>来实现的。</p>
+<p>我们先看下<code>AQS</code>相关的<code>UML</code>图：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDJjNDZiNGRlMQ.jfif" alt="image.png"></p>
+<p>思维导图：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDJjNWQ2OTMzOA.jfif" alt="image.png"></p>
+<h3 id="aqs-实现原理">AQS 实现原理</h3>
+<p><code>AQS</code>中 维护了一个<code>volatile int state</code>（代表共享资源）和一个<code>FIFO</code>线程等待队列（多线程争用资源被阻塞时会进入此队列）。</p>
+<p>这里<code>volatile</code>能够保证多线程下的可见性，当<code>state=1</code>则代表当前对象锁已经被占有，其他线程来加锁时则会失败，加锁失败的线程会被放入一个<code>FIFO</code>的等待队列中，比列会被<code>UNSAFE.park()</code>操作挂起，等待其他获取锁的线程释放锁才能够被唤醒。</p>
+<p>另外<code>state</code>的操作都是通过<code>CAS</code>来保证其并发修改的安全性。</p>
+<p>具体原理我们可以用一张图来简单概括：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDJjNzdiMjc2NQ.jfif" alt="image.png"></p>
+<p><code>AQS</code> 中提供了很多关于锁的实现方法，</p>
+<ul>
+<li>getState()：获取锁的标志 state 值</li>
+<li>setState()：设置锁的标志 state 值</li>
+<li>tryAcquire(int)：独占方式获取锁。尝试获取资源，成功则返回 true，失败则返回 false。</li>
+<li>tryRelease(int)：独占方式释放锁。尝试释放资源，成功则返回 true，失败则返回 false。</li>
+</ul>
+<p>这里还有一些方法并没有列出来，接下来我们以<code>ReentrantLock</code>作为突破点通过源码和画图的形式一步步了解<code>AQS</code>内部实现原理。</p>
+<h3 id="目录结构">目录结构</h3>
+<p>文章准备模拟多线程竞争锁、释放锁的场景来进行分析<code>AQS</code>源码：</p>
+<p><strong>三个线程(线程一、线程二、线程三)同时来加锁/释放锁</strong></p>
+<p><strong>目录如下：</strong></p>
+<ul>
+<li><strong>线程一</strong>加锁成功时<code>AQS</code>内部实现</li>
+<li><strong>线程二/三</strong>加锁失败时<code>AQS</code>中等待队列的数据模型</li>
+<li><strong>线程一</strong>释放锁及<strong>线程二</strong>获取锁实现原理</li>
+<li>通过线程场景来讲解<strong>公平锁</strong>具体实现原理</li>
+<li>通过线程场景来讲解 Condition 中 a<code>wait()</code>和<code>signal()</code>实现原理</li>
+</ul>
+<p>这里会通过画图来分析每个线程加锁、释放锁后<code>AQS</code>内部的数据结构和实现原理</p>
+<h3 id="场景分析">场景分析</h3>
+<h4 id="线程一加锁成功">线程一加锁成功</h4>
+<p>如果同时有<strong>三个线程</strong>并发抢占锁，此时<strong>线程一</strong>抢占锁成功，<strong>线程二</strong>和<strong>线程三</strong>抢占锁失败，具体执行流程如下：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDJjNWQyZWIyYw.jfif" alt="image.png"></p>
+<p>此时<code>AQS</code>内部数据为：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDJjNzc5OTlkNQ.jfif" alt="image.png"></p>
+<p><strong>线程二</strong>、<strong>线程三</strong>加锁失败：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDJjOGU1ZTI2OA.jfif" alt="image.png"></p>
+<p>有图可以看出，等待队列中的节点<code>Node</code>是一个双向链表，这里<code>SIGNAL</code>是<code>Node</code>中<code>waitStatus</code>属性，<code>Node</code>中还有一个<code>nextWaiter</code>属性，这个并未在图中画出来，这个到后面<code>Condition</code>会具体讲解的。</p>
+<p>具体看下抢占锁代码实现：</p>
+<pre tabindex="0"><code>java.util.concurrent.locks.ReentrantLock .NonfairSync:
+static final class NonfairSync extends Sync {
+
+    final void lock() {
+        if (compareAndSetState(0, 1))
+            setExclusiveOwnerThread(Thread.currentThread());
+        else
+            acquire(1);
+    }
+
+    protected final boolean tryAcquire(int acquires) {
+        return nonfairTryAcquire(acquires);
+    }
+}
+</code></pre><p>这里使用的<strong>ReentrantLock 非公平锁</strong>，线程进来直接利用<code>CAS</code>尝试抢占锁，如果抢占成功<code>state</code>值回被改为 1，且设置对象独占锁线程为当前线程。如下所示：</p>
+<pre tabindex="0"><code>protected final boolean compareAndSetState(int expect, int update) {
+    return unsafe.compareAndSwapInt(this, stateOffset, expect, update);
+}
+
+protected final void setExclusiveOwnerThread(Thread thread) {
+    exclusiveOwnerThread = thread;
+}
+</code></pre><h4 id="线程二抢占锁失败">线程二抢占锁失败</h4>
+<p>我们按照真实场景来分析，<strong>线程一</strong>抢占锁成功后，<code>state</code>变为 1，<strong>线程二</strong>通过<code>CAS</code>修改<code>state</code>变量必然会失败。此时<code>AQS</code>中<code>FIFO</code>(First In First Out 先进先出)队列中数据如图所示：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDMwYjUyNTZkZQ.jfif" alt="image.png"></p>
+<p>我们将<strong>线程二</strong>执行的逻辑一步步拆解来看：</p>
+<p><code>java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire()</code>:</p>
+<pre tabindex="0"><code>public final void acquire(int arg) {
+    if (!tryAcquire(arg) &amp;&amp;
+        acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
+        selfInterrupt();
+}
+</code></pre><p>先看看<code>tryAcquire()</code>的具体实现： <code>java.util.concurrent.locks.ReentrantLock .nonfairTryAcquire()</code>:</p>
+<pre tabindex="0"><code>final boolean nonfairTryAcquire(int acquires) {
+    final Thread current = Thread.currentThread();
+    int c = getState();
+    if (c == 0) {
+        if (compareAndSetState(0, acquires)) {
+            setExclusiveOwnerThread(current);
+            return true;
+        }
+    }
+    else if (current == getExclusiveOwnerThread()) {
+        int nextc = c + acquires;
+        if (nextc &lt; 0)
+            throw new Error(&quot;Maximum lock count exceeded&quot;);
+        setState(nextc);
+        return true;
+    }
+    return false;
+}
+</code></pre><p><code>nonfairTryAcquire()</code>方法中首先会获取<code>state</code>的值，如果不为 0 则说明当前对象的锁已经被其他线程所占有，接着判断占有锁的线程是否为当前线程，如果是则累加<code>state</code>值，这就是可重入锁的具体实现，累加<code>state</code>值，释放锁的时候也要依次递减<code>state</code>值。</p>
+<p>如果<code>state</code>为 0，则执行<code>CAS</code>操作，尝试更新<code>state</code>值为 1，如果更新成功则代表当前线程加锁成功。</p>
+<p>以<strong>线程二</strong>为例，因为<strong>线程一</strong>已经将<code>state</code>修改为 1，所以<strong>线程二</strong>通过<code>CAS</code>修改<code>state</code>的值不会成功。加锁失败。</p>
+<p><strong>线程二</strong>执行<code>tryAcquire()</code>后会返回 false，接着执行<code>addWaiter(Node.EXCLUSIVE)</code>逻辑，将自己加入到一个<code>FIFO</code>等待队列中，代码实现如下：</p>
+<p><code>java.util.concurrent.locks.AbstractQueuedSynchronizer.addWaiter()</code>:</p>
+<pre tabindex="0"><code>private Node addWaiter(Node mode) {    
+    Node node = new Node(Thread.currentThread(), mode);
+    Node pred = tail;
+    if (pred != null) {
+        node.prev = pred;
+        if (compareAndSetTail(pred, node)) {
+            pred.next = node;
+            return node;
+        }
+    }
+    enq(node);
+    return node;
+}
+</code></pre><p>这段代码首先会创建一个和当前线程绑定的<code>Node</code>节点，<code>Node</code>为双向链表。此时等待对内中的<code>tail</code>指针为空，直接调用<code>enq(node)</code>方法将当前线程加入等待队列尾部：</p>
+<pre tabindex="0"><code>private Node enq(final Node node) {
+    for (;;) {
+        Node t = tail;
+        if (t == null) {
+            if (compareAndSetHead(new Node()))
+                tail = head;
+        } else {
+            node.prev = t;
+            if (compareAndSetTail(t, node)) {
+                t.next = node;
+                return t;
+            }
+        }
+    }
+}
+</code></pre><p>第一遍循环时<code>tail</code>指针为空，进入 if 逻辑，使用<code>CAS</code>操作设置<code>head</code>指针，将<code>head</code>指向一个新创建的<code>Node</code>节点。此时<code>AQS</code>中数据：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDMxZGZmMGI2Zg.jfif" alt="image.png"></p>
+<p>执行完成之后，<code>head</code>、<code>tail</code>、<code>t</code>都指向第一个<code>Node</code>元素。</p>
+<p>接着执行第二遍循环，进入<code>else</code>逻辑，此时已经有了<code>head</code>节点，这里要操作的就是将<strong>线程二</strong>对应的<code>Node</code>节点挂到<code>head</code>节点后面。此时队列中就有了两个<code>Node</code>节点：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDMyMTk0MTdmNQ.jfif" alt="image.png"></p>
+<p><code>addWaiter()</code>方法执行完后，会返回当前线程创建的节点信息。继续往后执行<code>acquireQueued(addWaiter(Node.EXCLUSIVE), arg)</code> 逻辑，此时传入的参数为<strong>线程二</strong>对应的<code>Node</code>节点信息：</p>
+<p><code>java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireQueued()</code>:</p>
+<pre tabindex="0"><code>final boolean acquireQueued(final Node node, int arg) {
+    boolean failed = true;
+    try {
+        boolean interrupted = false;
+        for (;;) {
+            final Node p = node.predecessor();
+            if (p == head &amp;&amp; tryAcquire(arg)) {
+                setHead(node);
+                p.next = null; // help GC
+                failed = false;
+                return interrupted;
+            }
+            if (shouldParkAfterFailedAcquire(p, node) &amp;&amp;
+                parkAndChecknIterrupt())
+                interrupted = true;
+        }
+    } finally {
+        if (failed)
+            cancelAcquire(node);
+    }
+}
+
+private static boolean shouldParkAfterFailedAcquire(Node pred, Node node) {
+    int ws = pred.waitStatus;
+    if (ws == Node.SIGNAL)
+        return true;
+    if (ws &gt; 0) {
+        do {
+            node.prev = pred = pred.prev;
+        } while (pred.waitStatus &gt; 0);
+        pred.next = node;
+    } else {
+        compareAndSetWaitStatus(pred, ws, Node.SIGNAL);
+    }
+    return false;
+}
+
+private final boolean parkAndCheckInterrupt() {
+    LockSupport.park(this);
+    return Thread.interrupted();
+}
+</code></pre><p><code>acquireQueued()</code>这个方法会先判断当前传入的<code>Node</code>对应的前置节点是否为<code>head</code>，如果是则尝试加锁。加锁成功过则将当前节点设置为<code>head</code>节点，然后空置之前的<code>head</code>节点，方便后续被垃圾回收掉。</p>
+<p>如果加锁失败或者<code>Node</code>的前置节点不是<code>head</code>节点，就会通过<code>shouldParkAfterFailedAcquire</code>方法 将<code>head</code>节点的<code>waitStatus</code>变为了<code>SIGNAL=-1</code>，最后执行<code>parkAndChecknIterrupt</code>方法，调用<code>LockSupport.park()</code>挂起当前线程。</p>
+<p>此时<code>AQS</code>中的数据如下图：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDMyNzYxZDk2MQ.jfif" alt="image.png"></p>
+<p>此时<strong>线程二</strong>就静静的待在<code>AQS</code>的等待队列里面了，等着其他线程释放锁来唤醒它。</p>
+<h4 id="线程三抢占锁失败">线程三抢占锁失败</h4>
+<p>看完了<strong>线程二</strong>抢占锁失败的分析，那么再来分析<strong>线程三</strong>抢占锁失败就很简单了，先看看<code>addWaiter(Node mode)</code>方法：</p>
+<pre tabindex="0"><code>private Node addWaiter(Node mode) {
+    Node node = new Node(Thread.currentThread(), mode);
+    Node pred = tail;
+    if (pred != null) {
+        node.prev = pred;
+        if (compareAndSetTail(pred, node)) {
+            pred.next = node;
+            return node;
+        }
+    }
+    enq(node);
+    return node;
+}
+</code></pre><p>此时等待队列的<code>tail</code>节点指向<strong>线程二</strong>，进入<code>if</code>逻辑后，通过<code>CAS</code>指令将<code>tail</code>节点重新指向<strong>线程三</strong>。接着<strong>线程三</strong>调用<code>enq()</code>方法执行入队操作，和上面<strong>线程二</strong>执行方式是一致的，入队后会修改<strong>线程二</strong>对应的<code>Node</code>中的<code>waitStatus=SIGNAL</code>。最后<strong>线程三</strong>也会被挂起。此时等待队列的数据如图：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDJjOGU1ZTI2OA-1590419214352.jfif" alt="image.png"></p>
+<h4 id="线程一释放锁">线程一释放锁</h4>
+<p>现在来分析下释放锁的过程，首先是<strong>线程一</strong>释放锁，释放锁后会唤醒<code>head</code>节点的后置节点，也就是我们现在的<strong>线程二</strong>，具体操作流程如下：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDMzMmRmNmZkNQ.jfif" alt="image.png"></p>
+<p>执行完后等待队列数据如下：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDM0MzkzYzU4Zg.jfif" alt="image.png"></p>
+<p>此时<strong>线程二</strong>已经被唤醒，继续尝试获取锁，如果获取锁失败，则会继续被挂起。如果获取锁成功，则<code>AQS</code>中数据如图：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDM1ZDI0OThhYg.jfif" alt="image.png"></p>
+<p>接着还是一步步拆解来看，先看看<strong>线程一</strong>释放锁的代码：</p>
+<pre tabindex="0"><code>java.util.concurrent.locks.AbstractQueuedSynchronizer.release()
+public final boolean release(int arg) {
+    if (tryRelease(arg)) {
+        Node h = head;
+        if (h != null &amp;&amp; h.waitStatus != 0)
+            unparkSuccessor(h);
+        return true;
+    }
+    return false;
+}
+</code></pre><p>这里首先会执行<code>tryRelease()</code>方法，这个方法具体实现在<code>ReentrantLock</code>中，如果<code>tryRelease</code>执行成功，则继续判断<code>head</code>节点的<code>waitStatus</code>是否为 0，前面我们已经看到过，<code>head</code>的<code>waitStatue</code>为<code>SIGNAL(-1)</code>，这里就会执行<code>unparkSuccessor()</code>方法来唤醒<code>head</code>的后置节点，也就是我们上面图中<strong>线程二</strong>对应的<code>Node</code>节点。</p>
+<p>此时看<code>ReentrantLock.tryRelease()</code>中的具体实现：</p>
+<pre tabindex="0"><code>protected final boolean tryRelease(int releases) {
+    int c = getState() - releases;
+    if (Thread.currentThread() != getExclusiveOwnerThread())
+        throw new IllegalMonitorStateException();
+    boolean free = false;
+    if (c == 0) {
+        free = true;
+        setExclusiveOwnerThread(null);
+    }
+    setState(c);
+    return free;
+}
+</code></pre><p>执行完<code>ReentrantLock.tryRelease()</code>后，<code>state</code>被设置成 0，Lock 对象的独占锁被设置为 null。此时看下<code>AQS</code>中的数据：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDM2M2U4NzkwMg.jfif" alt="image.png"></p>
+<p>接着执行<code>java.util.concurrent.locks.AbstractQueuedSynchronizer.unparkSuccessor()</code>方法，唤醒<code>head</code>的后置节点：</p>
+<pre tabindex="0"><code>private void unparkSuccessor(Node node) {
+    int ws = node.waitStatus;
+    if (ws &lt; 0)
+        compareAndSetWaitStatus(node, ws, 0);
+    Node s = node.next;
+    if (s == null || s.waitStatus &gt; 0) {
+        s = null;
+        for (Node t = tail; t != null &amp;&amp; t != node; t = t.prev)
+            if (t.waitStatus &lt;= 0)
+                s = t;
+    }
+    if (s != null)
+        LockSupport.unpark(s.thread);
+}
+</code></pre><p>这里主要是将<code>head</code>节点的<code>waitStatus</code>设置为 0。</p>
+<p>此时重新将<code>head</code>指针指向<strong>线程二</strong>对应的<code>Node</code>节点，且使用<code>LockSupport.unpark</code>方法来唤醒<strong>线程二</strong>。</p>
+<p>被唤醒的<strong>线程二</strong>会接着尝试获取锁，用<code>CAS</code>指令修改<code>state</code>数据。 执行完成后可以查看<code>AQS</code>中数据：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDM0MzkzYzU4Zg-1590419228808.jfif" alt="image.png"></p>
+<p>此时<strong>线程二</strong>被唤醒，<strong>线程二</strong>接着之前被<code>park</code>的地方继续执行，继续执行<code>acquireQueued()</code>方法。</p>
+<h4 id="线程二唤醒继续加锁">线程二唤醒继续加锁</h4>
+<pre tabindex="0"><code>final boolean acquireQueued(final Node node, int arg) {
+    boolean failed = true;
+    try {
+        boolean interrupted = false;
+        for (;;) {
+            final Node p = node.predecessor();
+            if (p == head &amp;&amp; tryAcquire(arg)) {
+                setHead(node);
+                p.next = null; // help GC
+                failed = false;
+                return interrupted;
+            }
+            if (shouldParkAfterFailedAcquire(p, node) &amp;&amp;
+                parkAndCheckInterrupt())
+                interrupted = true;
+        }
+    } finally {
+        if (failed)
+            cancelAcquire(node);
+    }
+}
+</code></pre><p>此时<strong>线程二</strong>被唤醒，继续执行<code>for</code>循环，判断<strong>线程二</strong>的前置节点是否为<code>head</code>，如果是则继续使用<code>tryAcquire()</code>方法来尝试获取锁，其实就是使用<code>CAS</code>操作来修改<code>state</code>值，如果修改成功则代表获取锁成功。接着将<strong>线程二</strong>设置为<code>head</code>节点，然后空置之前的<code>head</code>节点数据，被空置的节点数据等着被<strong>垃圾回收</strong>。</p>
+<p>此时线程二获取锁成功，<code>AQS</code>中队列数据如下：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDM3ZWI5MzQ5MA.jfif" alt="image.png"></p>
+<p>等待队列中的数据都等待着被垃圾回收。</p>
+<h4 id="线程二释放锁线程三加锁">线程二释放锁/线程三加锁</h4>
+<p>当<strong>线程二</strong>释放锁时，会唤醒被挂起的<strong>线程三</strong>，流程和上面大致相同，被唤醒的<strong>线程三</strong>会再次尝试加锁，具体代码可以参考上面内容。具体流程图如下：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDNhMWEyNmU5NA.jfif" alt="image.png"></p>
+<p>此时<code>AQS</code>中队列数据如图：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDNhYjVmZDRjNw.jfif" alt="image.png"></p>
+<h3 id="公平锁实现原理">公平锁实现原理</h3>
+<p>上面所有的加锁场景都是基于<strong>非公平锁</strong>来实现的，<strong>非公平锁</strong>是<code>ReentrantLock</code>的默认实现，那我们接着来看一下<strong>公平锁</strong>的实现原理，这里先用一张图来解释<strong>公平锁</strong>和<strong>非公平锁</strong>的区别：</p>
+<p><strong>非公平锁</strong>执行流程：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDNjMjExMjgzOQ.jfif" alt="image.png"></p>
+<p>这里我们还是用之前的线程模型来举例子，当<strong>线程二</strong>释放锁的时候，唤醒被挂起的<strong>线程三</strong>，<strong>线程三</strong>执行<code>tryAcquire()</code>方法使用<code>CAS</code>操作来尝试修改<code>state</code>值，如果此时又来了一个<strong>线程四</strong>也来执行加锁操作，同样会执行<code>tryAcquire()</code>方法。</p>
+<p>这种情况就会出现竞争，<strong>线程四</strong>如果获取锁成功，<strong>线程三</strong>仍然需要待在等待队列中被挂起。这就是所谓的<strong>非公平锁</strong>，<strong>线程三</strong>辛辛苦苦排队等到自己获取锁，却眼巴巴的看到<strong>线程四</strong>插队获取到了锁。</p>
+<p><strong>公平锁</strong>执行流程：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDNjMzQ2MmQ2YQ.jfif" alt="image.png"></p>
+<p>公平锁在加锁的时候，会先判断<code>AQS</code>等待队列中是存在节点，如果存在节点则会直接入队等待，具体代码如下.</p>
+<p>公平锁在获取锁是也是首先会执行<code>acquire()</code>方法，只不过公平锁单独实现了<code>tryAcquire()</code>方法：</p>
+<p><code>#java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire()</code>:</p>
+<pre tabindex="0"><code>public final void acquire(int arg) {
+    if (!tryAcquire(arg) &amp;&amp;
+        acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
+        selfInterrupt();
+}
+</code></pre><p>这里会执行<code>ReentrantLock</code>中公平锁的<code>tryAcquire()</code>方法</p>
+<p><code>#java.util.concurrent.locks.ReentrantLock.FairSync.tryAcquire()</code>:</p>
+<pre tabindex="0"><code>static final class FairSync extends Sync {
+    protected final boolean tryAcquire(int acquires) {
+        final Thread current = Thread.currentThread();
+        int c = getState();
+        if (c == 0) {
+            if (!hasQueuedPredecessors() &amp;&amp;
+                compareAndSetState(0, acquires)) {
+                setExclusiveOwnerThread(current);
+                return true;
+            }
+        }
+        else if (current == getExclusiveOwnerThread()) {
+            int nextc = c + acquires;
+            if (nextc &lt; 0)
+                throw new Error(&quot;Maximum lock count exceeded&quot;);
+            setState(nextc);
+            return true;
+        }
+        return false;
+    }
+}
+</code></pre><p>这里会先判断<code>state</code>值，如果不为 0 且获取锁的线程不是当前线程，直接返回 false 代表获取锁失败，被加入等待队列。如果是当前线程则可重入获取锁。</p>
+<p>如果<code>state=0</code>则代表此时没有线程持有锁，执行<code>hasQueuedPredecessors()</code>判断<code>AQS</code>等待队列中是否有元素存在，如果存在其他等待线程，那么自己也会加入到等待队列尾部，做到真正的先来后到，有序加锁。具体代码如下：</p>
+<p><code>#java.util.concurrent.locks.AbstractQueuedSynchronizer.hasQueuedPredecessors()</code>:</p>
+<pre tabindex="0"><code>public final boolean hasQueuedPredecessors() {
+    Node t = tail;
+    Node h = head;
+    Node s;
+    return h != t &amp;&amp;
+        ((s = h.next) == null || s.thread != Thread.currentThread());
+}
+</code></pre><p>这段代码很有意思，返回<code>false</code>代表队列中没有节点或者仅有一个节点是当前线程创建的节点。返回<code>true</code>则代表队列中存在等待节点，当前线程需要入队等待。</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDNlMDM2NzlhZA.jfif" alt="image.png"></p>
+<p>先判断<code>head</code>是否等于<code>tail</code>，如果队列中只有一个<code>Node</code>节点，那么<code>head</code>会等于<code>tail</code>。</p>
+<p>接着判断<code>(s = h.next) == null</code>，这种属于一种极端情况，在<code>enq()</code>入队操作中，此时不是原子性操作，可能存在这种情况：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzE2LzE3MjFjZDI1MTUzNmU3Y2M.jfif" alt="YcAPpD.png"></p>
+<p>在第一个红框处，例如 <strong>线程一</strong> 执行完成，此时 head 已经有值，而还未执行<code>tail=head</code>的时候，此时 <strong>线程二</strong> 判断 <code>head != tail</code>成立。而接着 <strong>线程一</strong> 执行完第二个红框处，此时<code>tail = node</code>，但是并未将<code>head.next</code>指向<code>node</code>。而这时 <strong>线程二</strong> 就会得到<code>head.next == null</code>成立，直接返回 true。这种情况代表有节点正在做入队操作。</p>
+<p>如果<code>head.next</code>不为空，那么接着判断<code>head.next</code>节点是否为当前线程，如果不是则返回 false。大家要记清楚，返回 false 代表 FIFO 队列中没有等待获取锁的节点，此时线程可以直接尝试获取锁，如果返回 true 代表有等待线程，当前线程如要入队排列，这就是体现<strong>公平锁</strong>的地方。</p>
+<p><strong>非公平锁</strong>和<strong>公平锁</strong>的区别： <strong>非公平锁</strong>性能高于<strong>公平锁</strong>性能。<strong>非公平锁</strong>可以减少<code>CPU</code>唤醒线程的开销，整体的吞吐效率会高点，<code>CPU</code>也不必取唤醒所有线程，会减少唤起线程的数量</p>
+<p><strong>非公平锁</strong>性能虽然优于<strong>公平锁</strong>，但是会存在导致<strong>线程饥饿</strong>的情况。在最坏的情况下，可能存在某个线程<strong>一直获取不到锁</strong>。不过相比性能而言，饥饿问题可以暂时忽略，这可能就是<code>ReentrantLock</code>默认创建非公平锁的原因之一了。</p>
+<h3 id="condition-实现原理">Condition 实现原理</h3>
+<h4 id="condition-简介">Condition 简介</h4>
+<p>上面已经介绍了<code>AQS</code>所提供的核心功能，当然它还有很多其他的特性，这里我们来继续说下<code>Condition</code>这个组件。</p>
+<pre tabindex="0"><code>Condition`是在`java 1.5`中才出现的，它用来替代传统的`Object`的`wait()`、`notify()`实现线程间的协作，相比使用`Object`的`wait()`、`notify()`，使用`Condition`中的`await()`、`signal()`这种方式实现线程间协作更加安全和高效。因此通常来说比较推荐使用`Condition
+</code></pre><p>其中<code>AbstractQueueSynchronizer</code>中实现了<code>Condition</code>中的方法，主要对外提供<code>awaite(Object.wait())</code>和<code>signal(Object.notify())</code>调用。</p>
+<h4 id="condition-demo-示例">Condition Demo 示例</h4>
+<p>使用示例代码：</p>
+<pre tabindex="0"><code>/**
+ * ReentrantLock 实现源码学习
+ * @author 一枝花算不算浪漫
+ * @date 2020/4/28 7:20
+ */
+public class ReentrantLockDemo {
+    static ReentrantLock lock = new ReentrantLock();
+
+    public static void main(String[] args) {
+        Condition condition = lock.newCondition();
+
+        new Thread(() -&gt; {
+            lock.lock();
+            try {
+                System.out.println(&quot;线程一加锁成功&quot;);
+                System.out.println(&quot;线程一执行 await 被挂起&quot;);
+                condition.await();
+                System.out.println(&quot;线程一被唤醒成功&quot;);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                lock.unlock();
+                System.out.println(&quot;线程一释放锁成功&quot;);
+            }
+        }).start();
+
+        new Thread(() -&gt; {
+            lock.lock();
+            try {
+                System.out.println(&quot;线程二加锁成功&quot;);
+                condition.signal();
+                System.out.println(&quot;线程二唤醒线程一&quot;);
+            } finally {
+                lock.unlock();
+                System.out.println(&quot;线程二释放锁成功&quot;);
+            }
+        }).start();
+    }
+}
+</code></pre><p>执行结果如下图：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDNlNjc4NTFiMw.jfif" alt="image.png"></p>
+<p>这里<strong>线程一</strong>先获取锁，然后使用<code>await()</code>方法挂起当前线程并<strong>释放锁</strong>，<strong>线程二</strong>获取锁后使用<code>signal</code>唤醒<strong>线程一</strong>。</p>
+<h4 id="condition-实现原理图解">Condition 实现原理图解</h4>
+<p>我们还是用上面的<code>demo</code>作为实例，执行的流程如下：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDNmOTE5NmRlYw.jfif" alt="image.png"></p>
+<p><strong>线程一</strong>执行<code>await()</code>方法：</p>
+<p>先看下具体的代码实现，<code>#java.util.concurrent.locks.AbstractQueuedSynchronizer.ConditionObject.await()</code>：</p>
+<pre tabindex="0"><code> public final void await() throws InterruptedException {
+    if (Thread.interrupted())
+        throw new InterruptedException();
+    Node node = addConditionWaiter();
+    int savedState = fullyRelease(node);
+    int interruptMode = 0;
+    while (!isOnSyncQueue(node)) {
+        LockSupport.park(this);
+        if ((interruptMode = checkInterruptWhileWaiting(node)) != 0)
+            break;
+    }
+    if (acquireQueued(node, savedState) &amp;&amp; interruptMode != THROW_IE)
+        interruptMode = REINTERRUPT;
+    if (node.nextWaiter != null) // clean up if cancelled
+        unlinkCancelledWaiters();
+    if (interruptMode != 0)
+        reportInterruptAfterWait(interruptMode);
+}
+</code></pre><p><code>await()</code>方法中首先调用<code>addConditionWaiter()</code>将当前线程加入到<code>Condition</code>队列中。</p>
+<p>执行完后我们可以看下<code>Condition</code>队列中的数据：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDQwM2Y0NTRiYw.jfif" alt="image.png"></p>
+<p>具体实现代码为：</p>
+<pre tabindex="0"><code>private Node addConditionWaiter() {
+    Node t = lastWaiter;
+    if (t != null &amp;&amp; t.waitStatus != Node.CONDITION) {
+        unlinkCancelledWaiters();
+        t = lastWaiter;
+    }
+    Node node = new Node(Thread.currentThread(), Node.CONDITION);
+    if (t == null)
+        firstWaiter = node;
+    else
+        t.nextWaiter = node;
+    lastWaiter = node;
+    return node;
+}
+</code></pre><p>这里会用当前线程创建一个<code>Node</code>节点，<code>waitStatus</code>为<code>CONDITION</code>。接着会释放该节点的锁，调用之前解析过的<code>release()</code>方法，释放锁后此时会唤醒被挂起的<strong>线程二</strong>，<strong>线程二</strong>会继续尝试获取锁。</p>
+<p>接着调用<code>isOnSyncQueue()</code>方法是判断当前的线程节点是不是在同步队列中，因为上一步已经释放了锁，也就是说此时可能有线程已经获取锁同时可能已经调用了<code>singal()</code>方法，如果已经唤醒，那么就不应该<code>park</code>了，而是退出<code>while</code>方法，从而继续争抢锁。</p>
+<p>此时<strong>线程一</strong>被挂起，<strong>线程二</strong>获取锁成功。</p>
+<p>具体流程如下图：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDQyNTBmMzA4OQ.jfif" alt="image.png"></p>
+<p><strong>线程二</strong>执行<code>signal()</code>方法：</p>
+<p>首先我们考虑下<strong>线程二</strong>已经获取到锁，此时<code>AQS</code>等待队列中已经没有了数据。</p>
+<p>接着就来看看<strong>线程二</strong>唤醒<strong>线程一</strong>的具体执行流程：</p>
+<pre tabindex="0"><code>public final void signal() {
+    if (!isHeldExclusively())
+        throw new IllegalMonitorStateException();
+    Node first = firstWaiter;
+    if (first != null)
+        doSignal(first);
+}
+</code></pre><p>先判断当前线程是否为获取锁的线程，如果不是则直接抛出异常。 接着调用<code>doSignal()</code>方法来唤醒线程。</p>
+<pre tabindex="0"><code>private void doSignal(Node first) {
+    do {
+        if ( (firstWaiter = first.nextWaiter) == null)
+            lastWaiter = null;
+        first.nextWaiter = null;
+    } while (!transferForSignal(first) &amp;&amp;
+             (first = firstWaiter) != null);
+}
+
+final boolean transferForSignal(Node node) {
+    if (!compareAndSetWaitStatus(node, Node.CONDITION, 0))
+        return false;
+
+    Node p = enq(node);
+    int ws = p.waitStatus;
+    if (ws &gt; 0 || !compareAndSetWaitStatus(p, ws, Node.SIGNAL))
+        LockSupport.unpark(node.thread);
+    return true;
+}
+
+/**
+ * Inserts node into queue, initializing if necessary. See picture above.
+ * @param node the node to insert
+ * @return node's predecessor
+ */
+private Node enq(final Node node) {
+    for (;;) {
+        Node t = tail;
+        if (t == null) { // Must initialize
+            if (compareAndSetHead(new Node()))
+                tail = head;
+        } else {
+            node.prev = t;
+            if (compareAndSetTail(t, node)) {
+                t.next = node;
+                return t;
+            }
+        }
+    }
+}
+</code></pre><p>这里先从<code>transferForSignal()</code>方法来看，通过上面的分析我们知道<code>Condition</code>队列中只有线程一创建的一个<code>Node</code>节点，且<code>waitStatue</code>为<code>CONDITION</code>，先通过<code>CAS</code>修改当前节点<code>waitStatus</code>为 0，然后执行<code>enq()</code>方法将当前线程加入到等待队列中，并返回当前线程的前置节点。</p>
+<p>加入等待队列的代码在上面也已经分析过，此时等待队列中数据如下图：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDQyNWZhMmU5ZQ.jfif" alt="image.png"></p>
+<p>接着开始通过<code>CAS</code>修改当前节点的前置节点<code>waitStatus</code>为<code>SIGNAL</code>，并且唤醒当前线程。此时<code>AQS</code>中等待队列数据为：</p>
+<p><img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC81LzIvMTcxZDJkNDQ0ODQ0ZDI3ZQ.jfif" alt="image.png"></p>
+<p><strong>线程一</strong>被唤醒后，继续执行<code>await()</code>方法中的 while 循环。</p>
+<pre tabindex="0"><code>public final void await() throws InterruptedException {
+    if (Thread.interrupted())
+        throw new InterruptedException();
+    Node node = addConditionWaiter();
+    int savedState = fullyRelease(node);
+    int interruptMode = 0;
+    while (!isOnSyncQueue(node)) {
+        LockSupport.park(this);
+        if ((interruptMode = checkInterruptWhileWaiting(node)) != 0)
+            break;
+    }
+    if (acquireQueued(node, savedState) &amp;&amp; interruptMode != THROW_IE)
+        interruptMode = REINTERRUPT;
+    if (node.nextWaiter != null) // clean up if cancelled
+        unlinkCancelledWaiters();
+    if (interruptMode != 0)
+        reportInterruptAfterWait(interruptMode);
+}
+</code></pre><p>因为此时线程一的<code>waitStatus</code>已经被修改为 0，所以执行<code>isOnSyncQueue()</code>方法会返回<code>false</code>。跳出<code>while</code>循环。</p>
+<p>接着执行<code>acquireQueued()</code>方法，这里之前也有讲过，尝试重新获取锁，如果获取锁失败继续会被挂起。直到另外线程释放锁才被唤醒。</p>
+<pre tabindex="0"><code>final boolean acquireQueued(final Node node, int arg) {
+    boolean failed = true;
+    try {
+        boolean interrupted = false;
+        for (;;) {
+            final Node p = node.predecessor();
+            if (p == head &amp;&amp; tryAcquire(arg)) {
+                setHead(node);
+                p.next = null; // help GC
+                failed = false;
+                return interrupted;
+            }
+            if (shouldParkAfterFailedAcquire(p, node) &amp;&amp;
+                parkAndCheckInterrupt())
+                interrupted = true;
+        }
+    } finally {
+        if (failed)
+            cancelAcquire(node);
+    }
+}
+</code></pre><p>此时<strong>线程一</strong>的流程都已经分析完了，等<strong>线程二</strong>释放锁后，<strong>线程一</strong>会继续重试获取锁，流程到此终结。</p>
+<h4 id="condition-总结">Condition 总结</h4>
+<p>我们总结下 Condition 和 wait/notify 的比较：</p>
+<ul>
+<li>Condition 可以精准的对多个不同条件进行控制，wait/notify 只能和 synchronized 关键字一起使用，并且只能唤醒一个或者全部的等待队列；</li>
+<li>Condition 需要使用 Lock 进行控制，使用的时候要注意 lock()后及时的 unlock()，Condition 有类似于 await 的机制，因此不会产生加锁方式而产生的死锁出现，同时底层实现的是 park/unpark 的机制，因此也不会产生先唤醒再挂起的死锁，一句话就是不会产生死锁，但是 wait/notify 会产生先唤醒再挂起的死锁。</li>
+</ul>
+<h3 id="总结">总结</h3>
+<p>这里用了一步一图的方式结合三个线程依次加锁/释放锁来展示了<code>ReentrantLock</code>的实现方式和实现原理，而<code>ReentrantLock</code>底层就是基于<code>AQS</code>实现的，所以我们也对<code>AQS</code>有了深刻的理解。</p>
+<p>另外还介绍了<strong>公平锁</strong>与<strong>非公平锁</strong>的实现原理，<code>Condition</code>的实现原理，基本上都是使用<strong>源码+绘图</strong>的讲解方式，尽量让大家更容易去理解。</p>
+
+        </div>
+    </article>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="/documents/articles/java%E4%B8%AD%E7%9A%84spi.md/"><span></span></a>
+    </div>
+    <div class="next">
+        
+        <a href="/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/00-%E5%BC%80%E7%AF%87%E8%AF%8D-go-%E4%B8%BA%E5%BC%80%E5%8F%91%E8%80%85%E7%9A%84%E9%9C%80%E6%B1%82%E8%AE%BE%E8%AE%A1%E5%B8%A6%E4%BD%A0%E5%AE%9E%E7%8E%B0%E9%AB%98%E6%95%88%E5%B7%A5%E4%BD%9C/"><span>00 开篇词 Go 为开发者的需求设计，带你实现高效工作</span></a>
+    </div>
+</div>
+
+        </div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    function toggleLight() {
+        document.getElementById('page').classList.toggle('night');
+    }
+</script>
+</body>
+
+</html>

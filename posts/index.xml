@@ -5,33 +5,96 @@
     <link>http://yipsen.github.io/posts/</link>
     <description>Recent content in Posts on Yipsen Ye</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 06 Feb 2022 16:31:43 +0000</lastBuildDate><atom:link href="http://yipsen.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Aug 2022 22:00:00 +0800</lastBuildDate><atom:link href="http://yipsen.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Java安装</title>
-      <link>http://yipsen.github.io/posts/java%E5%9F%BA%E7%A1%80/java%E5%AE%89%E8%A3%85/</link>
+      <title>kubernetes cluster installation step</title>
+      <link>http://yipsen.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4/</link>
+      <pubDate>Mon, 15 Aug 2022 22:00:00 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4/</guid>
+      <description>一、配置主机名hostname  重命名：假设是master节点准备命名为：kube-master-01  hostnamectl set-hostname kube-master-01 加入hosts：假设本机 ip 为 192.168.163.129  vi /etc/hosts 127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4 ::1 localhost localhost.localdomain localhost6 localhost6.localdomain6 192.168.163.129 kube-master-01 二、准备工作  关闭原防火墙，设置防火墙为 iptables 并设置空规则  # 关闭防火墙 systemctl stop firewalld &amp;amp;&amp;amp; systemctl disable firewalld # 安装 iptables yum -y install iptables-services # 配置 iptables systemctl start iptables &amp;amp;&amp;amp; systemctl enable iptables &amp;amp;&amp;amp; iptables -F &amp;amp;&amp;amp; service iptables save 关闭 swap，关闭SELINUX  # 关闭 swap swapoff -a # 永久关闭 swap，即在 fstab 配置文件中采用 # 号注释 swap 那一行配置 sed -i &amp;#39;/ swap / s/^\(.</description>
+    </item>
+    
+    <item>
+      <title>kubernetes cluster installation trouble shooting</title>
+      <link>http://yipsen.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/</link>
+      <pubDate>Mon, 15 Aug 2022 22:00:00 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/</guid>
+      <description>kubernetes 集群安装常见错误与解决方案 零、kubeadm init失败  错误日志  [root@localhost Downloads]# kubeadm init [init] Using Kubernetes version: v1.24.3 [preflight] Running pre-flight checks [WARNING Firewalld]: firewalld is active, please ensure ports [6443 10250] are open or your cluster may not function correctly [WARNING Swap]: swap is enabled; production deployments should disable swap unless testing the NodeSwap feature gate of the kubelet error execution phase preflight: [preflight] Some fatal errors occurred: [ERROR NumCPU]: the number of available CPUs 1 is less than the required 2 [ERROR Mem]: the system RAM (972 MB) is less than the minimum 1700 MB [ERROR CRI]: container runtime is not running: output: time=&amp;#34;2022-08-13T09:53:22-07:00&amp;#34; level=fatal msg=&amp;#34;unable to determine runtime API version: rpc error: code = Unavailable desc = connection error: desc = \&amp;#34;transport: Error while dialing dial unix /var/run/containerd/containerd.</description>
+    </item>
+    
+    <item>
+      <title>kubernetes cluster running trouble shooting</title>
+      <link>http://yipsen.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB-copy/</link>
+      <pubDate>Mon, 15 Aug 2022 22:00:00 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB-copy/</guid>
+      <description>kubernetes 集群运行常见错误与解决方案 CPU分配不足 [root@kube-master-01 fc-kubernetes-yaml]# kubectl get po -A -o wide NAMESPACE NAME READY STATUS RESTARTS AGE IP NODE NOMINATED NODE READINESS GATES istio-system istio-egressgateway-7784dc7fd4-bc9f4 1/1 Running 12 7d6h 10.244.2.103 kube-worker-02 &amp;lt;none&amp;gt; &amp;lt;none&amp;gt; istio-system istio-ingressgateway-575fd95f88-k769m 1/1 Running 12 7d6h 10.244.1.97 kube-worker-01 &amp;lt;none&amp;gt; &amp;lt;none&amp;gt; istio-system istiod-6785d97f67-sr9tp 1/1 Running 11 7d6h 10.244.3.89 kube-worker-03 &amp;lt;none&amp;gt; &amp;lt;none&amp;gt; kube-system coredns-7ff77c879f-qkv6r 1/1 Running 16 16d 10.244.0.41 kube-master-01 &amp;lt;none&amp;gt; &amp;lt;none&amp;gt; kube-system coredns-7ff77c879f-shkmr 1/1 Running 16 16d 10.244.0.44 kube-master-01 &amp;lt;none&amp;gt; &amp;lt;none&amp;gt; kube-system etcd-kube-master-01 1/1 Running 119 16d 192.</description>
+    </item>
+    
+    <item>
+      <title>Java 常见异常</title>
+      <link>http://yipsen.github.io/posts/java%E5%9F%BA%E7%A1%80/java-trouble-shootings/</link>
       <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
       
-      <guid>http://yipsen.github.io/posts/java%E5%9F%BA%E7%A1%80/java%E5%AE%89%E8%A3%85/</guid>
-      <description>一、移除已有 Java 版本（可选） sudo yum remove -y java 二、下载并安装 Java8 wget --no-cookies --no-check-certificate --header &amp;#34;Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie&amp;#34; &amp;#34;http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.tar.gz&amp;#34; tar -xzvf jdk-8u131-linux-x64.tar.gz cp -a jdk1.8.0_131/ /usr/local/java rm -rf jdk-8u131-linux-x64.tar.gz 三、配置 JAVA_HOME   打开bashrc
-sudo vim ~/.bashrc   在文件末尾追加
-export JAVA_HOME=~/jdk1.8.0_131 export JRE_HOME=~/jdk1.8.0_131/jre export PATH=$PATH:~/jdk1.8.0_131/bin:/~/jdk1.8.0_131/jre/bin   配置立即生效
-source ~/.bashrc   查看java版本，看配置是否已生效
-java -version   </description>
+      <guid>http://yipsen.github.io/posts/java%E5%9F%BA%E7%A1%80/java-trouble-shootings/</guid>
+      <description>一、关于InstantiationException错误的原因 网上大多说是实例化接口或者抽象类导致的，而实际是一个普通类也遇到同样的异常。后面发现异常原因是因为反射构建的类没有无参构造函数导致。</description>
+    </item>
+    
+    <item>
+      <title>Python代码样例速查</title>
+      <link>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/python%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/python%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</guid>
+      <description>遍历文件夹下所有文件名 import os for filename in os.listdir(target_folder_path): print(filename) 遍历文件夹下所有文件名（递归） import os ROOT_PATH = r&amp;#39;&amp;#39; for root, dirs, files in os.walk(ROOT_PATH): for file in files: path = os.path.join(root, file) size = os.path.getsize(path) # 清空空文件夹？？？待确认 if size == 0: print(path, size) os.remove(path) 连接文件路径 import os for filename in os.listdir(target_folder_path): file_path = os.path.join(target_folder_path, filename) print(file_path) 移动文件 import shutil shutil.move(source_path, target_path) 复制文件 import shutil shutil.copyfile(source_path, target_path) shutil.copy2(source_path, target_path) 判断是否文件或文件夹 import os if os.path.isfile(target_path): return True if os.</description>
+    </item>
+    
+    <item>
+      <title>Redis 相关常见异常</title>
+      <link>http://yipsen.github.io/posts/redis/trouble-shootings/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/redis/trouble-shootings/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Shell代码样例速查</title>
+      <link>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/shell%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/shell%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</guid>
+      <description>打印日志 #!/bin/bash ############################################################### # Program: # This program for upload batch of pictures to nimg. # History: # # Ver Date Author Actvity # --- ---- ------ ------- # 1.0 2018/12/10 Yipsen First release ############################################################### ############################################################### SOURCE_PATH=&amp;#34;/mnt/resource/&amp;#34; TARGET_URL=&amp;#34;http://192.168.1.102:9000/02/upload&amp;#34; #Folder path HOME_PATH=&amp;#34;&amp;#34; WORKING_PATH=&amp;#34;${HOME_PATH}/working/image_`date +%Y%m%d_%H%M%S_$$`&amp;#34; OUTPUT_PATH=&amp;#34;${HOME_PATH}/output&amp;#34; LOG_PATH=&amp;#34;${HOME_PATH}/logs&amp;#34; #Log File LOG_FILE=&amp;#34;${LOG_PATH}/UploadToNimg_`date +%Y-%m-%d`.log&amp;#34; #Json File ACTOR_JSON_FILE=&amp;#34;${OUTPUT_PATH}/actor_`date +%Y-%m-%d`.log&amp;#34; MOVIE_JSON_FILE=&amp;#34;${OUTPUT_PATH}/movie_`date +%Y-%m-%d`.log&amp;#34; ############################################################### function Initialize() { # logInfo &amp;#34;----- Initialize - Initialize log file/archive file is starting.&amp;#34; # if [ -f ${LOG_FILE} ]; # then # chmod 755 ${LOG_FILE} # else # touch ${LOG_FILE} # chmod 755 ${LOG_FILE} # logInfo &amp;#34;----- Initialize - New log file is created.</description>
+    </item>
+    
+    <item>
+      <title>tar 命令详解</title>
+      <link>http://yipsen.github.io/posts/linux/tar/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/linux/tar/</guid>
+      <description>1. 命令格式 tar &amp;lt;必要参数&amp;gt; [选择参数] &amp;lt;文件&amp;gt; 2. 命令功能 用来压缩和解压文件。tar本身不具备压缩功能。他是调用压缩功能实现的。
+3. 命令参数 必要参数： -A (add)新增压缩文件到已存在的压缩包里 -B 设置区块大小 -c (create)创建新的压缩文件 -d (different)记录文件的差别 -j 支持 bzip2 解压文件 -k (keep)保留原有文件不覆盖 -l 文件系统边界设置 -m 保留文件不被覆盖 -r 添加文件到已经压缩的文件 -t 显示压缩文件的内容 -u 添加改变了和现有的文件到已经存在的压缩文件里 -v (view)显示操作过程 -W 确认压缩文件的正确性 -x (extract)从压缩的文件中提取文件 -z (zip)支持 gzip 解压文件 -Z 支持 compress 解压文件
+可选参数： -b 设置区块数目 -C (change)切换到指定目录 -f (file)指定压缩文件 &amp;ndash;help 显示帮助信息 &amp;ndash;version 显示版本信息
+4. 常见解压/压缩命令 # 打包 tar cvzf target_package.tar dir_name # 解包 tar xvzf target_package.</description>
     </item>
     
     <item>
       <title>创建型-单例模式（常用）</title>
-      <link>http://yipsen.github.io/posts/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</link>
+      <link>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</link>
       <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
       
-      <guid>http://yipsen.github.io/posts/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</guid>
+      <guid>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</guid>
       <description>定义 单例模式（Singleton Pattern）属于创建类型的一种常用的软件设计模式。
 单例对象保证全局（或指定上下文中，如进程，线程内唯一）仅有一个实例存在，并提供一个该唯一实例的访问点。
 为什么需要单例模式 打井喝水，并不是每个人想喝水就要打一口井。
 优点 在内存里只有一个实例，所以能够节约系统资源，减少了内存的开销，尤其是频繁的创建和销毁实例，可以提高系统效率，同时也能够严格控制客户对它的访问。
 缺点 也正是因为系统中只有一个实例，这样就导致了单例类的职责过重，违背了“单一职责原则”，同时也没有抽象类，这样扩展起来有一定的困难。 优点即缺点，所以更应该说是特点，在特定场景下使用。
 常见应用场景  spring bean 数据库连接 需要频繁的进行创建和销毁的对象 创建对象时耗时过多或耗费资源过多(重量级对象) 经常用到的对象、工具类对象、频繁访问数据库或文件的对象(数据源、session工厂)  结构 classDiagramclass Singleton {-Singleton instance-Singleton()+static getInstance() Singleton}Singleton --o Singleton实现方式 要实现单例模式，关键有 3 个要素：
- 单例类只有一个实例对象；如instance；此为单例模式的核心要素。 该单例对象必须由单例类自行创建；一般情况下会将构造函数声明为私有的，如private Singleton()；这样外部无法实例化，也无法被继承，此举为保证唯一性，从而避免勿用。 单例类对外提供一个访问该单例的全局访问点；如getInstance()；由于已阻止外部构建，即单例类是一个只读类，外部不能创建或修改，需提供一个读取接口。  具体常用的几种实现方法：
+ 单例类只有一个实例对象；如instance；此为单例模式的核心要素。 该单例对象必须由单例类自行创建；一般情况下会将构造函数声明为私有的，如private Singleton()；这样外部无法实例化，也无法被继承，此举为保证唯一性，从而避免勿用。 单例类对外提供一个访问该单例的全局访问点；如getInstance()；由于已阻止外部构建，即单例类是一个只读类，外部不能创建或修改，需提供一个读取接口。  即为了避免城市被私人挖得千疮百孔，没收公众的挖井工具，收归专门管理，但开放水利给公众使用。
+具体常用的几种实现方法：
   饿汉式
 饿汉式顾名思义就是把食物（对象）提前做好，需要时直接拿取即可使用（吃掉）。简而言之即预先构建。
 // 饿汉式单例 public class Eager { // 提前把对象实例化，此对象实例全局唯一  private final static Eager instance = new Eager(); // 私有化构造器，不允许外部使用，以免破坏唯一性  private Eager() { System.</description>
@@ -39,26 +102,54 @@ java -version   </description>
     
     <item>
       <title>行为型-观察者模式（常用）</title>
-      <link>http://yipsen.github.io/posts/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A1%8C%E4%B8%BA%E5%9E%8B-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</link>
+      <link>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A1%8C%E4%B8%BA%E5%9E%8B-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</link>
       <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
       
-      <guid>http://yipsen.github.io/posts/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A1%8C%E4%B8%BA%E5%9E%8B-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</guid>
+      <guid>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A1%8C%E4%B8%BA%E5%9E%8B-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</guid>
       <description>定义 观察者模式（Observer Pattern）属于行为类型的一种常用的软件设计模式。还有其他的称谓如，发布-订阅模式，模型-视图模式，而最常见的应用就是事件-通知机制了。
 该模式定义了一种一对多的依赖关系，并对关系进行解耦。即一个对象发生变化时，将通知所有依赖他的对象，以进一步处理相应变化。通过变化产生事件，进而通知处理相应变化的方式，实现了两个对象的解耦，并提供了灵活的依赖关系。
-为什么需要观察者模式  解耦  常见应用场景  spring event  结构 实现方式 要实现观察者模式，其关键有 4 个对象，分别是：
-   对象 称谓 特性     Subject 被观察者 被观察者提供一系列方法以维护观察者列表（可随时进行增删），同时定义通知方法，以在发生变化时通知已维护在列表中的观察者们。   ConcreteSubject 具体的被观察者 被观察者的具体实现类，实现具体场景下发送变化通知。   Observer 观察者 观察者可以是一个或多个，当被观察者Subject发生变化时，观察者将收到通知。   ConcreteObserver 具体的观察者 观察者的具体实现类，不同的观察者在收到通知后可实现不同的操作。    观察者模式实现如下：
-  定义被观察者
-关键定义三个特性：添加观察者，移除观察者，通知观察者。其中通知观察者可由具体实现类按需在具体场景下处理发送逻辑。
-public abstract class Subject { protected List&amp;lt;Observer&amp;gt; observers = new ArrayList&amp;lt;&amp;gt;(); public void addObserver(Observer observer) { observers.</description>
+为什么需要观察者模式  解耦  常见应用场景  spring event  结构 classDiagramclass Subject {&amp;lt;&amp;lt;abstract&amp;gt;&amp;gt;+observers+addObserver()+removeObserver()+notifyObserver()}class Observer {&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;update()}class ConcreteSubject {}class ContreteObserver {}实现方式 要实现观察者模式，其关键有 4 个对象，分别是：
+   对象 称谓 特性     Subject 被观察者 被观察者提供一系列方法以维护观察者列表（可随时进行增删），同时定义通知方法，以在发生变化时通知已维护在列表中的观察者们。   ConcreteSubject 具体的被观察者 被观察者的具体实现类，实现具体场景下发送变化通知。   Observer 观察者 观察者可以是一个或多个，当被观察者Subject发生变化时，观察者将收到通知。   ConcreteObserver 具体的观察者 观察者的具体实现类，不同的观察者在收到通知后可实现不同的操作。    观察者模式实现如下：</description>
     </item>
     
     <item>
-      <title>logback pattern layout</title>
-      <link>http://yipsen.github.io/posts/logback/pattern-layout/</link>
+      <title>Java安装</title>
+      <link>http://yipsen.github.io/posts/java%E5%9F%BA%E7%A1%80/java%E5%AE%89%E8%A3%85/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/java%E5%9F%BA%E7%A1%80/java%E5%AE%89%E8%A3%85/</guid>
+      <description>Linux 安装 环境信息 一、移除已有 Java 版本（可选） sudo yum remove -y java 二、下载并安装 Java8 wget --no-cookies --no-check-certificate --header &amp;#34;Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie&amp;#34; &amp;#34;http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.tar.gz&amp;#34; tar -xzvf jdk-8u131-linux-x64.tar.gz cp -a jdk1.8.0_131/ /usr/local/java rm -rf jdk-8u131-linux-x64.tar.gz 三、配置 JAVA_HOME   打开bashrc(or /etc/profile???)
+sudo vim ~/.bashrc   在文件末尾追加
+export JAVA_HOME=~/jdk1.8.0_131 export JRE_HOME=$JAVA_HOME/jre export PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib   配置立即生效
+source ~/.bashrc   查看java版本，看配置是否已生效
+java -version   Windows 安装 </description>
+    </item>
+    
+    <item>
+      <title>Log4J pattern layout</title>
+      <link>http://yipsen.github.io/posts/logback/log4j-pattern-layout/</link>
       <pubDate>Wed, 19 Jan 2022 15:22:11 +0000</pubDate>
       
-      <guid>http://yipsen.github.io/posts/logback/pattern-layout/</guid>
+      <guid>http://yipsen.github.io/posts/logback/log4j-pattern-layout/</guid>
+      <description>配置解释 </description>
+    </item>
+    
+    <item>
+      <title>Logback pattern layout</title>
+      <link>http://yipsen.github.io/posts/logback/logback-pattern-layout/</link>
+      <pubDate>Wed, 19 Jan 2022 15:22:11 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/logback/logback-pattern-layout/</guid>
       <description>配置解释    Conversion Effect     c{length}lo{length}logger{length} 输出日志名，length参数可以指定数字用以缩短控制长度   C{length}class{length} 输出类名.   d{pattern}date{pattern} 输出时间，使用方法与格式效果见：时间格式   micros ms    F file    caller{depth} 输出调用方   kvp{NONE,SINGLE,DOUBLE}    m msg message 日志信息   M method 方法名   n 换行符   p le level 日志级别   r relative    t thread 输出线程名   X{key:-defaultVal}mdc{key:-defaultVal}    ex{depth}exception{depth}throwable{depth} 输出异常堆栈信息   xEx{depth}xException{depth}xThrowable{depth} 输出异常堆栈信息及其所在jar包   nopexnopexception    marker    property{key}    replace(p){r, t}    prefix(p)    rEx{depth}rootException{depth}     配置示例 时间格式    Pattern Result     %d 2006-10-20 14:06:49,812   %date 2006-10-20 14:06:49,812   %date{ISO8601} 2006-10-20 14:06:49,812   %date{HH:mm:ss.</description>
+    </item>
+    
+    <item>
+      <title>iptables详解</title>
+      <link>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/iptables%E8%AF%A6%E8%A7%A3/</link>
+      <pubDate>Sat, 15 Jan 2022 10:40:52 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/iptables%E8%AF%A6%E8%A7%A3/</guid>
+      <description></description>
     </item>
     
     <item>

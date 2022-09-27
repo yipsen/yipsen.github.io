@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>Python代码样例速查 | Yipsen Ye</title>
+<meta name="description" content="遍历文件夹下所有文件名 import os for filename in os.listdir(target_folder_path): print(filename) 遍历文件夹下所有文件名（递归） import os ROOT_PATH = r&amp;#39;&amp;#39; for root, dirs, files in os.walk(ROOT_PATH): for file in files: path = os.path.join(root, file) size = os.path.getsize(path) # 清空空文件夹？？？待确认 if size == 0: print(path, size) os.remove(path) 连接文件路径 import os for filename in os.listdir(target_folder_path): file_path = os.path.join(target_folder_path, filename) print(file_path) 移动文件 import shutil shutil.move(source_path, target_path) 复制文件 import shutil shutil.copyfile(source_path, target_path) shutil.copy2(source_path, target_path) 判断是否文件或文件夹 import os if os.path.isfile(target_path): return True if os.">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title">Python代码样例速查</h1>
+        <div class="post-info">
+            <div> 
+                <span class="post-date">📅&nbsp;2022-02-06 16:31:43</span></div></div>
+        <div class="post-content">
+            <h3 id="遍历文件夹下所有文件名">遍历文件夹下所有文件名</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> os
+
+<span style="color:#66d9ef">for</span> filename <span style="color:#f92672">in</span> os<span style="color:#f92672">.</span>listdir(target_folder_path):
+    print(filename)
+</code></pre></div><h3 id="遍历文件夹下所有文件名递归">遍历文件夹下所有文件名（递归）</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> os
+
+ROOT_PATH <span style="color:#f92672">=</span> <span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;&#39;</span>
+
+<span style="color:#66d9ef">for</span> root, dirs, files <span style="color:#f92672">in</span> os<span style="color:#f92672">.</span>walk(ROOT_PATH):
+    <span style="color:#66d9ef">for</span> file <span style="color:#f92672">in</span> files:
+        path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(root, file)
+        size <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>getsize(path)
+        <span style="color:#75715e"># 清空空文件夹？？？待确认</span>
+        <span style="color:#66d9ef">if</span> size <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+            print(path, size)
+            os<span style="color:#f92672">.</span>remove(path)
+</code></pre></div><h3 id="连接文件路径">连接文件路径</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> os
+
+<span style="color:#66d9ef">for</span> filename <span style="color:#f92672">in</span> os<span style="color:#f92672">.</span>listdir(target_folder_path):
+    file_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(target_folder_path, filename)
+    print(file_path)
+</code></pre></div><h3 id="移动文件">移动文件</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> shutil
+
+shutil<span style="color:#f92672">.</span>move(source_path, target_path)
+</code></pre></div><h3 id="复制文件">复制文件</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> shutil
+
+shutil<span style="color:#f92672">.</span>copyfile(source_path, target_path)
+shutil<span style="color:#f92672">.</span>copy2(source_path, target_path)
+</code></pre></div><h3 id="判断是否文件或文件夹">判断是否文件或文件夹</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> os
+
+<span style="color:#66d9ef">if</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>isfile(target_path):
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+
+<span style="color:#66d9ef">if</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>isdir(target_path):
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</code></pre></div><h3 id="创建文件夹">创建文件夹</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> os
+
+<span style="color:#66d9ef">try</span>:
+    os<span style="color:#f92672">.</span>mkdir(target_path)
+<span style="color:#66d9ef">except</span> <span style="color:#a6e22e">FileExistsError</span>:
+    print(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> already EXIST!&#34;</span>, target_path)
+<span style="color:#66d9ef">else</span>:
+    logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> created.&#34;</span>, target_path)
+</code></pre></div><h3 id="移除文件夹">移除文件夹</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> os
+
+os<span style="color:#f92672">.</span>rmdir(target_path)
+</code></pre></div><h3 id="移除空文件夹">移除空文件夹</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> os
+
+SOURCE_PATH <span style="color:#f92672">=</span> <span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;E:\target&#39;</span>
+
+folder_names <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>listdir(SOURCE_PATH)
+
+<span style="color:#66d9ef">for</span> folder_name <span style="color:#f92672">in</span> folder_names:
+    folder_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(SOURCE_PATH, folder_name)
+    <span style="color:#66d9ef">try</span>:
+        os<span style="color:#f92672">.</span>rmdir(folder_path)
+        print(<span style="color:#e6db74">&#34;removed empty folder: </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> folder_path)
+    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">OSError</span> <span style="color:#66d9ef">as</span> e:
+        print(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> is not empty: </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (folder_path, e))
+
+</code></pre></div><h3 id="读随机数带权重">读随机数（带权重）</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> random
+
+PART_COUNT <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>choices([<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>], weights<span style="color:#f92672">=</span>[<span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>], k<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
+</code></pre></div><h3 id="执行cmd命令">执行CMD命令</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> os
+
+os<span style="color:#f92672">.</span>system(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;echo hello world&#34;</span>)
+</code></pre></div><h3 id="读取json文件到string">读取Json文件到string</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> json
+
+<span style="color:#66d9ef">with</span> open(json_file, <span style="color:#e6db74">&#39;r&#39;</span>, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;utf8&#39;</span>) <span style="color:#66d9ef">as</span> j:
+    data <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>loads(j)
+</code></pre></div><h3 id="读取json文件到dict">读取Json文件到dict</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> json
+
+<span style="color:#66d9ef">with</span> open(json_file, <span style="color:#e6db74">&#39;r&#39;</span>, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;utf8&#39;</span>) <span style="color:#66d9ef">as</span> j:
+    data <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>load(j)
+</code></pre></div><h3 id="读取json文件到dict带引号问题">读取Json文件到dict（带引号问题）</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> json
+
+<span style="color:#66d9ef">with</span> open(meta_file, <span style="color:#e6db74">&#39;r&#39;</span>, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;UTF-8&#39;</span>) <span style="color:#66d9ef">as</span> f:
+    data <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>read()
+    meta <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>loads(json<span style="color:#f92672">.</span>dumps(eval(data)))
+</code></pre></div><h3 id="记录时间到文件里用于断点继续">记录时间到文件里，用于断点继续</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> os
+<span style="color:#f92672">import</span> time
+
+<span style="color:#75715e"># file to store time string which is time of last run.</span>
+TM_TIME_FILE <span style="color:#f92672">=</span> <span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;last_modified.time&#34;</span>
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_target_modified_time</span>():
+    <span style="color:#75715e"># IMPORTANT: open mode cannot be a+, must be r, otherwise the readline function will return except result.</span>
+    <span style="color:#66d9ef">with</span> open(TM_TIME_FILE, <span style="color:#e6db74">&#39;r&#39;</span>, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;utf-8&#39;</span>) <span style="color:#66d9ef">as</span> f:
+        target_modified_time <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>readline()
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;1971-01-01 00:00:00&#34;</span> <span style="color:#66d9ef">if</span> len(target_modified_time) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">else</span> target_modified_time
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">set_target_modified_time</span>(target_modified_time):
+    <span style="color:#66d9ef">with</span> open(TM_TIME_FILE, <span style="color:#e6db74">&#39;w&#39;</span>, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;utf-8&#39;</span>) <span style="color:#66d9ef">as</span> f:
+        f<span style="color:#f92672">.</span>write(target_modified_time)
+        f<span style="color:#f92672">.</span>flush()
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+    <span style="color:#75715e"># read target modified time from file.</span>
+    tm_time_str <span style="color:#f92672">=</span> get_target_modified_time()
+    tm_time <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>mktime(time<span style="color:#f92672">.</span>strptime(tm_time_str, <span style="color:#e6db74">&#34;%Y-%m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> %H:%M:%S&#34;</span>))
+
+    <span style="color:#75715e"># update next target modified time as current time to file.</span>
+    next_tm_time <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+    next_tm_time_str <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#34;%Y-%m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> %H:%M:%S&#34;</span>, time<span style="color:#f92672">.</span>localtime(next_tm_time))
+    <span style="color:#75715e"># should create a lock file to handle except situation so that can update back the original target modified time</span>
+    set_target_modified_time(next_tm_time_str)
+    
+    <span style="color:#75715e"># filter out target files which updated after tm_time.</span>
+    files <span style="color:#f92672">=</span> [b <span style="color:#66d9ef">for</span> b <span style="color:#f92672">in</span> os<span style="color:#f92672">.</span>listdir(SOURCE) <span style="color:#66d9ef">if</span> tm_time <span style="color:#f92672">&lt;=</span> os<span style="color:#f92672">.</span>stat(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(SOURCE, b))<span style="color:#f92672">.</span>st_mtime <span style="color:#f92672">&lt;=</span> next_tm_time]
+
+    <span style="color:#75715e"># TODO: your code here...</span>
+
+</code></pre></div><h3 id="使用多线程运行">使用多线程运行</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> concurrent.futures
+
+tasks <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>listdir(TASK_PATH) <span style="color:#75715e"># TODO: 获取需要执行的任务列表</span>
+
+totally <span style="color:#f92672">=</span> len(tasks) <span style="color:#75715e"># 运行总任务数</span>
+success <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> <span style="color:#75715e"># 运行成功数</span>
+failure <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> <span style="color:#75715e"># 运行失败数</span>
+<span style="color:#75715e"># 打开线程池，池大小100个线程</span>
+<span style="color:#66d9ef">with</span> concurrent<span style="color:#f92672">.</span>futures<span style="color:#f92672">.</span>ThreadPoolExecutor(max_workers<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>) <span style="color:#66d9ef">as</span> executor:
+    <span style="color:#75715e"># 将任务提交，并获取对应future</span>
+    futures <span style="color:#f92672">=</span> {executor<span style="color:#f92672">.</span>submit(process, task): task <span style="color:#66d9ef">for</span> task <span style="color:#f92672">in</span> tasks}
+    <span style="color:#75715e"># 判断线程任务是否已完成，即future是否completed</span>
+    <span style="color:#66d9ef">for</span> future <span style="color:#f92672">in</span> concurrent<span style="color:#f92672">.</span>futures<span style="color:#f92672">.</span>as_completed(futures):
+        <span style="color:#66d9ef">try</span>:
+            <span style="color:#75715e"># 获取线程结果</span>
+            <span style="color:#66d9ef">if</span> future<span style="color:#f92672">.</span>result():
+                success <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+            <span style="color:#66d9ef">else</span>:
+                failure <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+            <span style="color:#75715e"># 线程运行出现异常</span>
+            print(<span style="color:#e6db74">&#39;exception raised.&#39;</span>, e)
+            failure <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+        <span style="color:#75715e"># 计算并打印运行情况的统计信息</span>
+        progress <span style="color:#f92672">=</span> (success <span style="color:#f92672">+</span> failure)<span style="color:#f92672">/</span>totally <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span>
+        print(<span style="color:#e6db74">&#34;[</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">] success: </span><span style="color:#e6db74">%d</span><span style="color:#e6db74">, failure: </span><span style="color:#e6db74">%d</span><span style="color:#e6db74">, progress: </span><span style="color:#e6db74">%.2f</span><span style="color:#e6db74"> </span><span style="color:#e6db74">%%</span><span style="color:#e6db74">&#34;</span>, futures[future], success, failure, progress)
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">process</span>(task):
+    <span style="color:#75715e"># TODO: your code here...</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+
+</code></pre></div><h3 id="使用数据库连接池">使用数据库连接池</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> DBUtils.PooledDB <span style="color:#f92672">import</span> PooledDB
+<span style="color:#f92672">import</span> pymysql
+
+
+MAX_CONNECTIONS <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+
+pool <span style="color:#f92672">=</span> PooledDB(
+    pymysql,
+    MAX_CONNECTIONS,
+    host<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;192.168.0.200&#39;</span>,
+    port<span style="color:#f92672">=</span><span style="color:#ae81ff">33066</span>,
+    user<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;PRIVATE_THEATER&#39;</span>,
+    passwd<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;nvjQ0FsR$Cu5*csF&#39;</span>,
+    db<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;PRIVATE_THEATER&#39;</span>,
+    use_unicode<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+
+<span style="color:#75715e"># 查询一条表数据</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">select_one</span>(name):
+    conn <span style="color:#f92672">=</span> pool<span style="color:#f92672">.</span>connection()
+    cursor <span style="color:#f92672">=</span> conn<span style="color:#f92672">.</span>cursor()
+    cursor<span style="color:#f92672">.</span>execute(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;SELECT id FROM table WHERE name = &#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;&#34;</span> <span style="color:#f92672">%</span> name)
+    <span style="color:#66d9ef">return</span> cursor<span style="color:#f92672">.</span>fetchone()
+
+<span style="color:#75715e"># 查询多条表数据</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">select_list</span>(size):
+    conn <span style="color:#f92672">=</span> pool<span style="color:#f92672">.</span>connection()
+    cursor <span style="color:#f92672">=</span> conn<span style="color:#f92672">.</span>cursor()
+    cursor<span style="color:#f92672">.</span>execute(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;SELECT * FROM table WHERE process_status = 0 ORDER BY id LIMIT </span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> size)
+    <span style="color:#66d9ef">return</span> cursor<span style="color:#f92672">.</span>fetchall()
+
+<span style="color:#75715e"># 更新多条表数据</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update_list</span>():
+    conn <span style="color:#f92672">=</span> pool<span style="color:#f92672">.</span>connection()
+    cursor <span style="color:#f92672">=</span> conn<span style="color:#f92672">.</span>cursor()
+    cursor<span style="color:#f92672">.</span>execute(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;UPDATE table SET process_status = 0, process_time = now() WHERE process_status = 0&#39;</span>)
+    conn<span style="color:#f92672">.</span>commit()
+
+<span style="color:#75715e"># 插入表数据并获得id</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">insert</span>():
+    conn <span style="color:#f92672">=</span> pool<span style="color:#f92672">.</span>connection()
+    cursor <span style="color:#f92672">=</span> conn<span style="color:#f92672">.</span>cursor()
+    insert_sql <span style="color:#f92672">=</span> <span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;INSERT INTO table (code, name, created_time, creator, updated_time, updator, version, deleted) &#34;</span> \
+                 <span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;VALUES (&#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;, &#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;, now(), &#39;SYSADMIN&#39;, now(), &#39;SYSADMIN&#39;, 0, 0)&#34;</span>  <span style="color:#f92672">%</span> (<span style="color:#e6db74">&#39;code&#39;</span>, <span style="color:#e6db74">&#39;name&#39;</span>)
+    cursor<span style="color:#f92672">.</span>execute(insert_sql)
+    id <span style="color:#f92672">=</span> cursor<span style="color:#f92672">.</span>lastrowid
+    <span style="color:#66d9ef">return</span> id
+
+<span style="color:#75715e"># 删除表数据</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">delete_list</span>():
+    <span style="color:#66d9ef">pass</span>
+
+<span style="color:#75715e"># 异常回滚</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">rollback</span>():
+    conn <span style="color:#f92672">=</span> pool<span style="color:#f92672">.</span>connection()
+    cursor <span style="color:#f92672">=</span> conn<span style="color:#f92672">.</span>cursor()
+    <span style="color:#66d9ef">try</span>:
+        <span style="color:#75715e"># TODO: your code here...</span>
+        conn<span style="color:#f92672">.</span>commit()
+    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+        conn<span style="color:#f92672">.</span>rollback()
+        <span style="color:#66d9ef">raise</span> e
+    <span style="color:#66d9ef">finally</span>:
+        cursor<span style="color:#f92672">.</span>close()
+        conn<span style="color:#f92672">.</span>close()
+</code></pre></div><h3 id="使用日志---基本配置">使用日志 - 基本配置</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> logging.config
+
+<span style="color:#75715e"># 简单配置</span>
+logging<span style="color:#f92672">.</span>basicConfig(filename<span style="color:#f92672">=</span><span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;./logs/application.log&#39;</span>,
+                    level<span style="color:#f92672">=</span>logging<span style="color:#f92672">.</span>DEBUG,
+                    format<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%(asctime)s</span><span style="color:#e6db74"> [</span><span style="color:#e6db74">%(levelname)s</span><span style="color:#e6db74">] [L</span><span style="color:#e6db74">%(lineno)d</span><span style="color:#e6db74">] </span><span style="color:#e6db74">%(message)s</span><span style="color:#e6db74"> &#39;</span>,
+                    datefmt<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;%Y-%m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> %H:%M:%S&#39;</span>)
+
+<span style="color:#75715e"># 获取logger</span>
+logger <span style="color:#f92672">=</span> logging<span style="color:#f92672">.</span>getLogger(<span style="color:#e6db74">&#34;default&#34;</span>)
+
+<span style="color:#75715e"># 使用</span>
+logger<span style="color:#f92672">.</span>debug(<span style="color:#e6db74">&#39;this is debug log.&#39;</span>)
+logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#39;this is info log.&#39;</span>)
+logger<span style="color:#f92672">.</span>warning(<span style="color:#e6db74">&#39;this is warning log.&#39;</span>)
+logger<span style="color:#f92672">.</span>error(<span style="color:#e6db74">&#39;this is error exception raised.&#39;</span>)
+</code></pre></div><h3 id="使用日志---自定义配置内嵌配置信息">使用日志 - 自定义配置（内嵌配置信息）</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># LOGGER CONFIG</span>
+<span style="color:#75715e">#####################################################################################################################</span>
+<span style="color:#f92672">import</span> logging.config
+
+
+LOG_PATH <span style="color:#f92672">=</span> <span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;./logs/&#39;</span>
+
+<span style="color:#75715e"># 自定义配置</span>
+log_config <span style="color:#f92672">=</span> {
+    <span style="color:#e6db74">&#34;version&#34;</span>: <span style="color:#ae81ff">1</span>,
+    <span style="color:#e6db74">&#39;disable_existing_loggers&#39;</span>: <span style="color:#66d9ef">False</span>,  <span style="color:#75715e"># 是否禁用现有的记录器</span>
+
+    <span style="color:#75715e"># 日志管理器集合</span>
+    <span style="color:#e6db74">&#39;loggers&#39;</span>: {
+        <span style="color:#75715e"># 管理器</span>
+        <span style="color:#e6db74">&#39;default&#39;</span>: {
+            <span style="color:#e6db74">&#39;handlers&#39;</span>: [<span style="color:#e6db74">&#39;console&#39;</span>, <span style="color:#e6db74">&#39;info_file&#39;</span>, <span style="color:#e6db74">&#39;error_file&#39;</span>],
+            <span style="color:#e6db74">&#39;level&#39;</span>: <span style="color:#e6db74">&#39;DEBUG&#39;</span>,
+            <span style="color:#e6db74">&#39;propagate&#39;</span>: <span style="color:#66d9ef">True</span>,  <span style="color:#75715e"># 是否传递给父记录器</span>
+        },
+        <span style="color:#e6db74">&#39;sql&#39;</span>: {
+            <span style="color:#e6db74">&#39;handlers&#39;</span>: [<span style="color:#e6db74">&#39;sql_file&#39;</span>],
+            <span style="color:#e6db74">&#39;level&#39;</span>: <span style="color:#e6db74">&#39;DEBUG&#39;</span>,
+            <span style="color:#e6db74">&#39;propagate&#39;</span>: <span style="color:#66d9ef">True</span>,  <span style="color:#75715e"># 是否传递给父记录器</span>
+        }
+    },
+
+    <span style="color:#75715e"># 处理器集合</span>
+    <span style="color:#e6db74">&#39;handlers&#39;</span>: {
+        <span style="color:#75715e"># 输出到控制台</span>
+        <span style="color:#e6db74">&#39;console&#39;</span>: {
+            <span style="color:#e6db74">&#39;level&#39;</span>: <span style="color:#e6db74">&#39;INFO&#39;</span>,  <span style="color:#75715e"># 输出信息的最低级别</span>
+            <span style="color:#e6db74">&#39;class&#39;</span>: <span style="color:#e6db74">&#39;logging.StreamHandler&#39;</span>,
+            <span style="color:#e6db74">&#39;formatter&#39;</span>: <span style="color:#e6db74">&#39;standard&#39;</span>,  <span style="color:#75715e"># 使用standard格式</span>
+        },
+        <span style="color:#75715e"># 输出到文件</span>
+        <span style="color:#e6db74">&#39;info_file&#39;</span>: {
+            <span style="color:#e6db74">&#39;level&#39;</span>: <span style="color:#e6db74">&#39;INFO&#39;</span>,
+            <span style="color:#e6db74">&#39;class&#39;</span>: <span style="color:#e6db74">&#39;logging.handlers.TimedRotatingFileHandler&#39;</span>,
+            <span style="color:#e6db74">&#39;formatter&#39;</span>: <span style="color:#e6db74">&#39;standard&#39;</span>,
+            <span style="color:#e6db74">&#39;filename&#39;</span>: LOG_PATH <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;info.log&#39;</span>,  <span style="color:#75715e"># 输出位置</span>
+            <span style="color:#e6db74">&#39;when&#39;</span>: <span style="color:#e6db74">&#39;h&#39;</span>,  <span style="color:#75715e"># 每小时一个日志文件</span>
+            <span style="color:#e6db74">&#39;backupCount&#39;</span>: <span style="color:#ae81ff">10</span>,  <span style="color:#75715e"># 备份份数</span>
+            <span style="color:#e6db74">&#39;encoding&#39;</span>: <span style="color:#e6db74">&#39;utf8&#39;</span>,  <span style="color:#75715e"># 文件编码</span>
+        },
+        <span style="color:#75715e"># 输出到文件</span>
+        <span style="color:#e6db74">&#39;error_file&#39;</span>: {
+            <span style="color:#e6db74">&#39;level&#39;</span>: <span style="color:#e6db74">&#39;ERROR&#39;</span>,
+            <span style="color:#e6db74">&#39;class&#39;</span>: <span style="color:#e6db74">&#39;logging.handlers.TimedRotatingFileHandler&#39;</span>,
+            <span style="color:#e6db74">&#39;formatter&#39;</span>: <span style="color:#e6db74">&#39;standard&#39;</span>,
+            <span style="color:#e6db74">&#39;filename&#39;</span>: LOG_PATH <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;error.log&#39;</span>,
+            <span style="color:#e6db74">&#39;when&#39;</span>: <span style="color:#e6db74">&#39;h&#39;</span>,
+            <span style="color:#e6db74">&#39;backupCount&#39;</span>: <span style="color:#ae81ff">10</span>,
+            <span style="color:#e6db74">&#39;encoding&#39;</span>: <span style="color:#e6db74">&#39;utf8&#39;</span>,
+        },
+        <span style="color:#75715e"># 输出到文件</span>
+        <span style="color:#e6db74">&#39;sql_file&#39;</span>: {
+            <span style="color:#e6db74">&#39;level&#39;</span>: <span style="color:#e6db74">&#39;DEBUG&#39;</span>,
+            <span style="color:#e6db74">&#39;class&#39;</span>: <span style="color:#e6db74">&#39;logging.handlers.TimedRotatingFileHandler&#39;</span>,
+            <span style="color:#e6db74">&#39;formatter&#39;</span>: <span style="color:#e6db74">&#39;standard&#39;</span>,
+            <span style="color:#e6db74">&#39;filename&#39;</span>: LOG_PATH <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;sql.log&#39;</span>,
+            <span style="color:#e6db74">&#39;when&#39;</span>: <span style="color:#e6db74">&#39;h&#39;</span>,
+            <span style="color:#e6db74">&#39;backupCount&#39;</span>: <span style="color:#ae81ff">10</span>,
+            <span style="color:#e6db74">&#39;encoding&#39;</span>: <span style="color:#e6db74">&#39;utf8&#39;</span>,
+        },
+    },
+    <span style="color:#75715e"># 日志格式集合</span>
+    <span style="color:#e6db74">&#39;formatters&#39;</span>: {
+        <span style="color:#75715e"># 标准输出格式</span>
+        <span style="color:#e6db74">&#39;standard&#39;</span>: {
+            <span style="color:#75715e"># [具体时间][线程名:线程ID][日志名字:日志级别名称(日志级别ID)] [输出的模块:输出的函数]:日志内容</span>
+            <span style="color:#e6db74">&#39;format&#39;</span>: <span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%(asctime)s</span><span style="color:#e6db74"> [</span><span style="color:#e6db74">%(levelname)s</span><span style="color:#e6db74">] [L</span><span style="color:#e6db74">%(lineno)d</span><span style="color:#e6db74">] </span><span style="color:#e6db74">%(message)s</span><span style="color:#e6db74"> &#39;</span>
+        }
+    }
+}
+
+
+<span style="color:#75715e"># 使用自定义配置并获取logger</span>
+logging<span style="color:#f92672">.</span>config<span style="color:#f92672">.</span>dictConfig(log_config)
+logger <span style="color:#f92672">=</span> logging<span style="color:#f92672">.</span>getLogger(<span style="color:#e6db74">&#34;default&#34;</span>)
+sql_logger <span style="color:#f92672">=</span> logging<span style="color:#f92672">.</span>getLogger(<span style="color:#e6db74">&#34;sql&#34;</span>) <span style="color:#75715e"># 使用此logger会打印到sql.log文件</span>
+
+<span style="color:#75715e"># 使用</span>
+logger<span style="color:#f92672">.</span>debug(<span style="color:#e6db74">&#39;this is debug log.&#39;</span>)
+logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#39;this is info log.&#39;</span>)
+logger<span style="color:#f92672">.</span>warning(<span style="color:#e6db74">&#39;this is warning log.&#39;</span>)
+logger<span style="color:#f92672">.</span>error(<span style="color:#e6db74">&#39;this is error exception raised.&#39;</span>)
+</code></pre></div><h3 id="使用日志---自定义配置独立配置文件">使用日志 - 自定义配置（独立配置文件）</h3>
+<p>一、日志配置文件（例如文件名为：logging.conf）</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf">[loggers]
+keys=root,default
+
+[handlers]
+keys=console,info,warn,error
+
+[formatters]
+keys=standard
+
+[logger_root]
+level=INFO
+handlers=console
+
+[logger_default]
+level=DEBUG
+handlers=info,warn,error
+qualname=default
+propagate=1
+
+[handler_console]
+class=StreamHandler
+args=(sys.stdout,)
+level=DEBUG
+formatter=standard
+
+[handler_info]
+class=handlers.TimedRotatingFileHandler
+args=('logs/info.log', 'h', 1, 30)
+level=INFO
+formatter=standard
+
+[handler_warn]
+class=handlers.TimedRotatingFileHandler
+args=('logs/warn.log', 'h', 1, 30)
+level=WARN
+formatter=standard
+
+[handler_error]
+class=handlers.TimedRotatingFileHandler
+args=('logs/error.log', 'h', 1, 30)
+level=ERROR
+formatter=standard
+
+[formatter_standard]
+format=%(asctime)s - %(thread)s - %(levelname)s: %(message)s
+datefmt=
+</code></pre><p>二、实际python使用</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> logging.config
+
+<span style="color:#75715e"># 使用自定义配置文件并获取logger</span>
+logging<span style="color:#f92672">.</span>config<span style="color:#f92672">.</span>fileConfig(<span style="color:#e6db74">&#39;logging.conf&#39;</span>)
+logger <span style="color:#f92672">=</span> logging<span style="color:#f92672">.</span>getLogger(<span style="color:#e6db74">&#39;default&#39;</span>)
+
+<span style="color:#75715e"># 使用</span>
+logger<span style="color:#f92672">.</span>debug(<span style="color:#e6db74">&#39;this is debug log.&#39;</span>)
+logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#39;this is info log.&#39;</span>)
+logger<span style="color:#f92672">.</span>warning(<span style="color:#e6db74">&#39;this is warning log.&#39;</span>)
+logger<span style="color:#f92672">.</span>error(<span style="color:#e6db74">&#39;this is error exception raised.&#39;</span>)
+</code></pre></div><h3 id="计算文件md5码">计算文件MD5码</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">calculate_file_hashed</span>(file_path):
+    <span style="color:#66d9ef">with</span> open(file_path, <span style="color:#e6db74">&#39;rb&#39;</span>) <span style="color:#66d9ef">as</span> file:
+        m <span style="color:#f92672">=</span> hashlib<span style="color:#f92672">.</span>md5()
+        <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+            data <span style="color:#f92672">=</span> file<span style="color:#f92672">.</span>read(<span style="color:#ae81ff">8192</span>)
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> data:
+                <span style="color:#66d9ef">break</span>
+            m<span style="color:#f92672">.</span>update(data)
+        <span style="color:#66d9ef">return</span> m<span style="color:#f92672">.</span>hexdigest()
+</code></pre></div><h3 id="模拟浏览器发送-http-请求">模拟浏览器发送 HTTP 请求</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> requests
+
+URL <span style="color:#f92672">=</span> <span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;https://devcloud.cn-north-4.huaweicloud.com/codehub/rest/me?_=1659853888215&#39;</span>
+
+headers <span style="color:#f92672">=</span> {
+    <span style="color:#e6db74">&#39;User-Agent&#39;</span>: <span style="color:#e6db74">&#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36 Edg/103.0.1264.77&#39;</span>,
+    <span style="color:#e6db74">&#39;Accept&#39;</span>: <span style="color:#e6db74">&#39;*/*&#39;</span>,
+    <span style="color:#e6db74">&#39;Accept-Encoding&#39;</span>: <span style="color:#e6db74">&#39;gzip, deflate, br&#39;</span>,
+    <span style="color:#e6db74">&#39;Accept-Language&#39;</span>: <span style="color:#e6db74">&#39;zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6&#39;</span>,
+    <span style="color:#e6db74">&#39;Connection&#39;</span>: <span style="color:#e6db74">&#39;keep-alive&#39;</span>
+    <span style="color:#e6db74">&#39;Content-Type&#39;</span>: <span style="color:#e6db74">&#39;application/json;charset=utf-8&#39;</span>
+    <span style="color:#e6db74">&#39;Cookie&#39;</span>: <span style="color:#e6db74">&#39;&#39;</span>,
+    <span style="color:#e6db74">&#39;Host&#39;</span>: <span style="color:#e6db74">&#39;devcloud.cn-north-4.huaweicloud.com&#39;</span>,
+    <span style="color:#e6db74">&#39;Referer&#39;</span>: <span style="color:#e6db74">&#39;https://devcloud.cn-north-4.huaweicloud.com/codehub/ssh&#39;</span>,
+    <span style="color:#e6db74">&#39;X-Requested-With&#39;</span>: <span style="color:#e6db74">&#39;XMLHttpRequest&#39;</span>,
+}
+
+response <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>get(URL, headers<span style="color:#f92672">=</span>headers)
+content <span style="color:#f92672">=</span> str(response<span style="color:#f92672">.</span>content, <span style="color:#e6db74">&#39;UTF-8&#39;</span>)
+print(content)
+</code></pre></div><h3 id="写入文件">写入文件</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># 覆盖模式</span>
+<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#39;override_mode.txt&#39;</span>, <span style="color:#e6db74">&#39;w&#39;</span>) <span style="color:#66d9ef">as</span> file:
+    file<span style="color:#f92672">.</span>write(<span style="color:#e6db74">&#39;somethind&#39;</span>)
+
+<span style="color:#75715e"># 追加模式</span>
+<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#39;append_mode.txt&#39;</span>, <span style="color:#e6db74">&#39;a&#39;</span>) <span style="color:#66d9ef">as</span> file:
+    file<span style="color:#f92672">.</span>write(<span style="color:#e6db74">&#39;somethind&#39;</span>)
+
+<span style="color:#75715e"># 按行写入</span>
+<span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>):
+    <span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#39;lines.txt&#39;</span>, <span style="color:#e6db74">&#39;a&#39;</span>) <span style="color:#66d9ef">as</span> file:
+        file<span style="color:#f92672">.</span>write(<span style="color:#e6db74">&#39;line NO.:&#39;</span> <span style="color:#f92672">+</span> line <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+</code></pre></div>
+        </div>
+    </article>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="/posts/redis/trouble-shootings/"><span>Redis 相关常见异常</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="/posts/java%E5%9F%BA%E7%A1%80/java-trouble-shootings/"><span>Java 常见异常</span></a>
+    </div>
+</div>
+
+        </div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    function toggleLight() {
+        document.getElementById('page').classList.toggle('night');
+    }
+</script>
+</body>
+
+</html>

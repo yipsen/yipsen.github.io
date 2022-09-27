@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Redis on Yipsen Ye</title>
+    <link>http://yipsen.github.io/tags/redis/</link>
+    <description>Recent content in Redis on Yipsen Ye</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 06 Feb 2022 16:31:43 +0000</lastBuildDate><atom:link href="http://yipsen.github.io/tags/redis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Redis 相关常见异常</title>
+      <link>http://yipsen.github.io/posts/redis/trouble-shootings/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/redis/trouble-shootings/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -15,10 +15,9 @@
 class Employee:&amp;quot;&amp;quot;&amp;quot;公司员工&amp;quot;&amp;quot;&amp;quot;def __init__(self, name):self.__name = namedef doPerformance(self, skill):print(self.__name &#43; &amp;quot;的表演:&amp;quot;, end=&amp;quot;&amp;quot;)skill()def sing():&amp;quot;&amp;quot;&amp;quot;唱歌&amp;quot;&amp;quot;&amp;quot;print(&amp;quot;唱一首歌&amp;quot;)def dling():&amp;quot;&amp;quot;&amp;quot;拉Ukulele&amp;quot;&amp;quot;&amp;quot;print(&amp;quot;拉一曲Ukulele&amp;quot;)def joke():&amp;quot;&amp;quot;&amp;quot;说段子&amp;quot;&amp;quot;&amp;quot;print(&amp;quot;说一搞笑段子&amp;quot;)def performMagicTricks():&amp;quot;&amp;quot;&amp;quot;表演魔术&amp;quot;&amp;quot;&amp;quot;print(&amp;quot;神秘魔术&amp;quot;)def skateboarding():&amp;quot;&amp;quot;&amp;quot;玩滑板&amp;quot;&amp;quot;&amp;quot;print(&amp;quot;酷炫滑板&amp;quot;)测试代码：
 def testSkill():helen = Employee(&amp;quot;Helen&amp;quot;)helen.doPerformance(sing)frank = Employee(&amp;quot;Frank&amp;quot;)frank.doPerformance(dling)jacky = Employee(&amp;quot;Jacky&amp;quot;)jacky.doPerformance(joke)chork = Employee(&amp;quot;Chork&amp;quot;)chork.doPerformance(performMagicTricks)Kerry = Employee(&amp;quot;Kerry&amp;quot;)Kerry.doPerformance(skateboarding)输出结果：
 Helen的表演:唱一首歌Frank的表演:拉一曲UkuleleJacky的表演:说一搞笑段子Chork的表演:神秘魔术Kerry的表演:酷炫滑板从剧情中思考回调机制 在上面的示例中，每一个新员工都要进行表演，每个人表演自己擅长的技能。因此我们定义了一个 Employee 类，里面有一个 doPerformance 方法，用来进行表演节目；但每个人擅长的技能都不一样，因此我们为每一个上台表演的人定义了一个方法，在调用时传递给 doPerformance。像这样，将一个函数传递给另一个函数的方式叫回调机制。">
-<meta name="author"
-  content="">
+<meta name="author" content="">
 
-<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
 
 </head>
 
@@ -26,7 +25,7 @@ Helen的表演:唱一首歌Frank的表演:拉一曲UkuleleJacky的表演:说�
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
         <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
     </a>
 </div>
@@ -41,7 +40,7 @@ Helen的表演:唱一首歌Frank的表演:拉一曲UkuleleJacky的表演:说�
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/collections/">图集</a>
+                href="http://yipsen.github.io/collections/">附表</a>
         </li>
         
         <li class="nav-item">
@@ -54,13 +53,168 @@ Helen的表演:唱一首歌Frank的表演:拉一曲UkuleleJacky的表演:说�
     </header>
     <main id="content">
         
-<div class="container">
-    <article class="post-block">
+<div class="container"><aside>
+    <div>
+        
+        
+            
+            
+            <div class="post-category-icon"></div>
+            <a href="/categories/%e7%99%bd%e8%af%9d%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f28%e8%ae%b2/">白话设计模式28讲</a>
+            <ul>
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/00-%E7%94%9F%E6%B4%BB%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%90%AF%E7%A8%8B%E4%B9%8B%E5%89%8D%E8%AF%B7%E4%B8%8D%E8%A6%81%E9%94%99%E8%BF%87%E6%88%91/">00 生活中的设计模式：启程之前，请不要错过我</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/01-%E7%9B%91%E5%90%AC%E6%A8%A1%E5%BC%8F%E5%9D%91%E7%88%B9%E7%9A%84%E7%83%AD%E6%B0%B4%E5%99%A8/">01 监听模式：坑爹的热水器</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/02-%E9%80%82%E9%85%8D%E6%A8%A1%E5%BC%8F%E8%BA%AB%E9%AB%98%E4%B8%8D%E5%A4%9F%E9%9E%8B%E6%9D%A5%E5%87%91/">02 适配模式：身高不够鞋来凑</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/03-%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F%E4%BA%BA%E4%B8%8E%E6%B0%B4%E7%9A%84%E4%B8%89%E6%80%81/">03 状态模式：人与水的三态</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/04-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E4%BD%A0%E6%98%AF%E6%88%91%E7%94%9F%E5%91%BD%E7%9A%84%E5%94%AF%E4%B8%80/">04 单例模式：你是我生命的唯一</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/05-%E8%81%8C%E8%B4%A3%E6%A8%A1%E5%BC%8F%E6%88%91%E7%9A%84%E5%81%87%E6%9D%A1%E5%8E%BB%E5%93%AA%E4%BA%86/">05 职责模式：我的假条去哪了</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/06-%E4%B8%AD%E4%BB%8B%E6%A8%A1%E5%BC%8F%E6%89%BE%E6%88%BF%E5%AD%90%E9%97%AE%E4%B8%AD%E4%BB%8B/">06 中介模式：找房子问中介</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/07-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%B8%AE%E6%88%91%E6%8B%BF%E4%B8%80%E4%B8%8B%E5%BF%AB%E9%80%92/">07 代理模式：帮我拿一下快递</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/08-%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F%E4%BD%A0%E6%83%B3%E6%80%8E%E4%B9%88%E7%A9%BF%E5%B0%B1%E6%80%8E%E4%B9%88%E7%A9%BF/">08 装饰模式：你想怎么穿就怎么穿</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/09-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E4%BD%A0%E8%A6%81%E6%8B%BF%E9%93%81%E8%BF%98%E6%98%AF%E6%91%A9%E5%8D%A1/">09 工厂模式：你要拿铁还是摩卡</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/10-%E8%BF%AD%E4%BB%A3%E6%A8%A1%E5%BC%8F%E4%B8%8B%E4%B8%80%E4%B8%AA%E5%B0%B1%E6%98%AF%E4%BD%A0%E4%BA%86/">10 迭代模式：下一个就是你了</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/11-%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F%E8%87%AA%E5%B7%B1%E7%BB%84%E8%A3%85%E7%94%B5%E8%84%91/">11 组合模式：自己组装电脑</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/12-%E6%9E%84%E5%BB%BA%E6%A8%A1%E5%BC%8F%E6%83%B3%E8%A6%81%E8%BD%A6%E8%BF%98%E6%98%AF%E5%BA%84%E5%9B%AD/">12 构建模式：想要车还是庄园</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/13-%E5%85%8B%E9%9A%86%E6%A8%A1%E5%BC%8F%E7%BB%99%E4%BD%A0%E4%B8%80%E4%B8%AA%E5%88%86%E8%BA%AB%E6%9C%AF/">13 克隆模式：给你一个分身术</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/14-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F%E6%80%8E%E4%B9%88%E6%9D%A5%E4%B8%8D%E9%87%8D%E8%A6%81%E4%BA%BA%E5%88%B0%E5%B0%B1%E8%A1%8C/">14 策略模式：怎么来不重要，人到就行</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/15-%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E5%A4%A7%E9%97%B8%E8%9F%B9%E8%B5%B0%E8%B5%B7/">15 命令模式：大闸蟹，走起！</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/16-%E5%A4%87%E5%BF%98%E6%A8%A1%E5%BC%8F%E5%A5%BD%E8%AE%B0%E6%80%A7%E4%B8%8D%E5%A6%82%E7%83%82%E7%AC%94%E5%A4%B4/">16 备忘模式：好记性不如烂笔头</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/17-%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E9%A2%9C%E6%96%99%E5%BE%88%E8%B4%B5%E5%BF%85%E9%A1%BB%E5%85%85%E5%88%86%E5%88%A9%E7%94%A8/">17 享元模式：颜料很贵必须充分利用</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/18-%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E5%AD%A6%E5%A6%B9%E5%88%AB%E6%85%8C%E5%AD%A6%E9%95%BF%E5%B8%AE%E4%BD%A0/">18 外观模式：学妹别慌，学长帮你</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/19-%E8%AE%BF%E9%97%AE%E6%A8%A1%E5%BC%8F%E4%B8%80%E5%8D%83%E4%B8%AA%E8%AF%BB%E8%80%85%E4%B8%80%E5%8D%83%E4%B8%AA%E5%93%88%E5%A7%86%E9%9B%B7%E7%89%B9/">19 访问模式：一千个读者一千个哈姆雷特</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/20-%E7%94%9F%E6%B4%BB%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8E%E7%BB%8F%E5%85%B8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%B8%8D%E8%A7%A3%E6%B8%8A%E6%BA%90/">20 生活中的设计模式：与经典设计模式的不解渊源</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/21-%E7%94%9F%E6%B4%BB%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E9%82%A3%E4%BA%9B%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">21 生活中的设计模式：那些未完待续的设计模式</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/22-%E6%B7%B1%E5%85%A5%E8%A7%A3%E8%AF%BB%E8%BF%87%E6%BB%A4%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%88%B6%E4%BD%9C%E4%B8%80%E6%9D%AF%E9%B2%9C%E7%BA%AF%E7%BB%86%E8%85%BB%E7%9A%84%E8%B1%86%E6%B5%86/">22 深入解读过滤器模式：制作一杯鲜纯细腻的豆浆</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/23-%E6%B7%B1%E5%85%A5%E8%A7%A3%E8%AF%BB%E5%AF%B9%E8%B1%A1%E6%B1%A0%E6%8A%80%E6%9C%AF%E5%85%B1%E4%BA%AB%E8%AE%A9%E7%94%9F%E6%B4%BB%E6%9B%B4%E4%BE%BF%E6%8D%B7/">23 深入解读对象池技术：共享让生活更便捷</a></li>
+                
+                
+                
+                    <li>24 深入解读回调机制：把你技能亮出来</li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/25-%E8%B0%88%E8%B0%88%E6%88%91%E5%AF%B9%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%90%86%E8%A7%A3/">25 谈谈我对设计模式的理解</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/26-%E8%B0%88%E8%B0%88%E6%88%91%E5%AF%B9%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E7%9A%84%E6%80%9D%E8%80%83/">26 谈谈我对设计原则的思考</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/27-%E8%B0%88%E8%B0%88%E6%88%91%E5%AF%B9%E9%A1%B9%E7%9B%AE%E9%87%8D%E6%9E%84%E7%9A%84%E7%9C%8B%E6%B3%95/">27 谈谈我对项目重构的看法</a></li>
+                
+                
+            </ul>
+        
+    </div>
+</aside>
+
+<style>
+    aside {
+        position: fixed;
+        left: 20px;
+        background: #ffdee3;
+        border-radius: 6px;
+        padding: 20px;
+        padding-top: 60px;
+        box-shadow: 5px 10px #888;
+        list-style-type: none;
+        display: none;
+    }
+
+    .post-category-icon {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        left: 50%;
+        margin-left: -40px;
+        text-align: center;
+        font-size: 36px;
+        content: 'J';
+        background: #ffdee3;
+        border-radius: 100%;
+        border: 10px solid #fff;
+        box-shadow: 5px 10px #888;
+    }
+</style><article class="post-block">
         <h1 class="post-title">24 深入解读回调机制：把你技能亮出来</h1>
         <div class="post-info">
-            <div>2021-12-22|<a class="post-tag" href="/tags/design/">design</a></div><div class="post-category">
+            <div> 
+                <span class="post-date">📅&nbsp;2021-12-22 01:37:14</span>🏷️&nbsp;<a class="post-tag" href="/tags/design/">design</a></div><div class="post-category">
                 
-                <a href="/categories/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/"> 白话设计模式28讲 </a>
+                📚&nbsp;<a href="/categories/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/">白话设计模式28讲</a>
                 
             </div></div>
         <div class="post-content">
@@ -321,11 +475,11 @@ public class NewEmployee {
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight();">T</div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 11110 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     

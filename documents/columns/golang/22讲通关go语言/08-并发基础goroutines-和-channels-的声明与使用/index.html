@@ -24,10 +24,9 @@ func moreDefer(){defer fmt.Println(&amp;quot;First defer&amp;quot;)defer fmt.P
 线程 线程是进程的执行空间，一个进程可以有多个线程，线程被操作系统调度执行，比如下载一个文件，发送一个消息等。这种多个线程被操作系统同时调度执行的情况，就是多线程的并发。
 一个程序启动，就会有对应的进程被创建，同时进程也会启动一个线程，这个线程叫作主线程。如果主线程结束，那么整个程序就退出了。有了主线程，就可以从主线里启动很多其他线程，也就有了多线程的并发。
 协程（Goroutine） Go 语言中没有线程的概念，只有协程，也称为 goroutine。相比线程来说，协程更加轻量，一个程序可以随意启动成千上万个 goroutine。">
-<meta name="author"
-  content="">
+<meta name="author" content="">
 
-<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
 
 </head>
 
@@ -35,7 +34,7 @@ func moreDefer(){defer fmt.Println(&amp;quot;First defer&amp;quot;)defer fmt.P
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
         <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
     </a>
 </div>
@@ -50,7 +49,7 @@ func moreDefer(){defer fmt.Println(&amp;quot;First defer&amp;quot;)defer fmt.P
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/collections/">图集</a>
+                href="http://yipsen.github.io/collections/">附表</a>
         </li>
         
         <li class="nav-item">
@@ -63,13 +62,152 @@ func moreDefer(){defer fmt.Println(&amp;quot;First defer&amp;quot;)defer fmt.P
     </header>
     <main id="content">
         
-<div class="container">
-    <article class="post-block">
+<div class="container"><aside>
+    <div>
+        
+        
+            
+            
+            <div class="post-category-icon"></div>
+            <a href="/categories/22%e8%ae%b2%e9%80%9a%e5%85%b3go%e8%af%ad%e8%a8%80/">22讲通关Go语言</a>
+            <ul>
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/00-%E5%BC%80%E7%AF%87%E8%AF%8D-go-%E4%B8%BA%E5%BC%80%E5%8F%91%E8%80%85%E7%9A%84%E9%9C%80%E6%B1%82%E8%AE%BE%E8%AE%A1%E5%B8%A6%E4%BD%A0%E5%AE%9E%E7%8E%B0%E9%AB%98%E6%95%88%E5%B7%A5%E4%BD%9C/">00 开篇词 Go 为开发者的需求设计，带你实现高效工作</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/01-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E7%BC%96%E5%86%99%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA-go-%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F/">01 基础入门：编写你的第一个 Go 语言程序</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/02-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%BD%A0%E5%BF%85%E9%A1%BB%E6%8E%8C%E6%8F%A1%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B/">02 数据类型：你必须掌握的数据类型有哪些？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/03-%E6%8E%A7%E5%88%B6%E7%BB%93%E6%9E%84ifforswitch-%E9%80%BB%E8%BE%91%E8%AF%AD%E5%8F%A5%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/">03 控制结构：if、for、switch 逻辑语句的那些事儿</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/04-%E9%9B%86%E5%90%88%E7%B1%BB%E5%9E%8B%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8-arrayslice-%E5%92%8C-map/">04 集合类型：如何正确使用 array、slice 和 map？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/05-%E5%87%BD%E6%95%B0%E5%92%8C%E6%96%B9%E6%B3%95go-%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0%E5%92%8C%E6%96%B9%E6%B3%95%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C/">05 函数和方法：Go 语言中的函数和方法到底有什么不同？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/06-struct-%E5%92%8C-interface%E7%BB%93%E6%9E%84%E4%BD%93%E4%B8%8E%E6%8E%A5%E5%8F%A3%E9%83%BD%E5%AE%9E%E7%8E%B0%E4%BA%86%E5%93%AA%E4%BA%9B%E5%8A%9F%E8%83%BD/">06 struct 和 interface：结构体与接口都实现了哪些功能？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/07-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87-errordeferredpanic-%E7%AD%89%E5%A4%84%E7%90%86%E9%94%99%E8%AF%AF/">07 错误处理：如何通过 error、deferred、panic 等处理错误？</a></li>
+                
+                
+                
+                    <li>08 并发基础：Goroutines 和 Channels 的声明与使用</li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/09-%E5%90%8C%E6%AD%A5%E5%8E%9F%E8%AF%ADsync-%E5%8C%85%E8%AE%A9%E4%BD%A0%E5%AF%B9%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%E5%BE%97%E5%BF%83%E5%BA%94%E6%89%8B/">09 同步原语：sync 包让你对并发控制得心应手</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/10-context%E4%BD%A0%E5%BF%85%E9%A1%BB%E6%8E%8C%E6%8F%A1%E7%9A%84%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%E7%A5%9E%E5%99%A8/">10 Context：你必须掌握的多线程并发控制神器</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/11-%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8Fgo-%E8%AF%AD%E8%A8%80%E4%B8%AD%E5%8D%B3%E5%AD%A6%E5%8D%B3%E7%94%A8%E7%9A%84%E9%AB%98%E6%95%88%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8F/">11 并发模式：Go 语言中即学即用的高效并发模式</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/12-%E6%8C%87%E9%92%88%E8%AF%A6%E8%A7%A3%E5%9C%A8%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E5%BA%94%E8%AF%A5%E4%BD%BF%E7%94%A8%E6%8C%87%E9%92%88/">12 指针详解：在什么情况下应该使用指针？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/13-%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%E5%80%BC%E5%BC%95%E7%94%A8%E5%8F%8A%E6%8C%87%E9%92%88%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB/">13 参数传递：值、引用及指针之间的区别？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/14-%E5%86%85%E5%AD%98%E5%88%86%E9%85%8Dnew-%E8%BF%98%E6%98%AF-make%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E8%AF%A5%E7%94%A8%E8%B0%81/">14 内存分配：new 还是 make？什么情况下该用谁？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/15-%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8F%8D%E5%B0%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E7%BB%93%E6%9E%84%E4%BD%93%E4%B9%8B%E9%97%B4%E5%A6%82%E4%BD%95%E8%BD%AC%E6%8D%A2/">15 运行时反射：字符串和结构体之间如何转换？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/16-%E9%9D%9E%E7%B1%BB%E5%9E%8B%E5%AE%89%E5%85%A8%E8%AE%A9%E4%BD%A0%E6%97%A2%E7%88%B1%E5%8F%88%E6%81%A8%E7%9A%84-unsafe/">16 非类型安全：让你既爱又恨的 unsafe</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/17-sliceheaderslice-%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE/">17 SliceHeader：slice 如何高效处理数据？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/18-%E8%B4%A8%E9%87%8F%E4%BF%9D%E8%AF%81go-%E8%AF%AD%E8%A8%80%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E6%B5%8B%E8%AF%95%E4%BF%9D%E8%AF%81%E8%B4%A8%E9%87%8F/">18 质量保证：Go 语言如何通过测试保证质量？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/19-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96go-%E8%AF%AD%E8%A8%80%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E4%BB%A3%E7%A0%81%E6%A3%80%E6%9F%A5%E5%92%8C%E4%BC%98%E5%8C%96/">19 性能优化：Go 语言如何进行代码检查和优化？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/20-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E5%A4%9F%E6%8F%90%E5%8D%87%E7%A0%94%E5%8F%91%E6%95%88%E8%83%BD/">20 协作开发：模块化管理为什么能够提升研发效能？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/21-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8Bgo-%E8%AF%AD%E8%A8%80%E5%A6%82%E4%BD%95%E7%8E%A9%E8%BD%AC-restful-api-%E6%9C%8D%E5%8A%A1/">21 网络编程：Go 语言如何玩转 RESTful API 服务？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/22-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8Bgo-%E8%AF%AD%E8%A8%80%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87-rpc-%E5%AE%9E%E7%8E%B0%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%9C%8D%E5%8A%A1/">22 网络编程：Go 语言如何通过 RPC 实现跨平台服务？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/23-%E7%BB%93%E6%9D%9F%E8%AF%AD-%E4%BD%A0%E7%9A%84-go-%E8%AF%AD%E8%A8%80%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF/">23 结束语 你的 Go 语言成长之路</a></li>
+                
+                
+            </ul>
+        
+    </div>
+</aside>
+
+<style>
+    aside {
+        position: fixed;
+        left: 20px;
+        background: #ffdee3;
+        border-radius: 6px;
+        padding: 20px;
+        padding-top: 60px;
+        box-shadow: 5px 10px #888;
+        list-style-type: none;
+        display: none;
+    }
+
+    .post-category-icon {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        left: 50%;
+        margin-left: -40px;
+        text-align: center;
+        font-size: 36px;
+        content: 'J';
+        background: #ffdee3;
+        border-radius: 100%;
+        border: 10px solid #fff;
+        box-shadow: 5px 10px #888;
+    }
+</style><article class="post-block">
         <h1 class="post-title">08 并发基础：Goroutines 和 Channels 的声明与使用</h1>
         <div class="post-info">
-            <div>2021-12-22|<a class="post-tag" href="/tags/golang/">golang</a></div><div class="post-category">
+            <div> 
+                <span class="post-date">📅&nbsp;2021-12-22 01:33:01</span>🏷️&nbsp;<a class="post-tag" href="/tags/golang/">golang</a></div><div class="post-category">
                 
-                <a href="/categories/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/"> 22讲通关Go语言 </a>
+                📚&nbsp;<a href="/categories/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/">22讲通关Go语言</a>
                 
             </div></div>
         <div class="post-content">
@@ -344,11 +482,11 @@ func downloadFile(chanName string) string {
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight();">T</div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 11110 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     

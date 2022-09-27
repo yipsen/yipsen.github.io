@@ -15,10 +15,9 @@ ShardingSphere 执行引擎总体结构 在讲解具体的源代码之前，我�
 我们在ShardingStatement类中找到了如下所示的一个 shard 方法，这里用到了 SimpleQueryShardingEngine：
 private void shard(final String sql) {//从 Connection 中获取 ShardingRuntimeContext 上下文ShardingRuntimeContext runtimeContext = connection.getRuntimeContext(); //创建 SimpleQueryShardingEngineSimpleQueryShardingEngine shardingEngine = new SimpleQueryShardingEngine(runtimeContext.getRule(), runtimeContext.getProps(), runtimeContext.getMetaData(), runtimeContext.getParseEngine()); //执行分片路由并获取路由结果sqlRouteResult = shardingEngine.shard(sql, Collections.emptyList());}而在ShardingPreparedStatement中也存在一个类似的 shard 方法。
 从设计模式上讲，ShardingStatement 和 ShardingPreparedStatement 实际上就是很典型的外观类，它们把与 SQL 路由和执行的入口类都整合在一起。">
-<meta name="author"
-  content="">
+<meta name="author" content="">
 
-<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
 
 </head>
 
@@ -26,7 +25,7 @@ private void shard(final String sql) {//从 Connection 中获取 ShardingRuntim
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
         <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
     </a>
 </div>
@@ -41,7 +40,7 @@ private void shard(final String sql) {//从 Connection 中获取 ShardingRuntim
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/collections/">图集</a>
+                href="http://yipsen.github.io/collections/">附表</a>
         </li>
         
         <li class="nav-item">
@@ -54,13 +53,184 @@ private void shard(final String sql) {//从 Connection 中获取 ShardingRuntim
     </header>
     <main id="content">
         
-<div class="container">
-    <article class="post-block">
+<div class="container"><aside>
+    <div>
+        
+        
+            
+            
+            <div class="post-category-icon"></div>
+            <a href="/categories/shardingsphere%e6%a0%b8%e5%bf%83%e5%8e%9f%e7%90%86%e7%b2%be%e8%ae%b2/">ShardingSphere核心原理精讲</a>
+            <ul>
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/00-%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%AD%A6%E4%B9%A0%E4%B8%80%E6%AC%BE%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6/">00 如何正确学习一款分库分表开源框架？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/01-%E4%BB%8E%E7%90%86%E8%AE%BA%E5%88%B0%E5%AE%9E%E8%B7%B5%E5%A6%82%E4%BD%95%E8%AE%A9%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E7%9C%9F%E6%AD%A3%E8%90%BD%E5%9C%B0/">01 从理论到实践：如何让分库分表真正落地？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/02-%E9%A1%B6%E7%BA%A7%E9%A1%B9%E7%9B%AEshardingsphere-%E6%98%AF%E4%B8%80%E6%AC%BE%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84-apache-%E5%BC%80%E6%BA%90%E8%BD%AF%E4%BB%B6/">02 顶级项目：ShardingSphere 是一款什么样的 Apache 开源软件？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/03-%E8%A7%84%E8%8C%83%E5%85%BC%E5%AE%B9jdbc-%E8%A7%84%E8%8C%83%E4%B8%8E-shardingsphere-%E6%98%AF%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB/">03 规范兼容：JDBC 规范与 ShardingSphere 是什么关系？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/04-%E5%BA%94%E7%94%A8%E9%9B%86%E6%88%90%E5%9C%A8%E4%B8%9A%E5%8A%A1%E7%B3%BB%E7%BB%9F%E4%B8%AD%E4%BD%BF%E7%94%A8-shardingsphere-%E7%9A%84%E6%96%B9%E5%BC%8F%E6%9C%89%E5%93%AA%E4%BA%9B/">04 应用集成：在业务系统中使用 ShardingSphere 的方式有哪些？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/05-%E9%85%8D%E7%BD%AE%E9%A9%B1%E5%8A%A8shardingsphere-%E4%B8%AD%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BD%93%E7%B3%BB%E6%98%AF%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E7%9A%84/">05 配置驱动：ShardingSphere 中的配置体系是如何设计的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/09-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%BC%BA%E4%B8%80%E8%87%B4%E6%80%A7%E4%BA%8B%E5%8A%A1%E4%B8%8E%E6%9F%94%E6%80%A7%E4%BA%8B%E5%8A%A1/">09 分布式事务：如何使用强一致性事务与柔性事务？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/10-%E6%95%B0%E6%8D%AE%E8%84%B1%E6%95%8F%E5%A6%82%E4%BD%95%E7%A1%AE%E4%BF%9D%E6%95%8F%E6%84%9F%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE/">10 数据脱敏：如何确保敏感数据的安全访问？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/11-%E7%BC%96%E6%8E%92%E6%B2%BB%E7%90%86%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86/">11 编排治理：如何实现分布式环境下的动态配置管理？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/12-%E4%BB%8E%E5%BA%94%E7%94%A8%E5%88%B0%E5%8E%9F%E7%90%86%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E9%98%85%E8%AF%BB-shardingsphere-%E6%BA%90%E7%A0%81/">12 从应用到原理：如何高效阅读 ShardingSphere 源码？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/13-%E5%BE%AE%E5%86%85%E6%A0%B8%E6%9E%B6%E6%9E%84shardingsphere-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%89%A9%E5%B1%95%E6%80%A7/">13 微内核架构：ShardingSphere 如何实现系统的扩展性？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/14-%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%BB%E9%94%AEshardingsphere-%E4%B8%AD%E6%9C%89%E5%93%AA%E4%BA%9B%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%BB%E9%94%AE%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">14 分布式主键：ShardingSphere 中有哪些分布式主键实现方式？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/15-%E8%A7%A3%E6%9E%90%E5%BC%95%E6%93%8Esql-%E8%A7%A3%E6%9E%90%E6%B5%81%E7%A8%8B%E5%BA%94%E8%AF%A5%E5%8C%85%E6%8B%AC%E5%93%AA%E4%BA%9B%E6%A0%B8%E5%BF%83%E9%98%B6%E6%AE%B5%E4%B8%8A/">15 解析引擎：SQL 解析流程应该包括哪些核心阶段？（上）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/16-%E8%A7%A3%E6%9E%90%E5%BC%95%E6%93%8Esql-%E8%A7%A3%E6%9E%90%E6%B5%81%E7%A8%8B%E5%BA%94%E8%AF%A5%E5%8C%85%E6%8B%AC%E5%93%AA%E4%BA%9B%E6%A0%B8%E5%BF%83%E9%98%B6%E6%AE%B5%E4%B8%8B/">16 解析引擎：SQL 解析流程应该包括哪些核心阶段？（下）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/17-%E8%B7%AF%E7%94%B1%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E5%88%86%E7%89%87%E8%B7%AF%E7%94%B1%E6%A0%B8%E5%BF%83%E7%B1%BB-shardingrouter-%E7%9A%84%E8%BF%90%E4%BD%9C%E6%9C%BA%E5%88%B6/">17 路由引擎：如何理解分片路由核心类 ShardingRouter 的运作机制？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/18-%E8%B7%AF%E7%94%B1%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E7%9A%84%E5%88%86%E7%89%87%E8%B7%AF%E7%94%B1%E5%92%8C%E5%B9%BF%E6%92%AD%E8%B7%AF%E7%94%B1/">18 路由引擎：如何实现数据访问的分片路由和广播路由？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/19-%E8%B7%AF%E7%94%B1%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E5%9C%A8%E8%B7%AF%E7%94%B1%E8%BF%87%E7%A8%8B%E4%B8%AD%E9%9B%86%E6%88%90%E5%A4%9A%E7%A7%8D%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E5%92%8C%E8%B7%AF%E7%94%B1%E7%AE%97%E6%B3%95/">19 路由引擎：如何在路由过程中集成多种路由策略和路由算法？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/20-%E6%94%B9%E5%86%99%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84-sql-%E6%94%B9%E5%86%99%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6/">20 改写引擎：如何理解装饰器模式下的 SQL 改写实现机制？</a></li>
+                
+                
+                
+                    <li>21 执行引擎：分片环境下 SQL 执行的整体流程应该如何进行抽象？</li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/22-%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E6%8A%8A%E6%8F%A1-shardingsphere-%E4%B8%AD%E7%9A%84-executor-%E6%89%A7%E8%A1%8C%E6%A8%A1%E5%9E%8B%E4%B8%8A/">22 执行引擎：如何把握 ShardingSphere 中的 Executor 执行模型？（上）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/23-%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E6%8A%8A%E6%8F%A1-shardingsphere-%E4%B8%AD%E7%9A%84-executor-%E6%89%A7%E8%A1%8C%E6%A8%A1%E5%9E%8B%E4%B8%8B/">23 执行引擎：如何把握 ShardingSphere 中的 Executor 执行模型？（下）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/24-%E5%BD%92%E5%B9%B6%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E6%95%B0%E6%8D%AE%E5%BD%92%E5%B9%B6%E7%9A%84%E7%B1%BB%E5%9E%8B%E4%BB%A5%E5%8F%8A%E7%AE%80%E5%8D%95%E5%BD%92%E5%B9%B6%E7%AD%96%E7%95%A5%E7%9A%84%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B/">24 归并引擎：如何理解数据归并的类型以及简单归并策略的实现过程？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/25-%E5%BD%92%E5%B9%B6%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E6%B5%81%E5%BC%8F%E5%BD%92%E5%B9%B6%E5%92%8C%E5%86%85%E5%AD%98%E5%BD%92%E5%B9%B6%E5%9C%A8%E5%A4%8D%E6%9D%82%E5%BD%92%E5%B9%B6%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%BA%94%E7%94%A8%E6%96%B9%E5%BC%8F/">25 归并引擎：如何理解流式归并和内存归并在复杂归并场景下的应用方式？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/26-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E6%99%AE%E9%80%9A%E4%B8%BB%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%92%8C%E5%88%86%E7%89%87%E4%B8%BB%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%88%86%E5%88%AB%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%9A%84/">26 读写分离：普通主从架构和分片主从架构分别是如何实现的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/27-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3-shardingsphere-%E4%B8%AD%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%9A%84%E6%8A%BD%E8%B1%A1%E8%BF%87%E7%A8%8B/">27 分布式事务：如何理解 ShardingSphere 中对分布式事务的抽象过程？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/28-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1shardingsphere-%E4%B8%AD%E5%A6%82%E4%BD%95%E9%9B%86%E6%88%90%E5%BC%BA%E4%B8%80%E8%87%B4%E6%80%A7%E4%BA%8B%E5%8A%A1%E5%92%8C%E6%9F%94%E6%80%A7%E4%BA%8B%E5%8A%A1%E6%94%AF%E6%8C%81%E4%B8%8A/">28 分布式事务：ShardingSphere 中如何集成强一致性事务和柔性事务支持？（上）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/29-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1shardingsphere-%E4%B8%AD%E5%A6%82%E4%BD%95%E9%9B%86%E6%88%90%E5%BC%BA%E4%B8%80%E8%87%B4%E6%80%A7%E4%BA%8B%E5%8A%A1%E5%92%8C%E6%9F%94%E6%80%A7%E4%BA%8B%E5%8A%A1%E6%94%AF%E6%8C%81%E4%B8%8B/">29 分布式事务：ShardingSphere 中如何集成强一致性事务和柔性事务支持？（下）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/30-%E6%95%B0%E6%8D%AE%E8%84%B1%E6%95%8F%E5%A6%82%E4%BD%95%E5%9F%BA%E4%BA%8E%E6%94%B9%E5%86%99%E5%BC%95%E6%93%8E%E5%AE%9E%E7%8E%B0%E4%BD%8E%E4%BE%B5%E5%85%A5%E6%80%A7%E6%95%B0%E6%8D%AE%E8%84%B1%E6%95%8F%E6%96%B9%E6%A1%88/">30 数据脱敏：如何基于改写引擎实现低侵入性数据脱敏方案？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/31-%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E5%A6%82%E4%BD%95%E5%9F%BA%E4%BA%8E%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E5%AE%9E%E7%8E%B0%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E7%9A%84%E5%8A%A8%E6%80%81%E5%8C%96%E7%AE%A1%E7%90%86/">31 配置中心：如何基于配置中心实现配置信息的动态化管理？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/32-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%A6%82%E4%BD%95%E5%9F%BA%E4%BA%8E%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BF%E9%97%AE%E7%86%94%E6%96%AD%E6%9C%BA%E5%88%B6/">32 注册中心：如何基于注册中心实现数据库访问熔断机制？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/33-%E9%93%BE%E8%B7%AF%E8%B7%9F%E8%B8%AA%E5%A6%82%E4%BD%95%E5%9F%BA%E4%BA%8E-hook-%E6%9C%BA%E5%88%B6%E4%BB%A5%E5%8F%8A-opentracing-%E5%8D%8F%E8%AE%AE%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E9%93%BE%E8%B7%AF%E8%B7%9F%E8%B8%AA/">33 链路跟踪：如何基于 Hook 机制以及 OpenTracing 协议实现数据访问链路跟踪？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/35-%E7%BB%93%E8%AF%ADshardingsphere-%E6%80%BB%E7%BB%93%E5%8F%8A%E5%B1%95%E6%9C%9B/">35 结语：ShardingSphere 总结及展望</a></li>
+                
+                
+            </ul>
+        
+    </div>
+</aside>
+
+<style>
+    aside {
+        position: fixed;
+        left: 20px;
+        background: #ffdee3;
+        border-radius: 6px;
+        padding: 20px;
+        padding-top: 60px;
+        box-shadow: 5px 10px #888;
+        list-style-type: none;
+        display: none;
+    }
+
+    .post-category-icon {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        left: 50%;
+        margin-left: -40px;
+        text-align: center;
+        font-size: 36px;
+        content: 'J';
+        background: #ffdee3;
+        border-radius: 100%;
+        border: 10px solid #fff;
+        box-shadow: 5px 10px #888;
+    }
+</style><article class="post-block">
         <h1 class="post-title">21 执行引擎：分片环境下 SQL 执行的整体流程应该如何进行抽象？</h1>
         <div class="post-info">
-            <div>2021-12-22|<a class="post-tag" href="/tags/sharding/">sharding</a></div><div class="post-category">
+            <div> 
+                <span class="post-date">📅&nbsp;2021-12-22 01:56:00</span>🏷️&nbsp;<a class="post-tag" href="/tags/sharding/">sharding</a></div><div class="post-category">
                 
-                <a href="/categories/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/"> ShardingSphere核心原理精讲 </a>
+                📚&nbsp;<a href="/categories/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/">ShardingSphere核心原理精讲</a>
                 
             </div></div>
         <div class="post-content">
@@ -301,11 +471,11 @@ return executeCallback(executeCallback);
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight();">T</div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 11110 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     

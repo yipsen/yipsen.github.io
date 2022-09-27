@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>kubernetes cluster installation step | Yipsen Ye</title>
+<meta name="description" content="一、配置主机名hostname  重命名：假设是master节点准备命名为：kube-master-01  hostnamectl set-hostname kube-master-01 加入hosts：假设本机 ip 为 192.168.163.129  vi /etc/hosts 127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4 ::1 localhost localhost.localdomain localhost6 localhost6.localdomain6 192.168.163.129 kube-master-01 二、准备工作  关闭原防火墙，设置防火墙为 iptables 并设置空规则  # 关闭防火墙 systemctl stop firewalld &amp;amp;&amp;amp; systemctl disable firewalld # 安装 iptables yum -y install iptables-services # 配置 iptables systemctl start iptables &amp;amp;&amp;amp; systemctl enable iptables &amp;amp;&amp;amp; iptables -F &amp;amp;&amp;amp; service iptables save 关闭 swap，关闭SELINUX  # 关闭 swap swapoff -a # 永久关闭 swap，即在 fstab 配置文件中采用 # 号注释 swap 那一行配置 sed -i &amp;#39;/ swap / s/^\(.">
+<meta name="author" content="">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title">kubernetes cluster installation step</h1>
+        <div class="post-info">
+            <div> 
+                <span class="post-date">📅&nbsp;2022-08-15 22:00:00</span></div></div>
+        <div class="post-content">
+            <h3 id="一配置主机名hostname">一、配置主机名hostname</h3>
+<ol>
+<li>重命名：假设是master节点准备命名为：<code>kube-master-01</code></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">hostnamectl set-hostname kube-master-01
+</code></pre></div><ol start="2">
+<li>加入hosts：假设本机 ip 为 <code>192.168.163.129</code></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">vi /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+192.168.163.129 kube-master-01
+</code></pre></div><h3 id="二准备工作">二、准备工作</h3>
+<ol>
+<li>关闭原防火墙，设置防火墙为 iptables 并设置空规则</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 关闭防火墙</span>
+systemctl stop firewalld <span style="color:#f92672">&amp;&amp;</span> systemctl disable firewalld
+<span style="color:#75715e"># 安装 iptables</span>
+yum -y install iptables-services
+<span style="color:#75715e"># 配置 iptables</span>
+systemctl start iptables <span style="color:#f92672">&amp;&amp;</span> systemctl enable iptables <span style="color:#f92672">&amp;&amp;</span> iptables -F <span style="color:#f92672">&amp;&amp;</span> service iptables save
+</code></pre></div><ol start="2">
+<li>关闭 swap，关闭SELINUX</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 关闭 swap</span>
+swapoff -a
+<span style="color:#75715e"># 永久关闭 swap，即在 fstab 配置文件中采用 # 号注释 swap 那一行配置</span>
+sed -i <span style="color:#e6db74">&#39;/ swap / s/^\(.*\)$/#\1/g&#39;</span> /etc/fstab
+<span style="color:#75715e"># 关闭SELINUX</span>
+setenforce <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> sed -i <span style="color:#e6db74">&#39;s/^SELINUX=.*/SELINUX=disabled/&#39;</span> /etc/selinux/config
+</code></pre></div><ol start="3">
+<li>安装依赖项</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 安装时钟同步</span>
+yum install -y ntp
+<span style="color:#75715e"># 开机自启动</span>
+systemctl start ntpd <span style="color:#f92672">&amp;&amp;</span> systemctl enable ntpd
+<span style="color:#75715e"># 调整时区为东八区</span>
+timedatectl set-timezone Asia/Shanghai
+<span style="color:#75715e"># 将当前时钟写入硬件时钟</span>
+timedatectl set-local-rtc <span style="color:#ae81ff">0</span>
+<span style="color:#75715e"># 重启依赖时钟的服务</span>
+systemctl restart rsyslog
+systemctl restart crond
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 必须</span>
+yum install -y conntrack socat
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 可选，但最好安装，有部分可能已经有了</span>
+yum install -y ntpdate ntp ipvsadm ipset jq iptables curl sysstat libseccomp wget vim net-tools git
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 下载安装 crictl</span>
+wget https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.22.1/crictl-v1.22.1-linux-amd64.tar.gz
+tar zxvf crictl-v1.22.1-linux-amd64.tar.gz
+mv crictl /usr/bin/
+</code></pre></div><ol start="4">
+<li>调整内核参数：针对 kubernetes (可选：暂未执行过)</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat &gt; kubernetes.conf <span style="color:#e6db74">&lt;&lt;EOF
+</span><span style="color:#e6db74">net.bridge.bridge-nf-call-iptables=1
+</span><span style="color:#e6db74">net.bridge.bridge-nf-call-ip6tables=1
+</span><span style="color:#e6db74">net.ipv4.ip_forward=1
+</span><span style="color:#e6db74">net.ipv4.tcp_tw_recycle=0
+</span><span style="color:#e6db74">vm.swappiness=0 # 禁止使用 swap 空间，只有当系统 OOM 时才允许使用它
+</span><span style="color:#e6db74">vm.overcommit_memory=1 # 不检查物理内存是否够用
+</span><span style="color:#e6db74">vm.panic_on_oom=0 # 开启 OOM
+</span><span style="color:#e6db74">fs.inotify.max_user_instances=8192
+</span><span style="color:#e6db74">fs.inotify.max_user_watches=1048576
+</span><span style="color:#e6db74">fs.file-max=52706963
+</span><span style="color:#e6db74">fs.nr_open=52706963
+</span><span style="color:#e6db74">net.ipv6.conf.all.disable_ipv6=1
+</span><span style="color:#e6db74">net.netfilter.nf_conntrack_max=2310720
+</span><span style="color:#e6db74">EOF</span>
+cp kubernetes.conf /etc/sysctl.d/kubernetes.conf
+sysctl -p /etc/sysctl.d/kubernetes.conf
+</code></pre></div><ol start="5">
+<li>修改日志配置（可选：暂未执行过）</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 持久化保存日志的目录</span>
+mkdir /var/log/journal
+mkdir /etc/systemd/journald.conf.d
+cat &gt; /etc/systemd/journald.conf.d/99-prophet.conf <span style="color:#e6db74">&lt;&lt;EOF
+</span><span style="color:#e6db74">[Journal]
+</span><span style="color:#e6db74"># 持久化保存到磁盘
+</span><span style="color:#e6db74">Storage=persistent
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"># 压缩历史日志
+</span><span style="color:#e6db74">Compress=yes
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">SyncIntervalSec=5m
+</span><span style="color:#e6db74">RateLimitInterval=30s
+</span><span style="color:#e6db74">RateLimitBurst=1000
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"># 最大占用空间 10G
+</span><span style="color:#e6db74">SystemMaxUse=10G
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"># 单日志文件最大 200M
+</span><span style="color:#e6db74">SystemMaxFileSize=200M
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"># 日志保存时间 2 周
+</span><span style="color:#e6db74">MaxRetentionSec=2week
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"># 不将日志转发到 syslog
+</span><span style="color:#e6db74">ForwardToSyslog=no
+</span><span style="color:#e6db74">EOF</span>
+systemctl restart systemd-journald
+</code></pre></div><ol start="6">
+<li>升级 CentOS 7 的内核到 4.x 版本（可选：暂未执行过）</li>
+</ol>
+<p>CentOS 7.x 系统自带的 3.10.x 内核存在一些 bug，导致运行的 docker、kubernetes 不稳定。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
+<span style="color:#75715e"># 安装完成后检查 /boot/grub2/grub.cfg 中对应内核 menuentry 中是否包含 initrd16 配置，如果没有，再安装一次！</span>
+yum --enablerepo<span style="color:#f92672">=</span>elrepo-kernel install -y kernel-lt
+<span style="color:#75715e"># 设置开机从新内核启动</span>
+grub2-set-default <span style="color:#e6db74">&#34;CentOS Linux (5.4.210-1.el7.elrepo.x86_64) 7 (Core)&#34;</span>
+</code></pre></div><ol start="7">
+<li>kube-proxy 开启 ipvs 的前置条件（即满足才会采用 ipvs，可选，但最好设置）</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">modprobe br_netfilter
+
+cat &gt; /etc/sysconfig/modules/ipvs.modules <span style="color:#e6db74">&lt;&lt;EOF
+</span><span style="color:#e6db74">#!/bin/bash
+</span><span style="color:#e6db74">modprobe -- ip_vs
+</span><span style="color:#e6db74">modprobe -- ip_vs_rr
+</span><span style="color:#e6db74">modprobe -- ip_vs_wrr
+</span><span style="color:#e6db74">modprobe -- ip_vs_sh
+</span><span style="color:#e6db74">modprobe -- nf_conntrack_ipv4
+</span><span style="color:#e6db74">EOF</span>
+chmod <span style="color:#ae81ff">755</span> /etc/sysconfig/modules/ipvs.modules <span style="color:#f92672">&amp;&amp;</span> bash /etc/sysconfig/modules/ipvs.modules <span style="color:#f92672">&amp;&amp;</span> lsmod | grep -e ip_vs -e nf_conntrack_ipv4
+</code></pre></div><h3 id="三安装docker">三、安装docker</h3>
+<ol>
+<li>更新组件</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yum update -y
+</code></pre></div><ol start="2">
+<li>安装docker</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 移除原 docker 版本</span>
+yum remove docker  docker-common docker-selinux docker-engine
+<span style="color:#75715e"># 配置中央仓库</span>
+yum-config-manager --add-repo http://download.docker.com/linux/centos/docker-ce.repo
+<span style="color:#75715e"># 配置阿里仓库</span>
+yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+<span style="color:#75715e"># 安装 docker 依赖项</span>
+yum install -y yum-utils device-mapper-persistent-data lvm2
+<span style="color:#75715e"># 查看 docker 版本列表</span>
+<span style="color:#75715e"># yum list docker-ce --showduplicates | sort -r</span>
+<span style="color:#75715e"># 安装最新版 docker；如果希望安装指定版本 docker，可以通过`yum install docker-ce-[version]`命令来安装</span>
+yum install -y docker-ce
+<span style="color:#75715e"># 启动 docker，设置开机启动 docker</span>
+systemctl start docker <span style="color:#f92672">&amp;&amp;</span> systemctl enable docker
+<span style="color:#75715e"># 查看 docker 启动状态</span>
+systemctl status docker
+<span style="color:#75715e"># 创建 /etc/docker 目录</span>
+mkdir /etc/docker
+<span style="color:#75715e"># 配置 daemon</span>
+cat &gt; /etc/docker/daemon.json <span style="color:#e6db74">&lt;&lt;EOF
+</span><span style="color:#e6db74">{
+</span><span style="color:#e6db74">  &#34;exec-opts&#34;: [&#34;native.cgroupdriver=systemd&#34;],
+</span><span style="color:#e6db74">  &#34;log-driver&#34;: &#34;json-file&#34;,
+</span><span style="color:#e6db74">  &#34;log-opts&#34;: {
+</span><span style="color:#e6db74">    &#34;max-size&#34;: &#34;100m&#34;
+</span><span style="color:#e6db74">  }
+</span><span style="color:#e6db74">}
+</span><span style="color:#e6db74">EOF</span>
+mkdir -p /etc/systemd/system/docker.service.d
+<span style="color:#75715e"># 重启 docker</span>
+systemctl daemon-reload <span style="color:#f92672">&amp;&amp;</span> systemctl restart docker <span style="color:#f92672">&amp;&amp;</span> systemctl enable docker
+</code></pre></div><h3 id="四安装-kubernetes">四、安装 kubernetes</h3>
+<p>以下方式未尝试过：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat <span style="color:#e6db74">&lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo
+</span><span style="color:#e6db74">[kubernetes]
+</span><span style="color:#e6db74">name=Kubernetes
+</span><span style="color:#e6db74">baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
+</span><span style="color:#e6db74">enabled=1
+</span><span style="color:#e6db74">gpgcheck=0
+</span><span style="color:#e6db74">repo_gpgcheck=0
+</span><span style="color:#e6db74">gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+</span><span style="color:#e6db74">EOF</span>
+
+yum -y install kubeadm-1.18.0 kubectl-1.18.0 kubelet-1.18.0
+systemctl enable kubelet.service
+</code></pre></div><ol>
+<li>下载安装 kubernetes</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 查看 kubernetes 最新稳定版本</span>
+<span style="color:#75715e"># curl -sSL &lt;https://dl.k8s.io/release/stable.txt&gt;</span>
+<span style="color:#75715e"># 下载 kubernetes v1.22.1 版本</span>
+wget -q &lt;https://dl.k8s.io/v1.22.1/kubernetes-server-linux-amd64.tar.gz&gt;
+<span style="color:#75715e"># 解压</span>
+tar -zxvf kubernetes-server-linux-amd64.tar.gz
+<span style="color:#75715e"># 查看关键软件是否存在：kubeadm、kubelet、kubectl</span>
+<span style="color:#75715e"># ls kubernetes/server/bin/ | grep -E &#39;kubeadm|kubelet|kubectl&#39;</span>
+<span style="color:#75715e"># 复制到系统环境路径 /usr/bin</span>
+cp -a kubernetes/server/bin/kube<span style="color:#f92672">{</span>adm,ctl,let<span style="color:#f92672">}</span> /usr/bin/
+<span style="color:#75715e"># 检查复制结果</span>
+<span style="color:#75715e"># ls /usr/bin/kube*</span>
+<span style="color:#75715e"># 检查 kubeadm 版本信息</span>
+<span style="color:#75715e"># kubeadm version</span>
+<span style="color:#75715e"># 检查 kubectl 版本信息</span>
+<span style="color:#75715e"># kubectl version --client</span>
+<span style="color:#75715e"># 检查 kubelet 版本信息</span>
+<span style="color:#75715e"># kubelet --version</span>
+</code></pre></div><ol start="2">
+<li>新增 kubelet 服务</li>
+</ol>
+<ul>
+<li>新增文件<code>/etc/systemd/system/kubelet.service</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat &gt; /etc/systemd/system/kubelet.service <span style="color:#e6db74">&lt;&lt;EOF
+</span><span style="color:#e6db74">[Unit]
+</span><span style="color:#e6db74">Description=kubelet: The Kubernetes Agent
+</span><span style="color:#e6db74">Documentation=http://kubernetes.io/docs/
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">[Service]
+</span><span style="color:#e6db74">ExecStart=/usr/bin/kubelet
+</span><span style="color:#e6db74">Restart=always
+</span><span style="color:#e6db74">StartLimitInterval=0
+</span><span style="color:#e6db74">RestartSec=10
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">[Install]
+</span><span style="color:#e6db74">WantedBy=multi-user.target
+</span><span style="color:#e6db74">EOF</span>
+</code></pre></div><ul>
+<li>新增文件夹<code>/etc/systemd/system/kubelet.service.d</code>及文件<code>kubeadm.conf</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mkdir -p /etc/systemd/system/kubelet.service.d
+cat &gt; /etc/systemd/system/kubelet.service.d/kubeadm.conf <span style="color:#e6db74">&lt;&lt;EOF
+</span><span style="color:#e6db74">[Service]
+</span><span style="color:#e6db74">Environment=&#34;KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf&#34;
+</span><span style="color:#e6db74">Environment=&#34;KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml&#34;
+</span><span style="color:#e6db74">EnvironmentFile=-/var/lib/kubelet/kubeadm-flags.env
+</span><span style="color:#e6db74">EnvironmentFile=-/etc/default/kubelet
+</span><span style="color:#e6db74">ExecStart=
+</span><span style="color:#e6db74">ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_KUBEADM_ARGS $KUBELET_EXTRA_ARGS
+</span><span style="color:#e6db74">EOF</span>
+</code></pre></div><ul>
+<li>设置开机启动 kubelet</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">systemctl enable kubelet
+</code></pre></div><h3 id="五正式初始化安装分为安装-master-或-worker-节点集群中需优先安装一个-master-节点">五、正式初始化安装（分为安装 master 或 worker 节点，集群中需优先安装一个 master 节点）</h3>
+<p>以下方式未尝试过：(安装 master 节点)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
+</code></pre></div><h4 id="1-安装-master-节点">1. 安装 master 节点</h4>
+<ul>
+<li>执行命令</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubeadm init --apiserver-advertise-address<span style="color:#f92672">=</span>192.168.8.100 --image-repository<span style="color:#f92672">=</span>registry.aliyuncs.com/google_containers --kubernetes-version v1.18.0 --service-cidr<span style="color:#f92672">=</span>10.96.0.0/12 --pod-network-cidr<span style="color:#f92672">=</span>10.244.0.0/16 | tee kubeadm-init.log
+</code></pre></div><blockquote>
+<p>参数解释：
+apiserver-advertise-address：指定本机ip（否则可能报错），本例为192.168.163.129
+image-repository：采用从阿里云镜像中拉取，以防止墙的原因而拉取失败，参照错误点[]
+kubernetes-version：指定安装的 kubernetes 版本号，本例为 v1.22.1
+service-cidr：
+pod-network-cidr：</p>
+</blockquote>
+<ul>
+<li>执行结果</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"></code></pre></div><ul>
+<li>部署 flannel 网络</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 需上传具体 kube-flannel.yml 到`$HOME`目录</span>
+kubectl apply -f ~/kube-flannel.yml
+</code></pre></div><ul>
+<li>查看 flannel 是否启动</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 采用 watch 方式实时监控查看 flannel 是否部署成功</span>
+kubectl get pods -n kube-system -o wide -w
+</code></pre></div><h4 id="2-安装-worker-节点并加入集群中">2. 安装 worker 节点并加入集群中</h4>
+<ul>
+<li>执行命令</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubeadm join 192.168.163.129:6443 --token yczemj.n4pgu7me9nij2of4 --discovery-token-ca-cert-hash sha256:ee9b23d74735868c90350cd545d7721f7cbe88404f9685411d870b586bdb128f
+</code></pre></div><blockquote>
+<p>注：该命令在 master 节点完成安装后会打印出来，如果没有及时获取或证书过期，可以通过在 master 节点执行以下命令再次获取
+<code>kubeadm token create --print-join-command</code></p>
+</blockquote>
+<ul>
+<li>执行结果</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@kube-worker-02 ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubeadm join 192.168.163.129:6443 --token yczemj.n4pgu7me9nij2of4 --discovery-token-ca-cert-hash sha256:ee9b23d74735868c90350cd545d7721f7cbe88404f9685411d870b586bdb128f</span>
+<span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> Running pre-flight checks
+<span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> Reading configuration from the cluster...
+<span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> FYI: You can look at this config file with <span style="color:#e6db74">&#39;kubectl -n kube-system get cm kubeadm-config -o yaml&#39;</span>
+<span style="color:#f92672">[</span>kubelet-start<span style="color:#f92672">]</span> Writing kubelet configuration to file <span style="color:#e6db74">&#34;/var/lib/kubelet/config.yaml&#34;</span>
+<span style="color:#f92672">[</span>kubelet-start<span style="color:#f92672">]</span> Writing kubelet environment file with flags to file <span style="color:#e6db74">&#34;/var/lib/kubelet/kubeadm-flags.env&#34;</span>
+<span style="color:#f92672">[</span>kubelet-start<span style="color:#f92672">]</span> Starting the kubelet
+<span style="color:#f92672">[</span>kubelet-start<span style="color:#f92672">]</span> Waiting <span style="color:#66d9ef">for</span> the kubelet to perform the TLS Bootstrap...
+
+This node has joined the cluster:
+* Certificate signing request was sent to apiserver and a response was received.
+* The Kubelet was informed of the new secure connection details.
+
+Run <span style="color:#e6db74">&#39;kubectl get nodes&#39;</span> on the control-plane to see this node join the cluster.
+</code></pre></div><h4 id="3-配置-kubectl-并验证是否安装成功">3. 配置 kubectl 并验证是否安装成功</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># mkdir -p $HOME/.kube</span>
+<span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config</span>
+<span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># sudo chown $(id -u):$(id -g) $HOME/.kube/config</span>
+<span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl get nodes</span>
+NAME             STATUS     ROLES                  AGE   VERSION
+kube-master-01   NotReady   control-plane,master   18m   v1.22.1
+</code></pre></div><blockquote>
+<p>NotReady 是因为未部署 flannel，成功部署 flannel 后会显示 Ready.</p>
+</blockquote>
+
+        </div>
+    </article>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/"><span>kubernetes cluster installation trouble shooting</span></a>
+    </div>
+    <div class="next">
+        
+    </div>
+</div>
+
+        </div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    function toggleLight() {
+        document.getElementById('page').classList.toggle('night');
+    }
+</script>
+</body>
+
+</html>

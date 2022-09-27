@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title> | Yipsen Ye</title>
+<meta name="description" content="Redis 慢查询作用和 MySQL 慢查询作用类似，都是为我们查询出不合理的执行命令，然后让开发人员和运维人员一起来规避这些耗时的命令，从而让服务器更加高效和健康的运行。对于单线程的 Redis 来说，不合理的使用更是致命的，因此掌握 Redis 慢查询技能对我们来说非常的关键。
+如何进行慢查询？ 在开始之前，我们先要了解一下 Redis 中和慢查询相关的配置项，Redis 慢查询重要的配置项有以下两个：
+ slowlog-log-slower-than：用于设置慢查询的评定时间，也就是说超过此配置项的命令，将会被当成慢操作记录在慢查询日志中，它执行单位是微秒（1 秒等于 1000000 微秒）； slowlog-max-len：用来配置慢查询日志的最大记录数。  我们先来看它们的默认配置值：
+127.0.0.1:6379&amp;gt; config get slowlog-log-slower-than #慢查询判断时间 1) &amp;quot;slowlog-log-slower-than&amp;quot; 2) &amp;quot;10000&amp;quot; 127.0.0.1:6379&amp;gt; config get slowlog-max-len #慢查询最大记录条数 1) &amp;quot;slowlog-max-len&amp;quot; 2) &amp;quot;128&amp;quot; 可以看出慢查询的临界值是 10000 微秒，默认保存 128 条慢查询记录。
+修改配置项 slowlog-log-slower-than 和 slowlog-max-len 可以通过 config set xxx 的模式来修改，例如 config set slowlog-max-len 200 设置慢查询最大记录数为 200 条。
+慢查询演示 我们先来设置慢查询的判断时间为 0 微秒，这样所有的执行命令都会被记录，设置命令如下：
+127.0.0.1:6379&amp;gt; config set slowlog-log-slower-than 0 OK 接下来我们执行两条插入命令：">
+<meta name="author" content="">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title"></h1>
+        <div class="post-info">
+            <div> 
+                <span class="post-date">📅&nbsp;0001-01-01 00:00:00</span></div></div>
+        <div class="post-content">
+            <p>Redis 慢查询作用和 MySQL 慢查询作用类似，都是为我们查询出不合理的执行命令，然后让开发人员和运维人员一起来规避这些耗时的命令，从而让服务器更加高效和健康的运行。对于单线程的 Redis 来说，不合理的使用更是致命的，因此掌握 Redis 慢查询技能对我们来说非常的关键。</p>
+<h3 id="如何进行慢查询">如何进行慢查询？</h3>
+<p>在开始之前，我们先要了解一下 Redis 中和慢查询相关的配置项，Redis 慢查询重要的配置项有以下两个：</p>
+<ul>
+<li>slowlog-log-slower-than：用于设置慢查询的评定时间，也就是说超过此配置项的命令，将会被当成慢操作记录在慢查询日志中，它执行单位是微秒（1 秒等于 1000000 微秒）；</li>
+<li>slowlog-max-len：用来配置慢查询日志的最大记录数。</li>
+</ul>
+<p>我们先来看它们的默认配置值：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; config get slowlog-log-slower-than #慢查询判断时间
+1) &quot;slowlog-log-slower-than&quot;
+2) &quot;10000&quot;
+127.0.0.1:6379&gt; config get slowlog-max-len #慢查询最大记录条数
+1) &quot;slowlog-max-len&quot;
+2) &quot;128&quot;
+
+</code></pre><p>可以看出慢查询的临界值是 10000 微秒，默认保存 128 条慢查询记录。</p>
+<h4 id="修改配置项"><strong>修改配置项</strong></h4>
+<p>slowlog-log-slower-than 和 slowlog-max-len 可以通过 <code>config set xxx</code> 的模式来修改，例如 <code>config set slowlog-max-len 200</code> 设置慢查询最大记录数为 200 条。</p>
+<h4 id="慢查询演示"><strong>慢查询演示</strong></h4>
+<p>我们先来设置慢查询的判断时间为 0 微秒，这样所有的执行命令都会被记录，设置命令如下：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; config set slowlog-log-slower-than 0
+OK
+
+</code></pre><p>接下来我们执行两条插入命令：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; set msg xiaoming
+OK
+127.0.0.1:6379&gt; set lang java
+OK
+
+</code></pre><p>最后我们使用 <code>slowlog show</code> 来查询慢日志，结果如下：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; slowlog get #慢日志查询
+1) 1) (integer) 2 #慢日志下标
+   2) (integer) 1581994139 #执行时间
+   3) (integer) 5 #花费时间 (单位微秒)
+   4) 1) &quot;set&quot; #执行的具体命令
+      2) &quot;lang&quot;
+      3) &quot;java&quot;
+   5) &quot;127.0.0.1:47068&quot;
+   6) &quot;&quot;
+2) 1) (integer) 1
+   2) (integer) 1581994131
+   3) (integer) 6
+   4) 1) &quot;set&quot;
+      2) &quot;msg&quot;
+      3) &quot;xiaoming&quot;
+   5) &quot;127.0.0.1:47068&quot;
+   6) &quot;&quot;
+3) 1) (integer) 0
+   2) (integer) 1581994093
+   3) (integer) 5
+   4) 1) &quot;config&quot;
+      2) &quot;set&quot;
+      3) &quot;slowlog-log-slower-than&quot;
+      4) &quot;0&quot;
+   5) &quot;127.0.0.1:47068&quot;
+   6) &quot;&quot;
+
+</code></pre><p>加上本身的设置命令一共有三条“慢操作”记录，按照插入的顺序倒序存入慢查询日志中。</p>
+<blockquote>
+<p>小贴士：当慢查询日志超过设定的最大存储条数之后，会把最早的执行命令依次舍弃。</p>
+</blockquote>
+<h3 id="慢查询其他相关命令">慢查询其他相关命令</h3>
+<h4 id="查询指定条数慢日志"><strong>查询指定条数慢日志</strong></h4>
+<p>语法：<code>slowlog get n</code>。</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; slowlog get 2 #查询两条
+1) 1) (integer) 20
+   2) (integer) 1581997567
+   3) (integer) 14
+   4) 1) &quot;slowlog&quot;
+      2) &quot;get&quot;
+      3) &quot;4&quot;
+   5) &quot;127.0.0.1:47068&quot;
+   6) &quot;&quot;
+2) 1) (integer) 19
+   2) (integer) 1581997544
+   3) (integer) 11
+   4) 1) &quot;slowlog&quot;
+      2) &quot;get&quot;
+      3) &quot;3&quot;
+   5) &quot;127.0.0.1:47068&quot;
+   6) &quot;&quot;
+127.0.0.1:6379&gt; slowlog get 3 #查询三条
+1) 1) (integer) 22
+   2) (integer) 1581997649
+   3) (integer) 25
+   4) 1) &quot;set&quot;
+      2) &quot;msg&quot;
+      3) &quot;hi&quot;
+   5) &quot;127.0.0.1:47068&quot;
+   6) &quot;&quot;
+2) 1) (integer) 21
+   2) (integer) 1581997613
+   3) (integer) 9
+   4) 1) &quot;slowlog&quot;
+      2) &quot;get&quot;
+      3) &quot;2&quot;
+   5) &quot;127.0.0.1:47068&quot;
+   6) &quot;&quot;
+3) 1) (integer) 20
+   2) (integer) 1581997567
+   3) (integer) 14
+   4) 1) &quot;slowlog&quot;
+      2) &quot;get&quot;
+      3) &quot;4&quot;
+   5) &quot;127.0.0.1:47068&quot;
+   6) &quot;&quot;
+
+</code></pre><h4 id="获取慢查询队列长度"><strong>获取慢查询队列长度</strong></h4>
+<p>语法：<code>slowlog len</code>。</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; slowlog len
+(integer) 16
+
+</code></pre><h4 id="清空慢查询日志"><strong>清空慢查询日志</strong></h4>
+<p>使用 <code>slowlog reset</code> 来清空所有的慢查询日志，执行命令如下：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; slowlog reset
+OK
+
+</code></pre><h3 id="代码实战">代码实战</h3>
+<p>本文我们使用 Java 来实现慢查询日志的操作，代码如下：</p>
+<pre tabindex="0"><code>import redis.clients.jedis.Jedis;
+import redis.clients.jedis.util.Slowlog;
+import utils.JedisUtils;
+
+import java.util.List;
+
+/**
+ * 慢查询
+ */
+public class SlowExample {
+    public static void main(String[] args) {
+        Jedis jedis = JedisUtils.getJedis();
+        // 插入慢查询（因为 slowlog-log-slower-than 设置为 0，所有命令都符合慢操作）
+        jedis.set(&quot;db&quot;, &quot;java&quot;);
+        jedis.set(&quot;lang&quot;, &quot;java&quot;);
+        // 慢查询记录的条数
+        long logLen = jedis.slowlogLen();
+        // 所有慢查询
+        List&lt;Slowlog&gt; list = jedis.slowlogGet();
+        // 循环打印
+        for (Slowlog item : list) {
+            System.out.println(&quot;慢查询命令：&quot;+ item.getArgs()+
+                    &quot; 执行了：&quot;+item.getExecutionTime()+&quot; 微秒&quot;);
+        }
+        // 清空慢查询日志
+        jedis.slowlogReset();
+    }
+}
+
+</code></pre><p>以上代码执行结果如下：</p>
+<pre tabindex="0"><code>慢查询命令：[SLOWLOG, len] 执行了：1 微秒
+慢查询命令：[SET, lang, java] 执行了：2 微秒
+慢查询命令：[SET, db, java] 执行了：4 微秒
+
+慢查询命令：[SLOWLOG, reset] 执行了：155 微秒
+
+</code></pre><h3 id="小结">小结</h3>
+<p>本文我们介绍了慢查询相关的两个重要参数 slowlog-log-slower-than（用于设置慢查询的评定时间）和 slowlog-max-len 用来配置慢查询日志的最大记录数，然后通过修改 <code>config set slowlog-log-slower-than 0</code> 把所有操作都记录在慢日志进行相关测试。我们可以使用 <code>slowlog get [n]</code> 查询慢操作日志，使用 <code>slowlog reset</code> 清空慢查询日志。最后给大家一个建议，可以定期检查慢查询日志，及时发现和改进 Redis 运行中不合理的操作。</p>
+
+        </div>
+    </article>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/35-%E5%AE%9E%E6%88%98redis-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88.md/"><span></span></a>
+    </div>
+    <div class="next">
+        
+        <a href="/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/33-%E5%AE%9E%E6%88%98redis-%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95.md/"><span></span></a>
+    </div>
+</div>
+
+        </div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    function toggleLight() {
+        document.getElementById('page').classList.toggle('night');
+    }
+</script>
+</body>
+
+</html>

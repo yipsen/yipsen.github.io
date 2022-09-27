@@ -21,10 +21,9 @@
 两种方式的实现原理是一样的，前者是基于时间实现的，后者是基于一个唯一标识实现的，相对来说后者可以更加准确地判断文件内容是否被修改，避免由于时间篡改导致的不可靠问题。下面我们再来了解下整个缓存的实现流程：
  当浏览器第一次请求访问服务器资源时，服务器会在返回这个资源的同时，在 Response 头部加上 ETag 唯一标识，这个唯一标识的值是根据当前请求的资源生成的； 当浏览器再次请求访问服务器中的该资源时，会在 Request 头部加上 If-None-Match 字段，该字段的值就是 Response 头部加上 ETag 唯一标识； 服务器再次收到请求后，会根据请求中的 If-None-Match 值与当前请求的资源生成的唯一标识进行比较，如果值相等，则返回 304 Not Modified，如果不相等，则在 Response 头部加上新的 ETag 唯一标识，并返回资源； 如果浏览器收到 304 的请求响应状态码，则会从本地缓存中加载资源，否则更新资源。  本地缓存中除了这种协商缓存，还有一种就是强缓存的实现。
 强缓存指的是只要判断缓存没有过期，则直接使用浏览器的本地缓存。如下图中，返回的是 200 状态码，但在 size 项中标识的是 memory cache。">
-<meta name="author"
-  content="">
+<meta name="author" content="">
 
-<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
 
 </head>
 
@@ -32,7 +31,7 @@
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
         <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
     </a>
 </div>
@@ -47,7 +46,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/collections/">图集</a>
+                href="http://yipsen.github.io/collections/">附表</a>
         </li>
         
         <li class="nav-item">
@@ -60,13 +59,248 @@
     </header>
     <main id="content">
         
-<div class="container">
-    <article class="post-block">
+<div class="container"><aside>
+    <div>
+        
+        
+            
+            
+            <div class="post-category-icon"></div>
+            <a href="/categories/java%e5%b9%b6%e5%8f%91%e7%bc%96%e7%a8%8b%e5%ae%9e%e6%88%98/">Java并发编程实战</a>
+            <ul>
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/00-%E5%BC%80%E7%AF%87%E8%AF%8D%E4%BD%A0%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%AD%A6%E4%B9%A0%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">00 开篇词你为什么需要学习并发编程？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/01-%E5%A6%82%E4%BD%95%E5%88%B6%E5%AE%9A%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98%E6%A0%87%E5%87%86/">01 如何制定性能调优标准？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/02-%E5%A6%82%E4%BD%95%E5%88%B6%E5%AE%9A%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98%E7%AD%96%E7%95%A5/">02 如何制定性能调优策略？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/03-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B8%8D%E5%AE%B9%E5%B0%8F%E8%A7%91%E7%99%BEm%E5%86%85%E5%AD%98%E8%BD%BB%E6%9D%BE%E5%AD%98%E5%82%A8%E5%87%A0%E5%8D%81g%E6%95%B0%E6%8D%AE/">03 字符串性能优化不容小觑，百M内存轻松存储几十G数据</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/04-%E6%85%8E%E9%87%8D%E4%BD%BF%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">04 慎重使用正则表达式</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/05-arraylist%E8%BF%98%E6%98%AFlinkedlist%E4%BD%BF%E7%94%A8%E4%B8%8D%E5%BD%93%E6%80%A7%E8%83%BD%E5%B7%AE%E5%8D%83%E5%80%8D/">05 ArrayList还是LinkedList？使用不当性能差千倍</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/06-stream%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E9%81%8D%E5%8E%86%E9%9B%86%E5%90%88%E6%95%88%E7%8E%87/">06 Stream如何提高遍历集合效率？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/07-%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAhashmap%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E4%BC%98%E5%8C%96/">07 深入浅出HashMap的设计与优化</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/08-%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E4%BC%98%E5%8C%96%E4%B9%8Bio%E6%A8%A1%E5%9E%8B%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E9%AB%98%E5%B9%B6%E5%8F%91%E4%B8%8Bio%E7%93%B6%E9%A2%88/">08 网络通信优化之IO模型：如何解决高并发下IO瓶颈？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/09-%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E4%BC%98%E5%8C%96%E4%B9%8B%E5%BA%8F%E5%88%97%E5%8C%96%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8java%E5%BA%8F%E5%88%97%E5%8C%96/">09 网络通信优化之序列化：避免使用Java序列化</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/10-%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E4%BC%98%E5%8C%96%E4%B9%8B%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96rpc%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/">10 网络通信优化之通信协议：如何优化RPC网络通信？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/11-%E7%AD%94%E7%96%91%E8%AF%BE%E5%A0%82%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3nio%E7%9A%84%E4%BC%98%E5%8C%96%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/">11 答疑课堂：深入了解NIO的优化实现原理</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/12-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%E9%94%81%E4%BC%98%E5%8C%96%E4%B8%8A%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3synchronized%E5%90%8C%E6%AD%A5%E9%94%81%E7%9A%84%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/">12 多线程之锁优化（上）：深入了解Synchronized同步锁的优化方法</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/13-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%E9%94%81%E4%BC%98%E5%8C%96%E4%B8%AD%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3lock%E5%90%8C%E6%AD%A5%E9%94%81%E7%9A%84%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/">13 多线程之锁优化（中）：深入了解Lock同步锁的优化方法</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/14-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%E9%94%81%E4%BC%98%E5%8C%96%E4%B8%8B%E4%BD%BF%E7%94%A8%E4%B9%90%E8%A7%82%E9%94%81%E4%BC%98%E5%8C%96%E5%B9%B6%E8%A1%8C%E6%93%8D%E4%BD%9C/">14 多线程之锁优化（下）：使用乐观锁优化并行操作</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/15-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%B0%83%E4%BC%98%E4%B8%8A%E5%93%AA%E4%BA%9B%E6%93%8D%E4%BD%9C%E5%AF%BC%E8%87%B4%E4%BA%86%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2/">15 多线程调优（上）：哪些操作导致了上下文切换？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/16-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%B0%83%E4%BC%98%E4%B8%8B%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2/">16 多线程调优（下）：如何优化多线程上下文切换？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/17-%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%86%E5%88%AB%E4%B8%8D%E5%90%8C%E5%9C%BA%E6%99%AF%E4%B8%8B%E6%9C%80%E4%BC%98%E5%AE%B9%E5%99%A8/">17 并发容器的使用：识别不同场景下最优容器</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/18-%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%A4%A7%E5%B0%8F/">18 如何设置线程池大小？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/19-%E5%A6%82%E4%BD%95%E7%94%A8%E5%8D%8F%E7%A8%8B%E6%9D%A5%E4%BC%98%E5%8C%96%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%9A%E5%8A%A1/">19 如何用协程来优化多线程业务？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/20-%E7%A3%A8%E5%88%80%E4%B8%8D%E8%AF%AF%E7%A0%8D%E6%9F%B4%E5%B7%A5%E6%AC%B2%E7%9F%A5jvm%E8%B0%83%E4%BC%98%E5%85%88%E4%BA%86%E8%A7%A3jvm%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/">20 磨刀不误砍柴工：欲知JVM调优先了解JVM内存模型</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/21-%E6%B7%B1%E5%85%A5jvm%E5%8D%B3%E6%97%B6%E7%BC%96%E8%AF%91%E5%99%A8jit%E4%BC%98%E5%8C%96java%E7%BC%96%E8%AF%91/">21 深入JVM即时编译器JIT，优化Java编译</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/22-%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/">22 如何优化垃圾回收机制？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/23-%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96jvm%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/">23 如何优化JVM内存分配？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/24-%E5%86%85%E5%AD%98%E6%8C%81%E7%BB%AD%E4%B8%8A%E5%8D%87%E6%88%91%E8%AF%A5%E5%A6%82%E4%BD%95%E6%8E%92%E6%9F%A5%E9%97%AE%E9%A2%98/">24 内存持续上升，我该如何排查问题？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/25-%E7%AD%94%E7%96%91%E8%AF%BE%E5%A0%82%E6%A8%A1%E5%9D%97%E5%9B%9B%E7%83%AD%E7%82%B9%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94/">25 答疑课堂：模块四热点问题解答</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/26-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E5%8D%95%E4%B8%80%E5%AF%B9%E8%B1%A1%E4%BC%98%E5%8C%96%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD/">26 单例模式：如何创建单一对象优化系统性能？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/27-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F%E4%B8%8E%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E6%8F%90%E5%8D%87%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD%E7%9A%84%E5%88%A9%E5%99%A8/">27 原型模式与享元模式：提升系统性能的利器</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/28-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%BC%98%E5%8C%96%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">28 如何使用设计模式优化并发编程？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/29-%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%BC%8F%E7%94%B5%E5%95%86%E5%BA%93%E5%AD%98%E8%AE%BE%E8%AE%A1%E4%BC%98%E5%8C%96/">29 生产者消费者模式：电商库存设计优化</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/30-%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96%E7%94%B5%E5%95%86%E7%B3%BB%E7%BB%9F%E4%B8%AD%E5%A4%8D%E6%9D%82%E7%9A%84%E5%95%86%E5%93%81%E4%BB%B7%E6%A0%BC%E7%AD%96%E7%95%A5/">30 装饰器模式：如何优化电商系统中复杂的商品价格策略？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/31-%E7%AD%94%E7%96%91%E8%AF%BE%E5%A0%82%E6%A8%A1%E5%9D%97%E4%BA%94%E6%80%9D%E8%80%83%E9%A2%98%E9%9B%86%E9%94%A6/">31 答疑课堂：模块五思考题集锦</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/32-mysql%E8%B0%83%E4%BC%98%E4%B9%8Bsql%E8%AF%AD%E5%8F%A5%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E6%80%A7%E8%83%BDsql%E8%AF%AD%E5%8F%A5/">32 MySQL调优之SQL语句：如何写出高性能SQL语句？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/33-mysql%E8%B0%83%E4%BC%98%E4%B9%8B%E4%BA%8B%E5%8A%A1%E9%AB%98%E5%B9%B6%E5%8F%91%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E8%B0%83%E4%BC%98/">33 MySQL调优之事务：高并发场景下的数据库事务调优</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/34-mysql%E8%B0%83%E4%BC%98%E4%B9%8B%E7%B4%A2%E5%BC%95%E7%B4%A2%E5%BC%95%E7%9A%84%E5%A4%B1%E6%95%88%E4%B8%8E%E4%BC%98%E5%8C%96/">34 MySQL调优之索引：索引的失效与优化</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/35-%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%BA%BF%E4%B8%8Asql%E6%AD%BB%E9%94%81%E4%BA%8B%E6%95%85%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81/">35 记一次线上SQL死锁事故：如何避免死锁？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/36-%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E9%9C%80%E8%A6%81%E5%88%86%E8%A1%A8%E5%88%86%E5%BA%93/">36 什么时候需要分表分库？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/37-%E7%94%B5%E5%95%86%E7%B3%BB%E7%BB%9F%E8%A1%A8%E8%AE%BE%E8%AE%A1%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90/">37 电商系统表设计优化案例分析</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/38-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE%E4%BC%98%E5%8C%96%E5%A4%B1%E4%B9%8B%E6%AF%AB%E5%8E%98%E5%B7%AE%E4%B9%8B%E5%8D%83%E9%87%8C/">38 数据库参数设置优化，失之毫厘差之千里</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/39-%E7%AD%94%E7%96%91%E8%AF%BE%E5%A0%82mysql%E4%B8%ADinnodb%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9%E4%B8%B2%E8%AE%B2/">39 答疑课堂：MySQL中InnoDB的知识点串讲</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/41-%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%9B%B4%E4%BC%98%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/">41 如何设计更优的分布式锁？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/42-%E7%94%B5%E5%95%86%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E8%B0%83%E4%BC%98/">42 电商系统的分布式事务调优</a></li>
+                
+                
+                
+                    <li>43 如何使用缓存优化系统性能？</li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/44-%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%8F%8C%E5%8D%81%E4%B8%80%E6%8A%A2%E8%B4%AD%E6%80%A7%E8%83%BD%E7%93%B6%E9%A2%88%E8%B0%83%E4%BC%98/">44 记一次双十一抢购性能瓶颈调优</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/%E5%8A%A0%E9%A4%90-%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E7%9A%84%E5%BC%BA%E5%BC%B1%E4%B8%80%E8%87%B4%E6%80%A7/">加餐 什么是数据的强、弱一致性？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/%E5%8A%A0%E9%A4%90-%E6%8E%A8%E8%8D%90%E5%87%A0%E6%AC%BE%E5%B8%B8%E7%94%A8%E7%9A%84%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7/">加餐 推荐几款常用的性能测试工具</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/%E7%AD%94%E7%96%91%E8%AF%BE%E5%A0%82%E6%A8%A1%E5%9D%97%E4%B8%89%E7%83%AD%E7%82%B9%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94/">答疑课堂：模块三热点问题解答</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/%E7%BB%93%E6%9D%9F%E8%AF%AD-%E6%A0%89%E9%A3%8E%E6%B2%90%E9%9B%A8%E7%A0%A5%E7%A0%BA%E5%89%8D%E8%A1%8C/">结束语 栉风沐雨，砥砺前行！</a></li>
+                
+                
+            </ul>
+        
+    </div>
+</aside>
+
+<style>
+    aside {
+        position: fixed;
+        left: 20px;
+        background: #ffdee3;
+        border-radius: 6px;
+        padding: 20px;
+        padding-top: 60px;
+        box-shadow: 5px 10px #888;
+        list-style-type: none;
+        display: none;
+    }
+
+    .post-category-icon {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        left: 50%;
+        margin-left: -40px;
+        text-align: center;
+        font-size: 36px;
+        content: 'J';
+        background: #ffdee3;
+        border-radius: 100%;
+        border: 10px solid #fff;
+        box-shadow: 5px 10px #888;
+    }
+</style><article class="post-block">
         <h1 class="post-title">43 如何使用缓存优化系统性能？</h1>
         <div class="post-info">
-            <div>2021-12-22|<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
+            <div> 
+                <span class="post-date">📅&nbsp;2021-12-22 01:44:46</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
                 
-                <a href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/"> Java并发编程实战 </a>
+                📚&nbsp;<a href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/">Java并发编程实战</a>
                 
             </div></div>
         <div class="post-content">
@@ -192,11 +426,11 @@ private static final Map&lt;String, Object&gt; cacheMap= new ConcurrentHashMap&l
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight();">T</div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 11110 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     

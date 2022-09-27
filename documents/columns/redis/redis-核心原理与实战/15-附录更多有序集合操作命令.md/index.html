@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title> | Yipsen Ye</title>
+<meta name="description" content="查询有序集合的总个数 语法：zcard key 示例：
+127.0.0.1:6379&amp;gt; zcard zset1 (integer) 4 查询 score 区间内的元素个数 语法：zcount key min max 示例：
+127.0.0.1:6379&amp;gt; zcount zset1 0 10 (integer) 4 累加元素的 score 值 语法：zincrby key increment member 示例：
+127.0.0.1:6379&amp;gt; zscore zset1 redis #查询 zset1 的 score 值 &amp;quot;1&amp;quot; 127.0.0.1:6379&amp;gt; zincrby zset1 2 redis #累加 score 值 &amp;quot;3&amp;quot; 127.0.0.1:6379&amp;gt; zscore zset1 redis &amp;quot;3&amp;quot; 查询某元素倒序排名 语法：zrevrank key member 示例：
+127.0.0.1:6379&amp;gt; zrevrank zset1 python #倒序查询 (integer) 0 127.0.0.1:6379&amp;gt; zrange zset1 0 -1 #正序列表 1) &amp;quot;redis&amp;quot; 2) &amp;quot;java&amp;quot; 3) &amp;quot;golang&amp;quot; 4) &amp;quot;python&amp;quot; 根据排名删除元素 语法：zremrangebyrank key start stop 示例：">
+<meta name="author" content="">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title"></h1>
+        <div class="post-info">
+            <div> 
+                <span class="post-date">📅&nbsp;0001-01-01 00:00:00</span></div></div>
+        <div class="post-content">
+            <h3 id="查询有序集合的总个数">查询有序集合的总个数</h3>
+<p>语法：zcard key 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; zcard zset1
+(integer) 4
+
+</code></pre><h3 id="查询-score-区间内的元素个数">查询 score 区间内的元素个数</h3>
+<p>语法：zcount key min max 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; zcount zset1 0 10
+(integer) 4
+
+</code></pre><h3 id="累加元素的-score-值">累加元素的 score 值</h3>
+<p>语法：zincrby key increment member 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; zscore zset1 redis #查询 zset1 的 score 值
+&quot;1&quot;
+127.0.0.1:6379&gt; zincrby zset1 2 redis #累加 score 值
+&quot;3&quot;
+127.0.0.1:6379&gt; zscore zset1 redis
+&quot;3&quot;
+
+</code></pre><h3 id="查询某元素倒序排名">查询某元素倒序排名</h3>
+<p>语法：zrevrank key member 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; zrevrank zset1 python #倒序查询
+(integer) 0
+127.0.0.1:6379&gt; zrange zset1 0 -1 #正序列表
+1) &quot;redis&quot;
+2) &quot;java&quot;
+3) &quot;golang&quot;
+4) &quot;python&quot;
+
+</code></pre><h3 id="根据排名删除元素">根据排名删除元素</h3>
+<p>语法：zremrangebyrank key start stop 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; zrange zset1 0 -1 #查询所有元素
+1) &quot;redis&quot;
+2) &quot;java&quot;
+3) &quot;golang&quot;
+4) &quot;python&quot;
+127.0.0.1:6379&gt; zremrangebyrank zset1 0 2 #删除元素
+(integer) 3
+127.0.0.1:6379&gt; zrange zset1 0 -1 #查询所有元素
+1) &quot;python&quot;
+
+</code></pre><h3 id="删除-score-区间内的元素">删除 score 区间内的元素</h3>
+<p>语法：zremrangebyscore key min max 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; zscore zset1 python
+&quot;4&quot;
+127.0.0.1:6379&gt; zremrangebyscore zset1 4 5
+(integer) 1
+127.0.0.1:6379&gt; zscore zset1 python
+(nil)
+
+</code></pre><h3 id="复制交集元素到新集合">复制交集元素到新集合</h3>
+<p>语法：zinterstore destination numkeys key [key …] [WEIGHTS weight] [AGGREGATE SUM|MIN|MA 参数 numkeys 表示需要几个集合参与查询。 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; zrange zset1 0 -1
+1) &quot;redis&quot;
+2) &quot;java&quot;
+3) &quot;golang&quot;
+4) &quot;python&quot;
+127.0.0.1:6379&gt; zrange zset2 0 -1
+1) &quot;redis&quot;
+2) &quot;db&quot;
+127.0.0.1:6379&gt; zinterstore zset3 2 zset1 zset2
+(integer) 1
+127.0.0.1:6379&gt; zrange zset3 0 -1
+1) &quot;redis&quot;
+
+</code></pre><h3 id="复制并集元素到新集合">复制并集元素到新集合</h3>
+<p>语法：zunionstore destination numkeys key [key …] [WEIGHTS weight] [AGGREGATE SUM|MIN|MA 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; zrange zset1 0 -1
+1) &quot;redis&quot;
+2) &quot;java&quot;
+3) &quot;golang&quot;
+4) &quot;python&quot;
+127.0.0.1:6379&gt; zrange zset2 0 -1
+1) &quot;redis&quot;
+2) &quot;db&quot;
+127.0.0.1:6379&gt; zunionstore zset3 2 zset1 zset2
+(integer) 5
+127.0.0.1:6379&gt; zrange zset3 0 -1
+1) &quot;java&quot;
+2) &quot;golang&quot;
+3) &quot;redis&quot;
+4) &quot;python&quot;
+5) &quot;db&quot;
+</code></pre>
+        </div>
+    </article>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/16-redis-%E4%BA%8B%E5%8A%A1%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90.md/"><span></span></a>
+    </div>
+    <div class="next">
+        
+        <a href="/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/14-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.md/"><span></span></a>
+    </div>
+</div>
+
+        </div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    function toggleLight() {
+        document.getElementById('page').classList.toggle('night');
+    }
+</script>
+</body>
+
+</html>

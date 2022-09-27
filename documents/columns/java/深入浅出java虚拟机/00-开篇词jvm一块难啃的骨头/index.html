@@ -16,10 +16,9 @@
  正在运行的 Java 进程，可能突然就 OOM 内存溢出了。 线上系统产生卡顿，CPU 疯狂运转，GC 时间飙升，严重影响了服务响应时间。 面对一堆 JVM 的参数无从下手，错失了性能提升的可能，或者因为某个参数的错误配置，产生了尴尬的负面效果。 想要了解线上应用的垃圾回收状况，却不知从何开始，服务监控状况无法掌控。 一段代码有问题，执行效率低，但就是无法找到深层次原因。  这些都是经常发生的事情，我就不止一次在半夜被报警铃声叫起，并苦于问题的追踪。别担心，我也是从这个阶段过来的，通过大量的线上实操，积累了非常丰富的经验。还记得当时花了整整一周时间，才定位到一个棘手的堆外内存泄漏问题。现在再回头看这些问题，就显得比较风轻云淡了。
 相关问题太多，概念太杂了 同时，JVM 的版本更新很快，造成了很多同学会对 JVM 有一些疑问。网络上的一些博主，可能会从自己的角度去分析问题，读者无法产生代入感。甚至，一些错误的知识会产生比较严重的后果，你会经常看到一些有冲突的概念。
  Java 源代码是怎么变成字节码的，字节码又是怎么进入 JVM 的？ JVM 是怎么执行字节码的？哪些数据放在栈？哪些数据放在堆？ Java 的一些特性是如何与字节码产生关联的？ 如何监控 JVM 的运行，才能够做到问题自动发现？  如果你有这方面的疑问，那再正常不过了。我们在专栏中将从实际的应用场景出发，来探讨一些比较深入的问题。 那为什么要学习 JVM？不学习 JVM 会影响我写 Java 代码么？严格意义上来说，并不会。但是，如果不学习 JVM 你可能可以写出功能完善的代码，但是一定无法写出更加高效的代码。更别说常见的性能优化和故障排查了。">
-<meta name="author"
-  content="">
+<meta name="author" content="">
 
-<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
 
 </head>
 
@@ -27,7 +26,7 @@
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
         <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
     </a>
 </div>
@@ -42,7 +41,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/collections/">图集</a>
+                href="http://yipsen.github.io/collections/">附表</a>
         </li>
         
         <li class="nav-item">
@@ -55,13 +54,164 @@
     </header>
     <main id="content">
         
-<div class="container">
-    <article class="post-block">
+<div class="container"><aside>
+    <div>
+        
+        
+            
+            
+            <div class="post-category-icon"></div>
+            <a href="/categories/%e6%b7%b1%e5%85%a5%e6%b5%85%e5%87%bajava%e8%99%9a%e6%8b%9f%e6%9c%ba/">深入浅出Java虚拟机</a>
+            <ul>
+                
+                
+                    <li>00 开篇词：JVM，一块难啃的骨头</li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/01-%E4%B8%80%E6%8E%A2%E7%A9%B6%E7%AB%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-jvm%E5%AE%83%E5%A4%84%E5%9C%A8%E4%BB%80%E4%B9%88%E4%BD%8D%E7%BD%AE/">01 一探究竟：为什么需要 JVM？它处在什么位置？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/02-%E5%A4%A7%E5%8E%82%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BD%A0%E4%B8%8D%E5%BE%97%E4%B8%8D%E6%8E%8C%E6%8F%A1%E7%9A%84-jvm-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">02 大厂面试题：你不得不掌握的 JVM 内存管理</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/03-%E5%A4%A7%E5%8E%82%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BB%8E%E8%A6%86%E7%9B%96-jdk-%E7%9A%84%E7%B1%BB%E5%BC%80%E5%A7%8B%E6%8E%8C%E6%8F%A1%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">03 大厂面试题：从覆盖 JDK 的类开始掌握类的加载机制</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/04-%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E4%BB%8E%E6%A0%88%E5%B8%A7%E7%9C%8B%E5%AD%97%E8%8A%82%E7%A0%81%E6%98%AF%E5%A6%82%E4%BD%95%E5%9C%A8-jvm-%E4%B8%AD%E8%BF%9B%E8%A1%8C%E6%B5%81%E8%BD%AC%E7%9A%84/">04 动手实践：从栈帧看字节码是如何在 JVM 中进行流转的</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/05-%E5%A4%A7%E5%8E%82%E9%9D%A2%E8%AF%95%E9%A2%98%E5%BE%97%E5%BF%83%E5%BA%94%E6%89%8B%E5%BA%94%E5%AF%B9-oom-%E7%9A%84%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/">05 大厂面试题：得心应手应对 OOM 的疑难杂症</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/06-%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E4%BD%A0%E7%9C%9F%E7%9A%84%E4%BA%86%E8%A7%A3%E5%90%97%E4%B8%8A/">06 深入剖析：垃圾回收你真的了解吗？（上）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/07-%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E4%BD%A0%E7%9C%9F%E7%9A%84%E4%BA%86%E8%A7%A3%E5%90%97%E4%B8%8B/">07 深入剖析：垃圾回收你真的了解吗？（下）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/08-%E5%A4%A7%E5%8E%82%E9%9D%A2%E8%AF%95%E9%A2%98%E6%9C%89%E4%BA%86-g1-%E8%BF%98%E9%9C%80%E8%A6%81%E5%85%B6%E4%BB%96%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8%E5%90%97/">08 大厂面试题：有了 G1 还需要其他垃圾回收器吗？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/09-%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%88%98%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E9%AB%98%E5%B9%B6%E5%8F%91%E4%B8%8B%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E4%BC%B0%E7%AE%97%E5%92%8C%E8%B0%83%E4%BC%98/">09 案例实战：亿级流量高并发下如何进行估算和调优</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/10-%E7%AC%AC09%E8%AE%B2%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%88%98%E9%9D%A2%E5%AF%B9%E7%AA%81%E5%A6%82%E5%85%B6%E6%9D%A5%E7%9A%84-gc-%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E4%B8%8B%E6%89%8B%E8%A7%A3%E5%86%B3/">10 第09讲：案例实战：面对突如其来的 GC 问题如何下手解决</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/11-%E7%AC%AC10%E8%AE%B2%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E8%87%AA%E5%B7%B1%E6%A8%A1%E6%8B%9F-jvm-%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E5%9C%BA%E6%99%AF/">11 第10讲：动手实践：自己模拟 JVM 内存溢出场景</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/12-%E7%AC%AC11%E8%AE%B2%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98%E4%B8%8D%E8%A6%81%E6%85%8C%E8%BD%BB%E6%9D%BE%E6%90%9E%E5%AE%9A%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/">12 第11讲：动手实践：遇到问题不要慌，轻松搞定内存泄漏</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/13-%E5%B7%A5%E5%85%B7%E8%BF%9B%E9%98%B6%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8-mat-%E6%89%BE%E5%88%B0%E9%97%AE%E9%A2%98%E5%8F%91%E7%94%9F%E7%9A%84%E6%A0%B9%E6%9C%AC%E5%8E%9F%E5%9B%A0/">13 工具进阶：如何利用 MAT 找到问题发生的根本原因</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/14-%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E8%AE%A9%E9%9D%A2%E8%AF%95%E5%AE%98%E5%88%AE%E7%9B%AE%E7%9B%B8%E7%9C%8B%E7%9A%84%E5%A0%86%E5%A4%96%E5%86%85%E5%AD%98%E6%8E%92%E6%9F%A5/">14 动手实践：让面试官刮目相看的堆外内存排查</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/15-%E9%A2%84%E8%AD%A6%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA-gc-%E7%9B%91%E6%8E%A7%E4%B8%8E%E8%B0%83%E4%BC%98/">15 预警与解决：深入浅出 GC 监控与调优</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/16-%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90%E4%B8%80%E4%B8%AA%E9%AB%98%E6%AD%BB%E4%BA%A1%E7%8E%87%E7%9A%84%E6%8A%A5%E8%A1%A8%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BC%98%E5%8C%96%E4%B9%8B%E8%B7%AF/">16 案例分析：一个高死亡率的报表系统的优化之路</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/17-%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E5%90%8E%E6%88%91%E7%9A%84%E5%BA%94%E7%94%A8%E5%B4%A9%E6%BA%83%E4%BA%86/">17 案例分析：分库分表后，我的应用崩溃了</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/18-%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E4%BB%8E%E5%AD%97%E8%8A%82%E7%A0%81%E7%9C%8B%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E7%9A%84%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/">18 动手实践：从字节码看方法调用的底层实现</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/19-%E5%A4%A7%E5%8E%82%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%8D%E8%A6%81%E6%90%9E%E6%B7%B7-jmm-%E4%B8%8E-jvm/">19 大厂面试题：不要搞混 JMM 与 JVM</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/20-%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E4%BB%8E%E5%AD%97%E8%8A%82%E7%A0%81%E7%9C%8B%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%9A%84%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/">20 动手实践：从字节码看并发编程的底层实现</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/21-%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E4%B8%8D%E4%B8%BA%E4%BA%BA%E7%86%9F%E7%9F%A5%E7%9A%84%E5%AD%97%E8%8A%82%E7%A0%81%E6%8C%87%E4%BB%A4/">21 动手实践：不为人熟知的字节码指令</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/22-%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8-java-agent-%E6%8A%80%E6%9C%AF%E5%AF%B9%E5%AD%97%E8%8A%82%E7%A0%81%E8%BF%9B%E8%A1%8C%E4%BF%AE%E6%94%B9/">22 深入剖析：如何使用 Java Agent 技术对字节码进行修改</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/23-%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5jit-%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE%E5%A6%82%E4%BD%95%E5%BD%B1%E5%93%8D%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C/">23 动手实践：JIT 参数配置如何影响程序运行？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/24-%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90%E5%A4%A7%E5%9E%8B%E9%A1%B9%E7%9B%AE%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%80%A7%E8%83%BD%E7%93%B6%E9%A2%88%E8%B0%83%E4%BC%98/">24 案例分析：大型项目如何进行性能瓶颈调优？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/25-%E6%9C%AA%E6%9D%A5jvm-%E7%9A%84%E5%8E%86%E5%8F%B2%E4%B8%8E%E5%B1%95%E6%9C%9B/">25 未来：JVM 的历史与展望</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/26-%E7%A6%8F%E5%88%A9%E5%B8%B8%E8%A7%81-jvm-%E9%9D%A2%E8%AF%95%E9%A2%98%E8%A1%A5%E5%85%85/">26 福利：常见 JVM 面试题补充</a></li>
+                
+                
+            </ul>
+        
+    </div>
+</aside>
+
+<style>
+    aside {
+        position: fixed;
+        left: 20px;
+        background: #ffdee3;
+        border-radius: 6px;
+        padding: 20px;
+        padding-top: 60px;
+        box-shadow: 5px 10px #888;
+        list-style-type: none;
+        display: none;
+    }
+
+    .post-category-icon {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        left: 50%;
+        margin-left: -40px;
+        text-align: center;
+        font-size: 36px;
+        content: 'J';
+        background: #ffdee3;
+        border-radius: 100%;
+        border: 10px solid #fff;
+        box-shadow: 5px 10px #888;
+    }
+</style><article class="post-block">
         <h1 class="post-title">00 开篇词：JVM，一块难啃的骨头</h1>
         <div class="post-info">
-            <div>2022-01-09|<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
+            <div> 
+                <span class="post-date">📅&nbsp;2022-01-09 11:12:18</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
                 
-                <a href="/categories/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/"> 深入浅出Java虚拟机 </a>
+                📚&nbsp;<a href="/categories/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入浅出Java虚拟机</a>
                 
             </div></div>
         <div class="post-content">
@@ -140,11 +290,11 @@
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight();">T</div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 11110 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     

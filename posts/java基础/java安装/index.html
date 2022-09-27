@@ -9,15 +9,14 @@
 <link rel="icon" type="image/png" href="/%20/favicon.png">
 
 <title>Java安装 | Yipsen Ye</title>
-<meta name="description" content="一、移除已有 Java 版本（可选） sudo yum remove -y java 二、下载并安装 Java8 wget --no-cookies --no-check-certificate --header &amp;#34;Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie&amp;#34; &amp;#34;http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.tar.gz&amp;#34; tar -xzvf jdk-8u131-linux-x64.tar.gz cp -a jdk1.8.0_131/ /usr/local/java rm -rf jdk-8u131-linux-x64.tar.gz 三、配置 JAVA_HOME   打开bashrc
+<meta name="description" content="Linux 安装 环境信息 一、移除已有 Java 版本（可选） sudo yum remove -y java 二、下载并安装 Java8 wget --no-cookies --no-check-certificate --header &amp;#34;Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie&amp;#34; &amp;#34;http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.tar.gz&amp;#34; tar -xzvf jdk-8u131-linux-x64.tar.gz cp -a jdk1.8.0_131/ /usr/local/java rm -rf jdk-8u131-linux-x64.tar.gz 三、配置 JAVA_HOME   打开bashrc(or /etc/profile???)
 sudo vim ~/.bashrc   在文件末尾追加
-export JAVA_HOME=~/jdk1.8.0_131 export JRE_HOME=~/jdk1.8.0_131/jre export PATH=$PATH:~/jdk1.8.0_131/bin:/~/jdk1.8.0_131/jre/bin   配置立即生效
+export JAVA_HOME=~/jdk1.8.0_131 export JRE_HOME=$JAVA_HOME/jre export PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib   配置立即生效
 source ~/.bashrc   查看java版本，看配置是否已生效
-java -version   ">
-<meta name="author"
-  content="yipsen">
+java -version   Windows 安装 ">
+<meta name="author" content="yipsen">
 
-<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
 
 </head>
 
@@ -25,7 +24,7 @@ java -version   ">
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
         <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
     </a>
 </div>
@@ -40,7 +39,7 @@ java -version   ">
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/collections/">图集</a>
+                href="http://yipsen.github.io/collections/">附表</a>
         </li>
         
         <li class="nav-item">
@@ -53,30 +52,33 @@ java -version   ">
     </header>
     <main id="content">
         
-<div class="container">
-    <article class="post-block">
+<div class="container"><article class="post-block">
         <h1 class="post-title">Java安装</h1>
         <div class="post-info">
-            <div>2022-02-06</div></div>
+            <div> 
+                <span class="post-date">📅&nbsp;2022-02-06 16:31:43</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">Java</a></div></div>
         <div class="post-content">
-            <h3 id="一移除已有-java-版本可选">一、移除已有 Java 版本（可选）</h3>
+            <h3 id="linux-安装">Linux 安装</h3>
+<h4 id="环境信息">环境信息</h4>
+<h4 id="一移除已有-java-版本可选">一、移除已有 Java 版本（可选）</h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo yum remove -y java
-</code></pre></div><h3 id="二下载并安装-java8">二、下载并安装 Java8</h3>
+</code></pre></div><h4 id="二下载并安装-java8">二、下载并安装 Java8</h4>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">wget --no-cookies --no-check-certificate --header <span style="color:#e6db74">&#34;Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie&#34;</span> <span style="color:#e6db74">&#34;http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.tar.gz&#34;</span>
 tar -xzvf jdk-8u131-linux-x64.tar.gz
 cp -a jdk1.8.0_131/ /usr/local/java
 rm -rf jdk-8u131-linux-x64.tar.gz
-</code></pre></div><h3 id="三配置-java_home">三、配置 JAVA_HOME</h3>
+</code></pre></div><h4 id="三配置-java_home">三、配置 JAVA_HOME</h4>
 <ol>
 <li>
-<p>打开bashrc</p>
+<p>打开bashrc(or /etc/profile???)</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo vim ~/.bashrc
 </code></pre></div></li>
 <li>
 <p>在文件末尾追加</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">export JAVA_HOME<span style="color:#f92672">=</span>~/jdk1.8.0_131
-export JRE_HOME<span style="color:#f92672">=</span>~/jdk1.8.0_131/jre
-export PATH<span style="color:#f92672">=</span>$PATH:~/jdk1.8.0_131/bin:/~/jdk1.8.0_131/jre/bin
+export JRE_HOME<span style="color:#f92672">=</span>$JAVA_HOME/jre
+export PATH<span style="color:#f92672">=</span>$PATH:$JAVA_HOME/bin:$JRE_HOME/bin
+export CLASSPATH<span style="color:#f92672">=</span>.:$JAVA_HOME/lib:$JRE_HOME/lib
 </code></pre></div></li>
 <li>
 <p>配置立即生效</p>
@@ -87,6 +89,7 @@ export PATH<span style="color:#f92672">=</span>$PATH:~/jdk1.8.0_131/bin:/~/jdk1.
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">java -version
 </code></pre></div></li>
 </ol>
+<h3 id="windows-安装">Windows 安装</h3>
 
         </div>
     </article>
@@ -99,19 +102,20 @@ export PATH<span style="color:#f92672">=</span>$PATH:~/jdk1.8.0_131/bin:/~/jdk1.
 <div class="paginator">
     <div class="prev">
         
-        <a href="/posts/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/"><span>创建型-单例模式（常用）</span></a>
+        <a href="/posts/logback/log4j-pattern-layout/"><span>Log4J pattern layout</span></a>
     </div>
     <div class="next">
         
+        <a href="/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A1%8C%E4%B8%BA%E5%9E%8B-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/"><span>行为型-观察者模式（常用）</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight();">T</div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 11110 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     

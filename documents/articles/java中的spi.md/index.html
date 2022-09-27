@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title> | Yipsen Ye</title>
+<meta name="description" content="前言 最近在面试的时候被问到SPI了，没回答上来，主要也是自己的原因，把自己给带沟里去了，因为讲到了类加载器的双亲委派模型，后面就被问到了有哪些是破坏了双亲委派模型的场景，然后我就说到了SPI，JNDI，以及JDK9的模块化都破坏了双亲委派。 然后就被问，那你说说对Java中的SPI的理解吧。然后我就一脸懵逼了，之前只是知道它会破坏双亲委派，也知道是个怎么回事，但是并没有深入了解，那么这次我就好好的来总结一下这个知识吧。
+什么是SPI SPI全称Service Provider Interface，字面意思是提供服务的接口，再解释详细一下就是Java提供的一套用来被第三方实现或扩展的接口，实现了接口的动态扩展，让第三方的实现类能像插件一样嵌入到系统中。
+咦。。。 这个解释感觉还是有点绕口。 那就说一下它的本质。
+ 将接口的实现类的全限定名配置在文件中（文件名是接口的全限定名），由服务加载器读取配置文件，加载实现类。实现了运行时动态为接口替换实现类。
+ SPI示例 还是举例说明吧。 我们创建一个项目，然后创建一个module叫spi-interface。 在这个module中我们定义一个接口：
+/** * @author jimoer **/ public interface SpiInterfaceService { /** * 打印参数 * @param parameter 参数 */ void printParameter(String parameter); } 再定义一个module，名字叫spi-service-one，pom.xml中依赖spi-interface。 在spi-service-one中定义一个实现类，实现SpiInterfaceService 接口。
+package com.jimoer.spi.service.one; import com.jimoer.spi.app.SpiInterfaceService; /** * @author jimoer **/ public class SpiOneService implements SpiInterfaceService { /** * 打印参数 * * @param parameter 参数 */ @Override public void printParameter(String parameter) { System.">
+<meta name="author" content="">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title"></h1>
+        <div class="post-info">
+            <div> 
+                <span class="post-date">📅&nbsp;0001-01-01 00:00:00</span></div></div>
+        <div class="post-content">
+            <h2 id="前言">前言</h2>
+<p>最近在面试的时候被问到SPI了，没回答上来，主要也是自己的原因，把自己给带沟里去了，因为讲到了类加载器的双亲委派模型，后面就被问到了有哪些是破坏了双亲委派模型的场景，然后我就说到了SPI，JNDI，以及JDK9的模块化都破坏了双亲委派。 然后就被问，那你说说对Java中的SPI的理解吧。然后我就一脸懵逼了，之前只是知道它会破坏双亲委派，也知道是个怎么回事，但是并没有深入了解，那么这次我就好好的来总结一下这个知识吧。</p>
+<h2 id="什么是spi">什么是SPI</h2>
+<p>SPI全称Service Provider Interface，字面意思是提供服务的接口，再解释详细一下就是<strong>Java提供的一套用来被第三方实现或扩展的接口，实现了接口的动态扩展，让第三方的实现类能像插件一样嵌入到系统中。</strong></p>
+<p>咦。。。 这个解释感觉还是有点绕口。 那就说一下它的本质。</p>
+<blockquote>
+<p>将接口的实现类的全限定名配置在文件中（文件名是接口的全限定名），由服务加载器读取配置文件，加载实现类。实现了运行时动态为接口替换实现类。</p>
+</blockquote>
+<h2 id="spi示例">SPI示例</h2>
+<p>还是举例说明吧。 我们创建一个项目，然后创建一个module叫spi-interface。 <img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/20201206231416917.png" alt="在这里插入图片描述"> 在这个module中我们定义一个接口：</p>
+<pre tabindex="0"><code>/**
+ * @author jimoer
+ **/
+public interface SpiInterfaceService {
+
+    /**
+     * 打印参数
+     * @param parameter 参数
+     */
+    void printParameter(String parameter);
+}
+</code></pre><p>再定义一个module，名字叫spi-service-one，pom.xml中依赖spi-interface。 在spi-service-one中定义一个实现类，实现SpiInterfaceService 接口。</p>
+<pre tabindex="0"><code>package com.jimoer.spi.service.one;
+import com.jimoer.spi.app.SpiInterfaceService;
+
+/**
+ * @author jimoer
+ **/
+public class SpiOneService implements SpiInterfaceService {
+    /**
+     * 打印参数
+     *
+     * @param parameter 参数
+     */
+    @Override
+    public void printParameter(String parameter) {
+        System.out.println(&quot;我是SpiOneService:&quot;+parameter);
+    }
+}
+</code></pre><p>然后再spi-service-one的resources目录下创建目录META-INF/services，在此目录下创建一个文件名称为SpiInterfaceService接口的全限定名称，文件内容写入SpiOneService这个实现类的全限定名称。 效果如下： <img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/20201206230909117.png" alt="在这里插入图片描述"> 再创建一个module，名称为：spi-service-one，也是依赖spi-interface，并且定义一个实现类SpiTwoService 来实现SpiInterfaceService 接口。</p>
+<pre tabindex="0"><code>package com.jimoer.spi.service.two;
+import com.jimoer.spi.app.SpiInterfaceService;
+/**
+ * @author jimoer
+ **/
+public class SpiTwoService implements SpiInterfaceService {
+    /**
+     * 打印参数
+     *
+     * @param parameter 参数
+     */
+    @Override
+    public void printParameter(String parameter) {
+        System.out.println(&quot;我是SpiTwoService:&quot;+parameter);
+    }
+}
+</code></pre><p>目录结构如下： <img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/20201206231315234.png" alt="在这里插入图片描述"> 下面再创建一个用来测试的module，名为：spi-app。<img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/20201206231517172.png" alt="在这里插入图片描述"> pom.xml中依赖<code>spi-service-one</code>和<code>spi-service-two</code></p>
+<pre tabindex="0"><code>&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.jimoer.spi&lt;/groupId&gt;
+        &lt;artifactId&gt;spi-service-one&lt;/artifactId&gt;
+        &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.jimoer.spi&lt;/groupId&gt;
+        &lt;artifactId&gt;spi-service-two&lt;/artifactId&gt;
+        &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre><p>创建测试类</p>
+<pre tabindex="0"><code>/**
+ * @author jimoer
+ **/
+public class SpiService {
+
+    public static void main(String[] args) {
+
+        ServiceLoader&lt;SpiInterfaceService&gt; spiInterfaceServices = ServiceLoader.load(SpiInterfaceService.class);
+        Iterator&lt;SpiInterfaceService&gt; iterator = spiInterfaceServices.iterator();
+        while (iterator.hasNext()){
+            SpiInterfaceService sip = iterator.next();
+            sip.printParameter(&quot;参数&quot;);
+        }
+    }
+}
+</code></pre><p>执行结果：</p>
+<pre tabindex="0"><code>我是SpiTwoService:参数
+我是SpiOneService:参数
+</code></pre><p>通过运行结果我们可以看到，已经将SpiInterfaceService接口的所有实现都加载到了当前项目中，并且执行了调用。 <img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/2020120700453760.png" alt="在这里插入图片描述"> 这整个代码结构我们可以看出SPI机制将模块的装配放到了程序外面，就是说，接口的实现可以在程序外面，只需要在使用的时候指定具体的实现。并且动态的加载到自己的项目中。 SPI机制的主要目的： <strong>一是为了解耦，将接口和具体实现分离开来；</strong> <strong>二是提高框架的扩展性</strong>。以前写程序的时候，接口和实现都写在一起，调用方在使用的时候依赖接口来进行调用，无权选择使用具体的实现类。</p>
+<h2 id="spi的实现">SPI的实现</h2>
+<p>那么我们来看一下SPI具体是如何实现的呢？ 通过上面的例子，我们可以看到，SPI机制的核心代码是下面这段：</p>
+<pre tabindex="0"><code>ServiceLoader&lt;SpiInterfaceService&gt; spiInterfaceServices = ServiceLoader.load(SpiInterfaceService.class);
+</code></pre><p>那么我们来看一下<code>ServiceLoader.load()</code>方法的源码：</p>
+<pre tabindex="0"><code>public static &lt;S&gt; ServiceLoader&lt;S&gt; load(Class&lt;S&gt; service) {
+    ClassLoader cl = Thread.currentThread().getContextClassLoader();
+    return ServiceLoader.load(service, cl);
+}
+</code></pre><p>看到<code>Thread.currentThread().getContextClassLoader()</code>；我就明白是怎么回事了，这个就是<strong>线程上下文类加载器</strong>，因为<strong>线程上下文类加载器</strong>就是为了做类加载双亲委派模型的逆序而创建的。</p>
+<blockquote>
+<p>使用这个线程上下文类加载器去加载所需的SPI服务代码，这是一种父类加载器去请求子类加载器完成类加载的行为，这种行为实际上是打通了，双亲委派模型的层次结构来逆向使用类加载器，已经违背了双亲委派模型的一般性原则，但也是无可奈何的事情。 <strong>《深入理解Java虚拟机（第三版）》</strong></p>
+</blockquote>
+<p>虽然知道了它是破坏双亲委派的了，但是具体实现，还是需要具体往下看的。</p>
+<p>在ServiceLoader里找到具体实现hasNext()的方法了，那么继续来看这个方法的实现。 <img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/20201207000120134.png" alt="在这里插入图片描述"> hasNext()方法又主要调用了hasNextService()方法。</p>
+<pre tabindex="0"><code>// 固定路径
+private static final String PREFIX = &quot;META-INF/services/&quot;;
+
+private boolean hasNextService() {
+     if (nextName != null) {
+         return true;
+     }
+     if (configs == null) {
+         try {
+         // 固定路径+接口全限定名称
+             String fullName = PREFIX + service.getName();
+             // 如果当前线程上下文类加载器为空，会用父类加载器（默认是应用程序类加载器）
+             if (loader == null)
+                 configs = ClassLoader.getSystemResources(fullName);
+             else
+                 configs = loader.getResources(fullName);
+         } catch (IOException x) {
+             fail(service, &quot;Error locating configuration files&quot;, x);
+         }
+     }
+     while ((pending == null) || !pending.hasNext()) {
+         if (!configs.hasMoreElements()) {
+             return false;
+         }
+         pending = parse(service, configs.nextElement());
+     }
+     // 后面next()方法中判断当前类是否已经出现化的时候要用
+     nextName = pending.next();
+     return true;
+ }
+</code></pre><p>主要就是去加载META-INF/services/路径下的接口全限定名称的文件然后去里面找到实现类的类路径将实现类进行类加载。</p>
+<p>继续看迭代器是如何取出每一个实现对象的。那就要看ServiceLoader中实现了迭代器的next()方法了。 <img src="http://learn.lianglianglee.com/%E6%96%87%E7%AB%A0/assets/20201207001419765.png" alt="在这里插入图片描述"> next()方法主要是nextService()实现的，那么继续看nextService()方法。</p>
+<pre tabindex="0"><code>private S nextService() {
+     if (!hasNextService())
+         throw new NoSuchElementException();
+     String cn = nextName;
+     nextName = null;
+     Class&lt;?&gt; c = null;
+     try {
+     // 直接加载类，无需初始化（因为上面hasNext()已经初始化了）。
+         c = Class.forName(cn, false, loader);
+     } catch (ClassNotFoundException x) {
+         fail(service,
+              &quot;Provider &quot; + cn + &quot; not found&quot;);
+     }
+     if (!service.isAssignableFrom(c)) {
+         fail(service,
+              &quot;Provider &quot; + cn  + &quot; not a subtype&quot;);
+     }
+     try {
+     // 将加载好的类实例化出对象。
+         S p = service.cast(c.newInstance());
+         providers.put(cn, p);
+         return p;
+     } catch (Throwable x) {
+         fail(service,
+              &quot;Provider &quot; + cn + &quot; could not be instantiated&quot;,
+              x);
+     }
+     throw new Error();          // This cannot happen
+ }
+</code></pre><p>看到这里就可以明白了，是如何创建出对象的了。先在hasNext()将接口的实现类进行加载并判断是否存在接口的实现类，然后在next()方法中将实现类进实例化。</p>
+<h3 id="总结">总结</h3>
+<p>Java中使用SPI机制的功能其实有很多，像JDBC、JNDI、以及Spring中也有使用，甚至RPC框架（Dubbo）中也有使用SPI机制来实现功能。 这次就总结到这里了，以后起码也能在面试的时候说出点内容了。</p>
+
+        </div>
+    </article>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="/documents/articles/jvm-cpu-profiler%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E5%8F%8A%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90.md/"><span></span></a>
+    </div>
+    <div class="next">
+        
+        <a href="/documents/articles/aqs-%E4%B8%87%E5%AD%97%E5%9B%BE%E6%96%87%E5%85%A8%E9%9D%A2%E8%A7%A3%E6%9E%90.md/"><span></span></a>
+    </div>
+</div>
+
+        </div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    function toggleLight() {
+        document.getElementById('page').classList.toggle('night');
+    }
+</script>
+</body>
+
+</html>

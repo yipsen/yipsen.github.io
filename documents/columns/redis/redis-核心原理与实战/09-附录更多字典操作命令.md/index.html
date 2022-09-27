@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title> | Yipsen Ye</title>
+<meta name="description" content="插入一个或多个元素 语法：hmset key field value [field value &amp;hellip;] 示例：
+127.0.0.1:6379&amp;gt; hmset myhash k1 val1 k2 val2 OK 127.0.0.1:6379&amp;gt; hmget myhash k1 k2 1) &amp;quot;val1&amp;quot; 2) &amp;quot;val2&amp;quot; 查询一个或多个元素 语法：hmget key field [field &amp;hellip;] 示例：
+127.0.0.1:6379&amp;gt; hmget myhash k1 k2 1) &amp;quot;v1&amp;quot; 2) &amp;quot;v2&amp;quot; 查询某个 key 的所有字段 语法：hkeys key 示例：
+127.0.0.1:6379&amp;gt; hkeys myhash 1) &amp;quot;key1&amp;quot; 2) &amp;quot;key2&amp;quot; 查询某个 key 的所有值 语法：hvals key 示例：
+127.0.0.1:6379&amp;gt; hvals myhash 1) &amp;quot;value1&amp;quot; 2) &amp;quot;value2&amp;quot; 查询某个 key 的所有字段和值 语法：hgetall key 示例：">
+<meta name="author" content="">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="logo-link" style="width: 60px; color: #CA6924;">
+    <a href="http://yipsen.github.io/">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
+        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">札记</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title"></h1>
+        <div class="post-info">
+            <div> 
+                <span class="post-date">📅&nbsp;0001-01-01 00:00:00</span></div></div>
+        <div class="post-content">
+            <h3 id="插入一个或多个元素">插入一个或多个元素</h3>
+<p>语法：hmset key field value [field value &hellip;] 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; hmset myhash k1 val1 k2 val2
+OK
+127.0.0.1:6379&gt; hmget myhash k1 k2
+1) &quot;val1&quot;
+2) &quot;val2&quot;
+
+</code></pre><h3 id="查询一个或多个元素">查询一个或多个元素</h3>
+<p>语法：hmget key field [field &hellip;] 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; hmget myhash k1 k2
+1) &quot;v1&quot;
+2) &quot;v2&quot;
+
+</code></pre><h3 id="查询某个-key-的所有字段">查询某个 key 的所有字段</h3>
+<p>语法：hkeys key 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; hkeys myhash
+1) &quot;key1&quot;
+2) &quot;key2&quot;
+
+</code></pre><h3 id="查询某个-key-的所有值">查询某个 key 的所有值</h3>
+<p>语法：hvals key 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; hvals myhash
+1) &quot;value1&quot;
+2) &quot;value2&quot;
+
+</code></pre><h3 id="查询某个-key-的所有字段和值">查询某个 key 的所有字段和值</h3>
+<p>语法：hgetall key 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; hgetall myhash
+1) &quot;k1&quot;
+2) &quot;v1&quot;
+3) &quot;k2&quot;
+4) &quot;v2&quot;
+
+</code></pre><h3 id="某个浮点值累加计算">某个浮点值累加计算</h3>
+<p>语法：hincrbyfloat key field increment 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; hincrbyfloat myhash k3 2.2
+&quot;9.2&quot;
+
+</code></pre><h3 id="查询元素是否存在">查询元素是否存在</h3>
+<p>语法：hexists key field 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; hexists myhash key1
+(integer) 1
+
+</code></pre><h3 id="查询元素个数">查询元素个数</h3>
+<p>语法：hlen key 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; hlen myhash
+(integer) 2
+
+</code></pre>
+        </div>
+    </article>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/10-%E5%88%97%E8%A1%A8%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.md/"><span></span></a>
+    </div>
+    <div class="next">
+        
+        <a href="/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/08-%E5%AD%97%E5%85%B8%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.md/"><span></span></a>
+    </div>
+</div>
+
+        </div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    function toggleLight() {
+        document.getElementById('page').classList.toggle('night');
+    }
+</script>
+</body>
+
+</html>

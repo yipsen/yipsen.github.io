@@ -6,12 +6,12 @@
     <description>Recent content in Targets on Yipsen Ye</description>
     <generator>Hugo -- gohugo.io</generator><atom:link href="http://yipsen.github.io/targets/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title></title>
+      <title>target of year 2022</title>
       <link>http://yipsen.github.io/targets/2022/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://yipsen.github.io/targets/2022/</guid>
-      <description></description>
+      <description>TODO List  在我的博客下描述你的系统需求，我给你推荐实现方案 使用OKR管理年度目标 限流算法学习与总结 - 计数器 限流算法学习与总结 - 令牌桶 限流算法学习与总结 - 漏斗算法 限流算法学习与总结 - 滑动窗口 Spring事件机制总结 - 观察者模式、JDK规范与其实现、Spring事件的基本使用：继承方式，注解方式，其他特殊使用如泛型，排序，异步等、基于Spring源码分析原理，注册、触发、扫描等。 Spring运行自启动的几个基本实现方式与区别及其原理，哪种场景使用哪种，如SmartLifeCycle原理、ApplicationReadyEvent、InitializingBean、@PostCut注解等。 并发编程总结 - 基本本质：同步 + 分工 + （互斥）锁机制；目标：性能、吞吐 并发编程总结 - volatile底层机制 并发编程总结 - CAS -&amp;gt; AQS -&amp;gt; ReentrantLock -&amp;gt; ReentrantReadWriteLock -&amp;gt; CountdownLatch 并发编程总结 - CAS -&amp;gt; Atomic 原子家族 并发编程总结 - synchronized + Object#wait() + Object#notify() -&amp;gt; ReentrantLock#lock() + ReentrantLock#await() + ReentrantLock#signal() -&amp;gt; Redission RLock() 并发编程总结 - ReentrantLock -&amp;gt; BlockingQueue(生产者/消费者模式) -&amp;gt; DelayQueue -&amp;gt; HashedWheelTimer时间轮 并发编程总结 - 并发常用场景列举 + 并发方案的优势。并发引入的问题 + 对应的解决方案。 并发编程总结 - 阻塞队列： ArrayBlockingQueue -&amp;gt; LinkedBlockingQueue -&amp;gt; PriorityBlockingQueue -&amp;gt; DelayQueue -&amp;gt; SynchronizedQueue -&amp;gt; LinkedTransferQueue 并发编程总结 - 非阻塞队列：ConcurrentLinkedQueue -&amp;gt; ConcurrentLinkedDeque 并发编程总结 - 以小见大，要精通分布式架构，先精通并发编程，分布式架构比较常见的问题，大多是并发相关的。 并发编程总结 - 阻塞：严格有序、但性能有损的。非阻塞：无序但高吞吐的，可借助其他的方式来保证有限特定的有序。 并发编程总结 - 并发解决 - 资源加锁：本质目的是用时间换取空间（Synchronized） 并发编程总结 - 并发解决 - 资源拷贝：本质目的是用空间换取时间（ThreadLocal） 并发编程总结 - AQS首先把属性给讲清楚。然后将特性，内部结构（画图），逻辑流程等。 NIO、channel、selector、selectedKey 异步连接池设计 响应式编程 一致性哈希 日志管理 网络知识点总结：IP/TCP，iptable，各种TCP状态、HTTP等、网络组件如四层负载，七层负载。 最好能写一个通讲协议的专栏，收录各种协议，可以跟着wireshark的支持协议线路去寻找。比较重要的协议则分拆多个文章来梳理。甚至可以讲讲redis，mysql，protobuf等应用层级的协议内容。可以跟着netty支持的脚本走。 协议之外还需要讲讲各类网络组件，比如防火墙、路由器、交换机、负载均衡器、DNS、CDN、NAT等知识点。 安全防护：防祸从口出（防数据泄露），病从口入（防注入、篡改、伪造、击穿、击溃），还有就是防抵赖。 延展学习密码学，安全攻防等，并总结。如DDoS攻击、XSS、CRSF等。需给基本介绍，攻击原理，基本案例用例，以及其防护手段等。 类加载器，自定义类加载器，什么情况下会使用到自定义类加载器。 跨region数据同步方案研究 MySQL的深入研究 Kafka的深入研究 Redis的深入研究 Elastic的深入研究 算法与数据结构的总结，leetcode题目复习 以上要用一个个测试用例覆盖的方式，用测试的思维与意识去看去分析（难道就是所谓测试驱动分析？？？防御编程？？？），关注每项技术的历史PR变动，挖掘其设计是为了解决什么问题，以及现今遗留的问题，还有其后续的规划发展蓝图等。 软件编程模式总结已经相关案例梳理 内存溢出、CPU跑满、带宽限流、磁盘IO性能等调查与防御性编程 Mockito的原理，什么是Fake，Mock，Spider，Stub等测试用的dummy对象。 压缩算法研究：如gzip、snappy、lz4、zstandard等。 netty黑科技：netty的PlatformDependent可以直接改写对象（查看NioEventLoop#230行代码）内部实际使用了Unsafe类操作内存地址的修改。 学习技术不单要看，要考考自己，更要有实验性的验证已确保自己已经掌握。 元数据相关知识点：Meta-Object Facility.</description>
     </item>
     
   </channel>

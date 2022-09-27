@@ -19,10 +19,9 @@ ReentrantReadWriteLock reentrantReadWriteLock = new ReentrantReadWriteLock(false
 final boolean writerShouldBlock() {return hasQueuedPredecessors();}final boolean readerShouldBlock() {return hasQueuedPredecessors();}很明显，在公平锁的情况下，只要等待队列中有线程在等待，也就是 hasQueuedPredecessors() 返回 true 的时候，那么 writer 和 reader 都会 block，也就是一律不允许插队，都乖乖去排队，这也符合公平锁的思想。
 下面让我们来看一下非公平锁的实现：
 final boolean writerShouldBlock() {return false; // writers can always barge}final boolean readerShouldBlock() {return apparentlyFirstQueuedIsExclusive();}在 writerShouldBlock() 这个方法中始终返回 false，可以看出，对于想获取写锁的线程而言，由于返回值是 false，所以它是随时可以插队的，这就和我们的 ReentrantLock 的设计思想是一样的，但是读锁却不一样。这里实现的策略很有意思，先让我们来看下面这种场景：">
-<meta name="author"
-  content="">
+<meta name="author" content="">
 
-<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
 
 </head>
 
@@ -30,7 +29,7 @@ final boolean writerShouldBlock() {return false; // writers can always barge}
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
         <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
     </a>
 </div>
@@ -45,7 +44,7 @@ final boolean writerShouldBlock() {return false; // writers can always barge}
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/collections/">图集</a>
+                href="http://yipsen.github.io/collections/">附表</a>
         </li>
         
         <li class="nav-item">
@@ -58,13 +57,372 @@ final boolean writerShouldBlock() {return false; // writers can always barge}
     </header>
     <main id="content">
         
-<div class="container">
-    <article class="post-block">
+<div class="container"><aside>
+    <div>
+        
+        
+            
+            
+            <div class="post-category-icon"></div>
+            <a href="/categories/java%e5%b9%b6%e5%8f%91%e7%bc%96%e7%a8%8b78%e8%ae%b2/">Java并发编程78讲</a>
+            <ul>
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/00-%E7%94%B1%E7%82%B9%E5%8F%8A%E9%9D%A2%E6%90%AD%E5%BB%BA%E4%BD%A0%E7%9A%84-java-%E5%B9%B6%E5%8F%91%E7%9F%A5%E8%AF%86%E7%BD%91/">00 由点及面，搭建你的 Java 并发知识网</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/01-%E4%B8%BA%E4%BD%95%E8%AF%B4%E5%8F%AA%E6%9C%89-1-%E7%A7%8D%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95/">01 为何说只有 1 种实现线程的方法？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/02-%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%81%9C%E6%AD%A2%E7%BA%BF%E7%A8%8B%E4%B8%BA%E4%BB%80%E4%B9%88-volatile-%E6%A0%87%E8%AE%B0%E4%BD%8D%E7%9A%84%E5%81%9C%E6%AD%A2%E6%96%B9%E6%B3%95%E6%98%AF%E9%94%99%E8%AF%AF%E7%9A%84/">02 如何正确停止线程？为什么 volatile 标记位的停止方法是错误的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/03-%E7%BA%BF%E7%A8%8B%E6%98%AF%E5%A6%82%E4%BD%95%E5%9C%A8-6-%E7%A7%8D%E7%8A%B6%E6%80%81%E4%B9%8B%E9%97%B4%E8%BD%AC%E6%8D%A2%E7%9A%84/">03 线程是如何在 6 种状态之间转换的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/04-waitnotifynotifyall-%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/">04 waitnotifynotifyAll 方法的使用注意事项？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/05-%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%96%B9%E6%B3%95/">05 有哪几种实现生产者消费者模式的方法？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/06-%E4%B8%80%E5%85%B1%E6%9C%89%E5%93%AA-3-%E7%B1%BB%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/">06 一共有哪 3 类线程安全问题？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/07-%E5%93%AA%E4%BA%9B%E5%9C%BA%E6%99%AF%E9%9C%80%E8%A6%81%E9%A2%9D%E5%A4%96%E6%B3%A8%E6%84%8F%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/">07 哪些场景需要额外注意线程安全问题？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/08-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BC%9A%E5%B8%A6%E6%9D%A5%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98/">08 为什么多线程会带来性能问题？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/09-%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%AF%94%E6%89%8B%E5%8A%A8%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E5%A5%BD%E5%9C%A8%E5%93%AA%E9%87%8C/">09 使用线程池比手动创建线程好在哪里？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/10-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%90%84%E4%B8%AA%E5%8F%82%E6%95%B0%E7%9A%84%E5%90%AB%E4%B9%89/">10 线程池的各个参数的含义？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/11-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%9C%89%E5%93%AA-4-%E7%A7%8D%E6%8B%92%E7%BB%9D%E7%AD%96%E7%95%A5/">11 线程池有哪 4 种拒绝策略？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/12-%E6%9C%89%E5%93%AA-6-%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0%E4%BB%80%E4%B9%88%E6%98%AF-java8-%E7%9A%84-forkjoinpool/">12 有哪 6 种常见的线程池？什么是 Java8 的 ForkJoinPool？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/13-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%B8%B8%E7%94%A8%E7%9A%84%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E6%9C%89%E5%93%AA%E4%BA%9B/">13 线程池常用的阻塞队列有哪些？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/14-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%BA%94%E8%AF%A5%E8%87%AA%E5%8A%A8%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E6%B1%A0/">14 为什么不应该自动创建线程池？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/15-%E5%90%88%E9%80%82%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%95%B0%E9%87%8F%E6%98%AF%E5%A4%9A%E5%B0%91cpu-%E6%A0%B8%E5%BF%83%E6%95%B0%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%95%B0%E7%9A%84%E5%85%B3%E7%B3%BB/">15 合适的线程数量是多少？CPU 核心数和线程数的关系？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/16-%E5%A6%82%E4%BD%95%E6%A0%B9%E6%8D%AE%E5%AE%9E%E9%99%85%E9%9C%80%E8%A6%81%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0/">16 如何根据实际需要，定制自己的线程池？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/17-%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%85%B3%E9%97%AD%E7%BA%BF%E7%A8%8B%E6%B1%A0shutdown-%E5%92%8C-shutdownnow-%E7%9A%84%E5%8C%BA%E5%88%AB/">17 如何正确关闭线程池？shutdown 和 shutdownNow 的区别？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/18-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B%E5%A4%8D%E7%94%A8%E7%9A%84%E5%8E%9F%E7%90%86/">18 线程池实现“线程复用”的原理？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/19-%E4%BD%A0%E7%9F%A5%E9%81%93%E5%93%AA%E5%87%A0%E7%A7%8D%E9%94%81%E5%88%86%E5%88%AB%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9/">19 你知道哪几种锁？分别有什么特点？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/20-%E6%82%B2%E8%A7%82%E9%94%81%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81%E7%9A%84%E6%9C%AC%E8%B4%A8%E6%98%AF%E4%BB%80%E4%B9%88/">20 悲观锁和乐观锁的本质是什么？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/21-%E5%A6%82%E4%BD%95%E7%9C%8B%E5%88%B0-synchronized-%E8%83%8C%E5%90%8E%E7%9A%84monitor-%E9%94%81/">21 如何看到 synchronized 背后的“monitor 锁”？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/22-synchronized-%E5%92%8C-lock-%E5%AD%B0%E4%BC%98%E5%AD%B0%E5%8A%A3%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9/">22 synchronized 和 Lock 孰优孰劣，如何选择？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/23-lock-%E6%9C%89%E5%93%AA%E5%87%A0%E4%B8%AA%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%88%86%E5%88%AB%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8/">23 Lock 有哪几个常用方法？分别有什么用？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/24-%E8%AE%B2%E4%B8%80%E8%AE%B2%E5%85%AC%E5%B9%B3%E9%94%81%E5%92%8C%E9%9D%9E%E5%85%AC%E5%B9%B3%E9%94%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%9D%9E%E5%85%AC%E5%B9%B3/">24 讲一讲公平锁和非公平锁，为什么要“非公平”？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/25-%E8%AF%BB%E5%86%99%E9%94%81-readwritelock-%E8%8E%B7%E5%8F%96%E9%94%81%E6%9C%89%E5%93%AA%E4%BA%9B%E8%A7%84%E5%88%99/">25 读写锁 ReadWriteLock 获取锁有哪些规则？</a></li>
+                
+                
+                
+                    <li>26 读锁应该插队吗？什么是读写锁的升降级？</li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/27-%E4%BB%80%E4%B9%88%E6%98%AF%E8%87%AA%E6%97%8B%E9%94%81%E8%87%AA%E6%97%8B%E7%9A%84%E5%A5%BD%E5%A4%84%E5%92%8C%E5%90%8E%E6%9E%9C%E6%98%AF%E4%BB%80%E4%B9%88%E5%91%A2/">27 什么是自旋锁？自旋的好处和后果是什么呢？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/28-jvm-%E5%AF%B9%E9%94%81%E8%BF%9B%E8%A1%8C%E4%BA%86%E5%93%AA%E4%BA%9B%E4%BC%98%E5%8C%96/">28 JVM 对锁进行了哪些优化？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/29-hashmap-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84/">29 HashMap 为什么是线程不安全的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/30-concurrenthashmap-%E5%9C%A8-java7-%E5%92%8C-8-%E6%9C%89%E4%BD%95%E4%B8%8D%E5%90%8C/">30 ConcurrentHashMap 在 Java7 和 8 有何不同？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/31-%E4%B8%BA%E4%BB%80%E4%B9%88-map-%E6%A1%B6%E4%B8%AD%E8%B6%85%E8%BF%87-8-%E4%B8%AA%E6%89%8D%E8%BD%AC%E4%B8%BA%E7%BA%A2%E9%BB%91%E6%A0%91/">31 为什么 Map 桶中超过 8 个才转为红黑树？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/32-%E5%90%8C%E6%A0%B7%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8concurrenthashmap-%E5%92%8C-hashtable-%E7%9A%84%E5%8C%BA%E5%88%AB/">32 同样是线程安全，ConcurrentHashMap 和 Hashtable 的区别</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/33-copyonwritearraylist-%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9/">33 CopyOnWriteArrayList 有什么特点？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/34-%E4%BB%80%E4%B9%88%E6%98%AF%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97/">34 什么是阻塞队列？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/35-%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E5%8C%85%E5%90%AB%E5%93%AA%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95addofferput-%E7%AD%89%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB/">35 阻塞队列包含哪些常用的方法？add、offer、put 等方法的区别？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/36-%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97/">36 有哪几种常见的阻塞队列？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/37-%E9%98%BB%E5%A1%9E%E5%92%8C%E9%9D%9E%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E7%9A%84%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88/">37 阻塞和非阻塞队列的并发安全原理是什么？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/38-%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E9%80%82%E5%90%88%E8%87%AA%E5%B7%B1%E7%9A%84%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97/">38 如何选择适合自己的阻塞队列？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/39-%E5%8E%9F%E5%AD%90%E7%B1%BB%E6%98%AF%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8-cas-%E4%BF%9D%E8%AF%81%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84/">39 原子类是如何利用 CAS 保证线程安全的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/40-atomicinteger-%E5%9C%A8%E9%AB%98%E5%B9%B6%E5%8F%91%E4%B8%8B%E6%80%A7%E8%83%BD%E4%B8%8D%E5%A5%BD%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E4%B8%BA%E4%BB%80%E4%B9%88/">40 AtomicInteger 在高并发下性能不好，如何解决？为什么？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/41-%E5%8E%9F%E5%AD%90%E7%B1%BB%E5%92%8C-volatile-%E6%9C%89%E4%BB%80%E4%B9%88%E5%BC%82%E5%90%8C/">41 原子类和 volatile 有什么异同？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/42-atomicinteger-%E5%92%8C-synchronized-%E7%9A%84%E5%BC%82%E5%90%8C%E7%82%B9/">42 AtomicInteger 和 synchronized 的异同点？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/43-java-8-%E4%B8%AD-adder-%E5%92%8C-accumulator-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/">43 Java 8 中 Adder 和 Accumulator 有什么区别？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/44-threadlocal-%E9%80%82%E5%90%88%E7%94%A8%E5%9C%A8%E5%93%AA%E4%BA%9B%E5%AE%9E%E9%99%85%E7%94%9F%E4%BA%A7%E7%9A%84%E5%9C%BA%E6%99%AF%E4%B8%AD/">44 ThreadLocal 适合用在哪些实际生产的场景中？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/45-threadlocal-%E6%98%AF%E7%94%A8%E6%9D%A5%E8%A7%A3%E5%86%B3%E5%85%B1%E4%BA%AB%E8%B5%84%E6%BA%90%E7%9A%84%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BF%E9%97%AE%E7%9A%84%E9%97%AE%E9%A2%98%E5%90%97/">45 ThreadLocal 是用来解决共享资源的多线程访问的问题吗？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/46-%E5%A4%9A%E4%B8%AA-threadlocal-%E5%9C%A8-thread-%E4%B8%AD%E7%9A%84-threadlocals-%E9%87%8C%E6%98%AF%E6%80%8E%E4%B9%88%E5%AD%98%E5%82%A8%E7%9A%84/">46 多个 ThreadLocal 在 Thread 中的 threadlocals 里是怎么存储的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/47-%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%BA%E4%BD%95%E6%AF%8F%E6%AC%A1%E7%94%A8%E5%AE%8C-threadlocal-%E9%83%BD%E8%A6%81%E8%B0%83%E7%94%A8-remove/">47 内存泄漏——为何每次用完 ThreadLocal 都要调用 remove()？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/48-callable-%E5%92%8C-runnable-%E7%9A%84%E4%B8%8D%E5%90%8C/">48 Callable 和 Runnable 的不同？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/49-future-%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD%E6%98%AF%E4%BB%80%E4%B9%88/">49 Future 的主要功能是什么？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/50-%E4%BD%BF%E7%94%A8-future-%E6%9C%89%E5%93%AA%E4%BA%9B%E6%B3%A8%E6%84%8F%E7%82%B9future-%E4%BA%A7%E7%94%9F%E6%96%B0%E7%9A%84%E7%BA%BF%E7%A8%8B%E4%BA%86%E5%90%97/">50 使用 Future 有哪些注意点？Future 产生新的线程了吗？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/51-%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8-completablefuture-%E5%AE%9E%E7%8E%B0%E6%97%85%E6%B8%B8%E5%B9%B3%E5%8F%B0%E9%97%AE%E9%A2%98/">51 如何利用 CompletableFuture 实现“旅游平台”问题？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/52-%E4%BF%A1%E5%8F%B7%E9%87%8F%E8%83%BD%E8%A2%AB-fixedthreadpool-%E6%9B%BF%E4%BB%A3%E5%90%97/">52 信号量能被 FixedThreadPool 替代吗？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/53-countdownlatch-%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%89%E6%8E%92%E7%BA%BF%E7%A8%8B%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F%E7%9A%84/">53 CountDownLatch 是如何安排线程执行顺序的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/54-cyclicbarrier-%E5%92%8C-countdownlatch-%E6%9C%89%E4%BB%80%E4%B9%88%E5%BC%82%E5%90%8C/">54 CyclicBarrier 和 CountdownLatch 有什么异同？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/55-conditionobject.wait-%E5%92%8C-notify-%E7%9A%84%E5%85%B3%E7%B3%BB/">55 Condition、object.wait() 和 notify() 的关系？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/56-%E8%AE%B2%E4%B8%80%E8%AE%B2%E4%BB%80%E4%B9%88%E6%98%AF-java-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/">56 讲一讲什么是 Java 内存模型？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/57-%E4%BB%80%E4%B9%88%E6%98%AF%E6%8C%87%E4%BB%A4%E9%87%8D%E6%8E%92%E5%BA%8F%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%87%8D%E6%8E%92%E5%BA%8F/">57 什么是指令重排序？为什么要重排序？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/58-java-%E4%B8%AD%E7%9A%84%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C%E6%9C%89%E5%93%AA%E4%BA%9B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/">58 Java 中的原子操作有哪些注意事项？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/59-%E4%BB%80%E4%B9%88%E6%98%AF%E5%86%85%E5%AD%98%E5%8F%AF%E8%A7%81%E6%80%A7%E9%97%AE%E9%A2%98/">59 什么是“内存可见性”问题？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/60-%E4%B8%BB%E5%86%85%E5%AD%98%E5%92%8C%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AD%98%E7%9A%84%E5%85%B3%E7%B3%BB/">60 主内存和工作内存的关系？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/61-%E4%BB%80%E4%B9%88%E6%98%AF-happens-before-%E8%A7%84%E5%88%99/">61 什么是 happens-before 规则？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/62-volatile-%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%E4%B8%8E-synchronized-%E6%9C%89%E4%BB%80%E4%B9%88%E5%BC%82%E5%90%8C/">62 volatile 的作用是什么？与 synchronized 有什么异同？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/63-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8F%8C%E9%87%8D%E6%A3%80%E6%9F%A5%E9%94%81%E6%A8%A1%E5%BC%8F%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%85%E9%A1%BB%E5%8A%A0-volatile/">63 单例模式的双重检查锁模式为什么必须加 volatile？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/64-%E4%BD%A0%E7%9F%A5%E9%81%93%E4%BB%80%E4%B9%88%E6%98%AF-cas-%E5%90%97/">64 你知道什么是 CAS 吗？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/65-cas-%E5%92%8C%E4%B9%90%E8%A7%82%E9%94%81%E7%9A%84%E5%85%B3%E7%B3%BB%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BC%9A%E7%94%A8%E5%88%B0-cas/">65 CAS 和乐观锁的关系，什么时候会用到 CAS？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/66-cas-%E6%9C%89%E4%BB%80%E4%B9%88%E7%BC%BA%E7%82%B9/">66 CAS 有什么缺点？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/67-%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AA%E5%BF%85%E7%84%B6%E6%AD%BB%E9%94%81%E7%9A%84%E4%BE%8B%E5%AD%90/">67 如何写一个必然死锁的例子？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/68-%E5%8F%91%E7%94%9F%E6%AD%BB%E9%94%81%E5%BF%85%E9%A1%BB%E6%BB%A1%E8%B6%B3%E5%93%AA-4-%E4%B8%AA%E6%9D%A1%E4%BB%B6/">68 发生死锁必须满足哪 4 个条件？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/69-%E5%A6%82%E4%BD%95%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%92%8C%E4%BB%A3%E7%A0%81%E5%AE%9A%E4%BD%8D%E6%AD%BB%E9%94%81/">69 如何用命令行和代码定位死锁？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/70-%E6%9C%89%E5%93%AA%E4%BA%9B%E8%A7%A3%E5%86%B3%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%E7%9A%84%E7%AD%96%E7%95%A5/">70 有哪些解决死锁问题的策略？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/71-%E8%AE%B2%E4%B8%80%E8%AE%B2%E7%BB%8F%E5%85%B8%E7%9A%84%E5%93%B2%E5%AD%A6%E5%AE%B6%E5%B0%B1%E9%A4%90%E9%97%AE%E9%A2%98/">71 讲一讲经典的哲学家就餐问题</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/72-final-%E7%9A%84%E4%B8%89%E7%A7%8D%E7%94%A8%E6%B3%95%E6%98%AF%E4%BB%80%E4%B9%88/">72 final 的三种用法是什么？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/73-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8A%A0%E4%BA%86-final-%E5%8D%B4%E4%BE%9D%E7%84%B6%E6%97%A0%E6%B3%95%E6%8B%A5%E6%9C%89%E4%B8%8D%E5%8F%98%E6%80%A7/">73 为什么加了 final 却依然无法拥有“不变性”？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/74-%E4%B8%BA%E4%BB%80%E4%B9%88-string-%E8%A2%AB%E8%AE%BE%E8%AE%A1%E4%B8%BA%E6%98%AF%E4%B8%8D%E5%8F%AF%E5%8F%98%E7%9A%84/">74 为什么 String 被设计为是不可变的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/75-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-aqsaqs-%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8C%E9%87%8D%E8%A6%81%E6%80%A7%E6%98%AF%E4%BB%80%E4%B9%88/">75 为什么需要 AQS？AQS 的作用和重要性是什么？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/76-aqs-%E7%9A%84%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84/">76 AQS 的内部原理是什么样的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/77-aqs-%E5%9C%A8-countdownlatch-%E7%AD%89%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88/">77 AQS 在 CountDownLatch 等类中的应用原理是什么？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/78-%E4%B8%80%E4%BB%BD%E7%8B%AC%E5%AE%B6%E7%9A%84-java-%E5%B9%B6%E5%8F%91%E5%B7%A5%E5%85%B7%E5%9B%BE%E8%B0%B1/">78 一份独家的 Java 并发工具图谱</a></li>
+                
+                
+            </ul>
+        
+    </div>
+</aside>
+
+<style>
+    aside {
+        position: fixed;
+        left: 20px;
+        background: #ffdee3;
+        border-radius: 6px;
+        padding: 20px;
+        padding-top: 60px;
+        box-shadow: 5px 10px #888;
+        list-style-type: none;
+        display: none;
+    }
+
+    .post-category-icon {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        left: 50%;
+        margin-left: -40px;
+        text-align: center;
+        font-size: 36px;
+        content: 'J';
+        background: #ffdee3;
+        border-radius: 100%;
+        border: 10px solid #fff;
+        box-shadow: 5px 10px #888;
+    }
+</style><article class="post-block">
         <h1 class="post-title">26 读锁应该插队吗？什么是读写锁的升降级？</h1>
         <div class="post-info">
-            <div>2021-12-22|<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
+            <div> 
+                <span class="post-date">📅&nbsp;2021-12-22 01:42:02</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
                 
-                <a href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/"> Java并发编程78讲 </a>
+                📚&nbsp;<a href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/">Java并发编程78讲</a>
                 
             </div></div>
         <div class="post-content">
@@ -352,11 +710,11 @@ public static void upgrade() {
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight();">T</div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 11110 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     

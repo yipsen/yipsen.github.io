@@ -15,10 +15,9 @@
  业务直接根据分库分表访问 MySQL 数据库节点； 根据中间件访问。  我们先来看一看业务直接访问分布式数据库的场景。
 分库分表直接访问 在设计分片时，我们已经明确了每张表的分片键信息，所以业务或服务可以直接根据分片键对应的数据库信息，直接访问底层的 MySQL 数据节点，比如在代码里可以做类似的处理：
 void InsertOrders(String orderKey, int userKey...) {int shard_id = userKey % 4;if (shard_id == 0) {conn = MySQLConncetion(&#39;shard1&#39;,...);conn.query(...);} else if (shard_id == 1) {conn = MySQLConncetion(&#39;shard2&#39;,...);conn.query(...); } else if (shard_id == 2) {conn = MySQLConncetion(&#39;shard3&#39;,...);conn.query(...); } else if (shard_id == 3) {conn = MySQLConncetion(&#39;shard4&#39;,...);conn.query(...); }}从这段代码中我们可以看到，在业务代码中会嵌入分库分表的路由逻辑，在业务层计算出对应分片的信息，然后访问数据库：">
-<meta name="author"
-  content="">
+<meta name="author" content="">
 
-<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
 
 </head>
 
@@ -26,7 +25,7 @@ void InsertOrders(String orderKey, int userKey...) {int shard_id = userKey % 4;
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
         <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
     </a>
 </div>
@@ -41,7 +40,7 @@ void InsertOrders(String orderKey, int userKey...) {int shard_id = userKey % 4;
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/collections/">图集</a>
+                href="http://yipsen.github.io/collections/">附表</a>
         </li>
         
         <li class="nav-item">
@@ -54,13 +53,168 @@ void InsertOrders(String orderKey, int userKey...) {int shard_id = userKey % 4;
     </header>
     <main id="content">
         
-<div class="container">
-    <article class="post-block">
+<div class="container"><aside>
+    <div>
+        
+        
+            
+            
+            <div class="post-category-icon"></div>
+            <a href="/categories/mysql%e5%ae%9e%e6%88%98%e5%ae%9d%e5%85%b8/">MySQL实战宝典</a>
+            <ul>
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/00-%E5%BC%80%E7%AF%87%E8%AF%8D-%E4%BB%8E%E4%B8%9A%E5%8A%A1%E5%87%BA%E5%8F%91%E5%BC%80%E5%90%AF%E6%B5%B7%E9%87%8F-mysql-%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">00 开篇词 从业务出发，开启海量 MySQL 架构设计</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/01-%E6%95%B0%E5%AD%97%E7%B1%BB%E5%9E%8B%E9%81%BF%E5%85%8D%E8%87%AA%E5%A2%9E%E8%B8%A9%E5%9D%91/">01 数字类型：避免自增踩坑</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/02-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E5%9E%8B%E4%B8%8D%E8%83%BD%E5%BF%BD%E7%95%A5%E7%9A%84-collation/">02 字符串类型：不能忽略的 COLLATION</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/03-%E6%97%A5%E6%9C%9F%E7%B1%BB%E5%9E%8Btimestamp-%E5%8F%AF%E8%83%BD%E6%98%AF%E5%B7%A8%E5%9D%91/">03 日期类型：TIMESTAMP 可能是巨坑</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/04-%E9%9D%9E%E7%BB%93%E6%9E%84%E5%AD%98%E5%82%A8%E7%94%A8%E5%A5%BD-json-%E8%BF%99%E5%BC%A0%E7%89%8C/">04 非结构存储：用好 JSON 这张牌</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/05-%E8%A1%A8%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%BF%98%E8%AE%B0%E8%8C%83%E5%BC%8F%E5%87%86%E5%88%99/">05 表结构设计：忘记范式准则</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/06-%E8%A1%A8%E5%8E%8B%E7%BC%A9%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E7%A9%BA%E9%97%B4%E5%8E%8B%E7%BC%A9/">06 表压缩：不仅仅是空间压缩</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/07-%E8%A1%A8%E7%9A%84%E8%AE%BF%E9%97%AE%E8%AE%BE%E8%AE%A1%E4%BD%A0%E8%AF%A5%E9%80%89%E6%8B%A9-sql-%E8%BF%98%E6%98%AF-nosql/">07 表的访问设计：你该选择 SQL 还是 NoSQL？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/08-%E7%B4%A2%E5%BC%95%E6%8E%92%E5%BA%8F%E7%9A%84%E8%89%BA%E6%9C%AF/">08 索引：排序的艺术</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/09-%E7%B4%A2%E5%BC%95%E7%BB%84%E7%BB%87%E8%A1%A8%E4%B8%87%E7%89%A9%E7%9A%86%E7%B4%A2%E5%BC%95/">09 索引组织表：万物皆索引</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/10-%E7%BB%84%E5%90%88%E7%B4%A2%E5%BC%95%E7%94%A8%E5%A5%BD%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87-10-%E5%80%8D/">10 组合索引：用好，性能提升 10 倍！</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/11-%E7%B4%A2%E5%BC%95%E5%87%BA%E9%94%99%E8%AF%B7%E7%90%86%E8%A7%A3-cbo-%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">11 索引出错：请理解 CBO 的工作原理</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/12-join-%E8%BF%9E%E6%8E%A5%E5%88%B0%E5%BA%95%E8%83%BD%E4%B8%8D%E8%83%BD%E5%86%99-join/">12 JOIN 连接：到底能不能写 JOIN？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/13-%E5%AD%90%E6%9F%A5%E8%AF%A2%E6%94%BE%E5%BF%83%E5%9C%B0%E4%BD%BF%E7%94%A8%E5%AD%90%E6%9F%A5%E8%AF%A2%E5%8A%9F%E8%83%BD%E5%90%A7/">13 子查询：放心地使用子查询功能吧！</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/14-%E5%88%86%E5%8C%BA%E8%A1%A8%E5%93%AA%E4%BA%9B%E5%9C%BA%E6%99%AF%E6%88%91%E4%B8%8D%E5%BB%BA%E8%AE%AE%E7%94%A8%E5%88%86%E5%8C%BA%E8%A1%A8/">14 分区表：哪些场景我不建议用分区表？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/15-mysql-%E5%A4%8D%E5%88%B6%E6%9C%80%E7%AE%80%E5%8D%95%E4%B9%9F%E6%9C%80%E5%AE%B9%E6%98%93%E9%85%8D%E7%BD%AE%E5%87%BA%E9%94%99/">15 MySQL 复制：最简单也最容易配置出错</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/16-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E8%AE%BE%E8%AE%A1%E5%A4%8D%E5%88%B6%E5%BB%B6%E8%BF%9F%E5%85%B6%E5%AE%9E%E6%98%AF%E4%BD%A0%E7%94%A8%E9%94%99%E4%BA%86/">16 读写分离设计：复制延迟？其实是你用错了</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/17-%E9%AB%98%E5%8F%AF%E7%94%A8%E8%AE%BE%E8%AE%A1%E4%BD%A0%E6%80%8E%E4%B9%88%E6%B4%BB%E7%94%A8%E4%B8%89%E5%A4%A7%E6%9E%B6%E6%9E%84%E6%96%B9%E6%A1%88/">17 高可用设计：你怎么活用三大架构方案？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/18-%E9%87%91%E8%9E%8D%E7%BA%A7%E9%AB%98%E5%8F%AF%E7%94%A8%E6%9E%B6%E6%9E%84%E5%BF%85%E4%B8%8D%E5%8F%AF%E5%B0%91%E7%9A%84%E6%95%B0%E6%8D%AE%E6%A0%B8%E5%AF%B9/">18 金融级高可用架构：必不可少的数据核对</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/19-%E9%AB%98%E5%8F%AF%E7%94%A8%E5%A5%97%E4%BB%B6%E9%80%89%E6%8B%A9%E8%BF%99%E4%B9%88%E5%A4%9A%E4%BD%A0%E8%AF%A5%E5%A6%82%E4%BD%95%E9%80%89/">19 高可用套件：选择这么多，你该如何选？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/20-innodb-cluster%E6%94%B9%E5%8F%98%E5%8E%86%E5%8F%B2%E7%9A%84%E6%96%B0%E4%BA%A7%E5%93%81/">20 InnoDB Cluster：改变历史的新产品</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/21-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B9%9F%E8%A6%81%E6%A3%80%E6%9F%A5/">21 数据库备份：备份文件也要检查！</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/22-%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9E%B6%E6%9E%84%E5%BD%BB%E5%BA%95%E7%90%86%E8%A7%A3%E4%BB%80%E4%B9%88%E5%8F%AB%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93/">22 分布式数据库架构：彻底理解什么叫分布式数据库</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/23-%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%9C%B0%E5%B0%86%E6%95%B0%E6%8D%AE%E5%88%86%E7%89%87/">23 分布式数据库表结构设计：如何正确地将数据分片？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/24-%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%E8%AE%BE%E8%AE%A1%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95%E5%85%A8%E5%B1%80%E7%B4%A2%E5%BC%95%E7%9A%84%E6%9C%80%E4%BD%B3%E8%AE%BE%E8%AE%A1%E5%AE%9E%E8%B7%B5/">24 分布式数据库索引设计：二级索引、全局索引的最佳设计实践</a></li>
+                
+                
+                
+                    <li>25 分布式数据库架构选型：分库分表 or 中间件 ？</li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/26-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%BE%E8%AE%A1%E4%B9%8B%E7%A6%85%E5%85%A8%E9%93%BE%E8%B7%AF%E7%9A%84%E6%9D%A1%E5%B8%A6%E5%8C%96%E8%AE%BE%E8%AE%A1/">26 分布式设计之禅：全链路的条带化设计</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/27-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E6%88%91%E4%BB%AC%E5%88%B0%E5%BA%95%E8%A6%81%E4%B8%8D%E8%A6%81%E4%BD%BF%E7%94%A8-2pc/">27 分布式事务：我们到底要不要使用 2PC？</a></li>
+                
+                
+            </ul>
+        
+    </div>
+</aside>
+
+<style>
+    aside {
+        position: fixed;
+        left: 20px;
+        background: #ffdee3;
+        border-radius: 6px;
+        padding: 20px;
+        padding-top: 60px;
+        box-shadow: 5px 10px #888;
+        list-style-type: none;
+        display: none;
+    }
+
+    .post-category-icon {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        left: 50%;
+        margin-left: -40px;
+        text-align: center;
+        font-size: 36px;
+        content: 'J';
+        background: #ffdee3;
+        border-radius: 100%;
+        border: 10px solid #fff;
+        box-shadow: 5px 10px #888;
+    }
+</style><article class="post-block">
         <h1 class="post-title">25 分布式数据库架构选型：分库分表 or 中间件 ？</h1>
         <div class="post-info">
-            <div>2021-12-22|<a class="post-tag" href="/tags/mysql/">mysql</a></div><div class="post-category">
+            <div> 
+                <span class="post-date">📅&nbsp;2021-12-22 01:53:26</span>🏷️&nbsp;<a class="post-tag" href="/tags/mysql/">mysql</a></div><div class="post-category">
                 
-                <a href="/categories/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/"> MySQL实战宝典 </a>
+                📚&nbsp;<a href="/categories/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/">MySQL实战宝典</a>
                 
             </div></div>
         <div class="post-content">
@@ -174,11 +328,11 @@ void InsertOrders(String orderKey, int userKey...) {int shard_id = userKey % 4;
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight();">T</div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 11110 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     

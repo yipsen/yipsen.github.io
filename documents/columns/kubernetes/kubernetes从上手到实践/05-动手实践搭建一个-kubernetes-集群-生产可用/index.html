@@ -20,10 +20,9 @@ kubeadm 是 Kubernetes 官方提供的一个 CLI 工具，可以很方便的搭�
 虽说可以更改参数让其可用，但是我建议还是禁用 swap 除非你的集群有特殊的需求，比如：有大内存使用的需求，但又想节约成本；或者你知道你将要做什么，否则可能会出现一些非预期的情况，尤其是做了内存限制的时候，当某个 Pod 达到内存限制的时候，它可能会溢出到 swap 中，这会导致 K8S 无法正常进行调度。
 如何禁用：
  使用 sudo cat /proc/swaps 验证 swap 配置的设备和文件。 通过 swapoff -a 关闭 swap 。 使用 sudo blkid 或者 sudo lsblk 可查看到我们的设备属性，请注意输出结果中带有 swap 字样的信息。 将 /etc/fstab 中和上一条命令中输出的，和 swap 相关的挂载点都删掉，以免在机器重启或重挂载时，再挂载 swap 分区。  执行完上述操作，swap 便会被禁用，当然你也可以再次通过上述命令，或者 free 命令来确认是否还有 swap 存在。">
-<meta name="author"
-  content="">
+<meta name="author" content="">
 
-<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
 
 </head>
 
@@ -31,7 +30,7 @@ kubeadm 是 Kubernetes 官方提供的一个 CLI 工具，可以很方便的搭�
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
         <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
     </a>
 </div>
@@ -46,7 +45,7 @@ kubeadm 是 Kubernetes 官方提供的一个 CLI 工具，可以很方便的搭�
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/collections/">图集</a>
+                href="http://yipsen.github.io/collections/">附表</a>
         </li>
         
         <li class="nav-item">
@@ -59,13 +58,152 @@ kubeadm 是 Kubernetes 官方提供的一个 CLI 工具，可以很方便的搭�
     </header>
     <main id="content">
         
-<div class="container">
-    <article class="post-block">
+<div class="container"><aside>
+    <div>
+        
+        
+            
+            
+            <div class="post-category-icon"></div>
+            <a href="/categories/kubernetes%e4%bb%8e%e4%b8%8a%e6%89%8b%e5%88%b0%e5%ae%9e%e8%b7%b5/">Kubernetes从上手到实践</a>
+            <ul>
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/01-%E5%BC%80%E7%AF%87-kubernetes-%E6%98%AF%E4%BB%80%E4%B9%88%E4%BB%A5%E5%8F%8A%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%AE%83/">01 开篇： Kubernetes 是什么以及为什么需要它</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/02-%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86kubernetes-%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">02 初步认识：Kubernetes 基础概念</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/03-%E5%AE%8F%E8%A7%82%E8%AE%A4%E8%AF%86%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84/">03 宏观认识：整体架构</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/04-%E6%90%AD%E5%BB%BA-kubernetes-%E9%9B%86%E7%BE%A4-%E6%9C%AC%E5%9C%B0%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA/">04 搭建 Kubernetes 集群 - 本地快速搭建</a></li>
+                
+                
+                
+                    <li>05 动手实践：搭建一个 Kubernetes 集群 - 生产可用</li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/06-%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86%E5%88%9D%E8%AF%86-kubectl/">06 集群管理：初识 kubectl</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/07-%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86%E4%BB%A5-redis-%E4%B8%BA%E4%BE%8B-%E9%83%A8%E7%BD%B2%E5%8F%8A%E8%AE%BF%E9%97%AE/">07 集群管理：以 Redis 为例-部署及访问</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/08-%E5%AE%89%E5%85%A8%E9%87%8D%E7%82%B9-%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83/">08 安全重点 认证和授权</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/09-%E5%BA%94%E7%94%A8%E5%8F%91%E5%B8%83%E9%83%A8%E7%BD%B2%E5%AE%9E%E9%99%85%E9%A1%B9%E7%9B%AE/">09 应用发布：部署实际项目</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/10-%E5%BA%94%E7%94%A8%E7%AE%A1%E7%90%86%E5%88%9D%E8%AF%86-helm/">10 应用管理：初识 Helm</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/11-%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5%E4%BB%A5-helm-%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE/">11 部署实践：以 Helm 部署项目</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/12-%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9Bkube-apiserver/">12 庖丁解牛：kube-apiserver</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/13-%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9Betcd/">13 庖丁解牛：etcd</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/14-%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9Bcontroller-manager/">14 庖丁解牛：controller-manager</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/15-%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9Bkube-scheduler/">15 庖丁解牛：kube-scheduler</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/16-%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9Bkubelet/">16 庖丁解牛：kubelet</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/17-%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9Bkube-proxy/">17 庖丁解牛：kube-proxy</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/18-%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9Bcontainer-runtime-docker/">18 庖丁解牛：Container Runtime （Docker）</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/19-troubleshoot/">19 Troubleshoot</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/20-%E6%89%A9%E5%B1%95%E5%A2%9E%E5%BC%BAdashboard/">20 扩展增强：Dashboard</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/21-%E6%89%A9%E5%B1%95%E5%A2%9E%E5%BC%BAcoredns/">21 扩展增强：CoreDNS</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/22-%E6%9C%8D%E5%8A%A1%E5%A2%9E%E5%BC%BAingress/">22 服务增强：Ingress</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/23-%E7%9B%91%E6%8E%A7%E5%AE%9E%E8%B7%B5%E5%AF%B9-k8s-%E9%9B%86%E7%BE%A4%E8%BF%9B%E8%A1%8C%E7%9B%91%E6%8E%A7/">23 监控实践：对 K8S 集群进行监控</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/24-%E6%80%BB%E7%BB%93/">24 总结</a></li>
+                
+                
+            </ul>
+        
+    </div>
+</aside>
+
+<style>
+    aside {
+        position: fixed;
+        left: 20px;
+        background: #ffdee3;
+        border-radius: 6px;
+        padding: 20px;
+        padding-top: 60px;
+        box-shadow: 5px 10px #888;
+        list-style-type: none;
+        display: none;
+    }
+
+    .post-category-icon {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        left: 50%;
+        margin-left: -40px;
+        text-align: center;
+        font-size: 36px;
+        content: 'J';
+        background: #ffdee3;
+        border-radius: 100%;
+        border: 10px solid #fff;
+        box-shadow: 5px 10px #888;
+    }
+</style><article class="post-block">
         <h1 class="post-title">05 动手实践：搭建一个 Kubernetes 集群 - 生产可用</h1>
         <div class="post-info">
-            <div>2021-12-22|<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
+            <div> 
+                <span class="post-date">📅&nbsp;2021-12-22 01:47:31</span>🏷️&nbsp;<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
                 
-                <a href="/categories/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/"> Kubernetes从上手到实践 </a>
+                📚&nbsp;<a href="/categories/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/">Kubernetes从上手到实践</a>
                 
             </div></div>
         <div class="post-content">
@@ -91,11 +229,11 @@ kubeadm 是 Kubernetes 官方提供的一个 CLI 工具，可以很方便的搭�
 <li>将 <code>/etc/fstab</code> 中和上一条命令中输出的，和 swap 相关的挂载点都删掉，以免在机器重启或重挂载时，再挂载 <code>swap</code> 分区。</li>
 </ol>
 <p>执行完上述操作，<code>swap</code> 便会被禁用，当然你也可以再次通过上述命令，或者 <code>free</code> 命令来确认是否还有 <code>swap</code> 存在。</p>
-<pre tabindex="0"><code>[root@master ~]# free 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># free </span>
               total        used        free      shared  buff/cache   available
-Mem:        1882748       85608     1614836       16808      182304     1630476
-Swap:             0           0           0
-</code></pre></li>
+Mem:        <span style="color:#ae81ff">1882748</span>       <span style="color:#ae81ff">85608</span>     <span style="color:#ae81ff">1614836</span>       <span style="color:#ae81ff">16808</span>      <span style="color:#ae81ff">182304</span>     <span style="color:#ae81ff">1630476</span>
+Swap:             <span style="color:#ae81ff">0</span>           <span style="color:#ae81ff">0</span>           <span style="color:#ae81ff">0</span>
+</code></pre></div></li>
 <li>
 <p>通过 <code>sudo cat /sys/class/dmi/id/product_uuid</code> 可查看机器的 <code>product_uuid</code> 请确保要搭建集群的所有节点的 <code>product_uuid</code> 均不相同。同时所有节点的 Mac 地址也不能相同，通过 <code>ip a</code> 或者 <code>ifconfig -a</code> 可进行查看。</p>
 <p>我们在第二章提到过，每个 Node 都有一些信息会被记录进集群内，而此处我们需要保证的这些唯一的信息，便会记录在集群的 <code>nodeInfo</code> 中，比如 <code>product_uuid</code> 在集群内以 <code>systemUUID</code> 来表示。具体信息我们可以通过集群的 <code>API Server</code> 获取到，在后面的章节会详细讲述。</p>
@@ -115,70 +253,70 @@ Swap:             0           0           0
 <p>安装步骤在第 4 章已经详细说明了，此处不做赘述，可查阅第 4 章或参考下面的内容。</p>
 <h3 id="安装-kubeadm-和-kubelet">安装 kubeadm 和 kubelet</h3>
 <p>首先是版本的选择，我们可以通过下面的命令获取到当前的 stable 版本号。要访问这个地址，需要自行处理网络问题或使用我后面提供的解决办法。</p>
-<pre tabindex="0"><code>[root@master ~]# curl -sSL https://dl.k8s.io/release/stable.txt
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># curl -sSL https://dl.k8s.io/release/stable.txt</span>
 v1.11.3
-</code></pre><p>下载二进制包，并通过 <code>kubeadm version</code> 验证版本是否正确。</p>
-<pre tabindex="0"><code>[root@master ~]# curl -sSL https://dl.k8s.io/release/v1.11.3/bin/linux/amd64/kubeadm &gt; /usr/bin/kubeadm
-[root@master ~]# chmod a+rx /usr/bin/kubeadm
-[root@master ~]# kubeadm version
-kubeadm version: &amp;version.Info{Major:&quot;1&quot;, Minor:&quot;11&quot;, GitVersion:&quot;v1.11.3&quot;, GitCommit:&quot;a4529464e4629c21224b3d52edfe0ea91b072862&quot;, GitTreeState:&quot;clean&quot;, BuildDate:&quot;2018-09-09T17:59:42Z&quot;, GoVersion:&quot;go1.10.3&quot;, Compiler:&quot;gc&quot;, Platform:&quot;linux/amd64&quot;}
-</code></pre><p>当然，我们其实可以使用如同上一章的方式，直接进入到 <code>kubernetes</code> 的<a href="https://github.com/kubernetes/kubernetes">官方仓库</a>，找到我们所需版本 <a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#v1113">v1.11.3</a> 下载 <code>Server Binaries</code>，如下图：</p>
-<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Kubernetes%20%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/assets/1660f7b43d86c139" alt="img"></p>
+</code></pre></div><p>下载二进制包，并通过 <code>kubeadm version</code> 验证版本是否正确。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># curl -sSL https://dl.k8s.io/release/v1.11.3/bin/linux/amd64/kubeadm &gt; /usr/bin/kubeadm</span>
+<span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># chmod a+rx /usr/bin/kubeadm</span>
+<span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubeadm version</span>
+kubeadm version: &amp;version.Info<span style="color:#f92672">{</span>Major:<span style="color:#e6db74">&#34;1&#34;</span>, Minor:<span style="color:#e6db74">&#34;11&#34;</span>, GitVersion:<span style="color:#e6db74">&#34;v1.11.3&#34;</span>, GitCommit:<span style="color:#e6db74">&#34;a4529464e4629c21224b3d52edfe0ea91b072862&#34;</span>, GitTreeState:<span style="color:#e6db74">&#34;clean&#34;</span>, BuildDate:<span style="color:#e6db74">&#34;2018-09-09T17:59:42Z&#34;</span>, GoVersion:<span style="color:#e6db74">&#34;go1.10.3&#34;</span>, Compiler:<span style="color:#e6db74">&#34;gc&#34;</span>, Platform:<span style="color:#e6db74">&#34;linux/amd64&#34;</span><span style="color:#f92672">}</span>
+</code></pre></div><p>当然，我们其实可以使用如同上一章的方式，直接进入到 <code>kubernetes</code> 的<a href="https://github.com/kubernetes/kubernetes">官方仓库</a>，找到我们所需版本 <a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#v1113">v1.11.3</a> 下载 <code>Server Binaries</code>，如下图：</p>
+<p><img src="/images/f8114776ca20ed8e5ea31dd0dc11a5ca6fb036b7334a2b3bb76d90d29fe6039b.png" alt="picture 5"></p>
 <p>终端下可使用如下方式下载：</p>
-<pre tabindex="0"><code>[root@master tmp]# wget -q https://dl.k8s.io/v1.11.3/kubernetes-server-linux-amd64.tar.gz
-</code></pre><p><strong>对于国内用户，我已经准备了下面的方式，方便使用。</strong></p>
-<pre tabindex="0"><code>链接: https://pan.baidu.com/s/1FSEcEUplQQGsjyBIZ6j2fA 提取码: cu4s
-</code></pre><p>下载完成后，验证文件是否正确无误，验证通过后进行解压。</p>
-<pre tabindex="0"><code>[root@master tmp]# echo 'e49d0db1791555d73add107d2110d54487df538b35b9dde0c5590ac4c5e9e039 kubernetes-server-linux-amd64.tar.gz' | sha256sum -c -
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master tmp<span style="color:#f92672">]</span><span style="color:#75715e"># wget -q https://dl.k8s.io/v1.11.3/kubernetes-server-linux-amd64.tar.gz</span>
+</code></pre></div><p><strong>对于国内用户，我已经准备了下面的方式，方便使用。</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">链接: https://pan.baidu.com/s/1FSEcEUplQQGsjyBIZ6j2fA 提取码: cu4s
+</code></pre></div><p>下载完成后，验证文件是否正确无误，验证通过后进行解压。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master tmp<span style="color:#f92672">]</span><span style="color:#75715e"># echo &#39;e49d0db1791555d73add107d2110d54487df538b35b9dde0c5590ac4c5e9e039 kubernetes-server-linux-amd64.tar.gz&#39; | sha256sum -c -</span>
 kubernetes-server-linux-amd64.tar.gz: 确定
-[root@master tmp]# tar -zxf kubernetes-server-linux-amd64.tar.gz
-[root@master tmp]# ls kubernetes
+<span style="color:#f92672">[</span>root@master tmp<span style="color:#f92672">]</span><span style="color:#75715e"># tar -zxf kubernetes-server-linux-amd64.tar.gz</span>
+<span style="color:#f92672">[</span>root@master tmp<span style="color:#f92672">]</span><span style="color:#75715e"># ls kubernetes</span>
 addons  kubernetes-src.tar.gz  LICENSES  server
-[root@master tmp]# ls kubernetes/server/bin/ | grep -E 'kubeadm|kubelet|kubectl'
+<span style="color:#f92672">[</span>root@master tmp<span style="color:#f92672">]</span><span style="color:#75715e"># ls kubernetes/server/bin/ | grep -E &#39;kubeadm|kubelet|kubectl&#39;</span>
 kubeadm
 kubectl
 kubelet
-</code></pre><p>可以看到在 <code>server/bin/</code> 目录下有我们所需要的全部内容，将我们所需要的 <code>kubeadm</code> <code>kubectl</code> <code>kubelet</code> 等都移动至 <code>/usr/bin</code> 目录下。</p>
-<pre tabindex="0"><code>[root@master tmp]# mv kubernetes/server/bin/kube{adm,ctl,let} /usr/bin/
-[root@master tmp]# ls /usr/bin/kube*
+</code></pre></div><p>可以看到在 <code>server/bin/</code> 目录下有我们所需要的全部内容，将我们所需要的 <code>kubeadm</code> <code>kubectl</code> <code>kubelet</code> 等都移动至 <code>/usr/bin</code> 目录下。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master tmp<span style="color:#f92672">]</span><span style="color:#75715e"># mv kubernetes/server/bin/kube{adm,ctl,let} /usr/bin/</span>
+<span style="color:#f92672">[</span>root@master tmp<span style="color:#f92672">]</span><span style="color:#75715e"># ls /usr/bin/kube*</span>
 /usr/bin/kubeadm  /usr/bin/kubectl  /usr/bin/kubelet
-[root@master tmp]# kubeadm version
-kubeadm version: &amp;version.Info{Major:&quot;1&quot;, Minor:&quot;11&quot;, GitVersion:&quot;v1.11.3&quot;, GitCommit:&quot;a4529464e4629c21224b3d52edfe0ea91b072862&quot;, GitTreeState:&quot;clean&quot;, BuildDate:&quot;2018-09-09T17:59:42Z&quot;, GoVersion:&quot;go1.10.3&quot;, Compiler:&quot;gc&quot;, Platform:&quot;linux/amd64&quot;}
-[root@master tmp]# kubectl version --client
-Client Version: version.Info{Major:&quot;1&quot;, Minor:&quot;11&quot;, GitVersion:&quot;v1.11.3&quot;, GitCommit:&quot;a4529464e4629c21224b3d52edfe0ea91b072862&quot;, GitTreeState:&quot;clean&quot;, BuildDate:&quot;2018-09-09T18:02:47Z&quot;, GoVersion:&quot;go1.10.3&quot;, Compiler:&quot;gc&quot;, Platform:&quot;linux/amd64&quot;}
-[root@master tmp]# kubelet --version
+<span style="color:#f92672">[</span>root@master tmp<span style="color:#f92672">]</span><span style="color:#75715e"># kubeadm version</span>
+kubeadm version: &amp;version.Info<span style="color:#f92672">{</span>Major:<span style="color:#e6db74">&#34;1&#34;</span>, Minor:<span style="color:#e6db74">&#34;11&#34;</span>, GitVersion:<span style="color:#e6db74">&#34;v1.11.3&#34;</span>, GitCommit:<span style="color:#e6db74">&#34;a4529464e4629c21224b3d52edfe0ea91b072862&#34;</span>, GitTreeState:<span style="color:#e6db74">&#34;clean&#34;</span>, BuildDate:<span style="color:#e6db74">&#34;2018-09-09T17:59:42Z&#34;</span>, GoVersion:<span style="color:#e6db74">&#34;go1.10.3&#34;</span>, Compiler:<span style="color:#e6db74">&#34;gc&#34;</span>, Platform:<span style="color:#e6db74">&#34;linux/amd64&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">[</span>root@master tmp<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl version --client</span>
+Client Version: version.Info<span style="color:#f92672">{</span>Major:<span style="color:#e6db74">&#34;1&#34;</span>, Minor:<span style="color:#e6db74">&#34;11&#34;</span>, GitVersion:<span style="color:#e6db74">&#34;v1.11.3&#34;</span>, GitCommit:<span style="color:#e6db74">&#34;a4529464e4629c21224b3d52edfe0ea91b072862&#34;</span>, GitTreeState:<span style="color:#e6db74">&#34;clean&#34;</span>, BuildDate:<span style="color:#e6db74">&#34;2018-09-09T18:02:47Z&#34;</span>, GoVersion:<span style="color:#e6db74">&#34;go1.10.3&#34;</span>, Compiler:<span style="color:#e6db74">&#34;gc&#34;</span>, Platform:<span style="color:#e6db74">&#34;linux/amd64&#34;</span><span style="color:#f92672">}</span>
+<span style="color:#f92672">[</span>root@master tmp<span style="color:#f92672">]</span><span style="color:#75715e"># kubelet --version</span>
 Kubernetes v1.11.3
-</code></pre><p>可以看到我们所需的组件，版本均为 <code>v1.11.3</code> 。</p>
+</code></pre></div><p>可以看到我们所需的组件，版本均为 <code>v1.11.3</code> 。</p>
 <h2 id="配置">配置</h2>
 <p>为了在生产环境中保障各组件的稳定运行，同时也为了便于管理，我们增加对 <code>kubelet</code> 的 <code>systemd</code> 的配置，由 <code>systemd</code> 对服务进行管理。</p>
 <h3 id="配置-kubelet">配置 kubelet</h3>
-<pre tabindex="0"><code>[root@master tmp]# cat &lt;&lt;'EOF' &gt; /etc/systemd/system/kubelet.service
-[Unit]
-Description=kubelet: The Kubernetes Agent
-Documentation=http://kubernetes.io/docs/
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master tmp<span style="color:#f92672">]</span><span style="color:#75715e"># cat &lt;&lt;&#39;EOF&#39; &gt; /etc/systemd/system/kubelet.service</span>
+<span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
+Description<span style="color:#f92672">=</span>kubelet: The Kubernetes Agent
+Documentation<span style="color:#f92672">=</span>http://kubernetes.io/docs/
 
-[Service]
-ExecStart=/usr/bin/kubelet
-Restart=always
-StartLimitInterval=0
-RestartSec=10
+<span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
+ExecStart<span style="color:#f92672">=</span>/usr/bin/kubelet
+Restart<span style="color:#f92672">=</span>always
+StartLimitInterval<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+RestartSec<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>
 
-[Install]
-WantedBy=multi-user.target
+<span style="color:#f92672">[</span>Install<span style="color:#f92672">]</span>
+WantedBy<span style="color:#f92672">=</span>multi-user.target
 EOF
-[root@master tmp]# mkdir -p /etc/systemd/system/kubelet.service.d
-[root@master tmp]# cat &lt;&lt;'EOF' &gt; /etc/systemd/system/kubelet.service.d/kubeadm.conf
-[Service]
-Environment=&quot;KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf&quot;
-Environment=&quot;KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml&quot;
-EnvironmentFile=-/var/lib/kubelet/kubeadm-flags.env
-EnvironmentFile=-/etc/default/kubelet
-ExecStart=
-ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_KUBEADM_ARGS $KUBELET_EXTRA_ARGS
+<span style="color:#f92672">[</span>root@master tmp<span style="color:#f92672">]</span><span style="color:#75715e"># mkdir -p /etc/systemd/system/kubelet.service.d</span>
+<span style="color:#f92672">[</span>root@master tmp<span style="color:#f92672">]</span><span style="color:#75715e"># cat &lt;&lt;&#39;EOF&#39; &gt; /etc/systemd/system/kubelet.service.d/kubeadm.conf</span>
+<span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
+Environment<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf&#34;</span>
+Environment<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml&#34;</span>
+EnvironmentFile<span style="color:#f92672">=</span>-/var/lib/kubelet/kubeadm-flags.env
+EnvironmentFile<span style="color:#f92672">=</span>-/etc/default/kubelet
+ExecStart<span style="color:#f92672">=</span>
+ExecStart<span style="color:#f92672">=</span>/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_KUBEADM_ARGS $KUBELET_EXTRA_ARGS
 EOF
-[root@master tmp]# systemctl enable kubelet
+<span style="color:#f92672">[</span>root@master tmp<span style="color:#f92672">]</span><span style="color:#75715e"># systemctl enable kubelet</span>
 Created symlink from /etc/systemd/system/multi-user.target.wants/kubelet.service to /etc/systemd/system/kubelet.service.
-</code></pre><p>在这里我们添加了 <code>kubelet</code> 的 systemd 配置，然后添加了它的 <code>Drop-in</code> 文件，我们增加的这个 <code>kubeadm.conf</code> 文件，会被 systemd 自动解析，用于复写 <code>kubelet</code> 的基础 systemd 配置，可以看到我们增加了一系列的配置参数。在第 17 章中，我们会对 <code>kubelet</code> 做详细剖析，到时再进行解释。</p>
+</code></pre></div><p>在这里我们添加了 <code>kubelet</code> 的 systemd 配置，然后添加了它的 <code>Drop-in</code> 文件，我们增加的这个 <code>kubeadm.conf</code> 文件，会被 systemd 自动解析，用于复写 <code>kubelet</code> 的基础 systemd 配置，可以看到我们增加了一系列的配置参数。在第 17 章中，我们会对 <code>kubelet</code> 做详细剖析，到时再进行解释。</p>
 <h2 id="启动">启动</h2>
 <p>此时，我们的前期准备已经基本完成，可以使用 <code>kubeadm</code> 来创建集群了。别着急，在此之前，我们还需要安装两个工具，名为<code>crictl</code> 和 <code>socat</code>。</p>
 <h3 id="安装前置依赖-crictl">安装前置依赖 crictl</h3>
@@ -188,51 +326,51 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/kubelet.service
 <li><code>critest</code> 是 <code>kubelet</code> CRI 的测试工具集。</li>
 </ul>
 <p>安装可以通过进入 <code>cri-tools</code> 项目的 <a href="https://github.com/kubernetes-sigs/cri-tools/releases">Release 页面</a> ，根据项目 <a href="https://github.com/kubernetes-sigs/cri-tools#current-status">README</a> 文件中的版本兼容关系，选择自己所需的安装包，下载即可，由于我们安装 K8S 1.11.3 所以选择最新的 v1.11.x 的安装包。</p>
-<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Kubernetes%20%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/assets/1660f7cee66145d1" alt="img"></p>
-<pre tabindex="0"><code>[root@master ~]# wget https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.11.1/crictl-v1.11.1-linux-amd64.tar.gz
-[root@master ~]# echo 'ccf83574556793ceb01717dc91c66b70f183c60c2bbec70283939aae8fdef768 crictl-v1.11.1-linux-amd64.tar.gz' | sha256sum -c -
+<p><img src="/images/8dc3cc47fd2e7568491ad3fd4cf8407186bd77df5f07184a54b3e1ddf8c2d609.png" alt="picture 6"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># wget https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.11.1/crictl-v1.11.1-linux-amd64.tar.gz</span>
+<span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># echo &#39;ccf83574556793ceb01717dc91c66b70f183c60c2bbec70283939aae8fdef768 crictl-v1.11.1-linux-amd64.tar.gz&#39; | sha256sum -c -</span>
 crictl-v1.11.1-linux-amd64.tar.gz: 确定
-[root@master ~]# tar zxvf crictl-v1.11.1-linux-amd64.tar.gz
-[root@master ~]# mv crictl /usr/bin/
-</code></pre><h3 id="安装前置依赖-socat">安装前置依赖 socat</h3>
+<span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># tar zxvf crictl-v1.11.1-linux-amd64.tar.gz</span>
+<span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># mv crictl /usr/bin/</span>
+</code></pre></div><h3 id="安装前置依赖-socat">安装前置依赖 socat</h3>
 <p><code>socat</code> 是一款很强大的命令行工具，可以建立两个双向字节流并在其中传输数据。这么说你也许不太理解，简单点说，它其中的一个功能是可以实现端口转发。</p>
 <p>无论在 K8S 中，还是在 Docker 中，如果我们需要在外部访问服务，端口转发是个必不可少的部分。当然，你可能会问基本上没有任何地方提到说 <code>socat</code> 是一个依赖项啊，别急，我们来看下 <a href="https://github.com/kubernetes/kubernetes/blob/master/pkg/kubelet/dockershim/docker_streaming.go#L189-L192">K8S 的源码</a>便知道了。</p>
-<pre tabindex="0"><code>func portForward(client libdocker.Interface, podSandboxID string, port int32, stream io.ReadWriteCloser) error {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">func portForward<span style="color:#f92672">(</span>client libdocker.Interface, podSandboxID string, port int32, stream io.ReadWriteCloser<span style="color:#f92672">)</span> error <span style="color:#f92672">{</span>
     // 省略了和 socat 无关的代码
 
-socatPath, lookupErr := exec.LookPath(&quot;socat&quot;)
-if lookupErr != nil {
-return fmt.Errorf(&quot;unable to do port forwarding: socat not found.&quot;)
-}
+socatPath, lookupErr :<span style="color:#f92672">=</span> exec.LookPath<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;socat&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#66d9ef">if</span> lookupErr !<span style="color:#f92672">=</span> nil <span style="color:#f92672">{</span>
+<span style="color:#66d9ef">return</span> fmt.Errorf<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;unable to do port forwarding: socat not found.&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#f92672">}</span>
 
-args := []string{&quot;-t&quot;, fmt.Sprintf(&quot;%d&quot;, containerPid), &quot;-n&quot;, socatPath, &quot;-&quot;, fmt.Sprintf(&quot;TCP4:localhost:%d&quot;, port)}
+args :<span style="color:#f92672">=</span> <span style="color:#f92672">[]</span>string<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;-t&#34;</span>, fmt.Sprintf<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d&#34;</span>, containerPid<span style="color:#f92672">)</span>, <span style="color:#e6db74">&#34;-n&#34;</span>, socatPath, <span style="color:#e6db74">&#34;-&#34;</span>, fmt.Sprintf<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;TCP4:localhost:%d&#34;</span>, port<span style="color:#f92672">)}</span>
 
     // ...
-}
-</code></pre><p><code>socat</code> 的安装很简单 CentOS 下执行 <code>sudo yum install -y socat</code> ，Debian/Ubuntu 下执行 <code>sudo apt-get install -y socat</code> 即可完成安装。</p>
+<span style="color:#f92672">}</span>
+</code></pre></div><p><code>socat</code> 的安装很简单 CentOS 下执行 <code>sudo yum install -y socat</code> ，Debian/Ubuntu 下执行 <code>sudo apt-get install -y socat</code> 即可完成安装。</p>
 <h3 id="初始化集群">初始化集群</h3>
 <p>所有的准备工作已经完成，我们开始真正创建一个 K8S 集群。 <strong>注意：如果需要配置 Pod 网络方案，请先阅读本章最后的部分 配置集群网络</strong></p>
-<pre tabindex="0"><code>[root@master ~]# kubeadm init                                                                                             
-[init] using Kubernetes version: v1.11.3               
-[preflight] running pre-flight checks
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubeadm init                                                                                             </span>
+<span style="color:#f92672">[</span>init<span style="color:#f92672">]</span> using Kubernetes version: v1.11.3               
+<span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> running pre-flight checks
 ...
-I0920 01:09:09.602908   17966 kernel_validator.go:81] Validating kernel version
-I0920 01:09:09.603001   17966 kernel_validator.go:96] Validating kernel config
-        [WARNING SystemVerification]: docker version is greater than the most recently validated version. Docker version: 18.03.1-ce. Max validated version: 17.03
-[preflight/images] Pulling images required for setting up a Kubernetes cluster
-[preflight/images] This might take a minute or two, depending on the speed of your internet connection
-[preflight/images] You can also perform this action in beforehand using 'kubeadm config images pull'
-[kubelet] Writing kubelet environment file with flags to file &quot;/var/lib/kubelet/kubeadm-flags.env&quot;
-[kubelet] Writing kubelet configuration to file &quot;/var/lib/kubelet/config.yaml&quot;
-[preflight] Activating the kubelet service
-[certificates] Generated ca certificate and key.
-[certificates] Generated apiserver certificate and key.
+I0920 01:09:09.602908   <span style="color:#ae81ff">17966</span> kernel_validator.go:81<span style="color:#f92672">]</span> Validating kernel version
+I0920 01:09:09.603001   <span style="color:#ae81ff">17966</span> kernel_validator.go:96<span style="color:#f92672">]</span> Validating kernel config
+        <span style="color:#f92672">[</span>WARNING SystemVerification<span style="color:#f92672">]</span>: docker version is greater than the most recently validated version. Docker version: 18.03.1-ce. Max validated version: 17.03
+<span style="color:#f92672">[</span>preflight/images<span style="color:#f92672">]</span> Pulling images required <span style="color:#66d9ef">for</span> setting up a Kubernetes cluster
+<span style="color:#f92672">[</span>preflight/images<span style="color:#f92672">]</span> This might take a minute or two, depending on the speed of your internet connection
+<span style="color:#f92672">[</span>preflight/images<span style="color:#f92672">]</span> You can also perform this action in beforehand using <span style="color:#e6db74">&#39;kubeadm config images pull&#39;</span>
+<span style="color:#f92672">[</span>kubelet<span style="color:#f92672">]</span> Writing kubelet environment file with flags to file <span style="color:#e6db74">&#34;/var/lib/kubelet/kubeadm-flags.env&#34;</span>
+<span style="color:#f92672">[</span>kubelet<span style="color:#f92672">]</span> Writing kubelet configuration to file <span style="color:#e6db74">&#34;/var/lib/kubelet/config.yaml&#34;</span>
+<span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> Activating the kubelet service
+<span style="color:#f92672">[</span>certificates<span style="color:#f92672">]</span> Generated ca certificate and key.
+<span style="color:#f92672">[</span>certificates<span style="color:#f92672">]</span> Generated apiserver certificate and key.
 ...
-[markmaster] Marking the node master as master by adding the label &quot;node-role.kubernetes.io/master=''&quot;
-[markmaster] Marking the node master as master by adding the taints [node-role.kubernetes.io/master:NoSchedule]
-[bootstraptoken] creating the &quot;cluster-info&quot; ConfigMap in the &quot;kube-public&quot; namespace
-[addons] Applied essential addon: CoreDNS
-[addons] Applied essential addon: kube-proxy
+<span style="color:#f92672">[</span>markmaster<span style="color:#f92672">]</span> Marking the node master as master by adding the label <span style="color:#e6db74">&#34;node-role.kubernetes.io/master=&#39;&#39;&#34;</span>
+<span style="color:#f92672">[</span>markmaster<span style="color:#f92672">]</span> Marking the node master as master by adding the taints <span style="color:#f92672">[</span>node-role.kubernetes.io/master:NoSchedule<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>bootstraptoken<span style="color:#f92672">]</span> creating the <span style="color:#e6db74">&#34;cluster-info&#34;</span> ConfigMap in the <span style="color:#e6db74">&#34;kube-public&#34;</span> namespace
+<span style="color:#f92672">[</span>addons<span style="color:#f92672">]</span> Applied essential addon: CoreDNS
+<span style="color:#f92672">[</span>addons<span style="color:#f92672">]</span> Applied essential addon: kube-proxy
 
 Your Kubernetes master has initialized successfully!
 
@@ -242,59 +380,59 @@ You can now join any number of machines by running the following on each node
 as root:
 
   kubeadm join 202.182.112.120:6443 --token t14kzc.vjurhx5k98dpzqdc --discovery-token-ca-cert-hash sha256:d64f7ce1af9f9c0c73d2d737fd0095456ad98a2816cb5527d55f984c8aa8a762
-</code></pre><p>以上省略了部分输出。</p>
+</code></pre></div><p>以上省略了部分输出。</p>
 <p>我们从以上日志中可以看到，创建集群时会检查内核版本，Docker 版本等信息，这里提示 Docker 版本较高，我们忽略这个提示。</p>
 <p>然后会下载一些镜像，当然这里提示我们可以通过执行 <code>kubeadm config images pull</code> 提前去下载镜像。我们来看下</p>
-<pre tabindex="0"><code>[root@master ~]# kubeadm config images pull
-[config/images] Pulled k8s.gcr.io/kube-apiserver-amd64:v1.11.3
-[config/images] Pulled k8s.gcr.io/kube-controller-manager-amd64:v1.11.3
-[config/images] Pulled k8s.gcr.io/kube-scheduler-amd64:v1.11.3
-[config/images] Pulled k8s.gcr.io/kube-proxy-amd64:v1.11.3
-[config/images] Pulled k8s.gcr.io/pause:3.1
-[config/images] Pulled k8s.gcr.io/etcd-amd64:3.2.18
-[config/images] Pulled k8s.gcr.io/coredns:1.1.3
-</code></pre><p>对于国内用户使用 <code>kubeadm</code> 创建集群时，可能遇到的问题便是这些镜像下载不下来，最终导致创建失败。所以我在国内的代码托管平台提供了一个<a href="https://gitee.com/K8S-release/kubeadm">仓库</a> 可以 clone 该项目，进入 <code>v1.11.3</code> 目录，对每个 <code>tar</code> 文件执行 <code>sudo docker load -i xx.tar</code> 即可将镜像导入。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubeadm config images pull</span>
+<span style="color:#f92672">[</span>config/images<span style="color:#f92672">]</span> Pulled k8s.gcr.io/kube-apiserver-amd64:v1.11.3
+<span style="color:#f92672">[</span>config/images<span style="color:#f92672">]</span> Pulled k8s.gcr.io/kube-controller-manager-amd64:v1.11.3
+<span style="color:#f92672">[</span>config/images<span style="color:#f92672">]</span> Pulled k8s.gcr.io/kube-scheduler-amd64:v1.11.3
+<span style="color:#f92672">[</span>config/images<span style="color:#f92672">]</span> Pulled k8s.gcr.io/kube-proxy-amd64:v1.11.3
+<span style="color:#f92672">[</span>config/images<span style="color:#f92672">]</span> Pulled k8s.gcr.io/pause:3.1
+<span style="color:#f92672">[</span>config/images<span style="color:#f92672">]</span> Pulled k8s.gcr.io/etcd-amd64:3.2.18
+<span style="color:#f92672">[</span>config/images<span style="color:#f92672">]</span> Pulled k8s.gcr.io/coredns:1.1.3
+</code></pre></div><p>对于国内用户使用 <code>kubeadm</code> 创建集群时，可能遇到的问题便是这些镜像下载不下来，最终导致创建失败。所以我在国内的代码托管平台提供了一个<a href="https://gitee.com/K8S-release/kubeadm">仓库</a> 可以 clone 该项目，进入 <code>v1.11.3</code> 目录，对每个 <code>tar</code> 文件执行 <code>sudo docker load -i xx.tar</code> 即可将镜像导入。</p>
 <p>或者可使用<a href="https://dev.aliyun.com/list.html?namePrefix=google-containers">阿里云提供的镜像</a>，只需要将 <code>k8s.gcr.io</code> 替换为 <code>registry.aliyuncs.com/google_containers</code> ，执行 <code>docker pull</code> 后再 <code>docker tag</code> 重 tag 即可。</p>
 <p>继续看上面的日志，<code>kubeadm init</code> 执行起见生成了一些文件，而这些文件我们先前在 kubelet server 的 <code>Drop-in</code> 的配置中配置过。</p>
 <p>生成这些配置文件后，将启动 <code>kubelet</code> 服务，生成一系列的证书和相关的配置之类的，并增加一些扩展。</p>
 <p>最终集群创建成功，并提示可在任意机器上使用指定命令加入集群。</p>
 <h2 id="验证">验证</h2>
 <p>在上面的步骤中，我们已经安装了 K8S 的 CLI 工具 <code>kubectl</code>，我们使用此工具查看集群信息：</p>
-<pre tabindex="0"><code>[root@master ~]# kubectl cluster-info
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl cluster-info</span>
 Kubernetes master is running at http://localhost:8080
 
-To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+To further debug and diagnose cluster problems, use <span style="color:#e6db74">&#39;kubectl cluster-info dump&#39;</span>.
 The connection to the server localhost:8080 was refused - did you specify the right host or port?
-[root@master ~]# kubectl get nodes
+<span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl get nodes</span>
 The connection to the server localhost:8080 was refused - did you specify the right host or port?
-</code></pre><p>使用 <code>kubectl cluster-info</code> 可查看集群 master 和集群服务的地址，但我们也注意到最后有一句报错 <code>connection ... refused</code> 很显然这里存在错误。</p>
+</code></pre></div><p>使用 <code>kubectl cluster-info</code> 可查看集群 master 和集群服务的地址，但我们也注意到最后有一句报错 <code>connection ... refused</code> 很显然这里存在错误。</p>
 <p><code>kubectl get nodes</code> 可查看集群中 <code>Node</code> 信息，同样报错。</p>
 <p>在上面我们提到过，K8S 默认会监听一些端口，但并不是 <code>8080</code> 端口，由此可知，我们的 <code>kubectl</code> 配置有误。</p>
 <h3 id="配置-kubectl">配置 kubectl</h3>
 <ul>
 <li>
 <p>使用 <code>kubectl</code> 的参数 <code>--kubeconfig</code> 或者环境变量 <code>KUBECONFIG</code> 。</p>
-<pre tabindex="0"><code>[root@master ~]# kubectl --kubeconfig /etc/kubernetes/admin.conf get nodes                                                
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl --kubeconfig /etc/kubernetes/admin.conf get nodes                                                </span>
 NAME      STATUS     ROLES     AGE       VERSION
 master    NotReady   master    13h       v1.11.3
-[root@master ~]#
-[root@master ~]# KUBECONFIG=/etc/kubernetes/admin.conf kubectl get nodes                                                  
+<span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e">#</span>
+<span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># KUBECONFIG=/etc/kubernetes/admin.conf kubectl get nodes                                                  </span>
 NAME      STATUS     ROLES     AGE       VERSION
 master    NotReady   master    13h       v1.11.3
-</code></pre></li>
+</code></pre></div></li>
 <li>
 <p>使用传参的方式未免太繁琐，我们也可以更改默认配置文件</p>
-<pre tabindex="0"><code>[root@master ~]# mkdir -p $HOME/.kube
-[root@master ~]# sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-[root@master ~]# sudo chown $(id -u):$(id -g) $HOME/.kube/config
-[root@master ~]# kubectl get nodes                                                  
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># mkdir -p $HOME/.kube</span>
+<span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config</span>
+<span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># sudo chown $(id -u):$(id -g) $HOME/.kube/config</span>
+<span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl get nodes                                                  </span>
 NAME      STATUS     ROLES     AGE       VERSION
 master    NotReady   master    13h       v1.11.3
-</code></pre></li>
+</code></pre></div></li>
 </ul>
 <h3 id="配置集群网络">配置集群网络</h3>
 <p>通过上面的配置，我们已经可以正常获取 <code>Node</code> 信息。但通过第 2 章，我们了解到 <code>Node</code> 都有 <code>status</code>，而此时我们唯一的 <code>Node</code> 是 <code>NotReady</code>。我们通过给 <code>kubectl</code> 传递 <code>-o</code> 参数更改输出格式，查看更详细的情况。</p>
-<pre tabindex="0"><code>[root@master ~]# kubectl get nodes -o yaml
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl get nodes -o yaml</span>
 apiVersion: v1       
 items:                                       
 - apiVersion: v1                              
@@ -307,92 +445,92 @@ items:
     ...
     - lastHeartbeatTime: 2018-09-20T14:45:45Z
       lastTransitionTime: 2018-09-20T01:09:48Z
-      message: 'runtime network not ready: NetworkReady=false reason:NetworkPluginNotReady
-        message:docker: network plugin is not ready: cni config uninitialized'
+      message: <span style="color:#e6db74">&#39;runtime network not ready: NetworkReady=false reason:NetworkPluginNotReady
+</span><span style="color:#e6db74">        message:docker: network plugin is not ready: cni config uninitialized&#39;</span>
       reason: KubeletNotReady
-      status: &quot;False&quot;
+      status: <span style="color:#e6db74">&#34;False&#34;</span>
       type: Ready
     ...
-</code></pre><p>从以上输出中，我们可以看到 master 处于 <code>NotReady</code> 的原因是 <code>network plugin is not ready: cni config uninitialized</code> 那么 <code>CNI</code> 是什么呢？<code>CNI</code> 是 Container Network Interface 的缩写，是 K8S 用于配置 Linux 容器网络的接口规范。</p>
+</code></pre></div><p>从以上输出中，我们可以看到 master 处于 <code>NotReady</code> 的原因是 <code>network plugin is not ready: cni config uninitialized</code> 那么 <code>CNI</code> 是什么呢？<code>CNI</code> 是 Container Network Interface 的缩写，是 K8S 用于配置 Linux 容器网络的接口规范。</p>
 <p>关于网络的选择，我们此处不做过多介绍，我们暂时选择一个被广泛使用的方案 <code>flannel</code>。 但注意，如果要使用 <code>flannel</code> 需要在 <code>kubeadm init</code> 的时候，传递 <code>--pod-network-cidr=10.244.0.0/16</code> 参数。另外需要查看 <code>/proc/sys/net/bridge/bridge-nf-call-iptables</code> 是否已设置为 <code>1</code>。 可以通过 <code>sysctl net.bridge.bridge-nf-call-iptables=1</code> 更改配置。</p>
 <p>我们在前面创建集群时，并没有传递任何参数。为了能使用 <code>flannel</code> , 所以我们需要先将集群重置。使用 <code>kubeadm reset</code></p>
-<pre tabindex="0"><code>[root@master ~]# kubeadm reset 
-[reset] WARNING: changes made to this host by 'kubeadm init' or 'kubeadm join' will be reverted.
-[reset] are you sure you want to proceed? [y/N]: y
-[preflight] running pre-flight checks
-[reset] stopping the kubelet service
-[reset] unmounting mounted directories in &quot;/var/lib/kubelet&quot;
-[reset] removing kubernetes-managed containers
-[reset] cleaning up running containers using crictl with socket /var/run/dockershim.sock
-[reset] failed to list running pods using crictl: exit status 1. Trying to use docker instead[reset] deleting contents of stateful directories: [/var/lib/kubelet /etc/cni/net.d /var/lib/dockershim /var/run/kubernetes /var/lib/etcd]
-[reset] deleting contents of config directories: [/etc/kubernetes/manifests /etc/kubernetes/pki]
-[reset] deleting files: [/etc/kubernetes/admin.conf /etc/kubernetes/kubelet.conf /etc/kubernetes/bootstrap-kubelet.conf /etc/kubernetes/controller-manager.conf /etc/kubernetes/scheduler.conf]
-</code></pre><p>重新初始化集群，并传递参数。</p>
-<pre tabindex="0"><code>[root@master ~]# kubeadm init --pod-network-cidr=10.244.0.0/16
-[init] using Kubernetes version: v1.11.3
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubeadm reset </span>
+<span style="color:#f92672">[</span>reset<span style="color:#f92672">]</span> WARNING: changes made to this host by <span style="color:#e6db74">&#39;kubeadm init&#39;</span> or <span style="color:#e6db74">&#39;kubeadm join&#39;</span> will be reverted.
+<span style="color:#f92672">[</span>reset<span style="color:#f92672">]</span> are you sure you want to proceed? <span style="color:#f92672">[</span>y/N<span style="color:#f92672">]</span>: y
+<span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> running pre-flight checks
+<span style="color:#f92672">[</span>reset<span style="color:#f92672">]</span> stopping the kubelet service
+<span style="color:#f92672">[</span>reset<span style="color:#f92672">]</span> unmounting mounted directories in <span style="color:#e6db74">&#34;/var/lib/kubelet&#34;</span>
+<span style="color:#f92672">[</span>reset<span style="color:#f92672">]</span> removing kubernetes-managed containers
+<span style="color:#f92672">[</span>reset<span style="color:#f92672">]</span> cleaning up running containers using crictl with socket /var/run/dockershim.sock
+<span style="color:#f92672">[</span>reset<span style="color:#f92672">]</span> failed to list running pods using crictl: exit status 1. Trying to use docker instead<span style="color:#f92672">[</span>reset<span style="color:#f92672">]</span> deleting contents of stateful directories: <span style="color:#f92672">[</span>/var/lib/kubelet /etc/cni/net.d /var/lib/dockershim /var/run/kubernetes /var/lib/etcd<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>reset<span style="color:#f92672">]</span> deleting contents of config directories: <span style="color:#f92672">[</span>/etc/kubernetes/manifests /etc/kubernetes/pki<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>reset<span style="color:#f92672">]</span> deleting files: <span style="color:#f92672">[</span>/etc/kubernetes/admin.conf /etc/kubernetes/kubelet.conf /etc/kubernetes/bootstrap-kubelet.conf /etc/kubernetes/controller-manager.conf /etc/kubernetes/scheduler.conf<span style="color:#f92672">]</span>
+</code></pre></div><p>重新初始化集群，并传递参数。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubeadm init --pod-network-cidr=10.244.0.0/16</span>
+<span style="color:#f92672">[</span>init<span style="color:#f92672">]</span> using Kubernetes version: v1.11.3
 ...
 Your Kubernetes master has initialized successfully!
-</code></pre><p><strong>注意：这里会重新生成相应证书等配置，需要按上面的内容重新配置 kubectl。</strong></p>
+</code></pre></div><p><strong>注意：这里会重新生成相应证书等配置，需要按上面的内容重新配置 kubectl。</strong></p>
 <p>此时，<code>CNI</code> 也尚未初始化完成，我们还需完成以下的步骤。</p>
-<pre tabindex="0"><code># 注意，这里的 flannel 配置仅适用于 1.11 版本的 K8S，若安装其他版本的 K8S 需要替换掉此链接
-[root@master ~]# kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 注意，这里的 flannel 配置仅适用于 1.11 版本的 K8S，若安装其他版本的 K8S 需要替换掉此链接</span>
+<span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml</span>
 clusterrole.rbac.authorization.k8s.io/flannel created
 clusterrolebinding.rbac.authorization.k8s.io/flannel created
 serviceaccount/flannel created
 configmap/kube-flannel-cfg created
 daemonset.extensions/kube-flannel-ds created
-</code></pre><p>稍等片刻，再次查看 Node 状态：</p>
-<pre tabindex="0"><code>[root@master ~]# kubectl get nodes
+</code></pre></div><p>稍等片刻，再次查看 Node 状态：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl get nodes</span>
 NAME      STATUS    ROLES     AGE       VERSION
 master    Ready     master    12m       v1.11.3
-</code></pre><p>可以看到 status 已经是 <code>Ready</code> 状态。根据第 3 章的内容，我们知道 K8S 中最小的调度单元是 <code>Pod</code> 我们来看下集群中现有 <code>Pod</code> 的状态。</p>
-<pre tabindex="0"><code>[root@master ~]# kubectl get pods --all-namespaces
+</code></pre></div><p>可以看到 status 已经是 <code>Ready</code> 状态。根据第 3 章的内容，我们知道 K8S 中最小的调度单元是 <code>Pod</code> 我们来看下集群中现有 <code>Pod</code> 的状态。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl get pods --all-namespaces</span>
 NAMESPACE     NAME                             READY     STATUS              RESTARTS   AGE 
-kube-system   coredns-78fcdf6894-h7pkc         0/1       ContainerCreating   0          12m
-kube-system   coredns-78fcdf6894-lhlks         0/1       ContainerCreating   0          12m
-kube-system   etcd-master                      1/1       Running             0          5m
-kube-system   kube-apiserver-master            1/1       Running             0          5m
-kube-system   kube-controller-manager-master   1/1       Running             0          5m
-kube-system   kube-flannel-ds-tqvck            1/1       Running             0          6m
-kube-system   kube-proxy-25tk2                 1/1       Running             0          12m
-kube-system   kube-scheduler-master            1/1       Running             0          5m
-</code></pre><p>我们发现有两个 <code>coredns</code> 的 <code>Pod</code> 是 <code>ContainerCreating</code> 的状态，但并未就绪。根据第 3 章的内容，我们知道 <code>Pod</code> 实际会有一个调度过程，此处我们暂且不论，后续章节再对此进行解释。</p>
+kube-system   coredns-78fcdf6894-h7pkc         0/1       ContainerCreating   <span style="color:#ae81ff">0</span>          12m
+kube-system   coredns-78fcdf6894-lhlks         0/1       ContainerCreating   <span style="color:#ae81ff">0</span>          12m
+kube-system   etcd-master                      1/1       Running             <span style="color:#ae81ff">0</span>          5m
+kube-system   kube-apiserver-master            1/1       Running             <span style="color:#ae81ff">0</span>          5m
+kube-system   kube-controller-manager-master   1/1       Running             <span style="color:#ae81ff">0</span>          5m
+kube-system   kube-flannel-ds-tqvck            1/1       Running             <span style="color:#ae81ff">0</span>          6m
+kube-system   kube-proxy-25tk2                 1/1       Running             <span style="color:#ae81ff">0</span>          12m
+kube-system   kube-scheduler-master            1/1       Running             <span style="color:#ae81ff">0</span>          5m
+</code></pre></div><p>我们发现有两个 <code>coredns</code> 的 <code>Pod</code> 是 <code>ContainerCreating</code> 的状态，但并未就绪。根据第 3 章的内容，我们知道 <code>Pod</code> 实际会有一个调度过程，此处我们暂且不论，后续章节再对此进行解释。</p>
 <h3 id="新增-node">新增 Node</h3>
 <p>我们按照刚才执行完 <code>kubeadm init</code> 后，给出的信息，在新的机器上执行 <code>kubeadm join</code> 命令。</p>
-<pre tabindex="0"><code>[root@node1 ~]# kubeadm join 202.182.112.120:6443 --token t14kzc.vjurhx5k98dpzqdc --discovery-token-ca-cert-hash sha256:d64f7ce1af9f9c0c73d2d737fd0095456ad98a2816cb5527d55f984c8aa8a762
-[preflight] running pre-flight checks
-        [WARNING RequiredIPVSKernelModulesAvailable]: the IPVS proxier will not be used, because the following required kernel modules are not loaded: [ip_vs ip_vs_rr ip_vs_wrr ip_vs_sh] or no builtin kernel ipvs support: map[ip_vs:{} ip_vs_rr:{} ip_vs_wrr:{} ip_vs_sh:{} nf_conntrack_ipv4:{}]
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@node1 ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubeadm join 202.182.112.120:6443 --token t14kzc.vjurhx5k98dpzqdc --discovery-token-ca-cert-hash sha256:d64f7ce1af9f9c0c73d2d737fd0095456ad98a2816cb5527d55f984c8aa8a762</span>
+<span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> running pre-flight checks
+        <span style="color:#f92672">[</span>WARNING RequiredIPVSKernelModulesAvailable<span style="color:#f92672">]</span>: the IPVS proxier will not be used, because the following required kernel modules are not loaded: <span style="color:#f92672">[</span>ip_vs ip_vs_rr ip_vs_wrr ip_vs_sh<span style="color:#f92672">]</span> or no builtin kernel ipvs support: map<span style="color:#f92672">[</span>ip_vs:<span style="color:#f92672">{}</span> ip_vs_rr:<span style="color:#f92672">{}</span> ip_vs_wrr:<span style="color:#f92672">{}</span> ip_vs_sh:<span style="color:#f92672">{}</span> nf_conntrack_ipv4:<span style="color:#f92672">{}]</span>
 you can solve this problem with following methods:
- 1. Run 'modprobe -- ' to load missing kernel modules;
+ 1. Run <span style="color:#e6db74">&#39;modprobe -- &#39;</span> to load missing kernel modules;
 2. Provide the missing builtin kernel ipvs support
 
-I0921 04:00:54.805439   10677 kernel_validator.go:81] Validating kernel version                                                  
-I0921 04:00:54.805604   10677 kernel_validator.go:96] Validating kernel config                                                   
-        [WARNING SystemVerification]: docker version is greater than the most recently validated version. Docker version: 18.03.1-ce. Max validated version: 17.03
-[discovery] Trying to connect to API Server &quot;202.182.112.120:6443&quot;
-[discovery] Created cluster-info discovery client, requesting info from &quot;https://202.182.112.120:6443&quot;
-[discovery] Requesting info from &quot;https://202.182.112.120:6443&quot; again to validate TLS against the pinned public key
-[discovery] Cluster info signature and contents are valid and TLS certificate validates against pinned roots, will use API Server &quot;202.182.112.120:6443&quot;
-[discovery] Successfully established connection with API Server &quot;202.182.112.120:6443&quot;
-[kubelet] Downloading configuration for the kubelet from the &quot;kubelet-config-1.11&quot; ConfigMap in the kube-system namespace
-[kubelet] Writing kubelet configuration to file &quot;/var/lib/kubelet/config.yaml&quot;
-[kubelet] Writing kubelet environment file with flags to file &quot;/var/lib/kubelet/kubeadm-flags.env&quot;
-[preflight] Activating the kubelet service
-[tlsbootstrap] Waiting for the kubelet to perform the TLS Bootstrap...
-[patchnode] Uploading the CRI Socket information &quot;/var/run/dockershim.sock&quot; to the Node API object &quot;node1&quot; as an annotation
+I0921 04:00:54.805439   <span style="color:#ae81ff">10677</span> kernel_validator.go:81<span style="color:#f92672">]</span> Validating kernel version                                                  
+I0921 04:00:54.805604   <span style="color:#ae81ff">10677</span> kernel_validator.go:96<span style="color:#f92672">]</span> Validating kernel config                                                   
+        <span style="color:#f92672">[</span>WARNING SystemVerification<span style="color:#f92672">]</span>: docker version is greater than the most recently validated version. Docker version: 18.03.1-ce. Max validated version: 17.03
+<span style="color:#f92672">[</span>discovery<span style="color:#f92672">]</span> Trying to connect to API Server <span style="color:#e6db74">&#34;202.182.112.120:6443&#34;</span>
+<span style="color:#f92672">[</span>discovery<span style="color:#f92672">]</span> Created cluster-info discovery client, requesting info from <span style="color:#e6db74">&#34;https://202.182.112.120:6443&#34;</span>
+<span style="color:#f92672">[</span>discovery<span style="color:#f92672">]</span> Requesting info from <span style="color:#e6db74">&#34;https://202.182.112.120:6443&#34;</span> again to validate TLS against the pinned public key
+<span style="color:#f92672">[</span>discovery<span style="color:#f92672">]</span> Cluster info signature and contents are valid and TLS certificate validates against pinned roots, will use API Server <span style="color:#e6db74">&#34;202.182.112.120:6443&#34;</span>
+<span style="color:#f92672">[</span>discovery<span style="color:#f92672">]</span> Successfully established connection with API Server <span style="color:#e6db74">&#34;202.182.112.120:6443&#34;</span>
+<span style="color:#f92672">[</span>kubelet<span style="color:#f92672">]</span> Downloading configuration <span style="color:#66d9ef">for</span> the kubelet from the <span style="color:#e6db74">&#34;kubelet-config-1.11&#34;</span> ConfigMap in the kube-system namespace
+<span style="color:#f92672">[</span>kubelet<span style="color:#f92672">]</span> Writing kubelet configuration to file <span style="color:#e6db74">&#34;/var/lib/kubelet/config.yaml&#34;</span>
+<span style="color:#f92672">[</span>kubelet<span style="color:#f92672">]</span> Writing kubelet environment file with flags to file <span style="color:#e6db74">&#34;/var/lib/kubelet/kubeadm-flags.env&#34;</span>
+<span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> Activating the kubelet service
+<span style="color:#f92672">[</span>tlsbootstrap<span style="color:#f92672">]</span> Waiting <span style="color:#66d9ef">for</span> the kubelet to perform the TLS Bootstrap...
+<span style="color:#f92672">[</span>patchnode<span style="color:#f92672">]</span> Uploading the CRI Socket information <span style="color:#e6db74">&#34;/var/run/dockershim.sock&#34;</span> to the Node API object <span style="color:#e6db74">&#34;node1&#34;</span> as an annotation
 
 This node has joined the cluster:
 * Certificate signing request was sent to master and a response
   was received.
 * The Kubelet was informed of the new secure connection details.
 
-Run 'kubectl get nodes' on the master to see this node join the cluster.
-</code></pre><p>上面的命令执行完成，提示已经成功加入集群。 此时，我们在 master 上查看下当前集群状态。</p>
-<pre tabindex="0"><code>[root@master ~]# kubectl get nodes
+Run <span style="color:#e6db74">&#39;kubectl get nodes&#39;</span> on the master to see this node join the cluster.
+</code></pre></div><p>上面的命令执行完成，提示已经成功加入集群。 此时，我们在 master 上查看下当前集群状态。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># kubectl get nodes</span>
 NAME      STATUS    ROLES     AGE       VERSION
 master    Ready     master    12m       v1.11.3
 node1     Ready     &lt;none&gt;    7m        v1.11.3
-</code></pre><p>可以看到 node1 已经加入了集群。</p>
+</code></pre></div><p>可以看到 node1 已经加入了集群。</p>
 <h2 id="总结">总结</h2>
 <p>在本节中，我们选择官方推荐的 <code>kubeadm</code> 工具在服务器上搭建了一套有两个节点的集群。</p>
 <p><code>kubeadm</code> 可以自动的拉取相关组件的 Docker 镜像，并将其“组织”起来，免去了我们逐个部署相关组件的麻烦。</p>
@@ -421,11 +559,11 @@ node1     Ready     &lt;none&gt;    7m        v1.11.3
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight();">T</div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 11110 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     

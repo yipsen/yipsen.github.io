@@ -27,10 +27,9 @@
 最后，通过统计临时节点的数量，来了解网络中服务器的运行情况。如下图所示，建立的 ZooKeeper 数据模型中 Severs 节点可以作为存储服务器列表的父节点。用于之后通过负载均衡算法在该列表中选择服务器。在它下面创建 servers_host1、servers_host2、servers_host3等临时节点来存储集群中的服务器运行状态信息。
 在代码层面的实现中，我们首先定义一个 BlanceSever 接口类。该类规定在 ZooKeeper 服务器启动后，向服务器地址列表中，注册或注销信息以及根据接收到的会话请求，动态更新负载均衡情况等功能。如下面的代码所示：
 public class BlanceSever{public void register()public void unregister()public void addBlanceCount()public void takeBlanceCount()}之后我们创建 BlanceSever 接口的实现类 BlanceSeverImpl，在 BlanceSeverImpl 类中首先定义服务器运行的 Session 超时时间、会话连接超时时间、ZooKeeper 客户端地址、服务器地址列表节点 ‘/Severs’ 等基本参数。并通过构造函数，在类被引用时进行初始化 ZooKeeper 客户端对象实例。">
-<meta name="author"
-  content="">
+<meta name="author" content="">
 
-<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
 
 </head>
 
@@ -38,7 +37,7 @@ public class BlanceSever{public void register()public void unregister()public
     <header>
         <div class="logo-link" style="width: 60px; color: #CA6924;">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/image/deer.svg" alt="logo">
+        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
         <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
     </a>
 </div>
@@ -53,7 +52,7 @@ public class BlanceSever{public void register()public void unregister()public
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/collections/">图集</a>
+                href="http://yipsen.github.io/collections/">附表</a>
         </li>
         
         <li class="nav-item">
@@ -66,13 +65,192 @@ public class BlanceSever{public void register()public void unregister()public
     </header>
     <main id="content">
         
-<div class="container">
-    <article class="post-block">
+<div class="container"><aside>
+    <div>
+        
+        
+            
+            
+            <div class="post-category-icon"></div>
+            <a href="/categories/zookeeper%e6%ba%90%e7%a0%81%e5%88%86%e6%9e%90%e4%b8%8e%e5%ae%9e%e6%88%98/">ZooKeeper源码分析与实战</a>
+            <ul>
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/00-%E5%BC%80%E7%AF%87%E8%AF%8D%E9%80%89%E6%8B%A9-zookeeper%E4%B8%80%E6%AD%A5%E5%88%B0%E4%BD%8D%E6%8E%8C%E6%8F%A1%E5%88%86%E5%B8%83%E5%BC%8F%E5%BC%80%E5%8F%91/">00 开篇词：选择 ZooKeeper，一步到位掌握分布式开发</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/01-zookeeper-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E8%8A%82%E7%82%B9%E7%9A%84%E7%89%B9%E6%80%A7%E4%B8%8E%E5%BA%94%E7%94%A8/">01 ZooKeeper 数据模型：节点的特性与应用</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/02-%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8-watch-%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%80%9A%E7%9F%A5/">02 发布订阅模式：如何使用 Watch 机制实现分布式通知</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/03-acl-%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%9C%AA%E7%BB%8F%E6%8E%88%E6%9D%83%E7%9A%84%E8%AE%BF%E9%97%AE/">03 ACL 权限控制：如何避免未经授权的访问？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/04-zookeeper-%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E5%BA%8F%E5%88%97%E5%8C%96/">04 ZooKeeper 如何进行序列化？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/05-%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90-jute-%E7%9A%84%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/">05 深入分析 Jute 的底层实现原理</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/06-zookeeper-%E7%9A%84%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/">06 ZooKeeper 的网络通信协议详解</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/07-%E5%8D%95%E6%9C%BA%E6%A8%A1%E5%BC%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%A6%82%E4%BD%95%E4%BB%8E%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%B0%E5%AF%B9%E5%A4%96%E6%8F%90%E4%BE%9B%E6%9C%8D%E5%8A%A1/">07 单机模式：服务器如何从初始化到对外提供服务？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/08-%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%A6%82%E4%BD%95%E4%BB%8E%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%B0%E5%AF%B9%E5%A4%96%E6%8F%90%E4%BE%9B%E6%9C%8D%E5%8A%A1/">08 集群模式：服务器如何从初始化到对外提供服务？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/09-%E5%88%9B%E5%BB%BA%E4%BC%9A%E8%AF%9D%E9%81%BF%E5%BC%80%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91/">09 创建会话：避开日常开发的那些“坑”</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/10-clientcnxn%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%A0%B8%E5%BF%83%E5%B7%A5%E4%BD%9C%E7%B1%BB%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">10 ClientCnxn：客户端核心工作类工作原理解析</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/11-%E5%88%86%E6%A1%B6%E7%AD%96%E7%95%A5%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E9%AB%98%E6%95%88%E7%9A%84%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86/">11 分桶策略：如何实现高效的会话管理？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/12-%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%98%AF%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E4%B8%80%E6%AC%A1%E4%BC%9A%E8%AF%9D%E8%AF%B7%E6%B1%82%E7%9A%84/">12 服务端是如何处理一次会话请求的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/13-curator%E5%A6%82%E4%BD%95%E9%99%8D%E4%BD%8E-zookeeper-%E4%BD%BF%E7%94%A8%E7%9A%84%E5%A4%8D%E6%9D%82%E6%80%A7/">13 Curator：如何降低 ZooKeeper 使用的复杂性？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/14-leader-%E9%80%89%E4%B8%BE%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7/">14 Leader 选举：如何保证分布式数据的一致性？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/15-zookeeper-%E7%A9%B6%E7%AB%9F%E6%98%AF%E6%80%8E%E4%B9%88%E9%80%89%E4%B8%AD-leader-%E7%9A%84/">15 ZooKeeper 究竟是怎么选中 Leader 的？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/16-zookeeper-%E9%9B%86%E7%BE%A4%E4%B8%AD-leader-%E4%B8%8E-follower-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E7%AD%96%E7%95%A5/">16 ZooKeeper 集群中 Leader 与 Follower 的数据同步策略</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/17-%E9%9B%86%E7%BE%A4%E4%B8%AD-leader-%E7%9A%84%E4%BD%9C%E7%94%A8%E4%BA%8B%E5%8A%A1%E7%9A%84%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86%E4%B8%8E%E8%B0%83%E5%BA%A6%E5%88%86%E6%9E%90/">17 集群中 Leader 的作用：事务的请求处理与调度分析</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/18-%E9%9B%86%E7%BE%A4%E4%B8%AD-follow-%E7%9A%84%E4%BD%9C%E7%94%A8%E9%9D%9E%E4%BA%8B%E5%8A%A1%E8%AF%B7%E6%B1%82%E7%9A%84%E5%A4%84%E7%90%86%E4%B8%8E-leader-%E7%9A%84%E9%80%89%E4%B8%BE%E5%88%86%E6%9E%90/">18 集群中 Follow 的作用：非事务请求的处理与 Leader 的选举分析</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/19-observer-%E7%9A%84%E4%BD%9C%E7%94%A8%E4%B8%8E-follow-%E6%9C%89%E5%93%AA%E4%BA%9B%E4%B8%8D%E5%90%8C/">19 Observer 的作用与 Follow 有哪些不同？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/20-%E4%B8%80%E4%B8%AA%E8%BF%90%E8%A1%8C%E4%B8%AD%E7%9A%84-zookeeper-%E6%9C%8D%E5%8A%A1%E4%BC%9A%E4%BA%A7%E7%94%9F%E5%93%AA%E4%BA%9B%E6%95%B0%E6%8D%AE%E5%92%8C%E6%96%87%E4%BB%B6/">20 一个运行中的 ZooKeeper 服务会产生哪些数据和文件？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/21-zookeeper-%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%E5%92%8C%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">21 ZooKeeper 分布式锁：实现和原理解析</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/22-%E5%9F%BA%E4%BA%8E-zookeeper-%E5%91%BD%E5%90%8D%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%BA%94%E7%94%A8%E5%88%86%E5%B8%83%E5%BC%8F-id-%E7%94%9F%E6%88%90%E5%99%A8/">22 基于 ZooKeeper 命名服务的应用：分布式 ID 生成器</a></li>
+                
+                
+                
+                    <li>23 使用 ZooKeeper 实现负载均衡服务器功能</li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/24-zookeeper-%E5%9C%A8-kafka-%E5%92%8C-dubbo-%E4%B8%AD%E7%9A%84%E5%B7%A5%E4%B8%9A%E7%BA%A7%E5%AE%9E%E7%8E%B0%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90/">24 ZooKeeper 在 Kafka 和 Dubbo 中的工业级实现案例分析</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/25-%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84-zookeeper-%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83/">25 如何搭建一个高可用的 ZooKeeper 生产环境？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/26-jconsole-%E4%B8%8E%E5%9B%9B%E5%AD%97%E6%AF%8D%E5%91%BD%E4%BB%A4%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A-zookeeper-%E7%9A%84%E8%BF%90%E8%A1%8C%E7%8A%B6%E6%80%81/">26 JConsole 与四字母命令：如何监控服务器上 ZooKeeper 的运行状态？</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/27-crontab-%E4%B8%8E-purgetxnlog%E7%BA%BF%E4%B8%8A%E7%B3%BB%E7%BB%9F%E6%97%A5%E5%BF%97%E6%B8%85%E7%90%86%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E9%97%B4%E5%92%8C%E6%96%B9%E5%BC%8F/">27 crontab 与 PurgeTxnLog：线上系统日志清理的最佳时间和方式</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/28-%E5%BD%BB%E5%BA%95%E6%8E%8C%E6%8F%A1%E4%BA%8C%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4%E4%B8%89%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/">28 彻底掌握二阶段提交三阶段提交算法原理</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/29-zab-%E5%8D%8F%E8%AE%AE%E7%AE%97%E6%B3%95%E5%B4%A9%E6%BA%83%E6%81%A2%E5%A4%8D%E5%92%8C%E6%B6%88%E6%81%AF%E5%B9%BF%E6%92%AD/">29 ZAB 协议算法：崩溃恢复和消息广播</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/30-zab-%E4%B8%8E-paxos-%E7%AE%97%E6%B3%95%E7%9A%84%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB/">30 ZAB 与 Paxos 算法的联系与区别</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/31-zookeeper-%E4%B8%AD%E4%BA%8C%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%88%86%E6%9E%90/">31 ZooKeeper 中二阶段提交算法的实现分析</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/32-zookeeper-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E8%A7%A3%E6%9E%90/">32 ZooKeeper 数据存储底层实现解析</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/33-%E7%BB%93%E6%9D%9F%E8%AF%AD-%E5%88%86%E5%B8%83%E6%8A%80%E6%9C%AF%E5%8F%91%E5%B1%95%E4%B8%8E-zookeeper-%E5%BA%94%E7%94%A8%E5%89%8D%E6%99%AF/">33 结束语 分布技术发展与 ZooKeeper 应用前景</a></li>
+                
+                
+            </ul>
+        
+    </div>
+</aside>
+
+<style>
+    aside {
+        position: fixed;
+        left: 20px;
+        background: #ffdee3;
+        border-radius: 6px;
+        padding: 20px;
+        padding-top: 60px;
+        box-shadow: 5px 10px #888;
+        list-style-type: none;
+        display: none;
+    }
+
+    .post-category-icon {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        left: 50%;
+        margin-left: -40px;
+        text-align: center;
+        font-size: 36px;
+        content: 'J';
+        background: #ffdee3;
+        border-radius: 100%;
+        border: 10px solid #fff;
+        box-shadow: 5px 10px #888;
+    }
+</style><article class="post-block">
         <h1 class="post-title">23 使用 ZooKeeper 实现负载均衡服务器功能</h1>
         <div class="post-info">
-            <div>2021-12-22|<a class="post-tag" href="/tags/zookeeper/">zookeeper</a></div><div class="post-category">
+            <div> 
+                <span class="post-date">📅&nbsp;2021-12-22 01:57:08</span>🏷️&nbsp;<a class="post-tag" href="/tags/zookeeper/">zookeeper</a></div><div class="post-category">
                 
-                <a href="/categories/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/"> ZooKeeper源码分析与实战 </a>
+                📚&nbsp;<a href="/categories/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/">ZooKeeper源码分析与实战</a>
                 
             </div></div>
         <div class="post-content">
@@ -197,11 +375,11 @@ public class BlanceSever{public void register()public void unregister()public
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight();">T</div>
+        <div class="toggler" onclick="toggleLight(this);">💡</div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 11110 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
