@@ -26,10 +26,10 @@ Hash 索引相对简单些，只有 Memory 存储引擎支持 Hash 索引。Hash
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -38,7 +38,7 @@ Hash 索引相对简单些，只有 Memory 存储引擎支持 Hash 索引。Hash
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -294,12 +294,10 @@ Hash 索引相对简单些，只有 Memory 存储引擎支持 Hash 索引。Hash
 </style><article class="post-block">
         <h1 class="post-title">34 MySQL调优之索引：索引的失效与优化</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:44:38</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/">Java并发编程实战</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:44:38</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>你好，我是刘超。</p>
 <p>不知道你是否跟我有过同样的经历，那就是作为一个开发工程师，经常被 DBA 叫过去“批评”，而最常见的就是申请创建新的索引或发现慢 SQL 日志了。</p>
@@ -377,6 +375,11 @@ Hash 索引相对简单些，只有 Memory 存储引擎支持 Hash 索引。Hash
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/">Java并发编程实战</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -385,26 +388,38 @@ Hash 索引相对简单些，只有 Memory 存储引擎支持 Hash 索引。Hash
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/33-mysql%E8%B0%83%E4%BC%98%E4%B9%8B%E4%BA%8B%E5%8A%A1%E9%AB%98%E5%B9%B6%E5%8F%91%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E8%B0%83%E4%BC%98/"><span>33 MySQL调优之事务：高并发场景下的数据库事务调优</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/33-mysql%E8%B0%83%E4%BC%98%E4%B9%8B%E4%BA%8B%E5%8A%A1%E9%AB%98%E5%B9%B6%E5%8F%91%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E8%B0%83%E4%BC%98/"><span>33 MySQL调优之事务：高并发场景下的数据库事务调优</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/35-%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%BA%BF%E4%B8%8Asql%E6%AD%BB%E9%94%81%E4%BA%8B%E6%95%85%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81/"><span>35 记一次线上SQL死锁事故：如何避免死锁？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/35-%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%BA%BF%E4%B8%8Asql%E6%AD%BB%E9%94%81%E4%BA%8B%E6%95%85%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81/"><span>35 记一次线上SQL死锁事故：如何避免死锁？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

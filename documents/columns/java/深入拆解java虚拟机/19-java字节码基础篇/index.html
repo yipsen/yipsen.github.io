@@ -26,10 +26,10 @@ dup 指令常用于复制 new 指令所生成的未经初始化的引用。例�
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -38,7 +38,7 @@ dup 指令常用于复制 new 指令所生成的未经初始化的引用。例�
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -258,12 +258,10 @@ dup 指令常用于复制 new 指令所生成的未经初始化的引用。例�
 </style><article class="post-block">
         <h1 class="post-title">19 Java字节码（基础篇）</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2022-01-09 11:11:08</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入拆解Java虚拟机</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2022-01-09 11:11:08</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>在前面的篇章中，有不少同学反馈对 Java 字节码并不是特别熟悉。那么今天我便来系统性地介绍一遍 Java 字节码。</p>
 <h2 id="操作数栈">操作数栈</h2>
@@ -419,6 +417,11 @@ Code:
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入拆解Java虚拟机</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -427,26 +430,38 @@ Code:
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/18-%E5%8D%B3%E6%97%B6%E7%BC%96%E8%AF%91%E5%99%A8%E7%9A%84%E4%B8%AD%E9%97%B4%E8%A1%A8%E8%BE%BE%E5%BD%A2%E5%BC%8F/"><span>18 即时编译器的中间表达形式</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/18-%E5%8D%B3%E6%97%B6%E7%BC%96%E8%AF%91%E5%99%A8%E7%9A%84%E4%B8%AD%E9%97%B4%E8%A1%A8%E8%BE%BE%E5%BD%A2%E5%BC%8F/"><span>18 即时编译器的中间表达形式</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/20-%E6%96%B9%E6%B3%95%E5%86%85%E8%81%94%E4%B8%8A/"><span>20 方法内联（上）</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/20-%E6%96%B9%E6%B3%95%E5%86%85%E8%81%94%E4%B8%8A/"><span>20 方法内联（上）</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

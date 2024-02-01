@@ -22,10 +22,10 @@ Ingress 是什么 通过 kubectl explain ingress 命令，我们来看下对 Ing
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -34,7 +34,7 @@ Ingress 是什么 通过 kubectl explain ingress 命令，我们来看下对 Ing
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -194,12 +194,10 @@ Ingress 是什么 通过 kubectl explain ingress 命令，我们来看下对 Ing
 </style><article class="post-block">
         <h1 class="post-title">22 服务增强：Ingress</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:47:49</span>🏷️&nbsp;<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/">Kubernetes从上手到实践</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:47:49</span>
+            </div>
+        </div>
         <div class="post-content">
             <h2 id="整体概览">整体概览</h2>
 <p>通过前面的学习，我们已经知道 K8S 中有 <code>Service</code> 的概念，同时默认情况下还有 <code>CoreDNS</code> 完成集群内部的域名解析等工作，以此完成基础的服务注册发现能力。</p>
@@ -614,6 +612,11 @@ saythx-ing   saythx.moelove.info             80        23s
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/kubernetes/">kubernetes</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/">Kubernetes从上手到实践</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -622,26 +625,38 @@ saythx-ing   saythx.moelove.info             80        23s
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/21-%E6%89%A9%E5%B1%95%E5%A2%9E%E5%BC%BAcoredns/"><span>21 扩展增强：CoreDNS</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/21-%E6%89%A9%E5%B1%95%E5%A2%9E%E5%BC%BAcoredns/"><span>21 扩展增强：CoreDNS</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/23-%E7%9B%91%E6%8E%A7%E5%AE%9E%E8%B7%B5%E5%AF%B9-k8s-%E9%9B%86%E7%BE%A4%E8%BF%9B%E8%A1%8C%E7%9B%91%E6%8E%A7/"><span>23 监控实践：对 K8S 集群进行监控</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/23-%E7%9B%91%E6%8E%A7%E5%AE%9E%E8%B7%B5%E5%AF%B9-k8s-%E9%9B%86%E7%BE%A4%E8%BF%9B%E8%A1%8C%E7%9B%91%E6%8E%A7/"><span>23 监控实践：对 K8S 集群进行监控</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

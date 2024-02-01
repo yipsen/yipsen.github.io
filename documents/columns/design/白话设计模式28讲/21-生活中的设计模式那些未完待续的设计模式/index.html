@@ -23,10 +23,10 @@ from abc import ABCMeta, abstractmethod# 引入ABCMeta和abstractmethod来定�
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -35,7 +35,7 @@ from abc import ABCMeta, abstractmethod# 引入ABCMeta和abstractmethod来定�
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -211,12 +211,10 @@ from abc import ABCMeta, abstractmethod# 引入ABCMeta和abstractmethod来定�
 </style><article class="post-block">
         <h1 class="post-title">21 生活中的设计模式：那些未完待续的设计模式</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:37:11</span>🏷️&nbsp;<a class="post-tag" href="/tags/design/">design</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/">白话设计模式28讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:37:11</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>随着技术的不断革新与发展，设计模式也一直在发展，有一些模式已不再常用，同时却有一些新的模式在诞生。本课程并未对这 23 种设计模式都进行一一讲解，因为有一些设计模式在现今软件的开发中用的非常少！而有一些却在面向对象中应用的太频繁，以至于我们都不认为它是一种模式。前面已经讲解了 19 种设计模式，下面将对未提及的 4 种设计模式一并进行说明。</p>
 <h3 id="抽象工厂">抽象工厂</h3>
@@ -578,6 +576,11 @@ def getMapValue(expStr):
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/design/">design</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/">白话设计模式28讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -586,26 +589,38 @@ def getMapValue(expStr):
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/20-%E7%94%9F%E6%B4%BB%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8E%E7%BB%8F%E5%85%B8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%B8%8D%E8%A7%A3%E6%B8%8A%E6%BA%90/"><span>20 生活中的设计模式：与经典设计模式的不解渊源</span></a>
+        <a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/20-%E7%94%9F%E6%B4%BB%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8E%E7%BB%8F%E5%85%B8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%B8%8D%E8%A7%A3%E6%B8%8A%E6%BA%90/"><span>20 生活中的设计模式：与经典设计模式的不解渊源</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/22-%E6%B7%B1%E5%85%A5%E8%A7%A3%E8%AF%BB%E8%BF%87%E6%BB%A4%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%88%B6%E4%BD%9C%E4%B8%80%E6%9D%AF%E9%B2%9C%E7%BA%AF%E7%BB%86%E8%85%BB%E7%9A%84%E8%B1%86%E6%B5%86/"><span>22 深入解读过滤器模式：制作一杯鲜纯细腻的豆浆</span></a>
+        <a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/22-%E6%B7%B1%E5%85%A5%E8%A7%A3%E8%AF%BB%E8%BF%87%E6%BB%A4%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%88%B6%E4%BD%9C%E4%B8%80%E6%9D%AF%E9%B2%9C%E7%BA%AF%E7%BB%86%E8%85%BB%E7%9A%84%E8%B1%86%E6%B5%86/"><span>22 深入解读过滤器模式：制作一杯鲜纯细腻的豆浆</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

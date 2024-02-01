@@ -32,10 +32,10 @@ yum
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -44,7 +44,7 @@ yum
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -308,12 +308,10 @@ yum
 </style><article class="post-block">
         <h1 class="post-title">10 软件的安装： 编译安装和包管理器安装有什么优势和劣势？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:49:04</span>🏷️&nbsp;<a class="post-tag" href="/tags/linux/">linux</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">重学操作系统</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:49:04</span>
+            </div>
+        </div>
         <div class="post-content">
             <p><strong>今天给你带来的面试题是：编译安装和包管理器安装有什么优势和劣势</strong>？为了搞清楚这个问题，就引出了今天的话题，在 Linux 上如何安装程序。</p>
 <p>在 Linux 上安装程序大概有 2 种思路：</p>
@@ -457,6 +455,11 @@ deb-src http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted univer
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/linux/">linux</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">重学操作系统</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -465,26 +468,38 @@ deb-src http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted univer
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/09-linux-%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E6%8C%87%E4%BB%A4%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E4%B8%80%E4%B8%AA%E5%9F%9F%E5%90%8D%E6%9C%89%E5%93%AA%E4%BA%9B-ns-%E8%AE%B0%E5%BD%95/"><span>09 Linux 中的网络指令：如何查看一个域名有哪些 NS 记录？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/09-linux-%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E6%8C%87%E4%BB%A4%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E4%B8%80%E4%B8%AA%E5%9F%9F%E5%90%8D%E6%9C%89%E5%93%AA%E4%BA%9B-ns-%E8%AE%B0%E5%BD%95/"><span>09 Linux 中的网络指令：如何查看一个域名有哪些 NS 记录？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/11-%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7%E4%B9%8B%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E5%88%A9%E7%94%A8-linux-%E6%8C%87%E4%BB%A4%E5%88%86%E6%9E%90-web-%E6%97%A5%E5%BF%97/"><span>11 高级技巧之日志分析：利用 Linux 指令分析 Web 日志</span></a>
+        <a href="http://yipsen.github.io/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/11-%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7%E4%B9%8B%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E5%88%A9%E7%94%A8-linux-%E6%8C%87%E4%BB%A4%E5%88%86%E6%9E%90-web-%E6%97%A5%E5%BF%97/"><span>11 高级技巧之日志分析：利用 Linux 指令分析 Web 日志</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

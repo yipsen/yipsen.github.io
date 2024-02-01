@@ -24,10 +24,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -36,7 +36,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -208,12 +208,10 @@
 </style><article class="post-block">
         <h1 class="post-title">00 开篇词：JVM，一块难啃的骨头</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2022-01-09 11:12:18</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入浅出Java虚拟机</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2022-01-09 11:12:18</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>你好，我是你的 JVM 讲师李国，曾任京东金融、陌陌科技高级架构师，专注分享基础架构方面的知识。</p>
 <p>我在工作期间，因为接触的都是比较底层的中间件和操作系统，会涉及大量高并发场景下的调优工作。其中，JVM 的调优和故障排查，是非常重要的一项工作内容。 许多同学对 JVM 有一些恐惧，这是可以理解的。JVM 是“Java 虚拟机”的意思，“虚拟”这两个字，证明了它要实现一个庞大的生态，有点类似于“操作系统”，内容肯定是非常多的。 而随着互联网进入下半场，好公司对程序员的要求也水涨船高，各大互联网公司的岗位描述中，JVM 几乎是逃不掉的关键词，我们举几个来自拉勾网的 JD 实例。</p>
@@ -273,6 +271,11 @@
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入浅出Java虚拟机</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -281,26 +284,38 @@
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/%E5%B7%A5%E5%85%B7%E7%AF%87-%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D/"><span>工具篇 常用工具介绍</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/%E5%B7%A5%E5%85%B7%E7%AF%87-%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D/"><span>工具篇 常用工具介绍</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/01-%E4%B8%80%E6%8E%A2%E7%A9%B6%E7%AB%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-jvm%E5%AE%83%E5%A4%84%E5%9C%A8%E4%BB%80%E4%B9%88%E4%BD%8D%E7%BD%AE/"><span>01 一探究竟：为什么需要 JVM？它处在什么位置？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/01-%E4%B8%80%E6%8E%A2%E7%A9%B6%E7%AB%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-jvm%E5%AE%83%E5%A4%84%E5%9C%A8%E4%BB%80%E4%B9%88%E4%BD%8D%E7%BD%AE/"><span>01 一探究竟：为什么需要 JVM？它处在什么位置？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

@@ -25,10 +25,10 @@ GraalVM 支持大量的语言，包括：
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -37,7 +37,7 @@ GraalVM 支持大量的语言，包括：
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -229,12 +229,10 @@ GraalVM 支持大量的语言，包括：
 </style><article class="post-block">
         <h1 class="post-title">16 Oracle GraalVM 介绍：会当凌绝顶、一览众山小</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:45:16</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/">JVM核心技术32讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:45:16</span>
+            </div>
+        </div>
         <div class="post-content">
             <h3 id="graalvm-简介与特性">GraalVM 简介与特性</h3>
 <p>前面了解了那么多的 JVM 相关技术，我们可以发现一个脉络就是 Java 相关的体系越来越复杂，越来越强大。放眼看去，最近十年来，各种各类的技术和平台层出不穷，每类技术都有自己的适用场景和使用人群。并且伴随着微服务和云原生等理念的出现和发展，越来越多的技术被整合到一起。那么作为目前最流行的平台技术，Java/JVM 也自然不会在这个大潮中置身事外。本节我们介绍一个语言平台的集大成者 GraalVM：</p>
@@ -575,6 +573,11 @@ Hello, World!
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/">JVM核心技术32讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -583,26 +586,38 @@ Hello, World!
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/15-java11-zgc-%E5%92%8C-java12-shenandoah-%E4%BB%8B%E7%BB%8D%E8%8B%9F%E6%97%A5%E6%96%B0%E6%97%A5%E6%97%A5%E6%96%B0%E5%8F%88%E6%97%A5%E6%96%B0/"><span>15 Java11 ZGC 和 Java12 Shenandoah 介绍：苟日新、日日新、又日新</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/15-java11-zgc-%E5%92%8C-java12-shenandoah-%E4%BB%8B%E7%BB%8D%E8%8B%9F%E6%97%A5%E6%96%B0%E6%97%A5%E6%97%A5%E6%96%B0%E5%8F%88%E6%97%A5%E6%96%B0/"><span>15 Java11 ZGC 和 Java12 Shenandoah 介绍：苟日新、日日新、又日新</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/17-gc-%E6%97%A5%E5%BF%97%E8%A7%A3%E8%AF%BB%E4%B8%8E%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/"><span>17 GC 日志解读与分析（基础配置）</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/17-gc-%E6%97%A5%E5%BF%97%E8%A7%A3%E8%AF%BB%E4%B8%8E%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/"><span>17 GC 日志解读与分析（基础配置）</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

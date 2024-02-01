@@ -23,10 +23,10 @@ MTU 最大传输单元和 MSS 最大分段大小 MTU（Maxitum Transmission Unit
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -35,7 +35,7 @@ MTU 最大传输单元和 MSS 最大分段大小 MTU（Maxitum Transmission Unit
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -227,12 +227,10 @@ MTU 最大传输单元和 MSS 最大分段大小 MTU（Maxitum Transmission Unit
 </style><article class="post-block">
         <h1 class="post-title">06 粘包拆包问题：如何获取一个完整的网络包？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:54:27</span>🏷️&nbsp;<a class="post-tag" href="/tags/netty/">netty</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/">Netty核心原理剖析与RPC实践</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:54:27</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>本节课开始我们将学习 Netty 通信过程中的编解码技术。编解码技术这是实现网络通信的基础，让我们可以定义任何满足业务需求的应用层协议。在网络编程中，我们经常会使用各种网络传输协议，其中 TCP 是最常用的协议。我们首先需要了解的是 TCP 最基本的<strong>拆包/粘包问题</strong>以及常用的解决方案，才能更好地理解 Netty 的编解码框架。</p>
 <h3 id="为什么有拆包粘包">为什么有拆包/粘包</h3>
@@ -301,6 +299,11 @@ MTU 最大传输单元和 MSS 最大分段大小 MTU（Maxitum Transmission Unit
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/netty/">netty</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/">Netty核心原理剖析与RPC实践</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -309,26 +312,38 @@ MTU 最大传输单元和 MSS 最大分段大小 MTU（Maxitum Transmission Unit
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/05-%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E5%B1%82pipeline-%E5%A6%82%E4%BD%95%E5%8D%8F%E8%B0%83%E5%90%84%E7%B1%BB-handler-/"><span>05 服务编排层：Pipeline 如何协调各类 Handler ？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/05-%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E5%B1%82pipeline-%E5%A6%82%E4%BD%95%E5%8D%8F%E8%B0%83%E5%90%84%E7%B1%BB-handler-/"><span>05 服务编排层：Pipeline 如何协调各类 Handler ？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/07-%E6%8E%A5%E5%A4%B4%E6%9A%97%E8%AF%AD%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8-netty-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8D%8F%E8%AE%AE%E9%80%9A%E4%BF%A1/"><span>07 接头暗语：如何利用 Netty 实现自定义协议通信？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/07-%E6%8E%A5%E5%A4%B4%E6%9A%97%E8%AF%AD%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8-netty-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8D%8F%E8%AE%AE%E9%80%9A%E4%BF%A1/"><span>07 接头暗语：如何利用 Netty 实现自定义协议通信？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

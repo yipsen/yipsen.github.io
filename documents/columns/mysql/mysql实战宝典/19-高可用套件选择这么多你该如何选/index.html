@@ -30,10 +30,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -42,7 +42,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -218,12 +218,10 @@
 </style><article class="post-block">
         <h1 class="post-title">19 高可用套件：选择这么多，你该如何选？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:53:20</span>🏷️&nbsp;<a class="post-tag" href="/tags/mysql/">mysql</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/">MySQL实战宝典</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:53:20</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>在 17、18 讲中，我们已经学习了 MySQL 数据库的高可用解决方案，并且学习了怎么根据金融业务的要求，通过无损半同步复制的方式进行三园区的同城容灾设计，以及三地务中心的跨城容灾设计。</p>
 <p>但是当数据库发生宕机时，MySQL 的主从复制并不会自动地切换，这需要高可用套件对数据库主从进行管理。</p>
@@ -282,6 +280,11 @@
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/mysql/">mysql</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/">MySQL实战宝典</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -290,26 +293,38 @@
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/18-%E9%87%91%E8%9E%8D%E7%BA%A7%E9%AB%98%E5%8F%AF%E7%94%A8%E6%9E%B6%E6%9E%84%E5%BF%85%E4%B8%8D%E5%8F%AF%E5%B0%91%E7%9A%84%E6%95%B0%E6%8D%AE%E6%A0%B8%E5%AF%B9/"><span>18 金融级高可用架构：必不可少的数据核对</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/18-%E9%87%91%E8%9E%8D%E7%BA%A7%E9%AB%98%E5%8F%AF%E7%94%A8%E6%9E%B6%E6%9E%84%E5%BF%85%E4%B8%8D%E5%8F%AF%E5%B0%91%E7%9A%84%E6%95%B0%E6%8D%AE%E6%A0%B8%E5%AF%B9/"><span>18 金融级高可用架构：必不可少的数据核对</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/20-innodb-cluster%E6%94%B9%E5%8F%98%E5%8E%86%E5%8F%B2%E7%9A%84%E6%96%B0%E4%BA%A7%E5%93%81/"><span>20 InnoDB Cluster：改变历史的新产品</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/20-innodb-cluster%E6%94%B9%E5%8F%98%E5%8E%86%E5%8F%B2%E7%9A%84%E6%96%B0%E4%BA%A7%E5%93%81/"><span>20 InnoDB Cluster：改变历史的新产品</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

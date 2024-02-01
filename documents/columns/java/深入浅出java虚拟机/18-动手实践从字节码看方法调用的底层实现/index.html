@@ -35,10 +35,10 @@ attributes：属性表，是一个表结构，表中每个成员必须是 attrib
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -47,7 +47,7 @@ attributes：属性表，是一个表结构，表中每个成员必须是 attrib
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -219,12 +219,10 @@ attributes：属性表，是一个表结构，表中每个成员必须是 attrib
 </style><article class="post-block">
         <h1 class="post-title">18 动手实践：从字节码看方法调用的底层实现</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2022-01-09 11:12:38</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入浅出Java虚拟机</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2022-01-09 11:12:38</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>本课时我们主要分析从字节码看方法调用的底层实现。</p>
 <h2 id="字节码结构">字节码结构</h2>
@@ -463,6 +461,11 @@ public class MethodHandleDemo {
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入浅出Java虚拟机</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -471,26 +474,38 @@ public class MethodHandleDemo {
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/17-%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E5%90%8E%E6%88%91%E7%9A%84%E5%BA%94%E7%94%A8%E5%B4%A9%E6%BA%83%E4%BA%86/"><span>17 案例分析：分库分表后，我的应用崩溃了</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/17-%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E5%90%8E%E6%88%91%E7%9A%84%E5%BA%94%E7%94%A8%E5%B4%A9%E6%BA%83%E4%BA%86/"><span>17 案例分析：分库分表后，我的应用崩溃了</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/19-%E5%A4%A7%E5%8E%82%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%8D%E8%A6%81%E6%90%9E%E6%B7%B7-jmm-%E4%B8%8E-jvm/"><span>19 大厂面试题：不要搞混 JMM 与 JVM</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/19-%E5%A4%A7%E5%8E%82%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%8D%E8%A6%81%E6%90%9E%E6%B7%B7-jmm-%E4%B8%8E-jvm/"><span>19 大厂面试题：不要搞混 JMM 与 JVM</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

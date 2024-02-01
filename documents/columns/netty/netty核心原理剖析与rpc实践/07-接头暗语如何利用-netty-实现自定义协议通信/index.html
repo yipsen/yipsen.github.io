@@ -31,10 +31,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -43,7 +43,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -235,12 +235,10 @@
 </style><article class="post-block">
         <h1 class="post-title">07 接头暗语：如何利用 Netty 实现自定义协议通信？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:54:28</span>🏷️&nbsp;<a class="post-tag" href="/tags/netty/">netty</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/">Netty核心原理剖析与RPC实践</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:54:28</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>既然是网络编程，自然离不开通信协议，应用层之间通信需要实现各种各样的网络协议。在项目开发的过程中，我们就需要去构建满足自己业务场景的应用层协议。在上节课中我们介绍了如何使用网络协议解决 TCP 拆包/粘包的底层问题，本节课我们将在此基础上继续讨论如何设计一个高效、可扩展、易维护的自定义通信协议，以及如何使用 Netty 实现自定义通信协议。</p>
 <h3 id="通信协议设计">通信协议设计</h3>
@@ -519,6 +517,11 @@ public final void decode(ChannelHandlerContext ctx, ByteBuf in, List&lt;Object&g
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/netty/">netty</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/">Netty核心原理剖析与RPC实践</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -527,26 +530,38 @@ public final void decode(ChannelHandlerContext ctx, ByteBuf in, List&lt;Object&g
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/06-%E7%B2%98%E5%8C%85%E6%8B%86%E5%8C%85%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E7%9A%84%E7%BD%91%E7%BB%9C%E5%8C%85/"><span>06 粘包拆包问题：如何获取一个完整的网络包？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/06-%E7%B2%98%E5%8C%85%E6%8B%86%E5%8C%85%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E7%9A%84%E7%BD%91%E7%BB%9C%E5%8C%85/"><span>06 粘包拆包问题：如何获取一个完整的网络包？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/08-%E5%BC%80%E7%AE%B1%E5%8D%B3%E7%94%A8netty-%E6%94%AF%E6%8C%81%E5%93%AA%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84%E8%A7%A3%E7%A0%81%E5%99%A8/"><span>08 开箱即用：Netty 支持哪些常用的解码器？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/08-%E5%BC%80%E7%AE%B1%E5%8D%B3%E7%94%A8netty-%E6%94%AF%E6%8C%81%E5%93%AA%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84%E8%A7%A3%E7%A0%81%E5%99%A8/"><span>08 开箱即用：Netty 支持哪些常用的解码器？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

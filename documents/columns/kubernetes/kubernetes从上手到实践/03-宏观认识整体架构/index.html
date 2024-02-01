@@ -20,10 +20,10 @@ C/S 架构 从更高层来看，K8S 整体上遵循 C/S 架构，从这个角度
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -32,7 +32,7 @@ C/S 架构 从更高层来看，K8S 整体上遵循 C/S 架构，从这个角度
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -192,12 +192,10 @@ C/S 架构 从更高层来看，K8S 整体上遵循 C/S 架构，从这个角度
 </style><article class="post-block">
         <h1 class="post-title">03 宏观认识：整体架构</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:47:29</span>🏷️&nbsp;<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/">Kubernetes从上手到实践</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:47:29</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>工欲善其事，必先利其器。本节我们来从宏观上认识下 K8S 的整体架构，以便于后续在此基础上进行探索和实践。</p>
 <h2 id="cs-架构">C/S 架构</h2>
@@ -314,6 +312,11 @@ C/S 架构 从更高层来看，K8S 整体上遵循 C/S 架构，从这个角度
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/kubernetes/">kubernetes</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/">Kubernetes从上手到实践</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -322,26 +325,38 @@ C/S 架构 从更高层来看，K8S 整体上遵循 C/S 架构，从这个角度
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/02-%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86kubernetes-%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/"><span>02 初步认识：Kubernetes 基础概念</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/02-%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86kubernetes-%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/"><span>02 初步认识：Kubernetes 基础概念</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/04-%E6%90%AD%E5%BB%BA-kubernetes-%E9%9B%86%E7%BE%A4-%E6%9C%AC%E5%9C%B0%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA/"><span>04 搭建 Kubernetes 集群 - 本地快速搭建</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/04-%E6%90%AD%E5%BB%BA-kubernetes-%E9%9B%86%E7%BE%A4-%E6%9C%AC%E5%9C%B0%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA/"><span>04 搭建 Kubernetes 集群 - 本地快速搭建</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

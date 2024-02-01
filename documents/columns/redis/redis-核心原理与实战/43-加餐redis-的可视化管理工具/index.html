@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>43 加餐：Redis 的可视化管理工具 | Yipsen Ye</title>
+<meta name="description" content="因为 Redis 官方只提供了命令行版的 Redis 客户端 redis-cli，以至于我们在使用的时候会比较麻烦，通常要输入一堆命令，而且命令行版的客户端看起来也不够直观，基于以上两个原因我们需要找一个可视化的 Redis 客户端，下面是我这些年使用过的一些 Redis 可视化客户端，分享给大家。
+RedisClient 是否收费：免费。
+项目介绍：Java 编写的 Redis 连接客户端，功能丰富，并且是免费的。
+支持平台：Windows。
+项目地址：https://github.com/caoxinyu/RedisClient
+使用截图：
+Redis Desktop Manager 是否收费：收费。
+项目介绍：一款基于 Qt5 的跨平台 Redis 桌面管理软件。
+支持平台：Windows、macOS、Linux。
+项目地址：https://github.com/uglide/RedisDesktopManager
+使用截图：
+RedisStudio 是否收费：免费。
+项目介绍：一款 C&#43;&#43; 编写的 Redis 管理工具，比较老，好久没更新了。
+支持平台：Windows。
+项目地址：https://github.com/cinience/RedisStudio
+使用截图：
+AnotherRedisDesktopManager 是否收费：免费。
+项目介绍：一款基于 Node.js 开发的 Redis 桌面管理器，它的特点就是相对来说比较稳定，在数据量比较大的时候不会崩溃。
+支持平台：Windows、macOS、Linux。
+项目地址：https://github.com/qishibo/AnotherRedisDesktopManager
+使用截图：
+其他 Redis 可视化工具  Medis：https://github.com/luin/medis phpRedisAdmin：https://github.com/ErikDubbelboer/phpRedisAdmin PyRedisAdmin：https://github.com/JoneXiong/PyRedisAdmin Go-Redis：https://github.com/alphazero/Go-Redis RedisLive：https://github.com/nkrode/RedisLive TreeDMS ：http://www.treesoft.cn/dms.html RedisPlus：https://gitee.com/MaxBill/RedisPlus  总结 我本人使用过上面介绍的前 4 个客户端，最近一直在使用的是 AnotherRedisDesktopManager 和 Redis Desktop Manager，其中 Redis Desktop Manager 是花了 ￥98 买的 macOS 版，买之后就后悔了，原因之一就是界面并不美观，完全没有付费软件应有的精致感，建议大家使用免费版的 AnotherRedisDesktopManager。">
+<meta name="author" content="">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><aside>
+    <div>
+        
+        
+            
+            
+            <div class="post-category-icon"></div>
+            <a href="/categories/redis%20%e6%a0%b8%e5%bf%83%e5%8e%9f%e7%90%86%e4%b8%8e%e5%ae%9e%e6%88%98/">Redis 核心原理与实战</a>
+            <ul>
+                
+            </ul>
+        
+    </div>
+</aside>
+
+<style>
+    aside {
+        position: fixed;
+        left: 20px;
+        background: #ffdee3;
+        border-radius: 6px;
+        padding: 20px;
+        padding-top: 60px;
+        box-shadow: 5px 10px #888;
+        list-style-type: none;
+        display: none;
+    }
+
+    .post-category-icon {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        left: 50%;
+        margin-left: -40px;
+        text-align: center;
+        font-size: 36px;
+        content: 'J';
+        background: #ffdee3;
+        border-radius: 100%;
+        border: 10px solid #fff;
+        box-shadow: 5px 10px #888;
+    }
+</style><article class="post-block">
+        <h1 class="post-title">43 加餐：Redis 的可视化管理工具</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-09-28 19:38:36</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <p>因为 Redis 官方只提供了命令行版的 Redis 客户端 redis-cli，以至于我们在使用的时候会比较麻烦，通常要输入一堆命令，而且命令行版的客户端看起来也不够直观，基于以上两个原因我们需要找一个可视化的 Redis 客户端，下面是我这些年使用过的一些 Redis 可视化客户端，分享给大家。</p>
+<h3 id="redisclient">RedisClient</h3>
+<p><strong>是否收费</strong>：免费。</p>
+<p><strong>项目介绍</strong>：Java 编写的 Redis 连接客户端，功能丰富，并且是免费的。</p>
+<p><strong>支持平台</strong>：Windows。</p>
+<p><strong>项目地址</strong>：<a href="https://github.com/caoxinyu/RedisClient">https://github.com/caoxinyu/RedisClient</a></p>
+<p>使用截图：</p>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Redis%20%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/assets/0e749a90-8ee1-11ea-9776-f5261045ba7d" alt="image.png"></p>
+<h3 id="redis-desktop-manager">Redis Desktop Manager</h3>
+<p><strong>是否收费</strong>：收费。</p>
+<p><strong>项目介绍</strong>：一款基于 Qt5 的跨平台 Redis 桌面管理软件。</p>
+<p><strong>支持平台</strong>：Windows、macOS、Linux。</p>
+<p><strong>项目地址</strong>：<a href="https://github.com/uglide/RedisDesktopManager">https://github.com/uglide/RedisDesktopManager</a></p>
+<p>使用截图：</p>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Redis%20%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/assets/39fb7cb0-8ee1-11ea-861a-9398d62a6944" alt="image.png"></p>
+<h3 id="redisstudio">RedisStudio</h3>
+<p><strong>是否收费</strong>：免费。</p>
+<p><strong>项目介绍</strong>：一款 C++ 编写的 Redis 管理工具，比较老，好久没更新了。</p>
+<p><strong>支持平台</strong>：Windows。</p>
+<p><strong>项目地址</strong>：<a href="https://github.com/cinience/RedisStudio">https://github.com/cinience/RedisStudio</a></p>
+<p>使用截图：</p>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Redis%20%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/assets/4c11eb50-8ee1-11ea-bf74-150f7ff6235d" alt="image.png"></p>
+<h3 id="anotherredisdesktopmanager">AnotherRedisDesktopManager</h3>
+<p><strong>是否收费</strong>：免费。</p>
+<p><strong>项目介绍</strong>：一款基于 Node.js 开发的 Redis 桌面管理器，它的特点就是相对来说比较稳定，在数据量比较大的时候不会崩溃。</p>
+<p><strong>支持平台</strong>：Windows、macOS、Linux。</p>
+<p><strong>项目地址</strong>：<a href="https://github.com/qishibo/AnotherRedisDesktopManager">https://github.com/qishibo/AnotherRedisDesktopManager</a></p>
+<p>使用截图：</p>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Redis%20%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/assets/67659dc0-8ee1-11ea-861a-9398d62a6944" alt="image.png"></p>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Redis%20%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/assets/7300cec0-8ee1-11ea-9144-a708da03c9c4" alt="image.png"></p>
+<h3 id="其他-redis-可视化工具">其他 Redis 可视化工具</h3>
+<ul>
+<li>Medis：<a href="https://github.com/luin/medis">https://github.com/luin/medis</a></li>
+<li>phpRedisAdmin：<a href="https://github.com/ErikDubbelboer/phpRedisAdmin">https://github.com/ErikDubbelboer/phpRedisAdmin</a></li>
+<li>PyRedisAdmin：<a href="https://github.com/JoneXiong/PyRedisAdmin">https://github.com/JoneXiong/PyRedisAdmin</a></li>
+<li>Go-Redis：<a href="https://github.com/alphazero/Go-Redis">https://github.com/alphazero/Go-Redis</a></li>
+<li>RedisLive：<a href="https://github.com/nkrode/RedisLive">https://github.com/nkrode/RedisLive</a></li>
+<li>TreeDMS ：<a href="http://www.treesoft.cn/dms.html">http://www.treesoft.cn/dms.html</a></li>
+<li>RedisPlus：<a href="https://gitee.com/MaxBill/RedisPlus">https://gitee.com/MaxBill/RedisPlus</a></li>
+</ul>
+<h3 id="总结">总结</h3>
+<p>我本人使用过上面介绍的前 4 个客户端，最近一直在使用的是 AnotherRedisDesktopManager 和 Redis Desktop Manager，其中 Redis Desktop Manager 是花了 ￥98 买的 macOS 版，买之后就后悔了，原因之一就是界面并不美观，完全没有付费软件应有的精致感，建议大家使用免费版的 AnotherRedisDesktopManager。</p>
+
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/redis/">redis</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/">Redis 核心原理与实战</a>&nbsp; </div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/42-%E6%8A%80%E8%83%BD%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97/"><span>42 技能学习指南</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/documents/columns/network/%E5%85%A8%E8%A7%A3%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/01-%E6%88%91%E5%BA%94%E8%AF%A5%E7%AB%99%E5%9C%A8%E8%B0%81%E7%9A%84%E8%82%A9%E8%86%80%E4%B8%8A-osi-vs-tcpip%E6%A8%A1%E5%9E%8B/"><span>01 我应该站在谁的肩膀上 - OSI vs TCPIP模型</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

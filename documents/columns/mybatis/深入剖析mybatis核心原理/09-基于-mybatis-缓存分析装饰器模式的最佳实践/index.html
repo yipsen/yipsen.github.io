@@ -31,10 +31,10 @@ MyBatis 的缓存分为一级缓存、二级缓存两个级别，并且都实现
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -43,7 +43,7 @@ MyBatis 的缓存分为一级缓存、二级缓存两个级别，并且都实现
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -203,12 +203,10 @@ MyBatis 的缓存分为一级缓存、二级缓存两个级别，并且都实现
 </style><article class="post-block">
         <h1 class="post-title">09 基于 MyBatis 缓存分析装饰器模式的最佳实践</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:51:11</span>🏷️&nbsp;<a class="post-tag" href="/tags/mybatis/">mybatis</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/">深入剖析MyBatis核心原理</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:51:11</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>缓存是优化数据库性能的常用手段之一，我们在实践中经常使用的是 Memcached、Redis 等外部缓存组件，很多持久化框架提供了集成这些外部缓存的功能，同时自身也提供了内存级别的缓存，MyBatis 作为持久化框架中的佼佼者，自然也提供了这些功能。</p>
 <p>MyBatis 的缓存分为一级缓存、二级缓存两个级别，并且都实现了 Cache 接口，所以这一讲我们就重点来介绍 Cache 接口及其核心实现类，这也是一级缓存和二级缓存依赖的基础实现。</p>
@@ -467,6 +465,11 @@ MyBatis 的缓存分为一级缓存、二级缓存两个级别，并且都实现
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/mybatis/">mybatis</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/">深入剖析MyBatis核心原理</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -475,26 +478,38 @@ MyBatis 的缓存分为一级缓存、二级缓存两个级别，并且都实现
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/08-mapper-%E6%96%87%E4%BB%B6%E4%B8%8E-java-%E6%8E%A5%E5%8F%A3%E7%9A%84%E4%BC%98%E9%9B%85%E6%98%A0%E5%B0%84%E4%B9%8B%E9%81%93/"><span>08 Mapper 文件与 Java 接口的优雅映射之道</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/08-mapper-%E6%96%87%E4%BB%B6%E4%B8%8E-java-%E6%8E%A5%E5%8F%A3%E7%9A%84%E4%BC%98%E9%9B%85%E6%98%A0%E5%B0%84%E4%B9%8B%E9%81%93/"><span>08 Mapper 文件与 Java 接口的优雅映射之道</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/10-%E9%B8%9F%E7%9E%B0-mybatis-%E5%88%9D%E5%A7%8B%E5%8C%96%E6%8A%8A%E6%8F%A1-mybatis-%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E8%84%89%E7%BB%9C%E4%B8%8A/"><span>10 鸟瞰 MyBatis 初始化，把握 MyBatis 启动流程脉络（上）</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/10-%E9%B8%9F%E7%9E%B0-mybatis-%E5%88%9D%E5%A7%8B%E5%8C%96%E6%8A%8A%E6%8F%A1-mybatis-%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E8%84%89%E7%BB%9C%E4%B8%8A/"><span>10 鸟瞰 MyBatis 初始化，把握 MyBatis 启动流程脉络（上）</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

@@ -25,10 +25,10 @@ Extra 这个字段中的“Using filesort”表示的就是需要排序，MySQL 
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -37,7 +37,7 @@ Extra 这个字段中的“Using filesort”表示的就是需要排序，MySQL 
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -293,12 +293,10 @@ Extra 这个字段中的“Using filesort”表示的就是需要排序，MySQL 
 </style><article class="post-block">
         <h1 class="post-title">16 “order by”是怎么工作的？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:52:13</span>🏷️&nbsp;<a class="post-tag" href="/tags/mysql/">mysql</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/">MySQL实战45讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:52:13</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>在你开发应用的时候，一定会经常碰到需要根据指定的字段排序来显示结果的需求。还是以我们前面举例用过的市民表为例，假设你要查询城市是“杭州”的所有人名字，并且按照姓名排序返回前 1000 个人的姓名、年龄。</p>
 <p>假设这个表的部分定义是这样的：</p>
@@ -490,6 +488,11 @@ select @b-@a;
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/mysql/">mysql</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/">MySQL实战45讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -498,26 +501,38 @@ select @b-@a;
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/15-%E7%AD%94%E7%96%91%E6%96%87%E7%AB%A0%E4%B8%80%E6%97%A5%E5%BF%97%E5%92%8C%E7%B4%A2%E5%BC%95%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/"><span>15 答疑文章（一）：日志和索引相关问题</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/15-%E7%AD%94%E7%96%91%E6%96%87%E7%AB%A0%E4%B8%80%E6%97%A5%E5%BF%97%E5%92%8C%E7%B4%A2%E5%BC%95%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/"><span>15 答疑文章（一）：日志和索引相关问题</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/17-%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%9C%B0%E6%98%BE%E7%A4%BA%E9%9A%8F%E6%9C%BA%E6%B6%88%E6%81%AF/"><span>17 如何正确地显示随机消息？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/17-%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%9C%B0%E6%98%BE%E7%A4%BA%E9%9A%8F%E6%9C%BA%E6%B6%88%E6%81%AF/"><span>17 如何正确地显示随机消息？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

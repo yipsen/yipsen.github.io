@@ -22,10 +22,10 @@ eureka:client:serviceUrl:defaultZone: http://eureka-0.eureka.default.svc.clus
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -34,7 +34,7 @@ eureka:client:serviceUrl:defaultZone: http://eureka-0.eureka.default.svc.clus
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -198,12 +198,10 @@ eureka:client:serviceUrl:defaultZone: http://eureka-0.eureka.default.svc.clus
 </style><article class="post-block">
         <h1 class="post-title">04 微服务应用场景下落地 K8s 的困难分析</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:48:09</span>🏷️&nbsp;<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/">Kubernetes实践入门指南</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:48:09</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>近些年企业应用开发架构发生了细微的变化，根据康威定律，由于企业组织架构的变化，导致微服务应用体系开始在企业应用开发过程中流行起来。微服务是最近几年企业数字化转型过程中，在技术团队技术选型中比较常见的架构升级方案之一。在这个背景下，DevOps 团队为了应对企业架构的变化，迫切需要使用一套统一的基础设施来维护微服务应用的整个生命周期，这就给我们带来了新的挑战——如何应对微服务应用场景，平稳快速的落地 Kubernetes 集群系统。</p>
 <h3 id="基于-kubernetes-下的微服务注册中心的部署问题">基于 Kubernetes 下的微服务注册中心的部署问题</h3>
@@ -300,6 +298,11 @@ spec:
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/kubernetes/">kubernetes</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/">Kubernetes实践入门指南</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -308,26 +311,38 @@ spec:
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/03-devops-%E5%9C%BA%E6%99%AF%E4%B8%8B%E8%90%BD%E5%9C%B0-k8s-%E7%9A%84%E5%9B%B0%E9%9A%BE%E5%88%86%E6%9E%90/"><span>03 DevOps 场景下落地 K8s 的困难分析</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/03-devops-%E5%9C%BA%E6%99%AF%E4%B8%8B%E8%90%BD%E5%9C%B0-k8s-%E7%9A%84%E5%9B%B0%E9%9A%BE%E5%88%86%E6%9E%90/"><span>03 DevOps 场景下落地 K8s 的困难分析</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/05-%E8%A7%A3%E5%86%B3-k8s-%E8%90%BD%E5%9C%B0%E9%9A%BE%E9%A2%98%E7%9A%84%E6%96%B9%E6%B3%95%E8%AE%BA%E6%8F%90%E7%82%BC/"><span>05 解决 K8s 落地难题的方法论提炼</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/05-%E8%A7%A3%E5%86%B3-k8s-%E8%90%BD%E5%9C%B0%E9%9A%BE%E9%A2%98%E7%9A%84%E6%96%B9%E6%B3%95%E8%AE%BA%E6%8F%90%E7%82%BC/"><span>05 解决 K8s 落地难题的方法论提炼</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

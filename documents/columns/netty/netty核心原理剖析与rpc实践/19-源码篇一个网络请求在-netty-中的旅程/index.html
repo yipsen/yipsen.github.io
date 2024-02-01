@@ -23,10 +23,10 @@ Netty 服务端启动后，BossEventLoopGroup 会负责监听客户端的 Accept
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -35,7 +35,7 @@ Netty 服务端启动后，BossEventLoopGroup 会负责监听客户端的 Accept
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -227,12 +227,10 @@ Netty 服务端启动后，BossEventLoopGroup 会负责监听客户端的 Accept
 </style><article class="post-block">
         <h1 class="post-title">19 源码篇：一个网络请求在 Netty 中的旅程</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:54:41</span>🏷️&nbsp;<a class="post-tag" href="/tags/netty/">netty</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/">Netty核心原理剖析与RPC实践</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:54:41</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>通过前面两节源码课程的学习，我们知道 Netty 在服务端启动时会为创建 NioServerSocketChannel，当客户端新连接接入时又会创建 NioSocketChannel，不管是服务端还是客户端 Channel，在创建时都会初始化自己的 ChannelPipeline。如果把 Netty 比作成一个生产车间，那么 Reactor 线程无疑是车间的中央管控系统，ChannelPipeline 可以看作是车间的流水线，将原材料按顺序进行一步步加工，然后形成一个完整的产品。本节课我将带你完整梳理一遍网络请求在 Netty 中的处理流程，从而加深对前两节课内容的理解，并着重讲解 ChannelPipeline 的工作原理。</p>
 <blockquote>
@@ -1291,6 +1289,11 @@ private void invokeFlush0() {
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/netty/">netty</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/">Netty核心原理剖析与RPC实践</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -1299,26 +1302,38 @@ private void invokeFlush0() {
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/18-%E6%BA%90%E7%A0%81%E7%AF%87%E8%A7%A3%E5%AF%86-netty-reactor-%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/"><span>18 源码篇：解密 Netty Reactor 线程模型</span></a>
+        <a href="http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/18-%E6%BA%90%E7%A0%81%E7%AF%87%E8%A7%A3%E5%AF%86-netty-reactor-%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/"><span>18 源码篇：解密 Netty Reactor 线程模型</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/20-%E6%8A%80%E5%B7%A7%E7%AF%87netty-%E7%9A%84-fastthreadlocal-%E7%A9%B6%E7%AB%9F%E6%AF%94-threadlocal-%E5%BF%AB%E5%9C%A8%E5%93%AA%E5%84%BF/"><span>20 技巧篇：Netty 的 FastThreadLocal 究竟比 ThreadLocal 快在哪儿？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/20-%E6%8A%80%E5%B7%A7%E7%AF%87netty-%E7%9A%84-fastthreadlocal-%E7%A9%B6%E7%AB%9F%E6%AF%94-threadlocal-%E5%BF%AB%E5%9C%A8%E5%93%AA%E5%84%BF/"><span>20 技巧篇：Netty 的 FastThreadLocal 究竟比 ThreadLocal 快在哪儿？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

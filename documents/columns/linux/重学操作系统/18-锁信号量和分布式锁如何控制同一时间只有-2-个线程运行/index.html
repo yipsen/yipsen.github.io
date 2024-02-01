@@ -34,10 +34,10 @@ cas(&amp;amp;oldValue, expectedValue, targetValue)这里我用的是伪代码�
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -46,7 +46,7 @@ cas(&amp;amp;oldValue, expectedValue, targetValue)这里我用的是伪代码�
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -310,12 +310,10 @@ cas(&amp;amp;oldValue, expectedValue, targetValue)这里我用的是伪代码�
 </style><article class="post-block">
         <h1 class="post-title">18 锁、信号量和分布式锁：如何控制同一时间只有 2 个线程运行？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:49:14</span>🏷️&nbsp;<a class="post-tag" href="/tags/linux/">linux</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">重学操作系统</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:49:14</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>锁是一个面试的热门话题，有乐观锁、悲观锁、重入锁、公平锁、分布式锁。有很多和锁相关的数据结构，比如说阻塞队列。还有一些关联的一些工具，比如说 Semaphore、Monitor 等。这些知识点可以关联很多的面试题目，比如：</p>
 <ul>
@@ -612,6 +610,11 @@ leave(&amp;lock2)
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/linux/">linux</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">重学操作系统</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -620,26 +623,38 @@ leave(&amp;lock2)
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/17-%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%BC%80%E9%94%80%E6%AF%94%E7%BA%BF%E7%A8%8B%E5%A4%A7%E5%9C%A8%E4%BA%86%E5%93%AA%E9%87%8C/"><span>17 进程和线程：进程的开销比线程大在了哪里？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/17-%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%BC%80%E9%94%80%E6%AF%94%E7%BA%BF%E7%A8%8B%E5%A4%A7%E5%9C%A8%E4%BA%86%E5%93%AA%E9%87%8C/"><span>17 进程和线程：进程的开销比线程大在了哪里？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/19-%E4%B9%90%E8%A7%82%E9%94%81%E5%8C%BA%E5%9D%97%E9%93%BE%E9%99%A4%E4%BA%86%E4%B8%8A%E9%94%81%E8%BF%98%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%E6%96%B9%E6%B3%95/"><span>19 乐观锁、区块链：除了上锁还有哪些并发控制方法？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/19-%E4%B9%90%E8%A7%82%E9%94%81%E5%8C%BA%E5%9D%97%E9%93%BE%E9%99%A4%E4%BA%86%E4%B8%8A%E9%94%81%E8%BF%98%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%E6%96%B9%E6%B3%95/"><span>19 乐观锁、区块链：除了上锁还有哪些并发控制方法？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

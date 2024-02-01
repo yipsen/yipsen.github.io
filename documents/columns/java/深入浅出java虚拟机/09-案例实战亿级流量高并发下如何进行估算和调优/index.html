@@ -37,10 +37,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -49,7 +49,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -221,12 +221,10 @@
 </style><article class="post-block">
         <h1 class="post-title">09 案例实战：亿级流量高并发下如何进行估算和调优</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2022-01-09 11:12:28</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入浅出Java虚拟机</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2022-01-09 11:12:28</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>本课时主要讲解如何在大流量高并发场景下进行估算和调优。</p>
 <p>我们知道，垃圾回收器一般使用默认参数，就可以比较好的运行。但如果用错了某些参数，那么后果可能会比较严重，我不只一次看到有同学想要验证某个刚刚学到的优化参数，结果引起了线上 GC 的严重问题。</p>
@@ -357,6 +355,11 @@
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入浅出Java虚拟机</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -365,26 +368,38 @@
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/08-%E5%A4%A7%E5%8E%82%E9%9D%A2%E8%AF%95%E9%A2%98%E6%9C%89%E4%BA%86-g1-%E8%BF%98%E9%9C%80%E8%A6%81%E5%85%B6%E4%BB%96%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8%E5%90%97/"><span>08 大厂面试题：有了 G1 还需要其他垃圾回收器吗？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/08-%E5%A4%A7%E5%8E%82%E9%9D%A2%E8%AF%95%E9%A2%98%E6%9C%89%E4%BA%86-g1-%E8%BF%98%E9%9C%80%E8%A6%81%E5%85%B6%E4%BB%96%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8%E5%90%97/"><span>08 大厂面试题：有了 G1 还需要其他垃圾回收器吗？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/10-%E7%AC%AC09%E8%AE%B2%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%88%98%E9%9D%A2%E5%AF%B9%E7%AA%81%E5%A6%82%E5%85%B6%E6%9D%A5%E7%9A%84-gc-%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E4%B8%8B%E6%89%8B%E8%A7%A3%E5%86%B3/"><span>10 第09讲：案例实战：面对突如其来的 GC 问题如何下手解决</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/10-%E7%AC%AC09%E8%AE%B2%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%88%98%E9%9D%A2%E5%AF%B9%E7%AA%81%E5%A6%82%E5%85%B6%E6%9D%A5%E7%9A%84-gc-%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E4%B8%8B%E6%89%8B%E8%A7%A3%E5%86%B3/"><span>10 第09讲：案例实战：面对突如其来的 GC 问题如何下手解决</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

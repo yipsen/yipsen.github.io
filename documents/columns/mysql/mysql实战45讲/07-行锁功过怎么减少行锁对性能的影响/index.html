@@ -28,10 +28,10 @@ MySQL 的行锁是在引擎层由各个引擎自己实现的。但并不是所�
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -40,7 +40,7 @@ MySQL 的行锁是在引擎层由各个引擎自己实现的。但并不是所�
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -296,12 +296,10 @@ MySQL 的行锁是在引擎层由各个引擎自己实现的。但并不是所�
 </style><article class="post-block">
         <h1 class="post-title">07 行锁功过：怎么减少行锁对性能的影响？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:52:04</span>🏷️&nbsp;<a class="post-tag" href="/tags/mysql/">mysql</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/">MySQL实战45讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:52:04</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>在上一篇文章中，我跟你介绍了 MySQL 的全局锁和表级锁，今天我们就来讲讲 MySQL 的行锁。</p>
 <p>MySQL 的行锁是在引擎层由各个引擎自己实现的。但并不是所有的引擎都支持行锁，比如 MyISAM 引擎就不支持行锁。不支持行锁意味着并发控制只能使用表锁，对于这种引擎的表，同一张表上任何时刻只能有一个更新在执行，这就会影响到业务并发度。InnoDB 是支持行锁的，这也是 MyISAM 被 InnoDB 替代的重要原因之一。</p>
@@ -385,6 +383,11 @@ Q6:ROLLBACK TO SAVEPOINT sp;
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/mysql/">mysql</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/">MySQL实战45讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -393,26 +396,38 @@ Q6:ROLLBACK TO SAVEPOINT sp;
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/06-%E5%85%A8%E5%B1%80%E9%94%81%E5%92%8C%E8%A1%A8%E9%94%81-%E7%BB%99%E8%A1%A8%E5%8A%A0%E4%B8%AA%E5%AD%97%E6%AE%B5%E6%80%8E%E4%B9%88%E6%9C%89%E8%BF%99%E4%B9%88%E5%A4%9A%E9%98%BB%E7%A2%8D/"><span>06 全局锁和表锁 ：给表加个字段怎么有这么多阻碍？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/06-%E5%85%A8%E5%B1%80%E9%94%81%E5%92%8C%E8%A1%A8%E9%94%81-%E7%BB%99%E8%A1%A8%E5%8A%A0%E4%B8%AA%E5%AD%97%E6%AE%B5%E6%80%8E%E4%B9%88%E6%9C%89%E8%BF%99%E4%B9%88%E5%A4%9A%E9%98%BB%E7%A2%8D/"><span>06 全局锁和表锁 ：给表加个字段怎么有这么多阻碍？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/08-%E4%BA%8B%E5%8A%A1%E5%88%B0%E5%BA%95%E6%98%AF%E9%9A%94%E7%A6%BB%E7%9A%84%E8%BF%98%E6%98%AF%E4%B8%8D%E9%9A%94%E7%A6%BB%E7%9A%84/"><span>08 事务到底是隔离的还是不隔离的？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/08-%E4%BA%8B%E5%8A%A1%E5%88%B0%E5%BA%95%E6%98%AF%E9%9A%94%E7%A6%BB%E7%9A%84%E8%BF%98%E6%98%AF%E4%B8%8D%E9%9A%94%E7%A6%BB%E7%9A%84/"><span>08 事务到底是隔离的还是不隔离的？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>Linux 命令备忘录 | Yipsen Ye</title>
+<meta name="description" content="1. 杀掉指定进程名的进程 ps -ef | grep &amp;lt;procedure_name&amp;gt; | grep -v grep | awk `{print $2}` | xargs kill -9 2. 查看指定监听端口被哪个进程占用 netstat -tunlp | grep &amp;lt;port&amp;gt; 3. 更新安装列表 # ubuntu ## 更新安装列表 apt-get update ## 升级软件 apt-get upgrade ## 安装软件 apt-get install &amp;lt;software_name&amp;gt; ## 卸载软件及其配置 apt-get --purge remove &amp;lt;software_name&amp;gt; ## 卸载软件及其依赖的安装包 apt-get autoremove &amp;lt;software_name&amp;gt; ## 罗列已安装软件 dpkg --list 4. 定位 Java 异常日志使用 tail -300f GroupServer.log | grep . | sed &amp;#39;s/at/\n/&amp;#39; ">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title">Linux 命令备忘录</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-02-06 16:31:43</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <h3 id="1-杀掉指定进程名的进程">1. 杀掉指定进程名的进程</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ps -ef | grep &lt;procedure_name&gt; | grep -v grep | awk <span style="color:#e6db74">`</span><span style="color:#f92672">{</span>print $2<span style="color:#f92672">}</span><span style="color:#e6db74">`</span> | xargs kill -9
+</code></pre></div><h3 id="2-查看指定监听端口被哪个进程占用">2. 查看指定监听端口被哪个进程占用</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">netstat -tunlp | grep &lt;port&gt;
+</code></pre></div><h3 id="3-更新安装列表">3. 更新安装列表</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># ubuntu</span>
+<span style="color:#75715e">## 更新安装列表</span>
+apt-get update
+
+<span style="color:#75715e">## 升级软件</span>
+apt-get upgrade
+
+<span style="color:#75715e">## 安装软件</span>
+apt-get install &lt;software_name&gt;
+
+<span style="color:#75715e">## 卸载软件及其配置</span>
+apt-get --purge remove &lt;software_name&gt;
+
+<span style="color:#75715e">## 卸载软件及其依赖的安装包</span>
+apt-get autoremove &lt;software_name&gt;
+
+<span style="color:#75715e">## 罗列已安装软件</span>
+dpkg --list
+</code></pre></div><h3 id="4-定位-java-异常日志使用">4. 定位 Java 异常日志使用</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">tail -300f GroupServer.log | grep . | sed <span style="color:#e6db74">&#39;s/at/\n/&#39;</span>
+</code></pre></div>
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/posts/linux/linux-%E9%87%8D%E7%BD%AE%E5%AF%86%E7%A0%81/"><span>Linux 重置密码</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/javascript-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/"><span>Javascript 代码样例速查</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

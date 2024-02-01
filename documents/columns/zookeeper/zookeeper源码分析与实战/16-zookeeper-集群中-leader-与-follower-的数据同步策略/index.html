@@ -23,10 +23,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -35,7 +35,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -235,12 +235,10 @@
 </style><article class="post-block">
         <h1 class="post-title">16 ZooKeeper 集群中 Leader 与 Follower 的数据同步策略</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:57:01</span>🏷️&nbsp;<a class="post-tag" href="/tags/zookeeper/">zookeeper</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/">ZooKeeper源码分析与实战</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:57:01</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>在前面的课时中，我们已经对 ZooKeeper 集群中 Leader 服务器的选举等相关操作进行了详细介绍。本课时我们继续将焦点集中在 ZooKeeper 集群中的相关操作。在 Leader 节点选举后，还需要把 Leader 服务器和 Follow 服务器进行数据同步。在保证整个 ZooKeeper 集群中服务器数据一致的前提下，ZooKeeper 集群才能对外提供服务。</p>
 <h3 id="为什么要进行同步">为什么要进行同步</h3>
@@ -320,6 +318,11 @@ if (!writeToTxnLog) {
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/zookeeper/">zookeeper</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/">ZooKeeper源码分析与实战</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -328,26 +331,38 @@ if (!writeToTxnLog) {
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/15-zookeeper-%E7%A9%B6%E7%AB%9F%E6%98%AF%E6%80%8E%E4%B9%88%E9%80%89%E4%B8%AD-leader-%E7%9A%84/"><span>15 ZooKeeper 究竟是怎么选中 Leader 的？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/15-zookeeper-%E7%A9%B6%E7%AB%9F%E6%98%AF%E6%80%8E%E4%B9%88%E9%80%89%E4%B8%AD-leader-%E7%9A%84/"><span>15 ZooKeeper 究竟是怎么选中 Leader 的？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/17-%E9%9B%86%E7%BE%A4%E4%B8%AD-leader-%E7%9A%84%E4%BD%9C%E7%94%A8%E4%BA%8B%E5%8A%A1%E7%9A%84%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86%E4%B8%8E%E8%B0%83%E5%BA%A6%E5%88%86%E6%9E%90/"><span>17 集群中 Leader 的作用：事务的请求处理与调度分析</span></a>
+        <a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/17-%E9%9B%86%E7%BE%A4%E4%B8%AD-leader-%E7%9A%84%E4%BD%9C%E7%94%A8%E4%BA%8B%E5%8A%A1%E7%9A%84%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86%E4%B8%8E%E8%B0%83%E5%BA%A6%E5%88%86%E6%9E%90/"><span>17 集群中 Leader 的作用：事务的请求处理与调度分析</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

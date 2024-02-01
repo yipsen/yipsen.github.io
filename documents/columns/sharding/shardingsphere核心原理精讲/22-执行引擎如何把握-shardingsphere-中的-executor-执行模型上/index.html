@@ -21,10 +21,10 @@ AbstractStatementExecutor 如上图所示，根据上一课时中的执行引擎
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -33,7 +33,7 @@ AbstractStatementExecutor 如上图所示，根据上一课时中的执行引擎
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -225,12 +225,10 @@ AbstractStatementExecutor 如上图所示，根据上一课时中的执行引擎
 </style><article class="post-block">
         <h1 class="post-title">22 执行引擎：如何把握 ShardingSphere 中的 Executor 执行模型？（上）</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:56:01</span>🏷️&nbsp;<a class="post-tag" href="/tags/sharding/">sharding</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/">ShardingSphere核心原理精讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:56:01</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>在上一课时中，我们对 ShardingGroupExecuteCallback 和 SQLExecuteTemplate 做了介绍。从设计上讲，前者充当 ShardingExecuteEngine 的回调入口；而后者则是一个模板类，完成对 ShardingExecuteEngine 的封装并提供了对外的统一入口，这些类都位于底层的 sharding-core-execute 工程中。</p>
 <p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/ShardingSphere%20%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2-%E5%AE%8C/assets/CgqCHl9HalOAccqPAACp0Ky_Tl8886.png" alt="image.png"></p>
@@ -513,6 +511,11 @@ public boolean next() throws SQLException {
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/sharding/">sharding</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/">ShardingSphere核心原理精讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -521,26 +524,38 @@ public boolean next() throws SQLException {
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/21-%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E%E5%88%86%E7%89%87%E7%8E%AF%E5%A2%83%E4%B8%8B-sql-%E6%89%A7%E8%A1%8C%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%8A%BD%E8%B1%A1/"><span>21 执行引擎：分片环境下 SQL 执行的整体流程应该如何进行抽象？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/21-%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E%E5%88%86%E7%89%87%E7%8E%AF%E5%A2%83%E4%B8%8B-sql-%E6%89%A7%E8%A1%8C%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%8A%BD%E8%B1%A1/"><span>21 执行引擎：分片环境下 SQL 执行的整体流程应该如何进行抽象？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/23-%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E6%8A%8A%E6%8F%A1-shardingsphere-%E4%B8%AD%E7%9A%84-executor-%E6%89%A7%E8%A1%8C%E6%A8%A1%E5%9E%8B%E4%B8%8B/"><span>23 执行引擎：如何把握 ShardingSphere 中的 Executor 执行模型？（下）</span></a>
+        <a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/23-%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E6%8A%8A%E6%8F%A1-shardingsphere-%E4%B8%AD%E7%9A%84-executor-%E6%89%A7%E8%A1%8C%E6%A8%A1%E5%9E%8B%E4%B8%8B/"><span>23 执行引擎：如何把握 ShardingSphere 中的 Executor 执行模型？（下）</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

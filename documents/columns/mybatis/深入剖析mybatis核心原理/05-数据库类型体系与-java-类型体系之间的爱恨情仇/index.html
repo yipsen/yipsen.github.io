@@ -24,10 +24,10 @@ public interface TypeHandler&amp;lt;T&amp;gt; {// 在通过PreparedStatement为
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -36,7 +36,7 @@ public interface TypeHandler&amp;lt;T&amp;gt; {// 在通过PreparedStatement为
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -196,12 +196,10 @@ public interface TypeHandler&amp;lt;T&amp;gt; {// 在通过PreparedStatement为
 </style><article class="post-block">
         <h1 class="post-title">05 数据库类型体系与 Java 类型体系之间的“爱恨情仇”</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:51:07</span>🏷️&nbsp;<a class="post-tag" href="/tags/mybatis/">mybatis</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/">深入剖析MyBatis核心原理</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:51:07</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>作为一个 Java 程序员，你应该已经具备了使用 JDBC 操作数据库的基础技能。在使用 JDBC 的时候，你会发现 JDBC 的数据类型与 Java 语言中的数据类型虽然有点对应关系，如下图所示，但还是无法做到一一对应，也自然无法做到自动映射。</p>
 <p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90%20MyBatis%20%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86-%E5%AE%8C/assets/Cgp9HWAeMiSAcga0AAEpsa9onlg651.png" alt="Drawing 0.png"></p>
@@ -670,6 +668,11 @@ public void registerAlias(Class&lt;?&gt; type) {
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/mybatis/">mybatis</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/">深入剖析MyBatis核心原理</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -678,26 +681,38 @@ public void registerAlias(Class&lt;?&gt; type) {
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/04-mybatis-%E5%8F%8D%E5%B0%84%E5%B7%A5%E5%85%B7%E7%AE%B1%E5%B8%A6%E4%BD%A0%E9%A2%86%E7%95%A5%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84%E5%8F%8D%E5%B0%84%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF/"><span>04 MyBatis 反射工具箱：带你领略不一样的反射设计思路</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/04-mybatis-%E5%8F%8D%E5%B0%84%E5%B7%A5%E5%85%B7%E7%AE%B1%E5%B8%A6%E4%BD%A0%E9%A2%86%E7%95%A5%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84%E5%8F%8D%E5%B0%84%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF/"><span>04 MyBatis 反射工具箱：带你领略不一样的反射设计思路</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/06-%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6%E5%8D%83%E5%8D%83%E4%B8%87mybatis-%E9%83%BD%E8%83%BD%E5%85%BC%E5%AE%B9%E7%9A%84%E7%A7%98%E5%AF%86%E6%98%AF%E4%BB%80%E4%B9%88/"><span>06 日志框架千千万，MyBatis 都能兼容的秘密是什么？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/06-%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6%E5%8D%83%E5%8D%83%E4%B8%87mybatis-%E9%83%BD%E8%83%BD%E5%85%BC%E5%AE%B9%E7%9A%84%E7%A7%98%E5%AF%86%E6%98%AF%E4%BB%80%E4%B9%88/"><span>06 日志框架千千万，MyBatis 都能兼容的秘密是什么？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

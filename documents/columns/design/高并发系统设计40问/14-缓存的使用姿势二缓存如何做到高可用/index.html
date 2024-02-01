@@ -33,10 +33,10 @@ Hash 分片的算法就是对缓存的 Key 做哈希计算，然后对总的缓�
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -45,7 +45,7 @@ Hash 分片的算法就是对缓存的 Key 做哈希计算，然后对总的缓�
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -289,12 +289,10 @@ Hash 分片的算法就是对缓存的 Key 做哈希计算，然后对总的缓�
 </style><article class="post-block">
         <h1 class="post-title">14 缓存的使用姿势（二）：缓存如何做到高可用？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:38:19</span>🏷️&nbsp;<a class="post-tag" href="/tags/design/">design</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/">高并发系统设计40问</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:38:19</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>你好，我是唐扬。</p>
 <p>前面几节课，我带你了解了缓存的原理、分类以及常用缓存的使用技巧。我们开始用缓存承担大部分的读压力，从而缓解数据库的查询压力，在提升性能的同时保证系统的稳定性。这时，你的电商系统整体的架构演变成下图的样子：</p>
@@ -373,6 +371,11 @@ Hash 分片的算法就是对缓存的 Key 做哈希计算，然后对总的缓�
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/design/">design</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/">高并发系统设计40问</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -381,26 +384,38 @@ Hash 分片的算法就是对缓存的 Key 做哈希计算，然后对总的缓�
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/13-%E7%BC%93%E5%AD%98%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A7%BF%E5%8A%BF%E4%B8%80%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E7%BC%93%E5%AD%98%E7%9A%84%E8%AF%BB%E5%86%99%E7%AD%96%E7%95%A5/"><span>13 缓存的使用姿势（一）：如何选择缓存的读写策略？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/13-%E7%BC%93%E5%AD%98%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A7%BF%E5%8A%BF%E4%B8%80%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E7%BC%93%E5%AD%98%E7%9A%84%E8%AF%BB%E5%86%99%E7%AD%96%E7%95%A5/"><span>13 缓存的使用姿势（一）：如何选择缓存的读写策略？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/15-%E7%BC%93%E5%AD%98%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A7%BF%E5%8A%BF%E4%B8%89%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E/"><span>15 缓存的使用姿势（三）：缓存穿透了怎么办？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/15-%E7%BC%93%E5%AD%98%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A7%BF%E5%8A%BF%E4%B8%89%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E/"><span>15 缓存的使用姿势（三）：缓存穿透了怎么办？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

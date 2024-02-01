@@ -35,10 +35,10 @@ public class BlanceSever{public void register()public void unregister()public
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -47,7 +47,7 @@ public class BlanceSever{public void register()public void unregister()public
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -247,12 +247,10 @@ public class BlanceSever{public void register()public void unregister()public
 </style><article class="post-block">
         <h1 class="post-title">23 使用 ZooKeeper 实现负载均衡服务器功能</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:57:08</span>🏷️&nbsp;<a class="post-tag" href="/tags/zookeeper/">zookeeper</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/">ZooKeeper源码分析与实战</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:57:08</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>今天我们利用 ZooKeeper 的相关知识，学习如何解决分布式环境下常见的业务场景与需求。这个课时主要通过 ZooKeeper 的相关特性，实现一个负载均衡服务器。在分布式架构和集群服务器架构下，负载均衡可以提高网络的性能和可靠性。</p>
 <h3 id="什么是负载均衡">什么是负载均衡</h3>
@@ -358,6 +356,11 @@ public class BlanceSever{public void register()public void unregister()public
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/zookeeper/">zookeeper</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/">ZooKeeper源码分析与实战</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -366,26 +369,38 @@ public class BlanceSever{public void register()public void unregister()public
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/22-%E5%9F%BA%E4%BA%8E-zookeeper-%E5%91%BD%E5%90%8D%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%BA%94%E7%94%A8%E5%88%86%E5%B8%83%E5%BC%8F-id-%E7%94%9F%E6%88%90%E5%99%A8/"><span>22 基于 ZooKeeper 命名服务的应用：分布式 ID 生成器</span></a>
+        <a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/22-%E5%9F%BA%E4%BA%8E-zookeeper-%E5%91%BD%E5%90%8D%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%BA%94%E7%94%A8%E5%88%86%E5%B8%83%E5%BC%8F-id-%E7%94%9F%E6%88%90%E5%99%A8/"><span>22 基于 ZooKeeper 命名服务的应用：分布式 ID 生成器</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/24-zookeeper-%E5%9C%A8-kafka-%E5%92%8C-dubbo-%E4%B8%AD%E7%9A%84%E5%B7%A5%E4%B8%9A%E7%BA%A7%E5%AE%9E%E7%8E%B0%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90/"><span>24 ZooKeeper 在 Kafka 和 Dubbo 中的工业级实现案例分析</span></a>
+        <a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/24-zookeeper-%E5%9C%A8-kafka-%E5%92%8C-dubbo-%E4%B8%AD%E7%9A%84%E5%B7%A5%E4%B8%9A%E7%BA%A7%E5%AE%9E%E7%8E%B0%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90/"><span>24 ZooKeeper 在 Kafka 和 Dubbo 中的工业级实现案例分析</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

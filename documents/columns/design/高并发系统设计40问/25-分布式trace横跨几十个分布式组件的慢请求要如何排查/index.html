@@ -27,10 +27,10 @@ String requestId = UUID.randomUUID().toString();ThreadLocal&amp;lt;String&amp;g
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -39,7 +39,7 @@ String requestId = UUID.randomUUID().toString();ThreadLocal&amp;lt;String&amp;g
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -283,12 +283,10 @@ String requestId = UUID.randomUUID().toString();ThreadLocal&amp;lt;String&amp;g
 </style><article class="post-block">
         <h1 class="post-title">25 分布式Trace：横跨几十个分布式组件的慢请求要如何排查？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:38:31</span>🏷️&nbsp;<a class="post-tag" href="/tags/design/">design</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/">高并发系统设计40问</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:38:31</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>你好，我是唐扬。</p>
 <p>经过前面几节课的学习，你的垂直电商系统在引入 RPC 框架，和注册中心之后已经完成基本的服务化拆分了，系统架构也有了改变：</p>
@@ -450,6 +448,11 @@ public class Tracer {
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/design/">design</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/">高并发系统设计40问</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -458,26 +461,38 @@ public class Tracer {
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/24-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%A6%82%E4%BD%95%E5%AF%BB%E5%9D%80/"><span>24 注册中心：分布式系统如何寻址？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/24-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%A6%82%E4%BD%95%E5%AF%BB%E5%9D%80/"><span>24 注册中心：分布式系统如何寻址？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/26-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%80%8E%E6%A0%B7%E6%8F%90%E5%8D%87%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A8%AA%E5%90%91%E6%89%A9%E5%B1%95%E8%83%BD%E5%8A%9B/"><span>26 负载均衡：怎样提升系统的横向扩展能力？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/26-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%80%8E%E6%A0%B7%E6%8F%90%E5%8D%87%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A8%AA%E5%90%91%E6%89%A9%E5%B1%95%E8%83%BD%E5%8A%9B/"><span>26 负载均衡：怎样提升系统的横向扩展能力？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

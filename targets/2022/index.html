@@ -18,10 +18,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -30,7 +30,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -51,8 +51,10 @@
 <div class="container"><article class="post-block">
         <h1 class="post-title">target of year 2022</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;0001-01-01 00:00:00</span></div></div>
+            <div class="post-date"> 
+                <span>0001-01-01 00:00:00</span>
+            </div>
+        </div>
         <div class="post-content">
             <h3 id="todo-list">TODO List</h3>
 <ul>
@@ -121,6 +123,11 @@
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
+</div>
 
     </main>
     <footer>
@@ -136,17 +143,29 @@
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

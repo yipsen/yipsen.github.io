@@ -28,10 +28,10 @@ Java 对象内存布局简介  请思考一个问题： 一个对象具有 100 �
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -40,7 +40,7 @@ Java 对象内存布局简介  请思考一个问题： 一个对象具有 100 �
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -232,12 +232,10 @@ Java 对象内存布局简介  请思考一个问题： 一个对象具有 100 �
 </style><article class="post-block">
         <h1 class="post-title">23 内存分析与相关工具上篇（内存布局与分析工具）</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:45:24</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/">JVM核心技术32讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:45:24</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>通过前面的课程，我们学习了“内存溢出”和“内存泄漏”的区别。</p>
 <p>简单来说，Java 中的内存溢出就是内存不够用，一般是堆内存报错，当然也可能是其他内存空间不足引起的。</p>
@@ -670,6 +668,11 @@ Server is ready.
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/">JVM核心技术32讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -678,26 +681,38 @@ Server is ready.
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/22-jvm-%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%A0%86%E6%A0%88%E7%AD%89%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%93%8D%E5%8D%83%E6%9B%B2%E8%80%8C%E5%90%8E%E6%99%93%E5%A3%B0%E8%A7%82%E5%8D%83%E5%89%91%E8%80%8C%E5%90%8E%E8%AF%86%E5%99%A8/"><span>22 JVM 的线程堆栈等数据分析：操千曲而后晓声、观千剑而后识器</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/22-jvm-%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%A0%86%E6%A0%88%E7%AD%89%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%93%8D%E5%8D%83%E6%9B%B2%E8%80%8C%E5%90%8E%E6%99%93%E5%A3%B0%E8%A7%82%E5%8D%83%E5%89%91%E8%80%8C%E5%90%8E%E8%AF%86%E5%99%A8/"><span>22 JVM 的线程堆栈等数据分析：操千曲而后晓声、观千剑而后识器</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/24-%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90%E4%B8%8E%E7%9B%B8%E5%85%B3%E5%B7%A5%E5%85%B7%E4%B8%8B%E7%AF%87%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/"><span>24 内存分析与相关工具下篇（常见问题分析）</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/24-%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90%E4%B8%8E%E7%9B%B8%E5%85%B3%E5%B7%A5%E5%85%B7%E4%B8%8B%E7%AF%87%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/"><span>24 内存分析与相关工具下篇（常见问题分析）</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

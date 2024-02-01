@@ -25,10 +25,10 @@ pidstat 命令就可以帮助我们监测到具体线程的上下文切换。pid
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -37,7 +37,7 @@ pidstat 命令就可以帮助我们监测到具体线程的上下文切换。pid
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -293,12 +293,10 @@ pidstat 命令就可以帮助我们监测到具体线程的上下文切换。pid
 </style><article class="post-block">
         <h1 class="post-title">答疑课堂：模块三热点问题解答</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:44:50</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/">Java并发编程实战</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:44:50</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>你好，我是刘超。</p>
 <p>不知不觉“多线程性能优化“已经讲完了，今天这讲我来解答下各位同学在这个模块集中提出的两大问题，第一个是有关监测上下文切换异常的命令排查工具，第二个是有关 blockingQueue 的内容。</p>
@@ -438,6 +436,11 @@ private static class Node&lt;E&gt; {
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/">Java并发编程实战</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -446,26 +449,38 @@ private static class Node&lt;E&gt; {
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/%E5%8A%A0%E9%A4%90-%E6%8E%A8%E8%8D%90%E5%87%A0%E6%AC%BE%E5%B8%B8%E7%94%A8%E7%9A%84%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7/"><span>加餐 推荐几款常用的性能测试工具</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/%E5%8A%A0%E9%A4%90-%E6%8E%A8%E8%8D%90%E5%87%A0%E6%AC%BE%E5%B8%B8%E7%94%A8%E7%9A%84%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7/"><span>加餐 推荐几款常用的性能测试工具</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/%E7%BB%93%E6%9D%9F%E8%AF%AD-%E6%A0%89%E9%A3%8E%E6%B2%90%E9%9B%A8%E7%A0%A5%E7%A0%BA%E5%89%8D%E8%A1%8C/"><span>结束语 栉风沐雨，砥砺前行！</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/%E7%BB%93%E6%9D%9F%E8%AF%AD-%E6%A0%89%E9%A3%8E%E6%B2%90%E9%9B%A8%E7%A0%A5%E7%A0%BA%E5%89%8D%E8%A1%8C/"><span>结束语 栉风沐雨，砥砺前行！</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

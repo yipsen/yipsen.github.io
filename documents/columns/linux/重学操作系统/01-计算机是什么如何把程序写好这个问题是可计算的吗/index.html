@@ -44,10 +44,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -56,7 +56,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -320,12 +320,10 @@
 </style><article class="post-block">
         <h1 class="post-title">01 计算机是什么：“如何把程序写好”这个问题是可计算的吗？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:48:54</span>🏷️&nbsp;<a class="post-tag" href="/tags/linux/">linux</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">重学操作系统</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:48:54</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>我记得自己在面试中遇到过这样一个问题：“<strong>可不可以计算一个人程序写得好不好</strong>？”</p>
 <p>当时我也没有想明白“<strong>计算</strong>”这个词是什么意思。但事后分析来看，“计算”不就是写程序吗？</p>
@@ -405,6 +403,11 @@
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/linux/">linux</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">重学操作系统</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -413,26 +416,38 @@
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/00-%E8%AF%BE%E5%89%8D%E5%BF%85%E8%AF%BB-%E6%9E%84%E5%BB%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E5%8F%AF%E4%BB%A5%E8%BF%99%E6%A0%B7%E5%81%9A/"><span>00 课前必读 构建知识体系，可以这样做！</span></a>
+        <a href="http://yipsen.github.io/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/00-%E8%AF%BE%E5%89%8D%E5%BF%85%E8%AF%BB-%E6%9E%84%E5%BB%BA%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E5%8F%AF%E4%BB%A5%E8%BF%99%E6%A0%B7%E5%81%9A/"><span>00 课前必读 构建知识体系，可以这样做！</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/02-%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%89%A7%E8%A1%8C%E7%9B%B8%E6%AF%94-32-%E4%BD%8D64-%E4%BD%8D%E7%9A%84%E4%BC%98%E5%8A%BF%E6%98%AF%E4%BB%80%E4%B9%88%E4%B8%8A/"><span>02 程序的执行：相比 32 位，64 位的优势是什么？（上）</span></a>
+        <a href="http://yipsen.github.io/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/02-%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%89%A7%E8%A1%8C%E7%9B%B8%E6%AF%94-32-%E4%BD%8D64-%E4%BD%8D%E7%9A%84%E4%BC%98%E5%8A%BF%E6%98%AF%E4%BB%80%E4%B9%88%E4%B8%8A/"><span>02 程序的执行：相比 32 位，64 位的优势是什么？（上）</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DHT on Yipsen Ye</title>
+    <link>http://yipsen.github.io/tags/dht/</link>
+    <description>Recent content in DHT on Yipsen Ye</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 16 Jan 2022 16:31:43 +0000</lastBuildDate><atom:link href="http://yipsen.github.io/tags/dht/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>05 基础知识（五）Magnet 磁链与 Torrent 文件</title>
+      <link>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/05-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BA%94magnet-%E7%A3%81%E9%93%BE%E4%B8%8E-torrent-%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Sun, 16 Jan 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/05-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BA%94magnet-%E7%A3%81%E9%93%BE%E4%B8%8E-torrent-%E6%96%87%E4%BB%B6/</guid>
+      <description>MAGNET 磁链结构  magnet:?xt=urn:btih:60c423137f453492ca34c2d69f6f573408dca35a&amp;amp;dn=Inglourious.Basterds.DVDRip.XviD-iMBT.avi&amp;amp;tr=http%3A%2F%2Ftracker.publicbt.com%2Fannounce
+    字段 全称 解析     magnet magnet 协议名。   xt exact topic 包含文件哈希值的统一资源名称。   urn uniform resource name URN 表示资源名   btih BitTorrent info hash 种子散列函数，这里还可以使用ED2K，AICH，SHA1和MD5等。这个值是文件的标识符，是不可缺少的。   dn display name 表示向用户显示的文件名。这一项是选填的。   tr tracker 表示tracker服务器的地址。这一项也是选填的。   ws webseed 表示网络种子。     注：btih是应用程序定义的实验参数，必须以&amp;quot;x.&amp;ldquo;开头。[4-5] 标准还建议同类的多个参数可以在参数名称后面加上&amp;rdquo;.1&amp;quot;, &amp;ldquo;.2&amp;quot;等来使用， 例如： magnet:?xt.1=urn:sha1:YNCKHTQCWBTRNJIV4WNAE52SJUQCZO5C&amp;amp;xt.2=urn:sha1:TXGCZQTH26NL6OUQAJJPFALHG2LTGBC7
+ TORRENT 文件结构 { &amp;#34;announce&amp;#34;: &amp;#34;&amp;#34;, // tracker的主服务器  &amp;#34;announce-list&amp;#34;: [], // tracker服务器列表  &amp;#34;comment&amp;#34;: &amp;#34;&amp;#34;, // 种子文件的注释  &amp;#34;comment.</description>
+    </item>
+    
+  </channel>
+</rss>

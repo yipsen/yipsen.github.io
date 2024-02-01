@@ -23,10 +23,10 @@ Broker 端参数 目前 Kafka Broker 提供了近 200 个参数，这其中绝�
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -35,7 +35,7 @@ Broker 端参数 目前 Kafka Broker 提供了近 200 个参数，这其中绝�
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -279,12 +279,10 @@ Broker 端参数 目前 Kafka Broker 提供了近 200 个参数，这其中绝�
 </style><article class="post-block">
         <h1 class="post-title">07 最最最重要的集群参数配置（上）</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:46:00</span>🏷️&nbsp;<a class="post-tag" href="/tags/kafka/">kafka</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/">Kafka核心技术与实战</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:46:00</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>你好，我是胡夕。今天我想和你聊聊最最最重要的 Kafka 集群配置。我这里用了 3 个“最”字并非哗众取宠，而是因为有些配置的重要性并未体现在官方文档中，并且从实际表现看，很多参数对系统的影响要比从文档上看更加明显，因此很有必要集中讨论一下。</p>
 <p>我希望通过两期内容把这些重要的配置讲清楚。严格来说这些配置并不单单指 Kafka 服务器端的配置，其中既有 Broker 端参数，也有主题（后面我用我们更熟悉的 Topic 表示）级别的参数、JVM 端参数和操作系统级别的参数。下面我先从 Broker 端参数说起。</p>
@@ -345,6 +343,11 @@ Broker 端参数 目前 Kafka Broker 提供了近 200 个参数，这其中绝�
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/kafka/">kafka</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/">Kafka核心技术与实战</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -353,26 +356,38 @@ Broker 端参数 目前 Kafka Broker 提供了近 200 个参数，这其中绝�
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/06-kafka%E7%BA%BF%E4%B8%8A%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E6%96%B9%E6%A1%88%E6%80%8E%E4%B9%88%E5%81%9A/"><span>06 Kafka线上集群部署方案怎么做？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/06-kafka%E7%BA%BF%E4%B8%8A%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E6%96%B9%E6%A1%88%E6%80%8E%E4%B9%88%E5%81%9A/"><span>06 Kafka线上集群部署方案怎么做？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/08-%E6%9C%80%E6%9C%80%E6%9C%80%E9%87%8D%E8%A6%81%E7%9A%84%E9%9B%86%E7%BE%A4%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE%E4%B8%8B/"><span>08 最最最重要的集群参数配置（下）</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/08-%E6%9C%80%E6%9C%80%E6%9C%80%E9%87%8D%E8%A6%81%E7%9A%84%E9%9B%86%E7%BE%A4%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE%E4%B8%8B/"><span>08 最最最重要的集群参数配置（下）</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

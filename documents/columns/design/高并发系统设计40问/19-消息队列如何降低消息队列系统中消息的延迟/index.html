@@ -41,10 +41,10 @@ Kafka 通过 JMX 暴露了消息堆积的数据，我在本地启动了一个 co
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -53,7 +53,7 @@ Kafka 通过 JMX 暴露了消息堆积的数据，我在本地启动了一个 co
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -297,12 +297,10 @@ Kafka 通过 JMX 暴露了消息堆积的数据，我在本地启动了一个 co
 </style><article class="post-block">
         <h1 class="post-title">19 消息队列：如何降低消息队列系统中消息的延迟？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:38:25</span>🏷️&nbsp;<a class="post-tag" href="/tags/design/">design</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/">高并发系统设计40问</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:38:25</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>你好，我是唐扬。</p>
 <p>学完前面两节课之后，相信你对在垂直电商项目中，如何使用消息队列应对秒杀时的峰值流量已经有所了解。当然了，你也应该知道要如何做，才能保证消息不会丢失，尽量避免消息重复带来的影响。**那么我想让你思考一下：**除了这些内容，你在使用消息队列时还需要关注哪些点呢？</p>
@@ -377,6 +375,11 @@ Kafka 通过 JMX 暴露了消息堆积的数据，我在本地启动了一个 co
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/design/">design</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/">高并发系统设计40问</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -385,26 +388,38 @@ Kafka 通过 JMX 暴露了消息堆积的数据，我在本地启动了一个 co
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/18-%E6%B6%88%E6%81%AF%E6%8A%95%E9%80%92%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%B6%88%E6%81%AF%E4%BB%85%E4%BB%85%E8%A2%AB%E6%B6%88%E8%B4%B9%E4%B8%80%E6%AC%A1/"><span>18 消息投递：如何保证消息仅仅被消费一次？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/18-%E6%B6%88%E6%81%AF%E6%8A%95%E9%80%92%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%B6%88%E6%81%AF%E4%BB%85%E4%BB%85%E8%A2%AB%E6%B6%88%E8%B4%B9%E4%B8%80%E6%AC%A1/"><span>18 消息投递：如何保证消息仅仅被消费一次？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/20-%E9%9D%A2%E8%AF%95%E7%8E%B0%E5%9C%BA%E7%AC%AC%E4%BA%8C%E6%9C%9F%E5%BD%93%E9%97%AE%E5%88%B0%E9%A1%B9%E7%9B%AE%E7%BB%8F%E5%8E%86%E6%97%B6%E9%9D%A2%E8%AF%95%E5%AE%98%E7%A9%B6%E7%AB%9F%E6%83%B3%E8%A6%81%E4%BA%86%E8%A7%A3%E4%BB%80%E4%B9%88/"><span>20 面试现场第二期：当问到项目经历时，面试官究竟想要了解什么？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/20-%E9%9D%A2%E8%AF%95%E7%8E%B0%E5%9C%BA%E7%AC%AC%E4%BA%8C%E6%9C%9F%E5%BD%93%E9%97%AE%E5%88%B0%E9%A1%B9%E7%9B%AE%E7%BB%8F%E5%8E%86%E6%97%B6%E9%9D%A2%E8%AF%95%E5%AE%98%E7%A9%B6%E7%AB%9F%E6%83%B3%E8%A6%81%E4%BA%86%E8%A7%A3%E4%BB%80%E4%B9%88/"><span>20 面试现场第二期：当问到项目经历时，面试官究竟想要了解什么？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>Wireshark 备忘录 | Yipsen Ye</title>
+<meta name="description" content="过滤操作 IP过滤 ip.addr == x.x.x.x ip.src == x.x.x.x ip.dst == x.x.x.x
+端口过滤 tcp.port == 21 udp.port == 53
+协议过滤 http arp udp tcp icmp &amp;hellip;
+组合过滤 ip.addr == x.x.x.x &amp;amp;&amp;amp; udp.port == 53
+选择过滤条件  选择数据包 右键弹出菜单并选择对话过滤器 选择对应协议，比如UDP 此时过滤窗口自动追加过滤条件如：(ip.addr eq 10.96.10.237 and ip.addr eq 7.213.37.49) and (udp.port eq 10004 and udp.port eq 8011)  追踪流  选择数据包 右键弹出菜单并选择追踪流  统计 ">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title">Wireshark 备忘录</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-03-05 08:34:41</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <h2 id="过滤操作">过滤操作</h2>
+<h3 id="ip过滤">IP过滤</h3>
+<p>ip.addr == x.x.x.x
+ip.src == x.x.x.x
+ip.dst == x.x.x.x</p>
+<h3 id="端口过滤">端口过滤</h3>
+<p>tcp.port == 21
+udp.port == 53</p>
+<h3 id="协议过滤">协议过滤</h3>
+<p>http
+arp
+udp
+tcp
+icmp
+&hellip;</p>
+<h3 id="组合过滤">组合过滤</h3>
+<p>ip.addr == x.x.x.x &amp;&amp; udp.port == 53</p>
+<h3 id="选择过滤条件">选择过滤条件</h3>
+<ol>
+<li>选择数据包</li>
+<li>右键弹出菜单并选择对话过滤器</li>
+<li>选择对应协议，比如UDP</li>
+<li>此时过滤窗口自动追加过滤条件如：<code>(ip.addr eq 10.96.10.237 and ip.addr eq 7.213.37.49) and (udp.port eq 10004 and udp.port eq 8011)</code></li>
+</ol>
+<h3 id="追踪流">追踪流</h3>
+<ol>
+<li>选择数据包</li>
+<li>右键弹出菜单并选择追踪流</li>
+</ol>
+<h2 id="统计">统计</h2>
+
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/%E5%A4%87%E5%BF%98%E5%BD%95/">备忘录</a>&nbsp;🏷️<a class="post-tag" href="/tags/wireshark/">Wireshark</a>&nbsp;</div>
+    <div></div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0web-%E5%89%8D%E7%AB%AF%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83%E6%B1%87%E6%80%BB/"><span>【持续更新】Web 前端设计规范汇总</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/posts/redis/redis-%E9%9B%86%E7%BE%A4%E6%B8%85%E7%A9%BA%E6%8C%87%E5%AE%9A-key/"><span>Redis 集群清空指定 KEY</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

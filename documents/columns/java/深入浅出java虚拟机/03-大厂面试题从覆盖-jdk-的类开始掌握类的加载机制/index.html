@@ -28,10 +28,10 @@ code-snippet 1：public class A {static int a ;public static void main(String
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -40,7 +40,7 @@ code-snippet 1：public class A {static int a ;public static void main(String
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -212,12 +212,10 @@ code-snippet 1：public class A {static int a ;public static void main(String
 </style><article class="post-block">
         <h1 class="post-title">03 大厂面试题：从覆盖 JDK 的类开始掌握类的加载机制</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2022-01-09 11:12:22</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入浅出Java虚拟机</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2022-01-09 11:12:22</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>本课时我们主要从覆盖 JDK 的类开始讲解 JVM 的类加载机制。其实，JVM 的类加载机制和 Java 的类加载机制类似，但 JVM 的类加载过程稍有些复杂。</p>
 <p>前面课时我们讲到，JVM 通过加载 .class 文件，能够将其中的字节码解析成操作系统机器码。那这些文件是怎么加载进来的呢？又有哪些约定？接下来我们就详细介绍 JVM 的类加载机制，同时介绍三个实际的应用场景。</p>
@@ -511,6 +509,11 @@ b
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入浅出Java虚拟机</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -519,26 +522,38 @@ b
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/02-%E5%A4%A7%E5%8E%82%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BD%A0%E4%B8%8D%E5%BE%97%E4%B8%8D%E6%8E%8C%E6%8F%A1%E7%9A%84-jvm-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"><span>02 大厂面试题：你不得不掌握的 JVM 内存管理</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/02-%E5%A4%A7%E5%8E%82%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BD%A0%E4%B8%8D%E5%BE%97%E4%B8%8D%E6%8E%8C%E6%8F%A1%E7%9A%84-jvm-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"><span>02 大厂面试题：你不得不掌握的 JVM 内存管理</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/04-%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E4%BB%8E%E6%A0%88%E5%B8%A7%E7%9C%8B%E5%AD%97%E8%8A%82%E7%A0%81%E6%98%AF%E5%A6%82%E4%BD%95%E5%9C%A8-jvm-%E4%B8%AD%E8%BF%9B%E8%A1%8C%E6%B5%81%E8%BD%AC%E7%9A%84/"><span>04 动手实践：从栈帧看字节码是如何在 JVM 中进行流转的</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/04-%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E4%BB%8E%E6%A0%88%E5%B8%A7%E7%9C%8B%E5%AD%97%E8%8A%82%E7%A0%81%E6%98%AF%E5%A6%82%E4%BD%95%E5%9C%A8-jvm-%E4%B8%AD%E8%BF%9B%E8%A1%8C%E6%B5%81%E8%BD%AC%E7%9A%84/"><span>04 动手实践：从栈帧看字节码是如何在 JVM 中进行流转的</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

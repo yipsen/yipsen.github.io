@@ -22,10 +22,10 @@ Java 8 版本的 ConcurrentHashMap 在 Java 8 中，几乎完全重写了 Concur
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -34,7 +34,7 @@ Java 8 版本的 ConcurrentHashMap 在 Java 8 中，几乎完全重写了 Concur
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -414,12 +414,10 @@ Java 8 版本的 ConcurrentHashMap 在 Java 8 中，几乎完全重写了 Concur
 </style><article class="post-block">
         <h1 class="post-title">30 ConcurrentHashMap 在 Java7 和 8 有何不同？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:42:06</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/">Java并发编程78讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:42:06</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>在 Java 8 中，对于 ConcurrentHashMap 这个常用的工具类进行了很大的升级，对比之前 Java 7 版本在诸多方面都进行了调整和变化。不过，在 Java 7 中的 Segment 的设计思想依然具有参考和学习的价值，所以在很多情况下面试官都会问你：ConcurrentHashMap 在 Java 7 和 Java 8 中的结构分别是什么？它们有什么相同点和不同点？所以本课时就对 ConcurrentHashMap 在这两个版本的特点和性质进行对比和介绍。</p>
 <h3 id="java-7-版本的-concurrenthashmap">Java 7 版本的 ConcurrentHashMap</h3>
@@ -721,6 +719,11 @@ Java 8 版本的 ConcurrentHashMap 在 Java 8 中，几乎完全重写了 Concur
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/">Java并发编程78讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -729,26 +732,38 @@ Java 8 版本的 ConcurrentHashMap 在 Java 8 中，几乎完全重写了 Concur
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/29-hashmap-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84/"><span>29 HashMap 为什么是线程不安全的？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/29-hashmap-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84/"><span>29 HashMap 为什么是线程不安全的？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/31-%E4%B8%BA%E4%BB%80%E4%B9%88-map-%E6%A1%B6%E4%B8%AD%E8%B6%85%E8%BF%87-8-%E4%B8%AA%E6%89%8D%E8%BD%AC%E4%B8%BA%E7%BA%A2%E9%BB%91%E6%A0%91/"><span>31 为什么 Map 桶中超过 8 个才转为红黑树？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/31-%E4%B8%BA%E4%BB%80%E4%B9%88-map-%E6%A1%B6%E4%B8%AD%E8%B6%85%E8%BF%87-8-%E4%B8%AA%E6%89%8D%E8%BD%AC%E4%B8%BA%E7%BA%A2%E9%BB%91%E6%A0%91/"><span>31 为什么 Map 桶中超过 8 个才转为红黑树？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

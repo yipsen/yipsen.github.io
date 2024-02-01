@@ -23,10 +23,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -35,7 +35,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -195,12 +195,10 @@
 </style><article class="post-block">
         <h1 class="post-title">08 安全重点 认证和授权</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:47:34</span>🏷️&nbsp;<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/">Kubernetes从上手到实践</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:47:34</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>本节我们将开始学习将 K8S 应用于生产环境中至关重要的一环，权限控制。当然，不仅是 K8S 对于任何应用于生产环境中的系统，权限管理或者说访问控制都是很重要的。</p>
 <h2 id="整体概览">整体概览</h2>
@@ -667,6 +665,11 @@ no - no RBAC policy matched
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/kubernetes/">kubernetes</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/">Kubernetes从上手到实践</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -675,26 +678,38 @@ no - no RBAC policy matched
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/07-%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86%E4%BB%A5-redis-%E4%B8%BA%E4%BE%8B-%E9%83%A8%E7%BD%B2%E5%8F%8A%E8%AE%BF%E9%97%AE/"><span>07 集群管理：以 Redis 为例-部署及访问</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/07-%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86%E4%BB%A5-redis-%E4%B8%BA%E4%BE%8B-%E9%83%A8%E7%BD%B2%E5%8F%8A%E8%AE%BF%E9%97%AE/"><span>07 集群管理：以 Redis 为例-部署及访问</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/09-%E5%BA%94%E7%94%A8%E5%8F%91%E5%B8%83%E9%83%A8%E7%BD%B2%E5%AE%9E%E9%99%85%E9%A1%B9%E7%9B%AE/"><span>09 应用发布：部署实际项目</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/09-%E5%BA%94%E7%94%A8%E5%8F%91%E5%B8%83%E9%83%A8%E7%BD%B2%E5%AE%9E%E9%99%85%E9%A1%B9%E7%9B%AE/"><span>09 应用发布：部署实际项目</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

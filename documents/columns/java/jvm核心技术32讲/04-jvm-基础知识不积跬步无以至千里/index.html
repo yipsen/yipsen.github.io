@@ -30,10 +30,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -42,7 +42,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -234,12 +234,10 @@
 </style><article class="post-block">
         <h1 class="post-title">04 JVM 基础知识：不积跬步，无以至千里</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:45:04</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/">JVM核心技术32讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:45:04</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>前面的章节我们介绍了 JDK 和 JVM 的关系以及环境准备等，本节我们来探讨一下 JVM 的基础知识，包括以下内容：</p>
 <ul>
@@ -341,6 +339,11 @@
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/">JVM核心技术32讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -349,26 +352,38 @@
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/03-%E5%B8%B8%E7%94%A8%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E6%B2%A1%E6%9C%89%E9%87%8F%E5%8C%96%E5%B0%B1%E6%B2%A1%E6%9C%89%E6%94%B9%E8%BF%9B/"><span>03 常用性能指标：没有量化，就没有改进</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/03-%E5%B8%B8%E7%94%A8%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E6%B2%A1%E6%9C%89%E9%87%8F%E5%8C%96%E5%B0%B1%E6%B2%A1%E6%9C%89%E6%94%B9%E8%BF%9B/"><span>03 常用性能指标：没有量化，就没有改进</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/05-java-%E5%AD%97%E8%8A%82%E7%A0%81%E6%8A%80%E6%9C%AF%E4%B8%8D%E7%A7%AF%E7%BB%86%E6%B5%81%E6%97%A0%E4%BB%A5%E6%88%90%E6%B1%9F%E6%B2%B3/"><span>05 Java 字节码技术：不积细流，无以成江河</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/05-java-%E5%AD%97%E8%8A%82%E7%A0%81%E6%8A%80%E6%9C%AF%E4%B8%8D%E7%A7%AF%E7%BB%86%E6%B5%81%E6%97%A0%E4%BB%A5%E6%88%90%E6%B1%9F%E6%B2%B3/"><span>05 Java 字节码技术：不积细流，无以成江河</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

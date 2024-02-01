@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>SSH 登录过程 | Yipsen Ye</title>
+<meta name="description" content="一、SSH登录 SSH登录流程 sequenceDiagramparticipant A as User Host Aparticipant B as Server Host BA -&amp;gt;&amp;gt; B : 发送SSH登录请求B -&amp;gt;&amp;gt; A : 发送公钥bbb.pub给用户A -&amp;gt;&amp;gt; A : 使用公钥bbb.pub加密登录密码A -&amp;gt;&amp;gt; B : 发送加密后的登录密码B -&amp;gt;&amp;gt; B : 使用私钥bbb进行解密opt 密码正确B -&amp;gt;&amp;gt; A : 登录成功end二、公钥登录 公钥登录流程 公钥登录方式跟SSH登录方式有所不同。
+  首先发布公钥
+sequenceDiagramparticipant A as User Host Aparticipant B as Server Host BA -&amp;gt;&amp;gt; B : 发布自己的公钥aaa.">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title">SSH 登录过程</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-01-15 10:40:52</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <h2 id="一ssh登录">一、SSH登录</h2>
+<h3 id="ssh登录流程">SSH登录流程</h3>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">sequenceDiagram
+  participant A as User Host A
+  participant B as Server Host B
+
+  A -&gt;&gt; B : 发送SSH登录请求
+  B -&gt;&gt; A : 发送公钥bbb.pub给用户
+  A -&gt;&gt; A : 使用公钥bbb.pub加密登录密码
+  A -&gt;&gt; B : 发送加密后的登录密码
+  B -&gt;&gt; B : 使用私钥bbb进行解密
+  opt 密码正确
+    B -&gt;&gt; A : 登录成功
+  end
+</code></pre><h2 id="二公钥登录">二、公钥登录</h2>
+<h3 id="公钥登录流程">公钥登录流程</h3>
+<p>公钥登录方式跟SSH登录方式有所不同。</p>
+<ol>
+<li>
+<p>首先发布公钥</p>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">sequenceDiagram
+  participant A as User Host A
+  participant B as Server Host B
+
+    A -&gt;&gt; B : 发布自己的公钥aaa.pub给服务器
+    B -&gt;&gt; B : 保存用户公钥aaa.pub
+    Note right of A : 公钥一般会被保存在如用户主目录的$HOME/.ssh/authorized_keys下
+</code></pre></li>
+<li>
+<p>之后登录或认证</p>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">sequenceDiagram
+  participant A as User Host A
+  participant B as Server Host B
+
+    B -&gt;&gt; A : 发送随机字符串
+    A -&gt;&gt; A : 采用私钥aaa进行加密
+    A -&gt;&gt; B : 发送加密后的随机字符串
+    B -&gt;&gt; B : 使用先前保存的公钥aaa.pub进行解密
+    opt 解密后与随机字符串吻合
+      B -&gt;&gt; A : 确认A可信(直接登录成功，无需再输入密码)
+    end
+</code></pre></li>
+</ol>
+<h3 id="本地公私钥生成">本地公私钥生成</h3>
+<ol>
+<li>
+<p>打开 Git Bash，或者cmd等命令行窗口</p>
+</li>
+<li>
+<p>输入命令</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ssh-keygen -t ed25519 -C <span style="color:#e6db74">&#34;yipsen@yeah.net&#34;</span>
+</code></pre></div><blockquote>
+<p>注：如果是旧系统不支持 Ed25519 算法，则采用RSA:</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ssh-keygen -t rsa -b <span style="color:#ae81ff">4096</span> -C <span style="color:#e6db74">&#34;your_email@example.com&#34;</span>
+</code></pre></div></li>
+<li>
+<p>一路回车即可</p>
+<blockquote>
+<p>注：如果担心安全问题，可以在下面的提示时设置一个密钥</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Enter passphrase <span style="color:#f92672">(</span>empty <span style="color:#66d9ef">for</span> no passphrase<span style="color:#f92672">)</span>:
+</code></pre></div></li>
+<li>
+<p>拷贝公钥到剪贴板，复制到目标服务器即可。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">clip &lt; ~/.ssh/id_ed25519.pub
+</code></pre></div><blockquote>
+<p>默认情况下密钥会保存<code>~/.ssh</code>下，其中<code>id_ed25519.pub</code>为公钥，<code>id_ed25519</code>为私钥。</p>
+</blockquote>
+</li>
+<li>
+<p>或者把pub文件发布过去，视服务器使用方式决定。</p>
+</li>
+</ol>
+
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/%E5%8D%8F%E8%AE%AE/%E5%8D%8F%E8%AE%AE/"><span>协议</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/iptables-%E8%AF%A6%E8%A7%A3/"><span>iptables 详解</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script async src="https://cdn.staticfile.org/mermaid/8.6.4/mermaid.min.js"></script>
+<script>
+    
+    Array.from(document.getElementsByClassName('language-mermaid')).forEach(el => {
+        el.parentElement.outerHTML = `<div class="mermaid">${el.innerText}</div>`
+    })
+</script>
+
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

@@ -28,10 +28,10 @@ SELECT * FROM table WHERE b = ?">
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -40,7 +40,7 @@ SELECT * FROM table WHERE b = ?">
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -216,12 +216,10 @@ SELECT * FROM table WHERE b = ?">
 </style><article class="post-block">
         <h1 class="post-title">10 组合索引：用好，性能提升 10 倍！</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:53:11</span>🏷️&nbsp;<a class="post-tag" href="/tags/mysql/">mysql</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/">MySQL实战宝典</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:53:11</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>在前两讲中，我带你学习了索引的数据结构和索引组织表，相信你应该掌握了怎么在 MySQL 数据库中创建索引以及一些基本的使用技巧。</p>
 <p>当然，前两讲我举的例子都是基于一个列进行索引排序和使用，比较简单。在实际业务中，我们会遇到很多复杂的场景，比如对多个列进行查询。这时，可能会要求用户创建多个列组成的索引，如列 a 和 b 创建的组合索引，但究竟是创建（a，b）的索引，还是（b，a）的索引，结果却是完全不同的。</p>
@@ -636,6 +634,11 @@ FROM orders GROUP BY o_custkey;
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/mysql/">mysql</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/">MySQL实战宝典</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -644,26 +647,38 @@ FROM orders GROUP BY o_custkey;
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/09-%E7%B4%A2%E5%BC%95%E7%BB%84%E7%BB%87%E8%A1%A8%E4%B8%87%E7%89%A9%E7%9A%86%E7%B4%A2%E5%BC%95/"><span>09 索引组织表：万物皆索引</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/09-%E7%B4%A2%E5%BC%95%E7%BB%84%E7%BB%87%E8%A1%A8%E4%B8%87%E7%89%A9%E7%9A%86%E7%B4%A2%E5%BC%95/"><span>09 索引组织表：万物皆索引</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/11-%E7%B4%A2%E5%BC%95%E5%87%BA%E9%94%99%E8%AF%B7%E7%90%86%E8%A7%A3-cbo-%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/"><span>11 索引出错：请理解 CBO 的工作原理</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/11-%E7%B4%A2%E5%BC%95%E5%87%BA%E9%94%99%E8%AF%B7%E7%90%86%E8%A7%A3-cbo-%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/"><span>11 索引出错：请理解 CBO 的工作原理</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

@@ -22,10 +22,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -34,7 +34,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -226,12 +226,10 @@
 </style><article class="post-block">
         <h1 class="post-title">29 GC 疑难情况问题排查与分析（上篇）</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:45:30</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/">JVM核心技术32讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:45:30</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>本章介绍导致 GC 性能问题的典型情况。相关示例都来源于生产环境，为演示需要做了一定程度的精简。</p>
 <blockquote>
@@ -488,6 +486,11 @@
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/">JVM核心技术32讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -496,26 +499,38 @@
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/28-jvm-%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E5%88%86%E6%9E%90%E4%B8%8B%E7%AF%87%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%88%98/"><span>28 JVM 问题排查分析下篇（案例实战）</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/28-jvm-%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E5%88%86%E6%9E%90%E4%B8%8B%E7%AF%87%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%88%98/"><span>28 JVM 问题排查分析下篇（案例实战）</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/30-gc-%E7%96%91%E9%9A%BE%E6%83%85%E5%86%B5%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E4%B8%8E%E5%88%86%E6%9E%90%E4%B8%8B%E7%AF%87/"><span>30 GC 疑难情况问题排查与分析（下篇）</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/30-gc-%E7%96%91%E9%9A%BE%E6%83%85%E5%86%B5%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E4%B8%8E%E5%88%86%E6%9E%90%E4%B8%8B%E7%AF%87/"><span>30 GC 疑难情况问题排查与分析（下篇）</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

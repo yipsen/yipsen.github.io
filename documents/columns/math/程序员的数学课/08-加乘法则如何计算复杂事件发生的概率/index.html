@@ -26,10 +26,10 @@ import randomdef main():m = 0n = 1000for _ in range(n):x = random.random()
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -38,7 +38,7 @@ import randomdef main():m = 0n = 1000for _ in range(n):x = random.random()
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -202,12 +202,10 @@ import randomdef main():m = 0n = 1000for _ in range(n):x = random.random()
 </style><article class="post-block">
         <h1 class="post-title">08 加乘法则：如何计算复杂事件发生的概率？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:50:07</span>🏷️&nbsp;<a class="post-tag" href="/tags/math/">math</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/">程序员的数学课</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:50:07</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>在我们的工作和生活中少不了对概率的计算，对概率的准确计算会帮助我们做出更加合理高效的决策。</p>
 <p>例如，早上出门之前，你需要对是否携带雨伞进行决策。如果没有任何依据而随机决策，那么就会遇到下雨没带伞或者晴天带伞的麻烦；而如果有依据，你知道今天下雨的概率超过 80%，那么你就会做出带雨伞的决策，来规避下雨带来不便的风险。</p>
@@ -367,6 +365,11 @@ print 1.0*fenzi/fenmu
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/math/">math</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/">程序员的数学课</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -375,26 +378,38 @@ print 1.0*fenzi/fenmu
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/07-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E5%A6%82%E4%BD%95%E5%9C%A8%E7%A6%BB%E6%95%A3%E7%82%B9%E4%B8%AD%E5%AF%BB%E6%89%BE%E6%95%B0%E6%8D%AE%E8%A7%84%E5%BE%8B/"><span>07 线性回归：如何在离散点中寻找数据规律？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/07-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E5%A6%82%E4%BD%95%E5%9C%A8%E7%A6%BB%E6%95%A3%E7%82%B9%E4%B8%AD%E5%AF%BB%E6%89%BE%E6%95%B0%E6%8D%AE%E8%A7%84%E5%BE%8B/"><span>07 线性回归：如何在离散点中寻找数据规律？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/09-%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8-mle-%E5%AF%B9%E5%8F%82%E6%95%B0%E8%BF%9B%E8%A1%8C%E4%BC%B0%E8%AE%A1/"><span>09 似然估计：如何利用 MLE 对参数进行估计？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/09-%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8-mle-%E5%AF%B9%E5%8F%82%E6%95%B0%E8%BF%9B%E8%A1%8C%E4%BC%B0%E8%AE%A1/"><span>09 似然估计：如何利用 MLE 对参数进行估计？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

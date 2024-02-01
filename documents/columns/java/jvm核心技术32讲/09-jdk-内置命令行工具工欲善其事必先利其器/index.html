@@ -40,10 +40,10 @@ jar
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -52,7 +52,7 @@ jar
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -244,12 +244,10 @@ jar
 </style><article class="post-block">
         <h1 class="post-title">09 JDK 内置命令行工具：工欲善其事，必先利其器</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:45:09</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/">JVM核心技术32讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:45:09</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>很多情况下，JVM 运行环境中并没有趁手的工具，所以掌握基本的内置工具是一项基本功。</p>
 <p>JDK 自带的工具和程序可以分为 2 大类型：</p>
@@ -885,6 +883,11 @@ jjs&gt; 66+88
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/">JVM核心技术32讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -893,26 +896,38 @@ jjs&gt; 66+88
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/08-jvm-%E5%90%AF%E5%8A%A8%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3%E5%8D%9A%E8%A7%82%E8%80%8C%E7%BA%A6%E5%8F%96%E5%8E%9A%E7%A7%AF%E8%80%8C%E8%96%84%E5%8F%91/"><span>08 JVM 启动参数详解：博观而约取、厚积而薄发</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/08-jvm-%E5%90%AF%E5%8A%A8%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3%E5%8D%9A%E8%A7%82%E8%80%8C%E7%BA%A6%E5%8F%96%E5%8E%9A%E7%A7%AF%E8%80%8C%E8%96%84%E5%8F%91/"><span>08 JVM 启动参数详解：博观而约取、厚积而薄发</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/10-jdk-%E5%86%85%E7%BD%AE%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E5%B7%A5%E5%85%B7%E6%B5%B7%E9%98%94%E5%87%AD%E9%B1%BC%E8%B7%83%E5%A4%A9%E9%AB%98%E4%BB%BB%E9%B8%9F%E9%A3%9E/"><span>10 JDK 内置图形界面工具：海阔凭鱼跃，天高任鸟飞</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/10-jdk-%E5%86%85%E7%BD%AE%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E5%B7%A5%E5%85%B7%E6%B5%B7%E9%98%94%E5%87%AD%E9%B1%BC%E8%B7%83%E5%A4%A9%E9%AB%98%E4%BB%BB%E9%B8%9F%E9%A3%9E/"><span>10 JDK 内置图形界面工具：海阔凭鱼跃，天高任鸟飞</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

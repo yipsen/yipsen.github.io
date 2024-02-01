@@ -26,10 +26,10 @@ package demo.jvm0205;import java.util.concurrent.ThreadFactory;import java.uti
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -38,7 +38,7 @@ package demo.jvm0205;import java.util.concurrent.ThreadFactory;import java.uti
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -230,12 +230,10 @@ package demo.jvm0205;import java.util.concurrent.ThreadFactory;import java.uti
 </style><article class="post-block">
         <h1 class="post-title">22 JVM 的线程堆栈等数据分析：操千曲而后晓声、观千剑而后识器</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:45:23</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/">JVM核心技术32讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:45:23</span>
+            </div>
+        </div>
         <div class="post-content">
             <h3 id="java-线程简介与示例">Java 线程简介与示例</h3>
 <p>多线程的使用和调优也是 Java 应用程序性能的一个重要组成部分，本节我们主要来讨论这一部分内容。</p>
@@ -713,6 +711,11 @@ Found 1 deadlock.
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/">JVM核心技术32讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -721,26 +724,38 @@ Found 1 deadlock.
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/21-gc-%E6%97%A5%E5%BF%97%E8%A7%A3%E8%AF%BB%E4%B8%8E%E5%88%86%E6%9E%90%E7%95%AA%E5%A4%96%E7%AF%87%E5%8F%AF%E8%A7%86%E5%8C%96%E5%B7%A5%E5%85%B7/"><span>21 GC 日志解读与分析（番外篇可视化工具）</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/21-gc-%E6%97%A5%E5%BF%97%E8%A7%A3%E8%AF%BB%E4%B8%8E%E5%88%86%E6%9E%90%E7%95%AA%E5%A4%96%E7%AF%87%E5%8F%AF%E8%A7%86%E5%8C%96%E5%B7%A5%E5%85%B7/"><span>21 GC 日志解读与分析（番外篇可视化工具）</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/23-%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90%E4%B8%8E%E7%9B%B8%E5%85%B3%E5%B7%A5%E5%85%B7%E4%B8%8A%E7%AF%87%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%E4%B8%8E%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7/"><span>23 内存分析与相关工具上篇（内存布局与分析工具）</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/23-%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90%E4%B8%8E%E7%9B%B8%E5%85%B3%E5%B7%A5%E5%85%B7%E4%B8%8A%E7%AF%87%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%E4%B8%8E%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7/"><span>23 内存分析与相关工具上篇（内存布局与分析工具）</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

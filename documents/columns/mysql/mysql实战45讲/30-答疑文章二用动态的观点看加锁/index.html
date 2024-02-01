@@ -24,10 +24,10 @@ begin;select * from t where id&amp;gt;9 and id&amp;lt;12 order by id desc for u
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -36,7 +36,7 @@ begin;select * from t where id&amp;gt;9 and id&amp;lt;12 order by id desc for u
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -292,12 +292,10 @@ begin;select * from t where id&amp;gt;9 and id&amp;lt;12 order by id desc for u
 </style><article class="post-block">
         <h1 class="post-title">30 答疑文章（二）：用动态的观点看加锁</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:52:27</span>🏷️&nbsp;<a class="post-tag" href="/tags/mysql/">mysql</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/">MySQL实战45讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:52:27</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>在第[20]和[21]篇文章中，我和你介绍了 InnoDB 的间隙锁、next-key lock，以及加锁规则。在这两篇文章的评论区，出现了很多高质量的留言。我觉得通过分析这些问题，可以帮助你加深对加锁规则的理解。</p>
 <p>所以，我就从中挑选了几个有代表性的问题，构成了今天这篇答疑文章的主题，即：用动态的观点看加锁。</p>
@@ -472,6 +470,11 @@ select id from t where c in(5,20,10) lock in share mode;
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/mysql/">mysql</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/">MySQL实战45讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -480,26 +483,38 @@ select id from t where c in(5,20,10) lock in share mode;
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/29-%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93%E6%98%AF%E4%B8%8D%E6%98%AF%E5%87%BA%E9%97%AE%E9%A2%98%E4%BA%86/"><span>29 如何判断一个数据库是不是出问题了？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/29-%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93%E6%98%AF%E4%B8%8D%E6%98%AF%E5%87%BA%E9%97%AE%E9%A2%98%E4%BA%86/"><span>29 如何判断一个数据库是不是出问题了？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/31-%E8%AF%AF%E5%88%A0%E6%95%B0%E6%8D%AE%E5%90%8E%E9%99%A4%E4%BA%86%E8%B7%91%E8%B7%AF%E8%BF%98%E8%83%BD%E6%80%8E%E4%B9%88%E5%8A%9E/"><span>31 误删数据后除了跑路，还能怎么办？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/31-%E8%AF%AF%E5%88%A0%E6%95%B0%E6%8D%AE%E5%90%8E%E9%99%A4%E4%BA%86%E8%B7%91%E8%B7%AF%E8%BF%98%E8%83%BD%E6%80%8E%E4%B9%88%E5%8A%9E/"><span>31 误删数据后除了跑路，还能怎么办？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

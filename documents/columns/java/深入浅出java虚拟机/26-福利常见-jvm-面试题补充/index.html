@@ -31,10 +31,10 @@ ZGC 支持的堆上限？ Java 13 增加到 16TB，Java 11 还是 4 TB，技术�
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -43,7 +43,7 @@ ZGC 支持的堆上限？ Java 13 增加到 16TB，Java 11 还是 4 TB，技术�
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -215,12 +215,10 @@ ZGC 支持的堆上限？ Java 13 增加到 16TB，Java 11 还是 4 TB，技术�
 </style><article class="post-block">
         <h1 class="post-title">26 福利：常见 JVM 面试题补充</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2022-01-09 11:12:46</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入浅出Java虚拟机</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2022-01-09 11:12:46</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>最后一课时我们来分析常见的 JVM 面试题。</p>
 <p>市面上关于 JVM 的面试题实在太多了，本课程中的第 02 ~ 06 课时是理论面试题的重灾区，并且是比较深入的题目，而本课时则选取了一些基础且常见的题目。</p>
@@ -429,6 +427,11 @@ while (!stop){
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入浅出Java虚拟机</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -437,25 +440,38 @@ while (!stop){
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/25-%E6%9C%AA%E6%9D%A5jvm-%E7%9A%84%E5%8E%86%E5%8F%B2%E4%B8%8E%E5%B1%95%E6%9C%9B/"><span>25 未来：JVM 的历史与展望</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/25-%E6%9C%AA%E6%9D%A5jvm-%E7%9A%84%E5%8E%86%E5%8F%B2%E4%B8%8E%E5%B1%95%E6%9C%9B/"><span>25 未来：JVM 的历史与展望</span></a>
     </div>
     <div class="next">
         
+        <a href="http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/01-redis-%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84/"><span>01 Redis 是如何执行的</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

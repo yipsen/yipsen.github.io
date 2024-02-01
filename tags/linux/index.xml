@@ -5,13 +5,22 @@
     <link>http://yipsen.github.io/tags/linux/</link>
     <description>Recent content in linux on Yipsen Ye</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 15 Jan 2022 10:40:52 +0800</lastBuildDate><atom:link href="http://yipsen.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 06 Feb 2022 16:31:43 +0000</lastBuildDate><atom:link href="http://yipsen.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>iptables详解</title>
-      <link>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/iptables%E8%AF%A6%E8%A7%A3/</link>
+      <title>tcpdump 命令详解</title>
+      <link>http://yipsen.github.io/posts/linux/tcpdump-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/linux/tcpdump-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</guid>
+      <description>一、作用 二、基本命令格式 tcpdump [ -DenNqvX ] [ -c count] [ -F file ] [ -i interface ] [ -r file ] [ -s snaplen ] [ -w file ] [ expression ] 三、表达式 expression # 上下文的 expression 如 &amp;lt;protocol&amp;gt; &amp;lt;dir&amp;gt; &amp;lt;type&amp;gt; &amp;lt;ID&amp;gt;，对于表达式语法，参考 pcap-filter 【pcap-filter - packet filter syntax】 # 一个基本的表达式单元格式为`protocol dir type ID` tcpdump [option] [not] &amp;lt;protocol&amp;gt; &amp;lt;dir&amp;gt; &amp;lt;type&amp;gt; &amp;lt;ID&amp;gt;    meaning parameter values example     协议 protocol tcp, udp, icmp, 若未给定协议类型，则匹配所有可能的类型 tcp   类型 type host, net, port, portrange host 192.</description>
+    </item>
+    
+    <item>
+      <title>iptables 详解</title>
+      <link>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/iptables-%E8%AF%A6%E8%A7%A3/</link>
       <pubDate>Sat, 15 Jan 2022 10:40:52 +0800</pubDate>
       
-      <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/iptables%E8%AF%A6%E8%A7%A3/</guid>
+      <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/iptables-%E8%AF%A6%E8%A7%A3/</guid>
       <description></description>
     </item>
     

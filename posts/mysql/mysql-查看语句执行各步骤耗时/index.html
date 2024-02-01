@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>MySQL 查看语句执行各步骤耗时 | Yipsen Ye</title>
+<meta name="description" content="语法 mysql&amp;gt; show profiles; &#43;----------&#43;------------&#43;---------------------------&#43; | Query_ID | Duration | Query | &#43;----------&#43;------------&#43;---------------------------&#43; | 1 | 0.00017075 | select @@profiling | | 2 | 0.00078300 | select * from processlist | | 3 | 0.00019700 | select @@profiling | &#43;----------&#43;------------&#43;---------------------------&#43; 3 rows in set, 1 warning (0.00 sec) mysql&amp;gt; show profile for query 2; &#43;----------------------&#43;----------&#43; | Status | Duration | &#43;----------------------&#43;----------&#43; | starting | 0.000066 | | checking permissions | 0.">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title">MySQL 查看语句执行各步骤耗时</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-01-10 23:36:41</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <h2 id="语法">语法</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">mysql&gt; show profiles;
++----------+------------+---------------------------+
+| Query_ID | Duration   | Query                     |
++----------+------------+---------------------------+
+|        1 | 0.00017075 | select @@profiling        |
+|        2 | 0.00078300 | select * from processlist |
+|        3 | 0.00019700 | select @@profiling        |
++----------+------------+---------------------------+
+3 rows in set, 1 warning (0.00 sec)
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">mysql&gt; show profile for query 2;
++----------------------+----------+
+| Status               | Duration |
++----------------------+----------+
+| starting             | 0.000066 |
+| checking permissions | 0.000009 |
+| Opening tables       | 0.000407 |
+| init                 | 0.000025 |
+| System lock          | 0.000006 |
+| optimizing           | 0.000003 |
+| statistics           | 0.000022 |
+| preparing            | 0.000011 |
+| executing            | 0.000057 |
+| Sending data         | 0.000043 |
+| end                  | 0.000003 |
+| query end            | 0.000005 |
+| closing tables       | 0.000002 |
+| removing tmp table   | 0.000046 |
+| closing tables       | 0.000004 |
+| freeing items        | 0.000065 |
+| cleaning up          | 0.000013 |
++----------------------+----------+
+17 rows in set, 1 warning (0.00 sec)
+</code></pre></div>
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/posts/mysql/mysql-%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/"><span>MySQL 用户管理</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/posts/mysql/mysql-%E6%80%BB%E7%BB%93%E6%A6%82%E8%A7%88/"><span>MySQL 总结概览</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

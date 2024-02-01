@@ -21,10 +21,10 @@ public interface ResultSetHandler {// 将ResultSet映射成Java对象&amp;lt;E
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -33,7 +33,7 @@ public interface ResultSetHandler {// 将ResultSet映射成Java对象&amp;lt;E
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -193,12 +193,10 @@ public interface ResultSetHandler {// 将ResultSet映射成Java对象&amp;lt;E
 </style><article class="post-block">
         <h1 class="post-title">14 探究 MyBatis 结果集映射机制背后的秘密（上）</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:51:16</span>🏷️&nbsp;<a class="post-tag" href="/tags/mybatis/">mybatis</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/">深入剖析MyBatis核心原理</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:51:16</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>在前面介绍 MyBatis 解析 Mapper.xml 映射文件的过程中，我们看到 <code>&lt;resultMap&gt;</code> 标签会被解析成 ResultMap 对象，其中定义了 ResultSet 与 Java 对象的映射规则，简单来说，也就是<strong>一行数据记录如何映射成一个 Java 对象</strong>，这种映射机制是 MyBatis 作为 ORM 框架的核心功能之一。</p>
 <p>ResultMap 只是定义了一个静态的映射规则，那在运行时，MyBatis 是如何根据映射规则将 ResultSet 映射成 Java 对象的呢？当 MyBatis 执行完一条 select 语句，<strong>拿到 ResultSet 结果集之后，会将其交给关联的 ResultSetHandler 进行后续的映射处理</strong>。</p>
@@ -509,6 +507,11 @@ public interface ResultSetHandler {// 将ResultSet映射成Java对象&amp;lt;E
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/mybatis/">mybatis</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/">深入剖析MyBatis核心原理</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -517,26 +520,38 @@ public interface ResultSetHandler {// 将ResultSet映射成Java对象&amp;lt;E
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/13-%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90%E5%8A%A8%E6%80%81-sql-%E8%AF%AD%E5%8F%A5%E8%A7%A3%E6%9E%90%E5%85%A8%E6%B5%81%E7%A8%8B%E4%B8%8B/"><span>13 深入分析动态 SQL 语句解析全流程（下）</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/13-%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90%E5%8A%A8%E6%80%81-sql-%E8%AF%AD%E5%8F%A5%E8%A7%A3%E6%9E%90%E5%85%A8%E6%B5%81%E7%A8%8B%E4%B8%8B/"><span>13 深入分析动态 SQL 语句解析全流程（下）</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/15-%E6%8E%A2%E7%A9%B6-mybatis-%E7%BB%93%E6%9E%9C%E9%9B%86%E6%98%A0%E5%B0%84%E6%9C%BA%E5%88%B6%E8%83%8C%E5%90%8E%E7%9A%84%E7%A7%98%E5%AF%86%E4%B8%8B/"><span>15 探究 MyBatis 结果集映射机制背后的秘密（下）</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/15-%E6%8E%A2%E7%A9%B6-mybatis-%E7%BB%93%E6%9E%9C%E9%9B%86%E6%98%A0%E5%B0%84%E6%9C%BA%E5%88%B6%E8%83%8C%E5%90%8E%E7%9A%84%E7%A7%98%E5%AF%86%E4%B8%8B/"><span>15 探究 MyBatis 结果集映射机制背后的秘密（下）</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

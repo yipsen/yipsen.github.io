@@ -28,10 +28,10 @@ select feedId from outbox where userId in (select userId from follower where fan
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -40,7 +40,7 @@ select feedId from outbox where userId in (select userId from follower where fan
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -284,12 +284,10 @@ select feedId from outbox where userId in (select userId from follower where fan
 </style><article class="post-block">
         <h1 class="post-title">40 信息流设计（二）：通用信息流系统的拉模式要如何做？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:38:46</span>🏷️&nbsp;<a class="post-tag" href="/tags/design/">design</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/">高并发系统设计40问</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:38:46</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>你好，我是唐扬。</p>
 <p>在前一节课中，我带你了解了如何用推模式来实现信息流系统，从中你应该了解到了推模式存在的问题，比如它在面对需要支撑很大粉丝数量的场景时，会出现消息推送延迟、存储成本高、方案可扩展性差等问题。虽然我们也会有一些应对的措施，比如说选择插入性能更高的数据库存储引擎来提升数据写入速度，降低数据推送延迟；定期删除冷数据以减小存储成本等等，但是由于微博大 V 用户粉丝量巨大，如果我们使用推模式实现信息流系统，那么只能缓解这些用户的微博推送延迟问题，没有办法彻底解决。</p>
@@ -345,6 +343,11 @@ return merge(ids); // 合并排序所有的 id
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/design/">design</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/">高并发系统设计40问</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -353,26 +356,38 @@ return merge(ids); // 合并排序所有的 id
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/39-%E4%BF%A1%E6%81%AF%E6%B5%81%E8%AE%BE%E8%AE%A1%E4%B8%80%E9%80%9A%E7%94%A8%E4%BF%A1%E6%81%AF%E6%B5%81%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8E%A8%E6%A8%A1%E5%BC%8F%E8%A6%81%E5%A6%82%E4%BD%95%E5%81%9A/"><span>39 信息流设计（一）：通用信息流系统的推模式要如何做？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/39-%E4%BF%A1%E6%81%AF%E6%B5%81%E8%AE%BE%E8%AE%A1%E4%B8%80%E9%80%9A%E7%94%A8%E4%BF%A1%E6%81%AF%E6%B5%81%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8E%A8%E6%A8%A1%E5%BC%8F%E8%A6%81%E5%A6%82%E4%BD%95%E5%81%9A/"><span>39 信息流设计（一）：通用信息流系统的推模式要如何做？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/%E5%8A%A0%E9%A4%90-%E6%95%B0%E6%8D%AE%E7%9A%84%E8%BF%81%E7%A7%BB%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E5%81%9A/"><span>加餐 数据的迁移应该如何做？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/%E5%8A%A0%E9%A4%90-%E6%95%B0%E6%8D%AE%E7%9A%84%E8%BF%81%E7%A7%BB%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E5%81%9A/"><span>加餐 数据的迁移应该如何做？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

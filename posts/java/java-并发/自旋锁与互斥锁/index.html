@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>自旋锁与互斥锁 | Yipsen Ye</title>
+<meta name="description" content="背景 当一个人处理任务非常繁忙为了提高效率事，最直接的方式就是多找几个人并行的做。放置到计算机的场景，就是多线程并发执行来提高处理效率，而并行的方式在遇到共享资源处理或者需要保证线程间执行顺序的场景，就难免需要引入锁的机制来控制调度各个线程的执行。 而锁实际就是一个共同争抢的资源，那没能拿到锁的线程该怎么办呢？一般有两种思路，一种就是一直循环等待判断该资源是否已经释放锁，这种叫自旋锁。一种是把自己阻塞起来，等待资源释放后重新调度请求，这种叫互斥锁。
+自旋锁 自旋锁(Spin Lock)的命名听起来非常晦涩高大上，而实质可以说是非常地简单，所谓自旋，也称为忙等待(busy waiting)，而更直观的来看，其实就是个死循环。 如果持有锁的线程能在短时间内释放锁资源，那么那些等待竞争锁的线程就不需要做内核态和用户态之间的切换进入阻塞状态，他们只需要原地自旋渡一下步，等到持有锁的线程释放锁之后就可以获取，这样就避免了用户进程和内核切换的消耗。 但是遇到长期持有锁资源做繁忙任务的场景，自旋锁反而是非常消耗性能的，整个线程占用着 CPU 死做无用功，
+自旋锁的特点与适用场景 自旋锁的简单实现 排队自旋锁 互斥锁 ">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title">自旋锁与互斥锁</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-02-06 16:31:43</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <h3 id="背景">背景</h3>
+<p>当一个人处理任务非常繁忙为了提高效率事，最直接的方式就是多找几个人并行的做。放置到计算机的场景，就是多线程并发执行来提高处理效率，而并行的方式在遇到共享资源处理或者需要保证线程间执行顺序的场景，就难免需要引入锁的机制来控制调度各个线程的执行。
+而锁实际就是一个共同争抢的资源，那没能拿到锁的线程该怎么办呢？一般有两种思路，一种就是一直循环等待判断该资源是否已经释放锁，这种叫自旋锁。一种是把自己阻塞起来，等待资源释放后重新调度请求，这种叫互斥锁。</p>
+<h3 id="自旋锁">自旋锁</h3>
+<p>自旋锁(Spin Lock)的命名听起来非常晦涩高大上，而实质可以说是非常地简单，所谓自旋，也称为忙等待(busy waiting)，而更直观的来看，其实就是个死循环。
+如果持有锁的线程能在短时间内释放锁资源，那么那些等待竞争锁的线程就不需要做内核态和用户态之间的切换进入阻塞状态，他们只需要原地自旋渡一下步，等到持有锁的线程释放锁之后就可以获取，这样就避免了用户进程和内核切换的消耗。
+但是遇到长期持有锁资源做繁忙任务的场景，自旋锁反而是非常消耗性能的，整个线程占用着 CPU 死做无用功，</p>
+<h3 id="自旋锁的特点与适用场景">自旋锁的特点与适用场景</h3>
+<h3 id="自旋锁的简单实现">自旋锁的简单实现</h3>
+<h3 id="排队自旋锁">排队自旋锁</h3>
+<h3 id="互斥锁">互斥锁</h3>
+
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A1%8C%E4%B8%BA%E5%9E%8B-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/"><span>行为型 - 观察者模式</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E7%BB%93%E6%9E%84%E5%9E%8B-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/"><span>结构型 - 代理模式</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

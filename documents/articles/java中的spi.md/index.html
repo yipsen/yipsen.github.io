@@ -24,10 +24,10 @@ package com.jimoer.spi.service.one; import com.jimoer.spi.app.SpiInterfaceServic
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -36,7 +36,7 @@ package com.jimoer.spi.service.one; import com.jimoer.spi.app.SpiInterfaceServic
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -57,8 +57,10 @@ package com.jimoer.spi.service.one; import com.jimoer.spi.app.SpiInterfaceServic
 <div class="container"><article class="post-block">
         <h1 class="post-title"></h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;0001-01-01 00:00:00</span></div></div>
+            <div class="post-date"> 
+                <span>0001-01-01 00:00:00</span>
+            </div>
+        </div>
         <div class="post-content">
             <h2 id="前言">前言</h2>
 <p>最近在面试的时候被问到SPI了，没回答上来，主要也是自己的原因，把自己给带沟里去了，因为讲到了类加载器的双亲委派模型，后面就被问到了有哪些是破坏了双亲委派模型的场景，然后我就说到了SPI，JNDI，以及JDK9的模块化都破坏了双亲委派。 然后就被问，那你说说对Java中的SPI的理解吧。然后我就一脸懵逼了，之前只是知道它会破坏双亲委派，也知道是个怎么回事，但是并没有深入了解，那么这次我就好好的来总结一下这个知识吧。</p>
@@ -231,6 +233,11 @@ private boolean hasNextService() {
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
+</div>
 
     </main>
     <footer>
@@ -239,26 +246,38 @@ private boolean hasNextService() {
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/articles/jvm-cpu-profiler%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E5%8F%8A%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90.md/"><span></span></a>
+        <a href="http://yipsen.github.io/documents/articles/jvm-cpu-profiler%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E5%8F%8A%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90.md/"><span></span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/articles/aqs-%E4%B8%87%E5%AD%97%E5%9B%BE%E6%96%87%E5%85%A8%E9%9D%A2%E8%A7%A3%E6%9E%90.md/"><span></span></a>
+        <a href="http://yipsen.github.io/documents/articles/aqs-%E4%B8%87%E5%AD%97%E5%9B%BE%E6%96%87%E5%85%A8%E9%9D%A2%E8%A7%A3%E6%9E%90.md/"><span></span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

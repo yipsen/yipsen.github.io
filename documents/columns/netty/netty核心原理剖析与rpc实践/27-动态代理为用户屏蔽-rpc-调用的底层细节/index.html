@@ -25,10 +25,10 @@ public interface InvocationHandler {public Object invoke(Object proxy, Method m
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -37,7 +37,7 @@ public interface InvocationHandler {public Object invoke(Object proxy, Method m
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -229,12 +229,10 @@ public interface InvocationHandler {public Object invoke(Object proxy, Method m
 </style><article class="post-block">
         <h1 class="post-title">27 动态代理：为用户屏蔽 RPC 调用的底层细节</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:54:49</span>🏷️&nbsp;<a class="post-tag" href="/tags/netty/">netty</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/">Netty核心原理剖析与RPC实践</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:54:49</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>动态代理在 RPC 框架的实现中起到了至关重要的作用，它可以帮助用户屏蔽 RPC 调用时底层网络通信、服务发现、负载均衡等具体细节，这些对用户来说并没有什么意义。你在平时项目开发中使用 RPC 框架的时候，只需要调用接口方法，然后就拿到了返回结果，你是否好奇 RPC 框架是如何完成整个调用流程的呢？今天这节课我们就一起来完成 RPC 框架的最后一部分内容：RPC 请求调用和处理，看看如何使用动态代理机制完成这个神奇的操作。</p>
 <blockquote>
@@ -663,6 +661,11 @@ hellomini rpc
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/netty/">netty</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/">Netty核心原理剖析与RPC实践</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -671,26 +674,38 @@ hellomini rpc
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/26-%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%9C%BA%E5%88%B6%E7%9A%84%E5%AE%9E%E7%8E%B0/"><span>26 服务治理：服务发现与负载均衡机制的实现</span></a>
+        <a href="http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/26-%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%9C%BA%E5%88%B6%E7%9A%84%E5%AE%9E%E7%8E%B0/"><span>26 服务治理：服务发现与负载均衡机制的实现</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/28-%E5%AE%9E%E6%88%98%E6%80%BB%E7%BB%93rpc-%E5%AE%9E%E6%88%98%E6%80%BB%E7%BB%93%E4%B8%8E%E8%BF%9B%E9%98%B6%E5%BB%B6%E4%BC%B8/"><span>28 实战总结：RPC 实战总结与进阶延伸</span></a>
+        <a href="http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/28-%E5%AE%9E%E6%88%98%E6%80%BB%E7%BB%93rpc-%E5%AE%9E%E6%88%98%E6%80%BB%E7%BB%93%E4%B8%8E%E8%BF%9B%E9%98%B6%E5%BB%B6%E4%BC%B8/"><span>28 实战总结：RPC 实战总结与进阶延伸</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

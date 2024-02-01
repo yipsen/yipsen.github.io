@@ -26,10 +26,10 @@ MyBatis 在加载配置文件、创建配置对象的时候，会使用到经典
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -38,7 +38,7 @@ MyBatis 在加载配置文件、创建配置对象的时候，会使用到经典
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -198,12 +198,10 @@ MyBatis 在加载配置文件、创建配置对象的时候，会使用到经典
 </style><article class="post-block">
         <h1 class="post-title">10 鸟瞰 MyBatis 初始化，把握 MyBatis 启动流程脉络（上）</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:51:12</span>🏷️&nbsp;<a class="post-tag" href="/tags/mybatis/">mybatis</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/">深入剖析MyBatis核心原理</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:51:12</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>很多开源框架之所以能够流行起来，是因为它们解决了领域内的一些通用问题。但在实际使用这些开源框架的时候，我们都是要解决通用问题中的一个特例问题，所以这时我们就需要使用一种方式来控制开源框架的行为，这就是开源框架提供各种各样配置的核心原因之一。</p>
 <p>现在控制开源框架行为主流的配置方式就是 XML 配置方式和注解方式。在《02 | 订单系统持久层示例分析，20 分钟带你快速上手 MyBatis》这一讲中我们介绍过，MyBatis 有两方面的 XML 配置，<strong>一个是 mybatis-config.xml 配置文件中的整体配置，另一个是 Mapper.xml 配置文件中的 SQL 语句</strong>。当然，MyBatis 中也有注解，前面的课程中也多少有涉及，其核心实现与 XML 配置基本类似，所以这一讲我们就重点分析 XML 配置的初始化过程，注解相关的内容就留给你自己分析了。</p>
@@ -642,6 +640,11 @@ private String getDatabaseName(DataSource dataSource) throws SQLException {
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/mybatis/">mybatis</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/">深入剖析MyBatis核心原理</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -650,26 +653,38 @@ private String getDatabaseName(DataSource dataSource) throws SQLException {
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/09-%E5%9F%BA%E4%BA%8E-mybatis-%E7%BC%93%E5%AD%98%E5%88%86%E6%9E%90%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"><span>09 基于 MyBatis 缓存分析装饰器模式的最佳实践</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/09-%E5%9F%BA%E4%BA%8E-mybatis-%E7%BC%93%E5%AD%98%E5%88%86%E6%9E%90%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"><span>09 基于 MyBatis 缓存分析装饰器模式的最佳实践</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/11-%E9%B8%9F%E7%9E%B0-mybatis-%E5%88%9D%E5%A7%8B%E5%8C%96%E6%8A%8A%E6%8F%A1-mybatis-%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E8%84%89%E7%BB%9C%E4%B8%8B/"><span>11 鸟瞰 MyBatis 初始化，把握 MyBatis 启动流程脉络（下）</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/11-%E9%B8%9F%E7%9E%B0-mybatis-%E5%88%9D%E5%A7%8B%E5%8C%96%E6%8A%8A%E6%8F%A1-mybatis-%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E8%84%89%E7%BB%9C%E4%B8%8B/"><span>11 鸟瞰 MyBatis 初始化，把握 MyBatis 启动流程脉络（下）</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

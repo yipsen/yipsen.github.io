@@ -31,10 +31,10 @@ MySQL 认为如果对一张表使用大量行锁，会导致事务执行效率�
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -43,7 +43,7 @@ MySQL 认为如果对一张表使用大量行锁，会导致事务执行效率�
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -299,12 +299,10 @@ MySQL 认为如果对一张表使用大量行锁，会导致事务执行效率�
 </style><article class="post-block">
         <h1 class="post-title">32 MySQL调优之SQL语句：如何写出高性能SQL语句？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:44:36</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/">Java并发编程实战</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:44:36</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>你好，我是刘超。</p>
 <p>从今天开始，我将带你一起学习 MySQL 的性能调优。MySQL 数据库是互联网公司使用最为频繁的数据库之一，不仅仅因为它开源免费，MySQL 卓越的性能、稳定的服务以及活跃的社区都成就了它的核心竞争力。</p>
@@ -451,6 +449,11 @@ set global long_query_time=1;// 最大执行时间
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/">Java并发编程实战</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -459,26 +462,38 @@ set global long_query_time=1;// 最大执行时间
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/31-%E7%AD%94%E7%96%91%E8%AF%BE%E5%A0%82%E6%A8%A1%E5%9D%97%E4%BA%94%E6%80%9D%E8%80%83%E9%A2%98%E9%9B%86%E9%94%A6/"><span>31 答疑课堂：模块五思考题集锦</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/31-%E7%AD%94%E7%96%91%E8%AF%BE%E5%A0%82%E6%A8%A1%E5%9D%97%E4%BA%94%E6%80%9D%E8%80%83%E9%A2%98%E9%9B%86%E9%94%A6/"><span>31 答疑课堂：模块五思考题集锦</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/33-mysql%E8%B0%83%E4%BC%98%E4%B9%8B%E4%BA%8B%E5%8A%A1%E9%AB%98%E5%B9%B6%E5%8F%91%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E8%B0%83%E4%BC%98/"><span>33 MySQL调优之事务：高并发场景下的数据库事务调优</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/33-mysql%E8%B0%83%E4%BC%98%E4%B9%8B%E4%BA%8B%E5%8A%A1%E9%AB%98%E5%B9%B6%E5%8F%91%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E8%B0%83%E4%BC%98/"><span>33 MySQL调优之事务：高并发场景下的数据库事务调优</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

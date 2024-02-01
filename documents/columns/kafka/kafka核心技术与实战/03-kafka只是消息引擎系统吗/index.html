@@ -29,10 +29,10 @@ Kafka 自诞生伊始是以消息引擎系统的面目出现在大众视野中�
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -41,7 +41,7 @@ Kafka 自诞生伊始是以消息引擎系统的面目出现在大众视野中�
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -285,12 +285,10 @@ Kafka 自诞生伊始是以消息引擎系统的面目出现在大众视野中�
 </style><article class="post-block">
         <h1 class="post-title">03 Kafka只是消息引擎系统吗？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:45:56</span>🏷️&nbsp;<a class="post-tag" href="/tags/kafka/">kafka</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/">Kafka核心技术与实战</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:45:56</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>你好，我是胡夕。今天我们来聊一个老生常谈的话题：Kafka 只是消息引擎系统吗？</p>
 <p>要搞清楚这个问题，我们不可避免地要了解一下 Apache Kafka 的发展历程。有的时候我们会觉得说了解一个系统或框架的前世今生似乎没什么必要，直接开始学具体的技术不是更快更好吗？其实，不论是学习哪种技术，直接扎到具体的细节中，亦或是从一个很小的点开始学习，你很快就会感到厌烦。为什么呢？因为你虽然快速地搞定了某个技术细节，但无法建立全局的认知观，这会导致你只是在单个的点上有所进展，却没法将其串联成一条线进而扩展成一个面，从而实现系统地学习。</p>
@@ -329,6 +327,11 @@ Kafka 自诞生伊始是以消息引擎系统的面目出现在大众视野中�
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/kafka/">kafka</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/">Kafka核心技术与实战</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -337,26 +340,38 @@ Kafka 自诞生伊始是以消息引擎系统的面目出现在大众视野中�
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/02-%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E5%B8%A6%E4%BD%A0%E5%BF%AB%E9%80%9F%E6%90%9E%E5%AE%9Akafka%E6%9C%AF%E8%AF%AD/"><span>02 一篇文章带你快速搞定Kafka术语</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/02-%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E5%B8%A6%E4%BD%A0%E5%BF%AB%E9%80%9F%E6%90%9E%E5%AE%9Akafka%E6%9C%AF%E8%AF%AD/"><span>02 一篇文章带你快速搞定Kafka术语</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/04-%E6%88%91%E5%BA%94%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E7%A7%8Dkafka/"><span>04 我应该选择哪种Kafka？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/04-%E6%88%91%E5%BA%94%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E7%A7%8Dkafka/"><span>04 我应该选择哪种Kafka？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

@@ -27,10 +27,10 @@ static void memPrint() {for (MemoryPoolMXBean memoryPoolMXBean : ManagementFact
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -39,7 +39,7 @@ static void memPrint() {for (MemoryPoolMXBean memoryPoolMXBean : ManagementFact
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -211,12 +211,10 @@ static void memPrint() {for (MemoryPoolMXBean memoryPoolMXBean : ManagementFact
 </style><article class="post-block">
         <h1 class="post-title">15 预警与解决：深入浅出 GC 监控与调优</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2022-01-09 11:12:34</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入浅出Java虚拟机</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2022-01-09 11:12:34</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>本课时我们主要讲解深入浅出 GC 监控与调优。</p>
 <p>在前面的课时中不止一次谈到了监控，但除了 GC Log，大多数都是一些“瞬时监控”工具，也就是看到的问题，基本是当前发生的。</p>
@@ -366,6 +364,11 @@ astThrow  -jar monitor-demo-0.0.1-SNAPSHOT.jar  2&gt;&amp;1  &amp;
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入浅出Java虚拟机</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -374,26 +377,38 @@ astThrow  -jar monitor-demo-0.0.1-SNAPSHOT.jar  2&gt;&amp;1  &amp;
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/14-%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E8%AE%A9%E9%9D%A2%E8%AF%95%E5%AE%98%E5%88%AE%E7%9B%AE%E7%9B%B8%E7%9C%8B%E7%9A%84%E5%A0%86%E5%A4%96%E5%86%85%E5%AD%98%E6%8E%92%E6%9F%A5/"><span>14 动手实践：让面试官刮目相看的堆外内存排查</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/14-%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E8%AE%A9%E9%9D%A2%E8%AF%95%E5%AE%98%E5%88%AE%E7%9B%AE%E7%9B%B8%E7%9C%8B%E7%9A%84%E5%A0%86%E5%A4%96%E5%86%85%E5%AD%98%E6%8E%92%E6%9F%A5/"><span>14 动手实践：让面试官刮目相看的堆外内存排查</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/16-%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90%E4%B8%80%E4%B8%AA%E9%AB%98%E6%AD%BB%E4%BA%A1%E7%8E%87%E7%9A%84%E6%8A%A5%E8%A1%A8%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BC%98%E5%8C%96%E4%B9%8B%E8%B7%AF/"><span>16 案例分析：一个高死亡率的报表系统的优化之路</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/16-%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90%E4%B8%80%E4%B8%AA%E9%AB%98%E6%AD%BB%E4%BA%A1%E7%8E%87%E7%9A%84%E6%8A%A5%E8%A1%A8%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BC%98%E5%8C%96%E4%B9%8B%E8%B7%AF/"><span>16 案例分析：一个高死亡率的报表系统的优化之路</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

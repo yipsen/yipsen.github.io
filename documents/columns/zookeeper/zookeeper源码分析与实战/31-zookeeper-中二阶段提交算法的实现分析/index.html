@@ -27,10 +27,10 @@ ZooKeeper 集群的这种执行逻辑，最终导致无须等 待所有服务器
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -39,7 +39,7 @@ ZooKeeper 集群的这种执行逻辑，最终导致无须等 待所有服务器
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -239,12 +239,10 @@ ZooKeeper 集群的这种执行逻辑，最终导致无须等 待所有服务器
 </style><article class="post-block">
         <h1 class="post-title">31 ZooKeeper 中二阶段提交算法的实现分析</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:57:16</span>🏷️&nbsp;<a class="post-tag" href="/tags/zookeeper/">zookeeper</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/">ZooKeeper源码分析与实战</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:57:16</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>前几节课中，我们一直围绕在分布式系统环境下，如何解决一致性问题来进行讨论，并分别介绍了在分布式环境中比较常见的二阶段提交、三阶段提交算法，之后又对比介绍了 ZooKeeper 所采用的 ZAB 协议算法和 Paxos 算法的优缺点。</p>
 <p>在学习 ZAB 协议和 Paxos 算法的过程中，我们曾提到在处理来自客户端的事务性请求时，为了保证整个集群的数据一致性，其各自的底层实现与二阶段算法都有相似之处。但我们知道，二阶段提交算法自身有一些缺点，比如容易发生单点故障，比如在并发性能上有一些瓶颈，那么今天就深入 ZooKeeper 的底层，来看一下 ZooKeeper 是如何克服这些问题，并实现自己特有的二阶段提交算法的。希望通过本节课的学习，帮助你进一步提高解决分布式一致性问题的能力。</p>
@@ -345,6 +343,11 @@ public void processRequest(Request request) {
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/zookeeper/">zookeeper</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/">ZooKeeper源码分析与实战</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -353,26 +356,38 @@ public void processRequest(Request request) {
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/30-zab-%E4%B8%8E-paxos-%E7%AE%97%E6%B3%95%E7%9A%84%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB/"><span>30 ZAB 与 Paxos 算法的联系与区别</span></a>
+        <a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/30-zab-%E4%B8%8E-paxos-%E7%AE%97%E6%B3%95%E7%9A%84%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB/"><span>30 ZAB 与 Paxos 算法的联系与区别</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/32-zookeeper-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E8%A7%A3%E6%9E%90/"><span>32 ZooKeeper 数据存储底层实现解析</span></a>
+        <a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/32-zookeeper-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E8%A7%A3%E6%9E%90/"><span>32 ZooKeeper 数据存储底层实现解析</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

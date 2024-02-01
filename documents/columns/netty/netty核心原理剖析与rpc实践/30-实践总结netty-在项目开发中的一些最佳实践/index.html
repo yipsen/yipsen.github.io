@@ -26,10 +26,10 @@ SO_SNDBUF/SO_RCVBUF 大小的设置建议参考消息的平均大小，不要按
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -38,7 +38,7 @@ SO_SNDBUF/SO_RCVBUF 大小的设置建议参考消息的平均大小，不要按
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -230,12 +230,10 @@ SO_SNDBUF/SO_RCVBUF 大小的设置建议参考消息的平均大小，不要按
 </style><article class="post-block">
         <h1 class="post-title">30 实践总结：Netty 在项目开发中的一些最佳实践</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:54:52</span>🏷️&nbsp;<a class="post-tag" href="/tags/netty/">netty</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/">Netty核心原理剖析与RPC实践</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:54:52</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>这是专栏的最后一节课，首先恭喜你持之以恒学习到现在，你已经离成为一个 Netty 高手不远啦！本节课我会结合自身的实践经验，整理出一些 Netty 的最佳实践，帮助你回顾之前课程的知识点以及进一步提升 Netty 的进阶技巧。</p>
 <p>本节课我们的内容以知识点列表的方式呈现，仅仅对 Netty 的核心要点进行提炼，更多详细的实现原理需要你课后深入研究源码。</p>
@@ -535,6 +533,11 @@ public class TraceDirectAlloc {
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/netty/">netty</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/">Netty核心原理剖析与RPC实践</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -543,26 +546,38 @@ public class TraceDirectAlloc {
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/29-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3netty-%E4%B8%AD%E5%BA%94%E7%94%A8%E4%BA%86%E5%93%AA%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><span>29 编程思想：Netty 中应用了哪些设计模式？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/29-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3netty-%E4%B8%AD%E5%BA%94%E7%94%A8%E4%BA%86%E5%93%AA%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><span>29 编程思想：Netty 中应用了哪些设计模式？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/31-%E7%BB%93%E6%9D%9F%E8%AF%AD-%E6%8A%80%E6%9C%AF%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF%E5%A6%82%E4%BD%95%E6%89%93%E9%80%A0%E8%87%AA%E5%B7%B1%E7%9A%84%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/"><span>31 结束语 技术成长之路：如何打造自己的技术体系</span></a>
+        <a href="http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/31-%E7%BB%93%E6%9D%9F%E8%AF%AD-%E6%8A%80%E6%9C%AF%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF%E5%A6%82%E4%BD%95%E6%89%93%E9%80%A0%E8%87%AA%E5%B7%B1%E7%9A%84%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB/"><span>31 结束语 技术成长之路：如何打造自己的技术体系</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

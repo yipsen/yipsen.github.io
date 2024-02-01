@@ -24,10 +24,10 @@ ShardingSphere 中的 GeneratedKey GeneratedKey 并不是 ShardingSphere 所创�
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -36,7 +36,7 @@ ShardingSphere 中的 GeneratedKey GeneratedKey 并不是 ShardingSphere 所创�
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -228,12 +228,10 @@ ShardingSphere 中的 GeneratedKey GeneratedKey 并不是 ShardingSphere 所创�
 </style><article class="post-block">
         <h1 class="post-title">14 分布式主键：ShardingSphere 中有哪些分布式主键实现方式？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:55:53</span>🏷️&nbsp;<a class="post-tag" href="/tags/sharding/">sharding</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/">ShardingSphere核心原理精讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:55:53</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>本课时我将为你讲解 ShardingSphere 中的分布式主键实现方式。</p>
 <p>在传统数据库软件开发过程中，主键自动生成技术是基本需求。各个数据库对该需求也提供了相应的支持，比如 MySQL 的自增键，Oracle 的自增序列等。而在分片场景下，问题就变得有点复杂，我们不能依靠单个实例上的自增键来实现不同数据节点之间的全局唯一主键，这时分布式主键的需求就应运而生。ShardingSphere 作为一款优秀的分库分表开源软件，同样提供了分布式主键的实现机制，今天，我们就对这一机制的基本原理和实现方式展开讨论。</p>
@@ -425,6 +423,11 @@ leaf.zk.list=localhost:2181
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/sharding/">sharding</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/">ShardingSphere核心原理精讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -433,26 +436,38 @@ leaf.zk.list=localhost:2181
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/13-%E5%BE%AE%E5%86%85%E6%A0%B8%E6%9E%B6%E6%9E%84shardingsphere-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%89%A9%E5%B1%95%E6%80%A7/"><span>13 微内核架构：ShardingSphere 如何实现系统的扩展性？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/13-%E5%BE%AE%E5%86%85%E6%A0%B8%E6%9E%B6%E6%9E%84shardingsphere-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%89%A9%E5%B1%95%E6%80%A7/"><span>13 微内核架构：ShardingSphere 如何实现系统的扩展性？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/15-%E8%A7%A3%E6%9E%90%E5%BC%95%E6%93%8Esql-%E8%A7%A3%E6%9E%90%E6%B5%81%E7%A8%8B%E5%BA%94%E8%AF%A5%E5%8C%85%E6%8B%AC%E5%93%AA%E4%BA%9B%E6%A0%B8%E5%BF%83%E9%98%B6%E6%AE%B5%E4%B8%8A/"><span>15 解析引擎：SQL 解析流程应该包括哪些核心阶段？（上）</span></a>
+        <a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/15-%E8%A7%A3%E6%9E%90%E5%BC%95%E6%93%8Esql-%E8%A7%A3%E6%9E%90%E6%B5%81%E7%A8%8B%E5%BA%94%E8%AF%A5%E5%8C%85%E6%8B%AC%E5%93%AA%E4%BA%9B%E6%A0%B8%E5%BF%83%E9%98%B6%E6%AE%B5%E4%B8%8A/"><span>15 解析引擎：SQL 解析流程应该包括哪些核心阶段？（上）</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

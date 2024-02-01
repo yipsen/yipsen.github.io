@@ -21,10 +21,10 @@ public class ArrayList ... {public Iterator&amp;lt;E&amp;gt; iterator() {retur
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -33,7 +33,7 @@ public class ArrayList ... {public Iterator&amp;lt;E&amp;gt; iterator() {retur
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -253,12 +253,10 @@ public class ArrayList ... {public Iterator&amp;lt;E&amp;gt; iterator() {retur
 </style><article class="post-block">
         <h1 class="post-title">23 逃逸分析</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2022-01-09 11:11:13</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入拆解Java虚拟机</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2022-01-09 11:11:13</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>我们知道，Java 中<code>Iterable</code>对象的 foreach 循环遍历是一个语法糖，Java 编译器会将该语法糖编译为调用<code>Iterable</code>对象的<code>iterator</code>方法，并用所返回的<code>Iterator</code>对象的<code>hasNext</code>以及<code>next</code>方法，来完成遍历。</p>
 <pre tabindex="0"><code>public void forEach(ArrayList&lt;Object&gt; list, Consumer&lt;Object&gt; f) {
@@ -466,6 +464,11 @@ public class Foo {
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入拆解Java虚拟机</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -474,26 +477,38 @@ public class Foo {
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/22-hotspot%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84intrinsic/"><span>22 HotSpot虚拟机的intrinsic</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/22-hotspot%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84intrinsic/"><span>22 HotSpot虚拟机的intrinsic</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/24-%E5%AD%97%E6%AE%B5%E8%AE%BF%E9%97%AE%E7%9B%B8%E5%85%B3%E4%BC%98%E5%8C%96/"><span>24 字段访问相关优化</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/24-%E5%AD%97%E6%AE%B5%E8%AE%BF%E9%97%AE%E7%9B%B8%E5%85%B3%E4%BC%98%E5%8C%96/"><span>24 字段访问相关优化</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

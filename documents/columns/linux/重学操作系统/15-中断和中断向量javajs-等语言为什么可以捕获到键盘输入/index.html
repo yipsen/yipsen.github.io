@@ -37,10 +37,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -49,7 +49,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -313,12 +313,10 @@
 </style><article class="post-block">
         <h1 class="post-title">15 中断和中断向量：Javajs 等语言为什么可以捕获到键盘输入？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:49:10</span>🏷️&nbsp;<a class="post-tag" href="/tags/linux/">linux</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">重学操作系统</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:49:10</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>你好，发现求知的乐趣，我是林䭽。</p>
 <p><strong>本课时我们依然以一道面试题为引开启今天的学习。请你思考：Java/JS 等语言为什么可以捕获到键盘的输入</strong>？</p>
@@ -411,6 +409,11 @@
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/linux/">linux</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">重学操作系统</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -419,26 +422,38 @@
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/14-%E7%94%A8%E6%88%B7%E6%80%81%E5%92%8C%E5%86%85%E6%A0%B8%E6%80%81%E7%94%A8%E6%88%B7%E6%80%81%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%86%85%E6%A0%B8%E6%80%81%E7%BA%BF%E7%A8%8B%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/"><span>14 用户态和内核态：用户态线程和内核态线程有什么区别？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/14-%E7%94%A8%E6%88%B7%E6%80%81%E5%92%8C%E5%86%85%E6%A0%B8%E6%80%81%E7%94%A8%E6%88%B7%E6%80%81%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%86%85%E6%A0%B8%E6%80%81%E7%BA%BF%E7%A8%8B%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/"><span>14 用户态和内核态：用户态线程和内核态线程有什么区别？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/16-1%E5%8A%A0%E9%A4%90-%E7%BB%83%E4%B9%A0%E9%A2%98%E8%AF%A6%E8%A7%A3%E4%B8%89/"><span>16 (1)加餐 练习题详解（三）</span></a>
+        <a href="http://yipsen.github.io/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/16-1%E5%8A%A0%E9%A4%90-%E7%BB%83%E4%B9%A0%E9%A2%98%E8%AF%A6%E8%A7%A3%E4%B8%89/"><span>16 (1)加餐 练习题详解（三）</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

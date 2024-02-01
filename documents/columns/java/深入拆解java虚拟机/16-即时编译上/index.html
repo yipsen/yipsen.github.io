@@ -26,10 +26,10 @@ Java 7 引入了分层编译（对应参数 -XX:&#43;TieredCompilation）的概�
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -38,7 +38,7 @@ Java 7 引入了分层编译（对应参数 -XX:&#43;TieredCompilation）的概�
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -258,12 +258,10 @@ Java 7 引入了分层编译（对应参数 -XX:&#43;TieredCompilation）的概�
 </style><article class="post-block">
         <h1 class="post-title">16 即时编译（上）</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2022-01-09 11:11:05</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入拆解Java虚拟机</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2022-01-09 11:11:05</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>在专栏的第一篇中，我曾经简单地介绍过即时编译。这是一项用来提升应用程序运行效率的技术。通常而言，代码会先被 Java 虚拟机解释执行，之后反复执行的热点代码则会被即时编译成为机器码，直接运行在底层硬件之上。</p>
 <p>今天我们便来详细剖析一下 Java 虚拟机中的即时编译。</p>
@@ -378,6 +376,11 @@ i &gt; TierXInvocationThreshold * s || (i &gt; TierXMinInvocationThreshold * s  
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入拆解Java虚拟机</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -386,26 +389,38 @@ i &gt; TierXInvocationThreshold * s || (i &gt; TierXMinInvocationThreshold * s  
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/15-java%E8%AF%AD%E6%B3%95%E7%B3%96%E4%B8%8Ejava%E7%BC%96%E8%AF%91%E5%99%A8/"><span>15 Java语法糖与Java编译器</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/15-java%E8%AF%AD%E6%B3%95%E7%B3%96%E4%B8%8Ejava%E7%BC%96%E8%AF%91%E5%99%A8/"><span>15 Java语法糖与Java编译器</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/17-%E5%8D%B3%E6%97%B6%E7%BC%96%E8%AF%91%E4%B8%8B/"><span>17 即时编译（下）</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%8B%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/17-%E5%8D%B3%E6%97%B6%E7%BC%96%E8%AF%91%E4%B8%8B/"><span>17 即时编译（下）</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

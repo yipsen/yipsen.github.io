@@ -22,10 +22,10 @@ public interface DataChangedEventListener {//当数据变动时进行触发voi
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -34,7 +34,7 @@ public interface DataChangedEventListener {//当数据变动时进行触发voi
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -226,12 +226,10 @@ public interface DataChangedEventListener {//当数据变动时进行触发voi
 </style><article class="post-block">
         <h1 class="post-title">31 配置中心：如何基于配置中心实现配置信息的动态化管理？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:56:11</span>🏷️&nbsp;<a class="post-tag" href="/tags/sharding/">sharding</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/">ShardingSphere核心原理精讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:56:11</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>ShardingSphere 在编排治理方面包括配置动态化、注册中心、数据库熔断禁用、调用链路等治理能力。</p>
 <p>今天我们先来介绍最简单的配置中心，即如何基于配置中心从而实现配置信息的动态化管理。</p>
@@ -695,6 +693,11 @@ public void watch(final String key, final DataChangedEventListener dataChangedEv
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/sharding/">sharding</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/">ShardingSphere核心原理精讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -703,26 +706,38 @@ public void watch(final String key, final DataChangedEventListener dataChangedEv
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/30-%E6%95%B0%E6%8D%AE%E8%84%B1%E6%95%8F%E5%A6%82%E4%BD%95%E5%9F%BA%E4%BA%8E%E6%94%B9%E5%86%99%E5%BC%95%E6%93%8E%E5%AE%9E%E7%8E%B0%E4%BD%8E%E4%BE%B5%E5%85%A5%E6%80%A7%E6%95%B0%E6%8D%AE%E8%84%B1%E6%95%8F%E6%96%B9%E6%A1%88/"><span>30 数据脱敏：如何基于改写引擎实现低侵入性数据脱敏方案？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/30-%E6%95%B0%E6%8D%AE%E8%84%B1%E6%95%8F%E5%A6%82%E4%BD%95%E5%9F%BA%E4%BA%8E%E6%94%B9%E5%86%99%E5%BC%95%E6%93%8E%E5%AE%9E%E7%8E%B0%E4%BD%8E%E4%BE%B5%E5%85%A5%E6%80%A7%E6%95%B0%E6%8D%AE%E8%84%B1%E6%95%8F%E6%96%B9%E6%A1%88/"><span>30 数据脱敏：如何基于改写引擎实现低侵入性数据脱敏方案？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/32-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%A6%82%E4%BD%95%E5%9F%BA%E4%BA%8E%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BF%E9%97%AE%E7%86%94%E6%96%AD%E6%9C%BA%E5%88%B6/"><span>32 注册中心：如何基于注册中心实现数据库访问熔断机制？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/32-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%A6%82%E4%BD%95%E5%9F%BA%E4%BA%8E%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BF%E9%97%AE%E7%86%94%E6%96%AD%E6%9C%BA%E5%88%B6/"><span>32 注册中心：如何基于注册中心实现数据库访问熔断机制？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

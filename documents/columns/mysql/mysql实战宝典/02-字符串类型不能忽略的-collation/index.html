@@ -25,10 +25,10 @@ CHAR 和 VARCHAR 的定义 CHAR(N) 用来保存固定长度的字符，N 的范�
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -37,7 +37,7 @@ CHAR 和 VARCHAR 的定义 CHAR(N) 用来保存固定长度的字符，N 的范�
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -213,12 +213,10 @@ CHAR 和 VARCHAR 的定义 CHAR(N) 用来保存固定长度的字符，N 的范�
 </style><article class="post-block">
         <h1 class="post-title">02 字符串类型：不能忽略的 COLLATION</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:53:03</span>🏷️&nbsp;<a class="post-tag" href="/tags/mysql/">mysql</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/">MySQL实战宝典</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:53:03</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>今天我想和你聊一聊字符串类型的排序规则。</p>
 <p>上一讲我们了解了怎么在表结构设计中正确使用数字类型，除了数字类型，字符串类型在表结构设计时也比较常见，它通常用于描述具体的信息。</p>
@@ -549,6 +547,11 @@ password: $zpelf$v2$0x860E4E3B2AA4005D8EE9B7653409C4B133AF77AEF53B815D31426EC6EF
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/mysql/">mysql</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/">MySQL实战宝典</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -557,26 +560,38 @@ password: $zpelf$v2$0x860E4E3B2AA4005D8EE9B7653409C4B133AF77AEF53B815D31426EC6EF
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/01-%E6%95%B0%E5%AD%97%E7%B1%BB%E5%9E%8B%E9%81%BF%E5%85%8D%E8%87%AA%E5%A2%9E%E8%B8%A9%E5%9D%91/"><span>01 数字类型：避免自增踩坑</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/01-%E6%95%B0%E5%AD%97%E7%B1%BB%E5%9E%8B%E9%81%BF%E5%85%8D%E8%87%AA%E5%A2%9E%E8%B8%A9%E5%9D%91/"><span>01 数字类型：避免自增踩坑</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/03-%E6%97%A5%E6%9C%9F%E7%B1%BB%E5%9E%8Btimestamp-%E5%8F%AF%E8%83%BD%E6%98%AF%E5%B7%A8%E5%9D%91/"><span>03 日期类型：TIMESTAMP 可能是巨坑</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/03-%E6%97%A5%E6%9C%9F%E7%B1%BB%E5%9E%8Btimestamp-%E5%8F%AF%E8%83%BD%E6%98%AF%E5%B7%A8%E5%9D%91/"><span>03 日期类型：TIMESTAMP 可能是巨坑</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

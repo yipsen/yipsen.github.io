@@ -28,10 +28,10 @@ Plain Text -agentlib:&amp;lt;库名&amp;gt;[=&amp;lt;选项&amp;gt;] 加载本�
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -40,7 +40,7 @@ Plain Text -agentlib:&amp;lt;库名&amp;gt;[=&amp;lt;选项&amp;gt;] 加载本�
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -61,8 +61,10 @@ Plain Text -agentlib:&amp;lt;库名&amp;gt;[=&amp;lt;选项&amp;gt;] 加载本�
 <div class="container"><article class="post-block">
         <h1 class="post-title"></h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;0001-01-01 00:00:00</span></div></div>
+            <div class="post-date"> 
+                <span>0001-01-01 00:00:00</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>研发人员在遇到线上报警或需要优化系统性能时，常常需要分析程序运行行为和性能瓶颈。Profiling技术是一种在应用运行时收集程序相关信息的动态分析手段，常用的JVM Profiler可以从多个方面对程序进行动态分析，如CPU、Memory、Thread、Classes、GC等，其中CPU Profiling的应用最为广泛。CPU Profiling经常被用于分析代码的执行热点，如“哪个方法占用CPU的执行时间最长”、“每个方法占用CPU的比例是多少”等等，通过CPU Profiling得到上述相关信息后，研发人员就可以轻松针对热点瓶颈进行分析和性能优化，进而突破性能瓶颈，大幅提升系统的吞吐量。</p>
 <p>本文介绍了JVM平台上CPU Profiler的实现原理，希望能帮助读者在使用类似工具的同时也能清楚其内部的技术实现。</p>
@@ -522,6 +524,11 @@ static int read_response(int fd) {
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
+</div>
 
     </main>
     <footer>
@@ -530,26 +537,38 @@ static int read_response(int fd) {
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/articles/mysql-%E6%97%A5%E5%BF%97%E8%AF%A6%E8%A7%A3.md/"><span></span></a>
+        <a href="http://yipsen.github.io/documents/articles/mysql-%E6%97%A5%E5%BF%97%E8%AF%A6%E8%A7%A3.md/"><span></span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/articles/java%E4%B8%AD%E7%9A%84spi.md/"><span></span></a>
+        <a href="http://yipsen.github.io/documents/articles/java%E4%B8%AD%E7%9A%84spi.md/"><span></span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>27 消息队列终极解决方案——Stream（下） | Yipsen Ye</title>
+<meta name="description" content="在开始使用消息分组之前，我们必须手动创建分组才行，以下是几个和 Stream 分组有关的命令，我们先来学习一下它的使用。
+消息分组命令 创建消费者群组 127.0.0.1:6379&amp;gt; xgroup create mq group1 0-0 OK相关语法：
+xgroup create stream-key group-key ID其中：
+ mq 为 Stream 的 key； group1 为分组的名称； 0-0 表示从第一条消息开始读取。  如果要从当前最后一条消息向后读取，使用 $ 即可，命令如下：
+127.0.0.1:6379&amp;gt; xgroup create mq group2 $OK读取消息 127.0.0.1:6379&amp;gt; xreadgroup group group1 c1 count 1 streams mq &amp;gt;1) 1) &amp;quot;mq&amp;quot;2) 1) 1) &amp;quot;1580959593553-0&amp;quot;2) 1) &amp;quot;name&amp;quot;2) &amp;quot;redis&amp;quot;3) &amp;quot;age&amp;quot;4) &amp;quot;10&amp;quot;相关语法：
+xreadgroup group group-key consumer-key streams stream-key其中：">
+<meta name="author" content="">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><aside>
+    <div>
+        
+        
+            
+            
+            <div class="post-category-icon"></div>
+            <a href="/categories/redis%20%e6%a0%b8%e5%bf%83%e5%8e%9f%e7%90%86%e4%b8%8e%e5%ae%9e%e6%88%98/">Redis 核心原理与实战</a>
+            <ul>
+                
+            </ul>
+        
+    </div>
+</aside>
+
+<style>
+    aside {
+        position: fixed;
+        left: 20px;
+        background: #ffdee3;
+        border-radius: 6px;
+        padding: 20px;
+        padding-top: 60px;
+        box-shadow: 5px 10px #888;
+        list-style-type: none;
+        display: none;
+    }
+
+    .post-category-icon {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        left: 50%;
+        margin-left: -40px;
+        text-align: center;
+        font-size: 36px;
+        content: 'J';
+        background: #ffdee3;
+        border-radius: 100%;
+        border: 10px solid #fff;
+        box-shadow: 5px 10px #888;
+    }
+</style><article class="post-block">
+        <h1 class="post-title">27 消息队列终极解决方案——Stream（下）</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-09-28 19:38:20</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <p>在开始使用消息分组之前，我们必须手动创建分组才行，以下是几个和 Stream 分组有关的命令，我们先来学习一下它的使用。</p>
+<h3 id="消息分组命令">消息分组命令</h3>
+<h4 id="创建消费者群组"><strong>创建消费者群组</strong></h4>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; xgroup create mq group1 0-0 
+OK
+
+</code></pre><p>相关语法：</p>
+<pre tabindex="0"><code>xgroup create stream-key group-key ID
+
+</code></pre><p>其中：</p>
+<ul>
+<li>mq 为 Stream 的 key；</li>
+<li>group1 为分组的名称；</li>
+<li>0-0 表示从第一条消息开始读取。</li>
+</ul>
+<p>如果要从当前最后一条消息向后读取，使用 <code>$</code> 即可，命令如下：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; xgroup create mq group2 $
+OK
+
+</code></pre><h4 id="读取消息"><strong>读取消息</strong></h4>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; xreadgroup group group1 c1 count 1 streams mq &gt;
+1) 1) &quot;mq&quot;
+   2) 1) 1) &quot;1580959593553-0&quot;
+         2) 1) &quot;name&quot;
+            2) &quot;redis&quot;
+            3) &quot;age&quot;
+            4) &quot;10&quot;
+
+</code></pre><p>相关语法：</p>
+<pre tabindex="0"><code>xreadgroup group group-key consumer-key streams stream-key
+
+</code></pre><p>其中：</p>
+<ul>
+<li><code>&gt;</code> 表示读取下一条消息；</li>
+<li>group1 表示分组名称；</li>
+<li>c1 表示 consumer（消费者）名称。</li>
+</ul>
+<p>xreadgroup 命令和 xread 使用类似，也可以设置阻塞读取，命令如下：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; xreadgroup group group1 c2 streams mq &gt;
+1) 1) &quot;mq&quot;
+   2) 1) 1) &quot;1580959606181-0&quot;
+         2) 1) &quot;name&quot;
+            2) &quot;java&quot;
+            3) &quot;age&quot;
+            4) &quot;20&quot;
+127.0.0.1:6379&gt; xreadgroup group group1 c2 streams mq &gt;
+(nil) #队列中的消息已经被读取完
+127.0.0.1:6379&gt; xreadgroup group group1 c1 count 1 block 0 streams mq &gt; #阻塞读取
+
+</code></pre><p>此时打开另一个命令行创建使用 xadd 添加一条消息，阻塞命令执行结果如下：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; xreadgroup group group1 c1 count 1 block 0 streams mq &gt;
+1) 1) &quot;mq&quot;
+   2) 1) 1) &quot;1580961475368-0&quot;
+         2) 1) &quot;name&quot;
+            2) &quot;sql&quot;
+            3) &quot;age&quot;
+            4) &quot;20&quot;
+(86.14s)
+
+</code></pre><h4 id="消息消费确认"><strong>消息消费确认</strong></h4>
+<p>接收到消息之后，我们要手动确认一下（ack），命令如下：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; xack mq group1 1580959593553-0
+(integer) 1
+
+</code></pre><p>相关语法：</p>
+<pre tabindex="0"><code>xack key group-key ID [ID ...]
+
+</code></pre><p>消费确认增加了消息的可靠性，一般在业务处理完成之后，需要执行 ack 确认消息已经被消费完成，整个流程的执行如下图所示：</p>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Redis%20%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/assets/a5dfbd80-6f72-11ea-833b-93fabc8068c9" alt="image.png"></p>
+<h4 id="查询未确认的消费队列"><strong>查询未确认的消费队列</strong></h4>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; xpending mq group1
+1) (integer) 1 #未确认（ack）的消息数量为 1 条
+2) &quot;1580994063971-0&quot;
+3) &quot;1580994063971-0&quot;
+4) 1) 1) &quot;c1&quot;
+      2) &quot;1&quot;
+127.0.0.1:6379&gt; xack  mq group1 1580994063971-0 #消费确认
+(integer) 1
+127.0.0.1:6379&gt; xpending mq group1
+1) (integer) 0 #没有未确认的消息
+2) (nil)
+3) (nil)
+4) (nil)
+
+</code></pre><h4 id="xinfo-查询相关命令"><strong>xinfo 查询相关命令</strong></h4>
+<p><strong>1. 查询流信息</strong></p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; xinfo stream mq
+ 1) &quot;length&quot;
+ 2) (integer) 2 #队列中有两个消息
+ 3) &quot;radix-tree-keys&quot;
+ 4) (integer) 1
+ 5) &quot;radix-tree-nodes&quot;
+ 6) (integer) 2
+ 7) &quot;groups&quot;
+ 8) (integer) 1 #一个消费分组
+ 9) &quot;last-generated-id&quot;
+10) &quot;1580959606181-0&quot;
+11) &quot;first-entry&quot;
+12) 1) &quot;1580959593553-0&quot;
+    2) 1) &quot;name&quot;
+       2) &quot;redis&quot;
+       3) &quot;age&quot;
+       4) &quot;10&quot;
+13) &quot;last-entry&quot;
+14) 1) &quot;1580959606181-0&quot;
+    2) 1) &quot;name&quot;
+       2) &quot;java&quot;
+       3) &quot;age&quot;
+       4) &quot;20&quot;
+
+</code></pre><p>相关语法：</p>
+<pre tabindex="0"><code>xinfo stream stream-key
+
+</code></pre><p><strong>2. 查询消费组消息</strong></p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; xinfo groups mq
+1) 1) &quot;name&quot;
+   2) &quot;group1&quot; #消息分组名称
+   3) &quot;consumers&quot;
+   4) (integer) 1 #一个消费者客户端
+   5) &quot;pending&quot;
+   6) (integer) 1 #一个未确认消息
+   7) &quot;last-delivered-id&quot;
+   8) &quot;1580959593553-0&quot; #读取的最后一条消息 ID
+
+</code></pre><p>相关语法：</p>
+<pre tabindex="0"><code>xinfo groups stream-key
+
+</code></pre><p><strong>3. 查看消费者组成员信息</strong></p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; xinfo consumers mq group1
+1) 1) &quot;name&quot;
+   2) &quot;c1&quot; #消费者名称
+   3) &quot;pending&quot;
+   4) (integer) 0 #未确认消息
+   5) &quot;idle&quot;
+   6) (integer) 481855
+
+</code></pre><p>相关语法：</p>
+<pre tabindex="0"><code>xinfo consumers stream group-key
+
+</code></pre><h4 id="删除消费者"><strong>删除消费者</strong></h4>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; xgroup delconsumer mq group1 c1
+(integer) 1
+
+</code></pre><p>相关语法：</p>
+<pre tabindex="0"><code>xgroup delconsumer stream-key group-key consumer-key
+
+</code></pre><h4 id="删除消费组"><strong>删除消费组</strong></h4>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; xgroup destroy mq group1
+(integer) 1
+
+</code></pre><p>相关语法：</p>
+<pre tabindex="0"><code>xgroup destroy stream-key group-key
+
+</code></pre><h3 id="代码实战">代码实战</h3>
+<p>接下来我们使用 Jedis 来实现 Stream 分组消息队列，代码如下：</p>
+<pre tabindex="0"><code>import com.google.gson.Gson;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.StreamEntry;
+import redis.clients.jedis.StreamEntryID;
+import utils.JedisUtils;
+
+import java.util.AbstractMap;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class StreamGroupExample {
+    private static final String _STREAM_KEY = &quot;mq&quot;; // 流 key
+    private static final String _GROUP_NAME = &quot;g1&quot;; // 分组名称
+    private static final String _CONSUMER_NAME = &quot;c1&quot;; // 消费者 1 的名称
+    private static final String _CONSUMER2_NAME = &quot;c2&quot;; // 消费者 2 的名称
+    public static void main(String[] args) {
+        // 生产者
+        producer();
+        // 创建消费组
+        createGroup(_STREAM_KEY, _GROUP_NAME);
+        // 消费者 1
+        new Thread(() -&gt; consumer()).start();
+        // 消费者 2
+        new Thread(() -&gt; consumer2()).start();
+    }
+    /**
+     * 创建消费分组
+     * @param stream    流 key
+     * @param groupName 分组名称
+     */
+    public static void createGroup(String stream, String groupName) {
+        Jedis jedis = JedisUtils.getJedis();
+        jedis.xgroupCreate(stream, groupName, new StreamEntryID(), true);
+    }
+    /**
+     * 生产者
+     */
+    public static void producer() {
+        Jedis jedis = JedisUtils.getJedis();
+        // 添加消息 1
+        Map&lt;String, String&gt; map = new HashMap&lt;&gt;();
+        map.put(&quot;data&quot;, &quot;redis&quot;);
+        StreamEntryID id = jedis.xadd(_STREAM_KEY, null, map);
+        System.out.println(&quot;消息添加成功 ID：&quot; + id);
+        // 添加消息 2
+        Map&lt;String, String&gt; map2 = new HashMap&lt;&gt;();
+        map2.put(&quot;data&quot;, &quot;java&quot;);
+        StreamEntryID id2 = jedis.xadd(_STREAM_KEY, null, map2);
+        System.out.println(&quot;消息添加成功 ID：&quot; + id2);
+    }
+    /**
+     * 消费者 1
+     */
+    public static void consumer() {
+        Jedis jedis = JedisUtils.getJedis();
+        // 消费消息
+        while (true) {
+            // 读取消息
+            Map.Entry&lt;String, StreamEntryID&gt; entry = new AbstractMap.SimpleImmutableEntry&lt;&gt;(_STREAM_KEY,
+                    new StreamEntryID().UNRECEIVED_ENTRY);
+            // 阻塞读取一条消息（最大阻塞时间120s）
+            List&lt;Map.Entry&lt;String, List&lt;StreamEntry&gt;&gt;&gt; list = jedis.xreadGroup(_GROUP_NAME, _CONSUMER_NAME, 1,
+                    120 * 1000, true, entry);
+            if (list != null &amp;&amp; list.size() == 1) {
+                // 读取到消息
+                Map&lt;String, String&gt; content = list.get(0).getValue().get(0).getFields(); // 消息内容
+                System.out.println(&quot;Consumer 1 读取到消息 ID：&quot; + list.get(0).getValue().get(0).getID() +
+                        &quot; 内容：&quot; + new Gson().toJson(content));
+            }
+        }
+    }
+    /**
+     * 消费者 2
+     */
+    public static void consumer2() {
+        Jedis jedis = JedisUtils.getJedis();
+        // 消费消息
+        while (true) {
+            // 读取消息
+            Map.Entry&lt;String, StreamEntryID&gt; entry = new AbstractMap.SimpleImmutableEntry&lt;&gt;(_STREAM_KEY,
+                    new StreamEntryID().UNRECEIVED_ENTRY);
+            // 阻塞读取一条消息（最大阻塞时间120s）
+            List&lt;Map.Entry&lt;String, List&lt;StreamEntry&gt;&gt;&gt; list = jedis.xreadGroup(_GROUP_NAME, _CONSUMER2_NAME, 1,
+                    120 * 1000, true, entry);
+            if (list != null &amp;&amp; list.size() == 1) {
+                // 读取到消息
+                Map&lt;String, String&gt; content = list.get(0).getValue().get(0).getFields(); // 消息内容
+                System.out.println(&quot;Consumer 2 读取到消息 ID：&quot; + list.get(0).getValue().get(0).getID() +
+                        &quot; 内容：&quot; + new Gson().toJson(content));
+            }
+        }
+    }
+}
+
+</code></pre><p>以上代码运行结果如下：</p>
+<pre tabindex="0"><code>消息添加成功 ID：1580971482344-0
+消息添加成功 ID：1580971482415-0
+Consumer 1 读取到消息 ID：1580971482344-0 内容：{&quot;data&quot;:&quot;redis&quot;}
+Consumer 2 读取到消息 ID：1580971482415-0 内容：{&quot;data&quot;:&quot;java&quot;}
+
+</code></pre><p>其中，jedis.xreadGroup() 方法的第五个参数 noAck 表示是否自动确认消息，如果设置 true 收到消息会自动确认（ack）消息，否则则需要手动确认。</p>
+<blockquote>
+<p>注意：Jedis 框架要使用最新版，低版本 block 设置大于 0 时，会有 bug 抛连接超时异常。</p>
+</blockquote>
+<p>可以看出，同一个分组内的多个 consumer 会读取到不同消息，不同的 consumer 不会读取到分组内的同一条消息。</p>
+<h3 id="小结">小结</h3>
+<p>本文我们介绍了 Stream 分组的相关知识，使用 Jedis 的 xreadGroup() 方法实现了消息的阻塞读取，并且使用此方法自带 noAck 参数，实现了消息的自动确认，通过本文我们也知道了，一个分组内的多个 consumer 会轮询收到消息队列的消息，并且不会出现一个消息被多个 consumer 读取的情况。</p>
+<p>如果你看了本文的知识还是觉得没看懂，那是因为你没有结合实践去理解，所以如果对本文还有疑问，跟着本文一步一步实践起来吧。</p>
+
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/redis/">redis</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/">Redis 核心原理与实战</a>&nbsp; </div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/26-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E7%BB%88%E6%9E%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88stream%E4%B8%8A/"><span>26 消息队列终极解决方案——Stream（上）</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/28-%E5%AE%9E%E6%88%98%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E8%AF%A6%E8%A7%A3%E4%B8%8E%E4%BB%A3%E7%A0%81/"><span>28 实战：分布式锁详解与代码</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

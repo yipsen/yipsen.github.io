@@ -35,10 +35,10 @@ InnoDB 实现了两种类型的锁机制：共享锁（S）和排他锁（X）�
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -47,7 +47,7 @@ InnoDB 实现了两种类型的锁机制：共享锁（S）和排他锁（X）�
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -303,12 +303,10 @@ InnoDB 实现了两种类型的锁机制：共享锁（S）和排他锁（X）�
 </style><article class="post-block">
         <h1 class="post-title">33 MySQL调优之事务：高并发场景下的数据库事务调优</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:44:37</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/">Java并发编程实战</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:44:37</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>你好，我是刘超。</p>
 <p>数据库事务是数据库系统执行过程中的一个逻辑处理单元，保证一个数据库操作要么成功，要么失败。谈到他，就不得不提 ACID 属性了。数据库事务具有以下四个基本属性：原子性（Atomicity）、一致性（Consistent）、隔离性（Isolation）以及持久性（Durable）。正是这些特性，才保证了数据库事务的安全性。而在 MySQL 中，鉴于 MyISAM 存储引擎不支持事务，所以接下来的内容都是在 InnoDB 存储引擎的基础上进行讲解的。</p>
@@ -370,6 +368,11 @@ InnoDB 实现了两种类型的锁机制：共享锁（S）和排他锁（X）�
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/">Java并发编程实战</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -378,26 +381,38 @@ InnoDB 实现了两种类型的锁机制：共享锁（S）和排他锁（X）�
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/32-mysql%E8%B0%83%E4%BC%98%E4%B9%8Bsql%E8%AF%AD%E5%8F%A5%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E6%80%A7%E8%83%BDsql%E8%AF%AD%E5%8F%A5/"><span>32 MySQL调优之SQL语句：如何写出高性能SQL语句？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/32-mysql%E8%B0%83%E4%BC%98%E4%B9%8Bsql%E8%AF%AD%E5%8F%A5%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E6%80%A7%E8%83%BDsql%E8%AF%AD%E5%8F%A5/"><span>32 MySQL调优之SQL语句：如何写出高性能SQL语句？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/34-mysql%E8%B0%83%E4%BC%98%E4%B9%8B%E7%B4%A2%E5%BC%95%E7%B4%A2%E5%BC%95%E7%9A%84%E5%A4%B1%E6%95%88%E4%B8%8E%E4%BC%98%E5%8C%96/"><span>34 MySQL调优之索引：索引的失效与优化</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/34-mysql%E8%B0%83%E4%BC%98%E4%B9%8B%E7%B4%A2%E5%BC%95%E7%B4%A2%E5%BC%95%E7%9A%84%E5%A4%B1%E6%95%88%E4%B8%8E%E4%BC%98%E5%8C%96/"><span>34 MySQL调优之索引：索引的失效与优化</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

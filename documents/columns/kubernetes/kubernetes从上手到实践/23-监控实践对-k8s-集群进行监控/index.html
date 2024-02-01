@@ -29,10 +29,10 @@ apiVersion: v1kind: Namespacemetadata:name: monitoring# 将文件保存为 n
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -41,7 +41,7 @@ apiVersion: v1kind: Namespacemetadata:name: monitoring# 将文件保存为 n
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -201,12 +201,10 @@ apiVersion: v1kind: Namespacemetadata:name: monitoring# 将文件保存为 n
 </style><article class="post-block">
         <h1 class="post-title">23 监控实践：对 K8S 集群进行监控</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:47:50</span>🏷️&nbsp;<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/">Kubernetes从上手到实践</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:47:50</span>
+            </div>
+        </div>
         <div class="post-content">
             <h2 id="整体概览">整体概览</h2>
 <p>通过前面的学习，我们对 K8S 有了一定的了解，也具备了一定的集群管理和排错能力。但如果要应用于生产环境中，不可能随时随地的都盯着集群，我们需要扩展我们对集群的感知能力。</p>
@@ -607,6 +605,11 @@ spec:
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/kubernetes/">kubernetes</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/">Kubernetes从上手到实践</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -615,26 +618,38 @@ spec:
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/22-%E6%9C%8D%E5%8A%A1%E5%A2%9E%E5%BC%BAingress/"><span>22 服务增强：Ingress</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/22-%E6%9C%8D%E5%8A%A1%E5%A2%9E%E5%BC%BAingress/"><span>22 服务增强：Ingress</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/24-%E6%80%BB%E7%BB%93/"><span>24 总结</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/24-%E6%80%BB%E7%BB%93/"><span>24 总结</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

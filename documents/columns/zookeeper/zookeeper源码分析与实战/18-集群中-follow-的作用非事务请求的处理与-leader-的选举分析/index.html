@@ -23,10 +23,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -35,7 +35,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -235,12 +235,10 @@
 </style><article class="post-block">
         <h1 class="post-title">18 集群中 Follow 的作用：非事务请求的处理与 Leader 的选举分析</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:57:03</span>🏷️&nbsp;<a class="post-tag" href="/tags/zookeeper/">zookeeper</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/">ZooKeeper源码分析与实战</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:57:03</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>在上节课中，我们学习了 ZooKeeper 集群中 Leader 角色服务器的作用。在 ZooKeeper 集群中，Leader 服务器主要负责处理来自客户端的事务性会话请求，并在处理完事务性会话请求后，管理和协调 ZooKeeper 集群中 Follow 和 Observer 等角色服务器的数据同步。因此，在 ZooKeeper 集群中，Leader 服务器是最为核心的服务器，一个 ZooKeeper 服务在集群模式下运行，必须存在一个 Leader 服务器。而在 ZooKeeper 集群中，是通过崩溃选举的方式来保证 ZooKeeper 集群能够一直存在一个 Leader 服务器对外提供服务的。那么在 ZooKeeper 集群选举出 Leader 的过程中，Follow 服务器又做了哪些工作？</p>
 <p>对这些问题的研究，有助于我们掌握整个 ZooKeeper 集群服务的运行过程，清楚不同状态下服务器的处理逻辑和相关操作。使我们在日常工作中，更好地开发 ZooKeeper 相关服务，并在运维过程中快速定位问题，搭建更加高效稳定的 ZooKeeper 服务器。</p>
@@ -366,6 +364,11 @@ default:
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/zookeeper/">zookeeper</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/">ZooKeeper源码分析与实战</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -374,26 +377,38 @@ default:
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/17-%E9%9B%86%E7%BE%A4%E4%B8%AD-leader-%E7%9A%84%E4%BD%9C%E7%94%A8%E4%BA%8B%E5%8A%A1%E7%9A%84%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86%E4%B8%8E%E8%B0%83%E5%BA%A6%E5%88%86%E6%9E%90/"><span>17 集群中 Leader 的作用：事务的请求处理与调度分析</span></a>
+        <a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/17-%E9%9B%86%E7%BE%A4%E4%B8%AD-leader-%E7%9A%84%E4%BD%9C%E7%94%A8%E4%BA%8B%E5%8A%A1%E7%9A%84%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86%E4%B8%8E%E8%B0%83%E5%BA%A6%E5%88%86%E6%9E%90/"><span>17 集群中 Leader 的作用：事务的请求处理与调度分析</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/19-observer-%E7%9A%84%E4%BD%9C%E7%94%A8%E4%B8%8E-follow-%E6%9C%89%E5%93%AA%E4%BA%9B%E4%B8%8D%E5%90%8C/"><span>19 Observer 的作用与 Follow 有哪些不同？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/zookeeper/zookeeper%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/19-observer-%E7%9A%84%E4%BD%9C%E7%94%A8%E4%B8%8E-follow-%E6%9C%89%E5%93%AA%E4%BA%9B%E4%B8%8D%E5%90%8C/"><span>19 Observer 的作用与 Follow 有哪些不同？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

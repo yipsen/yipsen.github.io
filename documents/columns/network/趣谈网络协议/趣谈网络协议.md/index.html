@@ -59,10 +59,10 @@ public class HelloWorld { public static void main(String[] args){ System.out.pri
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -71,7 +71,7 @@ public class HelloWorld { public static void main(String[] args){ System.out.pri
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -92,8 +92,10 @@ public class HelloWorld { public static void main(String[] args){ System.out.pri
 <div class="container"><article class="post-block">
         <h1 class="post-title"></h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;0001-01-01 00:00:00</span></div></div>
+            <div class="post-date"> 
+                <span>0001-01-01 00:00:00</span>
+            </div>
+        </div>
         <div class="post-content">
             <h2 id="趣谈网络协议">趣谈网络协议</h2>
 <h2 id="00-我是如何创作趣谈网络协议专栏的">00 我是如何创作“趣谈网络协议”专栏的</h2>
@@ -3770,6 +3772,11 @@ Content-Length: nnn
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
+</div>
 
     </main>
     <footer>
@@ -3778,26 +3785,37 @@ Content-Length: nnn
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/01-redis-%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84.md/"><span></span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/network/%E5%85%A8%E8%A7%A3%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/33-%E7%BB%93%E8%AF%AD.md/"><span></span></a>
+        <a href="http://yipsen.github.io/documents/columns/linux/linux-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/linux%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.md/"><span></span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

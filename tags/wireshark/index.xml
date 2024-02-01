@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Wireshark on Yipsen Ye</title>
+    <link>http://yipsen.github.io/tags/wireshark/</link>
+    <description>Recent content in Wireshark on Yipsen Ye</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 05 Mar 2022 08:34:41 +0800</lastBuildDate><atom:link href="http://yipsen.github.io/tags/wireshark/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Wireshark 备忘录</title>
+      <link>http://yipsen.github.io/posts/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/wireshark-%E5%A4%87%E5%BF%98%E5%BD%95/</link>
+      <pubDate>Sat, 05 Mar 2022 08:34:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/wireshark-%E5%A4%87%E5%BF%98%E5%BD%95/</guid>
+      <description>过滤操作 IP过滤 ip.addr == x.x.x.x ip.src == x.x.x.x ip.dst == x.x.x.x
+端口过滤 tcp.port == 21 udp.port == 53
+协议过滤 http arp udp tcp icmp &amp;hellip;
+组合过滤 ip.addr == x.x.x.x &amp;amp;&amp;amp; udp.port == 53
+选择过滤条件  选择数据包 右键弹出菜单并选择对话过滤器 选择对应协议，比如UDP 此时过滤窗口自动追加过滤条件如：(ip.addr eq 10.96.10.237 and ip.addr eq 7.213.37.49) and (udp.port eq 10004 and udp.port eq 8011)  追踪流  选择数据包 右键弹出菜单并选择追踪流  统计 </description>
+    </item>
+    
+  </channel>
+</rss>

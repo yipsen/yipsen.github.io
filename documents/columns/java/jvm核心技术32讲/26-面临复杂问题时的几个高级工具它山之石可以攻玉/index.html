@@ -25,10 +25,10 @@ $ cat /proc/12884/oom_adj0# 查看最终得分$ cat /proc/12884/oom_score161
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -37,7 +37,7 @@ $ cat /proc/12884/oom_adj0# 查看最终得分$ cat /proc/12884/oom_score161
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -229,12 +229,10 @@ $ cat /proc/12884/oom_adj0# 查看最终得分$ cat /proc/12884/oom_score161
 </style><article class="post-block">
         <h1 class="post-title">26 面临复杂问题时的几个高级工具：它山之石，可以攻玉</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:45:27</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/">JVM核心技术32讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:45:27</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>前面提到了很多 JVM 的分析工具，本节里我们会再介绍几种有用的工具，大家可以在需要的时候按需使用。</p>
 <h3 id="oom-killer">OOM Killer</h3>
@@ -684,6 +682,11 @@ java -jar arthas-boot.jar
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/">JVM核心技术32讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -692,26 +695,38 @@ java -jar arthas-boot.jar
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/25-fastthread-%E7%9B%B8%E5%85%B3%E7%9A%84%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D%E6%AC%B2%E7%A9%B7%E5%8D%83%E9%87%8C%E7%9B%AE%E6%9B%B4%E4%B8%8A%E4%B8%80%E5%B1%82%E6%A5%BC/"><span>25 FastThread 相关的工具介绍：欲穷千里目，更上一层楼</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/25-fastthread-%E7%9B%B8%E5%85%B3%E7%9A%84%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D%E6%AC%B2%E7%A9%B7%E5%8D%83%E9%87%8C%E7%9B%AE%E6%9B%B4%E4%B8%8A%E4%B8%80%E5%B1%82%E6%A5%BC/"><span>25 FastThread 相关的工具介绍：欲穷千里目，更上一层楼</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/27-jvm-%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E5%88%86%E6%9E%90%E4%B8%8A%E7%AF%87%E8%B0%83%E4%BC%98%E7%BB%8F%E9%AA%8C/"><span>27 JVM 问题排查分析上篇（调优经验）</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/27-jvm-%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E5%88%86%E6%9E%90%E4%B8%8A%E7%AF%87%E8%B0%83%E4%BC%98%E7%BB%8F%E9%AA%8C/"><span>27 JVM 问题排查分析上篇（调优经验）</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

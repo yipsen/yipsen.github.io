@@ -36,10 +36,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -48,7 +48,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -292,12 +292,10 @@
 </style><article class="post-block">
         <h1 class="post-title">07 池化技术：如何减少频繁创建数据库连接的性能损耗？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:38:12</span>🏷️&nbsp;<a class="post-tag" href="/tags/design/">design</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/">高并发系统设计40问</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:38:12</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>在前面几节课程中，我从宏观的角度带你了解了高并发系统设计的基础知识，你已经知晓了，我们系统设计的目的是为了获得更好的性能、更高的可用性，以及更强的系统扩展能力。</p>
 <p>那么从这一讲开始，我们正式进入演进篇，我会再从局部出发，带你逐一了解完成这些目标会使用到的一些方法，这些方法会针对性地解决高并发系统设计中出现的问题。比如，在 15 讲中我会提及布隆过滤器，这个组件就是为了解决存在大量缓存穿透的情况下，如何尽量提升缓存命中率的问题。</p>
@@ -375,6 +373,11 @@
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/design/">design</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/">高并发系统设计40问</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -383,26 +386,38 @@
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/06-%E9%9D%A2%E8%AF%95%E7%8E%B0%E5%9C%BA%E7%AC%AC%E4%B8%80%E6%9C%9F%E5%BD%93%E9%97%AE%E5%88%B0%E7%BB%84%E4%BB%B6%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E6%97%B6%E9%9D%A2%E8%AF%95%E5%AE%98%E6%98%AF%E5%9C%A8%E5%88%81%E9%9A%BE%E4%BD%A0%E5%90%97/"><span>06 面试现场第一期：当问到组件实现原理时，面试官是在刁难你吗？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/06-%E9%9D%A2%E8%AF%95%E7%8E%B0%E5%9C%BA%E7%AC%AC%E4%B8%80%E6%9C%9F%E5%BD%93%E9%97%AE%E5%88%B0%E7%BB%84%E4%BB%B6%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E6%97%B6%E9%9D%A2%E8%AF%95%E5%AE%98%E6%98%AF%E5%9C%A8%E5%88%81%E9%9A%BE%E4%BD%A0%E5%90%97/"><span>06 面试现场第一期：当问到组件实现原理时，面试官是在刁难你吗？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/08-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88%E4%B8%80%E6%9F%A5%E8%AF%A2%E8%AF%B7%E6%B1%82%E5%A2%9E%E5%8A%A0%E6%97%B6%E5%A6%82%E4%BD%95%E5%81%9A%E4%B8%BB%E4%BB%8E%E5%88%86%E7%A6%BB/"><span>08 数据库优化方案（一）：查询请求增加时，如何做主从分离？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/08-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88%E4%B8%80%E6%9F%A5%E8%AF%A2%E8%AF%B7%E6%B1%82%E5%A2%9E%E5%8A%A0%E6%97%B6%E5%A6%82%E4%BD%95%E5%81%9A%E4%B8%BB%E4%BB%8E%E5%88%86%E7%A6%BB/"><span>08 数据库优化方案（一）：查询请求增加时，如何做主从分离？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

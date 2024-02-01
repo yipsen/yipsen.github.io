@@ -29,10 +29,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -41,7 +41,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -233,12 +233,10 @@
 </style><article class="post-block">
         <h1 class="post-title">14 常见的 GC 算法（ParallelCMSG1）</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:45:14</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/">JVM核心技术32讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:45:14</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>学习了 GC 算法的相关概念之后，我们将介绍在 JVM 中这些算法的具体实现。首先要记住的是，大多数 JVM 都需要使用两种不同的 GC 算法——一种用来清理年轻代，另一种用来清理老年代。</p>
 <p>我们可以选择 JVM 内置的各种算法。如果不通过参数明确指定垃圾收集算法，则会使用相应 JDK 版本的默认实现。本章会详细介绍各种算法的实现原理。</p>
@@ -423,6 +421,11 @@
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/">JVM核心技术32讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -431,26 +434,38 @@
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/13-%E5%B8%B8%E8%A7%81%E7%9A%84-gc-%E7%AE%97%E6%B3%95gc-%E7%9A%84%E8%83%8C%E6%99%AF%E4%B8%8E%E5%8E%9F%E7%90%86/"><span>13 常见的 GC 算法（GC 的背景与原理）</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/13-%E5%B8%B8%E8%A7%81%E7%9A%84-gc-%E7%AE%97%E6%B3%95gc-%E7%9A%84%E8%83%8C%E6%99%AF%E4%B8%8E%E5%8E%9F%E7%90%86/"><span>13 常见的 GC 算法（GC 的背景与原理）</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/15-java11-zgc-%E5%92%8C-java12-shenandoah-%E4%BB%8B%E7%BB%8D%E8%8B%9F%E6%97%A5%E6%96%B0%E6%97%A5%E6%97%A5%E6%96%B0%E5%8F%88%E6%97%A5%E6%96%B0/"><span>15 Java11 ZGC 和 Java12 Shenandoah 介绍：苟日新、日日新、又日新</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/15-java11-zgc-%E5%92%8C-java12-shenandoah-%E4%BB%8B%E7%BB%8D%E8%8B%9F%E6%97%A5%E6%96%B0%E6%97%A5%E6%97%A5%E6%96%B0%E5%8F%88%E6%97%A5%E6%96%B0/"><span>15 Java11 ZGC 和 Java12 Shenandoah 介绍：苟日新、日日新、又日新</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

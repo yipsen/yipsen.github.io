@@ -17,10 +17,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -29,7 +29,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -49,7 +49,40 @@
         
 <div class="post-list">
     
+    <h2 class="archive-year">2023</h2>
+    
+    <div class="post-item">
+        <span class="post-date">2023-03-05</span>
+        <a class="post-link" href="http://yipsen.github.io/tags/redis/">redis</a>
+    </div>
+    
+    
     <h2 class="archive-year">2022</h2>
+    
+    <div class="post-item">
+        <span class="post-date">2022-11-15</span>
+        <a class="post-link" href="http://yipsen.github.io/tags/trouble-shooting/">Trouble Shooting</a>
+    </div>
+    
+    <div class="post-item">
+        <span class="post-date">2022-09-28</span>
+        <a class="post-link" href="http://yipsen.github.io/tags/database/">database</a>
+    </div>
+    
+    <div class="post-item">
+        <span class="post-date">2022-09-28</span>
+        <a class="post-link" href="http://yipsen.github.io/tags/network/">network</a>
+    </div>
+    
+    <div class="post-item">
+        <span class="post-date">2022-03-05</span>
+        <a class="post-link" href="http://yipsen.github.io/tags/%E5%A4%87%E5%BF%98%E5%BD%95/">备忘录</a>
+    </div>
+    
+    <div class="post-item">
+        <span class="post-date">2022-03-05</span>
+        <a class="post-link" href="http://yipsen.github.io/tags/wireshark/">Wireshark</a>
+    </div>
     
     <div class="post-item">
         <span class="post-date">2022-02-06</span>
@@ -58,7 +91,12 @@
     
     <div class="post-item">
         <span class="post-date">2022-02-06</span>
-        <a class="post-link" href="http://yipsen.github.io/tags/redis/">Redis</a>
+        <a class="post-link" href="http://yipsen.github.io/tags/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/">代码样例速查</a>
+    </div>
+    
+    <div class="post-item">
+        <span class="post-date">2022-02-06</span>
+        <a class="post-link" href="http://yipsen.github.io/tags/linux/">linux</a>
     </div>
     
     <div class="post-item">
@@ -77,13 +115,8 @@
     </div>
     
     <div class="post-item">
-        <span class="post-date">2022-01-15</span>
-        <a class="post-link" href="http://yipsen.github.io/tags/network/">network</a>
-    </div>
-    
-    <div class="post-item">
-        <span class="post-date">2022-01-15</span>
-        <a class="post-link" href="http://yipsen.github.io/tags/linux/">linux</a>
+        <span class="post-date">2022-01-16</span>
+        <a class="post-link" href="http://yipsen.github.io/tags/dht/">DHT</a>
     </div>
     
     
@@ -147,17 +180,29 @@
         <div id="pagination">
             
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

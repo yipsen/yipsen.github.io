@@ -30,10 +30,10 @@ Producer 程序丢失消息，这应该算是被抱怨最多的数据丢失场�
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -42,7 +42,7 @@ Producer 程序丢失消息，这应该算是被抱怨最多的数据丢失场�
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -286,12 +286,10 @@ Producer 程序丢失消息，这应该算是被抱怨最多的数据丢失场�
 </style><article class="post-block">
         <h1 class="post-title">11 无消息丢失配置怎么实现？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:46:04</span>🏷️&nbsp;<a class="post-tag" href="/tags/kafka/">kafka</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/">Kafka核心技术与实战</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:46:04</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>你好，我是胡夕。今天我要和你分享的主题是：如何配置 Kafka 无消息丢失。</p>
 <p>一直以来，很多人对于 Kafka 丢失消息这件事情都有着自己的理解，因而也就有着自己的解决之道。在讨论具体的应对方法之前，我觉得我们首先要明确，在 Kafka 的世界里什么才算是消息丢失，或者说 Kafka 在什么情况下能保证消息不丢失。这点非常关键，因为很多时候我们容易混淆责任的边界，如果搞不清楚事情由谁负责，自然也就不知道由谁来出解决方案了。</p>
@@ -349,6 +347,11 @@ Producer 程序丢失消息，这应该算是被抱怨最多的数据丢失场�
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/kafka/">kafka</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/">Kafka核心技术与实战</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -357,26 +360,38 @@ Producer 程序丢失消息，这应该算是被抱怨最多的数据丢失场�
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/10-%E7%94%9F%E4%BA%A7%E8%80%85%E5%8E%8B%E7%BC%A9%E7%AE%97%E6%B3%95%E9%9D%A2%E9%9D%A2%E8%A7%82/"><span>10 生产者压缩算法面面观</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/10-%E7%94%9F%E4%BA%A7%E8%80%85%E5%8E%8B%E7%BC%A9%E7%AE%97%E6%B3%95%E9%9D%A2%E9%9D%A2%E8%A7%82/"><span>10 生产者压缩算法面面观</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/12-%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E4%B8%8D%E5%B8%B8%E8%A7%81%E4%BD%86%E6%98%AF%E5%BE%88%E9%AB%98%E7%BA%A7%E7%9A%84%E5%8A%9F%E8%83%BD/"><span>12 客户端都有哪些不常见但是很高级的功能？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/12-%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E4%B8%8D%E5%B8%B8%E8%A7%81%E4%BD%86%E6%98%AF%E5%BE%88%E9%AB%98%E7%BA%A7%E7%9A%84%E5%8A%9F%E8%83%BD/"><span>12 客户端都有哪些不常见但是很高级的功能？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

@@ -24,10 +24,10 @@ Kubernetes 知识体系的碎片化问题 很多 DevOps 团队在落地 Kubernet
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -36,7 +36,7 @@ Kubernetes 知识体系的碎片化问题 很多 DevOps 团队在落地 Kubernet
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -200,12 +200,10 @@ Kubernetes 知识体系的碎片化问题 很多 DevOps 团队在落地 Kubernet
 </style><article class="post-block">
         <h1 class="post-title">03 DevOps 场景下落地 K8s 的困难分析</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:48:08</span>🏷️&nbsp;<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/">Kubernetes实践入门指南</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:48:08</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>Kubernetes 是用于自动部署，扩展和管理容器化应用程序的开源系统，一般被 DevOps 团队用来解决在 CI/CD（也就是持续集成、持续发布）场景下遇到的工具链没法统一，构建过程没法标准化等痛点。DevOps 团队在落地 Kubernetes 的过程中发现，在安装、发布、网络、存储、业务滚动升级等多个环节都会遇到一些不可预期的问题，并且官方的参考资料并没有确定性的方案来解决。很多 DevOps 因为需要快速迭代，都不得不采用现有的经验临时解决遇到的问题，因为场景限制，各家的问题又各有各的诉求，让很多经验无法真正的传承和共享。本文旨在直面当前的 DevOps 痛点，从源头梳理出核心问题点，并结合业界最佳的实践整理出一些可行的方法论，让 DevOps 团队在日后落地可以做到从容应对，再也不用被 Kubernetes 落地难而困扰了。</p>
 <h3 id="kubernetes-知识体系的碎片化问题">Kubernetes 知识体系的碎片化问题</h3>
@@ -259,6 +257,11 @@ Kubernetes 知识体系的碎片化问题 很多 DevOps 团队在落地 Kubernet
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/kubernetes/">kubernetes</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/">Kubernetes实践入门指南</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -267,26 +270,38 @@ Kubernetes 知识体系的碎片化问题 很多 DevOps 团队在落地 Kubernet
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/02-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3-kubernets-%E7%9A%84%E7%BC%96%E6%8E%92%E5%AF%B9%E8%B1%A1/"><span>02 深入理解 Kubernets 的编排对象</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/02-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3-kubernets-%E7%9A%84%E7%BC%96%E6%8E%92%E5%AF%B9%E8%B1%A1/"><span>02 深入理解 Kubernets 的编排对象</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/04-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E8%90%BD%E5%9C%B0-k8s-%E7%9A%84%E5%9B%B0%E9%9A%BE%E5%88%86%E6%9E%90/"><span>04 微服务应用场景下落地 K8s 的困难分析</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/04-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E8%90%BD%E5%9C%B0-k8s-%E7%9A%84%E5%9B%B0%E9%9A%BE%E5%88%86%E6%9E%90/"><span>04 微服务应用场景下落地 K8s 的困难分析</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

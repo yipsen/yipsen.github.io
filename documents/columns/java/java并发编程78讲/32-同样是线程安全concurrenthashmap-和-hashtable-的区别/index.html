@@ -22,10 +22,10 @@ public synchronized void clear() {Entry&amp;lt;?,?&amp;gt; tab[] = table;modCo
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -34,7 +34,7 @@ public synchronized void clear() {Entry&amp;lt;?,?&amp;gt; tab[] = table;modCo
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -414,12 +414,10 @@ public synchronized void clear() {Entry&amp;lt;?,?&amp;gt; tab[] = table;modCo
 </style><article class="post-block">
         <h1 class="post-title">32 同样是线程安全，ConcurrentHashMap 和 Hashtable 的区别</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:42:08</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/">Java并发编程78讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:42:08</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>在本课时我们主要讲解同样是线程安全，ConcurrentHashMap 与 Hashtable 到底有什么区别呢？</p>
 <p>我们都知道 HashMap 不是线程安全的，而 ConcurrentHashMap 和 Hashtable 它们两个确实都是线程安全的，那它们有哪些不同点呢？我们从以下四个角度出发，去分析它们的不同点。</p>
@@ -465,6 +463,11 @@ public synchronized void clear() {Entry&amp;lt;?,?&amp;gt; tab[] = table;modCo
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/">Java并发编程78讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -473,26 +476,38 @@ public synchronized void clear() {Entry&amp;lt;?,?&amp;gt; tab[] = table;modCo
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/31-%E4%B8%BA%E4%BB%80%E4%B9%88-map-%E6%A1%B6%E4%B8%AD%E8%B6%85%E8%BF%87-8-%E4%B8%AA%E6%89%8D%E8%BD%AC%E4%B8%BA%E7%BA%A2%E9%BB%91%E6%A0%91/"><span>31 为什么 Map 桶中超过 8 个才转为红黑树？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/31-%E4%B8%BA%E4%BB%80%E4%B9%88-map-%E6%A1%B6%E4%B8%AD%E8%B6%85%E8%BF%87-8-%E4%B8%AA%E6%89%8D%E8%BD%AC%E4%B8%BA%E7%BA%A2%E9%BB%91%E6%A0%91/"><span>31 为什么 Map 桶中超过 8 个才转为红黑树？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/33-copyonwritearraylist-%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9/"><span>33 CopyOnWriteArrayList 有什么特点？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/33-copyonwritearraylist-%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9/"><span>33 CopyOnWriteArrayList 有什么特点？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

@@ -9,7 +9,7 @@
 <link rel="icon" type="image/png" href="/%20/favicon.png">
 
 <title>kubernetes cluster installation trouble shooting | Yipsen Ye</title>
-<meta name="description" content="kubernetes 集群安装常见错误与解决方案 零、kubeadm init失败  错误日志  [root@localhost Downloads]# kubeadm init [init] Using Kubernetes version: v1.24.3 [preflight] Running pre-flight checks [WARNING Firewalld]: firewalld is active, please ensure ports [6443 10250] are open or your cluster may not function correctly [WARNING Swap]: swap is enabled; production deployments should disable swap unless testing the NodeSwap feature gate of the kubelet error execution phase preflight: [preflight] Some fatal errors occurred: [ERROR NumCPU]: the number of available CPUs 1 is less than the required 2 [ERROR Mem]: the system RAM (972 MB) is less than the minimum 1700 MB [ERROR CRI]: container runtime is not running: output: time=&amp;#34;2022-08-13T09:53:22-07:00&amp;#34; level=fatal msg=&amp;#34;unable to determine runtime API version: rpc error: code = Unavailable desc = connection error: desc = \&amp;#34;transport: Error while dialing dial unix /var/run/containerd/containerd.">
+<meta name="description" content="kubernetes 集群安装常见错误与解决方案 负一、kubeadm init失败  错误日志  [root@kube-master-01 ~]# kubeadm init --apiserver-advertise-address=192.168.0.201 --image-repository=registry.aliyuncs.com/google_containers --kubernetes-version v1.22.1 --service-cidr=10.96.0.0/12 --pod-network-cidr=10.244.0.0/16 | tee kubeadm-init.log[init] Using Kubernetes version: v1.22.1[preflight] Running pre-flight checks[WARNING SystemVerification]: this Docker version is not on the list of validated versions: 24.0.7. Latest validated version: 20.10error execution phase preflight: [preflight] Some fatal errors occurred:[ERROR FileAvailable--etc-kubernetes-manifests-kube-apiserver.yaml]: /etc/kubernetes/manifests/kube-apiserver.yaml already exists[ERROR FileAvailable--etc-kubernetes-manifests-kube-controller-manager.yaml]: /etc/kubernetes/manifests/kube-controller-manager.yaml already exists[ERROR FileAvailable--etc-kubernetes-manifests-kube-scheduler.yaml]: /etc/kubernetes/manifests/kube-scheduler.yaml already exists[ERROR FileAvailable--etc-kubernetes-manifests-etcd.">
 <meta name="author" content="">
 
 <link rel="stylesheet" type="text/css" href="/styles/main.css">
@@ -18,10 +18,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -30,7 +30,7 @@
         
         <li class="nav-item">
             <a class="nav-link active"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -51,11 +51,58 @@
 <div class="container"><article class="post-block">
         <h1 class="post-title">kubernetes cluster installation trouble shooting</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2022-08-15 22:00:00</span></div></div>
+            <div class="post-date"> 
+                <span>2022-08-15 22:00:00</span>
+            </div>
+        </div>
         <div class="post-content">
             <h3 id="kubernetes-集群安装常见错误与解决方案">kubernetes 集群安装常见错误与解决方案</h3>
-<h4 id="零kubeadm-init失败">零、kubeadm init失败</h4>
+<h4 id="负一kubeadm-init失败">负一、kubeadm init失败</h4>
+<ul>
+<li>错误日志</li>
+</ul>
+<pre tabindex="0"><code class="language-log" data-lang="log">[root@kube-master-01 ~]# kubeadm init --apiserver-advertise-address=192.168.0.201 --image-repository=registry.aliyuncs.com/google_containers --kubernetes-version v1.22.1 --service-cidr=10.96.0.0/12 --pod-network-cidr=10.244.0.0/16 | tee kubeadm-init.log
+[init] Using Kubernetes version: v1.22.1
+[preflight] Running pre-flight checks
+        [WARNING SystemVerification]: this Docker version is not on the list of validated versions: 24.0.7. Latest validated version: 20.10
+error execution phase preflight: [preflight] Some fatal errors occurred:
+        [ERROR FileAvailable--etc-kubernetes-manifests-kube-apiserver.yaml]: /etc/kubernetes/manifests/kube-apiserver.yaml already exists
+        [ERROR FileAvailable--etc-kubernetes-manifests-kube-controller-manager.yaml]: /etc/kubernetes/manifests/kube-controller-manager.yaml already exists
+        [ERROR FileAvailable--etc-kubernetes-manifests-kube-scheduler.yaml]: /etc/kubernetes/manifests/kube-scheduler.yaml already exists
+        [ERROR FileAvailable--etc-kubernetes-manifests-etcd.yaml]: /etc/kubernetes/manifests/etcd.yaml already exists
+[preflight] If you know what you are doing, you can make a check non-fatal with `--ignore-preflight-errors=...`
+To see the stack trace of this error execute with --v=5 or higher
+[root@kube-master-01 ~]#
+</code></pre><ul>
+<li>解决方案</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 重置</span>
+kubeadm reset
+</code></pre></div><pre tabindex="0"><code class="language-log" data-lang="log">[root@kube-master-01 ~]# kubeadm reset
+[reset] Reading configuration from the cluster...
+[reset] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -o yaml'
+W1030 23:05:29.490334   11530 reset.go:101] [reset] Unable to fetch the kubeadm-config ConfigMap from cluster: failed to get config map: Get &quot;https://192.168.0.201:6443/api/v1/namespaces/kube-system/configmaps/kubeadm-config?timeout=10s&quot;: dial tcp 192.168.0.201:6443: connect: connection refused
+[reset] WARNING: Changes made to this host by 'kubeadm init' or 'kubeadm join' will be reverted.
+[reset] Are you sure you want to proceed? [y/N]: y
+[preflight] Running pre-flight checks
+W1030 23:05:32.886997   11530 removeetcdmember.go:80] [reset] No kubeadm config, using etcd pod spec to get data directory
+[reset] Stopping the kubelet service
+[reset] Unmounting mounted directories in &quot;/var/lib/kubelet&quot;
+[reset] Deleting contents of config directories: [/etc/kubernetes/manifests /etc/kubernetes/pki]
+[reset] Deleting files: [/etc/kubernetes/admin.conf /etc/kubernetes/kubelet.conf /etc/kubernetes/bootstrap-kubelet.conf /etc/kubernetes/controller-manager.conf /etc/kubernetes/scheduler.conf]
+[reset] Deleting contents of stateful directories: [/var/lib/etcd /var/lib/kubelet /var/lib/dockershim /var/run/kubernetes /var/lib/cni]
+
+The reset process does not clean CNI configuration. To do so, you must remove /etc/cni/net.d
+
+The reset process does not reset or clean up iptables rules or IPVS tables.
+If you wish to reset iptables, you must do so manually by using the &quot;iptables&quot; command.
+
+If your cluster was setup to utilize IPVS, run ipvsadm --clear (or similar)
+to reset your system's IPVS tables.
+
+The reset process does not clean your kubeconfig files and you must remove them manually.
+Please, check the contents of the $HOME/.kube/config file.
+</code></pre><h4 id="零kubeadm-init失败">零、kubeadm init失败</h4>
 <ul>
 <li>错误日志</li>
 </ul>
@@ -324,6 +371,11 @@ flannel.1: flags<span style="color:#f92672">=</span>4163&lt;UP,BROADCAST,RUNNING
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
+</div>
 
     </main>
     <footer>
@@ -332,26 +384,38 @@ flannel.1: flags<span style="color:#f92672">=</span>4163&lt;UP,BROADCAST,RUNNING
 <div class="paginator">
     <div class="prev">
         
-        <a href="/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB-copy/"><span>kubernetes cluster running trouble shooting</span></a>
+        <a href="http://yipsen.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E8%BF%90%E8%A1%8C%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/"><span>kubernetes cluster running trouble shooting</span></a>
     </div>
     <div class="next">
         
-        <a href="/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4/"><span>kubernetes cluster installation step</span></a>
+        <a href="http://yipsen.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4/"><span>kubernetes cluster installation step</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

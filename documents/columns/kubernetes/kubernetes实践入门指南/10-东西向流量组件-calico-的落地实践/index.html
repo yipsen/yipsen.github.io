@@ -25,10 +25,10 @@ systemctl restart docker添加路由规则 主机 1 上添加路由规则如下
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -37,7 +37,7 @@ systemctl restart docker添加路由规则 主机 1 上添加路由规则如下
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -201,12 +201,10 @@ systemctl restart docker添加路由规则 主机 1 上添加路由规则如下
 </style><article class="post-block">
         <h1 class="post-title">10 东西向流量组件 Calico 的落地实践</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:48:16</span>🏷️&nbsp;<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/">Kubernetes实践入门指南</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:48:16</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>Kubernetes 网络并没有原生的方案，它从一开始就给我们送来了一个选择题。到底选哪种网络方案才是最佳的方案呢？网络问题一直让社区用户很困惑，以至于在早期，不同场景下的方案如雨后春笋般涌现出来。其中比较优秀的就是今天选择给大家介绍的网络组件 Calico。这里我们要强调的是，Calico 方案并不是唯一方案，我们在社区仍然能看到很多优秀的方案比如 Cilium、OvS、Contiv、Flannel 等，至于选择它来讲解东西向流量的组件落地，实在是当前国内业界大部分的方案都是以 Cailico 实践为主，介绍它可以起到一个案例示范的作用。</p>
 <h3 id="容器网络路由的原理">容器网络路由的原理</h3>
@@ -414,6 +412,11 @@ Accepted connection from 172.26.5.10, port 53246
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/kubernetes/">kubernetes</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/">Kubernetes实践入门指南</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -422,26 +425,38 @@ Accepted connection from 172.26.5.10, port 53246
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/09-%E5%8D%97%E5%8C%97%E5%90%91%E6%B5%81%E9%87%8F%E7%BB%84%E4%BB%B6-ipvs-%E7%9A%84%E8%90%BD%E5%9C%B0%E5%AE%9E%E8%B7%B5/"><span>09 南北向流量组件 IPVS 的落地实践</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/09-%E5%8D%97%E5%8C%97%E5%90%91%E6%B5%81%E9%87%8F%E7%BB%84%E4%BB%B6-ipvs-%E7%9A%84%E8%90%BD%E5%9C%B0%E5%AE%9E%E8%B7%B5/"><span>09 南北向流量组件 IPVS 的落地实践</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/11-%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0-dns-%E7%9A%84%E8%90%BD%E5%9C%B0%E5%AE%9E%E8%B7%B5/"><span>11 服务发现 DNS 的落地实践</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/11-%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0-dns-%E7%9A%84%E8%90%BD%E5%9C%B0%E5%AE%9E%E8%B7%B5/"><span>11 服务发现 DNS 的落地实践</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

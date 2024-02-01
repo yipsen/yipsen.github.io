@@ -25,10 +25,10 @@ start transaction; insert into yang values(NULL,&#39;yang&#39;) ; insert into ya
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -37,7 +37,7 @@ start transaction; insert into yang values(NULL,&#39;yang&#39;) ; insert into ya
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -58,8 +58,10 @@ start transaction; insert into yang values(NULL,&#39;yang&#39;) ; insert into ya
 <div class="container"><article class="post-block">
         <h1 class="post-title"></h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;0001-01-01 00:00:00</span></div></div>
+            <div class="post-date"> 
+                <span>0001-01-01 00:00:00</span>
+            </div>
+        </div>
         <div class="post-content">
             <h2 id="1-什么是mvcc"><strong>1 什么是MVCC</strong></h2>
 <pre tabindex="0"><code>  MVCC全称是： **Multiversion concurrency control**，多版本并发控制，提供并发访问数据库时，对事务内读取的到的内存做处理，用来避免写操作堵塞读操作的并发问题。
@@ -140,6 +142,11 @@ commit;
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
+</div>
 
     </main>
     <footer>
@@ -148,26 +155,38 @@ commit;
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/articles/snowflake-%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8F-id.md/"><span></span></a>
+        <a href="http://yipsen.github.io/documents/articles/snowflake-%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8F-id.md/"><span></span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/articles/mysql-%E6%97%A5%E5%BF%97%E8%AF%A6%E8%A7%A3.md/"><span></span></a>
+        <a href="http://yipsen.github.io/documents/articles/mysql-%E6%97%A5%E5%BF%97%E8%AF%A6%E8%A7%A3.md/"><span></span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

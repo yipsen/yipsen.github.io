@@ -25,10 +25,10 @@ Kubernetes 可支持公有云，私有云及混合云等，具备良好的可移
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -37,7 +37,7 @@ Kubernetes 可支持公有云，私有云及混合云等，具备良好的可移
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -197,12 +197,10 @@ Kubernetes 可支持公有云，私有云及混合云等，具备良好的可移
 </style><article class="post-block">
         <h1 class="post-title">01 开篇： Kubernetes 是什么以及为什么需要它</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:47:27</span>🏷️&nbsp;<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/">Kubernetes从上手到实践</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:47:27</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>Kubernetes 是一个可扩展的，用于容器化应用程序编排，管理的平台。由 Google 于 2014 年基于其大规模生产实践经验而开源出来的。Kubernetes 目前在容器编排领域已经成为事实上的标准，社区也非常活跃。</p>
 <p>Kubernetes 在国内外都已经得到广泛的应用，无论是Google, Amazon, GitHub 等还是国内的阿里，腾讯，百度，华为，京东或其他中小公司等也都已全力推进 Kubernetes 在生产中的使用。</p>
@@ -230,6 +228,11 @@ Kubernetes 可支持公有云，私有云及混合云等，具备良好的可移
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/kubernetes/">kubernetes</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/">Kubernetes从上手到实践</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -238,26 +241,38 @@ Kubernetes 可支持公有云，私有云及混合云等，具备良好的可移
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/%E7%BB%93%E6%9D%9F%E8%AF%AD-%E4%BB%A5%E6%A2%A6%E4%B8%BA%E9%A9%AC%E8%8E%AB%E8%B4%9F%E9%9F%B6%E5%8D%8E/"><span>结束语 以梦为马，莫负韶华！</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/%E7%BB%93%E6%9D%9F%E8%AF%AD-%E4%BB%A5%E6%A2%A6%E4%B8%BA%E9%A9%AC%E8%8E%AB%E8%B4%9F%E9%9F%B6%E5%8D%8E/"><span>结束语 以梦为马，莫负韶华！</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/02-%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86kubernetes-%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/"><span>02 初步认识：Kubernetes 基础概念</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/02-%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86kubernetes-%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/"><span>02 初步认识：Kubernetes 基础概念</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

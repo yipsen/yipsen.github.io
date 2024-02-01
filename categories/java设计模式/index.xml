@@ -7,34 +7,50 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sun, 06 Feb 2022 16:31:43 +0000</lastBuildDate><atom:link href="http://yipsen.github.io/categories/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>创建型-单例模式（常用）</title>
-      <link>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</link>
+      <title>创建型 - 单例模式</title>
+      <link>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</link>
       <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
       
-      <guid>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</guid>
-      <description>定义 单例模式（Singleton Pattern）属于创建类型的一种常用的软件设计模式。
+      <guid>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</guid>
+      <description>单例模式（Singleton Pattern）属于创建类型的一种常用的软件设计模式。
 单例对象保证全局（或指定上下文中，如进程，线程内唯一）仅有一个实例存在，并提供一个该唯一实例的访问点。
 为什么需要单例模式 打井喝水，并不是每个人想喝水就要打一口井。
-优点 在内存里只有一个实例，所以能够节约系统资源，减少了内存的开销，尤其是频繁的创建和销毁实例，可以提高系统效率，同时也能够严格控制客户对它的访问。
-缺点 也正是因为系统中只有一个实例，这样就导致了单例类的职责过重，违背了“单一职责原则”，同时也没有抽象类，这样扩展起来有一定的困难。 优点即缺点，所以更应该说是特点，在特定场景下使用。
-常见应用场景  spring bean 数据库连接 需要频繁的进行创建和销毁的对象 创建对象时耗时过多或耗费资源过多(重量级对象) 经常用到的对象、工具类对象、频繁访问数据库或文件的对象(数据源、session工厂)  结构 classDiagramclass Singleton {-Singleton instance-Singleton()+static getInstance() Singleton}Singleton --o Singleton实现方式 要实现单例模式，关键有 3 个要素：
+  优点：在内存里只有一个实例，所以能够节约系统资源，减少了内存的开销，尤其是频繁的创建和销毁实例，可以提高系统效率，同时也能够严格控制客户对它的访问。
+  缺点：也正是因为系统中只有一个实例，这样就导致了单例类的职责过重，违背了“单一职责原则”，同时也没有抽象类，这样扩展起来有一定的困难。
+  优点即缺点，所以更应该说是特点，在特定场景下使用。
+  常见应用场景
+ spring bean 数据库连接 需要频繁的进行创建和销毁的对象 创建对象时耗时过多或耗费资源过多(重量级对象) 经常用到的对象、工具类对象、频繁访问数据库或文件的对象(数据源、session工厂)    结构 classDiagramclass Singleton {-Singleton instance-Singleton()+static getInstance() Singleton}Singleton --o Singleton实现方式 要实现单例模式，关键有 3 个要素：
  单例类只有一个实例对象；如instance；此为单例模式的核心要素。 该单例对象必须由单例类自行创建；一般情况下会将构造函数声明为私有的，如private Singleton()；这样外部无法实例化，也无法被继承，此举为保证唯一性，从而避免勿用。 单例类对外提供一个访问该单例的全局访问点；如getInstance()；由于已阻止外部构建，即单例类是一个只读类，外部不能创建或修改，需提供一个读取接口。  即为了避免城市被私人挖得千疮百孔，没收公众的挖井工具，收归专门管理，但开放水利给公众使用。
 具体常用的几种实现方法：
-  饿汉式
-饿汉式顾名思义就是把食物（对象）提前做好，需要时直接拿取即可使用（吃掉）。简而言之即预先构建。
+1. 饿汉式 饿汉式顾名思义就是把食物（对象）提前做好，需要时直接拿取即可使用（吃掉）。简而言之即预先构建。
 // 饿汉式单例 public class Eager { // 提前把对象实例化，此对象实例全局唯一  private final static Eager instance = new Eager(); // 私有化构造器，不允许外部使用，以免破坏唯一性  private Eager() { System.</description>
     </item>
     
     <item>
-      <title>行为型-观察者模式（常用）</title>
-      <link>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A1%8C%E4%B8%BA%E5%9E%8B-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</link>
+      <title>结构型 - 代理模式</title>
+      <link>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E7%BB%93%E6%9E%84%E5%9E%8B-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</link>
       <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
       
-      <guid>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A1%8C%E4%B8%BA%E5%9E%8B-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</guid>
-      <description>定义 观察者模式（Observer Pattern）属于行为类型的一种常用的软件设计模式。还有其他的称谓如，发布-订阅模式，模型-视图模式，而最常见的应用就是事件-通知机制了。
+      <guid>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E7%BB%93%E6%9E%84%E5%9E%8B-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</guid>
+      <description>代理在软件设计中是一种非常常见的设计思路，
+为什么需要代理模式 常见应用场景 结构 实现方式 代理模式实现上有静态代理与动态代理之分。而动态代理又有JDK自带的实现方案，也有CGLib等第三方工具的实现方案，效果各有不同。
+一、静态代理
+二、动态代理（JDK实现方案）
+三、动态代理（CGLib实现方案）
+使用案例 // 待补充实际工作上项目的使用案例。
+引申 总结 </description>
+    </item>
+    
+    <item>
+      <title>行为型 - 观察者模式</title>
+      <link>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A1%8C%E4%B8%BA%E5%9E%8B-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A1%8C%E4%B8%BA%E5%9E%8B-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</guid>
+      <description>观察者模式（Observer Pattern）属于行为类型的一种常用的软件设计模式。还有其他的称谓如，发布-订阅模式，模型-视图模式，而最常见的应用就是事件-通知机制了。
 该模式定义了一种一对多的依赖关系，并对关系进行解耦。即一个对象发生变化时，将通知所有依赖他的对象，以进一步处理相应变化。通过变化产生事件，进而通知处理相应变化的方式，实现了两个对象的解耦，并提供了灵活的依赖关系。
 为什么需要观察者模式  解耦  常见应用场景  spring event  结构 classDiagramclass Subject {&amp;lt;&amp;lt;abstract&amp;gt;&amp;gt;+observers+addObserver()+removeObserver()+notifyObserver()}class Observer {&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;update()}class ConcreteSubject {}class ContreteObserver {}实现方式 要实现观察者模式，其关键有 4 个对象，分别是：
-   对象 称谓 特性     Subject 被观察者 被观察者提供一系列方法以维护观察者列表（可随时进行增删），同时定义通知方法，以在发生变化时通知已维护在列表中的观察者们。   ConcreteSubject 具体的被观察者 被观察者的具体实现类，实现具体场景下发送变化通知。   Observer 观察者 观察者可以是一个或多个，当被观察者Subject发生变化时，观察者将收到通知。   ConcreteObserver 具体的观察者 观察者的具体实现类，不同的观察者在收到通知后可实现不同的操作。    观察者模式实现如下：</description>
+   对象 称谓 特性     Subject 被观察者 被观察者提供一系列方法以维护观察者列表（可随时进行增删），同时定义通知方法，以在发生变化时通知已维护在列表中的观察者们。   ConcreteSubject 具体的被观察者 被观察者的具体实现类，实现具体场景下发送变化通知。   Observer 观察者 观察者可以是一个或多个，当被观察者Subject发生变化时，观察者将收到通知。   ConcreteObserver 具体的观察者 观察者的具体实现类，不同的观察者在收到通知后可实现不同的操作。    1.</description>
     </item>
     
   </channel>

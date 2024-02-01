@@ -23,10 +23,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -35,7 +35,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -279,12 +279,10 @@
 </style><article class="post-block">
         <h1 class="post-title">17 消费者组重平衡能避免吗？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:46:11</span>🏷️&nbsp;<a class="post-tag" href="/tags/kafka/">kafka</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/">Kafka核心技术与实战</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:46:11</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>你好，我是胡夕。今天我要和你分享的内容是：消费者组重平衡能避免吗?</p>
 <p>其实在专栏[第 15 期]中，我们讲过重平衡，也就是 Rebalance，现在先来回顾一下这个概念的原理和用途。Rebalance 就是让一个 Consumer Group 下所有的 Consumer 实例就如何消费订阅主题的所有分区达成共识的过程。在 Rebalance 过程中，所有 Consumer 实例共同参与，在协调者组件的帮助下，完成订阅主题分区的分配。但是，在整个过程中，所有实例都不能消费任何消息，因此它对 Consumer 的 TPS 影响很大。</p>
@@ -344,6 +342,11 @@
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/kafka/">kafka</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/">Kafka核心技术与实战</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -352,26 +355,38 @@
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/16-%E6%8F%AD%E5%BC%80%E7%A5%9E%E7%A7%98%E7%9A%84%E4%BD%8D%E7%A7%BB%E4%B8%BB%E9%A2%98%E9%9D%A2%E7%BA%B1/"><span>16 揭开神秘的“位移主题”面纱</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/16-%E6%8F%AD%E5%BC%80%E7%A5%9E%E7%A7%98%E7%9A%84%E4%BD%8D%E7%A7%BB%E4%B8%BB%E9%A2%98%E9%9D%A2%E7%BA%B1/"><span>16 揭开神秘的“位移主题”面纱</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/18-kafka%E4%B8%AD%E4%BD%8D%E7%A7%BB%E6%8F%90%E4%BA%A4%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/"><span>18 Kafka中位移提交那些事儿</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/18-kafka%E4%B8%AD%E4%BD%8D%E7%A7%BB%E6%8F%90%E4%BA%A4%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/"><span>18 Kafka中位移提交那些事儿</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

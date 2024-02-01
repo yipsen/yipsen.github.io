@@ -22,10 +22,10 @@ containerd 使用初体验 从官方仓库可以下载最新的 containerd 可�
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -34,7 +34,7 @@ containerd 使用初体验 从官方仓库可以下载最新的 containerd 可�
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -198,12 +198,10 @@ containerd 使用初体验 从官方仓库可以下载最新的 containerd 可�
 </style><article class="post-block">
         <h1 class="post-title">07 容器引擎 containerd 落地实践</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:48:13</span>🏷️&nbsp;<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/">Kubernetes实践入门指南</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:48:13</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>Docker 公司从 2013 年发布容器引擎 Docker 后，就被全球开发者使用并不断改进它的功能。随着容器标准的建立，Docker 引擎架构也从单体走向微服务结构，剥离出 dontainerd 引擎。它在整个容器技术架构中的位置如下：</p>
 <p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Kubernetes%20%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/assets/62045630-d65f-11ea-b558-cd3c105f83ae.jpg" alt="containerd-arch"></p>
@@ -476,6 +474,11 @@ E_ENDPOINT]
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/kubernetes/">kubernetes</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/">Kubernetes实践入门指南</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -484,26 +487,38 @@ E_ENDPOINT]
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/06-%E7%BB%83%E4%B9%A0%E7%AF%87k8s-%E6%A0%B8%E5%BF%83%E5%AE%9E%E8%B7%B5%E7%9F%A5%E8%AF%86%E6%8E%8C%E6%8F%A1/"><span>06 练习篇：K8s 核心实践知识掌握</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/06-%E7%BB%83%E4%B9%A0%E7%AF%87k8s-%E6%A0%B8%E5%BF%83%E5%AE%9E%E8%B7%B5%E7%9F%A5%E8%AF%86%E6%8E%8C%E6%8F%A1/"><span>06 练习篇：K8s 核心实践知识掌握</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/08-k8s-%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E5%B7%A5%E5%85%B7-kubeadm-%E7%9A%84%E8%90%BD%E5%9C%B0%E5%AE%9E%E8%B7%B5/"><span>08 K8s 集群安装工具 kubeadm 的落地实践</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/08-k8s-%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E5%B7%A5%E5%85%B7-kubeadm-%E7%9A%84%E8%90%BD%E5%9C%B0%E5%AE%9E%E8%B7%B5/"><span>08 K8s 集群安装工具 kubeadm 的落地实践</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

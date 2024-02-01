@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>MySQL 用户管理 | Yipsen Ye</title>
+<meta name="description" content="一、MySQL最常用新增用户并授权脚本 -- 创建用户test_user，并设置密码为123456。 CREATE USER test_user IDENTIFIED BY &amp;#39;123456&amp;#39;; -- 授权所有数据库下所有表(*.*)的所有权限(ALL)，并且指定所有ip的客户端(%)都可以采用该用户登录。 GRANT ALL PRIVILEGES ON *.* TO &amp;#39;test_user&amp;#39;@&amp;#39;%&amp;#39; IDENTIFIED by &amp;#39;123456&amp;#39;; -- 刷新权限使其生效。事实上可以省略 FLUSH PRIVILEGES; -- 查看用户test_user授权信息。 SHOW GRANTS FOR &amp;#39;test_user&amp;#39;@&amp;#39;%&amp;#39;; 二、用户管理 2.1、概述 mysql中的用户信息和权限等都存储在一个名为mysql的数据库中。其中主要用到如下五张表：
+   表名 数据 描述     user表 存储全局权限 适用于一个给定服务器中的所有数据库，在命令中展现形式为*.*   db表 存储数据库权限 适用于一个给定数据库中的所有表，在命令中展现形式为[数据库名].*   tables_priv表 存储表权限 适用于一个给定表中的所有列，在命令中展现形式为[数据库名].[表名]   columns_priv表 存储列权限 适用于一个给定表中的单一列，在命令中展现形式为   procs_priv表 xxx xxx    mysql中所有的用户（指mysql客户端用户）信息都是保存在mysql数据库下的user表中。该表采用复合主键（host &#43; user）。">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title">MySQL 用户管理</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-01-10 23:36:41</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <h3 id="一mysql最常用新增用户并授权脚本">一、MySQL最常用新增用户并授权脚本</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- 创建用户test_user，并设置密码为123456。
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">USER</span> test_user IDENTIFIED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;123456&#39;</span>;
+
+<span style="color:#75715e">-- 授权所有数据库下所有表(*.*)的所有权限(ALL)，并且指定所有ip的客户端(%)都可以采用该用户登录。
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">GRANT</span> <span style="color:#66d9ef">ALL</span> <span style="color:#66d9ef">PRIVILEGES</span> <span style="color:#66d9ef">ON</span> <span style="color:#f92672">*</span>.<span style="color:#f92672">*</span> <span style="color:#66d9ef">TO</span> <span style="color:#e6db74">&#39;test_user&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;%&#39;</span> IDENTIFIED <span style="color:#66d9ef">by</span> <span style="color:#e6db74">&#39;123456&#39;</span>;
+
+<span style="color:#75715e">-- 刷新权限使其生效。事实上可以省略
+</span><span style="color:#75715e"></span>FLUSH <span style="color:#66d9ef">PRIVILEGES</span>;
+
+<span style="color:#75715e">-- 查看用户test_user授权信息。
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">SHOW</span> GRANTS <span style="color:#66d9ef">FOR</span> <span style="color:#e6db74">&#39;test_user&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;%&#39;</span>;
+</code></pre></div><h3 id="二用户管理">二、用户管理</h3>
+<h4 id="21概述">2.1、概述</h4>
+<p>mysql中的用户信息和权限等都存储在一个名为mysql的数据库中。其中主要用到如下五张表：</p>
+<table>
+<thead>
+<tr>
+<th>表名</th>
+<th>数据</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user表</td>
+<td>存储全局权限</td>
+<td>适用于一个给定服务器中的所有数据库，在命令中展现形式为*.*</td>
+</tr>
+<tr>
+<td>db表</td>
+<td>存储数据库权限</td>
+<td>适用于一个给定数据库中的所有表，在命令中展现形式为[数据库名].*</td>
+</tr>
+<tr>
+<td>tables_priv表</td>
+<td>存储表权限</td>
+<td>适用于一个给定表中的所有列，在命令中展现形式为[数据库名].[表名]</td>
+</tr>
+<tr>
+<td>columns_priv表</td>
+<td>存储列权限</td>
+<td>适用于一个给定表中的单一列，在命令中展现形式为</td>
+</tr>
+<tr>
+<td>procs_priv表</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+</tbody>
+</table>
+<p>mysql中所有的用户（指mysql客户端用户）信息都是保存在mysql数据库下的user表中。该表采用复合主键（host + user）。</p>
+<p>语句：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">select</span> <span style="color:#66d9ef">user</span>,<span style="color:#66d9ef">host</span> <span style="color:#66d9ef">from</span> mysql.<span style="color:#66d9ef">user</span>;
+</code></pre></div><p>结果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">+---------------+-----------+
+| user          | host      |
++---------------+-----------+
+| mysql.session | localhost |
+| mysql.sys     | localhost |
+| root          | localhost |
+| test_user     | localhost |
++---------------+-----------+
+4 rows in set (0.00 sec)
+</code></pre></div><blockquote>
+<p>注意：\g 的作用是分号和在sql语句中写’;’是等效的\G 的作用是将查到的结构旋转90度变成纵向</p>
+</blockquote>
+<h4 id="22创建用户create-user">2.2、创建用户：CREATE USER</h4>
+<ol>
+<li>
+<p>方式一：直接使用root用户在user表中插入记录。（不推荐）</p>
+</li>
+<li>
+<p>方式二：使用SQL指令创建用户</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- 基本格式：
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">USER</span> <span style="color:#e6db74">&#39;用户名&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;主机地址&#39;</span> IDENTIFIED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;明文密码&#39;</span>;
+
+<span style="color:#75715e">-- 创建 谁都可以访问，不需要密码的用户。
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">USER</span> <span style="color:#e6db74">&#39;用户名&#39;</span>;
+
+<span style="color:#75715e">-- 样例
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">USER</span> GOCRON IDENTIFIED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;123456&#39;</span>;
+</code></pre></div><blockquote>
+<p>注：主机地址可以使用'%&lsquo;或者'&lsquo;代替，表示不限制登录客户端IP。</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="23删除用户drop-user">2.3、删除用户：DROP USER</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- 基本格式
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">drop</span> <span style="color:#66d9ef">user</span> <span style="color:#e6db74">&#39;用户名&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;主机地址&#39;</span>;
+
+<span style="color:#75715e">-- 删除主机地址为&#39;&#39; 或者 &#39;%&#39; 的用户
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">drop</span> <span style="color:#66d9ef">user</span> <span style="color:#e6db74">&#39;用户名&#39;</span>;
+</code></pre></div><h4 id="24修改用户密码set-password">2.4、修改用户密码：SET PASSWORD</h4>
+<p>mysql中提供了多种修改密码的方式，基本上都必须使用对应提供的一个系统函数：password()。需要靠该函数对密码进行加密处理。</p>
+<ol>
+<li>
+<p>方式一：使用专门的SQL指令来修改密码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- 格式
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">set</span> password <span style="color:#66d9ef">for</span> <span style="color:#960050;background-color:#1e0010">用户名</span> <span style="color:#f92672">=</span> password(<span style="color:#e6db74">&#39;新的明文密码&#39;</span>);
+</code></pre></div></li>
+<li>
+<p>方式二：使用更新语句update来修改表</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- 格式
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">update</span> mysql.<span style="color:#66d9ef">user</span> <span style="color:#66d9ef">set</span> password <span style="color:#f92672">=</span> password(<span style="color:#e6db74">&#39;新的明文密码&#39;</span>) <span style="color:#66d9ef">where</span> <span style="color:#66d9ef">user</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;用户名&#39;</span> <span style="color:#66d9ef">and</span>  <span style="color:#66d9ef">host</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;主机地址&#39;</span>;
+</code></pre></div></li>
+</ol>
+<h3 id="三权限管理">三、权限管理</h3>
+<h4 id="31权限分类">3.1、权限分类</h4>
+<p>mysql中将权限分3类：数据权限、结构权限、管理权限</p>
+<table>
+<thead>
+<tr>
+<th>权限类别</th>
+<th>操作</th>
+<th>对应语句</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据权限</td>
+<td>增删改查</td>
+<td>select/update/delete/insert</td>
+</tr>
+<tr>
+<td>结构权限</td>
+<td>对象结构操作</td>
+<td>create/drop</td>
+</tr>
+<tr>
+<td>管理权限</td>
+<td>用户操作权限</td>
+<td>create user/grant/revoke</td>
+</tr>
+</tbody>
+</table>
+<h4 id="32授予权限grant">3.2、授予权限：GRANT</h4>
+<p>将权限分配给指定用户</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">--格式是：
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">grant</span> <span style="color:#960050;background-color:#1e0010">权限列表</span><span style="color:#f92672">/</span><span style="color:#66d9ef">all</span> <span style="color:#66d9ef">privileges</span> <span style="color:#66d9ef">on</span> <span style="color:#960050;background-color:#1e0010">数据库</span>.<span style="color:#960050;background-color:#1e0010">表名</span> <span style="color:#66d9ef">to</span> <span style="color:#960050;background-color:#1e0010">用户</span>;
+
+<span style="color:#75715e">-- Usage：
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">GRANT</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">privileges</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">ON</span> <span style="color:#f92672">&lt;</span>db<span style="color:#f92672">&gt;</span>.<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">table</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">TO</span> <span style="color:#e6db74">&#39;&lt;user&gt;&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;&lt;host&gt;&#39;</span> [IDENTIFIED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;&lt;password&gt;&#39;</span>];
+</code></pre></div><blockquote>
+<p>注：1、权限列表：使用逗号分隔，但是可以使用 all privileges（表示全部权限）。
+注：2、数据库.表名：可以是单表（数据库名.表名）、可以是某个数据库（数据库名.*）、可以是整库（<em>.</em>）</p>
+</blockquote>
+<ol>
+<li>
+<p>授予查询只读权限：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">GRANT</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">ON</span> GO_SCHEDULER.<span style="color:#f92672">*</span> <span style="color:#66d9ef">TO</span> <span style="color:#e6db74">&#39;GOCRON_RO&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;%&#39;</span>;
+</code></pre></div></li>
+<li>
+<p>授权增删改查+对象操作权限：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">GRANT</span> <span style="color:#66d9ef">SELECT</span>,<span style="color:#66d9ef">INSERT</span>,<span style="color:#66d9ef">UPDATE</span>,<span style="color:#66d9ef">DELETE</span>,<span style="color:#66d9ef">ALTER</span>,<span style="color:#66d9ef">CREATE</span>,<span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">ON</span> GO_SCHEDULER.<span style="color:#f92672">*</span> <span style="color:#66d9ef">TO</span> <span style="color:#e6db74">&#39;YIPSEN&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;%&#39;</span>;
+</code></pre></div></li>
+<li>
+<p>授权所有权限：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">GRANT</span> <span style="color:#66d9ef">ALL</span> <span style="color:#66d9ef">PRIVILEGES</span> <span style="color:#66d9ef">ON</span> GO_SCHEDULER.<span style="color:#f92672">*</span> <span style="color:#66d9ef">TO</span> <span style="color:#e6db74">&#39;GOCRON&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;%&#39;</span>;
+</code></pre></div></li>
+</ol>
+<h4 id="33权限回收revoke">3.3、权限回收：REVOKE</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- 基本格式：
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">REVOKE</span> <span style="color:#960050;background-color:#1e0010">权限列表</span><span style="color:#f92672">/</span><span style="color:#66d9ef">all</span> <span style="color:#66d9ef">privileges</span> <span style="color:#66d9ef">ON</span> <span style="color:#960050;background-color:#1e0010">数据库</span>.<span style="color:#960050;background-color:#1e0010">表名</span> <span style="color:#66d9ef">FROM</span> <span style="color:#960050;background-color:#1e0010">用户</span>;
+
+<span style="color:#75715e">-- Usage：
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">REVOKE</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">privileges</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">ON</span> <span style="color:#f92672">&lt;</span>db<span style="color:#f92672">&gt;</span>.<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">table</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">&#39;&lt;user&gt;&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;&lt;host&gt;&#39;</span>;
+</code></pre></div><h4 id="34刷新权限flush">3.4、刷新权限：FLUSH</h4>
+<p>将当前对用户的权限操作，进行一个刷新，将操作的具体内容同步到对应的表中，使权限生效。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">flush <span style="color:#66d9ef">privileges</span>;
+</code></pre></div><h4 id="35查看权限show-grants">3.5、查看权限：SHOW GRANTS</h4>
+<p>语句：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">show</span> grants <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#39;test_user&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;localhost&#39;</span>;
+</code></pre></div><p>结果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">+-------------+-----------+
+| user        | host      |
++-------------+-----------+
+| test_user   | localhost |
++-------------+-----------+
+1 row in set (0.00 sec)
+</code></pre></div><p>也可以通过查询user表获得：</p>
+<p>语句：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">select</span> <span style="color:#66d9ef">user</span>,<span style="color:#66d9ef">host</span> <span style="color:#66d9ef">from</span> mysql.<span style="color:#66d9ef">user</span> <span style="color:#66d9ef">where</span> <span style="color:#66d9ef">user</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;test_user&#39;</span>; 
+</code></pre></div><p>结果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">+-----------------------------------------------+
+| Grants for test_user@localhost                |
++-----------------------------------------------+
+| GRANT USAGE ON *.* TO &#39;test_user&#39;@&#39;localhost&#39; |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+</code></pre></div><blockquote>
+<p>注：USAGE即仅有使用权限，无其他数据或操作权限，只能连接数据库和查询infomation_schema</p>
+</blockquote>
+<h3 id="四初始化设置root密码">四、初始化设置root密码</h3>
+<p>// TODO: 待补充</p>
+<h3 id="五密码丢失解决方案">五、密码丢失解决方案</h3>
+<p>普通用户密码丢失可以通过root账号修改。但是如果忘记root用户密码，就需要去找回或者重置root用户密码。</p>
+<ol>
+<li>
+<p>修改配置文件<code>/etc/my.cnf</code>，注释或删除<code>validate-password=off</code>。</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf"># validate-password=off
+</code></pre></li>
+<li>
+<p>修改配置文件<code>/etc/my.cnf</code>，添加<code>skip-grant-tables</code>以跳过认证。</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf">skip-grant-tables
+</code></pre><p>或启动时携带参数<code>--skip-grant-tables</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mysqld --skip-grant-tables
+</code></pre></div></li>
+<li>
+<p>修改root用户密码，需要指定用户名。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">update</span> <span style="color:#66d9ef">user</span> <span style="color:#66d9ef">set</span> authentication_string<span style="color:#f92672">=</span>password(<span style="color:#e6db74">&#39;123456&#39;</span>) <span style="color:#66d9ef">where</span> <span style="color:#66d9ef">user</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;root&#39;</span>;
+flush <span style="color:#66d9ef">privileges</span>;
+</code></pre></div></li>
+<li>
+<p>再正常重启即可。​</p>
+</li>
+</ol>
+<h3 id="最后">最后</h3>
+
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/posts/mysql/mysql-%E8%A7%A3%E9%87%8A%E8%AE%A1%E5%88%92/"><span>MySQL 解释计划</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/posts/mysql/mysql-%E6%9F%A5%E7%9C%8B%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C%E5%90%84%E6%AD%A5%E9%AA%A4%E8%80%97%E6%97%B6/"><span>MySQL 查看语句执行各步骤耗时</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

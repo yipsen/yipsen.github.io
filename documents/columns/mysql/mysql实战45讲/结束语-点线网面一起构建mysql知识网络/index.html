@@ -45,10 +45,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -57,7 +57,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -313,12 +313,10 @@
 </style><article class="post-block">
         <h1 class="post-title">结束语 点线网面，一起构建MySQL知识网络</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:52:44</span>🏷️&nbsp;<a class="post-tag" href="/tags/mysql/">mysql</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/">MySQL实战45讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:52:44</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>时光流逝，这是专栏的最后一篇文章。回顾整个过程，<strong>如果用一个词来描述，就是“没料到”</strong>：</p>
 <p>我没料到文章这么难写，似乎每一篇文章都要用尽所学；</p>
@@ -376,6 +374,11 @@
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/mysql/">mysql</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/">MySQL实战45讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -384,26 +387,38 @@
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/%E6%88%91%E7%9A%84mysql%E5%BF%83%E8%B7%AF%E5%8E%86%E7%A8%8B/"><span>我的MySQL心路历程</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%9845%E8%AE%B2/%E6%88%91%E7%9A%84mysql%E5%BF%83%E8%B7%AF%E5%8E%86%E7%A8%8B/"><span>我的MySQL心路历程</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/00-%E5%BC%80%E7%AF%87%E8%AF%8D-%E4%BB%8E%E4%B8%9A%E5%8A%A1%E5%87%BA%E5%8F%91%E5%BC%80%E5%90%AF%E6%B5%B7%E9%87%8F-mysql-%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/"><span>00 开篇词 从业务出发，开启海量 MySQL 架构设计</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/00-%E5%BC%80%E7%AF%87%E8%AF%8D-%E4%BB%8E%E4%B8%9A%E5%8A%A1%E5%87%BA%E5%8F%91%E5%BC%80%E5%90%AF%E6%B5%B7%E9%87%8F-mysql-%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/"><span>00 开篇词 从业务出发，开启海量 MySQL 架构设计</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

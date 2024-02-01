@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>Redis 集群清空指定 KEY | Yipsen Ye</title>
+<meta name="description" content="1. 查看 redis 集群有多少个 master 节点 方式一： 接入控制台后查询
+  进入 redis 客户端控制台
+./redis-cli -h 192.168.3.117 -p 6379 -c   进入后执行查询命令
+# 该命令会列出所有的节点包括 slave 的，所以需要额外挑出 master 的节点 cluster nodes   方式二： 命令行直接查询
+./redis-cli cluster nodes | grep master 2. 进入每台 master 节点，删除所有指定的目标 KEY ./redis-cli -h 192.168.3.117 -p 6379 -a &amp;lt;password&amp;gt; -c keys &amp;#39;STAFF:INFO:*&amp;#39; | xargs -r -n1 -t ./redis-cli -h 192.168.3.117 -p 6379 -a &amp;lt;password&amp;gt; -c del  注：每个 master 节点都要执行一遍删除命令，其中STAFF:INFO:*为要删除的目标 KEY， 本例是使用了正则通配符，但需要注意的是本例采用keys命令可能导致 redis 卡死，最好采用scan命令替换。">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title">Redis 集群清空指定 KEY</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-03-05 08:34:41</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <h3 id="1-查看-redis-集群有多少个-master-节点">1. 查看 redis 集群有多少个 master 节点</h3>
+<p>方式一： 接入控制台后查询</p>
+<ol>
+<li>
+<p>进入 redis 客户端控制台</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./redis-cli -h 192.168.3.117 -p <span style="color:#ae81ff">6379</span> -c
+</code></pre></div></li>
+<li>
+<p>进入后执行查询命令</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 该命令会列出所有的节点包括 slave 的，所以需要额外挑出 master 的节点</span>
+cluster nodes
+</code></pre></div></li>
+</ol>
+<p>方式二： 命令行直接查询</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./redis-cli cluster nodes | grep master
+</code></pre></div><h3 id="2-进入每台-master-节点删除所有指定的目标-key">2. 进入每台 master 节点，删除所有指定的目标 KEY</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./redis-cli -h 192.168.3.117 -p <span style="color:#ae81ff">6379</span> -a &lt;password&gt; -c keys <span style="color:#e6db74">&#39;STAFF:INFO:*&#39;</span> | xargs -r -n1 -t ./redis-cli -h 192.168.3.117 -p <span style="color:#ae81ff">6379</span> -a &lt;password&gt; -c del
+</code></pre></div><blockquote>
+<p>注：每个 master 节点都要执行一遍删除命令，其中<code>STAFF:INFO:*</code>为要删除的目标 KEY， 本例是使用了正则通配符，但需要注意的是本例采用<code>keys</code>命令可能导致 redis 卡死，最好采用<code>scan</code>命令替换。</p>
+</blockquote>
+
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/redis/">Redis</a>&nbsp;</div>
+    <div></div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/posts/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/wireshark-%E5%A4%87%E5%BF%98%E5%BD%95/"><span>Wireshark 备忘录</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/posts/redis/redis-%E5%91%BD%E4%BB%A4%E5%A4%87%E5%BF%98%E5%BD%95/"><span>Redis 命令备忘录</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

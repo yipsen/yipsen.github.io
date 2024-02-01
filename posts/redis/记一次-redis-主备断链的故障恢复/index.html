@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>记一次 Redis 主备断链的故障恢复 | Yipsen Ye</title>
+<meta name="description" content="环境信息 IM 最近会话数据由于更新频繁且数据重要度相对较低，采用 Redis 存储。
+ Redis 机器规格
+   器件 型号 规格     CPU Intel(R) Xeon(R) Gold 6161 CPU @ 2.20GHz 16 * 4 Cores   Memory  62GB     故障现象  【问题现象】  业务巡检发现：2022-11-15 16:00 最近会话 Redis 集群（6节点，3主3从集群模式部署）从库与主库断链，数据复制状态异常，业务正常。 （slave 侧 redis 连接 master 状态显示为： master_link_status:down, 集群 slave 和 master 状态同步异常）
+ 【问题根因】  通过查看主库日志发现报错：psync scheduled to be closed ASAP for overcoming of output buffer limits。从库向主库进行 psync 时，因超过主库的 output buffer limits 限制，导致连接被中断。而之所以报该错误，是因为设置的主从同步缓冲区已经远小于主从库之间的数据差异，主库为了保护自身不受影响，主动断开了从库的连接。而断开连接后，主从之间的差异进一步拉大，以至于主从之间已无法连接上。">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title">记一次 Redis 主备断链的故障恢复</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-11-15 18:34:43</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <h2 id="环境信息">环境信息</h2>
+<p>IM 最近会话数据由于更新频繁且数据重要度相对较低，采用 Redis 存储。</p>
+<blockquote>
+<p>Redis 机器规格</p>
+<table>
+<thead>
+<tr>
+<th>器件</th>
+<th>型号</th>
+<th>规格</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU</td>
+<td>Intel(R) Xeon(R) Gold 6161 CPU @ 2.20GHz</td>
+<td>16 * 4 Cores</td>
+</tr>
+<tr>
+<td>Memory</td>
+<td></td>
+<td>62GB</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h2 id="故障现象">故障现象</h2>
+<ul>
+<li>【问题现象】</li>
+</ul>
+<p>业务巡检发现：2022-11-15 16:00 最近会话 Redis 集群（6节点，3主3从集群模式部署）从库与主库断链，数据复制状态异常，业务正常。
+（slave 侧 redis 连接 master 状态显示为： master_link_status:down, 集群 slave 和 master 状态同步异常）</p>
+<ul>
+<li>【问题根因】</li>
+</ul>
+<p>通过查看主库日志发现报错：<code>psync scheduled to be closed ASAP for overcoming of output buffer limits</code>。从库向主库进行 psync 时，因超过主库的 output buffer limits 限制，导致连接被中断。而之所以报该错误，是因为设置的主从同步缓冲区已经远小于主从库之间的数据差异，主库为了保护自身不受影响，主动断开了从库的连接。而断开连接后，主从之间的差异进一步拉大，以至于主从之间已无法连接上。</p>
+<ul>
+<li>【解决方案】</li>
+</ul>
+<p>在主、备侧 Redis 配置 config set client-output-buffer-limit &ldquo;slave 2684254560 671088640 600&rdquo; 后解决，恢复主从连接与数据复制。（256MB 扩大到 2.5GB）</p>
+<ul>
+<li>【经验沉淀】</li>
+</ul>
+<p>Redis 3.0 版本对于 confg set client-output-buffer-limit 不支持使用 mb 单位，故如配置<code>slave 10240mb 2560mb 600</code>是未能生效的，后通过设置纯数字（单位 byte）解决。</p>
+<h2 id="原理知识点">原理知识点</h2>
+
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/redis/">Redis</a>&nbsp;🏷️<a class="post-tag" href="/tags/trouble-shooting/">Trouble Shooting</a>&nbsp;</div>
+    <div></div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4/"><span>kubernetes cluster installation step</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/posts/java/java-%E8%99%9A%E6%8B%9F%E6%9C%BA/jvm-%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95-%E5%87%A0%E4%B8%AA%E5%B8%B8%E7%94%A8%E7%9A%84%E6%8C%87%E6%A0%87%E6%94%B6%E9%9B%86%E5%91%BD%E4%BB%A4/"><span>JVM 工具使用备忘录 - 几个常用的指标收集命令</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

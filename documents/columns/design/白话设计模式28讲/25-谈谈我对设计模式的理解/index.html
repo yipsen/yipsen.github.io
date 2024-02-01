@@ -35,10 +35,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -47,7 +47,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -223,12 +223,10 @@
 </style><article class="post-block">
         <h1 class="post-title">25 谈谈我对设计模式的理解</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:37:15</span>🏷️&nbsp;<a class="post-tag" href="/tags/design/">design</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/">白话设计模式28讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:37:15</span>
+            </div>
+        </div>
         <div class="post-content">
             <h3 id="众多书籍之下为何还要写这一课程">众多书籍之下为何还要写这一课程</h3>
 <p>设计模式可谓是老生常谈的不能再老生常谈了，我曾经思考过很长一段时间要不要去写这系列的文章，因为这一主题的书籍实在太多了，网上免费的资料也非常的多。思考再三，最终决定写它，主要有以下几个原因：</p>
@@ -273,6 +271,11 @@
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/design/">design</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/">白话设计模式28讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -281,26 +284,38 @@
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/24-%E6%B7%B1%E5%85%A5%E8%A7%A3%E8%AF%BB%E5%9B%9E%E8%B0%83%E6%9C%BA%E5%88%B6%E6%8A%8A%E4%BD%A0%E6%8A%80%E8%83%BD%E4%BA%AE%E5%87%BA%E6%9D%A5/"><span>24 深入解读回调机制：把你技能亮出来</span></a>
+        <a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/24-%E6%B7%B1%E5%85%A5%E8%A7%A3%E8%AF%BB%E5%9B%9E%E8%B0%83%E6%9C%BA%E5%88%B6%E6%8A%8A%E4%BD%A0%E6%8A%80%E8%83%BD%E4%BA%AE%E5%87%BA%E6%9D%A5/"><span>24 深入解读回调机制：把你技能亮出来</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/26-%E8%B0%88%E8%B0%88%E6%88%91%E5%AF%B9%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E7%9A%84%E6%80%9D%E8%80%83/"><span>26 谈谈我对设计原则的思考</span></a>
+        <a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/26-%E8%B0%88%E8%B0%88%E6%88%91%E5%AF%B9%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E7%9A%84%E6%80%9D%E8%80%83/"><span>26 谈谈我对设计原则的思考</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>代码样例速查 on Yipsen Ye</title>
+    <link>http://yipsen.github.io/tags/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</link>
+    <description>Recent content in 代码样例速查 on Yipsen Ye</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 06 Feb 2022 16:31:43 +0000</lastBuildDate><atom:link href="http://yipsen.github.io/tags/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java 代码样例速查</title>
+      <link>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/java-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/java-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</guid>
+      <description>多线程发起请求并合并结果 // 退群记录 CompletableFuture&amp;lt;Collection&amp;lt;Long&amp;gt;&amp;gt; leaveGroupFuture = queryUserLeftGroupId(userAccount, st, m); // 群信息变更记录 CompletableFuture&amp;lt;Collection&amp;lt;Long&amp;gt;&amp;gt; infoChangedGroupFuture = queryInfoChangedGroupId(corpIdList, groupIdList, st, m); // 群成员变更记录 CompletableFuture&amp;lt;Collection&amp;lt;Long&amp;gt;&amp;gt; memberChangedGroupFuture = queryMemberChangedGroupId(corpIdList, groupIdList, st, m); // 群头像变更记录 CompletableFuture&amp;lt;Collection&amp;lt;Long&amp;gt;&amp;gt; iconChangedGroupFuture = queryIconChangedGroupId(corpIdList, groupIdList, m); // 不活跃群记录 CompletableFuture&amp;lt;Collection&amp;lt;Long&amp;gt;&amp;gt; inactiveGroupFuture = queryInactiveGroupId(corpIdList, leaveGroupFuture, st, m); // 群成员信息 CompletableFuture&amp;lt;Collection&amp;lt;GroupMemberInfo&amp;gt;&amp;gt; memberInfoQueryFuture = infoChangedGroupFuture.thenCombineAsync(memberChangedGroupFuture, (x1, x2) -&amp;gt; queryGroupMemberInfo(x1, x2, userAccount), executor); // 查询变更的群详情，需要等待信息和成员变更查询结束 CompletableFuture.allOf(infoChangedGroupFuture, memberChangedGroupFuture).join(); Collection&amp;lt;Long&amp;gt; infoChangedGroupIdList = infoChangedGroupFuture.join(); Collection&amp;lt;Long&amp;gt; memberChangedGroupIdList = memberChangedGroupFuture.join(); // 群详情 CompletableFuture&amp;lt;Collection&amp;lt;GroupInfo&amp;gt;&amp;gt; groupInfoQueryFuture = leaveGroupFuture.</description>
+    </item>
+    
+    <item>
+      <title>Javascript 代码样例速查</title>
+      <link>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/javascript-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/javascript-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</guid>
+      <description>日期转时间戳 parseInt(new Date(&amp;#34;2015-03-05&amp;#34;).getTime() / 1000) </description>
+    </item>
+    
+    <item>
+      <title>NodeJS 代码样例速查</title>
+      <link>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/nodejs-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/nodejs-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</guid>
+      <description>删除文件夹 const fs = require(&amp;#39;fs&amp;#39;); const path = require(&amp;#39;path&amp;#39;); function delDir(folderpath) { if (fs.existsSync(folderpath)) { let files = fs.readdirSync(folderpath); files.forEach((file, index) =&amp;gt; { let curPath = path.join(folderpath, file); console.log(curPath); if (fs.statSync(curPath).isDirectory()) { delDir(curPath); } else { fs.unlinkSync(curPath); } }); fs.rmdirSync(folderpath); } } </description>
+    </item>
+    
+    <item>
+      <title>Python 代码样例速查</title>
+      <link>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/python-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/python-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</guid>
+      <description>遍历文件夹下所有文件名 import os for filename in os.listdir(target_folder_path): print(filename) 遍历文件夹下所有文件名（递归） import os ROOT_PATH = r&amp;#39;&amp;#39; for root, dirs, files in os.walk(ROOT_PATH): for file in files: path = os.path.join(root, file) size = os.path.getsize(path) # 清空空文件夹？？？待确认 if size == 0: print(path, size) os.remove(path) 连接文件路径 import os for filename in os.listdir(target_folder_path): file_path = os.path.join(target_folder_path, filename) print(file_path) 移动文件 import shutil shutil.move(source_path, target_path) 复制文件 import shutil shutil.copyfile(source_path, target_path) shutil.copy2(source_path, target_path) 判断是否文件或文件夹 import os if os.path.isfile(target_path): return True if os.</description>
+    </item>
+    
+    <item>
+      <title>Shell 代码样例速查</title>
+      <link>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/shell-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/shell-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</guid>
+      <description>打印日志 #!/bin/bash ############################################################### # Program: # This program for upload batch of pictures to nimg. # History: # # Ver Date Author Actvity # --- ---- ------ ------- # 1.0 2018/12/10 Yipsen First release ############################################################### ############################################################### SOURCE_PATH=&amp;#34;/mnt/resource/&amp;#34; TARGET_URL=&amp;#34;http://192.168.1.102:9000/02/upload&amp;#34; #Folder path HOME_PATH=&amp;#34;&amp;#34; WORKING_PATH=&amp;#34;${HOME_PATH}/working/image_`date +%Y%m%d_%H%M%S_$$`&amp;#34; OUTPUT_PATH=&amp;#34;${HOME_PATH}/output&amp;#34; LOG_PATH=&amp;#34;${HOME_PATH}/logs&amp;#34; #Log File LOG_FILE=&amp;#34;${LOG_PATH}/UploadToNimg_`date +%Y-%m-%d`.log&amp;#34; #Json File ACTOR_JSON_FILE=&amp;#34;${OUTPUT_PATH}/actor_`date +%Y-%m-%d`.log&amp;#34; MOVIE_JSON_FILE=&amp;#34;${OUTPUT_PATH}/movie_`date +%Y-%m-%d`.log&amp;#34; ############################################################### function Initialize() { # logInfo &amp;#34;----- Initialize - Initialize log file/archive file is starting.&amp;#34; # if [ -f ${LOG_FILE} ]; # then # chmod 755 ${LOG_FILE} # else # touch ${LOG_FILE} # chmod 755 ${LOG_FILE} # logInfo &amp;#34;----- Initialize - New log file is created.</description>
+    </item>
+    
+  </channel>
+</rss>

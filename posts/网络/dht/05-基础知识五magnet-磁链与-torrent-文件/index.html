@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>05 基础知识（五）Magnet 磁链与 Torrent 文件 | Yipsen Ye</title>
+<meta name="description" content="MAGNET 磁链结构  magnet:?xt=urn:btih:60c423137f453492ca34c2d69f6f573408dca35a&amp;amp;dn=Inglourious.Basterds.DVDRip.XviD-iMBT.avi&amp;amp;tr=http%3A%2F%2Ftracker.publicbt.com%2Fannounce
+    字段 全称 解析     magnet magnet 协议名。   xt exact topic 包含文件哈希值的统一资源名称。   urn uniform resource name URN 表示资源名   btih BitTorrent info hash 种子散列函数，这里还可以使用ED2K，AICH，SHA1和MD5等。这个值是文件的标识符，是不可缺少的。   dn display name 表示向用户显示的文件名。这一项是选填的。   tr tracker 表示tracker服务器的地址。这一项也是选填的。   ws webseed 表示网络种子。     注：btih是应用程序定义的实验参数，必须以&amp;quot;x.&amp;ldquo;开头。[4-5] 标准还建议同类的多个参数可以在参数名称后面加上&amp;rdquo;.1&amp;quot;, &amp;ldquo;.2&amp;quot;等来使用， 例如： magnet:?xt.1=urn:sha1:YNCKHTQCWBTRNJIV4WNAE52SJUQCZO5C&amp;amp;xt.2=urn:sha1:TXGCZQTH26NL6OUQAJJPFALHG2LTGBC7
+ TORRENT 文件结构 { &amp;#34;announce&amp;#34;: &amp;#34;&amp;#34;, // tracker的主服务器  &amp;#34;announce-list&amp;#34;: [], // tracker服务器列表  &amp;#34;comment&amp;#34;: &amp;#34;&amp;#34;, // 种子文件的注释  &amp;#34;comment.">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><aside>
+    <div>
+        
+        
+            
+            
+            <div class="post-category-icon"></div>
+            <a href="/categories/dht/">DHT</a>
+            <ul>
+                
+                
+                    <li><a href="http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/01-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B8%80dht-%E7%BD%91%E7%BB%9C%E7%9A%84%E6%BC%94%E8%BF%9B/">01 基础知识（一）DHT 网络的演进</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/02-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BA%8Ckademlia-%E7%AE%97%E6%B3%95/">02 基础知识（二）Kademlia 算法</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/03-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B8%89krpc-%E5%8D%8F%E8%AE%AE%E8%A7%A3%E6%9E%90/">03 基础知识（三）KRPC 协议解析</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/04-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%9B%9Bbencode-%E7%BC%96%E7%A0%81/">04 基础知识（四）Bencode 编码</a></li>
+                
+                
+                
+                    <li>05 基础知识（五）Magnet 磁链与 Torrent 文件</li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/06-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%85%AD%CE%BCtp-%E5%8D%8F%E8%AE%AE/">06 基础知识（六）μTP 协议</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/08-%E7%88%AC%E8%99%AB%E8%AE%BE%E8%AE%A1%E4%B8%80%E6%A8%A1%E5%9D%97%E5%88%92%E5%88%86%E4%B8%8E%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91/">08 爬虫设计（一）模块划分与核心逻辑</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/09-%E7%88%AC%E8%99%AB%E8%AE%BE%E8%AE%A1%E4%BA%8C%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6-%E8%B7%AF%E7%94%B1%E8%A1%A8%E8%AE%BE%E8%AE%A1/">09 爬虫设计（二）核心组件-路由表设计</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/10-%E7%88%AC%E8%99%AB%E8%AE%BE%E8%AE%A1%E4%B8%89%E4%BD%BF%E7%94%A8-netty-%E7%9A%84-handle-%E9%93%BE%E4%B8%8E%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">10 爬虫设计（三）使用 Netty 的 Handle 链与统一异常处理</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/11-%E7%88%AC%E8%99%AB%E8%AE%BE%E8%AE%A1%E5%9B%9B%E7%9B%91%E6%8E%A7%E9%87%87%E9%9B%86/">11 爬虫设计（四）监控采集</a></li>
+                
+                
+            </ul>
+        
+    </div>
+</aside>
+
+<style>
+    aside {
+        position: fixed;
+        left: 20px;
+        background: #ffdee3;
+        border-radius: 6px;
+        padding: 20px;
+        padding-top: 60px;
+        box-shadow: 5px 10px #888;
+        list-style-type: none;
+        display: none;
+    }
+
+    .post-category-icon {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        left: 50%;
+        margin-left: -40px;
+        text-align: center;
+        font-size: 36px;
+        content: 'J';
+        background: #ffdee3;
+        border-radius: 100%;
+        border: 10px solid #fff;
+        box-shadow: 5px 10px #888;
+    }
+</style><article class="post-block">
+        <h1 class="post-title">05 基础知识（五）Magnet 磁链与 Torrent 文件</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-01-16 16:31:43</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <h2 id="magnet-磁链结构">MAGNET 磁链结构</h2>
+<blockquote>
+<p>magnet:?xt=urn:btih:60c423137f453492ca34c2d69f6f573408dca35a&amp;dn=Inglourious.Basterds.DVDRip.XviD-iMBT.avi&amp;tr=http%3A%2F%2Ftracker.publicbt.com%2Fannounce</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>全称</th>
+<th>解析</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>magnet</td>
+<td>magnet</td>
+<td>协议名。</td>
+</tr>
+<tr>
+<td>xt</td>
+<td>exact topic</td>
+<td>包含文件哈希值的统一资源名称。</td>
+</tr>
+<tr>
+<td>urn</td>
+<td>uniform resource name</td>
+<td>URN 表示资源名</td>
+</tr>
+<tr>
+<td>btih</td>
+<td>BitTorrent info hash</td>
+<td>种子散列函数，这里还可以使用ED2K，AICH，SHA1和MD5等。这个值是文件的标识符，是不可缺少的。</td>
+</tr>
+<tr>
+<td>dn</td>
+<td>display name</td>
+<td>表示向用户显示的文件名。这一项是选填的。</td>
+</tr>
+<tr>
+<td>tr</td>
+<td>tracker</td>
+<td>表示tracker服务器的地址。这一项也是选填的。</td>
+</tr>
+<tr>
+<td>ws</td>
+<td>webseed</td>
+<td>表示网络种子。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>注：btih是应用程序定义的实验参数，必须以&quot;x.&ldquo;开头。[4-5] 标准还建议同类的多个参数可以在参数名称后面加上&rdquo;.1&quot;, &ldquo;.2&quot;等来使用，
+例如： magnet:?xt.1=urn:sha1:YNCKHTQCWBTRNJIV4WNAE52SJUQCZO5C&amp;xt.2=urn:sha1:TXGCZQTH26NL6OUQAJJPFALHG2LTGBC7</p>
+</blockquote>
+<h2 id="torrent-文件结构">TORRENT 文件结构</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;announce&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,              <span style="color:#75715e">// tracker的主服务器
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">&#34;announce-list&#34;</span>: [],         <span style="color:#75715e">// tracker服务器列表
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">&#34;comment&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,               <span style="color:#75715e">// 种子文件的注释
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">&#34;comment.utf-8&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,         <span style="color:#75715e">// 种子文件的注释(UTF-8编码格式)
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">&#34;creation date&#34;</span>: <span style="color:#ae81ff">0</span>,          <span style="color:#75715e">// 种子文件的创建时间，格式为时间戳
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">&#34;encoding&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,              <span style="color:#75715e">// 种子文件的默认编码，比如GB2312，Big5，utf-8等
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">&#34;info&#34;</span>: {                    <span style="color:#75715e">// 种子的实际资源信息，包含所有的文件信息
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,                <span style="color:#75715e">// 推荐的文件/文件夹名，下载时可更改
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;name.utf-8&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,          <span style="color:#75715e">// 推荐的文件/文件夹名(UTF-8编码格式)
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;pieces&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,              <span style="color:#75715e">// 资源总内容分块后，每块内容的SHA1值连接起来的二进制串
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;piece length&#34;</span>: <span style="color:#ae81ff">0</span>,         <span style="color:#75715e">// 资源总内容分块后，每块内容的大小，单位是字节Byte
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;publisher&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,           <span style="color:#75715e">// 文件发布者的名字
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;publisher.utf-8&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,     <span style="color:#75715e">// 文件发布者的名字(UTF-8编码格式)
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;publisher-url&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,       <span style="color:#75715e">// 文件发布者的网址
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;publisher-url.utf-8&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#75715e">// 文件发布者的网址(UTF-8编码格式)
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;length&#34;</span>: <span style="color:#ae81ff">0</span>,               <span style="color:#75715e">// 如果该种子包含单个文件，则表示文件的大小(单位字节)
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;files&#34;</span>: [{                <span style="color:#75715e">// 如果该种子包含多个文件，则所有文件信息在该数组中
+</span><span style="color:#75715e"></span>      <span style="color:#f92672">&#34;length&#34;</span>: <span style="color:#ae81ff">0</span>,             <span style="color:#75715e">// 文件的大小，单位是字节Byte
+</span><span style="color:#75715e"></span>      <span style="color:#f92672">&#34;path&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,              <span style="color:#75715e">// 文件的名字，在下载时不可更改
+</span><span style="color:#75715e"></span>      <span style="color:#f92672">&#34;path.utf-8&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>         <span style="color:#75715e">// 文件的名字(UTF-8编码格式)
+</span><span style="color:#75715e"></span>    }]
+  },
+  <span style="color:#f92672">&#34;nodes&#34;</span>: []                  <span style="color:#75715e">// DHT初始node节点列表，包含node机器的连接信息ip/port等
+</span><span style="color:#75715e"></span>}
+</code></pre></div><blockquote>
+<p>注：pieces为资源的特征信息，为便于分段分享下载，会对资源总内容按piece length分块。分块后每块内容计算出的SHA1值为20字节，所以该字段的长度总是20字节的整数倍。如果是大文件而分块又很细，则此字段内容将很大，因为块数更多了。</p>
+</blockquote>
+
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/network/">network</a>&nbsp;🏷️<a class="post-tag" href="/tags/dht/">DHT</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/dht/">DHT</a>&nbsp; </div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/06-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%85%AD%CE%BCtp-%E5%8D%8F%E8%AE%AE/"><span>06 基础知识（六）μTP 协议</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/04-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%9B%9Bbencode-%E7%BC%96%E7%A0%81/"><span>04 基础知识（四）Bencode 编码</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

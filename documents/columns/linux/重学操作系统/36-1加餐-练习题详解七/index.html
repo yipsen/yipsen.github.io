@@ -25,10 +25,10 @@ IPv4 地址，空间小，如果没有一个中心的服务为所有设备分配
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -37,7 +37,7 @@ IPv4 地址，空间小，如果没有一个中心的服务为所有设备分配
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -301,12 +301,10 @@ IPv4 地址，空间小，如果没有一个中心的服务为所有设备分配
 </style><article class="post-block">
         <h1 class="post-title">36 (1)加餐 练习题详解（七）</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:49:35</span>🏷️&nbsp;<a class="post-tag" href="/tags/linux/">linux</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">重学操作系统</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:49:35</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>今天我会带你把《模块七：网络和安全》中涉及的课后练习题，逐一讲解，并给出每个课时练习题的解题思路和答案。</p>
 <h3 id="练习题详解">练习题详解</h3>
@@ -363,6 +361,11 @@ IPv4 地址，空间小，如果没有一个中心的服务为所有设备分配
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/linux/">linux</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">重学操作系统</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -371,26 +374,38 @@ IPv4 地址，空间小，如果没有一个中心的服务为所有设备分配
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/35-linux-%E7%9A%84-io-%E6%A8%A1%E5%BC%8Fselectpollepoll-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/"><span>35 Linux 的 IO 模式：selectpollepoll 有什么区别？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/35-linux-%E7%9A%84-io-%E6%A8%A1%E5%BC%8Fselectpollepoll-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/"><span>35 Linux 的 IO 模式：selectpollepoll 有什么区别？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/36-%E5%85%AC%E7%A7%81%E9%92%A5%E4%BD%93%E7%B3%BB%E5%92%8C%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%94%BB%E5%87%BB/"><span>36 公私钥体系和网络安全：什么是中间人攻击？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/36-%E5%85%AC%E7%A7%81%E9%92%A5%E4%BD%93%E7%B3%BB%E5%92%8C%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%94%BB%E5%87%BB/"><span>36 公私钥体系和网络安全：什么是中间人攻击？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

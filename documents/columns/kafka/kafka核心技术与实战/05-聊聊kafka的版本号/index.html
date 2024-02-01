@@ -23,10 +23,10 @@ Kafka 版本命名 当前 Apache Kafka 已经迭代到 2.2 版本，社区正在
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -35,7 +35,7 @@ Kafka 版本命名 当前 Apache Kafka 已经迭代到 2.2 版本，社区正在
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -279,12 +279,10 @@ Kafka 版本命名 当前 Apache Kafka 已经迭代到 2.2 版本，社区正在
 </style><article class="post-block">
         <h1 class="post-title">05 聊聊Kafka的版本号</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:45:58</span>🏷️&nbsp;<a class="post-tag" href="/tags/kafka/">kafka</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/">Kafka核心技术与实战</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:45:58</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>你好，我是胡夕。今天我想和你聊聊如何选择 Kafka 版本号这个话题。今天要讨论的内容实在是太重要了，我觉得它甚至是你日后能否用好 Kafka 的关键。</p>
 <p>上一期我介绍了目前流行的几种 Kafka 发行版，其实不论是哪种 Kafka，本质上都内嵌了最核心的 Apache Kafka，也就是社区版 Kafka，那今天我们就来说说 Apache Kafka 版本号的问题。在开始之前，我想强调一下后面出现的所有“版本”这个词均表示 Kafka 具体的版本号，而非上一篇中的 Kafka 种类，这一点切记切记！</p>
@@ -314,6 +312,11 @@ Kafka 版本命名 当前 Apache Kafka 已经迭代到 2.2 版本，社区正在
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/kafka/">kafka</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/">Kafka核心技术与实战</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -322,26 +325,38 @@ Kafka 版本命名 当前 Apache Kafka 已经迭代到 2.2 版本，社区正在
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/04-%E6%88%91%E5%BA%94%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E7%A7%8Dkafka/"><span>04 我应该选择哪种Kafka？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/04-%E6%88%91%E5%BA%94%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E7%A7%8Dkafka/"><span>04 我应该选择哪种Kafka？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/06-kafka%E7%BA%BF%E4%B8%8A%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E6%96%B9%E6%A1%88%E6%80%8E%E4%B9%88%E5%81%9A/"><span>06 Kafka线上集群部署方案怎么做？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/06-kafka%E7%BA%BF%E4%B8%8A%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E6%96%B9%E6%A1%88%E6%80%8E%E4%B9%88%E5%81%9A/"><span>06 Kafka线上集群部署方案怎么做？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

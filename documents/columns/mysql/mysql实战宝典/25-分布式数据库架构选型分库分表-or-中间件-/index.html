@@ -23,10 +23,10 @@ void InsertOrders(String orderKey, int userKey...) {int shard_id = userKey % 4;
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -35,7 +35,7 @@ void InsertOrders(String orderKey, int userKey...) {int shard_id = userKey % 4;
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -211,12 +211,10 @@ void InsertOrders(String orderKey, int userKey...) {int shard_id = userKey % 4;
 </style><article class="post-block">
         <h1 class="post-title">25 分布式数据库架构选型：分库分表 or 中间件 ？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:53:26</span>🏷️&nbsp;<a class="post-tag" href="/tags/mysql/">mysql</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/">MySQL实战宝典</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:53:26</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>前面几讲我们学习了分布式数据库的分片设计、表结构设计、索引设计等，相信你已经有能力构建一个分布式数据库系统了。</p>
 <p>但现在数据分好了，索引也设计好了，但是如果访问这些数据和索引呢？这就是我们这一讲要讨论的话题。</p>
@@ -311,6 +309,11 @@ void InsertOrders(String orderKey, int userKey...) {int shard_id = userKey % 4;
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/mysql/">mysql</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/">MySQL实战宝典</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -319,26 +322,38 @@ void InsertOrders(String orderKey, int userKey...) {int shard_id = userKey % 4;
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/24-%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%E8%AE%BE%E8%AE%A1%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95%E5%85%A8%E5%B1%80%E7%B4%A2%E5%BC%95%E7%9A%84%E6%9C%80%E4%BD%B3%E8%AE%BE%E8%AE%A1%E5%AE%9E%E8%B7%B5/"><span>24 分布式数据库索引设计：二级索引、全局索引的最佳设计实践</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/24-%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%E8%AE%BE%E8%AE%A1%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95%E5%85%A8%E5%B1%80%E7%B4%A2%E5%BC%95%E7%9A%84%E6%9C%80%E4%BD%B3%E8%AE%BE%E8%AE%A1%E5%AE%9E%E8%B7%B5/"><span>24 分布式数据库索引设计：二级索引、全局索引的最佳设计实践</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/26-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%BE%E8%AE%A1%E4%B9%8B%E7%A6%85%E5%85%A8%E9%93%BE%E8%B7%AF%E7%9A%84%E6%9D%A1%E5%B8%A6%E5%8C%96%E8%AE%BE%E8%AE%A1/"><span>26 分布式设计之禅：全链路的条带化设计</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mysql/mysql%E5%AE%9E%E6%88%98%E5%AE%9D%E5%85%B8/26-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%BE%E8%AE%A1%E4%B9%8B%E7%A6%85%E5%85%A8%E9%93%BE%E8%B7%AF%E7%9A%84%E6%9D%A1%E5%B8%A6%E5%8C%96%E8%AE%BE%E8%AE%A1/"><span>26 分布式设计之禅：全链路的条带化设计</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

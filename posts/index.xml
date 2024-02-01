@@ -5,7 +5,132 @@
     <link>http://yipsen.github.io/posts/</link>
     <description>Recent content in Posts on Yipsen Ye</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 15 Aug 2022 22:00:00 +0800</lastBuildDate><atom:link href="http://yipsen.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 05 Jan 2024 08:34:41 +0800</lastBuildDate><atom:link href="http://yipsen.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HTTP2 协议完整介绍</title>
+      <link>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/%E5%8D%8F%E8%AE%AE/http2-%E5%8D%8F%E8%AE%AE/http2-%E5%8D%8F%E8%AE%AE%E5%AE%8C%E6%95%B4%E4%BB%8B%E7%BB%8D/</link>
+      <pubDate>Fri, 05 Jan 2024 08:34:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/%E5%8D%8F%E8%AE%AE/http2-%E5%8D%8F%E8%AE%AE/http2-%E5%8D%8F%E8%AE%AE%E5%AE%8C%E6%95%B4%E4%BB%8B%E7%BB%8D/</guid>
+      <description>HTTP2 概述 HTTP2 与 HTTP1.1 的区别 在 HTTP2 的网络通讯中，Frame 是通讯中的最小传输单位，至少含有一个 Frame Header，能够表示它属于哪一个 Stream。
+HTTP1.1 有什么缺点（问题）&amp;amp; 现行解决方案 &amp;amp; HTTP2 是如何来解决的 HTTP2 新增概念 帧、流（TCP 连接的复用，使用流概念逻辑划分以便达到多路复用方式）
+Stream 是 HTTP2 协议的核心，因为在 HTTP1.1 中，所有的请求都是在单个 TCP 连接上顺序发送的，HTTP2 引入了 Stream 的概念，Stream 实际是一个逻辑概念，是虚拟的，并非真实存在的对象，
+数据帧属于流，流属于连接。控制帧则直接属于连接级别。一个流即是过去 HTTP1.1 的一个请求/响应。
+引申问题：为什么说 TCP 连接是昂贵的
+HTTP2 报文结构（帧结构） +-----------------------------------------------+| Length (24) |+---------------+---------------+---------------+| Type (8) | Flags (8) |+-+-------------+---------------+-------------------------------+|R| Stream Identifier (31) |+=+=============================================================+| Frame Payload (0...) ...+---------------------------------------------------------------+1. Frame Head (帧头) 帧头，主要用来放置当前帧的元数据，描述信息等，包括 Length(24)、Type(8)、Flags(8)、R(1)、Stream Identifier(31) 等5个字段，共9个字节。下面介绍这5个字段的含义：</description>
+    </item>
+    
+    <item>
+      <title>CentOS 安装 Redis 7.0</title>
+      <link>http://yipsen.github.io/posts/redis/centos-%E5%AE%89%E8%A3%85-redis-7.0/</link>
+      <pubDate>Sun, 05 Mar 2023 08:34:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/redis/centos-%E5%AE%89%E8%A3%85-redis-7.0/</guid>
+      <description>一、环境版本 OS: Linux kube-worker-02 5.4.210-1.el7.elrepo.x86_64 #1 SMP Tue Aug 9 17:41:27 EDT 2022 x86_64 x86_64 x86_64 GNU/Linux Redis: 7.0.8
+下载: ``
+解压: tar -zxvf redis-7.0.8.tar.gz
+移动: mv redis-7.0.8 /volume2/services/
+二、安装依赖项 gcc # 安装gcc yum install gcc-c++ # 查看版本 gcc -v # 版本低于 9 需要进行升级 # 升级 gcc yum -y install centos-release-scl yum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils scl enable devtoolset-9 bash # 以上为临时启用，长期使用gcc 9.1执行下面命令生效 echo &amp;#34;source /opt/rh/devtoolset-9/enable&amp;#34; &amp;gt;&amp;gt;/etc/profile # 查看版本 gcc -v  应对错误：cc: command not found</description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch 备忘录</title>
+      <link>http://yipsen.github.io/posts/elk/elasticsearch-%E5%A4%87%E5%BF%98%E5%BD%95/</link>
+      <pubDate>Wed, 01 Mar 2023 08:34:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/elk/elasticsearch-%E5%A4%87%E5%BF%98%E5%BD%95/</guid>
+      <description>查询索引 curl &amp;ndash;user elastic:123456 &amp;ldquo;http://localhost:9200/_cat/indices?v&amp;rdquo;</description>
+    </item>
+    
+    <item>
+      <title>Filebeat 备忘录</title>
+      <link>http://yipsen.github.io/posts/elk/filebeat-%E5%A4%87%E5%BF%98%E5%BD%95/</link>
+      <pubDate>Wed, 01 Mar 2023 08:34:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/elk/filebeat-%E5%A4%87%E5%BF%98%E5%BD%95/</guid>
+      <description>测试   测试配置
+测试命令
+filebeat -c /opt/filebeat/filebeat.yml test config 测试结果
+Config OK   测试输出
+测试命令
+filebeat -c /opt/filebeat/filebeat.yml test output 测试结果
+Kafka: 192.168.217.131:9092... parse host... OK dns lookup... OK addresses: 192.168.217.131 dial up... OK   </description>
+    </item>
+    
+    <item>
+      <title>jmap 工具使用</title>
+      <link>http://yipsen.github.io/posts/java/java-%E8%99%9A%E6%8B%9F%E6%9C%BA/jmap-%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Wed, 01 Mar 2023 08:34:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/java/java-%E8%99%9A%E6%8B%9F%E6%9C%BA/jmap-%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jstack 工具使用</title>
+      <link>http://yipsen.github.io/posts/java/java-%E8%99%9A%E6%8B%9F%E6%9C%BA/jstack-%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Wed, 01 Mar 2023 08:34:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/java/java-%E8%99%9A%E6%8B%9F%E6%9C%BA/jstack-%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jstat 工具使用</title>
+      <link>http://yipsen.github.io/posts/java/java-%E8%99%9A%E6%8B%9F%E6%9C%BA/jstat-%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Wed, 01 Mar 2023 08:34:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/java/java-%E8%99%9A%E6%8B%9F%E6%9C%BA/jstat-%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</guid>
+      <description>jstat 是 JDK 自带的一个轻量级小工具，全称&amp;quot;Java Virtual Machine statistics monitoring tool&amp;quot;，位于JAVA_HOME的bin目录下，主要利于 JVM 内建的指令对 Java 应用的资源和性能进行实时的命令行监控，包括对内存与垃圾回收状况的监控。
+官方文档：https://docs.oracle.com/en/java/javase/14/docs/specs/man/jstat.html
+最常用命令为：jstat -gcutil &amp;lt;pid&amp;gt;
+使用方式  基本格式  jstat -&amp;lt;option&amp;gt; [-t] [-h&amp;lt;lines&amp;gt;] &amp;lt;vmid&amp;gt; [&amp;lt;interval&amp;gt; [&amp;lt;count&amp;gt;]]  参数说明   option -t -h vmid interval count   例子  简单使用案例
+# -gcutil: 表示使用gcutil选项，即打印垃圾回收统计信息 # -t: 表示同时打印时间戳列 # -h10: 表示每10行输出一次表头 # 14812: 为JVM的pid # 1000: 表示每1000毫秒即每秒打印一次 # 20: 表示仅打印20条就结束。 jstat -gcutil -t -h10 14812 1000 20 效果
+$&amp;gt;jstat -gcutil -t -h10 14812 1000 20 Timestamp S0 S1 E O M CCS YGC YGCT FGC FGCT GCT 89.</description>
+    </item>
+    
+    <item>
+      <title>jvisualvm 工具使用</title>
+      <link>http://yipsen.github.io/posts/java/java-%E8%99%9A%E6%8B%9F%E6%9C%BA/jvisualvm-%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Wed, 01 Mar 2023 08:34:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/java/java-%E8%99%9A%E6%8B%9F%E6%9C%BA/jvisualvm-%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>JVM 发生 GC 的时间点</title>
+      <link>http://yipsen.github.io/posts/java/java-%E8%99%9A%E6%8B%9F%E6%9C%BA/jvm-%E5%8F%91%E7%94%9F-gc-%E7%9A%84%E6%97%B6%E9%97%B4%E7%82%B9/</link>
+      <pubDate>Wed, 01 Mar 2023 08:34:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/java/java-%E8%99%9A%E6%8B%9F%E6%9C%BA/jvm-%E5%8F%91%E7%94%9F-gc-%E7%9A%84%E6%97%B6%E9%97%B4%E7%82%B9/</guid>
+      <description>以下主要为 JVM 堆内存与 GC 相关知识点。
+内存模型 # JVM 堆内存分代图 ——————————————————————————————— | 8 | 1| 1| 20 | |——————————————————————————————— | eden |S0|S1| tenured | |——————————————————————————————— | Young Generation | Old Generation | ———————————————————————————————  为什么堆要进行分代（JVM的堆内存基于Generation算法划分为新生代、老年代、永久代），因为每个对象的生命周期是不一样的，因此为了·提高垃圾回收的效率·，对不同生命周期的对象进行分代，并针对不同代采用最适合高效的垃圾回收算法，整体提升垃圾回收效率。 Java8以前永久代是放置在堆中，占用了老年代空间的，主要放置class等静态对象，容易出现性能问题或内存溢出，为解决此问题，Java8时永久代被取消，取而代之的升级为元空间（Meta Space），且不再放置在堆空间中，而是放置在宿主机的内存中（不在JVM），解决了以前永久代OOM问题。
+为什么会有奇怪的 From 与 To 这两块 Survivor 区域呢？原因是新生代因对象朝生夕死的特点，一般GC时只有少量存活，所以采用复制算法，这就把内存区域分为两块，每次仅使用其中一块，GC发生时把一块中的内容（仅选存活的对象）移到另一块中，原来一块的内存就全部回收清空了。优点是快速且避免内存碎片。
+ 堆内存分配策略  对象优先在 Eden 分配 大对象直接进入老年代 长期存活（默认15以上）对象将进入老年代  GC 发生时机 第 1 种发生回收的时机点：Eden区空间不足，即Eden Space申请失败时期发生，会发生 Minor GC（即 Scavenge GC）【因对象朝生夕死特点，只有少量存活，采用复制算法】  S0不满：   Eden区（仅存活部分的对象） -&amp;gt; Survivor0 区（不满时） 清空 Eden   S0已满：   Eden区（仅存活部分的对象）+ Survivor0 区（已满时） -&amp;gt; Survivor1 区 清空 Eden + S0 Survivor1 区 &amp;lt;-&amp;gt; Surivior0 区（交换S0与S1的空间，目的是保持S1为空）   S0已满，且S1不足以放置Eden + S0的存活对象（Survivor满不会引发Minor GC，而是把对象移到老年代）：   Eden + S0 存量对象 -&amp;gt; 老年代   躲过新生代存活区（S0 + S1）回收的存活对象，则年龄 +1，年龄满15（默认15）时移入老年代   S0 + S1 -&amp;gt; 老年代   为什么是15岁，原因是 HotSpot 会在对象头中的标记字段里记录年龄，分配到的空间只有4位，所以最多只能记录到15</description>
+    </item>
+    
+    <item>
+      <title>JVM 工具使用备忘录 - 几个常用的指标收集命令</title>
+      <link>http://yipsen.github.io/posts/java/java-%E8%99%9A%E6%8B%9F%E6%9C%BA/jvm-%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95-%E5%87%A0%E4%B8%AA%E5%B8%B8%E7%94%A8%E7%9A%84%E6%8C%87%E6%A0%87%E6%94%B6%E9%9B%86%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 01 Mar 2023 08:34:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/java/java-%E8%99%9A%E6%8B%9F%E6%9C%BA/jvm-%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95-%E5%87%A0%E4%B8%AA%E5%B8%B8%E7%94%A8%E7%9A%84%E6%8C%87%E6%A0%87%E6%94%B6%E9%9B%86%E5%91%BD%E4%BB%A4/</guid>
+      <description>内存镜像  输出较为简单的概要信息  jmap -histo:live &amp;lt;pid&amp;gt; &amp;gt; ~/jmap_20230310  完全镜像出 JVM 的内存内容信息（文件会比较大）  jmap -dump:live,format=b,file=~/dump_20230310.hprof &amp;lt;pid&amp;gt; 线程堆栈 jstack &amp;lt;pid&amp;gt; &amp;gt; ~/jstack_20230310 </description>
+    </item>
+    
+    <item>
+      <title>记一次 Redis 主备断链的故障恢复</title>
+      <link>http://yipsen.github.io/posts/redis/%E8%AE%B0%E4%B8%80%E6%AC%A1-redis-%E4%B8%BB%E5%A4%87%E6%96%AD%E9%93%BE%E7%9A%84%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D/</link>
+      <pubDate>Tue, 15 Nov 2022 18:34:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/redis/%E8%AE%B0%E4%B8%80%E6%AC%A1-redis-%E4%B8%BB%E5%A4%87%E6%96%AD%E9%93%BE%E7%9A%84%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D/</guid>
+      <description>环境信息 IM 最近会话数据由于更新频繁且数据重要度相对较低，采用 Redis 存储。
+ Redis 机器规格
+   器件 型号 规格     CPU Intel(R) Xeon(R) Gold 6161 CPU @ 2.20GHz 16 * 4 Cores   Memory  62GB     故障现象  【问题现象】  业务巡检发现：2022-11-15 16:00 最近会话 Redis 集群（6节点，3主3从集群模式部署）从库与主库断链，数据复制状态异常，业务正常。 （slave 侧 redis 连接 master 状态显示为： master_link_status:down, 集群 slave 和 master 状态同步异常）
+ 【问题根因】  通过查看主库日志发现报错：psync scheduled to be closed ASAP for overcoming of output buffer limits。从库向主库进行 psync 时，因超过主库的 output buffer limits 限制，导致连接被中断。而之所以报该错误，是因为设置的主从同步缓冲区已经远小于主从库之间的数据差异，主库为了保护自身不受影响，主动断开了从库的连接。而断开连接后，主从之间的差异进一步拉大，以至于主从之间已无法连接上。</description>
+    </item>
+    
     <item>
       <title>kubernetes cluster installation step</title>
       <link>http://yipsen.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4/</link>
@@ -21,60 +146,233 @@
       <pubDate>Mon, 15 Aug 2022 22:00:00 +0800</pubDate>
       
       <guid>http://yipsen.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/</guid>
-      <description>kubernetes 集群安装常见错误与解决方案 零、kubeadm init失败  错误日志  [root@localhost Downloads]# kubeadm init [init] Using Kubernetes version: v1.24.3 [preflight] Running pre-flight checks [WARNING Firewalld]: firewalld is active, please ensure ports [6443 10250] are open or your cluster may not function correctly [WARNING Swap]: swap is enabled; production deployments should disable swap unless testing the NodeSwap feature gate of the kubelet error execution phase preflight: [preflight] Some fatal errors occurred: [ERROR NumCPU]: the number of available CPUs 1 is less than the required 2 [ERROR Mem]: the system RAM (972 MB) is less than the minimum 1700 MB [ERROR CRI]: container runtime is not running: output: time=&amp;#34;2022-08-13T09:53:22-07:00&amp;#34; level=fatal msg=&amp;#34;unable to determine runtime API version: rpc error: code = Unavailable desc = connection error: desc = \&amp;#34;transport: Error while dialing dial unix /var/run/containerd/containerd.</description>
+      <description>kubernetes 集群安装常见错误与解决方案 负一、kubeadm init失败  错误日志  [root@kube-master-01 ~]# kubeadm init --apiserver-advertise-address=192.168.0.201 --image-repository=registry.aliyuncs.com/google_containers --kubernetes-version v1.22.1 --service-cidr=10.96.0.0/12 --pod-network-cidr=10.244.0.0/16 | tee kubeadm-init.log[init] Using Kubernetes version: v1.22.1[preflight] Running pre-flight checks[WARNING SystemVerification]: this Docker version is not on the list of validated versions: 24.0.7. Latest validated version: 20.10error execution phase preflight: [preflight] Some fatal errors occurred:[ERROR FileAvailable--etc-kubernetes-manifests-kube-apiserver.yaml]: /etc/kubernetes/manifests/kube-apiserver.yaml already exists[ERROR FileAvailable--etc-kubernetes-manifests-kube-controller-manager.yaml]: /etc/kubernetes/manifests/kube-controller-manager.yaml already exists[ERROR FileAvailable--etc-kubernetes-manifests-kube-scheduler.yaml]: /etc/kubernetes/manifests/kube-scheduler.yaml already exists[ERROR FileAvailable--etc-kubernetes-manifests-etcd.</description>
     </item>
     
     <item>
       <title>kubernetes cluster running trouble shooting</title>
-      <link>http://yipsen.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB-copy/</link>
+      <link>http://yipsen.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E8%BF%90%E8%A1%8C%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/</link>
       <pubDate>Mon, 15 Aug 2022 22:00:00 +0800</pubDate>
       
-      <guid>http://yipsen.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB-copy/</guid>
+      <guid>http://yipsen.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E8%BF%90%E8%A1%8C%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/</guid>
       <description>kubernetes 集群运行常见错误与解决方案 CPU分配不足 [root@kube-master-01 fc-kubernetes-yaml]# kubectl get po -A -o wide NAMESPACE NAME READY STATUS RESTARTS AGE IP NODE NOMINATED NODE READINESS GATES istio-system istio-egressgateway-7784dc7fd4-bc9f4 1/1 Running 12 7d6h 10.244.2.103 kube-worker-02 &amp;lt;none&amp;gt; &amp;lt;none&amp;gt; istio-system istio-ingressgateway-575fd95f88-k769m 1/1 Running 12 7d6h 10.244.1.97 kube-worker-01 &amp;lt;none&amp;gt; &amp;lt;none&amp;gt; istio-system istiod-6785d97f67-sr9tp 1/1 Running 11 7d6h 10.244.3.89 kube-worker-03 &amp;lt;none&amp;gt; &amp;lt;none&amp;gt; kube-system coredns-7ff77c879f-qkv6r 1/1 Running 16 16d 10.244.0.41 kube-master-01 &amp;lt;none&amp;gt; &amp;lt;none&amp;gt; kube-system coredns-7ff77c879f-shkmr 1/1 Running 16 16d 10.244.0.44 kube-master-01 &amp;lt;none&amp;gt; &amp;lt;none&amp;gt; kube-system etcd-kube-master-01 1/1 Running 119 16d 192.</description>
     </item>
     
     <item>
-      <title>Java 常见异常</title>
-      <link>http://yipsen.github.io/posts/java%E5%9F%BA%E7%A1%80/java-trouble-shootings/</link>
+      <title>Windows 本地公私钥生成</title>
+      <link>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/windows-%E6%9C%AC%E5%9C%B0%E5%85%AC%E7%A7%81%E9%92%A5%E7%94%9F%E6%88%90/</link>
+      <pubDate>Mon, 23 May 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/windows-%E6%9C%AC%E5%9C%B0%E5%85%AC%E7%A7%81%E9%92%A5%E7%94%9F%E6%88%90/</guid>
+      <description>:: 方式一：生成 keystore（JKS 格式） keytool -genkey -alias yipsen -keypass 123456 -keyalg RSA -keysize 1024 -validity 365 -keystore D:\yipsen.keystore -storepass 123456 :: 方式二：生成 keystore (PKCS12 格式【推荐】) keytool -genkeypair -alias yipsen -keyalg RSA -keysize 2048 -validity 3650 -storetype PKCS12 -keystore yipsen.p12 :: 重置密码，会要求输入原密码 keytool -storepasswd -new 123456 -keystore D:\yipsen.keystore :: 罗列 keystore 信息，会要求输入密码 keytool -list -v -keystore D:\yipsen.keystore :: 导出为证书格式，会要求输入密码 keytool -export -alias yipsen -keystore D:\yipsen.keystore -rfc -file D:\yipsen.cer :: 转换 JKS 为 PKCS12 格式 keytool -importkeystore -srckeystore D:\yipsen.</description>
+    </item>
+    
+    <item>
+      <title>一致性哈希</title>
+      <link>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C/</link>
+      <pubDate>Sat, 05 Mar 2022 08:34:41 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C/</guid>
+      <description>在容器化大行其道的当下，为满足服务横向扩容，对无状态服务一直是倍加推崇的，尽管如此，基于在性能效率上的考量，有状态服务仍有存在的空间，主要因其优点在于数据本地化后可以减少数据的网络交互，同时拥有更高的数据一致性（例如 Sticky Session），因此也多用于数据或网络强相关的服务上。
+如果系统设计上采用有状态的服务，那么不可避免的需要解决一个问题，即如何做到有状态服务在横向扩缩容时尽可能少的造成影响，一种常用的方案便是一致性哈希。
+一致性哈希算法早在https://dl.acm.org/doi/10.1145/258533.258660论文中提及，其在分布式缓存系统上有广泛的使用。
+负载均衡 对于分布式系统，我们通常希望所有用户的信息与请求可以均匀地分配到各个节点上，以均摊压力，避免单点故障。即通常需要对服务做负载均衡策略。
+假设一个分布式缓存系统，用以存储用户相关的信息，服务总共部署了N个节点，在负载均衡策略上希望用户可以均匀的映射到部署的节点上，那么最容易想到采用通用的哈希方式，即通过计算用户ID的哈希值，再对节点总数进行取模后即可找到用户分布到的节点。由于哈希函数其散列以及稳定的特性，可以保证用户均匀地分布到服务所部署的节点上。
+当然在上述负载均衡方案中，如果节点能永久不变的运行，便完事大吉了。然而，当节点发生扩缩容导致总节点数发生变化时，将导致用户到节点的映射关系会彻底打乱。
+ 假设节点 N 宕机（即节点退出）时，原先映射到节点 N 的用户会受限丢失数据，且由于映射采用的哈希函数的逻辑不变（hashcode * n），原先分布到节点 N 的用户，下次存储仍然会被分配到节点 N，但实际节点 N 已宕机下线，因此这部分用户将一直无法使用，处于失效状态。而如果我们修正哈希函数，更改为（hashcode &amp;amp; (n - 1)），此时虽然失效用户可以重新映射到存活的节点上，但由于映射算法的变化，会导致原先的映射关系全部打乱。 同样的，假设由于业务扩展，原先 N 个节点已不足支撑，需横向扩容节点数到（N + 1），由于原先映射关系的稳定性，如不更改映射函数，新增的节点不会有用户访问，而修改映射函数为hashcode % (n + 1)则会遇到同上的场景，原先所有的映射关系全部失效，需重算，重算后关联的节点将不保证是原来的节点。  而一致性哈希的目标正是解决在节点扩缩容时，尽可能的维持原先映射关系的不变，仅影响小部分用户。
+基本特性 我们养成解决问题的一贯方式，找出问题，针对问题提出目标，再围绕目标去思考方案去达成，从而解决问题。
+我们可以从上述说到的问题场景中总结出几个关键问题点：
+ 服务节点扩缩容时，映射关系彻底打乱，发生大量的数据迁移。 有新节点上线时，映射关系全部打乱，出现映射在健康节点的KEY又映射到另一个原健康节点上。出现无谓的迁移。  针对这几个问题，我们可以提出几个关键特性要求。
+2.1 单调性 当有新的节点上线后，系统中原有的 KEY 要么还是映射到原来的节点上，要么映射到新节点上，不会出现从一个老节点重新映射到其他老节点的情况。
+2.2 稳定性 当服务发生扩缩容时，发生迁移的数据量尽可能地少
+2.3 平衡性 不同的 KEY 通过算法映射后，可以比较均衡地分布在所有节点上。
+一致性哈希 下面讲下一个常用的一致性哈希算法，也是所熟知的割环法。
+哈希环 为满足我们提出的特性，我们试图分析原先的普通哈希映射方案，可以看到对象是生硬的映射到节点上的，随节点消失后，我们可以尝试把失去节点的迁移到原健康的节点，而尽量保持正常的对象不变化。为保证映射方式一致，我们可以把生硬的一步映射到节点上改为下面的方式。
+首先我们构建一个长度为2^32大小的链表，并采用哈希函数，将对象映射到链表上：
+之后再使用同样的方式，将节点也映射到链表上：
+接下来将对象与节点建立起映射关系，可以将对象像右寻找节点，找到的第一个节点便认为是该对象所分布的节点（如果对象与节点映射在链表上的位置重合，则也认为该节点为对象所分布的节点），以此建立起对应关系。
+此时我们再看下有节点加入与退出时，数据迁移的变化。
+我们发现相较于之前普通哈希映射的方案，节点扩缩容后只有小部分对象发生迁移，满足单调性与稳定性。
+        好的，眼尖的我们也注意到一点，既然设定为向右寻找节点，那如果最右的几个对象向右无法寻找到节点时该如何处理呢？</description>
+    </item>
+    
+    <item>
+      <title>Git 的基本使用</title>
+      <link>http://yipsen.github.io/posts/git/git-%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Sat, 05 Mar 2022 08:34:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/git/git-%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</guid>
+      <description>1. 取消 SSL 证书校验 git config --global http.sslVerify false 2. 提交密钥 # 基本使用 git push https://&amp;lt;username&amp;gt;:&amp;lt;password&amp;gt;@github.com/&amp;lt;username&amp;gt;/&amp;lt;repository&amp;gt;.git --all # 使用样例 git push https://yipsen:ghp_ir6E94TlMJcW9Hq3GANJ1hfFarrJsX1PDKDV@github.com/yipsen/xxx.git --all 3. 代码库迁移 # 镜像拷贝：含历史提交记录 git clone -bare &amp;lt;old_repository_url&amp;gt; cd &amp;lt;respository_name&amp;gt; # 镜像推送：含历史提交记录 git push --mirror &amp;lt;new_repository_url&amp;gt; cd .. # 新代码拉取 git clone &amp;lt;new_repository_url&amp;gt; 4. 打Tag # 新增 git tag -a &amp;lt;tag_name&amp;gt; -m &amp;#34;xxx version&amp;#34; # 推送新增 git push origin &amp;lt;tag_name&amp;gt; # 删除 git tag -d &amp;lt;tag_name&amp;gt; # 推送删除 git push origin --delete &amp;lt;tag_name&amp;gt; # 提交全部 Tag git push origin --tags 5.</description>
+    </item>
+    
+    <item>
+      <title>Kafka 部署</title>
+      <link>http://yipsen.github.io/posts/kafka/kafka-%E9%83%A8%E7%BD%B2/</link>
+      <pubDate>Sat, 05 Mar 2022 08:34:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/kafka/kafka-%E9%83%A8%E7%BD%B2/</guid>
+      <description>部署 # 解压包 tar -xzvf kafka_2.13-3.2.1.tgz # 移动到指定目录 mv kafka_2.13-3.2.1 /volume2/services/ # 修改配置 cd kafka_2.13-3.2.1/ vi server.properties # 修改 advertised.listeners=PLAINTEXT://your.host.name:9092 为 advertised.listeners=PLAINTEXT://192.168.127.131:9092 # 开启自动创建topic vi server.properties # 追加配置`auto.create.topics.enable=true`到server.properties文件末尾 # 启动zookeeper sh zookeeper-server-start.sh -daemon ../config/zookeeper.properties # 启动kafka sh kafka-server-start.sh -daemon ../config/server.properties 常用指令 # 查看 TOPIC 列表 sh kafka-topics.sh --bootstrap-server localhost:9092 --list # 查看 TOPIC 详情 sh kafka-topics.sh --bootstrap-server localhost:9092 --describe T_FILEBEAT_LOG Topic: T_FILEBEAT_LOG TopicId: _X039cbbQVaK1XKHxzzFMg PartitionCount: 1 ReplicationFactor: 1 Configs: segment.bytes=1073741824 Topic: T_FILEBEAT_LOG Partition: 0 Leader: 0 Replicas: 0 Isr: 0 # 消费指定 TOPIC 内容，--from-beginning 表示消费全部 sh kafka-console-consumer.</description>
+    </item>
+    
+    <item>
+      <title>Redis 命令备忘录</title>
+      <link>http://yipsen.github.io/posts/redis/redis-%E5%91%BD%E4%BB%A4%E5%A4%87%E5%BF%98%E5%BD%95/</link>
+      <pubDate>Sat, 05 Mar 2022 08:34:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/redis/redis-%E5%91%BD%E4%BB%A4%E5%A4%87%E5%BF%98%E5%BD%95/</guid>
+      <description>密码登录 # 命令模式密码登录 ./redis-cli -h localhost -p 6379 -a &amp;lt;password&amp;gt; # 进入控制台之后 ./redis-cli -h localhost -p 6379 # 再密码登录 auth &amp;lt;password&amp;gt; 查看大 KEY 查看配置信息 查看占用内存资源情况 查看集群节点信息 # 查看集群节点情况：需要该主从组合以集群模式启动 cluster nodes 查看哨兵节点信息 # 进入哨兵进程，同样采用 ./redis-cli 进入控制台 # 查看 mymaster 全部哨兵节点信息，mymaster 是哨兵监听时自定义的 redis 主从组合 sentinel sentinels mymaster # 查看 mymaster 下的 master 节点信息（被当前哨兵监听的主从组合中的主节点） sentinel master mymaster # 查看 mymaster 下的 slaves 节点信息（被当前哨兵监听的主从组合中的从节点列表） sentinel slaves mymaster # 进入主从进程，同样采用 ./redis-cli 进入控制台 # 查看当前节点的主从节点信息，以普通主从模式部署时也可以用 info replication </description>
+    </item>
+    
+    <item>
+      <title>Redis 集群清空指定 KEY</title>
+      <link>http://yipsen.github.io/posts/redis/redis-%E9%9B%86%E7%BE%A4%E6%B8%85%E7%A9%BA%E6%8C%87%E5%AE%9A-key/</link>
+      <pubDate>Sat, 05 Mar 2022 08:34:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/redis/redis-%E9%9B%86%E7%BE%A4%E6%B8%85%E7%A9%BA%E6%8C%87%E5%AE%9A-key/</guid>
+      <description>1. 查看 redis 集群有多少个 master 节点 方式一： 接入控制台后查询
+  进入 redis 客户端控制台
+./redis-cli -h 192.168.3.117 -p 6379 -c   进入后执行查询命令
+# 该命令会列出所有的节点包括 slave 的，所以需要额外挑出 master 的节点 cluster nodes   方式二： 命令行直接查询
+./redis-cli cluster nodes | grep master 2. 进入每台 master 节点，删除所有指定的目标 KEY ./redis-cli -h 192.168.3.117 -p 6379 -a &amp;lt;password&amp;gt; -c keys &amp;#39;STAFF:INFO:*&amp;#39; | xargs -r -n1 -t ./redis-cli -h 192.168.3.117 -p 6379 -a &amp;lt;password&amp;gt; -c del  注：每个 master 节点都要执行一遍删除命令，其中STAFF:INFO:*为要删除的目标 KEY， 本例是使用了正则通配符，但需要注意的是本例采用keys命令可能导致 redis 卡死，最好采用scan命令替换。</description>
+    </item>
+    
+    <item>
+      <title>Wireshark 备忘录</title>
+      <link>http://yipsen.github.io/posts/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/wireshark-%E5%A4%87%E5%BF%98%E5%BD%95/</link>
+      <pubDate>Sat, 05 Mar 2022 08:34:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/wireshark-%E5%A4%87%E5%BF%98%E5%BD%95/</guid>
+      <description>过滤操作 IP过滤 ip.addr == x.x.x.x ip.src == x.x.x.x ip.dst == x.x.x.x
+端口过滤 tcp.port == 21 udp.port == 53
+协议过滤 http arp udp tcp icmp &amp;hellip;
+组合过滤 ip.addr == x.x.x.x &amp;amp;&amp;amp; udp.port == 53
+选择过滤条件  选择数据包 右键弹出菜单并选择对话过滤器 选择对应协议，比如UDP 此时过滤窗口自动追加过滤条件如：(ip.addr eq 10.96.10.237 and ip.addr eq 7.213.37.49) and (udp.port eq 10004 and udp.port eq 8011)  追踪流  选择数据包 右键弹出菜单并选择追踪流  统计 </description>
+    </item>
+    
+    <item>
+      <title>【持续更新】Web 前端设计规范汇总</title>
+      <link>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0web-%E5%89%8D%E7%AB%AF%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83%E6%B1%87%E6%80%BB/</link>
+      <pubDate>Sat, 05 Mar 2022 08:34:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0web-%E5%89%8D%E7%AB%AF%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83%E6%B1%87%E6%80%BB/</guid>
+      <description>1. iOS Human Interface Guideline &amp;ndash; Apple Design - Apple Develop
+2. Material Design &amp;ndash; Google Material Design Material Components Material Design 中文文档、指南、翻译
+3. Fluent Design System &amp;ndash; Microsoft Fluent Design System Microsoft Design
+4. IBM Design Language &amp;ndash; IBM IBM Design Language
+5. Photon Design System &amp;ndash; Firefox Photon Design System
+6. Yelp Styleguide &amp;ndash; Yelp Styleguide
+7. Facebook Design &amp;ndash; Facebook Facebook Design - What&amp;rsquo;s on our mind?</description>
+    </item>
+    
+    <item>
+      <title>AQS 介绍与原理解析</title>
+      <link>http://yipsen.github.io/posts/java/java-%E5%B9%B6%E5%8F%91/aqs-%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/</link>
       <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
       
-      <guid>http://yipsen.github.io/posts/java%E5%9F%BA%E7%A1%80/java-trouble-shootings/</guid>
+      <guid>http://yipsen.github.io/posts/java/java-%E5%B9%B6%E5%8F%91/aqs-%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/</guid>
+      <description>AQS 介绍 AQS 即 AbstractQueuedSynchronizer 类，一个抽象队列同步器，是对 CLH 队列锁的一种变体实现，并作为抽象类方便后续子类的扩展。
+核心数据结构：CLH 队列 在多线程并发编程中遇到需要维护共享资源或者保证执行顺序时，会使用到锁的机制。
+锁机制的设计是出现在多线程并发资源抢占的逻辑，本质上是线程底层对资源 state 调用了 JVM 的 CAS 操作(UnSafe#compareAndSwapInt)，而当多线程并发执行该 CAS 操作时，最多只能有一个线程会操作成功（即资源抢占成功），而其他的都在自旋，这样就造成不必要的 CPU 开销。 为解决此问题，AQS 引入了 CLH 队列机制，并做了变种使得队列内只有一个节点在执行状态中（占用 CPU 资源），其余的全部处于阻塞状态（不占用 CPU 资源），当且仅当执行节点执行完毕后，才唤醒其后继节点，而此时也仅有被唤醒的节点才去尝试抢占资源并获得 CPU 执行权。因此同一时刻最多只有被唤醒的后继节点以及新入队的节点会抢占 CPU 资源，其余的都在阻塞状态中，以此极大的减少了不必要的 CPU 开销。
+CLH 队列在 AQS 中的工作原理 图示：
+流程说明：
+AQS 中的关键属性与特性 AQS 作为对锁的基础实现，主要提供四大特性，分别为：
+ 获取锁 acquire 释放锁 release 获取队列详情 条件  核心重点在于前面两个特性，即锁的获取与释放。
+同时满足两种模式的锁，即
+ 独占式 共享式  为实现这些特性，我们先看下 AQS 的内部结构。
+AQS 的内部结构 关键对象：节点Node  Node: CLH 队列中的节点，代表一个线程进入 CLH 队列。   注：分独占模式与共享模式</description>
+    </item>
+    
+    <item>
+      <title>Java 代码样例速查</title>
+      <link>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/java-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/java-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</guid>
+      <description>多线程发起请求并合并结果 // 退群记录 CompletableFuture&amp;lt;Collection&amp;lt;Long&amp;gt;&amp;gt; leaveGroupFuture = queryUserLeftGroupId(userAccount, st, m); // 群信息变更记录 CompletableFuture&amp;lt;Collection&amp;lt;Long&amp;gt;&amp;gt; infoChangedGroupFuture = queryInfoChangedGroupId(corpIdList, groupIdList, st, m); // 群成员变更记录 CompletableFuture&amp;lt;Collection&amp;lt;Long&amp;gt;&amp;gt; memberChangedGroupFuture = queryMemberChangedGroupId(corpIdList, groupIdList, st, m); // 群头像变更记录 CompletableFuture&amp;lt;Collection&amp;lt;Long&amp;gt;&amp;gt; iconChangedGroupFuture = queryIconChangedGroupId(corpIdList, groupIdList, m); // 不活跃群记录 CompletableFuture&amp;lt;Collection&amp;lt;Long&amp;gt;&amp;gt; inactiveGroupFuture = queryInactiveGroupId(corpIdList, leaveGroupFuture, st, m); // 群成员信息 CompletableFuture&amp;lt;Collection&amp;lt;GroupMemberInfo&amp;gt;&amp;gt; memberInfoQueryFuture = infoChangedGroupFuture.thenCombineAsync(memberChangedGroupFuture, (x1, x2) -&amp;gt; queryGroupMemberInfo(x1, x2, userAccount), executor); // 查询变更的群详情，需要等待信息和成员变更查询结束 CompletableFuture.allOf(infoChangedGroupFuture, memberChangedGroupFuture).join(); Collection&amp;lt;Long&amp;gt; infoChangedGroupIdList = infoChangedGroupFuture.join(); Collection&amp;lt;Long&amp;gt; memberChangedGroupIdList = memberChangedGroupFuture.join(); // 群详情 CompletableFuture&amp;lt;Collection&amp;lt;GroupInfo&amp;gt;&amp;gt; groupInfoQueryFuture = leaveGroupFuture.</description>
+    </item>
+    
+    <item>
+      <title>Java 常见异常</title>
+      <link>http://yipsen.github.io/posts/java/java-%E5%9F%BA%E7%A1%80/java-%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/java/java-%E5%9F%BA%E7%A1%80/java-%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8/</guid>
       <description>一、关于InstantiationException错误的原因 网上大多说是实例化接口或者抽象类导致的，而实际是一个普通类也遇到同样的异常。后面发现异常原因是因为反射构建的类没有无参构造函数导致。</description>
     </item>
     
     <item>
-      <title>Python代码样例速查</title>
-      <link>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/python%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</link>
+      <title>Javascript 代码样例速查</title>
+      <link>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/javascript-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</link>
       <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
       
-      <guid>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/python%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</guid>
+      <guid>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/javascript-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</guid>
+      <description>日期转时间戳 parseInt(new Date(&amp;#34;2015-03-05&amp;#34;).getTime() / 1000) </description>
+    </item>
+    
+    <item>
+      <title>Linux 命令备忘录</title>
+      <link>http://yipsen.github.io/posts/linux/linux-%E5%91%BD%E4%BB%A4%E5%A4%87%E5%BF%98%E5%BD%95/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/linux/linux-%E5%91%BD%E4%BB%A4%E5%A4%87%E5%BF%98%E5%BD%95/</guid>
+      <description>1. 杀掉指定进程名的进程 ps -ef | grep &amp;lt;procedure_name&amp;gt; | grep -v grep | awk `{print $2}` | xargs kill -9 2. 查看指定监听端口被哪个进程占用 netstat -tunlp | grep &amp;lt;port&amp;gt; 3. 更新安装列表 # ubuntu ## 更新安装列表 apt-get update ## 升级软件 apt-get upgrade ## 安装软件 apt-get install &amp;lt;software_name&amp;gt; ## 卸载软件及其配置 apt-get --purge remove &amp;lt;software_name&amp;gt; ## 卸载软件及其依赖的安装包 apt-get autoremove &amp;lt;software_name&amp;gt; ## 罗列已安装软件 dpkg --list 4. 定位 Java 异常日志使用 tail -300f GroupServer.log | grep . | sed &amp;#39;s/at/\n/&amp;#39; </description>
+    </item>
+    
+    <item>
+      <title>Linux 重置密码</title>
+      <link>http://yipsen.github.io/posts/linux/linux-%E9%87%8D%E7%BD%AE%E5%AF%86%E7%A0%81/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/linux/linux-%E9%87%8D%E7%BD%AE%E5%AF%86%E7%A0%81/</guid>
+      <description>更新或重置普通用户密码   输入passwd命令更新密码
+passwd &amp;lt;username&amp;gt;   输入新密码并重新输入以确认
+New password: &amp;lt;password&amp;gt; Retype new password: &amp;lt;password&amp;gt;   成功则显示
+passwd: password updated successfully   示例
+# 输入命令选择需要重置密码的用户如：reader passwd reader # 输入密码: ysyhl9t@ ysyhl9t@ # 重新输入密码: ysyhl9t@ ysyhl9t@   重置 root 密码 </description>
+    </item>
+    
+    <item>
+      <title>NodeJS 代码样例速查</title>
+      <link>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/nodejs-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/nodejs-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</guid>
+      <description>删除文件夹 const fs = require(&amp;#39;fs&amp;#39;); const path = require(&amp;#39;path&amp;#39;); function delDir(folderpath) { if (fs.existsSync(folderpath)) { let files = fs.readdirSync(folderpath); files.forEach((file, index) =&amp;gt; { let curPath = path.join(folderpath, file); console.log(curPath); if (fs.statSync(curPath).isDirectory()) { delDir(curPath); } else { fs.unlinkSync(curPath); } }); fs.rmdirSync(folderpath); } } </description>
+    </item>
+    
+    <item>
+      <title>Python 代码样例速查</title>
+      <link>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/python-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/python-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</guid>
       <description>遍历文件夹下所有文件名 import os for filename in os.listdir(target_folder_path): print(filename) 遍历文件夹下所有文件名（递归） import os ROOT_PATH = r&amp;#39;&amp;#39; for root, dirs, files in os.walk(ROOT_PATH): for file in files: path = os.path.join(root, file) size = os.path.getsize(path) # 清空空文件夹？？？待确认 if size == 0: print(path, size) os.remove(path) 连接文件路径 import os for filename in os.listdir(target_folder_path): file_path = os.path.join(target_folder_path, filename) print(file_path) 移动文件 import shutil shutil.move(source_path, target_path) 复制文件 import shutil shutil.copyfile(source_path, target_path) shutil.copy2(source_path, target_path) 判断是否文件或文件夹 import os if os.path.isfile(target_path): return True if os.</description>
     </item>
     
     <item>
       <title>Redis 相关常见异常</title>
-      <link>http://yipsen.github.io/posts/redis/trouble-shootings/</link>
+      <link>http://yipsen.github.io/posts/redis/redis-%E7%9B%B8%E5%85%B3%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8/</link>
       <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
       
-      <guid>http://yipsen.github.io/posts/redis/trouble-shootings/</guid>
+      <guid>http://yipsen.github.io/posts/redis/redis-%E7%9B%B8%E5%85%B3%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Shell代码样例速查</title>
-      <link>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/shell%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</link>
+      <title>Shell 代码样例速查</title>
+      <link>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/shell-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</link>
       <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
       
-      <guid>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/shell%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</guid>
+      <guid>http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/shell-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</guid>
       <description>打印日志 #!/bin/bash ############################################################### # Program: # This program for upload batch of pictures to nimg. # History: # # Ver Date Author Actvity # --- ---- ------ ------- # 1.0 2018/12/10 Yipsen First release ############################################################### ############################################################### SOURCE_PATH=&amp;#34;/mnt/resource/&amp;#34; TARGET_URL=&amp;#34;http://192.168.1.102:9000/02/upload&amp;#34; #Folder path HOME_PATH=&amp;#34;&amp;#34; WORKING_PATH=&amp;#34;${HOME_PATH}/working/image_`date +%Y%m%d_%H%M%S_$$`&amp;#34; OUTPUT_PATH=&amp;#34;${HOME_PATH}/output&amp;#34; LOG_PATH=&amp;#34;${HOME_PATH}/logs&amp;#34; #Log File LOG_FILE=&amp;#34;${LOG_PATH}/UploadToNimg_`date +%Y-%m-%d`.log&amp;#34; #Json File ACTOR_JSON_FILE=&amp;#34;${OUTPUT_PATH}/actor_`date +%Y-%m-%d`.log&amp;#34; MOVIE_JSON_FILE=&amp;#34;${OUTPUT_PATH}/movie_`date +%Y-%m-%d`.log&amp;#34; ############################################################### function Initialize() { # logInfo &amp;#34;----- Initialize - Initialize log file/archive file is starting.&amp;#34; # if [ -f ${LOG_FILE} ]; # then # chmod 755 ${LOG_FILE} # else # touch ${LOG_FILE} # chmod 755 ${LOG_FILE} # logInfo &amp;#34;----- Initialize - New log file is created.</description>
     </item>
     
     <item>
       <title>tar 命令详解</title>
-      <link>http://yipsen.github.io/posts/linux/tar/</link>
+      <link>http://yipsen.github.io/posts/linux/tar-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</link>
       <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
       
-      <guid>http://yipsen.github.io/posts/linux/tar/</guid>
+      <guid>http://yipsen.github.io/posts/linux/tar-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</guid>
       <description>1. 命令格式 tar &amp;lt;必要参数&amp;gt; [选择参数] &amp;lt;文件&amp;gt; 2. 命令功能 用来压缩和解压文件。tar本身不具备压缩功能。他是调用压缩功能实现的。
 3. 命令参数 必要参数： -A (add)新增压缩文件到已存在的压缩包里 -B 设置区块大小 -c (create)创建新的压缩文件 -d (different)记录文件的差别 -j 支持 bzip2 解压文件 -k (keep)保留原有文件不覆盖 -l 文件系统边界设置 -m 保留文件不被覆盖 -r 添加文件到已经压缩的文件 -t 显示压缩文件的内容 -u 添加改变了和现有的文件到已经存在的压缩文件里 -v (view)显示操作过程 -W 确认压缩文件的正确性 -x (extract)从压缩的文件中提取文件 -z (zip)支持 gzip 解压文件 -Z 支持 compress 解压文件
 可选参数： -b 设置区块数目 -C (change)切换到指定目录 -f (file)指定压缩文件 &amp;ndash;help 显示帮助信息 &amp;ndash;version 显示版本信息
@@ -82,42 +380,91 @@
     </item>
     
     <item>
-      <title>创建型-单例模式（常用）</title>
-      <link>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</link>
+      <title>tcpdump 命令详解</title>
+      <link>http://yipsen.github.io/posts/linux/tcpdump-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</link>
       <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
       
-      <guid>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</guid>
-      <description>定义 单例模式（Singleton Pattern）属于创建类型的一种常用的软件设计模式。
+      <guid>http://yipsen.github.io/posts/linux/tcpdump-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</guid>
+      <description>一、作用 二、基本命令格式 tcpdump [ -DenNqvX ] [ -c count] [ -F file ] [ -i interface ] [ -r file ] [ -s snaplen ] [ -w file ] [ expression ] 三、表达式 expression # 上下文的 expression 如 &amp;lt;protocol&amp;gt; &amp;lt;dir&amp;gt; &amp;lt;type&amp;gt; &amp;lt;ID&amp;gt;，对于表达式语法，参考 pcap-filter 【pcap-filter - packet filter syntax】 # 一个基本的表达式单元格式为`protocol dir type ID` tcpdump [option] [not] &amp;lt;protocol&amp;gt; &amp;lt;dir&amp;gt; &amp;lt;type&amp;gt; &amp;lt;ID&amp;gt;    meaning parameter values example     协议 protocol tcp, udp, icmp, 若未给定协议类型，则匹配所有可能的类型 tcp   类型 type host, net, port, portrange host 192.</description>
+    </item>
+    
+    <item>
+      <title>VSCode 编写 markdown 中英文等距</title>
+      <link>http://yipsen.github.io/posts/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/vscode-%E7%BC%96%E5%86%99-markdown-%E4%B8%AD%E8%8B%B1%E6%96%87%E7%AD%89%E8%B7%9D/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/vscode-%E7%BC%96%E5%86%99-markdown-%E4%B8%AD%E8%8B%B1%E6%96%87%E7%AD%89%E8%B7%9D/</guid>
+      <description>下载字体 下载地址: https://github.com/be5invis/Sarasa-Gothic/releases/tag/v0.40.1 下载 tff 格式: https://objects.githubusercontent.com/github-production-release-asset-2e65be/95871572/e7cbe568-9668-4628-997f-3dec15bd2046?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230224%2Fus-east-1%2Fs3%2Faws4_request&amp;amp;X-Amz-Date=20230224T123030Z&amp;amp;X-Amz-Expires=300&amp;amp;X-Amz-Signature=fe6d9e6b8361cdcf42a09960211d0ad7509078b222fa77e09a4b2db655c0ba90&amp;amp;X-Amz-SignedHeaders=host&amp;amp;actor_id=0&amp;amp;key_id=0&amp;amp;repo_id=95871572&amp;amp;response-content-disposition=attachment%3B%20filename%3Dsarasa-gothic-ttf-0.40.1.7z&amp;amp;response-content-type=application%2Foctet-stream
+安装字体  解压后复制选择的字体文件：sarasa-mono-sc-regular.ttf 安装字体：复制到目录C:\Windows\Fonts即可 检查是否安装成功：看是否有字体等距更纱黑体 SC 常规  VSCode 设置   按F1键弹出搜索框后输入settings.json，选择User的一项
+  编辑配置，由于``的英文过于逆天，感觉不适合编程使用，设置仅对 markdown 有效
+{ &amp;#34;[markdown]&amp;#34;: { &amp;#34;editor.defaultFormatter&amp;#34;: &amp;#34;yzhang.markdown-all-in-one&amp;#34;, &amp;#34;editor.fontFamily&amp;#34;: &amp;#34;&amp;#39;Sarasa Mono SC&amp;#39;&amp;#34;, }, &amp;#34;files.autoSave&amp;#34;: &amp;#34;afterDelay&amp;#34;, &amp;#34;editor.fontLigatures&amp;#34;: false }   必要的话，可以重启 VSCode 看是否生效
+  </description>
+    </item>
+    
+    <item>
+      <title>创建型 - 单例模式</title>
+      <link>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</guid>
+      <description>单例模式（Singleton Pattern）属于创建类型的一种常用的软件设计模式。
 单例对象保证全局（或指定上下文中，如进程，线程内唯一）仅有一个实例存在，并提供一个该唯一实例的访问点。
 为什么需要单例模式 打井喝水，并不是每个人想喝水就要打一口井。
-优点 在内存里只有一个实例，所以能够节约系统资源，减少了内存的开销，尤其是频繁的创建和销毁实例，可以提高系统效率，同时也能够严格控制客户对它的访问。
-缺点 也正是因为系统中只有一个实例，这样就导致了单例类的职责过重，违背了“单一职责原则”，同时也没有抽象类，这样扩展起来有一定的困难。 优点即缺点，所以更应该说是特点，在特定场景下使用。
-常见应用场景  spring bean 数据库连接 需要频繁的进行创建和销毁的对象 创建对象时耗时过多或耗费资源过多(重量级对象) 经常用到的对象、工具类对象、频繁访问数据库或文件的对象(数据源、session工厂)  结构 classDiagramclass Singleton {-Singleton instance-Singleton()+static getInstance() Singleton}Singleton --o Singleton实现方式 要实现单例模式，关键有 3 个要素：
+  优点：在内存里只有一个实例，所以能够节约系统资源，减少了内存的开销，尤其是频繁的创建和销毁实例，可以提高系统效率，同时也能够严格控制客户对它的访问。
+  缺点：也正是因为系统中只有一个实例，这样就导致了单例类的职责过重，违背了“单一职责原则”，同时也没有抽象类，这样扩展起来有一定的困难。
+  优点即缺点，所以更应该说是特点，在特定场景下使用。
+  常见应用场景
+ spring bean 数据库连接 需要频繁的进行创建和销毁的对象 创建对象时耗时过多或耗费资源过多(重量级对象) 经常用到的对象、工具类对象、频繁访问数据库或文件的对象(数据源、session工厂)    结构 classDiagramclass Singleton {-Singleton instance-Singleton()+static getInstance() Singleton}Singleton --o Singleton实现方式 要实现单例模式，关键有 3 个要素：
  单例类只有一个实例对象；如instance；此为单例模式的核心要素。 该单例对象必须由单例类自行创建；一般情况下会将构造函数声明为私有的，如private Singleton()；这样外部无法实例化，也无法被继承，此举为保证唯一性，从而避免勿用。 单例类对外提供一个访问该单例的全局访问点；如getInstance()；由于已阻止外部构建，即单例类是一个只读类，外部不能创建或修改，需提供一个读取接口。  即为了避免城市被私人挖得千疮百孔，没收公众的挖井工具，收归专门管理，但开放水利给公众使用。
 具体常用的几种实现方法：
-  饿汉式
-饿汉式顾名思义就是把食物（对象）提前做好，需要时直接拿取即可使用（吃掉）。简而言之即预先构建。
+1. 饿汉式 饿汉式顾名思义就是把食物（对象）提前做好，需要时直接拿取即可使用（吃掉）。简而言之即预先构建。
 // 饿汉式单例 public class Eager { // 提前把对象实例化，此对象实例全局唯一  private final static Eager instance = new Eager(); // 私有化构造器，不允许外部使用，以免破坏唯一性  private Eager() { System.</description>
     </item>
     
     <item>
-      <title>行为型-观察者模式（常用）</title>
-      <link>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A1%8C%E4%B8%BA%E5%9E%8B-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</link>
+      <title>结构型 - 代理模式</title>
+      <link>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E7%BB%93%E6%9E%84%E5%9E%8B-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</link>
       <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
       
-      <guid>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A1%8C%E4%B8%BA%E5%9E%8B-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</guid>
-      <description>定义 观察者模式（Observer Pattern）属于行为类型的一种常用的软件设计模式。还有其他的称谓如，发布-订阅模式，模型-视图模式，而最常见的应用就是事件-通知机制了。
-该模式定义了一种一对多的依赖关系，并对关系进行解耦。即一个对象发生变化时，将通知所有依赖他的对象，以进一步处理相应变化。通过变化产生事件，进而通知处理相应变化的方式，实现了两个对象的解耦，并提供了灵活的依赖关系。
-为什么需要观察者模式  解耦  常见应用场景  spring event  结构 classDiagramclass Subject {&amp;lt;&amp;lt;abstract&amp;gt;&amp;gt;+observers+addObserver()+removeObserver()+notifyObserver()}class Observer {&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;update()}class ConcreteSubject {}class ContreteObserver {}实现方式 要实现观察者模式，其关键有 4 个对象，分别是：
-   对象 称谓 特性     Subject 被观察者 被观察者提供一系列方法以维护观察者列表（可随时进行增删），同时定义通知方法，以在发生变化时通知已维护在列表中的观察者们。   ConcreteSubject 具体的被观察者 被观察者的具体实现类，实现具体场景下发送变化通知。   Observer 观察者 观察者可以是一个或多个，当被观察者Subject发生变化时，观察者将收到通知。   ConcreteObserver 具体的观察者 观察者的具体实现类，不同的观察者在收到通知后可实现不同的操作。    观察者模式实现如下：</description>
+      <guid>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E7%BB%93%E6%9E%84%E5%9E%8B-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</guid>
+      <description>代理在软件设计中是一种非常常见的设计思路，
+为什么需要代理模式 常见应用场景 结构 实现方式 代理模式实现上有静态代理与动态代理之分。而动态代理又有JDK自带的实现方案，也有CGLib等第三方工具的实现方案，效果各有不同。
+一、静态代理
+二、动态代理（JDK实现方案）
+三、动态代理（CGLib实现方案）
+使用案例 // 待补充实际工作上项目的使用案例。
+引申 总结 </description>
     </item>
     
     <item>
-      <title>Java安装</title>
-      <link>http://yipsen.github.io/posts/java%E5%9F%BA%E7%A1%80/java%E5%AE%89%E8%A3%85/</link>
+      <title>自旋锁与互斥锁</title>
+      <link>http://yipsen.github.io/posts/java/java-%E5%B9%B6%E5%8F%91/%E8%87%AA%E6%97%8B%E9%94%81%E4%B8%8E%E4%BA%92%E6%96%A5%E9%94%81/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/java/java-%E5%B9%B6%E5%8F%91/%E8%87%AA%E6%97%8B%E9%94%81%E4%B8%8E%E4%BA%92%E6%96%A5%E9%94%81/</guid>
+      <description>背景 当一个人处理任务非常繁忙为了提高效率事，最直接的方式就是多找几个人并行的做。放置到计算机的场景，就是多线程并发执行来提高处理效率，而并行的方式在遇到共享资源处理或者需要保证线程间执行顺序的场景，就难免需要引入锁的机制来控制调度各个线程的执行。 而锁实际就是一个共同争抢的资源，那没能拿到锁的线程该怎么办呢？一般有两种思路，一种就是一直循环等待判断该资源是否已经释放锁，这种叫自旋锁。一种是把自己阻塞起来，等待资源释放后重新调度请求，这种叫互斥锁。
+自旋锁 自旋锁(Spin Lock)的命名听起来非常晦涩高大上，而实质可以说是非常地简单，所谓自旋，也称为忙等待(busy waiting)，而更直观的来看，其实就是个死循环。 如果持有锁的线程能在短时间内释放锁资源，那么那些等待竞争锁的线程就不需要做内核态和用户态之间的切换进入阻塞状态，他们只需要原地自旋渡一下步，等到持有锁的线程释放锁之后就可以获取，这样就避免了用户进程和内核切换的消耗。 但是遇到长期持有锁资源做繁忙任务的场景，自旋锁反而是非常消耗性能的，整个线程占用着 CPU 死做无用功，
+自旋锁的特点与适用场景 自旋锁的简单实现 排队自旋锁 互斥锁 </description>
+    </item>
+    
+    <item>
+      <title>行为型 - 观察者模式</title>
+      <link>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A1%8C%E4%B8%BA%E5%9E%8B-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A1%8C%E4%B8%BA%E5%9E%8B-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/</guid>
+      <description>观察者模式（Observer Pattern）属于行为类型的一种常用的软件设计模式。还有其他的称谓如，发布-订阅模式，模型-视图模式，而最常见的应用就是事件-通知机制了。
+该模式定义了一种一对多的依赖关系，并对关系进行解耦。即一个对象发生变化时，将通知所有依赖他的对象，以进一步处理相应变化。通过变化产生事件，进而通知处理相应变化的方式，实现了两个对象的解耦，并提供了灵活的依赖关系。
+为什么需要观察者模式  解耦  常见应用场景  spring event  结构 classDiagramclass Subject {&amp;lt;&amp;lt;abstract&amp;gt;&amp;gt;+observers+addObserver()+removeObserver()+notifyObserver()}class Observer {&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;update()}class ConcreteSubject {}class ContreteObserver {}实现方式 要实现观察者模式，其关键有 4 个对象，分别是：
+   对象 称谓 特性     Subject 被观察者 被观察者提供一系列方法以维护观察者列表（可随时进行增删），同时定义通知方法，以在发生变化时通知已维护在列表中的观察者们。   ConcreteSubject 具体的被观察者 被观察者的具体实现类，实现具体场景下发送变化通知。   Observer 观察者 观察者可以是一个或多个，当被观察者Subject发生变化时，观察者将收到通知。   ConcreteObserver 具体的观察者 观察者的具体实现类，不同的观察者在收到通知后可实现不同的操作。    1.</description>
+    </item>
+    
+    <item>
+      <title>Java 安装</title>
+      <link>http://yipsen.github.io/posts/java/java-%E5%9F%BA%E7%A1%80/java-%E5%AE%89%E8%A3%85/</link>
       <pubDate>Sun, 06 Feb 2022 16:31:43 +0800</pubDate>
       
-      <guid>http://yipsen.github.io/posts/java%E5%9F%BA%E7%A1%80/java%E5%AE%89%E8%A3%85/</guid>
+      <guid>http://yipsen.github.io/posts/java/java-%E5%9F%BA%E7%A1%80/java-%E5%AE%89%E8%A3%85/</guid>
       <description>Linux 安装 环境信息 一、移除已有 Java 版本（可选） sudo yum remove -y java 二、下载并安装 Java8 wget --no-cookies --no-check-certificate --header &amp;#34;Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie&amp;#34; &amp;#34;http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.tar.gz&amp;#34; tar -xzvf jdk-8u131-linux-x64.tar.gz cp -a jdk1.8.0_131/ /usr/local/java rm -rf jdk-8u131-linux-x64.tar.gz 三、配置 JAVA_HOME   打开bashrc(or /etc/profile???)
 sudo vim ~/.bashrc   在文件末尾追加
 export JAVA_HOME=~/jdk1.8.0_131 export JRE_HOME=$JAVA_HOME/jre export PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib   配置立即生效
@@ -144,42 +491,247 @@ java -version   Windows 安装 </description>
     </item>
     
     <item>
-      <title>iptables详解</title>
-      <link>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/iptables%E8%AF%A6%E8%A7%A3/</link>
-      <pubDate>Sat, 15 Jan 2022 10:40:52 +0800</pubDate>
+      <title>01 基础知识（一）DHT 网络的演进</title>
+      <link>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/01-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B8%80dht-%E7%BD%91%E7%BB%9C%E7%9A%84%E6%BC%94%E8%BF%9B/</link>
+      <pubDate>Sun, 16 Jan 2022 16:31:43 +0000</pubDate>
       
-      <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/iptables%E8%AF%A6%E8%A7%A3/</guid>
+      <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/01-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B8%80dht-%E7%BD%91%E7%BB%9C%E7%9A%84%E6%BC%94%E8%BF%9B/</guid>
+      <description>background knowledge dht模块 dht模块实现一个dht节点，用来和网上的其他dht节点进行通信，在通信的过程中完成收集磁力链接的任务。
+bt模块 bt模块实现一个bt协议的客户端程序，当发现一个磁力链接可以下载的时候，通过bt客户端和远程的服务器通信，下载种子的元数据，
+原理解析 0x01 相关术语   P2P网络 对等计算（Peer to Peer，简称p2p）可以简单的定义成通过直接交换来共享计算机资源和服务，而对等计算模型应用层形成的网络通常称为对等网络。相信大家都用过迅雷，就不多说了。
+  DHT网络 DHT（Distributed Hash Table，分布式哈希表），DHT由节点组成，它存储peer的位置，是一种分布式存储方法。在不需要服务器的情况下，每个客户端负责一个小范围的路由，并负责存储一小部分数据，从而实现整个DHT网络的寻址和存储，其中BT客户端包含一个DHT节点，用来联系DHT中其他节点，从而得到peer的位置，进而通过BitTorrent协议下载。 简单来说DHT就是负责管理提供信息和服务节点的管理与路由功能，两个需要区分的概念： “peer” 是在一个 TCP 端口上监听的客户端/服务器，它实现了 BitTorrent 协议。 “节点” 是在一个 UDP 端口上监听的客户端/服务器，它实现了 DHT(分布式哈希表) 协议。
+  Kademlia算法 Kademlia是DHT网络的一种实现。在Kademlia网络中，距离是通过异或(XOR)计算的，结果为无符号整数。distance(A, B) = |A xor B|，值越小表示越近。
+  KRPC协议 KRPC 是节点之间的交互协议，是由 bencode 编码组成的一个简单的 RPC 结构，他使用 UDP 报文发送。一个独立的请求包被发出去然后一个独立的包被回复。这个协议没有重发。它包含 3 种消息：请求，回复和错误。对DHT协议而言，这里有 4 种请求：
+   method description     ping 检查一个节点是否有效   find_node 向一个节点发送查找节点的请求，在初始路由表或验证桶是否存活时使用   get_peers 向一个节点发送查找资源的请求   announce_peer 向一个节点发送自己已经开始下载某个资源的通知   一条KRPC消息由一个独立的字典组成，其中t和y关键字是每条信息都包含的       MagNet协议 MagNet协议，也就是磁力链接。是一个通过sha1算法生成一个20字节长的字符串，P2P客户端使用磁力链接，下载资源的种子文件，然后根据种子文件下载资源。</description>
+    </item>
+    
+    <item>
+      <title>02 基础知识（二）Kademlia 算法</title>
+      <link>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/02-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BA%8Ckademlia-%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Sun, 16 Jan 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/02-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BA%8Ckademlia-%E7%AE%97%E6%B3%95/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>SSH登录过程</title>
-      <link>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/ssh%E7%99%BB%E5%BD%95%E8%BF%87%E7%A8%8B/</link>
+      <title>03 基础知识（三）KRPC 协议解析</title>
+      <link>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/03-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B8%89krpc-%E5%8D%8F%E8%AE%AE%E8%A7%A3%E6%9E%90/</link>
+      <pubDate>Sun, 16 Jan 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/03-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B8%89krpc-%E5%8D%8F%E8%AE%AE%E8%A7%A3%E6%9E%90/</guid>
+      <description>请求样例 [SAMPLE_INFOHASHES] { &amp;ldquo;ip&amp;rdquo;:&amp;ldquo;127.0.0.1&amp;rdquo;, &amp;ldquo;port&amp;rdquo;:&amp;ldquo;7000&amp;rdquo;, &amp;ldquo;message&amp;rdquo;:{ &amp;ldquo;t&amp;rdquo;:&amp;ldquo;7348&amp;rdquo;, &amp;ldquo;y&amp;rdquo;:&amp;ldquo;q&amp;rdquo;, &amp;ldquo;q&amp;rdquo;:&amp;ldquo;sample_infohashes&amp;rdquo;, &amp;ldquo;a&amp;rdquo;:{ &amp;ldquo;id&amp;rdquo;:&amp;ldquo;832545b71150635d4970c548ba0918a8085023f2&amp;rdquo;, &amp;ldquo;target&amp;rdquo;:&amp;ldquo;29dbf3a3a69a336921569e900bb131efda2e7ff4&amp;rdquo; } } }
+[ANNOUNCE_PEER] { &amp;ldquo;ip&amp;rdquo;:&amp;ldquo;112.113.162.69&amp;rdquo;, &amp;ldquo;port&amp;rdquo;:&amp;ldquo;17535&amp;rdquo;, &amp;ldquo;message&amp;rdquo;:{ &amp;ldquo;t&amp;rdquo;:&amp;ldquo;a7f4&amp;rdquo;, &amp;ldquo;y&amp;rdquo;:&amp;ldquo;q&amp;rdquo;, &amp;ldquo;q&amp;rdquo;:&amp;ldquo;announce_peer&amp;rdquo;, &amp;ldquo;a&amp;rdquo;:{ &amp;ldquo;id&amp;rdquo;:&amp;ldquo;ef41813e6f2555438722462f24a10db858106887&amp;rdquo;, &amp;ldquo;info_hash&amp;rdquo;:&amp;ldquo;186ef18044f042ef759e3f48b7aa284c9c084ed1&amp;rdquo;, &amp;ldquo;port&amp;rdquo;:7071, &amp;ldquo;token&amp;rdquo;:&amp;ldquo;TENET&amp;rdquo; } } }</description>
+    </item>
+    
+    <item>
+      <title>04 基础知识（四）Bencode 编码</title>
+      <link>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/04-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%9B%9Bbencode-%E7%BC%96%E7%A0%81/</link>
+      <pubDate>Sun, 16 Jan 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/04-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%9B%9Bbencode-%E7%BC%96%E7%A0%81/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>05 基础知识（五）Magnet 磁链与 Torrent 文件</title>
+      <link>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/05-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BA%94magnet-%E7%A3%81%E9%93%BE%E4%B8%8E-torrent-%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Sun, 16 Jan 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/05-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BA%94magnet-%E7%A3%81%E9%93%BE%E4%B8%8E-torrent-%E6%96%87%E4%BB%B6/</guid>
+      <description>MAGNET 磁链结构  magnet:?xt=urn:btih:60c423137f453492ca34c2d69f6f573408dca35a&amp;amp;dn=Inglourious.Basterds.DVDRip.XviD-iMBT.avi&amp;amp;tr=http%3A%2F%2Ftracker.publicbt.com%2Fannounce
+    字段 全称 解析     magnet magnet 协议名。   xt exact topic 包含文件哈希值的统一资源名称。   urn uniform resource name URN 表示资源名   btih BitTorrent info hash 种子散列函数，这里还可以使用ED2K，AICH，SHA1和MD5等。这个值是文件的标识符，是不可缺少的。   dn display name 表示向用户显示的文件名。这一项是选填的。   tr tracker 表示tracker服务器的地址。这一项也是选填的。   ws webseed 表示网络种子。     注：btih是应用程序定义的实验参数，必须以&amp;quot;x.&amp;ldquo;开头。[4-5] 标准还建议同类的多个参数可以在参数名称后面加上&amp;rdquo;.1&amp;quot;, &amp;ldquo;.2&amp;quot;等来使用， 例如： magnet:?xt.1=urn:sha1:YNCKHTQCWBTRNJIV4WNAE52SJUQCZO5C&amp;amp;xt.2=urn:sha1:TXGCZQTH26NL6OUQAJJPFALHG2LTGBC7
+ TORRENT 文件结构 { &amp;#34;announce&amp;#34;: &amp;#34;&amp;#34;, // tracker的主服务器  &amp;#34;announce-list&amp;#34;: [], // tracker服务器列表  &amp;#34;comment&amp;#34;: &amp;#34;&amp;#34;, // 种子文件的注释  &amp;#34;comment.</description>
+    </item>
+    
+    <item>
+      <title>06 基础知识（六）μTP 协议</title>
+      <link>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/06-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%85%AD%CE%BCtp-%E5%8D%8F%E8%AE%AE/</link>
+      <pubDate>Sun, 16 Jan 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/06-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%85%AD%CE%BCtp-%E5%8D%8F%E8%AE%AE/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>08 爬虫设计（一）模块划分与核心逻辑</title>
+      <link>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/08-%E7%88%AC%E8%99%AB%E8%AE%BE%E8%AE%A1%E4%B8%80%E6%A8%A1%E5%9D%97%E5%88%92%E5%88%86%E4%B8%8E%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91/</link>
+      <pubDate>Sun, 16 Jan 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/08-%E7%88%AC%E8%99%AB%E8%AE%BE%E8%AE%A1%E4%B8%80%E6%A8%A1%E5%9D%97%E5%88%92%E5%88%86%E4%B8%8E%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>09 爬虫设计（二）核心组件-路由表设计</title>
+      <link>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/09-%E7%88%AC%E8%99%AB%E8%AE%BE%E8%AE%A1%E4%BA%8C%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6-%E8%B7%AF%E7%94%B1%E8%A1%A8%E8%AE%BE%E8%AE%A1/</link>
+      <pubDate>Sun, 16 Jan 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/09-%E7%88%AC%E8%99%AB%E8%AE%BE%E8%AE%A1%E4%BA%8C%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6-%E8%B7%AF%E7%94%B1%E8%A1%A8%E8%AE%BE%E8%AE%A1/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>10 爬虫设计（三）使用 Netty 的 Handle 链与统一异常处理</title>
+      <link>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/10-%E7%88%AC%E8%99%AB%E8%AE%BE%E8%AE%A1%E4%B8%89%E4%BD%BF%E7%94%A8-netty-%E7%9A%84-handle-%E9%93%BE%E4%B8%8E%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</link>
+      <pubDate>Sun, 16 Jan 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/10-%E7%88%AC%E8%99%AB%E8%AE%BE%E8%AE%A1%E4%B8%89%E4%BD%BF%E7%94%A8-netty-%E7%9A%84-handle-%E9%93%BE%E4%B8%8E%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>11 爬虫设计（四）监控采集</title>
+      <link>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/11-%E7%88%AC%E8%99%AB%E8%AE%BE%E8%AE%A1%E5%9B%9B%E7%9B%91%E6%8E%A7%E9%87%87%E9%9B%86/</link>
+      <pubDate>Sun, 16 Jan 2022 16:31:43 +0000</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/11-%E7%88%AC%E8%99%AB%E8%AE%BE%E8%AE%A1%E5%9B%9B%E7%9B%91%E6%8E%A7%E9%87%87%E9%9B%86/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>iptables 详解</title>
+      <link>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/iptables-%E8%AF%A6%E8%A7%A3/</link>
       <pubDate>Sat, 15 Jan 2022 10:40:52 +0800</pubDate>
       
-      <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/ssh%E7%99%BB%E5%BD%95%E8%BF%87%E7%A8%8B/</guid>
+      <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/iptables-%E8%AF%A6%E8%A7%A3/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SSH 登录过程</title>
+      <link>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/ssh-%E7%99%BB%E5%BD%95%E8%BF%87%E7%A8%8B/</link>
+      <pubDate>Sat, 15 Jan 2022 10:40:52 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/ssh-%E7%99%BB%E5%BD%95%E8%BF%87%E7%A8%8B/</guid>
       <description>一、SSH登录 SSH登录流程 sequenceDiagramparticipant A as User Host Aparticipant B as Server Host BA -&amp;gt;&amp;gt; B : 发送SSH登录请求B -&amp;gt;&amp;gt; A : 发送公钥bbb.pub给用户A -&amp;gt;&amp;gt; A : 使用公钥bbb.pub加密登录密码A -&amp;gt;&amp;gt; B : 发送加密后的登录密码B -&amp;gt;&amp;gt; B : 使用私钥bbb进行解密opt 密码正确B -&amp;gt;&amp;gt; A : 登录成功end二、公钥登录 公钥登录流程 公钥登录方式跟SSH登录方式有所不同。
   首先发布公钥
 sequenceDiagramparticipant A as User Host Aparticipant B as Server Host BA -&amp;gt;&amp;gt; B : 发布自己的公钥aaa.</description>
     </item>
     
     <item>
-      <title>MySQL事务机制</title>
-      <link>http://yipsen.github.io/posts/mysql/mysql%E4%BA%8B%E5%8A%A1%E6%9C%BA%E5%88%B6/</link>
+      <title>协议</title>
+      <link>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/%E5%8D%8F%E8%AE%AE/%E5%8D%8F%E8%AE%AE/</link>
+      <pubDate>Sat, 15 Jan 2022 10:40:52 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/%E5%8D%8F%E8%AE%AE/%E5%8D%8F%E8%AE%AE/</guid>
+      <description>协议 = 数据格式 + 一整套交互方案 = 协议提供（或说承诺）的各种特性，以解决特定实际需求问题。也可以理解为对宽广自由的网络交互提出的约束。</description>
+    </item>
+    
+    <item>
+      <title>MySQL Linux 免安装版部署</title>
+      <link>http://yipsen.github.io/posts/mysql/mysql-linux-%E5%85%8D%E5%AE%89%E8%A3%85%E7%89%88%E9%83%A8%E7%BD%B2/</link>
       <pubDate>Mon, 10 Jan 2022 23:36:41 +0800</pubDate>
       
-      <guid>http://yipsen.github.io/posts/mysql/mysql%E4%BA%8B%E5%8A%A1%E6%9C%BA%E5%88%B6/</guid>
+      <guid>http://yipsen.github.io/posts/mysql/mysql-linux-%E5%85%8D%E5%AE%89%E8%A3%85%E7%89%88%E9%83%A8%E7%BD%B2/</guid>
+      <description>下载 tar 包 https://cdn.mysql.com//Downloads/MySQL-5.7/mysql-5.7.41-linux-glibc2.12-x86_64.tar.gz
+安装    上传 tar 包到服务器    安装    # 解压缩 tar -xzvf mysql-5.7.41-linux-glibc2.12-x86_64.tar.gz # 移动到目标文件夹，本例为 /volume2/services/mysql-5.7.41 mv mysql-5.7.41-linux-glibc2.12-x86_64 /volume2/services/mysql-5.7.41 # 创建数据目录 cd /volume2/services/mysql-5.7.41/ mkdir data # 创建执行用户 useradd mysql chown mysql:mysql -R /volume2/services/mysql-5.7.41/ chmod 755 -R /volume2/services/mysql-5.7.41/ # 初始化 ./mysqld --user=mysql --basedir=/volume2/services/mysql-5.7.41/ --datadir=/volume2/services/mysql-5.7.41/data/ --initialize # 修改启动脚本 vim ./support-files/mysql.server # 修改 MySQL 服务器配置 vim /etc/my.cnf # 启动 MySQL 服务 ./support-files/mysql.server start # 查询启动状态 .</description>
+    </item>
+    
+    <item>
+      <title>MySQL Windows 免安装版部署</title>
+      <link>http://yipsen.github.io/posts/mysql/mysql-windows-%E5%85%8D%E5%AE%89%E8%A3%85%E7%89%88%E9%83%A8%E7%BD%B2/</link>
+      <pubDate>Mon, 10 Jan 2022 23:36:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/mysql/mysql-windows-%E5%85%8D%E5%AE%89%E8%A3%85%E7%89%88%E9%83%A8%E7%BD%B2/</guid>
+      <description>下载安装包（社区免安装版）  MySQL 官方下载页面：https://downloads.mysql.com/archives/community/ MySQL 5.7.16 版下载地址：https://cdn.mysql.com/archives/mysql-5.7/mysql-5.7.16-winx64.zip  安装   解压安装包mysql-5.7.16-winx64.zip到指定路径（自由选择），例如：D:\Program Files\MySQL5
+  新建数据目录：D:\Program Files\MySQL5\data
+  拷贝D:\Program Files\MySQL5\my-default.ini到C:\Windows，并重命名为：my.ini
+  修改my.ini文件内容如下：
+# For advice on how to change settings please see# http://dev.mysql.com/doc/refman/5.7/en/server-configuration-defaults.html# *** DO NOT EDIT THIS FILE. It&#39;s a template which will be copied to the# *** default location during install, and will be replaced if you# *** upgrade to a newer version of MySQL.</description>
+    </item>
+    
+    <item>
+      <title>MySQL 一些配置</title>
+      <link>http://yipsen.github.io/posts/mysql/mysql-%E4%B8%80%E4%BA%9B%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Mon, 10 Jan 2022 23:36:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/mysql/mysql-%E4%B8%80%E4%BA%9B%E9%85%8D%E7%BD%AE/</guid>
+      <description>打开慢 SQL 配置 -- 查看是否开了慢 SQL 配置 show variables like &amp;#39;show_query%&amp;#39;; show variables like &amp;#39;long_query_time&amp;#39;; -- 如果没有配置，通过以下语句配置 set global show_query_log=&amp;#39;ON&amp;#39;; -- 开启慢 SQL 日志 set global show_query_log_file=&amp;#39;/var/lib/mysql/slow-sql.log&amp;#39;; -- 记录慢 SQL 的日志地址 set global long_query_time=1; -- 慢 SQL 阈值，即超过该时间的判定为慢 SQL，单位为秒 </description>
+    </item>
+    
+    <item>
+      <title>MySQL 两阶段提交</title>
+      <link>http://yipsen.github.io/posts/mysql/mysql-%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/</link>
+      <pubDate>Mon, 10 Jan 2022 23:36:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/mysql/mysql-%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>MySQL用户管理</title>
-      <link>http://yipsen.github.io/posts/mysql/mysql%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/</link>
+      <title>MySQL 主从复制</title>
+      <link>http://yipsen.github.io/posts/mysql/mysql-%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/</link>
       <pubDate>Mon, 10 Jan 2022 23:36:41 +0800</pubDate>
       
-      <guid>http://yipsen.github.io/posts/mysql/mysql%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/</guid>
+      <guid>http://yipsen.github.io/posts/mysql/mysql-%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MySQL 事务机制</title>
+      <link>http://yipsen.github.io/posts/mysql/mysql-%E4%BA%8B%E5%8A%A1%E6%9C%BA%E5%88%B6/</link>
+      <pubDate>Mon, 10 Jan 2022 23:36:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/mysql/mysql-%E4%BA%8B%E5%8A%A1%E6%9C%BA%E5%88%B6/</guid>
+      <description>问题引入 事务概念的诞生 事务的并发问题 事务的隔离级别 事务的实现原理 </description>
+    </item>
+    
+    <item>
+      <title>MySQL 协议详解</title>
+      <link>http://yipsen.github.io/posts/mysql/mysql-%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/</link>
+      <pubDate>Mon, 10 Jan 2022 23:36:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/mysql/mysql-%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MySQL 总结概览</title>
+      <link>http://yipsen.github.io/posts/mysql/mysql-%E6%80%BB%E7%BB%93%E6%A6%82%E8%A7%88/</link>
+      <pubDate>Mon, 10 Jan 2022 23:36:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/mysql/mysql-%E6%80%BB%E7%BB%93%E6%A6%82%E8%A7%88/</guid>
+      <description>事务 1. 事务四大特性（ACID）    特性 英文 描述     原子性 Atomicity 原子性是指事务包含的所有操作要么全部成功，要么全部失败回滚。因此事务的操作如果成功就必须要完全应用到数据库，如果操作失败则不能对数据库有任何影响。   一致性 Consistency 事务开始前和结束后，数据库的完整性约束没有被破坏。比如 A 向 B 转账，不可能 A 扣了钱，而 B 却没收到。   隔离性 Isolation 隔离性是当多个用户并发访问数据库时，比如操作同一张表时，数据库为每一个用户开启的事务，不能被其他事务的操作所干扰。多个并发事务之间要相互隔离，互不干扰。同一时间只允许一个事务请求同一数据，比如 A 正在从一张银行卡中取钱，在 A 收钱过程结束前，B 不能向这张卡转账。   持久性 Durability 持久性是指一个事务一旦被提交了，那么对数据库中的数据的改变就是永久性的，即便是在数据库系统遭遇故障的情况下也不会丢失提交事务的操作。    2. 事务并发问题 3. 事务隔离级别（针对性解决事务并发问题） 4. 事务传播行为 5. 嵌套事务 6. 其他 7. 事务实现原理 8. 分布式事务 </description>
+    </item>
+    
+    <item>
+      <title>MySQL 查看语句执行各步骤耗时</title>
+      <link>http://yipsen.github.io/posts/mysql/mysql-%E6%9F%A5%E7%9C%8B%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C%E5%90%84%E6%AD%A5%E9%AA%A4%E8%80%97%E6%97%B6/</link>
+      <pubDate>Mon, 10 Jan 2022 23:36:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/mysql/mysql-%E6%9F%A5%E7%9C%8B%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C%E5%90%84%E6%AD%A5%E9%AA%A4%E8%80%97%E6%97%B6/</guid>
+      <description>语法 mysql&amp;gt; show profiles; +----------+------------+---------------------------+ | Query_ID | Duration | Query | +----------+------------+---------------------------+ | 1 | 0.00017075 | select @@profiling | | 2 | 0.00078300 | select * from processlist | | 3 | 0.00019700 | select @@profiling | +----------+------------+---------------------------+ 3 rows in set, 1 warning (0.00 sec) mysql&amp;gt; show profile for query 2; +----------------------+----------+ | Status | Duration | +----------------------+----------+ | starting | 0.000066 | | checking permissions | 0.</description>
+    </item>
+    
+    <item>
+      <title>MySQL 用户管理</title>
+      <link>http://yipsen.github.io/posts/mysql/mysql-%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/</link>
+      <pubDate>Mon, 10 Jan 2022 23:36:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/mysql/mysql-%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/</guid>
       <description>一、MySQL最常用新增用户并授权脚本 -- 创建用户test_user，并设置密码为123456。 CREATE USER test_user IDENTIFIED BY &amp;#39;123456&amp;#39;; -- 授权所有数据库下所有表(*.*)的所有权限(ALL)，并且指定所有ip的客户端(%)都可以采用该用户登录。 GRANT ALL PRIVILEGES ON *.* TO &amp;#39;test_user&amp;#39;@&amp;#39;%&amp;#39; IDENTIFIED by &amp;#39;123456&amp;#39;; -- 刷新权限使其生效。事实上可以省略 FLUSH PRIVILEGES; -- 查看用户test_user授权信息。 SHOW GRANTS FOR &amp;#39;test_user&amp;#39;@&amp;#39;%&amp;#39;; 二、用户管理 2.1、概述 mysql中的用户信息和权限等都存储在一个名为mysql的数据库中。其中主要用到如下五张表：
    表名 数据 描述     user表 存储全局权限 适用于一个给定服务器中的所有数据库，在命令中展现形式为*.*   db表 存储数据库权限 适用于一个给定数据库中的所有表，在命令中展现形式为[数据库名].*   tables_priv表 存储表权限 适用于一个给定表中的所有列，在命令中展现形式为[数据库名].[表名]   columns_priv表 存储列权限 适用于一个给定表中的单一列，在命令中展现形式为   procs_priv表 xxx xxx    mysql中所有的用户（指mysql客户端用户）信息都是保存在mysql数据库下的user表中。该表采用复合主键（host + user）。</description>
+    </item>
+    
+    <item>
+      <title>MySQL 解释计划</title>
+      <link>http://yipsen.github.io/posts/mysql/mysql-%E8%A7%A3%E9%87%8A%E8%AE%A1%E5%88%92/</link>
+      <pubDate>Mon, 10 Jan 2022 23:36:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/mysql/mysql-%E8%A7%A3%E9%87%8A%E8%AE%A1%E5%88%92/</guid>
+      <description>语法 mysql&amp;gt; explain select * from processlist; +&amp;mdash;-+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;-+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;-+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;mdash;-+&amp;mdash;&amp;mdash;-+ | id | select_type | table | partitions | type | possible_keys | key | key_len | ref | rows | filtered | Extra | +&amp;mdash;-+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;-+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;-+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;mdash;-+&amp;mdash;&amp;mdash;-+ | 1 | SIMPLE | processlist | NULL | ALL | NULL | NULL | NULL | NULL | NULL | NULL | NULL | +&amp;mdash;-+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;-+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;-+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;+&amp;mdash;&amp;mdash;&amp;mdash;-+&amp;mdash;&amp;mdash;-+ 1 row in set, 1 warning (0.00 sec)
+列含义  id: 每个执行计划都有一个 id，如果是一个联合查询，这里还将有多个id。 select_type：表示 SELECT 查询类型，常见的有 SIMPLE（普通查询，即没有联合查询，子查询）、PRIMARY（主查询）、UNION（UNION中后面的查询）、SUBQUERY（子查询）等。 tabe：当前执行计划查询的表，如果给表起了别名，则显示别名信息。 partitions：访问的分区表信息。 type：表示从表中查询到行所执行的方式，查询方式是 SQL 优化中一个很重要的指标，结果值从好到差依次为：system &amp;gt; const &amp;gt; eq_ref &amp;gt; ref &amp;gt; range &amp;gt; index &amp;gt; ALL。  system/const: 表中只有一行是数据匹配，此时根据索引查询一次就能找到对应的数据 eq_ref: 使用唯一索引扫描，常见于多表连接中使用主键和唯一索引作为关联条件 ref: 非唯一索引扫描，还可见于唯一索引最左原则匹配扫描 range: 索引范围扫描，比如，&amp;lt;，&amp;gt;，between 等操作。 index: 索引全表扫描，此时遍历整个索引树。 ALL: 表示全表扫描，需要遍历全表所有数据（字段）来找到对应的行。</description>
+    </item>
+    
+    <item>
+      <title>MySQL 读写分离</title>
+      <link>http://yipsen.github.io/posts/mysql/mysql-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/</link>
+      <pubDate>Mon, 10 Jan 2022 23:36:41 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/posts/mysql/mysql-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/</guid>
+      <description>问题引入 为减少主库压力，提出读写分离的方案。
+读写分离过期读问题 解决方案 实践 </description>
     </item>
     
   </channel>

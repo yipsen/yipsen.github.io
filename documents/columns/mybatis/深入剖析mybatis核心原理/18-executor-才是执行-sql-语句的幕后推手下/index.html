@@ -24,10 +24,10 @@ public &amp;lt;E&amp;gt; List&amp;lt;E&amp;gt; doQuery(MappedStatement ms, Objec
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -36,7 +36,7 @@ public &amp;lt;E&amp;gt; List&amp;lt;E&amp;gt; doQuery(MappedStatement ms, Objec
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -196,12 +196,10 @@ public &amp;lt;E&amp;gt; List&amp;lt;E&amp;gt; doQuery(MappedStatement ms, Objec
 </style><article class="post-block">
         <h1 class="post-title">18 Executor 才是执行 SQL 语句的幕后推手（下）</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:51:20</span>🏷️&nbsp;<a class="post-tag" href="/tags/mybatis/">mybatis</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/">深入剖析MyBatis核心原理</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:51:20</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>在上一讲中，我们首先介绍了模板方法模式的相关知识，然后介绍了 Executor 接口的核心方法，最后分析了 BaseExecutor 抽象类是如何利用模板方法模式为其他 Executor 抽象了一级缓存和事务管理的能力。这一讲，我们再来介绍剩余的四个重点 Executor 实现。</p>
 <p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90%20MyBatis%20%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86-%E5%AE%8C/assets/CioPOWBa7q-Aa_fiAAF6eDPI3C0273.png" alt="图片13.png"></p>
@@ -576,6 +574,11 @@ public &lt;E&gt; List&lt;E&gt; query(MappedStatement ms, Object parameterObject,
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/mybatis/">mybatis</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/">深入剖析MyBatis核心原理</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -584,26 +587,38 @@ public &lt;E&gt; List&lt;E&gt; query(MappedStatement ms, Object parameterObject,
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/17-executor-%E6%89%8D%E6%98%AF%E6%89%A7%E8%A1%8C-sql-%E8%AF%AD%E5%8F%A5%E7%9A%84%E5%B9%95%E5%90%8E%E6%8E%A8%E6%89%8B%E4%B8%8A/"><span>17 Executor 才是执行 SQL 语句的幕后推手（上）</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/17-executor-%E6%89%8D%E6%98%AF%E6%89%A7%E8%A1%8C-sql-%E8%AF%AD%E5%8F%A5%E7%9A%84%E5%B9%95%E5%90%8E%E6%8E%A8%E6%89%8B%E4%B8%8A/"><span>17 Executor 才是执行 SQL 语句的幕后推手（上）</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/19-%E6%B7%B1%E5%85%A5-mybatis-%E5%86%85%E6%A0%B8%E4%B8%8E%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91%E7%9A%84%E6%A1%A5%E6%A2%81%E6%8E%A5%E5%8F%A3%E5%B1%82/"><span>19 深入 MyBatis 内核与业务逻辑的桥梁——接口层</span></a>
+        <a href="http://yipsen.github.io/documents/columns/mybatis/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90mybatis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/19-%E6%B7%B1%E5%85%A5-mybatis-%E5%86%85%E6%A0%B8%E4%B8%8E%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91%E7%9A%84%E6%A1%A5%E6%A2%81%E6%8E%A5%E5%8F%A3%E5%B1%82/"><span>19 深入 MyBatis 内核与业务逻辑的桥梁——接口层</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

@@ -21,10 +21,10 @@ func main() {//省略没有修改的代码r.DELETE(&amp;quot;/users/:id&amp;qu
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -33,7 +33,7 @@ func main() {//省略没有修改的代码r.DELETE(&amp;quot;/users/:id&amp;qu
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -193,12 +193,10 @@ func main() {//省略没有修改的代码r.DELETE(&amp;quot;/users/:id&amp;qu
 </style><article class="post-block">
         <h1 class="post-title">22 网络编程：Go 语言如何通过 RPC 实现跨平台服务？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:33:15</span>🏷️&nbsp;<a class="post-tag" href="/tags/golang/">golang</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/">22讲通关Go语言</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:33:15</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>在上一讲中，我为你讲解了 RESTful API 的规范以及实现，并且留了两个作业，它们分别是删除和修改用户，现在我为你讲解这两个作业。</p>
 <p>删除一个用户比较简单，它的 API 格式和获取一个用户一样，但是 HTTP 方法换成了DELETE。删除一个用户的示例代码如下所示：</p>
@@ -678,6 +676,11 @@ func main()  {
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/golang/">golang</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/">22讲通关Go语言</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -686,26 +689,38 @@ func main()  {
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/21-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8Bgo-%E8%AF%AD%E8%A8%80%E5%A6%82%E4%BD%95%E7%8E%A9%E8%BD%AC-restful-api-%E6%9C%8D%E5%8A%A1/"><span>21 网络编程：Go 语言如何玩转 RESTful API 服务？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/21-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8Bgo-%E8%AF%AD%E8%A8%80%E5%A6%82%E4%BD%95%E7%8E%A9%E8%BD%AC-restful-api-%E6%9C%8D%E5%8A%A1/"><span>21 网络编程：Go 语言如何玩转 RESTful API 服务？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/23-%E7%BB%93%E6%9D%9F%E8%AF%AD-%E4%BD%A0%E7%9A%84-go-%E8%AF%AD%E8%A8%80%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF/"><span>23 结束语 你的 Go 语言成长之路</span></a>
+        <a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/23-%E7%BB%93%E6%9D%9F%E8%AF%AD-%E4%BD%A0%E7%9A%84-go-%E8%AF%AD%E8%A8%80%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF/"><span>23 结束语 你的 Go 语言成长之路</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>38 实战：Redis 哨兵模式（下） | Yipsen Ye</title>
+<meta name="description" content="上一篇我们介绍了 Redis Sentinel 的搭建和运行原理，本文我们重点来看下 Sentinel 的命令操作和代码实战。
+Sentinel 命令操作 要使用 Sentinel 实现要连接到 Sentinel 服务器，和连接 Redis 服务相同，我们可以使用 redis-cli 来连接 Sentinel，如下命令所示：
+[@iZ2ze0nc5n41zomzyqtksmZ:~]$ redis-cli -h 127.0.0.1 -p 26379 -a pwd654321127.0.0.1:26379&amp;gt; pingPONG其中：
+ -h 后面输入的是 Sentinel 的 IP； -p 后面输入的是 Sentinel 的端口，默认是 26379； -a 后面输入的是密码。  Sentinel 的端口号可以在 sentinel.conf 里面配置，通过 port 选项设置。
+注意：Sentinel 可以监视多台主节点，而不是只能监视一台服务器。想要监视多台主节点只需要在配置文件中设置多个 sentinel monitor master-name ip port quorum 即可，我们通过 master-name 来区分不同的主节点。
+查询所有被监控的主服务器信息 127.0.0.1:26379&amp;gt; sentinel masters1) 1) &amp;quot;name&amp;quot;2) &amp;quot;mymaster&amp;quot;3) &amp;quot;ip&amp;quot;4) &amp;quot;127.">
+<meta name="author" content="">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><aside>
+    <div>
+        
+        
+            
+            
+            <div class="post-category-icon"></div>
+            <a href="/categories/redis%20%e6%a0%b8%e5%bf%83%e5%8e%9f%e7%90%86%e4%b8%8e%e5%ae%9e%e6%88%98/">Redis 核心原理与实战</a>
+            <ul>
+                
+            </ul>
+        
+    </div>
+</aside>
+
+<style>
+    aside {
+        position: fixed;
+        left: 20px;
+        background: #ffdee3;
+        border-radius: 6px;
+        padding: 20px;
+        padding-top: 60px;
+        box-shadow: 5px 10px #888;
+        list-style-type: none;
+        display: none;
+    }
+
+    .post-category-icon {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        left: 50%;
+        margin-left: -40px;
+        text-align: center;
+        font-size: 36px;
+        content: 'J';
+        background: #ffdee3;
+        border-radius: 100%;
+        border: 10px solid #fff;
+        box-shadow: 5px 10px #888;
+    }
+</style><article class="post-block">
+        <h1 class="post-title">38 实战：Redis 哨兵模式（下）</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-09-28 19:38:31</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <p>上一篇我们介绍了 Redis Sentinel 的搭建和运行原理，本文我们重点来看下 Sentinel 的命令操作和代码实战。</p>
+<h3 id="sentinel-命令操作">Sentinel 命令操作</h3>
+<p>要使用 Sentinel 实现要连接到 Sentinel 服务器，和连接 Redis 服务相同，我们可以使用 redis-cli 来连接 Sentinel，如下命令所示：</p>
+<pre tabindex="0"><code>[@iZ2ze0nc5n41zomzyqtksmZ:~]$ redis-cli -h 127.0.0.1 -p 26379 -a pwd654321
+127.0.0.1:26379&gt; ping
+PONG
+
+</code></pre><p>其中：</p>
+<ul>
+<li>-h 后面输入的是 Sentinel 的 IP；</li>
+<li>-p 后面输入的是 Sentinel 的端口，默认是 26379；</li>
+<li>-a 后面输入的是密码。</li>
+</ul>
+<p>Sentinel 的端口号可以在 sentinel.conf 里面配置，通过 port 选项设置。</p>
+<p>注意：<strong>Sentinel 可以监视多台主节点，而不是只能监视一台服务器</strong>。想要监视多台主节点只需要在配置文件中设置多个 <code>sentinel monitor master-name ip port quorum</code> 即可，我们通过 master-name 来区分不同的主节点。</p>
+<h4 id="查询所有被监控的主服务器信息"><strong>查询所有被监控的主服务器信息</strong></h4>
+<pre tabindex="0"><code>127.0.0.1:26379&gt; sentinel masters
+1)  1) &quot;name&quot;
+    2) &quot;mymaster&quot;
+    3) &quot;ip&quot;
+    4) &quot;127.0.0.1&quot;
+    5) &quot;port&quot;
+    6) &quot;6377&quot;
+    7) &quot;runid&quot;
+    8) &quot;eb3552c6fc8974f91466c4ada90fe23ef30fd89c&quot;
+    9) &quot;flags&quot;
+   10) &quot;master&quot;
+   11) &quot;link-pending-commands&quot;
+   12) &quot;0&quot;
+   13) &quot;link-refcount&quot;
+   14) &quot;1&quot;
+   15) &quot;last-ping-sent&quot;
+   16) &quot;0&quot;
+   17) &quot;last-ok-ping-reply&quot;
+   18) &quot;400&quot;
+   19) &quot;last-ping-reply&quot;
+   20) &quot;400&quot;
+   21) &quot;down-after-milliseconds&quot;
+   22) &quot;30000&quot;
+   23) &quot;info-refresh&quot;
+   24) &quot;5731&quot;
+   25) &quot;role-reported&quot;
+   26) &quot;master&quot;
+   27) &quot;role-reported-time&quot;
+   28) &quot;75963321&quot;
+   29) &quot;config-epoch&quot;
+   30) &quot;7&quot;
+   31) &quot;num-slaves&quot;
+   32) &quot;2&quot;
+   33) &quot;num-other-sentinels&quot;
+   34) &quot;1&quot;
+   35) &quot;quorum&quot;
+   36) &quot;2&quot;
+   37) &quot;failover-timeout&quot;
+   38) &quot;180000&quot;
+   39) &quot;parallel-syncs&quot;
+   40) &quot;1&quot;
+
+</code></pre><p>相关语法：</p>
+<pre tabindex="0"><code>sentinel masters
+
+</code></pre><p>因为我们配置的 Sentinel 只监视了一台主服务器，所以只有一台服务器的信息。</p>
+<h4 id="查询某个主节点的信息"><strong>查询某个主节点的信息</strong></h4>
+<pre tabindex="0"><code>127.0.0.1:26379&gt; sentinel master mymaster
+ 1) &quot;name&quot;
+ 2) &quot;mymaster&quot;
+ 3) &quot;ip&quot;
+ 4) &quot;127.0.0.1&quot;
+ 5) &quot;port&quot;
+ 6) &quot;6377&quot;
+ 7) &quot;runid&quot;
+ 8) &quot;eb3552c6fc8974f91466c4ada90fe23ef30fd89c&quot;
+ 9) &quot;flags&quot;
+10) &quot;master&quot;
+11) &quot;link-pending-commands&quot;
+12) &quot;0&quot;
+13) &quot;link-refcount&quot;
+14) &quot;1&quot;
+15) &quot;last-ping-sent&quot;
+16) &quot;0&quot;
+17) &quot;last-ok-ping-reply&quot;
+18) &quot;250&quot;
+19) &quot;last-ping-reply&quot;
+20) &quot;250&quot;
+21) &quot;down-after-milliseconds&quot;
+22) &quot;30000&quot;
+23) &quot;info-refresh&quot;
+24) &quot;8191&quot;
+25) &quot;role-reported&quot;
+26) &quot;master&quot;
+27) &quot;role-reported-time&quot;
+28) &quot;76096303&quot;
+29) &quot;config-epoch&quot;
+30) &quot;7&quot;
+31) &quot;num-slaves&quot;
+32) &quot;2&quot;
+33) &quot;num-other-sentinels&quot;
+34) &quot;1&quot;
+35) &quot;quorum&quot;
+36) &quot;2&quot;
+37) &quot;failover-timeout&quot;
+38) &quot;180000&quot;
+39) &quot;parallel-syncs&quot;
+40) &quot;1&quot;
+
+</code></pre><p>相关语法：</p>
+<pre tabindex="0"><code>sentinel master master-name
+
+</code></pre><h4 id="查看某个主节点的-ip-和端口"><strong>查看某个主节点的 IP 和端口</strong></h4>
+<pre tabindex="0"><code>127.0.0.1:26379&gt; sentinel get-master-addr-by-name mymaster
+1) &quot;127.0.0.1&quot;
+2) &quot;6377&quot;
+
+</code></pre><p>相关语法：</p>
+<pre tabindex="0"><code>sentinel get-master-addr-by-name master-name
+
+</code></pre><h4 id="查询从节点的信息"><strong>查询从节点的信息</strong></h4>
+<pre tabindex="0"><code>127.0.0.1:26379&gt; sentinel slaves mymaster #获取方式一
+1)  1) &quot;name&quot;
+    2) &quot;127.0.0.1:6379&quot;
+    3) &quot;ip&quot;
+    4) &quot;127.0.0.1&quot;
+    5) &quot;port&quot;
+    6) &quot;6379&quot;
+    7) &quot;runid&quot;
+    8) &quot;14734d6065d745d89f115ca4735e7eeeeaa1a59b&quot;
+    9) &quot;flags&quot;
+   10) &quot;slave&quot;
+   11) &quot;link-pending-commands&quot;
+   12) &quot;0&quot;
+   13) &quot;link-refcount&quot;
+   14) &quot;1&quot;
+   15) &quot;last-ping-sent&quot;
+   16) &quot;0&quot;
+   17) &quot;last-ok-ping-reply&quot;
+   18) &quot;389&quot;
+   19) &quot;last-ping-reply&quot;
+   20) &quot;389&quot;
+   21) &quot;down-after-milliseconds&quot;
+   22) &quot;30000&quot;
+   23) &quot;info-refresh&quot;
+   24) &quot;390&quot;
+   25) &quot;role-reported&quot;
+   26) &quot;slave&quot;
+   27) &quot;role-reported-time&quot;
+   28) &quot;982798&quot;
+   29) &quot;master-link-down-time&quot;
+   30) &quot;1582192784000&quot;
+   31) &quot;master-link-status&quot;
+   32) &quot;err&quot;
+   33) &quot;master-host&quot;
+   34) &quot;127.0.0.1&quot;
+   35) &quot;master-port&quot;
+   36) &quot;6377&quot;
+   37) &quot;slave-priority&quot;
+   38) &quot;100&quot;
+   39) &quot;slave-repl-offset&quot;
+   40) &quot;1&quot;
+2)  1) &quot;name&quot;
+    2) &quot;127.0.0.1:6378&quot;
+    3) &quot;ip&quot;
+    4) &quot;127.0.0.1&quot;
+    5) &quot;port&quot;
+    6) &quot;6378&quot;
+    7) &quot;runid&quot;
+    8) &quot;f9d69479ace6c9eb4a6dffa58ebc1ddf3de456e0&quot;
+    9) &quot;flags&quot;
+   10) &quot;slave&quot;
+   11) &quot;link-pending-commands&quot;
+   12) &quot;0&quot;
+   13) &quot;link-refcount&quot;
+   14) &quot;1&quot;
+   15) &quot;last-ping-sent&quot;
+   16) &quot;0&quot;
+   17) &quot;last-ok-ping-reply&quot;
+   18) &quot;390&quot;
+   19) &quot;last-ping-reply&quot;
+   20) &quot;390&quot;
+   21) &quot;down-after-milliseconds&quot;
+   22) &quot;30000&quot;
+   23) &quot;info-refresh&quot;
+   24) &quot;4004&quot;
+   25) &quot;role-reported&quot;
+   26) &quot;slave&quot;
+   27) &quot;role-reported-time&quot;
+   28) &quot;76212633&quot;
+   29) &quot;master-link-down-time&quot;
+   30) &quot;0&quot;
+   31) &quot;master-link-status&quot;
+   32) &quot;ok&quot;
+   33) &quot;master-host&quot;
+   34) &quot;127.0.0.1&quot;
+   35) &quot;master-port&quot;
+   36) &quot;6377&quot;
+   37) &quot;slave-priority&quot;
+   38) &quot;100&quot;
+   39) &quot;slave-repl-offset&quot;
+   40) &quot;10811245&quot;
+127.0.0.1:26379&gt; sentinel replicas mymaster #获取方式二
+1)  1) &quot;name&quot;
+    2) &quot;127.0.0.1:6379&quot;
+    3) &quot;ip&quot;
+    4) &quot;127.0.0.1&quot;
+    5) &quot;port&quot;
+    6) &quot;6379&quot;
+    7) &quot;runid&quot;
+    8) &quot;14734d6065d745d89f115ca4735e7eeeeaa1a59b&quot;
+    9) &quot;flags&quot;
+   10) &quot;slave&quot;
+   11) &quot;link-pending-commands&quot;
+   12) &quot;0&quot;
+   13) &quot;link-refcount&quot;
+   14) &quot;1&quot;
+   15) &quot;last-ping-sent&quot;
+   16) &quot;0&quot;
+   17) &quot;last-ok-ping-reply&quot;
+   18) &quot;100&quot;
+   19) &quot;last-ping-reply&quot;
+   20) &quot;100&quot;
+   21) &quot;down-after-milliseconds&quot;
+   22) &quot;30000&quot;
+   23) &quot;info-refresh&quot;
+   24) &quot;100&quot;
+   25) &quot;role-reported&quot;
+   26) &quot;slave&quot;
+   27) &quot;role-reported-time&quot;
+   28) &quot;1071687&quot;
+   29) &quot;master-link-down-time&quot;
+   30) &quot;1582192873000&quot;
+   31) &quot;master-link-status&quot;
+   32) &quot;err&quot;
+   33) &quot;master-host&quot;
+   34) &quot;127.0.0.1&quot;
+   35) &quot;master-port&quot;
+   36) &quot;6377&quot;
+   37) &quot;slave-priority&quot;
+   38) &quot;100&quot;
+   39) &quot;slave-repl-offset&quot;
+   40) &quot;1&quot;
+2)  1) &quot;name&quot;
+    2) &quot;127.0.0.1:6378&quot;
+    3) &quot;ip&quot;
+    4) &quot;127.0.0.1&quot;
+    5) &quot;port&quot;
+    6) &quot;6378&quot;
+    7) &quot;runid&quot;
+    8) &quot;f9d69479ace6c9eb4a6dffa58ebc1ddf3de456e0&quot;
+    9) &quot;flags&quot;
+   10) &quot;slave&quot;
+   11) &quot;link-pending-commands&quot;
+   12) &quot;0&quot;
+   13) &quot;link-refcount&quot;
+   14) &quot;1&quot;
+   15) &quot;last-ping-sent&quot;
+   16) &quot;0&quot;
+   17) &quot;last-ok-ping-reply&quot;
+   18) &quot;100&quot;
+   19) &quot;last-ping-reply&quot;
+   20) &quot;100&quot;
+   21) &quot;down-after-milliseconds&quot;
+   22) &quot;30000&quot;
+   23) &quot;info-refresh&quot;
+   24) &quot;2496&quot;
+   25) &quot;role-reported&quot;
+   26) &quot;slave&quot;
+   27) &quot;role-reported-time&quot;
+   28) &quot;76301522&quot;
+   29) &quot;master-link-down-time&quot;
+   30) &quot;0&quot;
+   31) &quot;master-link-status&quot;
+   32) &quot;ok&quot;
+   33) &quot;master-host&quot;
+   34) &quot;127.0.0.1&quot;
+   35) &quot;master-port&quot;
+   36) &quot;6377&quot;
+   37) &quot;slave-priority&quot;
+   38) &quot;100&quot;
+   39) &quot;slave-repl-offset&quot;
+   40) &quot;10823208&quot;
+
+</code></pre><p>相关语法：</p>
+<pre tabindex="0"><code>sentinel replicas mymaster
+
+</code></pre><p>或</p>
+<pre tabindex="0"><code>sentinel slaves master-name
+
+</code></pre><h4 id="查询-sentinel-集群中的其他-sentinel-信息"><strong>查询 Sentinel 集群中的其他 Sentinel 信息</strong></h4>
+<pre tabindex="0"><code>127.0.0.1:26379&gt; sentinel sentinels mymaster
+1)  1) &quot;name&quot;
+    2) &quot;6455f2f74614a71ce0a63398b2e48d6cd1cf0d06&quot;
+    3) &quot;ip&quot;
+    4) &quot;127.0.0.1&quot;
+    5) &quot;port&quot;
+    6) &quot;26377&quot;
+    7) &quot;runid&quot;
+    8) &quot;6455f2f74614a71ce0a63398b2e48d6cd1cf0d06&quot;
+    9) &quot;flags&quot;
+   10) &quot;sentinel&quot;
+   11) &quot;link-pending-commands&quot;
+   12) &quot;0&quot;
+   13) &quot;link-refcount&quot;
+   14) &quot;1&quot;
+   15) &quot;last-ping-sent&quot;
+   16) &quot;0&quot;
+   17) &quot;last-ok-ping-reply&quot;
+   18) &quot;571&quot;
+   19) &quot;last-ping-reply&quot;
+   20) &quot;571&quot;
+   21) &quot;down-after-milliseconds&quot;
+   22) &quot;30000&quot;
+   23) &quot;last-hello-message&quot;
+   24) &quot;1043&quot;
+   25) &quot;voted-leader&quot;
+   26) &quot;?&quot;
+   27) &quot;voted-leader-epoch&quot;
+   28) &quot;0&quot;
+
+</code></pre><p>相关语法：</p>
+<pre tabindex="0"><code>sentinel sentinels master-name
+
+</code></pre><h4 id="检查可用-sentinel-的数量"><strong>检查可用 Sentinel 的数量</strong></h4>
+<pre tabindex="0"><code>127.0.0.1:26379&gt; sentinel ckquorum mymaster
+OK 2 usable Sentinels. Quorum and failover authorization can be reached
+
+</code></pre><p>有两个可用的 Sentinel，可用完成仲裁和故障转移授权。</p>
+<p>相关语法：</p>
+<pre tabindex="0"><code>sentinel ckquorum master-name
+
+</code></pre><h4 id="强制故障转移"><strong>强制故障转移</strong></h4>
+<pre tabindex="0"><code>127.0.0.1:26379&gt; sentinel failover mymaster
+OK
+
+</code></pre><p>相关语法：</p>
+<pre tabindex="0"><code>sentinel failover master-name
+
+</code></pre><h3 id="在线修改配置信息">在线修改配置信息</h3>
+<p>在 Redis 2.8.4 之前如果需要修改 Sentinel 的配置文件，例如添加或删除一个监视主节点，需要先停止 Sentinel 服务，再找到配置文件修改之后，重新启动 Sentinel 才行，这样就给我们带来了很多的不便，尤其是生产环境的 Sentinel，正常情况下如果是非致命问题我们是不能手动停止服务的，幸运的是 Redis 2.8.4 之后，我们可以不停机在线修改配置文件了，修改命令有以下几个。</p>
+<h4 id="增加监视主节点"><strong>增加监视主节点</strong></h4>
+<p>使用 <code>sentinel monitor mymaster IP Port Quorum</code> 命令来添加监视主节点，如下命令所示：</p>
+<pre tabindex="0"><code>127.0.0.1:26379&gt; sentinel monitor mymaster 127.0.0.1 6379 2
+OK
+
+</code></pre><p>OK 表示添加监视主节点成功。</p>
+<h4 id="移除主节点的监视"><strong>移除主节点的监视</strong></h4>
+<p>使用 <code>sentinel remove master-name</code> 命令来实现移除主节点的监视，如下命令所示：</p>
+<pre tabindex="0"><code>127.0.0.1:26379&gt; sentinel remove mymaster
+OK
+
+</code></pre><p>OK 表示操作成功。</p>
+<h4 id="修改-quorum-参数"><strong>修改 quorum 参数</strong></h4>
+<p>使用 <code>sentinel set master-name quorum n</code> 来修改 quorum 参数，如下命令所示：</p>
+<pre tabindex="0"><code>127.0.0.1:26379&gt; sentinel set mymaster quorum 1
+OK
+
+</code></pre><p>quorum 参数用来表示确认主节点下线的 Sentinel 数量，如果 quorum 设置为 1 表示只要有一台 Sentinel 确认主观下线后，这个主节点就客观（真正地）下线了。</p>
+<blockquote>
+<p>小贴士：以上所有对配置文件的修改，都会自动被刷新到物理配置文件 sentinel.conf 中。</p>
+</blockquote>
+<h3 id="代码实战">代码实战</h3>
+<p>本文我们通过 Java 代码来实现，通过 Sentinel 连接信息获取相关 Redis 客户端，再进行相关 Redis 操作，这样 Sentinel 就会帮我们做容灾恢复，我们就不用担心操作某一个 Redis 服务器端，因为服务器挂了之后就会导致程序不可用了，具体实现代码如下：</p>
+<pre tabindex="0"><code>import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisSentinelPool;
+import utils.Config;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class SentinelExample {
+    // master name
+    private static String _MASTER_NAME = &quot;mymaster&quot;;
+
+    public static void main(String[] args) {
+        // Sentinel 配置信息
+        Set&lt;String&gt; set = new HashSet&lt;&gt;();
+        // 连接信息 ip:port
+        set.add(&quot;127.0.0.1:26379&quot;);
+        // 创建 Sentinel 连接池
+        JedisSentinelPool jedisSentinel = new JedisSentinelPool(_MASTER_NAME,
+                set, Config.REDIS_AUTH);
+        // 获取 Redis 客户端
+        Jedis jedis = jedisSentinel.getResource();
+        // 设置元素
+        String setRes = jedis.set(&quot;key&quot;, &quot;Hello, redis.&quot;);
+        System.out.println(setRes);
+        // 获取元素
+        System.out.println(jedis.get(&quot;key&quot;));
+    }
+}
+
+</code></pre><p>以上程序执行结果如下：</p>
+<pre tabindex="0"><code>OK
+Hello, redis.
+
+</code></pre><h3 id="小结">小结</h3>
+<p>本文我们讲了 Sentinel 相关的命令操作，主要是用于查询相关主从节点和其他 Sentinel 信息的，还可以执行强制故障转移等，我们还讲了 2.8.4 提供的在线修改 Sentinel 参数的三个方法，方便我们更好的使用 Sentinel，最后用代码实现了通过 Sentinel 获取主节点并进行 Redis 服务器操作的实例，这样就讲完整个 Sentinel 的介绍和应用。</p>
+
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/redis/">redis</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/">Redis 核心原理与实战</a>&nbsp; </div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/37-%E5%AE%9E%E6%88%98redis%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E4%B8%8A/"><span>37 实战：Redis哨兵模式（上）</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/39-%E5%AE%9E%E6%88%98redis-%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F%E4%B8%8A/"><span>39 实战：Redis 集群模式（上）</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

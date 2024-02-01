@@ -28,10 +28,10 @@ insert into outbox(userId, feedId, create_time) values(&amp;quot;A&amp;quot;, $f
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -40,7 +40,7 @@ insert into outbox(userId, feedId, create_time) values(&amp;quot;A&amp;quot;, $f
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -284,12 +284,10 @@ insert into outbox(userId, feedId, create_time) values(&amp;quot;A&amp;quot;, $f
 </style><article class="post-block">
         <h1 class="post-title">39 信息流设计（一）：通用信息流系统的推模式要如何做？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:38:45</span>🏷️&nbsp;<a class="post-tag" href="/tags/design/">design</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/">高并发系统设计40问</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:38:45</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>你好，我是唐扬。</p>
 <p>前两节课中，我带你探究了如何设计和实现互联网系统中一个常见模块——计数系统。它的业务逻辑其实非常简单，基本上最多只有三个接口，获取计数、增加计数和重置计数。所以我们在考虑方案的时候考察点也相对较少，基本上使用缓存就可以实现一个兼顾性能、可用性和鲁棒性的方案了。然而大型业务系统的逻辑会非常复杂，在方案设计时通常需要灵活运用多种技术，才能共同承担高并发大流量的冲击。那么接下来，我将带你了解如何设计社区系统中最为复杂、并发量也最高的信息流系统。这样，你可以从中体会怎么应用之前学习的组件了。</p>
@@ -341,6 +339,11 @@ insert into inbox(userId, feedId, create_time) values(&quot;D&quot;, $feedId, $c
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/design/">design</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/">高并发系统设计40问</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -349,26 +352,38 @@ insert into inbox(userId, feedId, create_time) values(&quot;D&quot;, $feedId, $c
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/38-%E8%AE%A1%E6%95%B0%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%BA%8C50%E4%B8%87qps%E4%B8%8B%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%9C%AA%E8%AF%BB%E6%95%B0%E7%B3%BB%E7%BB%9F/"><span>38 计数系统设计（二）：50万QPS下如何设计未读数系统？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/38-%E8%AE%A1%E6%95%B0%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%BA%8C50%E4%B8%87qps%E4%B8%8B%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%9C%AA%E8%AF%BB%E6%95%B0%E7%B3%BB%E7%BB%9F/"><span>38 计数系统设计（二）：50万QPS下如何设计未读数系统？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/40-%E4%BF%A1%E6%81%AF%E6%B5%81%E8%AE%BE%E8%AE%A1%E4%BA%8C%E9%80%9A%E7%94%A8%E4%BF%A1%E6%81%AF%E6%B5%81%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8B%89%E6%A8%A1%E5%BC%8F%E8%A6%81%E5%A6%82%E4%BD%95%E5%81%9A/"><span>40 信息流设计（二）：通用信息流系统的拉模式要如何做？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/40-%E4%BF%A1%E6%81%AF%E6%B5%81%E8%AE%BE%E8%AE%A1%E4%BA%8C%E9%80%9A%E7%94%A8%E4%BF%A1%E6%81%AF%E6%B5%81%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8B%89%E6%A8%A1%E5%BC%8F%E8%A6%81%E5%A6%82%E4%BD%95%E5%81%9A/"><span>40 信息流设计（二）：通用信息流系统的拉模式要如何做？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

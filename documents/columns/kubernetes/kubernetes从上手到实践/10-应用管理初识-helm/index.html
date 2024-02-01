@@ -25,10 +25,10 @@ Helm 安装 Helm 是 C/S 架构，主要分为客户端 helm 和服务端 Tiller
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -37,7 +37,7 @@ Helm 安装 Helm 是 C/S 架构，主要分为客户端 helm 和服务端 Tiller
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -197,12 +197,10 @@ Helm 安装 Helm 是 C/S 架构，主要分为客户端 helm 和服务端 Tiller
 </style><article class="post-block">
         <h1 class="post-title">10 应用管理：初识 Helm</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:47:36</span>🏷️&nbsp;<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/">Kubernetes从上手到实践</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:47:36</span>
+            </div>
+        </div>
         <div class="post-content">
             <h2 id="整体概览">整体概览</h2>
 <p>上节，我们已经学习了如何通过编写配置文件的方式部署项目。而在实际生产环境中，项目所包含组件可能不止 3 个，并且可能项目数会很多，如果每个项目的发布，更新等都通过手动去编写配置文件的方式，实在不利于管理。</p>
@@ -407,6 +405,11 @@ tiller-deploy   ClusterIP   10.107.204.164   &lt;none&gt;        44134/TCP      
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/kubernetes/">kubernetes</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/">Kubernetes从上手到实践</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -415,26 +418,38 @@ tiller-deploy   ClusterIP   10.107.204.164   &lt;none&gt;        44134/TCP      
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/09-%E5%BA%94%E7%94%A8%E5%8F%91%E5%B8%83%E9%83%A8%E7%BD%B2%E5%AE%9E%E9%99%85%E9%A1%B9%E7%9B%AE/"><span>09 应用发布：部署实际项目</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/09-%E5%BA%94%E7%94%A8%E5%8F%91%E5%B8%83%E9%83%A8%E7%BD%B2%E5%AE%9E%E9%99%85%E9%A1%B9%E7%9B%AE/"><span>09 应用发布：部署实际项目</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/11-%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5%E4%BB%A5-helm-%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE/"><span>11 部署实践：以 Helm 部署项目</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5/11-%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5%E4%BB%A5-helm-%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE/"><span>11 部署实践：以 Helm 部署项目</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

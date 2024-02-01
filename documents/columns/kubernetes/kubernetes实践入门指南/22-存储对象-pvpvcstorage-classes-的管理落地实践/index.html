@@ -23,10 +23,10 @@ apiVersion: storage.k8s.io/v1kind: StorageClassmetadata:name: standardprovis
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -35,7 +35,7 @@ apiVersion: storage.k8s.io/v1kind: StorageClassmetadata:name: standardprovis
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -199,12 +199,10 @@ apiVersion: storage.k8s.io/v1kind: StorageClassmetadata:name: standardprovis
 </style><article class="post-block">
         <h1 class="post-title">22 存储对象 PV、PVC、Storage Classes 的管理落地实践</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:48:28</span>🏷️&nbsp;<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/">Kubernetes实践入门指南</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:48:28</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>谈到 Kubernetes 存储对象的管理，大多数读者使用最多的就是 Local、NFS 存储类型。因为基于本地卷的挂载使用很少出现问题，并不会出现有什么困难的场景需要用心学习整理。但是从我这里出发想带领读者一起，往更深层的对象实现细节和云原生的存储运维角度出发，看看我们能怎么管理这些资源才是落地的实践。</p>
 <h3 id="了解-pvpvcstorageclass">了解 PV、PVC、StorageClass</h3>
@@ -354,6 +352,11 @@ spec:
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/kubernetes/">kubernetes</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/">Kubernetes实践入门指南</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -362,26 +365,38 @@ spec:
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/21-%E6%A1%88%E4%BE%8B%E5%88%86%E5%B8%83%E5%BC%8F-mysql-%E9%9B%86%E7%BE%A4%E5%B7%A5%E5%85%B7-vitess-%E5%AE%9E%E8%B7%B5%E5%88%86%E6%9E%90/"><span>21 案例：分布式 MySQL 集群工具 Vitess 实践分析</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/21-%E6%A1%88%E4%BE%8B%E5%88%86%E5%B8%83%E5%BC%8F-mysql-%E9%9B%86%E7%BE%A4%E5%B7%A5%E5%85%B7-vitess-%E5%AE%9E%E8%B7%B5%E5%88%86%E6%9E%90/"><span>21 案例：分布式 MySQL 集群工具 Vitess 实践分析</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/23-k8s-%E9%9B%86%E7%BE%A4%E4%B8%AD%E5%AD%98%E5%82%A8%E5%AF%B9%E8%B1%A1%E7%81%BE%E5%A4%87%E7%9A%84%E8%90%BD%E5%9C%B0%E5%AE%9E%E8%B7%B5/"><span>23 K8s 集群中存储对象灾备的落地实践</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/23-k8s-%E9%9B%86%E7%BE%A4%E4%B8%AD%E5%AD%98%E5%82%A8%E5%AF%B9%E8%B1%A1%E7%81%BE%E5%A4%87%E7%9A%84%E8%90%BD%E5%9C%B0%E5%AE%9E%E8%B7%B5/"><span>23 K8s 集群中存储对象灾备的落地实践</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

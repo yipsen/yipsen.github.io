@@ -25,10 +25,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -37,7 +37,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -229,12 +229,10 @@
 </style><article class="post-block">
         <h1 class="post-title">30 GC 疑难情况问题排查与分析（下篇）</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:45:31</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/">JVM核心技术32讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:45:31</span>
+            </div>
+        </div>
         <div class="post-content">
             <h3 id="weaksoft-及-phantom-引用">Weak、Soft 及 Phantom 引用</h3>
 <p>另一类影响 GC 的问题是程序中的 non-strong 引用。虽然这类引用在很多情况下可以避免出现 <a href="https://plumbr.eu/outofmemory">OutOfMemoryError</a>，但过量使用也会对 GC 造成严重的影响，反而降低系统性能。</p>
@@ -438,6 +436,11 @@
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/">JVM核心技术32讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -446,26 +449,38 @@
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/29-gc-%E7%96%91%E9%9A%BE%E6%83%85%E5%86%B5%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E4%B8%8E%E5%88%86%E6%9E%90%E4%B8%8A%E7%AF%87/"><span>29 GC 疑难情况问题排查与分析（上篇）</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/29-gc-%E7%96%91%E9%9A%BE%E6%83%85%E5%86%B5%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E4%B8%8E%E5%88%86%E6%9E%90%E4%B8%8A%E7%AF%87/"><span>29 GC 疑难情况问题排查与分析（上篇）</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/31-jvm-%E7%9B%B8%E5%85%B3%E7%9A%84%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB%E8%BF%90%E7%AD%B9%E7%AD%96%E5%B8%B7%E5%B8%90%E4%B9%8B%E4%B8%AD%E5%86%B3%E8%83%9C%E4%BA%8E%E5%8D%83%E9%87%8C%E4%B9%8B%E5%A4%96/"><span>31 JVM 相关的常见面试问题汇总：运筹策帷帐之中，决胜于千里之外</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/31-jvm-%E7%9B%B8%E5%85%B3%E7%9A%84%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB%E8%BF%90%E7%AD%B9%E7%AD%96%E5%B8%B7%E5%B8%90%E4%B9%8B%E4%B8%AD%E5%86%B3%E8%83%9C%E4%BA%8E%E5%8D%83%E9%87%8C%E4%B9%8B%E5%A4%96/"><span>31 JVM 相关的常见面试问题汇总：运筹策帷帐之中，决胜于千里之外</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

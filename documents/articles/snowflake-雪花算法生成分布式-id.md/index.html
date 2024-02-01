@@ -21,10 +21,10 @@ SnowFlake 的结构如下：
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -33,7 +33,7 @@ SnowFlake 的结构如下：
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -54,8 +54,10 @@ SnowFlake 的结构如下：
 <div class="container"><article class="post-block">
         <h1 class="post-title"></h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;0001-01-01 00:00:00</span></div></div>
+            <div class="post-date"> 
+                <span>0001-01-01 00:00:00</span>
+            </div>
+        </div>
         <div class="post-content">
             <h3 id="snowflake-雪花算法基本概念">SnowFlake 雪花算法基本概念</h3>
 <p>SnowFlake 雪花算法是 Twitter 开源的分布式唯一 ID 生成算法，其具有简洁、高性能、低延迟、ID 按时间趋势有序等特点。如采用 12 位序列号，则理论支持每毫秒生成 4096 个不同数字，能够满足绝大多数高并发场景下的互联网应用。SnowFlake 雪花算法能保证在 datacenterId 和 workerId 唯一的情况下不会生成重复值。如果单位毫秒并发量 &gt;4096，将会等到下一毫秒继续生成 ID。因此如果单台服务器并发量大于 4096/ms，是时候考虑自研算法了。</p>
@@ -467,6 +469,11 @@ public class OrderNoGenerator {
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
+</div>
 
     </main>
     <footer>
@@ -475,26 +482,38 @@ public class OrderNoGenerator {
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/articles/%E4%BA%92%E8%81%94%E7%BD%91%E5%B9%B6%E5%8F%91%E9%99%90%E6%B5%81%E5%AE%9E%E6%88%98.md/"><span></span></a>
+        <a href="http://yipsen.github.io/documents/articles/%E4%BA%92%E8%81%94%E7%BD%91%E5%B9%B6%E5%8F%91%E9%99%90%E6%B5%81%E5%AE%9E%E6%88%98.md/"><span></span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/articles/mysql%E7%9A%84mvcc%E5%A4%9A%E7%89%88%E6%9C%AC%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6.md/"><span></span></a>
+        <a href="http://yipsen.github.io/documents/articles/mysql%E7%9A%84mvcc%E5%A4%9A%E7%89%88%E6%9C%AC%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6.md/"><span></span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

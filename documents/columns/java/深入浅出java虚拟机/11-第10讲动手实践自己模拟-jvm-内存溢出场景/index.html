@@ -26,10 +26,10 @@ import com.sun.net.httpserver.HttpContext;import com.sun.net.httpserver.HttpExc
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -38,7 +38,7 @@ import com.sun.net.httpserver.HttpContext;import com.sun.net.httpserver.HttpExc
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -210,12 +210,10 @@ import com.sun.net.httpserver.HttpContext;import com.sun.net.httpserver.HttpExc
 </style><article class="post-block">
         <h1 class="post-title">11 第10讲：动手实践：自己模拟 JVM 内存溢出场景</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2022-01-09 11:12:30</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入浅出Java虚拟机</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2022-01-09 11:12:30</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>本课时我们主要自己模拟一个 JVM 内存溢出的场景。在模拟 JVM 内存溢出之前我们先来看下这样的几个问题。</p>
 <ul>
@@ -564,6 +562,11 @@ public class OffHeapOOMTest {
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入浅出Java虚拟机</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -572,26 +575,38 @@ public class OffHeapOOMTest {
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/10-%E7%AC%AC09%E8%AE%B2%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%88%98%E9%9D%A2%E5%AF%B9%E7%AA%81%E5%A6%82%E5%85%B6%E6%9D%A5%E7%9A%84-gc-%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E4%B8%8B%E6%89%8B%E8%A7%A3%E5%86%B3/"><span>10 第09讲：案例实战：面对突如其来的 GC 问题如何下手解决</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/10-%E7%AC%AC09%E8%AE%B2%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%88%98%E9%9D%A2%E5%AF%B9%E7%AA%81%E5%A6%82%E5%85%B6%E6%9D%A5%E7%9A%84-gc-%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E4%B8%8B%E6%89%8B%E8%A7%A3%E5%86%B3/"><span>10 第09讲：案例实战：面对突如其来的 GC 问题如何下手解决</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/12-%E7%AC%AC11%E8%AE%B2%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98%E4%B8%8D%E8%A6%81%E6%85%8C%E8%BD%BB%E6%9D%BE%E6%90%9E%E5%AE%9A%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/"><span>12 第11讲：动手实践：遇到问题不要慌，轻松搞定内存泄漏</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/12-%E7%AC%AC11%E8%AE%B2%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98%E4%B8%8D%E8%A6%81%E6%85%8C%E8%BD%BB%E6%9D%BE%E6%90%9E%E5%AE%9A%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/"><span>12 第11讲：动手实践：遇到问题不要慌，轻松搞定内存泄漏</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

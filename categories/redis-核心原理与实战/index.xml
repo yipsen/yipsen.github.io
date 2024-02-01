@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Redis 核心原理与实战 on Yipsen Ye</title>
+    <link>http://yipsen.github.io/categories/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/</link>
+    <description>Recent content in Redis 核心原理与实战 on Yipsen Ye</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 28 Sep 2022 19:38:36 +0800</lastBuildDate><atom:link href="http://yipsen.github.io/categories/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>43 加餐：Redis 的可视化管理工具</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/43-%E5%8A%A0%E9%A4%90redis-%E7%9A%84%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:36 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/43-%E5%8A%A0%E9%A4%90redis-%E7%9A%84%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</guid>
+      <description>因为 Redis 官方只提供了命令行版的 Redis 客户端 redis-cli，以至于我们在使用的时候会比较麻烦，通常要输入一堆命令，而且命令行版的客户端看起来也不够直观，基于以上两个原因我们需要找一个可视化的 Redis 客户端，下面是我这些年使用过的一些 Redis 可视化客户端，分享给大家。
+RedisClient 是否收费：免费。
+项目介绍：Java 编写的 Redis 连接客户端，功能丰富，并且是免费的。
+支持平台：Windows。
+项目地址：https://github.com/caoxinyu/RedisClient
+使用截图：
+Redis Desktop Manager 是否收费：收费。
+项目介绍：一款基于 Qt5 的跨平台 Redis 桌面管理软件。
+支持平台：Windows、macOS、Linux。
+项目地址：https://github.com/uglide/RedisDesktopManager
+使用截图：
+RedisStudio 是否收费：免费。
+项目介绍：一款 C++ 编写的 Redis 管理工具，比较老，好久没更新了。
+支持平台：Windows。
+项目地址：https://github.com/cinience/RedisStudio
+使用截图：
+AnotherRedisDesktopManager 是否收费：免费。
+项目介绍：一款基于 Node.js 开发的 Redis 桌面管理器，它的特点就是相对来说比较稳定，在数据量比较大的时候不会崩溃。
+支持平台：Windows、macOS、Linux。
+项目地址：https://github.com/qishibo/AnotherRedisDesktopManager
+使用截图：
+其他 Redis 可视化工具  Medis：https://github.com/luin/medis phpRedisAdmin：https://github.com/ErikDubbelboer/phpRedisAdmin PyRedisAdmin：https://github.com/JoneXiong/PyRedisAdmin Go-Redis：https://github.com/alphazero/Go-Redis RedisLive：https://github.com/nkrode/RedisLive TreeDMS ：http://www.treesoft.cn/dms.html RedisPlus：https://gitee.com/MaxBill/RedisPlus  总结 我本人使用过上面介绍的前 4 个客户端，最近一直在使用的是 AnotherRedisDesktopManager 和 Redis Desktop Manager，其中 Redis Desktop Manager 是花了 ￥98 买的 macOS 版，买之后就后悔了，原因之一就是界面并不美观，完全没有付费软件应有的精致感，建议大家使用免费版的 AnotherRedisDesktopManager。</description>
+    </item>
+    
+    <item>
+      <title>42 技能学习指南</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/42-%E6%8A%80%E8%83%BD%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:35 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/42-%E6%8A%80%E8%83%BD%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97/</guid>
+      <description>经过前面文章的学习，我相信一定有一半的人看懂了，而另一半人一定是似懂非懂或者是完全不懂，如果你属于前者，那恭喜你，但如果没看懂，也没关系，本文来给你具体的解决方案。
+我们来仔细回忆两件事，第一件是大学考级学的那些英语，我每个单词每个语句当时都背的滚瓜烂熟，那时候你也以为这些东西你都会了吧？但你现在还能记起多少呢？
+我们再来回忆一下，我们小的时候学习骑自行车的本领，即使相隔很多年，但依旧没能忘记，这是为什么？
+无非是学自行车的时候我们经过了深度实践和练习才习得的本领，而英语只是我们应付考试临时下的“功夫”，所以我们想要习得终身为我们所用的技能，我们是一定要进行大量实践和练习，即使你感觉自己当时已经看得懂，那也要写出来试试，所谓“纸上得来终觉浅，绝知此事要躬行”就是这个道理，如果这些知识点你都会，那么你能不能写出给好的代码呢？
+实践出真知、温故而知新，诸如此类的词语还有很多，这些都是前人经过无数次实践才得出来的结论，这些词语之所以能被流传到今天，一定是它能给后人带来价值。
+如果你看不懂，先照代码敲起来，如果你已经看懂了，那你能不能写出更好的代码、更好的方法来实现同样的功能？这才是学习一门技术最佳的方式。
+我本人在 11 年的程序开发生涯当中，全职做个 C#、NodeJs、Golang 还有手机混合开发 React Native，最近几年专注 Java 领域，我前年用 Python 写的 FaceAI 项目，在 GitHub 没经过任何推广，现在已经有 7k 个 Star 了，FaceAI 地址：
+ https://github.com/vipstone/faceai
+ 为什么我能习得这么多技能？还能做到不错？其实方法就是“实践”带给我的红利，所有我以为我看得懂的，还有我当时看不懂的东西，没关系，先实践起来再说，通过一步步实践我快速地掌握了技能的精髓，快速构建了语言整体的知识体系。
+如果说学习有什么捷径的话，那一定是“实践”。
+所以在课程的最后，我希望大家能动手实践起来。
+我们期望自己能有所成，我们期望自己不被这个世界改变，我们期望所有的梦想将会被实现，那么此刻我们就不能只“说说而已”。</description>
+    </item>
+    
+    <item>
+      <title>41 案例：Redis 问题汇总和相关解决方案</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/41-%E6%A1%88%E4%BE%8Bredis-%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB%E5%92%8C%E7%9B%B8%E5%85%B3%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:34 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/41-%E6%A1%88%E4%BE%8Bredis-%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB%E5%92%8C%E7%9B%B8%E5%85%B3%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</guid>
+      <description>本文收集了一些 Redis 使用中经常遇到的一些问题，和与之相对应的解决方案，这些内容不但会出现在实际工作中，也是面试的高频问题，接下来一起来看。
+缓存雪崩 缓存雪崩是指在短时间内，有大量缓存同时过期，导致大量的请求直接查询数据库，从而对数据库造成了巨大的压力，严重情况下可能会导致数据库宕机的情况叫做缓存雪崩。
+我们先来看下正常情况下和缓存雪崩时程序的执行流程图，正常情况下系统的执行流程如下图所示：
+缓存雪崩的执行流程，如下图所示：
+以上对比图可以看出缓存雪崩对系统造成的影响，那如何解决缓存雪崩的问题？
+缓存雪崩的常用解决方案有以下几个。
+加锁排队 加锁排队可以起到缓冲的作用，防止大量的请求同时操作数据库，但它的缺点是增加了系统的响应时间，降低了系统的吞吐量，牺牲了一部分用户体验。
+加锁排队的代码实现，如下所示：
+// 缓存 keyString cacheKey = &amp;quot;userlist&amp;quot;;// 查询缓存String data = jedis.get(cacheKey);if (StringUtils.isNotBlank(data)) {// 查询到数据，直接返回结果return data;} else {// 先排队查询数据库，在放入缓存synchronized (cacheKey) {data = jedis.get(cacheKey);if (!StringUtils.isNotBlank(data)) { // 双重判断// 查询数据库data = findUserInfo();// 放入缓存jedis.set(cacheKey, data);}return data;}}以上为加锁排队的实现示例，读者可根据自己的实际项目情况做相应的修改。
+随机化过期时间 为了避免缓存同时过期，可在设置缓存时添加随机时间，这样就可以极大的避免大量的缓存同时失效。
+示例代码如下：
+// 缓存原本的失效时间int exTime = 10 * 60;// 随机数生成类Random random = new Random();// 缓存设置jedis.</description>
+    </item>
+    
+    <item>
+      <title>40 实战：Redis 集群模式（下）</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/40-%E5%AE%9E%E6%88%98redis-%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F%E4%B8%8B/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:33 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/40-%E5%AE%9E%E6%88%98redis-%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F%E4%B8%8B/</guid>
+      <description>上篇文章我们讲了 Redis 集群的搭建与节点的动态添加和删除，我们这里再来简单的复习一下，其中 30001~30006 是我们最初搭建的集群，而 30007 和 30008 是后面动态添加的主从节点，我们使用 --cluster info 命令来看一下主节点和槽位的分配情况，执行代码如下：
+$ redis-cli --cluster info 127.0.0.1:30001127.0.0.1:30001 (887397e6...) -&amp;gt; 0 keys | 5461 slots | 1 slaves.127.0.0.1:30007 (df019085...) -&amp;gt; 0 keys | 0 slots | 1 slaves.127.0.0.1:30003 (f5958382...) -&amp;gt; 0 keys | 5461 slots | 1 slaves.127.0.0.1:30002 (3da35c40...) -&amp;gt; 0 keys | 5462 slots | 1 slaves.[OK] 0 keys in 4 masters.0.00 keys per slot on average.</description>
+    </item>
+    
+    <item>
+      <title>39 实战：Redis 集群模式（上）</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/39-%E5%AE%9E%E6%88%98redis-%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F%E4%B8%8A/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:32 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/39-%E5%AE%9E%E6%88%98redis-%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F%E4%B8%8A/</guid>
+      <description>Redis Cluster 是 Redis 3.0 版本推出的 Redis 集群方案，它将数据分布在不同的服务区上，以此来降低系统对单主节点的依赖，并且可以大大的提高 Redis 服务的读写性能。
+Redis 将所有的数据分为 16384 个 slots（槽），每个节点负责其中的一部分槽位，当有 Redis 客户端连接集群时，会得到一份集群的槽位配置信息，这样它就可以直接把请求命令发送给对应的节点进行处理。
+Redis Cluster 是无代理模式去中心化的运行模式，客户端发送的绝大数命令会直接交给相关节点执行，这样大部分情况请求命令无需转发，或仅转发一次的情况下就能完成请求与响应，所以集群单个节点的性能与单机 Redis 服务器的性能是非常接近的，因此在理论情况下，当水平扩展一倍的主节点就相当于请求处理的性能也提高了一倍，所以 Redis Cluster 的性能是非常高的。
+Redis Cluster 架构图如下所示：
+搭建 Redis Cluster Redis Cluster 的搭建方式有两种，一种是使用 Redis 源码中提供的 create-cluster 工具快速的搭建 Redis 集群环境，另一种是配置文件的方式手动创建 Redis 集群环境。
+快速搭建 Redis Cluster create-cluster 工具在 utils/create-cluster 目录下，如下图所示：
+使用命令 ./create-cluster start 就可以急速创建一个 Redis 集群，执行如下：
+$ ./create-cluster start # 创建集群Starting 30001Starting 30002Starting 30003Starting 30004Starting 30005Starting 30006接下来我们需要把以上创建的 6 个节点通过 create 命令组成一个集群，执行如下：</description>
+    </item>
+    
+    <item>
+      <title>38 实战：Redis 哨兵模式（下）</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/38-%E5%AE%9E%E6%88%98redis-%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E4%B8%8B/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:31 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/38-%E5%AE%9E%E6%88%98redis-%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E4%B8%8B/</guid>
+      <description>上一篇我们介绍了 Redis Sentinel 的搭建和运行原理，本文我们重点来看下 Sentinel 的命令操作和代码实战。
+Sentinel 命令操作 要使用 Sentinel 实现要连接到 Sentinel 服务器，和连接 Redis 服务相同，我们可以使用 redis-cli 来连接 Sentinel，如下命令所示：
+[@iZ2ze0nc5n41zomzyqtksmZ:~]$ redis-cli -h 127.0.0.1 -p 26379 -a pwd654321127.0.0.1:26379&amp;gt; pingPONG其中：
+ -h 后面输入的是 Sentinel 的 IP； -p 后面输入的是 Sentinel 的端口，默认是 26379； -a 后面输入的是密码。  Sentinel 的端口号可以在 sentinel.conf 里面配置，通过 port 选项设置。
+注意：Sentinel 可以监视多台主节点，而不是只能监视一台服务器。想要监视多台主节点只需要在配置文件中设置多个 sentinel monitor master-name ip port quorum 即可，我们通过 master-name 来区分不同的主节点。
+查询所有被监控的主服务器信息 127.0.0.1:26379&amp;gt; sentinel masters1) 1) &amp;quot;name&amp;quot;2) &amp;quot;mymaster&amp;quot;3) &amp;quot;ip&amp;quot;4) &amp;quot;127.</description>
+    </item>
+    
+    <item>
+      <title>37 实战：Redis哨兵模式（上）</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/37-%E5%AE%9E%E6%88%98redis%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E4%B8%8A/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:30 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/37-%E5%AE%9E%E6%88%98redis%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E4%B8%8A/</guid>
+      <description>上一篇我们讲了主从复制模式，它是属于 Redis 多机运行的基础，但这种模式本身存在一个致命的问题，当主节点奔溃之后，需要人工干预才能恢复 Redis 的正常使用。
+例如，我们有 3 台服务器做了主从复制，一个主服务器 A 和两个从服务器 B、C，当 A 发生故障之后，需要人工把 B 服务器设置为主服务器，同时再去 C 服务器设置成从服务器并且从主服务器 B 同步数据，如果是发生在晚上或者从服务器节点很多的情况下，对于人工来说想要立即实现恢复的难度很多，所以我们需要一个自动的工具——Redis Sentinel（哨兵模式）来把手动的过程变成自动的，让 Redis 拥有自动容灾恢复（failover）的能力。
+哨兵模式如下所示：
+ 小贴士：Redis Sentinel 的最小分配单位是一主一从。
+ Redis Sentinel 搭建 Redis 官方提供了 Redis Sentinel 的功能，它的运行程序保存在 src 目录下，如图所示：
+我们需要使用命令 ./src/redis-sentinel sentinel.conf 来启动 Sentinel，可以看出我们在启动它时必须设置一个 sentinel.conf 文件，这个配置文件中必须包含监听的主节点信息：
+sentinel monitor master-name ip port quorum例如：
+sentinel monitor mymaster 127.0.0.1 6379 1其中：
+ master-name 表示给监视的主节点起一个名称； ip 表示主节点的 IP； port 表示主节点的端口； quorum 表示确认主节点下线的 Sentinel 数量，如果 quorum 设置为 1 表示只要有一台 Sentinel 判断它下线了，就可以确认它真的下线了。  注意：如果主节点 Redis 服务器有密码，还必须在 sentinel.</description>
+    </item>
+    
+    <item>
+      <title>36 实战：Redis 主从同步</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/36-%E5%AE%9E%E6%88%98redis-%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:29 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/36-%E5%AE%9E%E6%88%98redis-%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5/</guid>
+      <description>主从同步（主从复制）是 Redis 高可用服务的基石，也是多机运行中最基础的一个。我们把主要存储数据的节点叫做主节点 (master），把其他通过复制主节点数据的副本节点叫做从节点 (slave），如下图所示：
+在 Redis 中一个主节点可以拥有多个从节点，一个从节点也可以是其他服务器的主节点，如下图所示：
+主从同步的优点 主从同步具有以下三个优点：
+ 性能方面：有了主从同步之后，可以把查询任务分配给从服务器，用主服务器来执行写操作，这样极大的提高了程序运行的效率，把所有压力分摊到各个服务器了； 高可用：当有了主从同步之后，当主服务器节点宕机之后，可以很迅速的把从节点提升为主节点，为 Redis 服务器的宕机恢复节省了宝贵的时间； 防止数据丢失：当主服务器磁盘坏掉之后，其他从服务器还保留着相关的数据，不至于数据全部丢失。  既然主从同步有这么多的优点，那接下来我们来看如何开启和使用主从同步功能。
+开启主从同步 运行中设置从服务器 在 Redis 运行过程中，我们可以使用 replicaof host port 命令，把自己设置为目标 IP 的从服务器，执行命令如下：
+127.0.0.1:6379&amp;gt; replicaof 127.0.0.1 6380OK如果主服务设置了密码，需要在从服务器输入主服务器的密码，使用 config set masterauth 主服务密码 命令的方式，例如：
+127.0.0.1:6377&amp;gt; config set masterauth pwd654321OK1. 执行流程
+在执行完 replicaof 命令之后，从服务器的数据会被清空，主服务会把它的数据副本同步给从服务器。
+2. 测试同步功能
+主从服务器设置完同步之后，我们来测试一下主从数据同步，首先我们先在主服务器上执行保存数据操作，再去从服务器查询。
+主服务器执行命令：
+127.0.0.1:6379&amp;gt; set lang redisOK从服务执行查询：
+127.0.0.1:6379&amp;gt; get lang&amp;quot;redis&amp;quot;可以看出数据已经被正常同步过来了。
+启动时设置从服务器 我们可以使用命令 redis-server --port 6380 --replicaof 127.</description>
+    </item>
+    
+    <item>
+      <title>35 实战：Redis 性能优化方案</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/35-%E5%AE%9E%E6%88%98redis-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:28 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/35-%E5%AE%9E%E6%88%98redis-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88/</guid>
+      <description>Redis 是基于单线程模型实现的，也就是 Redis 是使用一个线程来处理所有的客户端请求的，尽管 Redis 使用了非阻塞式 IO，并且对各种命令都做了优化（大部分命令操作时间复杂度都是 O(1)），但由于 Redis 是单线程执行的特点，因此它对性能的要求更加苛刻，本文我们将通过一些优化手段，让 Redis 更加高效的运行。
+本文我们将使用以下手段，来提升 Redis 的运行速度：
+ 缩短键值对的存储长度； 使用 lazy free（延迟删除）特性； 设置键值的过期时间； 禁用耗时长的查询命令； 使用 slowlog 优化耗时命令； 使用 Pipeline 批量操作数据； 避免大量数据同时失效； 客户端使用优化； 限制 Redis 内存大小； 使用物理机而非虚拟机安装 Redis 服务； 检查数据持久化策略； 使用分布式架构来增加读写速度。  缩短键值对的存储长度 键值对的长度是和性能成反比的，比如我们来做一组写入数据的性能测试，执行结果如下：
+   数据量 key 大小 value 大小 string:set 平均耗时 hash:hset 平均耗时     100w 20byte 512byte 1.13 微秒 10.28 微秒   100w 20byte 200byte 0.74 微秒 8.</description>
+    </item>
+    
+    <item>
+      <title>34 实战：Redis 慢查询</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/34-%E5%AE%9E%E6%88%98redis-%E6%85%A2%E6%9F%A5%E8%AF%A2/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:27 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/34-%E5%AE%9E%E6%88%98redis-%E6%85%A2%E6%9F%A5%E8%AF%A2/</guid>
+      <description>Redis 慢查询作用和 MySQL 慢查询作用类似，都是为我们查询出不合理的执行命令，然后让开发人员和运维人员一起来规避这些耗时的命令，从而让服务器更加高效和健康的运行。对于单线程的 Redis 来说，不合理的使用更是致命的，因此掌握 Redis 慢查询技能对我们来说非常的关键。
+如何进行慢查询？ 在开始之前，我们先要了解一下 Redis 中和慢查询相关的配置项，Redis 慢查询重要的配置项有以下两个：
+ slowlog-log-slower-than：用于设置慢查询的评定时间，也就是说超过此配置项的命令，将会被当成慢操作记录在慢查询日志中，它执行单位是微秒（1 秒等于 1000000 微秒）； slowlog-max-len：用来配置慢查询日志的最大记录数。  我们先来看它们的默认配置值：
+127.0.0.1:6379&amp;gt; config get slowlog-log-slower-than #慢查询判断时间1) &amp;quot;slowlog-log-slower-than&amp;quot;2) &amp;quot;10000&amp;quot;127.0.0.1:6379&amp;gt; config get slowlog-max-len #慢查询最大记录条数1) &amp;quot;slowlog-max-len&amp;quot;2) &amp;quot;128&amp;quot;可以看出慢查询的临界值是 10000 微秒，默认保存 128 条慢查询记录。
+修改配置项 slowlog-log-slower-than 和 slowlog-max-len 可以通过 config set xxx 的模式来修改，例如 config set slowlog-max-len 200 设置慢查询最大记录数为 200 条。
+慢查询演示 我们先来设置慢查询的判断时间为 0 微秒，这样所有的执行命令都会被记录，设置命令如下：
+127.0.0.1:6379&amp;gt; config set slowlog-log-slower-than 0OK接下来我们执行两条插入命令：</description>
+    </item>
+    
+    <item>
+      <title>33 实战：Redis 性能测试</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/33-%E5%AE%9E%E6%88%98redis-%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:26 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/33-%E5%AE%9E%E6%88%98redis-%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</guid>
+      <description>为什么需要性能测试？ 性能测试的使用场景有很多，例如以下几个：
+ 技术选型，比如测试 Memcached 和 Redis； 对比单机 Redis 和集群 Redis 的吞吐量； 评估不同类型的存储性能，例如集合和有序集合； 对比开启持久化和关闭持久化的吞吐量； 对比调优和未调优的吞吐量； 对比不同 Redis 版本的吞吐量，作为是否升级的一个参考标准。  等等，诸如此类的情况，我们都需要进行性能测试。
+性能测试的几种方式 既然性能测试使用场景那么多，那要怎么进行性能测试呢？
+目前比较主流的性能测试分为两种：
+ 编写代码模拟并发进行性能测试； 使用 redis-benchmark 进行测试。  因为自己编写代码进行性能测试的方式不够灵活，且很难短时间内模拟大量的并发数，所有作者并不建议使用这种方式。幸运的是 Redis 本身给我们提供了性能测试工具 redis-benchmark（Redis 基准测试），因此我们本文重点来介绍 redis-benchmark 的使用。
+基准测试实战 redis-benchmark 位于 Redis 的 src 目录下，我们可以使用 ./redis-benchmark -h 来查看基准测试的使用，执行结果如下：
+Usage: redis-benchmark [-h &amp;lt;host&amp;gt;] [-p &amp;lt;port&amp;gt;] [-c &amp;lt;clients&amp;gt;] [-n &amp;lt;requests&amp;gt;] [-k &amp;lt;boolean&amp;gt;]-h &amp;lt;hostname&amp;gt; Server hostname (default 127.0.0.1)-p &amp;lt;port&amp;gt; Server port (default 6379)-s &amp;lt;socket&amp;gt; Server socket (overrides host and port)-a &amp;lt;password&amp;gt; Password for Redis Auth-c &amp;lt;clients&amp;gt; Number of parallel connections (default 50)-n &amp;lt;requests&amp;gt; Total number of requests (default 100000)-d &amp;lt;size&amp;gt; Data size of SET/GET value in bytes (default 3)--dbnum &amp;lt;db&amp;gt; SELECT the specified db number (default 0)-k &amp;lt;boolean&amp;gt; 1=keep alive 0=reconnect (default 1)-r &amp;lt;keyspacelen&amp;gt; Use random keys for SET/GET/INCR, random values for SADDUsing this option the benchmark will expand the string __rand_int__inside an argument with a 12 digits number in the specified rangefrom 0 to keyspacelen-1.</description>
+    </item>
+    
+    <item>
+      <title>32 实战：RediSearch 高性能的全文搜索引擎</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/32-%E5%AE%9E%E6%88%98redisearch-%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E5%85%A8%E6%96%87%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:25 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/32-%E5%AE%9E%E6%88%98redisearch-%E9%AB%98%E6%80%A7%E8%83%BD%E7%9A%84%E5%85%A8%E6%96%87%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/</guid>
+      <description>RediSearch 是一个高性能的全文搜索引擎，它可以作为一个 Redis Module（扩展模块）运行在 Redis 服务器上。
+RediSearch 主要特性如下：
+ 基于文档的多个字段全文索引 高性能增量索引 文档排序（由用户在索引时手动提供） 在子查询之间使用 AND 或 NOT 操作符的复杂布尔查询 可选的查询子句 基于前缀的搜索 支持字段权重设置 自动完成建议（带有模糊前缀建议） 精确的短语搜索 在许多语言中基于词干分析的查询扩展 支持用于查询扩展和评分的自定义函数 将搜索限制到特定的文档字段 数字过滤器和范围 使用 Redis 自己的地理命令进行地理过滤 Unicode 支持（需要 UTF-8 字符集） 检索完整的文档内容或只是 ID 的检索 支持文档删除和更新与索引垃圾收集 支持部分更新和条件文档更新  安装 和前面讲到布隆过滤器的引入方式一样，我们可以使用 RediSearch 官方推荐的 Docker 方式来安装并启动 RediSearch 功能，操作命令如下：
+docker run -p 6379:6379 redislabs/redisearch:latest安装并启动成功，如下图所示：
+安装完成之后使用 redis-cli 来检查 RediSearch 模块是否加载成功，使用 Docker 启动 redis-cli，命令如下：
+docker exec -it myredis redis-cli其中“myredis”为 Redis 服务器的名称，执行结果如下：
+127.0.0.1:6379&amp;gt; module list1) 1) &amp;quot;name&amp;quot;2) &amp;quot;ft&amp;quot;3) &amp;quot;ver&amp;quot;4) (integer) 10610返回数组存在“ft”，表明 RediSearch 模块已经成功加载。</description>
+    </item>
+    
+    <item>
+      <title>31 实战：定时任务案例</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/31-%E5%AE%9E%E6%88%98%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E6%A1%88%E4%BE%8B/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:24 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/31-%E5%AE%9E%E6%88%98%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E6%A1%88%E4%BE%8B/</guid>
+      <description>我在开发的时候曾经遇到了这样一个问题，产品要求给每个在线预约看病的患者，距离预约时间的前一天发送一条提醒推送，以防止患者错过看病的时间。这个时候就要求我们给每个人设置一个定时任务，用前面文章说的延迟队列也可以实现，但延迟队列的实现方式需要开启一个无限循环任务，那有没有其他的实现方式呢？
+答案是肯定的，接下来我们就用 Keyspace Notifications（键空间通知）来实现定时任务，定时任务指的是指定一个时间来执行某个任务，就叫做定时任务。
+开启键空间通知 默认情况下 Redis 服务器端是不开启键空间通知的，需要我们手动开启。
+键空间开启分为两种方式：
+ 命令设置方式 配置文件设置方式  接下来，我们分别来看。
+命令设置方式 使用 redis-cli 连接到服务器端之后，输入 config set notify-keyspace-events Ex 命令，可以直接开启键空间通知功能，返回“OK”则表示开启成功，如下命令所示：
+127.0.0.1:6379&amp;gt; config set notify-keyspace-events ExOK优点：
+ 设置方便，无序启动 Redis 服务。  缺点：
+ 这种方式设置的配置信息是存储在内存中的，重启 Redis 服务之后，配置项会丢失。  配置文件设置方式 找到 Redis 的配置文件 redis.conf，设置配置项 notify-keyspace-events Ex，然后重启 Redis 服务器。
+优点：
+ 无论 Redis 服务器重启多少次，配置都不会丢失。  缺点：
+ 需要重启 Redis 服务。  配置说明 可以看出无论是那种方式，都是设置 notify-keyspace-events Ex，其中 Ex 表示开启键事件通知里面的 key 过期事件。</description>
+    </item>
+    
+    <item>
+      <title>30 完整案例：实现延迟队列的两种方法</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/30-%E5%AE%8C%E6%95%B4%E6%A1%88%E4%BE%8B%E5%AE%9E%E7%8E%B0%E5%BB%B6%E8%BF%9F%E9%98%9F%E5%88%97%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:23 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/30-%E5%AE%8C%E6%95%B4%E6%A1%88%E4%BE%8B%E5%AE%9E%E7%8E%B0%E5%BB%B6%E8%BF%9F%E9%98%9F%E5%88%97%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95/</guid>
+      <description>延迟队列是指把当前要做的事情，往后推迟一段时间再做。
+延迟队列在实际工作中和面试中都比较常见，它的实现方式有很多种，然而每种实现方式也都有它的优缺点，接下来我们来看。
+延迟队列的使用场景 延迟队列的常见使用场景有以下几种：
+ 超过 30 分钟未支付的订单，将会被取消 外卖商家超过 5 分钟未接单的订单，将会被取消 在平台注册但 30 天内未登录的用户，发短信提醒  等类似的应用场景，都可以使用延迟队列来实现。
+常见实现方式 Redis 延迟队列实现的思路、优点：目前市面上延迟队列的实现方式基本分为三类，第一类是通过程序的方式实现，例如 JDK 自带的延迟队列 DelayQueue，第二类是通过 MQ 框架来实现，例如 RabbitMQ 可以通过 rabbitmq-delayed-message-exchange 插件来实现延迟队列，第三类就是通过 Redis 的方式来实现延迟队列。
+程序实现方式 JDK 自带的 DelayQueue 实现延迟队列，代码如下：
+public class DelayTest {public static void main(String[] args) throws InterruptedException {DelayQueue delayQueue = new DelayQueue();delayQueue.put(new DelayElement(1000));delayQueue.put(new DelayElement(3000));delayQueue.put(new DelayElement(5000));System.out.println(&amp;quot;开始时间：&amp;quot; + DateFormat.getDateTimeInstance().format(new Date()));while (!delayQueue.isEmpty()){System.out.println(delayQueue.take());}System.out.println(&amp;quot;结束时间：&amp;quot; + DateFormat.getDateTimeInstance().format(new Date()));}static class DelayElement implements Delayed {// 延迟截止时间（单面：毫秒）long delayTime = System.</description>
+    </item>
+    
+    <item>
+      <title>29 实战：布隆过滤器安装与使用及原理分析</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/29-%E5%AE%9E%E6%88%98%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%8F%8A%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:22 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/29-%E5%AE%9E%E6%88%98%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%8F%8A%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/</guid>
+      <description>我们前面有讲到过 HyperLogLog 可以用来做基数统计，但它没提供判断一个值是否存在的查询方法，那我们如何才能查询一个值是否存在于海量数据之中呢？
+如果使用传统的方式，例如 SQL 中的传统查询，因为数据量太多，查询效率又低有占用系统的资源，因此我们需要一个优秀的算法和功能来实现这个需求，这是我们今天要讲的——布隆过滤器。
+开启布隆过滤器 在 Redis 中不能直接使用布隆过滤器，但我们可以通过 Redis 4.0 版本之后提供的 modules（扩展模块）的方式引入，本文提供两种方式的开启方式。
+方式一：编译方式 1. 下载并安装布隆过滤器
+git clone https://github.com/RedisLabsModules/redisbloom.gitcd redisbloommake # 编译redisbloom编译正常执行完，会在根目录生成一个 redisbloom.so 文件。
+2. 启动 Redis 服务器
+&amp;gt; ./src/redis-server redis.conf --loadmodule ./src/modules/RedisBloom-master/redisbloom.so其中 --loadmodule 为加载扩展模块的意思，后面跟的是 redisbloom.so 文件的目录。
+方式二：Docker 方式 docker pull redislabs/rebloom &amp;amp;nbsp;# 拉取镜像docker run -p6379:6379 redislabs/rebloom &amp;amp;nbsp;# 运行容器启动验证 服务启动之后，我们需要判断布隆过滤器是否正常开启，此时我们只需使用 redis-cli 连接到服务端，输入 bf.add 看有没有命令提示，就可以判断是否正常启动了，如下图所示：
+如果有命令提示则表名 Redis 服务器已经开启了布隆过滤器。
+布隆过滤器的使用 布隆过滤器的命令不是很多，主要包含以下几个：
+ bf.add：添加元素 bf.exists：判断某个元素是否存在 bf.madd：添加多个元素 bf.</description>
+    </item>
+    
+    <item>
+      <title>28 实战：分布式锁详解与代码</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/28-%E5%AE%9E%E6%88%98%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E8%AF%A6%E8%A7%A3%E4%B8%8E%E4%BB%A3%E7%A0%81/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:21 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/28-%E5%AE%9E%E6%88%98%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E8%AF%A6%E8%A7%A3%E4%B8%8E%E4%BB%A3%E7%A0%81/</guid>
+      <description>什么是锁？ 锁是一种常用的并发控制机制，用于保证一项资源在任何时候只能被一个线程使用，如果其他线程也要使用同样的资源，必须排队等待上一个线程使用完。
+锁的示意图，如下所示：
+什么是分布式锁？ 上面说的锁指的是程序级别的锁，例如 Java 语言中的 synchronized 和 ReentrantLock 在单应用中使用不会有任何问题，但如果放到分布式环境下就不适用了，这个时候我们就要使用分布式锁。
+分布式锁比较好理解就是用于分布式环境下并发控制的一种机制，用于控制某个资源在同一时刻只能被一个应用所使用。
+分布式锁示意图，如下所示：
+怎么实现分布式锁？ 分布式锁比较常见的实现方式有三种：
+ Memcached 实现的分布式锁：使用 add 命令，添加成功的情况下，表示创建分布式锁成功。 ZooKeeper 实现的分布式锁：使用 ZooKeeper 顺序临时节点来实现分布式锁。 Redis 实现的分布式锁。  本文要重点来说的是第三种，也就是 Redis 分布式锁的实现方式。
+Redis 分布式锁的实现思路是使用 setnx（set if not exists），如果创建成功则表明此锁创建成功，否则代表这个锁已经被占用创建失败。
+分布式锁实现 127.0.0.1:6379&amp;gt; setnx lock true(integer) 1 #创建锁成功#逻辑业务处理...127.0.0.1:6379&amp;gt; del lock(integer) 1 #释放锁从以上代码可以看出，释放锁使用 del lock 即可，如果在锁未被删除之前，其他程序再来执行 setnx 是不会创建成功的，结果如下：
+127.0.0.1:6379&amp;gt; setnx lock true(integer) 0执行结果为 0 表示失败。
+setnx 的问题 setnx 虽然可以成功地创建分布式锁，但存在一个问题，如果此程序在创建了锁之后，程序异常退出了，那么这个锁将永远不会被释放，就造成了死锁的问题。</description>
+    </item>
+    
+    <item>
+      <title>27 消息队列终极解决方案——Stream（下）</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/27-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E7%BB%88%E6%9E%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88stream%E4%B8%8B/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:20 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/27-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E7%BB%88%E6%9E%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88stream%E4%B8%8B/</guid>
+      <description>在开始使用消息分组之前，我们必须手动创建分组才行，以下是几个和 Stream 分组有关的命令，我们先来学习一下它的使用。
+消息分组命令 创建消费者群组 127.0.0.1:6379&amp;gt; xgroup create mq group1 0-0 OK相关语法：
+xgroup create stream-key group-key ID其中：
+ mq 为 Stream 的 key； group1 为分组的名称； 0-0 表示从第一条消息开始读取。  如果要从当前最后一条消息向后读取，使用 $ 即可，命令如下：
+127.0.0.1:6379&amp;gt; xgroup create mq group2 $OK读取消息 127.0.0.1:6379&amp;gt; xreadgroup group group1 c1 count 1 streams mq &amp;gt;1) 1) &amp;quot;mq&amp;quot;2) 1) 1) &amp;quot;1580959593553-0&amp;quot;2) 1) &amp;quot;name&amp;quot;2) &amp;quot;redis&amp;quot;3) &amp;quot;age&amp;quot;4) &amp;quot;10&amp;quot;相关语法：
+xreadgroup group group-key consumer-key streams stream-key其中：</description>
+    </item>
+    
+    <item>
+      <title>26 消息队列终极解决方案——Stream（上）</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/26-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E7%BB%88%E6%9E%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88stream%E4%B8%8A/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:19 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/26-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E7%BB%88%E6%9E%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88stream%E4%B8%8A/</guid>
+      <description>在 Redis 5.0 Stream 没出来之前，消息队列的实现方式都有着各自的缺陷，例如：
+ 发布订阅模式 PubSub，不能持久化也就无法可靠的保存消息，并且对于离线重连的客户端不能读取历史消息的缺陷； 列表实现消息队列的方式不能重复消费，一个消息消费完就会被删除； 有序集合消息队列的实现方式不能存储相同 value 的消息，并且不能阻塞读取消息。  并且以上三种方式在实现消息队列时，只能存储单 value 值，也就是如果你要存储一个对象的情况下，必须先序列化成 JSON 字符串，在读取之后还要反序列化成对象才行，这也给用户的使用带来的不便，基于以上问题，Redis 5.0 便推出了 Stream 类型也是此版本最重要的功能，用于完美地实现消息队列，它借鉴了 Kafka 的设计思路，它支持消息的持久化和消息轨迹的消费，支持 ack 确认消息的模式，让消息队列更加的稳定和可靠。
+接下来我们先来了解 Stream 自身的一些特性，然后在综合 Stream 的特性，结合 Java 代码完整的实现一个完美的消息队列示例。
+基础使用 Stream 既然是一个数据类型，那么和其他数据类型相似，它也有一些自己的操作方法，例如：
+ xadd 添加消息； xlen 查询消息长度； xdel 根据消息 ID 删除消息； del 删除整个 Stream； xrange 读取区间消息 xread 读取某个消息之后的消息。  具体使用如下所述。
+添加消息 127.0.0.1:6379&amp;gt; xadd key * name redis age 10&amp;quot;1580880750844-0&amp;quot; #结果返回的是消息 id其中 * 表示使用 Redis 的规则：时间戳 + 序号的方式自动生成 ID，用户也可以自己指定 ID。</description>
+    </item>
+    
+    <item>
+      <title>25 消息队列的其他实现方式</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/25-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E7%9A%84%E5%85%B6%E4%BB%96%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:18 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/25-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E7%9A%84%E5%85%B6%E4%BB%96%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</guid>
+      <description>在 Redis 5.0 之前消息队列的实现方式有很多种，比较常见的除了我们上文介绍的发布订阅模式，还有两种：List 和 ZSet 的实现方式。
+List 和 ZSet 的方式解决了发布订阅模式不能持久化的问题，但这两种方式也有自己的缺点，接下来我们一起来了解一下，先从 List 实现消息队列的方式说起。
+List 版消息队列 List 方式是实现消息队列最简单和最直接的方式，它主要是通过 lpush 和 rpop 存入和读取实现消息队列的，如下图所示：
+List 使用命令的方式实现消息队列：
+127.0.0.1:6379&amp;gt; lpush mq &amp;quot;hello&amp;quot; #推送消息 hello(integer) 1127.0.0.1:6379&amp;gt; lpush mq &amp;quot;msg&amp;quot; #推送消息 msg(integer) 2127.0.0.1:6379&amp;gt; rpop mq #接收到消息 hello&amp;quot;hello&amp;quot;127.0.0.1:6379&amp;gt; rpop mq #接收到消息 msg&amp;quot;mq&amp;quot;其中，mq 就相当于频道名称 channel，而 lpush 用于生产消息， rpop 拉取消息。
+代码实现 接下来我们用 Java 代码的方式来实现 List 形式的消息队列，源码如下：
+import redis.clients.jedis.Jedis;public class ListMQExample {public static void main(String[] args){// 消费者new Thread(() -&amp;gt; consumer()).</description>
+    </item>
+    
+    <item>
+      <title>24 消息队列——发布订阅模式</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/24-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:17 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/24-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F/</guid>
+      <description>在 Redis 中提供了专门的类型：Publisher（发布者）和 Subscriber（订阅者）来实现消息队列。
+在文章开始之前，先来介绍消息队列中有几个基础概念，以便大家更好的理解本文的内容。
+首先，发布消息的叫做发布方或发布者，也就是消息的生产者，而接收消息的叫做消息的订阅方或订阅者，也就是消费者，用来处理生产者发布的消息。
+除了发布和和订阅者，在消息队列中还有一个重要的概念：channel 意为频道或通道，可以理解为某个消息队列的名称，首先消费者先要订阅某个 channel，然后当生产者把消息发送到这个 channel 中时，消费者就可以正常接收到消息了，如下图所示：
+普通订阅与发布 消息队列有两个重要的角色，一个是发送者，另一个就是订阅者，对应的命令如下：
+ 发布消息：publish channel &amp;ldquo;message&amp;rdquo; 订阅消息：subscribe channel  下面我们来看具体的命令实现。
+订阅消息 127.0.0.1:6379&amp;gt; subscribe channel #订阅消息channelReading messages...1) &amp;quot;subscribe&amp;quot;2) &amp;quot;channel&amp;quot;3) (integer) 1相关语法：
+subscribe channel [channel ...]此命令支持订阅一个或多个频道的命令，也就是说一个订阅者可以订阅多个频道。例如，某个客户端订阅了两个频道 channel 和 channel2，当两个发布者分别推送消息后，订阅者的信息输出如下：
+127.0.0.1:6379&amp;gt; subscribe channel channel2 #订阅 channel 和 channel2Reading messages... (press Ctrl-C to quit)1) &amp;quot;subscribe&amp;quot;2) &amp;quot;channel&amp;quot;3) (integer) 11) &amp;quot;subscribe&amp;quot;2) &amp;quot;channel2&amp;quot;3) (integer) 21) &amp;quot;message&amp;quot;2) &amp;quot;channel&amp;quot; # 收到 channel 消息3) &amp;quot;message 1.</description>
+    </item>
+    
+    <item>
+      <title>23 内存淘汰机制与算法</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/23-%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E6%9C%BA%E5%88%B6%E4%B8%8E%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:16 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/23-%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E6%9C%BA%E5%88%B6%E4%B8%8E%E7%AE%97%E6%B3%95/</guid>
+      <description>在本文开始之前，我们先要明白：在 Redis 中，过期策略和内存淘汰策略两个完全不同的概念，但很多人会把两者搞混。
+首先，Redis 过期策略指的是 Redis 使用那种策略，来删除已经过期的键值对；而 Redis 内存淘汰机制指的是，当 Redis 运行内存已经超过 Redis 设置的最大内存之后，将采用什么策略来删除符合条件的键值对，以此来保障 Redis 高效的运行。
+过期策略前面的文章，我们已经详细地讲过了，本文我们重点来看 Redis 的内存淘汰机制。
+Redis 最大运行内存 只有在 Redis 的运行内存达到了某个阀值，才会触发内存淘汰机制，这个阀值就是我们设置的最大运行内存，此值在 Redis 的配置文件中可以找到，配置项为 maxmemory。
+内存淘汰执行流程，如下图所示：
+查询最大运行内存 我们可以使用命令 config get maxmemory 来查看设置的最大运行内存，命令如下：
+127.0.0.1:6379&amp;gt; config get maxmemory1) &amp;quot;maxmemory&amp;quot;2) &amp;quot;0&amp;quot;我们发现此值竟然是 0，这是 64 位操作系统默认的值，当 maxmemory 为 0 时，表示没有内存大小限制。
+ 小贴士：32 位操作系统，默认的最大内存值是 3GB。
+ 内存淘汰策略 查看 Redis 内存淘汰策略 我们可以使用 config get maxmemory-policy 命令，来查看当前 Redis 的内存淘汰策略，命令如下：
+127.0.0.1:6379&amp;gt; config get maxmemory-policy1) &amp;quot;maxmemory-policy&amp;quot;2) &amp;quot;noeviction&amp;quot;可以看出此 Redis 使用的是 noeviction 类型的内存淘汰机制，它表示当运行内存超过最大设置内存时，不淘汰任何数据，但新增操作会报错。</description>
+    </item>
+    
+    <item>
+      <title>22 优秀的基数统计算法——HyperLogLog</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/22-%E4%BC%98%E7%A7%80%E7%9A%84%E5%9F%BA%E6%95%B0%E7%BB%9F%E8%AE%A1%E7%AE%97%E6%B3%95hyperloglog/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:15 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/22-%E4%BC%98%E7%A7%80%E7%9A%84%E5%9F%BA%E6%95%B0%E7%BB%9F%E8%AE%A1%E7%AE%97%E6%B3%95hyperloglog/</guid>
+      <description>为什么要使用 HyperLogLog？ 在我们实际开发的过程中，可能会遇到这样一个问题，当我们需要统计一个大型网站的独立访问次数时，该用什么的类型来统计？
+如果我们使用 Redis 中的集合来统计，当它每天有数千万级别的访问时，将会是一个巨大的问题。因为这些访问量不能被清空，我们运营人员可能会随时查看这些信息，那么随着时间的推移，这些统计数据所占用的空间会越来越大，逐渐超出我们能承载最大空间。
+例如，我们用 IP 来作为独立访问的判断依据，那么我们就要把每个独立 IP 进行存储，以 IP4 来计算，IP4 最多需要 15 个字节来存储信息，例如：110.110.110.110。当有一千万个独立 IP 时，所占用的空间就是 15 bit*10000000 约定于 143MB，但这只是一个页面的统计信息，假如我们有 1 万个这样的页面，那我们就需要 1T 以上的空间来存储这些数据，而且随着 IP6 的普及，这个存储数字会越来越大，那我们就不能用集合的方式来存储了，这个时候我们需要开发新的数据类型 HyperLogLog 来做这件事了。
+HyperLogLog 介绍 HyperLogLog（下文简称为 HLL）是 Redis 2.8.9 版本添加的数据结构，它用于高性能的基数（去重）统计功能，它的缺点就是存在极低的误差率。
+HLL 具有以下几个特点：
+ 能够使用极少的内存来统计巨量的数据，它只需要 12K 空间就能统计 2^64 的数据； 统计存在一定的误差，误差率整体较低，标准误差为 0.81%； 误差可以被设置辅助计算因子进行降低。  基础使用 HLL 的命令只有 3 个，但都非常的实用，下面分别来看。
+添加元素 127.0.0.1:6379&amp;gt; pfadd key &amp;quot;redis&amp;quot;(integer) 1127.0.0.1:6379&amp;gt; pfadd key &amp;quot;java&amp;quot; &amp;quot;sql&amp;quot;(integer) 1相关语法：
+pfadd key element [element .</description>
+    </item>
+    
+    <item>
+      <title>21 游标迭代器（过滤器）——Scan</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/21-%E6%B8%B8%E6%A0%87%E8%BF%AD%E4%BB%A3%E5%99%A8%E8%BF%87%E6%BB%A4%E5%99%A8scan/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:14 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/21-%E6%B8%B8%E6%A0%87%E8%BF%AD%E4%BB%A3%E5%99%A8%E8%BF%87%E6%BB%A4%E5%99%A8scan/</guid>
+      <description>一个问题引发的「血案」 曾经发生过这样一件事，我们的 Redis 服务器存储了海量的数据，其中登录用户信息是以 user_token_id 的形式存储的。运营人员想要当前所有的用户登录信息，然后悲剧就发生了：因为我们的工程师使用了 keys user_token_* 来查询对应的用户，结果导致 Redis 假死不可用，以至于影响到线上的其他业务接连发生问题，然后就收到了一堆的系统预警短信。并且这个假死的时间是和存储的数据成正比的，数据量越大假死的时间就越长，导致的故障时间也越长。
+那如何避免这个问题呢？
+问题的解决方案 在 Redis 2.8 之前，我们只能使用 keys 命令来查询我们想要的数据，但这个命令存在两个缺点：
+ 此命令没有分页功能，我们只能一次性查询出所有符合条件的 key 值，如果查询结果非常巨大，那么得到的输出信息也会非常多； keys 命令是遍历查询，因此它的查询时间复杂度是 o(n)，所以数据量越大查询时间就越长。  然而，比较幸运的是在 Redis 2.8 时推出了 Scan，解决了我们这些问题，下面来看 Scan 的具体使用。
+Scan 命令使用 我们先来模拟海量数据，使用 Pipeline 添加 10w 条数据，Java 代码实现如下：
+import redis.clients.jedis.Jedis;import redis.clients.jedis.Pipeline;import utils.JedisUtils;public class ScanExample {public static void main(String[] args) {// 添加 10w 条数据initData();}public static void initData(){Jedis jedis = JedisUtils.</description>
+    </item>
+    
+    <item>
+      <title>20 查询附近的人——GEO</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/20-%E6%9F%A5%E8%AF%A2%E9%99%84%E8%BF%91%E7%9A%84%E4%BA%BAgeo/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:13 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/20-%E6%9F%A5%E8%AF%A2%E9%99%84%E8%BF%91%E7%9A%84%E4%BA%BAgeo/</guid>
+      <description>受过高等教育的我们都知道，我们所处的任何位置都可以用经度和纬度来标识，经度的范围 -180 到 180，纬度的范围为 -90 到 90。纬度以赤道为界，赤道以南为负数，赤道以北为正数；经度以本初子午线（英国格林尼治天文台）为界，东边为正数，西边为负数。
+Redis 在 3.2 版本中增加了 GEO 类型用于存储和查询地理位置，关于 GEO 的命令不多，主要包含以下 6 个：
+ geoadd：添加地理位置 geopos：查询位置信息 geodist：距离统计 georadius：查询某位置内的其他成员信息 geohash：查询位置的哈希值 zrem：删除地理位置  下面我们分别来看这些命令的使用。
+基础使用 添加地理位置 我们先用百度地图提供的经纬度查询工具，地址：
+ http://api.map.baidu.com/lbsapi/getpoint/index.html
+ 如下图所示：
+找了以下 4 个地点，添加到 Redis 中：
+ 天安门：116.404269,39.913164 月坛公园：116.36,39.922461 北京欢乐谷：116.499705,39.874635 香山公园：116.193275,39.996348  代码如下：
+127.0.0.1:6379&amp;gt; geoadd site 116.404269 39.913164 tianan(integer) 1127.0.0.1:6379&amp;gt; geoadd site 116.36 39.922461 yuetan(integer) 1127.0.0.1:6379&amp;gt; geoadd site 116.499705 39.874635 huanle(integer) 1127.0.0.1:6379&amp;gt; geoadd site 116.</description>
+    </item>
+    
+    <item>
+      <title>19 Redis 管道技术——Pipeline</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/19-redis-%E7%AE%A1%E9%81%93%E6%8A%80%E6%9C%AFpipeline/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:12 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/19-redis-%E7%AE%A1%E9%81%93%E6%8A%80%E6%9C%AFpipeline/</guid>
+      <description>管道技术（Pipeline）是客户端提供的一种批处理技术，用于一次处理多个 Redis 命令，从而提高整个交互的性能。
+通常情况下 Redis 是单行执行的，客户端先向服务器发送请求，服务端接收并处理请求后再把结果返回给客户端，这种处理模式在非频繁请求时不会有任何问题。
+但如果出现集中大批量的请求时，因为每个请求都要经历先请求再响应的过程，这就会造成网络资源浪费，此时就需要管道技术来把所有的命令整合一次发给服务端，再一次响应给客户端，这样就能大大的提升了 Redis 的响应速度。
+普通命令模式，如下图所示：
+管道模式，如下图所示：
+ 小贴士：管道中命令越多，管道技术的作用就更大，相比于普通模式来说执行效率就越高。
+ 管道技术解决了什么问题？ 管道技术解决了多个命令集中请求时造成网络资源浪费的问题，加快了 Redis 的响应速度，让 Redis 拥有更高的运行速度。但要注意的一点是，管道技术本质上是客户端提供的功能，而非 Redis 服务器端的功能。
+管道技术使用 本文我们使用 Jedis 客户端提供的 Pipeline 对象来实现管道技术。首先先获取 Pipeline 对象，再为 Pipeline 对象设置需要执行的命令，最后再使用 sync() 方法或 syncAndReturnAll() 方法来统一执行这些命令，代码如下：
+public class PipelineExample {public static void main(String[] args) {Jedis jedis = new Jedis(&amp;quot;127.0.0.1&amp;quot;, 6379);// 记录执行开始时间long beginTime = System.currentTimeMillis();// 获取 Pipeline 对象Pipeline pipe = jedis.pipelined();// 设置多个 Redis 命令for (int i = 0; i &amp;lt; 100; i++) {pipe.</description>
+    </item>
+    
+    <item>
+      <title>18 Redis 过期策略与源码分析</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/18-redis-%E8%BF%87%E6%9C%9F%E7%AD%96%E7%95%A5%E4%B8%8E%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:11 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/18-redis-%E8%BF%87%E6%9C%9F%E7%AD%96%E7%95%A5%E4%B8%8E%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid>
+      <description>在 Redis 中我们可以给一些元素设置过期时间，那当它过期之后 Redis 是如何处理这些过期键呢？
+过期键执行流程 Redis 之所以能知道那些键值过期，是因为在 Redis 中维护了一个字典，存储了所有设置了过期时间的键值，我们称之为过期字典。
+过期键判断流程如下图所示：
+过期键源码分析 过期键存储在 redisDb 结构中，源代码在 src/server.h 文件中：
+/* Redis database representation. There are multiple databases identified* by integers from 0 (the default database) up to the max configured* database. The database number is the &#39;id&#39; field in the structure. */typedef struct redisDb {dict *dict; /* 数据库键空间，存放着所有的键值对 */dict *expires; /* 键的过期时间 */dict *blocking_keys; /* Keys with clients waiting for data (BLPOP)*/dict *ready_keys; /* Blocked keys that received a PUSH */dict *watched_keys; /* WATCHED keys for MULTI/EXEC CAS */int id; /* Database ID */long long avg_ttl; /* Average TTL, just for stats */list *defrag_later; /* List of key names to attempt to defrag one by one, gradually.</description>
+    </item>
+    
+    <item>
+      <title>17 Redis 键值过期操作</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/17-redis-%E9%94%AE%E5%80%BC%E8%BF%87%E6%9C%9F%E6%93%8D%E4%BD%9C/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:10 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/17-redis-%E9%94%AE%E5%80%BC%E8%BF%87%E6%9C%9F%E6%93%8D%E4%BD%9C/</guid>
+      <description>过期设置 Redis 中设置过期时间主要通过以下四种方式：
+ expire key seconds：设置 key 在 n 秒后过期； pexpire key milliseconds：设置 key 在 n 毫秒后过期； expireat key timestamp：设置 key 在某个时间戳（精确到秒）之后过期； pexpireat key millisecondsTimestamp：设置 key 在某个时间戳（精确到毫秒）之后过期；  下面分别来看以上这些命令的具体实现。
+expire：N 秒后过期 127.0.0.1:6379&amp;gt; set key valueOK127.0.0.1:6379&amp;gt; expire key 100(integer) 1127.0.0.1:6379&amp;gt; ttl key(integer) 97其中命令 ttl 的全称是 Time To Live，表示此键值在 n 秒后过期。例如，上面的结果 97 表示 key 在 97s 后过期。
+pexpire：N 毫秒后过期 127.0.0.1:6379&amp;gt; set key2 value2OK127.0.0.1:6379&amp;gt; pexpire key2 100000(integer) 1127.</description>
+    </item>
+    
+    <item>
+      <title>16 Redis 事务深入解析</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/16-redis-%E4%BA%8B%E5%8A%A1%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:09 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/16-redis-%E4%BA%8B%E5%8A%A1%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90/</guid>
+      <description>作为关系型数据库中一项非常重要的基础功能——事务，在 Redis 中是如何处理并使用的？
+ 前言 事务指的是提供一种将多个命令打包，一次性按顺序地执行的机制，并且保证服务器只有在执行完事务中的所有命令后，才会继续处理此客户端的其他命令。
+事务也是其他关系型数据库所必备的基础功能，以支付的场景为例，正常情况下只有正常消费完成之后，才会减去账户余额。但如果没有事务的保障，可能会发生消费失败了，但依旧会把账户的余额给扣减了，我想这种情况应该任何人都无法接受吧？所以事务是数据库中一项非常重要的基础功能。
+事务基本使用 事务在其他语言中，一般分为以下三个阶段：
+ 开启事务——Begin Transaction 执行业务代码，提交事务——Commit Transaction 业务处理中出现异常，回滚事务——Rollback Transaction  以 Java 中的事务执行为例：
+// 开启事务begin();try {//......// 提交事务commit();} catch(Exception e) {// 回滚事务rollback();}Redis 中的事务从开始到结束也是要经历三个阶段：
+ 开启事务 命令入列 执行事务/放弃事务  其中，开启事务使用 multi 命令，事务执行使用 exec 命令，放弃事务使用 discard 命令。
+开启事务 multi 命令用于开启事务，实现代码如下：
+&amp;gt; multiOKmulti 命令可以让客户端从非事务模式状态，变为事务模式状态，如下图所示：
+注意：multi 命令不能嵌套使用，如果已经开启了事务的情况下，再执行 multi 命令，会提示如下错误：
+(error) ERR MULTI calls can not be nested执行效果，如下代码所示：</description>
+    </item>
+    
+    <item>
+      <title>15 附录：更多有序集合操作命令</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/15-%E9%99%84%E5%BD%95%E6%9B%B4%E5%A4%9A%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:08 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/15-%E9%99%84%E5%BD%95%E6%9B%B4%E5%A4%9A%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/</guid>
+      <description>查询有序集合的总个数 语法：zcard key 示例：
+127.0.0.1:6379&amp;gt; zcard zset1(integer) 4查询 score 区间内的元素个数 语法：zcount key min max 示例：
+127.0.0.1:6379&amp;gt; zcount zset1 0 10(integer) 4累加元素的 score 值 语法：zincrby key increment member 示例：
+127.0.0.1:6379&amp;gt; zscore zset1 redis #查询 zset1 的 score 值&amp;quot;1&amp;quot;127.0.0.1:6379&amp;gt; zincrby zset1 2 redis #累加 score 值&amp;quot;3&amp;quot;127.0.0.1:6379&amp;gt; zscore zset1 redis&amp;quot;3&amp;quot;查询某元素倒序排名 语法：zrevrank key member 示例：
+127.0.0.1:6379&amp;gt; zrevrank zset1 python #倒序查询(integer) 0127.0.0.1:6379&amp;gt; zrange zset1 0 -1 #正序列表1) &amp;quot;redis&amp;quot;2) &amp;quot;java&amp;quot;3) &amp;quot;golang&amp;quot;4) &amp;quot;python&amp;quot;根据排名删除元素 语法：zremrangebyrank key start stop 示例：</description>
+    </item>
+    
+    <item>
+      <title>14 有序集合使用与内部实现原理</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/14-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:07 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/14-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</guid>
+      <description>有序集合类型 (Sorted Set) 相比于集合类型多了一个排序属性 score（分值），对于有序集合 ZSet 来说，每个存储元素相当于有两个值组成的，一个是有序结合的元素值，一个是排序值。有序集合的存储元素值也是不能重复的，但分值是可以重复的。
+当我们把学生的成绩存储在有序集合中时，它的存储结构如下图所示：
+下面我们先从有序集合的使用开始说起。
+1 基础使用 1）添加一个或多个元素 语法：zadd key [NX|XX] [CH] [INCR] score member [score member &amp;hellip;] 示例：
+127.0.0.1:6379&amp;gt; zadd zset1 10 java(integer) 1127.0.0.1:6379&amp;gt; zadd zset1 3 golang 4 sql 1 redis(integer) 3可以看出有序集合的添加是 zadd 键值 分值1 元素值1 分值2 元素值2 的形式添加的。
+2）查询所有元素列表 语法：zrange key start stop [WITHSCORES] 示例：
+127.0.0.1:6379&amp;gt; zrange zset 0 -11) &amp;quot;redis&amp;quot;2) &amp;quot;mysql&amp;quot;3) &amp;quot;java&amp;quot;其中 -1 表示最后一个元素，查询结果包含开始和结束元素。</description>
+    </item>
+    
+    <item>
+      <title>13 附录：更多集合操作命令</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/13-%E9%99%84%E5%BD%95%E6%9B%B4%E5%A4%9A%E9%9B%86%E5%90%88%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:06 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/13-%E9%99%84%E5%BD%95%E6%9B%B4%E5%A4%9A%E9%9B%86%E5%90%88%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/</guid>
+      <description>移除并返回集合中的一个随机元素 语法：spop key [count] 示例：
+127.0.0.1:6379&amp;gt; smembers myset1) &amp;quot;v1&amp;quot;2) &amp;quot;v2&amp;quot;127.0.0.1:6379&amp;gt; spop myset 11) &amp;quot;v2&amp;quot;127.0.0.1:6379&amp;gt; smembers myset1) &amp;quot;v1&amp;quot;随机返回集合中指定数量的元素列表 语法：srandmember key [count] 示例：
+127.0.0.1:6379&amp;gt; srandmember myset 21) &amp;quot;v4&amp;quot;2) &amp;quot;v2&amp;quot;返回一个集合或多个集合的交集 语法：sinter key [key &amp;hellip;] 示例：
+127.0.0.1:6379&amp;gt; smembers myset1) &amp;quot;v1&amp;quot;2) &amp;quot;v3&amp;quot;3) &amp;quot;v2&amp;quot;127.0.0.1:6379&amp;gt; smembers myset21) &amp;quot;v1&amp;quot;2) &amp;quot;v8&amp;quot;127.0.0.1:6379&amp;gt; sinter myset myset21) &amp;quot;v1&amp;quot;把集合的交集复制到新的集合中 语法：sinterstore destination key [key &amp;hellip;] 示例：</description>
+    </item>
+    
+    <item>
+      <title>12 集合使用与内部实现原理</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/12-%E9%9B%86%E5%90%88%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:05 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/12-%E9%9B%86%E5%90%88%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</guid>
+      <description>集合类型 (Set) 是一个无序并唯一的键值集合。
+之所以说集合类型是一个无序集合，是因为它的存储顺序不会按照插入的先后顺序进行存储，如下代码所示：
+127.0.0.1:6379&amp;gt; sadd myset v2 v1 v3 #插入数据 v2、v1、v3 (integer) 3127.0.0.1:6379&amp;gt; smembers myset #查询数据1) &amp;quot;v1&amp;quot;2) &amp;quot;v3&amp;quot;3) &amp;quot;v2&amp;quot;从上面代码执行结果可以看出，myset 的存储顺序并不是以插入的先后顺序进行存储的。
+集合类型和列表类型的区别如下：
+ 列表可以存储重复元素，集合只能存储非重复元素； 列表是按照元素的先后顺序存储元素的，而集合则是无序方式存储元素的。  1 基础使用 集合类型的功能比列表类型丰富一些，集合类型可以用来统计多个集合的交集、错集和并集，如下代码所示。
+1）添加一个或多个元素 语法：sadd key member [member &amp;hellip;] 示例：
+127.0.0.1:6379&amp;gt; sadd myset v1 v2 v3(integer) 32）查询集合所有元素 语法：smembers key 示例：
+127.0.0.1:6379&amp;gt; smembers myset1) &amp;quot;v1&amp;quot;2) &amp;quot;v3&amp;quot;3) &amp;quot;v2&amp;quot;3）查询集合的成员数量 语法：scard key 示例：
+127.0.0.1:6379&amp;gt; scard myset(integer) 34）查询集合中是否包含某个元素 语法：sismember key member 示例：</description>
+    </item>
+    
+    <item>
+      <title>11 附录：更多列表操作命令</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/11-%E9%99%84%E5%BD%95%E6%9B%B4%E5%A4%9A%E5%88%97%E8%A1%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:04 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/11-%E9%99%84%E5%BD%95%E6%9B%B4%E5%A4%9A%E5%88%97%E8%A1%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/</guid>
+      <description>在某值之前/之后添加某个元素 语法：linsert key before|after pivot value 示例：
+127.0.0.1:6379&amp;gt; linsert list3 before b A(integer) 4127.0.0.1:6379&amp;gt; lrange list3 0 -1&amp;quot;a&amp;quot;&amp;quot;A&amp;quot;&amp;quot;b&amp;quot;&amp;quot;c&amp;quot;根据下标修改元素 语法：lset key index value 示例*：*
+127.0.0.1:6379&amp;gt; lindex list3 0&amp;quot;a&amp;quot;127.0.0.1:6379&amp;gt; lset list3 0 AOK127.0.0.1:6379&amp;gt; lindex list3 0&amp;quot;A&amp;quot;根据下标删除元素 语法：ltrim key start stop 示例：
+127.0.0.1:6379&amp;gt; lpush list a b c(integer) 3127.0.0.1:6379&amp;gt; ltrim list 0 1OK127.0.0.1:6379&amp;gt; lrange list 0 -11) &amp;quot;c&amp;quot;2) &amp;quot;b&amp;quot;查询列表的长度 语法：llen key 示例：</description>
+    </item>
+    
+    <item>
+      <title>10 列表使用与内部实现原理</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/10-%E5%88%97%E8%A1%A8%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:03 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/10-%E5%88%97%E8%A1%A8%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</guid>
+      <description>列表类型 (List) 是一个使用链表结构存储的有序结构，它的元素插入会按照先后顺序存储到链表结构中，因此它的元素操作 (插入\删除) 时间复杂度为 O(1)，所以相对来说速度还是比较快的，但它的查询时间复杂度为 O(n)，因此查询可能会比较慢。
+1 基础使用 列表类型的使用相对来说比较简单，对它的操作就相当操作一个没有任何 key 值的 value 集合，如下图所示： 1）给列表添加一个或多个元素 语法：lpush key value [value …] 示例：
+127.0.0.1:6379&amp;gt; lpush list 1 2 3(integer) 32）给列表尾部添加一个或多个元素 语法：rpush key value [value …] 示例：
+127.0.0.1:6379&amp;gt; rpush list2 1 2 3(integer) 33）返回列表指定区间内的元素 语法：lrange key start stop 示例：
+127.0.0.1:6379&amp;gt; lrange list 0 -1&amp;quot;3&amp;quot;&amp;quot;2&amp;quot;&amp;quot;1&amp;quot;127.0.0.1:6379&amp;gt; lrange list2 0 -1&amp;quot;1&amp;quot;&amp;quot;2&amp;quot;&amp;quot;3&amp;quot;其中 -1 代表列表中的最后一个元素。
+4）获取并删除列表的第一个元素 语法：lpop key 示例：</description>
+    </item>
+    
+    <item>
+      <title>09 附录：更多字典操作命令</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/09-%E9%99%84%E5%BD%95%E6%9B%B4%E5%A4%9A%E5%AD%97%E5%85%B8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:02 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/09-%E9%99%84%E5%BD%95%E6%9B%B4%E5%A4%9A%E5%AD%97%E5%85%B8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/</guid>
+      <description>插入一个或多个元素 语法：hmset key field value [field value &amp;hellip;] 示例：
+127.0.0.1:6379&amp;gt; hmset myhash k1 val1 k2 val2OK127.0.0.1:6379&amp;gt; hmget myhash k1 k21) &amp;quot;val1&amp;quot;2) &amp;quot;val2&amp;quot;查询一个或多个元素 语法：hmget key field [field &amp;hellip;] 示例：
+127.0.0.1:6379&amp;gt; hmget myhash k1 k21) &amp;quot;v1&amp;quot;2) &amp;quot;v2&amp;quot;查询某个 key 的所有字段 语法：hkeys key 示例：
+127.0.0.1:6379&amp;gt; hkeys myhash1) &amp;quot;key1&amp;quot;2) &amp;quot;key2&amp;quot;查询某个 key 的所有值 语法：hvals key 示例：
+127.0.0.1:6379&amp;gt; hvals myhash1) &amp;quot;value1&amp;quot;2) &amp;quot;value2&amp;quot;查询某个 key 的所有字段和值 语法：hgetall key 示例：</description>
+    </item>
+    
+    <item>
+      <title>08 字典使用与内部实现原理</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/08-%E5%AD%97%E5%85%B8%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:01 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/08-%E5%AD%97%E5%85%B8%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</guid>
+      <description>字典类型 (Hash) 又被成为散列类型或者是哈希表类型，它是将一个键值 (key) 和一个特殊的“哈希表”关联起来，这个“哈希表”表包含两列数据：字段和值。例如我们使用字典类型来存储一篇文章的详情信息，存储结构如下图所示： 同理我们也可以使用字典类型来存储用户信息，并且使用字典类型来存储此类信息，是不需要手动序列化和反序列化数据的，所以使用起来更加的方便和高效。
+1.基础使用 首先我们使用命令行工具 redis-cli，来对字典类型进行相关的操作。
+1）插入单个元素 语法：hset key field value 示例：
+127.0.0.1:6379&amp;gt; hset myhash key1 value1(integer) 1127.0.0.1:6379&amp;gt; hset myhash key2 value2(integer) 12）当某键不存在时，插入数据 语法：hsetnx key field value 示例：
+127.0.0.1:6379&amp;gt; hsetnx myhash k4 v4(integer) 1127.0.0.1:6379&amp;gt; hget myhash k4&amp;quot;v4&amp;quot;如果尝试插入已存在的键，不会改变原来的值，示例如下：
+127.0.0.1:6379&amp;gt; hsetnx myhash k4 val4(integer) 0127.0.0.1:6379&amp;gt; hget myhash k4&amp;quot;v4&amp;quot;尝试修改已经存在的 k4 赋值为 val4，但并没有生效，查询 k4 的结果依然是原来的值 v4。
+3）查询单个元素 语法：hget key field 示例：</description>
+    </item>
+    
+    <item>
+      <title>07 附录：更多字符串操作命令</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/07-%E9%99%84%E5%BD%95%E6%9B%B4%E5%A4%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 28 Sep 2022 19:38:00 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/07-%E9%99%84%E5%BD%95%E6%9B%B4%E5%A4%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/</guid>
+      <description>键值对过期操作 a.添加键值对并设置过期时间 语法：set key value [expiration EX seconds|PX milliseconds] [NX|XX] 示例：
+127.0.0.1:6379&amp;gt; set k1 val1 ex 1000OK设置键值对 k1=val1，过期时间为 1000 秒。 查询键的过期时间可以使用 ttl key，如下代码所示：
+127.0.0.1:6379&amp;gt; ttl k1(integer) 997b.赋值字符串，并设置过期时间(单位/秒) 语法：setex key seconds value 示例：
+127.0.0.1:6379&amp;gt; setex k1 1000 v1OK127.0.0.1:6379&amp;gt; ttl k1(integer) 999127.0.0.1:6379&amp;gt; get k1&amp;quot;v1&amp;quot;如果 key 已经存在，setex 命令将会覆写原来的旧值。
+c.赋值字符串，并设置过期时间(单位/毫秒) 与 setex 用法类似，只不过 psetex 设置的单位是毫秒。 语法：psetex key milliseconds value 示例：
+127.0.0.1:6379&amp;gt; psetex k1 100000 v11OK127.</description>
+    </item>
+    
+    <item>
+      <title>06 字符串使用与内部实现原理</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/06-%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Wed, 28 Sep 2022 19:37:59 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/06-%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</guid>
+      <description>Redis 发展到现在已经有 9 种数据类型了，其中最基础、最常用的数据类型有 5 种，它们分别是：字符串类型、列表类型、哈希表类型、集合类型、有序集合类型，而在这 5 种数据类型中最常用的是字符串类型，所以本文我们先从字符串的使用开始说起。
+字符串类型的全称是 Simple Dynamic Strings 简称 SDS，中文意思是：简单动态字符串。它是以键值对 key-value 的形式进行存储的，根据 key 来存储和获取 value 值，它的使用相对来说比较简单，但在实际项目中应用非常广泛。
+1 字符串类型能做什么？ 字符串类型的使用场景有很多，但从功能的角度来区分，大致可分为以下两种：
+ 字符串存储和操作； 整数类型和浮点类型的存储和计算。  字符串最常用的业务场景有以下几个。
+1）页面数据缓存 我们知道，一个系统最宝贵的资源就是数据库资源，随着公司业务的发展壮大，数据库的存储量也会越来越大，并且要处理的请求也越来越多，当数据量和并发量到达一定级别之后，数据库就变成了拖慢系统运行的“罪魁祸首”，为了避免这种情况的发生，我们可以把查询结果放入缓存(Redis)中，让下次同样的查询直接去缓存系统取结果，而非查询数据库，这样既减少了数据库的压力，同时也提高了程序的运行速度。
+介于以上这个思路，我们可以把文章详情页的数据放入缓存系统。具体的做法是先将文章详情页序列化为字符串存入缓存，再从缓存中读取到字符串，反序列化成对象，然后再赋值到页面进行显示 (当然也可以用哈希类型进行存储，这会在下一篇文章中讲到)，这样我们就实现了文章详情页的缓存功能，架构流程对比图如下所示。
+原始系统运行流程图： 引入缓存系统后的流程图： 2）数字计算与统计 Redis 可以用来存储整数和浮点类型的数据，并且可以通过命令直接累加并存储整数信息，这样就省去了每次先要取数据、转换数据、拼加数据、再存入数据的麻烦，只需要使用一个命令就可以完成此流程，具体实现过程本文下半部分会讲。这样我们就可以使用此功能来实现访问量的统计，当有人访问时访问量 +1 就可以了。
+3）共享 Session 信息 通常我们在开发后台管理系统时，会使用 Session 来保存用户的会话(登录)状态，这些 Session 信息会被保存在服务器端，但这只适用于单系统应用，如果是分布式系统此模式将不再适用。
+例如用户一的 Session 信息被存储在服务器一，但第二次访问时用户一被分配到服务器二，这个时候服务器并没有用户一的 Session 信息，就会出现需要重复登录的问题。分布式系统每次会把请求随机分配到不同的服务器，因此我们需要借助缓存系统对这些 Session 信息进行统一的存储和管理，这样无论请求发送到那台服务器，服务器都会去统一的缓存系统获取相关的 Session 信息，这样就解决了分布式系统下 Session 存储的问题。
+分布式系统单独存储 Session 流程图： 分布式系统使用同一的缓存系统存储 Session 流程图： 2 字符串如何使用？ 通常我们会使用两种方式来操作 Redis：第一种是使用命令行来操作，例如 redis-cli；另一种是使用代码的方式来操作，下面我们分别来看。
+1）命令行操作方式 字符串的操作命令有很多，但大体可分为以下几类：</description>
+    </item>
+    
+    <item>
+      <title>05 Redis 持久化——混合持久化</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/05-redis-%E6%8C%81%E4%B9%85%E5%8C%96%E6%B7%B7%E5%90%88%E6%8C%81%E4%B9%85%E5%8C%96/</link>
+      <pubDate>Wed, 28 Sep 2022 19:37:58 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/05-redis-%E6%8C%81%E4%B9%85%E5%8C%96%E6%B7%B7%E5%90%88%E6%8C%81%E4%B9%85%E5%8C%96/</guid>
+      <description>RDB 和 AOF 持久化各有利弊，RDB 可能会导致一定时间内的数据丢失，而 AOF 由于文件较大则会影响 Redis 的启动速度，为了能同时使用 RDB 和 AOF 各种的优点，Redis 4.0 之后新增了混合持久化的方式。
+在开启混合持久化的情况下，AOF 重写时会把 Redis 的持久化数据，以 RDB 的格式写入到 AOF 文件的开头，之后的数据再以 AOF 的格式化追加的文件的末尾。
+混合持久化的数据存储结构如下图所示： 1 开启混合持久化 查询是否开启混合持久化可以使用 config get aof-use-rdb-preamble 命令，执行结果如下图所示： 其中 yes 表示已经开启混合持久化，no 表示关闭，Redis 5.0 默认值为 yes。 如果是其他版本的 Redis 首先需要检查一下，是否已经开启了混合持久化，如果关闭的情况下，可以通过以下两种方式开启：
+ 通过命令行开启 通过修改 Redis 配置文件开启  1）通过命令行开启 使用命令 config set aof-use-rdb-preamble yes 执行结果如下图所示：  小贴士：命令行设置配置的缺点是重启 Redis 服务之后，设置的配置就会失效。
+ 2）通过修改 Redis 配置文件开启 在 Redis 的根路径下找到 redis.conf 文件，把配置文件中的 aof-use-rdb-preamble no 改为 aof-use-rdb-preamble yes 如下图所示： 2 实例运行 当在混合持久化关闭的情况下，使用 bgrewriteaof 触发 AOF 文件重写之后，查看 appendonly.</description>
+    </item>
+    
+    <item>
+      <title>04 Redis 持久化——AOF</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/04-redis-%E6%8C%81%E4%B9%85%E5%8C%96aof/</link>
+      <pubDate>Wed, 28 Sep 2022 19:37:57 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/04-redis-%E6%8C%81%E4%B9%85%E5%8C%96aof/</guid>
+      <description>使用 RDB 持久化有一个风险，它可能会造成最新数据丢失的风险。因为 RDB 的持久化有一定的时间间隔，在这个时间段内如果 Redis 服务意外终止的话，就会造成最新的数据全部丢失。
+可能会操作 Redis 服务意外终止的条件：
+ 安装 Redis 的机器停止运行，蓝屏或者系统崩溃； 安装 Redis 的机器出现电源故障，例如突然断电； 使用 kill -9 Redis_PID 等。  那么如何解决以上的这些问题呢？Redis 为我们提供了另一种持久化的方案——AOF。
+1 简介 AOF（Append Only File）中文是附加到文件，顾名思义 AOF 可以把 Redis 每个键值对操作都记录到文件（appendonly.aof）中。
+2 持久化查询和设置 1）查询 AOF 启动状态 使用 config get appendonly 命令，如下图所示： 其中，第一行为 AOF 文件的名称，而最后一行表示 AOF 启动的状态，yes 表示已启动，no 表示未启动。
+2）开启 AOF 持久化 Redis 默认是关闭 AOF 持久化的，想要开启 AOF 持久化，有以下两种方式：
+ 通过命令行的方式； 通过修改配置文件的方式（redis.conf）。  下面分别来看以上两种方式的实现。
+① 命令行启动 AOF 命令行启动 AOF，使用 config set appendonly yes 命令，如下图所示： 命令行启动 AOF 的优缺点：命令行启动优点是无需重启 Redis 服务，缺点是如果 Redis 服务重启，则之前使用命令行设置的配置就会失效。</description>
+    </item>
+    
+    <item>
+      <title>03 Redis 持久化——RDB</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/03-redis-%E6%8C%81%E4%B9%85%E5%8C%96rdb/</link>
+      <pubDate>Wed, 28 Sep 2022 19:37:56 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/03-redis-%E6%8C%81%E4%B9%85%E5%8C%96rdb/</guid>
+      <description>Redis 的读写都是在内存中，所以它的性能较高，但在内存中的数据会随着服务器的重启而丢失，为了保证数据不丢失，我们需要将内存中的数据存储到磁盘，以便 Redis 重启时能够从磁盘中恢复原有的数据，而整个过程就叫做 Redis 持久化。
+ Redis 持久化也是 Redis 和 Memcached 的主要区别之一，因为 Memcached 不具备持久化功能。
+1 持久化的几种方式 Redis 持久化拥有以下三种方式：
+ 快照方式（RDB, Redis DataBase）将某一个时刻的内存数据，以二进制的方式写入磁盘； 文件追加方式（AOF, Append Only File），记录所有的操作命令，并以文本的形式追加到文件中； 混合持久化方式，Redis 4.0 之后新增的方式，混合持久化是结合了 RDB 和 AOF 的优点，在写入的时候，先把当前的数据以 RDB 的形式写入文件的开头，再将后续的操作命令以 AOF 的格式存入文件，这样既能保证 Redis 重启时的速度，又能减低数据丢失的风险。  因为每种持久化方案，都有特定的使用场景，让我们先从 RDB 持久化说起吧。
+2 RDB简介 RDB（Redis DataBase）是将某一个时刻的内存快照（Snapshot），以二进制的方式写入磁盘的过程。
+3 持久化触发 RDB 的持久化触发方式有两类：一类是手动触发，另一类是自动触发。
+1）手动触发 手动触发持久化的操作有两个： save 和 bgsave ，它们主要区别体现在：是否阻塞 Redis 主线程的执行。
+① save 命令 在客户端中执行 save 命令，就会触发 Redis 的持久化，但同时也是使 Redis 处于阻塞状态，直到 RDB 持久化完成，才会响应其他客户端发来的命令，所以在生产环境一定要慎用。</description>
+    </item>
+    
+    <item>
+      <title>02 Redis 快速搭建与使用</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/02-redis-%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Wed, 28 Sep 2022 19:37:55 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/02-redis-%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/</guid>
+      <description>Redis 是由 C 语言开发的开源内存数据存储器，经常被用作数据库、缓存以及消息队列等。 Redis 因为其强大的功能和简洁的设计，深受广大开发者和公司的喜爱，几乎占领了内存数据库市场的所有份额。
+1 Redis 特性 Redis 有很多优秀的特性，这也是它最受欢迎的原因。
+1）多种数据类型支持 Redis 支持多种数据类型，例如字符串、散列、列表、集合、有序集合、HyperLogLog、流、地理坐标等，每种类型都有对应的使用场景，同时也满足了所有开发者的需要。
+2）功能完善 Redis 提供了很多的功能，例如消息队列、自动过期删除、事务、数据持久化、分布式锁、附近的人、慢查询分析、Sentinel 和集群等多项功能。
+3）高性能 Redis 是一款内存型数据库，因此在性能方面有天生的优势(内存操作比磁盘操作要快很多)，并且 Redis 在底层使用了更加高效的算法和数据结构，以最大限度的提高了 Redis 的性能。
+4）广泛的编程语言支持 Redis 客户端有众多的开发者提供了相应的支持，这些客户端可以在 https://redis.io/clients 上找到，支持是编程语言，如下图所示： 可以看出几乎所有的编程语言，都有相应的客户端支持。
+5）使用简单 Redis 的 API 虽然比较丰富，但操作的方法都非常的简便，并且需要传递的参数也不多，这样开发者就能更快的上手使用，而且 Redis 官方也提供了比较完整的说明文档。
+6）活跃性高/版本迭代快 Redis 活跃度很高，这点可以在 Redis 的开源项目 https://github.com/antirez/redis 中发现，并且 Redis 的版本迭代也很快，到目前为止 Redis 的发布版本就已经有二百多个了。
+7）I/O 多路复用模型 Redis 使用了多路 I/O 复用模型，“多路”指的是多个网络连接，“复用”指的是复用同一个线程，采用多路 I/O 复用技术可以让单个线程高效的处理多个连接请求，这样就减少了创建和销毁线程所带来的时间消耗，从而到达高效处理大量并发请求的目的。
+2 Redis 发展历程 Redis 的发展大概经过了以下几个过程：
+ 2009 年 5 月发布 Redis 初始版本； 2012 年发布 Redis 2.</description>
+    </item>
+    
+    <item>
+      <title>01 Redis 是如何执行的</title>
+      <link>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/01-redis-%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84/</link>
+      <pubDate>Wed, 28 Sep 2022 19:37:54 +0800</pubDate>
+      
+      <guid>http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/01-redis-%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84/</guid>
+      <description>在以往的面试中，当问到一些面试者：Redis 是如何执行的？收到的答案往往是：客户端发命令给服务器端，服务端收到执行之后再返回给客户端。然而对于执行细节却「避而不谈」 ，当继续追问服务器端是如何执行的？能回答上来的人更是寥寥无几，这未免让人有些遗憾，一个我们每天都在用的技术，知道原理的人却寥若晨星。
+对于任何一门技术，如果你只停留在「会用」的阶段，那就很难有所成就，甚至还有被裁员和找不到工作的风险，我相信能看此篇文章的你，一定是积极上进想有所作为的人，那么借此机会，我们来深入的解一下 Redis 的执行细节。
+命令执行流程 一条命令的执行过程有很多细节，但大体可分为：客户端先将用户输入的命令，转化为 Redis 相关的通讯协议，再用 socket 连接的方式将内容发送给服务器端，服务器端在接收到相关内容之后，先将内容转化为具体的执行命令，再判断用户授权信息和其他相关信息，当验证通过之后会执行最终命令，命令执行完之后，会进行相关的信息记录和数据统计，然后再把执行结果发送给客户端，这样一条命令的执行流程就结束了。如果是集群模式的话，主节点还会将命令同步至子节点，下面我们一起来看更加具体的执行流程。
+步骤一：用户输入一条命令
+步骤二：客户端先将命令转换成 Redis 协议，然后再通过 socket 连接发送给服务器端
+客户端和服务器端是基于 socket 通信的，服务器端在初始化时会创建了一个 socket 监听，用于监测链接客户端的 socket 链接，源码如下：
+void initServer(void) {//......// 开启 Socket 事件监听if (server.port != 0 &amp;amp;&amp;amp;listenToPort(server.port,server.ipfd,&amp;amp;server.ipfd_count) == C_ERR)exit(1);//......} socket 小知识：每个 socket 被创建后，会分配两个缓冲区，输入缓冲区和输出缓冲区。 写入函数并不会立即向网络中传输数据，而是先将数据写入缓冲区中，再由 TCP 协议将数据从缓冲区发送到目标机器。一旦将数据写入到缓冲区，函数就可以成功返回，不管它们有没有到达目标机器，也不管它们何时被发送到网络，这些都是 TCP 协议负责的事情。 注意：数据有可能刚被写入缓冲区就发送到网络，也可能在缓冲区中不断积压，多次写入的数据被一次性发送到网络，这取决于当时的网络情况、当前线程是否空闲等诸多因素，不由程序员控制。 读取函数也是如此，它也是从输入缓冲区中读取数据，而不是直接从网络中读取。
+ 当 socket 成功连接之后，客户端会先把命令转换成 Redis 通讯协议（RESP 协议，REdis Serialization Protocol）发送给服务器端，这个通信协议是为了保障服务器能最快速的理解命令的含义而制定的，如果没有这个通讯协议，那么 Redis 服务器端要遍历所有的空格以确认此条命令的含义，这样会加大服务器的运算量，而直接发送通讯协议，相当于把服务器端的解析工作交给了每一个客户端，这样会很大程度的提高 Redis 的运行速度。例如，当我们输入 set key val 命令时，客户端会把这个命令转换为 *3\r\n$3\r\nSET\r\n$4\r\nKEY\r\n$4\r\nVAL\r\n 协议发送给服务器端。 更多通讯协议，可访问官方文档：https://redis.</description>
+    </item>
+    
+  </channel>
+</rss>

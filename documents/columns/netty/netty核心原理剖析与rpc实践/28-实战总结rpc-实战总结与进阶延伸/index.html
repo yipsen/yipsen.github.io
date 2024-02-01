@@ -22,10 +22,10 @@ Pipeline &amp;amp; ChannelHandler ChannelPipeline 和 ChannelHandler 也是我�
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -34,7 +34,7 @@ Pipeline &amp;amp; ChannelHandler ChannelPipeline 和 ChannelHandler 也是我�
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -226,12 +226,10 @@ Pipeline &amp;amp; ChannelHandler ChannelPipeline 和 ChannelHandler 也是我�
 </style><article class="post-block">
         <h1 class="post-title">28 实战总结：RPC 实战总结与进阶延伸</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:54:50</span>🏷️&nbsp;<a class="post-tag" href="/tags/netty/">netty</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/">Netty核心原理剖析与RPC实践</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:54:50</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>经过前面几节的实战课，我们已经初步完成了一个 RPC 框架原型，其中串联了 RPC 框架所涉及的大部分核心知识点。纸上得来终觉浅，绝知此事要躬行，编码是每个程序员的基本功，一定要亲自动手做一遍，不要停留在纸上谈兵。虽然 RPC 框架原型已经可以运行起来了，但是离生产级使用还差得很远，例如性能、高可用等。本节课我会做一个有关知识点的总结回顾，并结合业界成熟的 RPC 框架再做一些知识补充，希望对你提升系统设计能力所有帮助。</p>
 <h3 id="实战知识点总结">实战知识点总结</h3>
@@ -379,6 +377,11 @@ b.group(bossGroup, workerGroup)
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/netty/">netty</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/">Netty核心原理剖析与RPC实践</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -387,26 +390,38 @@ b.group(bossGroup, workerGroup)
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/27-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E4%B8%BA%E7%94%A8%E6%88%B7%E5%B1%8F%E8%94%BD-rpc-%E8%B0%83%E7%94%A8%E7%9A%84%E5%BA%95%E5%B1%82%E7%BB%86%E8%8A%82/"><span>27 动态代理：为用户屏蔽 RPC 调用的底层细节</span></a>
+        <a href="http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/27-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E4%B8%BA%E7%94%A8%E6%88%B7%E5%B1%8F%E8%94%BD-rpc-%E8%B0%83%E7%94%A8%E7%9A%84%E5%BA%95%E5%B1%82%E7%BB%86%E8%8A%82/"><span>27 动态代理：为用户屏蔽 RPC 调用的底层细节</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/29-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3netty-%E4%B8%AD%E5%BA%94%E7%94%A8%E4%BA%86%E5%93%AA%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><span>29 编程思想：Netty 中应用了哪些设计模式？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/29-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3netty-%E4%B8%AD%E5%BA%94%E7%94%A8%E4%BA%86%E5%93%AA%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><span>29 编程思想：Netty 中应用了哪些设计模式？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>MySQL 总结概览 | Yipsen Ye</title>
+<meta name="description" content="事务 1. 事务四大特性（ACID）    特性 英文 描述     原子性 Atomicity 原子性是指事务包含的所有操作要么全部成功，要么全部失败回滚。因此事务的操作如果成功就必须要完全应用到数据库，如果操作失败则不能对数据库有任何影响。   一致性 Consistency 事务开始前和结束后，数据库的完整性约束没有被破坏。比如 A 向 B 转账，不可能 A 扣了钱，而 B 却没收到。   隔离性 Isolation 隔离性是当多个用户并发访问数据库时，比如操作同一张表时，数据库为每一个用户开启的事务，不能被其他事务的操作所干扰。多个并发事务之间要相互隔离，互不干扰。同一时间只允许一个事务请求同一数据，比如 A 正在从一张银行卡中取钱，在 A 收钱过程结束前，B 不能向这张卡转账。   持久性 Durability 持久性是指一个事务一旦被提交了，那么对数据库中的数据的改变就是永久性的，即便是在数据库系统遭遇故障的情况下也不会丢失提交事务的操作。    2. 事务并发问题 3. 事务隔离级别（针对性解决事务并发问题） 4. 事务传播行为 5. 嵌套事务 6. 其他 7. 事务实现原理 8. 分布式事务 ">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title">MySQL 总结概览</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-01-10 23:36:41</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <h3 id="事务">事务</h3>
+<h4 id="1-事务四大特性acid">1. 事务四大特性（ACID）</h4>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>英文</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原子性</td>
+<td>Atomicity</td>
+<td>原子性是指事务包含的所有操作要么全部成功，要么全部失败回滚。因此事务的操作如果成功就必须要完全应用到数据库，如果操作失败则不能对数据库有任何影响。</td>
+</tr>
+<tr>
+<td>一致性</td>
+<td>Consistency</td>
+<td>事务开始前和结束后，数据库的完整性约束没有被破坏。比如 A 向 B 转账，不可能 A 扣了钱，而 B 却没收到。</td>
+</tr>
+<tr>
+<td>隔离性</td>
+<td>Isolation</td>
+<td>隔离性是当多个用户并发访问数据库时，比如操作同一张表时，数据库为每一个用户开启的事务，不能被其他事务的操作所干扰。多个并发事务之间要相互隔离，互不干扰。同一时间只允许一个事务请求同一数据，比如 A 正在从一张银行卡中取钱，在 A 收钱过程结束前，B 不能向这张卡转账。</td>
+</tr>
+<tr>
+<td>持久性</td>
+<td>Durability</td>
+<td>持久性是指一个事务一旦被提交了，那么对数据库中的数据的改变就是永久性的，即便是在数据库系统遭遇故障的情况下也不会丢失提交事务的操作。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2-事务并发问题">2. 事务并发问题</h4>
+<h4 id="3-事务隔离级别针对性解决事务并发问题">3. 事务隔离级别（针对性解决事务并发问题）</h4>
+<h4 id="4-事务传播行为">4. 事务传播行为</h4>
+<h4 id="5-嵌套事务">5. 嵌套事务</h4>
+<h4 id="6-其他">6. 其他</h4>
+<h4 id="7-事务实现原理">7. 事务实现原理</h4>
+<h4 id="8-分布式事务">8. 分布式事务</h4>
+
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/posts/mysql/mysql-%E6%9F%A5%E7%9C%8B%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C%E5%90%84%E6%AD%A5%E9%AA%A4%E8%80%97%E6%97%B6/"><span>MySQL 查看语句执行各步骤耗时</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/posts/mysql/mysql-%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/"><span>MySQL 协议详解</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

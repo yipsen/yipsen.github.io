@@ -25,10 +25,10 @@ NFS 存储对象的灾备落地经验 首先我们应该理解 PV/PVC 创建 NFS
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -37,7 +37,7 @@ NFS 存储对象的灾备落地经验 首先我们应该理解 PV/PVC 创建 NFS
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -201,12 +201,10 @@ NFS 存储对象的灾备落地经验 首先我们应该理解 PV/PVC 创建 NFS
 </style><article class="post-block">
         <h1 class="post-title">23 K8s 集群中存储对象灾备的落地实践</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:48:29</span>🏷️&nbsp;<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/">Kubernetes实践入门指南</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:48:29</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>谈到存储对象的灾备，我们可以想象成当你启动了挂载卷的 Pod 的时候，突然集群机器宕机的场景，我们应该如何应对存储对象的容错能力呢？应用的高可用固然最好，但是灾备方案一直都是最后一道门槛，在很多极限情况下，容错的备份是你安心提供服务的保障。</p>
 <p>在虚拟机时代，我们通过控制应用平均分配到各个虚拟机中和定期计划执行的数据备份，让业务可靠性不断地提高。现在升级到 Kubernetes 时代，所有业务都被 Kubernetes 托管，集群可以迅速调度并自维护应用的容器状态，随时可以扩缩资源来应对突发情况。</p>
@@ -502,6 +500,11 @@ sudo kubeadm init --ignore-preflight-errors=DirAvailable--var-lib-etcd \
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/kubernetes/">kubernetes</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/">Kubernetes实践入门指南</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -510,26 +513,38 @@ sudo kubeadm init --ignore-preflight-errors=DirAvailable--var-lib-etcd \
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/22-%E5%AD%98%E5%82%A8%E5%AF%B9%E8%B1%A1-pvpvcstorage-classes-%E7%9A%84%E7%AE%A1%E7%90%86%E8%90%BD%E5%9C%B0%E5%AE%9E%E8%B7%B5/"><span>22 存储对象 PV、PVC、Storage Classes 的管理落地实践</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/22-%E5%AD%98%E5%82%A8%E5%AF%B9%E8%B1%A1-pvpvcstorage-classes-%E7%9A%84%E7%AE%A1%E7%90%86%E8%90%BD%E5%9C%B0%E5%AE%9E%E8%B7%B5/"><span>22 存储对象 PV、PVC、Storage Classes 的管理落地实践</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/24-%E7%BB%83%E4%B9%A0%E7%AF%87k8s-%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE%E6%B5%8B%E9%AA%8C/"><span>24 练习篇：K8s 集群配置测验</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/24-%E7%BB%83%E4%B9%A0%E7%AF%87k8s-%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE%E6%B5%8B%E9%AA%8C/"><span>24 练习篇：K8s 集群配置测验</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

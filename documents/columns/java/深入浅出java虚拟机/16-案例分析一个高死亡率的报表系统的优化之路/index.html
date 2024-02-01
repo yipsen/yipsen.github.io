@@ -30,10 +30,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -42,7 +42,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -214,12 +214,10 @@
 </style><article class="post-block">
         <h1 class="post-title">16 案例分析：一个高死亡率的报表系统的优化之路</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2022-01-09 11:12:35</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入浅出Java虚拟机</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2022-01-09 11:12:35</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>本课时我们主要分析一个案例，那就是一个“高死亡率”报表系统的优化之路。</p>
 <p>传统观念上的报表系统，可能访问量不是特别多，点击一个查询按钮，后台 SQL 语句的执行需要等数秒。如果使用 jstack 来查看执行线程，会发现大多数线程都阻塞在数据库的 I/O 上。</p>
@@ -593,6 +591,11 @@ private DataSource dataSource;
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/">深入浅出Java虚拟机</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -601,26 +604,38 @@ private DataSource dataSource;
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/15-%E9%A2%84%E8%AD%A6%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA-gc-%E7%9B%91%E6%8E%A7%E4%B8%8E%E8%B0%83%E4%BC%98/"><span>15 预警与解决：深入浅出 GC 监控与调优</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/15-%E9%A2%84%E8%AD%A6%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA-gc-%E7%9B%91%E6%8E%A7%E4%B8%8E%E8%B0%83%E4%BC%98/"><span>15 预警与解决：深入浅出 GC 监控与调优</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/17-%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E5%90%8E%E6%88%91%E7%9A%84%E5%BA%94%E7%94%A8%E5%B4%A9%E6%BA%83%E4%BA%86/"><span>17 案例分析：分库分表后，我的应用崩溃了</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAjava%E8%99%9A%E6%8B%9F%E6%9C%BA/17-%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E5%90%8E%E6%88%91%E7%9A%84%E5%BA%94%E7%94%A8%E5%B4%A9%E6%BA%83%E4%BA%86/"><span>17 案例分析：分库分表后，我的应用崩溃了</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

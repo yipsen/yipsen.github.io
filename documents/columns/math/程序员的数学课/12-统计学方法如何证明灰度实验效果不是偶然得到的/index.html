@@ -33,10 +33,10 @@ import randomimport numpy as npxbarlist = []for i in range(1000):xbar = 0fo
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -45,7 +45,7 @@ import randomimport numpy as npxbarlist = []for i in range(1000):xbar = 0fo
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -209,12 +209,10 @@ import randomimport numpy as npxbarlist = []for i in range(1000):xbar = 0fo
 </style><article class="post-block">
         <h1 class="post-title">12 统计学方法：如何证明灰度实验效果不是偶然得到的？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:50:11</span>🏷️&nbsp;<a class="post-tag" href="/tags/math/">math</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/">程序员的数学课</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:50:11</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>你好，欢迎来到第 12 课时—— 统计学方法：如何证明灰度实验效果不是偶然得到的？</p>
 <p>当你做完 AB 实验，拿着实验结果来论证 v2.0 的系统比 v1.0 的系统效果更好的时候，极有可能有人站出来这样质疑“你的实验结果可信度如何？它是偶然得到的，还是一个必然结果？”</p>
@@ -330,6 +328,11 @@ print var
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/math/">math</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/">程序员的数学课</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -338,26 +341,38 @@ print var
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/11-%E7%81%B0%E5%BA%A6%E5%AE%9E%E9%AA%8C%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E7%81%B0%E5%BA%A6%E5%AE%9E%E9%AA%8C%E5%B9%B6%E8%AE%A1%E7%AE%97%E5%AE%9E%E9%AA%8C%E7%9A%84%E6%94%B6%E7%9B%8A/"><span>11 灰度实验：如何设计灰度实验并计算实验的收益？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/11-%E7%81%B0%E5%BA%A6%E5%AE%9E%E9%AA%8C%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E7%81%B0%E5%BA%A6%E5%AE%9E%E9%AA%8C%E5%B9%B6%E8%AE%A1%E7%AE%97%E5%AE%9E%E9%AA%8C%E7%9A%84%E6%94%B6%E7%9B%8A/"><span>11 灰度实验：如何设计灰度实验并计算实验的收益？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/13-%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%AF%B9%E7%A8%8B%E5%BA%8F%E8%BF%9B%E8%A1%8C%E4%BC%98%E5%8C%96/"><span>13 复杂度：如何利用数学推导对程序进行优化？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/13-%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%AF%B9%E7%A8%8B%E5%BA%8F%E8%BF%9B%E8%A1%8C%E4%BC%98%E5%8C%96/"><span>13 复杂度：如何利用数学推导对程序进行优化？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

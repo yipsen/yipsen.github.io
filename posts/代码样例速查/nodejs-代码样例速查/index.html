@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>NodeJS 代码样例速查 | Yipsen Ye</title>
+<meta name="description" content="删除文件夹 const fs = require(&amp;#39;fs&amp;#39;); const path = require(&amp;#39;path&amp;#39;); function delDir(folderpath) { if (fs.existsSync(folderpath)) { let files = fs.readdirSync(folderpath); files.forEach((file, index) =&amp;gt; { let curPath = path.join(folderpath, file); console.log(curPath); if (fs.statSync(curPath).isDirectory()) { delDir(curPath); } else { fs.unlinkSync(curPath); } }); fs.rmdirSync(folderpath); } } ">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title">NodeJS 代码样例速查</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-02-06 16:31:43</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <h3 id="删除文件夹">删除文件夹</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fs</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;fs&#39;</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">path</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;path&#39;</span>);
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">delDir</span>(<span style="color:#a6e22e">folderpath</span>) {
+ <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">existsSync</span>(<span style="color:#a6e22e">folderpath</span>)) {
+  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">files</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readdirSync</span>(<span style="color:#a6e22e">folderpath</span>);
+  <span style="color:#a6e22e">files</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">file</span>, <span style="color:#a6e22e">index</span>) =&gt; {
+   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">curPath</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">join</span>(<span style="color:#a6e22e">folderpath</span>, <span style="color:#a6e22e">file</span>);
+   <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">curPath</span>);
+   <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">statSync</span>(<span style="color:#a6e22e">curPath</span>).<span style="color:#a6e22e">isDirectory</span>()) {
+    <span style="color:#a6e22e">delDir</span>(<span style="color:#a6e22e">curPath</span>);
+   } <span style="color:#66d9ef">else</span> {
+    <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">unlinkSync</span>(<span style="color:#a6e22e">curPath</span>);
+   }
+  });
+  <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">rmdirSync</span>(<span style="color:#a6e22e">folderpath</span>);
+ }
+}
+</code></pre></div>
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/">代码样例速查</a>&nbsp;</div>
+    <div></div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/python-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/"><span>Python 代码样例速查</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/posts/linux/linux-%E9%87%8D%E7%BD%AE%E5%AF%86%E7%A0%81/"><span>Linux 重置密码</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

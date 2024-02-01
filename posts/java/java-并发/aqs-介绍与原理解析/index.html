@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>AQS 介绍与原理解析 | Yipsen Ye</title>
+<meta name="description" content="AQS 介绍 AQS 即 AbstractQueuedSynchronizer 类，一个抽象队列同步器，是对 CLH 队列锁的一种变体实现，并作为抽象类方便后续子类的扩展。
+核心数据结构：CLH 队列 在多线程并发编程中遇到需要维护共享资源或者保证执行顺序时，会使用到锁的机制。
+锁机制的设计是出现在多线程并发资源抢占的逻辑，本质上是线程底层对资源 state 调用了 JVM 的 CAS 操作(UnSafe#compareAndSwapInt)，而当多线程并发执行该 CAS 操作时，最多只能有一个线程会操作成功（即资源抢占成功），而其他的都在自旋，这样就造成不必要的 CPU 开销。 为解决此问题，AQS 引入了 CLH 队列机制，并做了变种使得队列内只有一个节点在执行状态中（占用 CPU 资源），其余的全部处于阻塞状态（不占用 CPU 资源），当且仅当执行节点执行完毕后，才唤醒其后继节点，而此时也仅有被唤醒的节点才去尝试抢占资源并获得 CPU 执行权。因此同一时刻最多只有被唤醒的后继节点以及新入队的节点会抢占 CPU 资源，其余的都在阻塞状态中，以此极大的减少了不必要的 CPU 开销。
+CLH 队列在 AQS 中的工作原理 图示：
+流程说明：
+AQS 中的关键属性与特性 AQS 作为对锁的基础实现，主要提供四大特性，分别为：
+ 获取锁 acquire 释放锁 release 获取队列详情 条件  核心重点在于前面两个特性，即锁的获取与释放。
+同时满足两种模式的锁，即
+ 独占式 共享式  为实现这些特性，我们先看下 AQS 的内部结构。
+AQS 的内部结构 关键对象：节点Node  Node: CLH 队列中的节点，代表一个线程进入 CLH 队列。   注：分独占模式与共享模式">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title">AQS 介绍与原理解析</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-02-06 16:31:43</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <h3 id="aqs-介绍">AQS 介绍</h3>
+<p>AQS 即 AbstractQueuedSynchronizer 类，一个抽象队列同步器，是对 CLH 队列锁的一种变体实现，并作为抽象类方便后续子类的扩展。</p>
+<h3 id="核心数据结构clh-队列">核心数据结构：CLH 队列</h3>
+<p>在多线程并发编程中遇到需要维护共享资源或者保证执行顺序时，会使用到锁的机制。</p>
+<p>锁机制的设计是出现在多线程并发资源抢占的逻辑，本质上是线程底层对资源 state 调用了 JVM 的 CAS 操作(UnSafe#compareAndSwapInt)，而当多线程并发执行该 CAS 操作时，最多只能有一个线程会操作成功（即资源抢占成功），而其他的都在自旋，这样就造成不必要的 CPU 开销。
+为解决此问题，AQS 引入了 CLH 队列机制，并做了变种使得队列内只有一个节点在执行状态中（占用 CPU 资源），其余的全部处于阻塞状态（不占用 CPU 资源），当且仅当执行节点执行完毕后，才唤醒其后继节点，而此时也仅有被唤醒的节点才去尝试抢占资源并获得 CPU 执行权。因此同一时刻最多只有被唤醒的后继节点以及新入队的节点会抢占 CPU 资源，其余的都在阻塞状态中，以此极大的减少了不必要的 CPU 开销。</p>
+<h4 id="clh-队列在-aqs-中的工作原理">CLH 队列在 AQS 中的工作原理</h4>
+<p>图示：</p>
+<p>流程说明：</p>
+<h3 id="aqs-中的关键属性与特性">AQS 中的关键属性与特性</h3>
+<p>AQS 作为对锁的基础实现，主要提供四大特性，分别为：</p>
+<ol>
+<li>获取锁 acquire</li>
+<li>释放锁 release</li>
+<li>获取队列详情</li>
+<li>条件</li>
+</ol>
+<p>核心重点在于前面两个特性，即锁的获取与释放。</p>
+<p>同时满足两种模式的锁，即</p>
+<ol>
+<li>独占式</li>
+<li>共享式</li>
+</ol>
+<p>为实现这些特性，我们先看下 AQS 的内部结构。</p>
+<h4 id="aqs-的内部结构">AQS 的内部结构</h4>
+<h4 id="关键对象节点node">关键对象：节点Node</h4>
+<ol>
+<li>Node: CLH 队列中的节点，代表一个线程进入 CLH 队列。</li>
+</ol>
+<blockquote>
+<p>注：分独占模式与共享模式</p>
+</blockquote>
+<p>节点状态</p>
+<ul>
+<li>0： 表示初始状态</li>
+<li>CANCELLED（1）：表示线程已取消执行</li>
+<li>SIGNAL（-1）：表示后继线程需要解除挂起状态（唤醒）</li>
+<li>CONDITION（-2）：表示线程在等待执行条件</li>
+<li>PROPAGATE（-3）：共享锁专用</li>
+</ul>
+<blockquote>
+<p>从节点状态的取值可以看到，故意将CANCELLED的取值单独设置为正数，即可认为非负数则是不需要再通知的，并以此为原则。
+好处是后续代码中有大部分代码只需要对状态判断符号，而不需要判断具体取值。</p>
+</blockquote>
+<h4 id="关键属性状态state">关键属性：状态state</h4>
+<h3 id="源码解析">源码解析</h3>
+<p>接下来我们从两个特性的入口来看 AQS 源码是怎么实现的，并理解 AQS 结构设计以及各内部对象的设计意义。</p>
+<h4 id="1-获取锁的逻辑分析">1. 获取锁的逻辑分析</h4>
+<p>获取锁的入口是 acquire 方法</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">acquire</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> arg<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>tryAcquire<span style="color:#f92672">(</span>arg<span style="color:#f92672">)</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#75715e">// Yipsen: 尝试取锁，取成功就直接返回了。
+</span><span style="color:#75715e"></span>            acquireQueued<span style="color:#f92672">(</span>addWaiter<span style="color:#f92672">(</span>Node<span style="color:#f92672">.</span><span style="color:#a6e22e">EXCLUSIVE</span><span style="color:#f92672">),</span> arg<span style="color:#f92672">))</span> <span style="color:#75715e">// 取锁失败则需要请求入队（acquireQueued），但入队前需要把当前线程构造成一个独占节点（addWaiter），addWaiter如论如何都会成功，如果 CHL 没有初始化，也会先初始化再入队。
+</span><span style="color:#75715e"></span>            selfInterrupt<span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><p>接下来我们看下 acquireQueued 的逻辑。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">acquireQueued</span><span style="color:#f92672">(</span><span style="color:#66d9ef">final</span> Node node<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> arg<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">boolean</span> failed <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">boolean</span> interrupted <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+            <span style="color:#66d9ef">for</span> <span style="color:#f92672">(;;)</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">final</span> Node p <span style="color:#f92672">=</span> node<span style="color:#f92672">.</span><span style="color:#a6e22e">predecessor</span><span style="color:#f92672">();</span>
+                <span style="color:#75715e">// Yipsen: 如果是第一个节点（即前驱节点是 Head 哨兵节点），则会一直尝试取锁，取到则跳出自旋（并把自己设置为 Head 哨兵节点，原 Head 哨兵节点断开连接等待 GC 收拾。如果中间被中断，有技巧标记被中断）
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>p <span style="color:#f92672">==</span> head <span style="color:#f92672">&amp;&amp;</span> tryAcquire<span style="color:#f92672">(</span>arg<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                    setHead<span style="color:#f92672">(</span>node<span style="color:#f92672">);</span>
+                    p<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span> <span style="color:#75715e">// help GC
+</span><span style="color:#75715e"></span>                    failed <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+                    <span style="color:#66d9ef">return</span> interrupted<span style="color:#f92672">;</span>
+                <span style="color:#f92672">}</span>
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>shouldParkAfterFailedAcquire<span style="color:#f92672">(</span>p<span style="color:#f92672">,</span> node<span style="color:#f92672">)</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#75715e">// Yipsen: 如果不是第一个节点，就把前驱节点标记为 SIGNAL。（死循环地进行标记，标记失败返回 false，下次循环重试。当然如果下次循环发现自己已经变成第一个节点时，也可以直接去取锁了）
+</span><span style="color:#75715e"></span>                    parkAndCheckInterrupt<span style="color:#f92672">())</span> <span style="color:#75715e">// Yipsen: 阻塞自己，陷入自旋的死循环中。
+</span><span style="color:#75715e"></span>                    interrupted <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span> <span style="color:#75715e">// Yipsen: 至此已经加入到 CLH 队列自旋等待中...
+</span><span style="color:#75715e"></span>            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">finally</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>failed<span style="color:#f92672">)</span>
+                cancelAcquire<span style="color:#f92672">(</span>node<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><p>那么 shouldParkAfterFailedAcquire 具体做了那么事情呢？</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">shouldParkAfterFailedAcquire</span><span style="color:#f92672">(</span>Node pred<span style="color:#f92672">,</span> Node node<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">int</span> ws <span style="color:#f92672">=</span> pred<span style="color:#f92672">.</span><span style="color:#a6e22e">waitStatus</span><span style="color:#f92672">;</span>
+        <span style="color:#75715e">// Yipsen: 卫语句，如果前驱节点已经是 SIGNAL，直接返回 true，表示需要阻塞。
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>ws <span style="color:#f92672">==</span> Node<span style="color:#f92672">.</span><span style="color:#a6e22e">SIGNAL</span><span style="color:#f92672">)</span>
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
+        <span style="color:#75715e">// Yipsen: 如果前驱节点是 CANNEL，那就挨个检查把前驱是 CANNEL 的都剔除掉。
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>ws <span style="color:#f92672">&gt;</span> 0<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">do</span> <span style="color:#f92672">{</span>
+                node<span style="color:#f92672">.</span><span style="color:#a6e22e">prev</span> <span style="color:#f92672">=</span> pred <span style="color:#f92672">=</span> pred<span style="color:#f92672">.</span><span style="color:#a6e22e">prev</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span> <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>pred<span style="color:#f92672">.</span><span style="color:#a6e22e">waitStatus</span> <span style="color:#f92672">&gt;</span> 0<span style="color:#f92672">);</span>
+            pred<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span> <span style="color:#f92672">=</span> node<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+             <span style="color:#75715e">// Yipsen: 如果前驱节点没有被取消，即状态为（0 || CONDITION || PROPAGATE），那么就将前驱节点设置成 SIGNAL。
+</span><span style="color:#75715e"></span>             <span style="color:#75715e">// （为什么必须是 SIGNAL 呢？因为希望自己的前驱节点在释放锁的时候，能通知自己（让自己获取锁）。
+</span><span style="color:#75715e"></span>            compareAndSetWaitStatus<span style="color:#f92672">(</span>pred<span style="color:#f92672">,</span> ws<span style="color:#f92672">,</span> Node<span style="color:#f92672">.</span><span style="color:#a6e22e">SIGNAL</span><span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#75715e">// Yipsen: 重来，先别阻塞，因为 818 行的 compareAndSetWaitStatus(pred, ws, Node.SIGNAL) 可能会失败的。
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><p>根据源码逻辑梳理，我们大致能总结到整体流程如下图：</p>
+<h4 id="2-释放锁的逻辑分析">2. 释放锁的逻辑分析</h4>
+<h3 id="aqs-在-reentrantlock-中的使用">AQS 在 ReentrantLock 中的使用</h3>
+<p>AQS 作为基础抽象类，主要规范了整个锁设计的框架，下面以具体实现类 ReentrantLock 为例，来看下具体是怎么使用的。ReentrantLock 是典型的可重入锁设计，可以替代 synchronized 关键字实现代码同步锁，且拥有更灵活的控制。</p>
+
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/java-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/"><span>Java 代码样例速查</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0web-%E5%89%8D%E7%AB%AF%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83%E6%B1%87%E6%80%BB/"><span>【持续更新】Web 前端设计规范汇总</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

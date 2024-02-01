@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>结构型 - 代理模式 | Yipsen Ye</title>
+<meta name="description" content="代理在软件设计中是一种非常常见的设计思路，
+为什么需要代理模式 常见应用场景 结构 实现方式 代理模式实现上有静态代理与动态代理之分。而动态代理又有JDK自带的实现方案，也有CGLib等第三方工具的实现方案，效果各有不同。
+一、静态代理
+二、动态代理（JDK实现方案）
+三、动态代理（CGLib实现方案）
+使用案例 // 待补充实际工作上项目的使用案例。
+引申 总结 ">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><aside>
+    <div>
+        
+        
+            
+            
+            <div class="post-category-icon"></div>
+            <a href="/categories/java%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f/">Java设计模式</a>
+            <ul>
+                
+                
+                    <li><a href="http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/">创建型 - 单例模式</a></li>
+                
+                
+                
+                    <li>结构型 - 代理模式</li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A1%8C%E4%B8%BA%E5%9E%8B-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/">行为型 - 观察者模式</a></li>
+                
+                
+            </ul>
+        
+    </div>
+</aside>
+
+<style>
+    aside {
+        position: fixed;
+        left: 20px;
+        background: #ffdee3;
+        border-radius: 6px;
+        padding: 20px;
+        padding-top: 60px;
+        box-shadow: 5px 10px #888;
+        list-style-type: none;
+        display: none;
+    }
+
+    .post-category-icon {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        left: 50%;
+        margin-left: -40px;
+        text-align: center;
+        font-size: 36px;
+        content: 'J';
+        background: #ffdee3;
+        border-radius: 100%;
+        border: 10px solid #fff;
+        box-shadow: 5px 10px #888;
+    }
+</style><article class="post-block">
+        <h1 class="post-title">结构型 - 代理模式</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-02-06 16:31:43</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <p>代理在软件设计中是一种非常常见的设计思路，</p>
+<h2 id="为什么需要代理模式">为什么需要代理模式</h2>
+<h3 id="常见应用场景">常见应用场景</h3>
+<h2 id="结构">结构</h2>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">
+</code></pre><h2 id="实现方式">实现方式</h2>
+<p>代理模式实现上有静态代理与动态代理之分。而动态代理又有JDK自带的实现方案，也有CGLib等第三方工具的实现方案，效果各有不同。</p>
+<p>一、静态代理</p>
+<p>二、动态代理（JDK实现方案）</p>
+<p>三、动态代理（CGLib实现方案）</p>
+<h2 id="使用案例">使用案例</h2>
+<p>// 待补充实际工作上项目的使用案例。</p>
+<h2 id="引申">引申</h2>
+<h2 id="总结">总结</h2>
+
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">Java</a>&nbsp;🏷️<a class="post-tag" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">Java设计模式</a>&nbsp; </div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/posts/java/java-%E5%B9%B6%E5%8F%91/%E8%87%AA%E6%97%8B%E9%94%81%E4%B8%8E%E4%BA%92%E6%96%A5%E9%94%81/"><span>自旋锁与互斥锁</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/"><span>创建型 - 单例模式</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script async src="https://cdn.staticfile.org/mermaid/8.6.4/mermaid.min.js"></script>
+<script>
+    
+    Array.from(document.getElementsByClassName('language-mermaid')).forEach(el => {
+        el.parentElement.outerHTML = `<div class="mermaid">${el.innerText}</div>`
+    })
+</script>
+
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

@@ -33,10 +33,10 @@ Kafka 官网明确定义 Kafka Streams 是一个Java 客户端库（Client Libra
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -45,7 +45,7 @@ Kafka 官网明确定义 Kafka Streams 是一个Java 客户端库（Client Libra
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -289,12 +289,10 @@ Kafka 官网明确定义 Kafka Streams 是一个Java 客户端库（Client Libra
 </style><article class="post-block">
         <h1 class="post-title">40 Kafka Streams与其他流处理平台的差异在哪里？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:46:34</span>🏷️&nbsp;<a class="post-tag" href="/tags/kafka/">kafka</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/">Kafka核心技术与实战</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:46:34</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>你好，我是胡夕。今天我要和你分享的主题是：Kafka Streams 与其他流处理平台的差异。</p>
 <p>近些年来，开源流处理领域涌现出了很多优秀框架。光是在 Apache 基金会孵化的项目，关于流处理的大数据框架就有十几个之多，比如早期的 Apache Samza、Apache Storm，以及这两年火爆的 Spark 以及 Flink 等。</p>
@@ -381,6 +379,11 @@ Kafka 官网明确定义 Kafka Streams 是一个Java 客户端库（Client Libra
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/kafka/">kafka</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/">Kafka核心技术与实战</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -389,26 +392,38 @@ Kafka 官网明确定义 Kafka Streams 是一个Java 客户端库（Client Libra
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/39-%E4%BB%8E0%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8Ekafka%E7%9A%84%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%AE%9E%E6%97%B6%E6%97%A5%E5%BF%97%E6%B5%81%E5%A4%84%E7%90%86%E5%B9%B3%E5%8F%B0/"><span>39 从0搭建基于Kafka的企业级实时日志流处理平台</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/39-%E4%BB%8E0%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8Ekafka%E7%9A%84%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%AE%9E%E6%97%B6%E6%97%A5%E5%BF%97%E6%B5%81%E5%A4%84%E7%90%86%E5%B9%B3%E5%8F%B0/"><span>39 从0搭建基于Kafka的企业级实时日志流处理平台</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/41-kafka-streams-dsl%E5%BC%80%E5%8F%91%E5%AE%9E%E4%BE%8B/"><span>41 Kafka Streams DSL开发实例</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kafka/kafka%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/41-kafka-streams-dsl%E5%BC%80%E5%8F%91%E5%AE%9E%E4%BE%8B/"><span>41 Kafka Streams DSL开发实例</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

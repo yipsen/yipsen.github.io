@@ -24,10 +24,10 @@ public class HttpServer {public void start(int port) throws Exception {EventLo
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -36,7 +36,7 @@ public class HttpServer {public void start(int port) throws Exception {EventLo
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -228,12 +228,10 @@ public class HttpServer {public void start(int port) throws Exception {EventLo
 </style><article class="post-block">
         <h1 class="post-title">03 引导器作用：客户端和服务端启动都要做些什么？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:54:24</span>🏷️&nbsp;<a class="post-tag" href="/tags/netty/">netty</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/">Netty核心原理剖析与RPC实践</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:54:24</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>你好，我是若地。上节课我们介绍了 Netty 中核心组件的作用以及组件协作的方式方法。从这节课开始，我们将对 Netty 的每个核心组件依次进行深入剖析解读。我会结合相应的代码示例讲解，帮助你快速上手 Netty。</p>
 <p>我们在使用 Netty 编写网络应用程序的时候，一定会从<strong>引导器 Bootstrap</strong>开始入手。Bootstrap 作为整个 Netty 客户端和服务端的<strong>程序入口</strong>，可以把 Netty 的核心组件像搭积木一样组装在一起。本节课我会从 Netty 的引导器<strong>Bootstrap</strong>出发，带你学习如何使用 Netty 进行最基本的程序开发。</p>
@@ -535,6 +533,11 @@ b.group(bossGroup, workerGroup)
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/netty/">netty</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/">Netty核心原理剖析与RPC实践</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -543,26 +546,38 @@ b.group(bossGroup, workerGroup)
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/02-%E7%BA%B5%E8%A7%88%E5%85%A8%E5%B1%80%E6%8A%8A%E6%8F%A1-netty-%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84%E8%84%89%E7%BB%9C/"><span>02 纵览全局：把握 Netty 整体架构脉络</span></a>
+        <a href="http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/02-%E7%BA%B5%E8%A7%88%E5%85%A8%E5%B1%80%E6%8A%8A%E6%8F%A1-netty-%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84%E8%84%89%E7%BB%9C/"><span>02 纵览全局：把握 Netty 整体架构脉络</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/04-%E4%BA%8B%E4%BB%B6%E8%B0%83%E5%BA%A6%E5%B1%82%E4%B8%BA%E4%BB%80%E4%B9%88-eventloop-%E6%98%AF-netty-%E7%9A%84%E7%B2%BE%E9%AB%93/"><span>04 事件调度层：为什么 EventLoop 是 Netty 的精髓？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/netty/netty%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8Erpc%E5%AE%9E%E8%B7%B5/04-%E4%BA%8B%E4%BB%B6%E8%B0%83%E5%BA%A6%E5%B1%82%E4%B8%BA%E4%BB%80%E4%B9%88-eventloop-%E6%98%AF-netty-%E7%9A%84%E7%B2%BE%E9%AB%93/"><span>04 事件调度层：为什么 EventLoop 是 Netty 的精髓？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

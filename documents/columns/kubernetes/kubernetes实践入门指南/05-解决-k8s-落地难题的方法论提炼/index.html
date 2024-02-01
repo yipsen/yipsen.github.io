@@ -32,10 +32,10 @@ GitOps 配合 Jenkins 的 Pipeline 流水线，可以创建业务场景中需要
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -44,7 +44,7 @@ GitOps 配合 Jenkins 的 Pipeline 流水线，可以创建业务场景中需要
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -208,12 +208,10 @@ GitOps 配合 Jenkins 的 Pipeline 流水线，可以创建业务场景中需要
 </style><article class="post-block">
         <h1 class="post-title">05 解决 K8s 落地难题的方法论提炼</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:48:11</span>🏷️&nbsp;<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/">Kubernetes实践入门指南</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:48:11</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>做过技术落地的读者应该有所体会，任何技术经过一段时间的积累都会形成一套约定成熟的方法论，包括 Kubernetes 也不例外。在这些落地实践中比较突出的问题，有构建集群的问题、CI/CD 如何构建的问题、资源租户管理的问题，还有安全问题最为突出。本文为了让使用 Kubernetes 的后来者能少走弯路，通过总结前人经验的方式给大家做一次深度提炼。</p>
 <h3 id="构建弹性集群策略">构建弹性集群策略</h3>
@@ -279,6 +277,11 @@ GitOps 配合 Jenkins 的 Pipeline 流水线，可以创建业务场景中需要
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/kubernetes/">kubernetes</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/">Kubernetes实践入门指南</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -287,26 +290,38 @@ GitOps 配合 Jenkins 的 Pipeline 流水线，可以创建业务场景中需要
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/04-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E8%90%BD%E5%9C%B0-k8s-%E7%9A%84%E5%9B%B0%E9%9A%BE%E5%88%86%E6%9E%90/"><span>04 微服务应用场景下落地 K8s 的困难分析</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/04-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8B%E8%90%BD%E5%9C%B0-k8s-%E7%9A%84%E5%9B%B0%E9%9A%BE%E5%88%86%E6%9E%90/"><span>04 微服务应用场景下落地 K8s 的困难分析</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/06-%E7%BB%83%E4%B9%A0%E7%AF%87k8s-%E6%A0%B8%E5%BF%83%E5%AE%9E%E8%B7%B5%E7%9F%A5%E8%AF%86%E6%8E%8C%E6%8F%A1/"><span>06 练习篇：K8s 核心实践知识掌握</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/06-%E7%BB%83%E4%B9%A0%E7%AF%87k8s-%E6%A0%B8%E5%BF%83%E5%AE%9E%E8%B7%B5%E7%9F%A5%E8%AF%86%E6%8E%8C%E6%8F%A1/"><span>06 练习篇：K8s 核心实践知识掌握</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

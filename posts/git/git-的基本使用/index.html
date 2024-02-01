@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>Git 的基本使用 | Yipsen Ye</title>
+<meta name="description" content="1. 取消 SSL 证书校验 git config --global http.sslVerify false 2. 提交密钥 # 基本使用 git push https://&amp;lt;username&amp;gt;:&amp;lt;password&amp;gt;@github.com/&amp;lt;username&amp;gt;/&amp;lt;repository&amp;gt;.git --all # 使用样例 git push https://yipsen:ghp_ir6E94TlMJcW9Hq3GANJ1hfFarrJsX1PDKDV@github.com/yipsen/xxx.git --all 3. 代码库迁移 # 镜像拷贝：含历史提交记录 git clone -bare &amp;lt;old_repository_url&amp;gt; cd &amp;lt;respository_name&amp;gt; # 镜像推送：含历史提交记录 git push --mirror &amp;lt;new_repository_url&amp;gt; cd .. # 新代码拉取 git clone &amp;lt;new_repository_url&amp;gt; 4. 打Tag # 新增 git tag -a &amp;lt;tag_name&amp;gt; -m &amp;#34;xxx version&amp;#34; # 推送新增 git push origin &amp;lt;tag_name&amp;gt; # 删除 git tag -d &amp;lt;tag_name&amp;gt; # 推送删除 git push origin --delete &amp;lt;tag_name&amp;gt; # 提交全部 Tag git push origin --tags 5.">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title">Git 的基本使用</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-03-05 08:34:41</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <h3 id="1-取消-ssl-证书校验">1. 取消 SSL 证书校验</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git config --global http.sslVerify false
+</code></pre></div><h3 id="2-提交密钥">2. 提交密钥</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 基本使用</span>
+git push https://&lt;username&gt;:&lt;password&gt;@github.com/&lt;username&gt;/&lt;repository&gt;.git --all
+
+<span style="color:#75715e"># 使用样例</span>
+git push https://yipsen:ghp_ir6E94TlMJcW9Hq3GANJ1hfFarrJsX1PDKDV@github.com/yipsen/xxx.git --all
+</code></pre></div><h3 id="3-代码库迁移">3. 代码库迁移</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 镜像拷贝：含历史提交记录</span>
+git clone -bare &lt;old_repository_url&gt;
+
+cd &lt;respository_name&gt;
+
+<span style="color:#75715e"># 镜像推送：含历史提交记录</span>
+git push --mirror &lt;new_repository_url&gt;
+
+cd ..
+
+<span style="color:#75715e"># 新代码拉取</span>
+git clone &lt;new_repository_url&gt;
+</code></pre></div><h3 id="4-打tag">4. 打Tag</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 新增</span>
+git tag -a &lt;tag_name&gt; -m <span style="color:#e6db74">&#34;xxx version&#34;</span>
+
+<span style="color:#75715e"># 推送新增</span>
+git push origin &lt;tag_name&gt;
+
+<span style="color:#75715e"># 删除</span>
+git tag -d &lt;tag_name&gt;
+
+<span style="color:#75715e"># 推送删除</span>
+git push origin --delete &lt;tag_name&gt;
+
+<span style="color:#75715e"># 提交全部 Tag</span>
+git push origin --tags
+</code></pre></div><h3 id="5-撤销">5. 撤销</h3>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>命令</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>已<code>add</code>的撤销</td>
+<td><code>git reset &lt;filename&gt;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>已<code>commit</code>的撤销</td>
+<td><code>git reset --soft HEAD~1</code></td>
+<td></td>
+</tr>
+<tr>
+<td>已修改的撤销</td>
+<td><code>git checkout &lt;filename&gt;</code></td>
+<td>注意：本地修改会丢失！</td>
+</tr>
+<tr>
+<td>已<code>merge</code>的撤销</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/posts/kafka/kafka-%E9%83%A8%E7%BD%B2/"><span>Kafka 部署</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C/"><span>一致性哈希</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

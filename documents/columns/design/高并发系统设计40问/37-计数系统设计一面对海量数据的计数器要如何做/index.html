@@ -40,10 +40,10 @@ select repost_count, comment_count, praise_count, view_count from t_weibo_count 
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -52,7 +52,7 @@ select repost_count, comment_count, praise_count, view_count from t_weibo_count 
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -296,12 +296,10 @@ select repost_count, comment_count, praise_count, view_count from t_weibo_count 
 </style><article class="post-block">
         <h1 class="post-title">37 计数系统设计（一）：面对海量数据的计数器要如何做？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:38:43</span>🏷️&nbsp;<a class="post-tag" href="/tags/design/">design</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/">高并发系统设计40问</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:38:43</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>你好，我是唐扬。</p>
 <p>从今天开始，我们正式进入最后的实战篇。在之前的课程中，我分别从数据库、缓存、消息队列和分布式服务化的角度，带你了解了面对高并发的时候要如何保证系统的高性能、高可用和高可扩展。课程中虽然有大量的例子辅助你理解理论知识，但是没有一个完整的实例帮你把知识串起来。</p>
@@ -392,6 +390,11 @@ insert(FFFF) // 插入一个特殊的标
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/design/">design</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/">高并发系统设计40问</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -400,26 +403,38 @@ insert(FFFF) // 插入一个特殊的标
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/36-%E9%9D%A2%E8%AF%95%E7%8E%B0%E5%9C%BA%E7%AC%AC%E4%B8%89%E6%9C%9F%E4%BD%A0%E8%A6%81%E5%A6%82%E4%BD%95%E5%87%86%E5%A4%87%E4%B8%80%E5%9C%BA%E6%8A%80%E6%9C%AF%E9%9D%A2%E8%AF%95%E5%91%A2/"><span>36 面试现场第三期：你要如何准备一场技术面试呢？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/36-%E9%9D%A2%E8%AF%95%E7%8E%B0%E5%9C%BA%E7%AC%AC%E4%B8%89%E6%9C%9F%E4%BD%A0%E8%A6%81%E5%A6%82%E4%BD%95%E5%87%86%E5%A4%87%E4%B8%80%E5%9C%BA%E6%8A%80%E6%9C%AF%E9%9D%A2%E8%AF%95%E5%91%A2/"><span>36 面试现场第三期：你要如何准备一场技术面试呢？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/38-%E8%AE%A1%E6%95%B0%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%BA%8C50%E4%B8%87qps%E4%B8%8B%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%9C%AA%E8%AF%BB%E6%95%B0%E7%B3%BB%E7%BB%9F/"><span>38 计数系统设计（二）：50万QPS下如何设计未读数系统？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/design/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/38-%E8%AE%A1%E6%95%B0%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%BA%8C50%E4%B8%87qps%E4%B8%8B%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%9C%AA%E8%AF%BB%E6%95%B0%E7%B3%BB%E7%BB%9F/"><span>38 计数系统设计（二）：50万QPS下如何设计未读数系统？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

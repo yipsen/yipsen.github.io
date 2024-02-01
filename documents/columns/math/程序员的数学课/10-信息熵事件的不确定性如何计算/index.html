@@ -31,10 +31,10 @@ import mathdef entropy(*c):result = 0islegal = 0for x in c:islegal &#43;= x
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -43,7 +43,7 @@ import mathdef entropy(*c):result = 0islegal = 0for x in c:islegal &#43;= x
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -207,12 +207,10 @@ import mathdef entropy(*c):result = 0islegal = 0for x in c:islegal &#43;= x
 </style><article class="post-block">
         <h1 class="post-title">10 信息熵：事件的不确定性如何计算？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:50:09</span>🏷️&nbsp;<a class="post-tag" href="/tags/math/">math</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/">程序员的数学课</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:50:09</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>你好，欢迎来到第 10 课时——信息熵：事件的不确定性如何计算？</p>
 <p>从加乘法则开始，我们基于事情的不确定性出发，尝试计算事情发生的可能性。然而，<strong>对于事件与事件之间的不确定性如何相比和衡量，单独靠概率就无法说清楚了</strong>。我说的这句话是什么意思呢？下面我举个例子来说明。</p>
@@ -320,6 +318,11 @@ print entropy(0.9,0.1)
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/math/">math</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/">程序员的数学课</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -328,26 +331,38 @@ print entropy(0.9,0.1)
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/09-%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8-mle-%E5%AF%B9%E5%8F%82%E6%95%B0%E8%BF%9B%E8%A1%8C%E4%BC%B0%E8%AE%A1/"><span>09 似然估计：如何利用 MLE 对参数进行估计？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/09-%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8-mle-%E5%AF%B9%E5%8F%82%E6%95%B0%E8%BF%9B%E8%A1%8C%E4%BC%B0%E8%AE%A1/"><span>09 似然估计：如何利用 MLE 对参数进行估计？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/11-%E7%81%B0%E5%BA%A6%E5%AE%9E%E9%AA%8C%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E7%81%B0%E5%BA%A6%E5%AE%9E%E9%AA%8C%E5%B9%B6%E8%AE%A1%E7%AE%97%E5%AE%9E%E9%AA%8C%E7%9A%84%E6%94%B6%E7%9B%8A/"><span>11 灰度实验：如何设计灰度实验并计算实验的收益？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/11-%E7%81%B0%E5%BA%A6%E5%AE%9E%E9%AA%8C%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E7%81%B0%E5%BA%A6%E5%AE%9E%E9%AA%8C%E5%B9%B6%E8%AE%A1%E7%AE%97%E5%AE%9E%E9%AA%8C%E7%9A%84%E6%94%B6%E7%9B%8A/"><span>11 灰度实验：如何设计灰度实验并计算实验的收益？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

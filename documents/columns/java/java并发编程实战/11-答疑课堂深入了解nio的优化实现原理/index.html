@@ -27,10 +27,10 @@ Tomcat 中看似一个简单的配置，其中却包含了大量的优化升级�
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -39,7 +39,7 @@ Tomcat 中看似一个简单的配置，其中却包含了大量的优化升级�
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -295,12 +295,10 @@ Tomcat 中看似一个简单的配置，其中却包含了大量的优化升级�
 </style><article class="post-block">
         <h1 class="post-title">11 答疑课堂：深入了解NIO的优化实现原理</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:44:14</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/">Java并发编程实战</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:44:14</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>你好，我是刘超。专栏上线已经有 20 多天的时间了，首先要感谢各位同学的积极留言，交流的过程使我也收获良好。</p>
 <p>综合查看完近期的留言以后，我的第一篇答疑课堂就顺势诞生了。我将继续讲解 I/O 优化，对大家在 08 讲中提到的内容做重点补充，并延伸一些有关 I/O 的知识点，更多结合实际场景进行分享。话不多说，我们马上切入正题。</p>
@@ -418,6 +416,11 @@ Tomcat 中看似一个简单的配置，其中却包含了大量的优化升级�
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/">Java并发编程实战</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -426,26 +429,38 @@ Tomcat 中看似一个简单的配置，其中却包含了大量的优化升级�
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/10-%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E4%BC%98%E5%8C%96%E4%B9%8B%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96rpc%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/"><span>10 网络通信优化之通信协议：如何优化RPC网络通信？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/10-%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E4%BC%98%E5%8C%96%E4%B9%8B%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96rpc%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/"><span>10 网络通信优化之通信协议：如何优化RPC网络通信？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/12-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%E9%94%81%E4%BC%98%E5%8C%96%E4%B8%8A%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3synchronized%E5%90%8C%E6%AD%A5%E9%94%81%E7%9A%84%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/"><span>12 多线程之锁优化（上）：深入了解Synchronized同步锁的优化方法</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98/12-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%E9%94%81%E4%BC%98%E5%8C%96%E4%B8%8A%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3synchronized%E5%90%8C%E6%AD%A5%E9%94%81%E7%9A%84%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/"><span>12 多线程之锁优化（上）：深入了解Synchronized同步锁的优化方法</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

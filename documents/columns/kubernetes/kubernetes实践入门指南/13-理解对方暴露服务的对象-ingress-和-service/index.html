@@ -20,10 +20,10 @@ Service 的思考 Service 定义的网络基于 iptables 编排 netfilter 规则
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -32,7 +32,7 @@ Service 的思考 Service 定义的网络基于 iptables 编排 netfilter 规则
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -196,12 +196,10 @@ Service 的思考 Service 定义的网络基于 iptables 编排 netfilter 规则
 </style><article class="post-block">
         <h1 class="post-title">13 理解对方暴露服务的对象 Ingress 和 Service</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:48:19</span>🏷️&nbsp;<a class="post-tag" href="/tags/kubernetes/">kubernetes</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/">Kubernetes实践入门指南</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:48:19</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>Kubernetes 中的服务（Service）可以理解为对外暴露服务的最小单元对象，这个和 Pod 对象还是有不同的。例如用户通过发布服务对象 Deployment 发布应用，当在容器集群中启动后，ReplicaSet 副本对象会帮我们维持 Pod 实例的副本数。Pod 使用的容器网络默认会选择构建在主机网络上的覆盖网络（Overlay），默认外网是无法直接访问这些 Pod 实例服务的。为了能有效对接容器网络，Kubernetes 创建了另外一层虚拟网络 ClusterIP，即 Service 对象。从实现上来看，它借助 iptables 调用底层 netfilter 实现了虚拟 IP，然后通过相应的规则链把南北向流量准确无误的接入后端 Pod 实例。随着需求的衍生，后来扩展的 Ingress 对象则是借助第三方代理服务如 HAProxy、Nginx 等 7 层引流工具打通外部流量和内部 Service 对象的通路。Ingress 对象的目的就是为了解决容器集群中需要高性能应用网关接入的需求。</p>
 <h3 id="service-的思考">Service 的思考</h3>
@@ -447,6 +445,11 @@ spec:
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/kubernetes/">kubernetes</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/">Kubernetes实践入门指南</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -455,26 +458,38 @@ spec:
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/12-%E7%BB%83%E4%B9%A0%E7%AF%87k8s-%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE%E6%B5%8B%E9%AA%8C/"><span>12 练习篇：K8s 集群配置测验</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/12-%E7%BB%83%E4%B9%A0%E7%AF%87k8s-%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE%E6%B5%8B%E9%AA%8C/"><span>12 练习篇：K8s 集群配置测验</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/14-%E5%BA%94%E7%94%A8%E7%BD%91%E5%85%B3-openresty-%E5%AF%B9%E6%8E%A5-k8s-%E5%AE%9E%E8%B7%B5/"><span>14 应用网关 OpenResty 对接 K8s 实践</span></a>
+        <a href="http://yipsen.github.io/documents/columns/kubernetes/kubernetes%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/14-%E5%BA%94%E7%94%A8%E7%BD%91%E5%85%B3-openresty-%E5%AF%B9%E6%8E%A5-k8s-%E5%AE%9E%E8%B7%B5/"><span>14 应用网关 OpenResty 对接 K8s 实践</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

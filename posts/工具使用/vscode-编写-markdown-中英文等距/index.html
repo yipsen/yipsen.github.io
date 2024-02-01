@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>VSCode 编写 markdown 中英文等距 | Yipsen Ye</title>
+<meta name="description" content="下载字体 下载地址: https://github.com/be5invis/Sarasa-Gothic/releases/tag/v0.40.1 下载 tff 格式: https://objects.githubusercontent.com/github-production-release-asset-2e65be/95871572/e7cbe568-9668-4628-997f-3dec15bd2046?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230224%2Fus-east-1%2Fs3%2Faws4_request&amp;amp;X-Amz-Date=20230224T123030Z&amp;amp;X-Amz-Expires=300&amp;amp;X-Amz-Signature=fe6d9e6b8361cdcf42a09960211d0ad7509078b222fa77e09a4b2db655c0ba90&amp;amp;X-Amz-SignedHeaders=host&amp;amp;actor_id=0&amp;amp;key_id=0&amp;amp;repo_id=95871572&amp;amp;response-content-disposition=attachment%3B%20filename%3Dsarasa-gothic-ttf-0.40.1.7z&amp;amp;response-content-type=application%2Foctet-stream
+安装字体  解压后复制选择的字体文件：sarasa-mono-sc-regular.ttf 安装字体：复制到目录C:\Windows\Fonts即可 检查是否安装成功：看是否有字体等距更纱黑体 SC 常规  VSCode 设置   按F1键弹出搜索框后输入settings.json，选择User的一项
+  编辑配置，由于``的英文过于逆天，感觉不适合编程使用，设置仅对 markdown 有效
+{ &amp;#34;[markdown]&amp;#34;: { &amp;#34;editor.defaultFormatter&amp;#34;: &amp;#34;yzhang.markdown-all-in-one&amp;#34;, &amp;#34;editor.fontFamily&amp;#34;: &amp;#34;&amp;#39;Sarasa Mono SC&amp;#39;&amp;#34;, }, &amp;#34;files.autoSave&amp;#34;: &amp;#34;afterDelay&amp;#34;, &amp;#34;editor.fontLigatures&amp;#34;: false }   必要的话，可以重启 VSCode 看是否生效
+  ">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title">VSCode 编写 markdown 中英文等距</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-02-06 16:31:43</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <h3 id="下载字体">下载字体</h3>
+<p>下载地址: <a href="https://github.com/be5invis/Sarasa-Gothic/releases/tag/v0.40.1">https://github.com/be5invis/Sarasa-Gothic/releases/tag/v0.40.1</a>
+下载 tff 格式: <a href="https://objects.githubusercontent.com/github-production-release-asset-2e65be/95871572/e7cbe568-9668-4628-997f-3dec15bd2046?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230224%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230224T123030Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=fe6d9e6b8361cdcf42a09960211d0ad7509078b222fa77e09a4b2db655c0ba90&amp;X-Amz-SignedHeaders=host&amp;actor_id=0&amp;key_id=0&amp;repo_id=95871572&amp;response-content-disposition=attachment%3B%20filename%3Dsarasa-gothic-ttf-0.40.1.7z&amp;response-content-type=application%2Foctet-stream">https://objects.githubusercontent.com/github-production-release-asset-2e65be/95871572/e7cbe568-9668-4628-997f-3dec15bd2046?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230224%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230224T123030Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=fe6d9e6b8361cdcf42a09960211d0ad7509078b222fa77e09a4b2db655c0ba90&amp;X-Amz-SignedHeaders=host&amp;actor_id=0&amp;key_id=0&amp;repo_id=95871572&amp;response-content-disposition=attachment%3B%20filename%3Dsarasa-gothic-ttf-0.40.1.7z&amp;response-content-type=application%2Foctet-stream</a></p>
+<h3 id="安装字体">安装字体</h3>
+<ol>
+<li>解压后复制选择的字体文件：<code>sarasa-mono-sc-regular.ttf</code></li>
+<li>安装字体：复制到目录<code>C:\Windows\Fonts</code>即可</li>
+<li>检查是否安装成功：看是否有字体<code>等距更纱黑体 SC 常规</code></li>
+</ol>
+<h3 id="vscode-设置">VSCode 设置</h3>
+<ol>
+<li>
+<p>按<code>F1</code>键弹出搜索框后输入<code>settings.json</code>，选择<code>User</code>的一项</p>
+</li>
+<li>
+<p>编辑配置，由于``的英文过于逆天，感觉不适合编程使用，设置仅对 markdown 有效</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+ <span style="color:#f92672">&#34;[markdown]&#34;</span>: {
+     <span style="color:#f92672">&#34;editor.defaultFormatter&#34;</span>: <span style="color:#e6db74">&#34;yzhang.markdown-all-in-one&#34;</span>,
+     <span style="color:#f92672">&#34;editor.fontFamily&#34;</span>: <span style="color:#e6db74">&#34;&#39;Sarasa Mono SC&#39;&#34;</span>,
+ },
+ <span style="color:#f92672">&#34;files.autoSave&#34;</span>: <span style="color:#e6db74">&#34;afterDelay&#34;</span>,
+ <span style="color:#f92672">&#34;editor.fontLigatures&#34;</span>: <span style="color:#66d9ef">false</span>
+}
+</code></pre></div></li>
+<li>
+<p>必要的话，可以重启 VSCode 看是否生效</p>
+</li>
+</ol>
+
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/"><span>创建型 - 单例模式</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/posts/linux/tcpdump-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"><span>tcpdump 命令详解</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

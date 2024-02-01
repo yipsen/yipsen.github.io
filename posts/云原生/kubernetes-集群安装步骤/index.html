@@ -18,10 +18,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -30,7 +30,7 @@
         
         <li class="nav-item">
             <a class="nav-link active"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -51,8 +51,10 @@
 <div class="container"><article class="post-block">
         <h1 class="post-title">kubernetes cluster installation step</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2022-08-15 22:00:00</span></div></div>
+            <div class="post-date"> 
+                <span>2022-08-15 22:00:00</span>
+            </div>
+        </div>
         <div class="post-content">
             <h3 id="一配置主机名hostname">一、配置主机名hostname</h3>
 <ol>
@@ -221,7 +223,7 @@ mkdir -p /etc/systemd/system/docker.service.d
 <span style="color:#75715e"># 重启 docker</span>
 systemctl daemon-reload <span style="color:#f92672">&amp;&amp;</span> systemctl restart docker <span style="color:#f92672">&amp;&amp;</span> systemctl enable docker
 </code></pre></div><h3 id="四安装-kubernetes">四、安装 kubernetes</h3>
-<p>以下方式未尝试过：</p>
+<p>方式一: 直接安装(以下方式未尝试过)</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat <span style="color:#e6db74">&lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo
 </span><span style="color:#e6db74">[kubernetes]
 </span><span style="color:#e6db74">name=Kubernetes
@@ -234,7 +236,8 @@ systemctl daemon-reload <span style="color:#f92672">&amp;&amp;</span> systemctl 
 
 yum -y install kubeadm-1.18.0 kubectl-1.18.0 kubelet-1.18.0
 systemctl enable kubelet.service
-</code></pre></div><ol>
+</code></pre></div><p>方式二: 下载安装</p>
+<ol>
 <li>下载安装 kubernetes</li>
 </ol>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 查看 kubernetes 最新稳定版本</span>
@@ -276,6 +279,10 @@ cp -a kubernetes/server/bin/kube<span style="color:#f92672">{</span>adm,ctl,let<
 </span><span style="color:#e6db74">WantedBy=multi-user.target
 </span><span style="color:#e6db74">EOF</span>
 </code></pre></div><ul>
+<li>检查内容:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat /etc/systemd/system/kubelet.service
+</code></pre></div><ul>
 <li>新增文件夹<code>/etc/systemd/system/kubelet.service.d</code>及文件<code>kubeadm.conf</code></li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mkdir -p /etc/systemd/system/kubelet.service.d
@@ -289,9 +296,13 @@ cat &gt; /etc/systemd/system/kubelet.service.d/kubeadm.conf <span style="color:#
 </span><span style="color:#e6db74">ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_KUBEADM_ARGS $KUBELET_EXTRA_ARGS
 </span><span style="color:#e6db74">EOF</span>
 </code></pre></div><ul>
+<li>检查内容:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat /etc/systemd/system/kubelet.service.d/kubeadm.conf
+</code></pre></div><ul>
 <li>设置开机启动 kubelet</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">systemctl enable kubelet
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">systemctl enable --now kubelet
 </code></pre></div><h3 id="五正式初始化安装分为安装-master-或-worker-节点集群中需优先安装一个-master-节点">五、正式初始化安装（分为安装 master 或 worker 节点，集群中需优先安装一个 master 节点）</h3>
 <p>以下方式未尝试过：(安装 master 节点)</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
@@ -299,7 +310,7 @@ cat &gt; /etc/systemd/system/kubelet.service.d/kubeadm.conf <span style="color:#
 <ul>
 <li>执行命令</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubeadm init --apiserver-advertise-address<span style="color:#f92672">=</span>192.168.8.100 --image-repository<span style="color:#f92672">=</span>registry.aliyuncs.com/google_containers --kubernetes-version v1.18.0 --service-cidr<span style="color:#f92672">=</span>10.96.0.0/12 --pod-network-cidr<span style="color:#f92672">=</span>10.244.0.0/16 | tee kubeadm-init.log
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubeadm init --apiserver-advertise-address<span style="color:#f92672">=</span>192.168.0.201 --image-repository<span style="color:#f92672">=</span>registry.aliyuncs.com/google_containers --kubernetes-version v1.22.1 --service-cidr<span style="color:#f92672">=</span>10.96.0.0/12 --pod-network-cidr<span style="color:#f92672">=</span>10.244.0.0/16 | tee kubeadm-init.log
 </code></pre></div><blockquote>
 <p>参数解释：
 apiserver-advertise-address：指定本机ip（否则可能报错），本例为192.168.163.129
@@ -311,7 +322,43 @@ pod-network-cidr：</p>
 <ul>
 <li>执行结果</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"></code></pre></div><ul>
+<pre tabindex="0"><code class="language-log" data-lang="log">[root@kube-master-01 ~]# kubeadm init --apiserver-advertise-address=192.168.0.201 --image-repository=registry.aliyuncs.com/google_containers --kubernetes-version v1.22.1 --service-cidr=10.96.0.0/12 --pod-network-cidr=10.244.0.0/16 | tee kubeadm-init.log
+[init] Using Kubernetes version: v1.22.1
+[preflight] Running pre-flight checks
+        [WARNING SystemVerification]: this Docker version is not on the list of validated versions: 24.0.7. Latest validated version: 20.10
+[preflight] Pulling images required for setting up a Kubernetes cluster
+[preflight] This might take a minute or two, depending on the speed of your internet connection
+[preflight] You can also perform this action in beforehand using 'kubeadm config images pull'
+[certs] Using certificateDir folder &quot;/etc/kubernetes/pki&quot;
+[certs] Generating &quot;ca&quot; certificate and key
+[certs] Generating &quot;apiserver&quot; certificate and key
+[certs] apiserver serving cert is signed for DNS names [kube-master-01 kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 192.168.0.201]
+[certs] Generating &quot;apiserver-kubelet-client&quot; certificate and key
+[certs] Generating &quot;front-proxy-ca&quot; certificate and key
+[certs] Generating &quot;front-proxy-client&quot; certificate and key
+[certs] Generating &quot;etcd/ca&quot; certificate and key
+[certs] Generating &quot;etcd/server&quot; certificate and key
+[certs] etcd/server serving cert is signed for DNS names [kube-master-01 localhost] and IPs [192.168.0.201 127.0.0.1 ::1]
+[certs] Generating &quot;etcd/peer&quot; certificate and key
+[certs] etcd/peer serving cert is signed for DNS names [kube-master-01 localhost] and IPs [192.168.0.201 127.0.0.1 ::1]
+[certs] Generating &quot;etcd/healthcheck-client&quot; certificate and key
+[certs] Generating &quot;apiserver-etcd-client&quot; certificate and key
+[certs] Generating &quot;sa&quot; key and public key
+[kubeconfig] Using kubeconfig folder &quot;/etc/kubernetes&quot;
+[kubeconfig] Writing &quot;admin.conf&quot; kubeconfig file
+[kubeconfig] Writing &quot;kubelet.conf&quot; kubeconfig file
+[kubeconfig] Writing &quot;controller-manager.conf&quot; kubeconfig file
+[kubeconfig] Writing &quot;scheduler.conf&quot; kubeconfig file
+[kubelet-start] Writing kubelet environment file with flags to file &quot;/var/lib/kubelet/kubeadm-flags.env&quot;
+[kubelet-start] Writing kubelet configuration to file &quot;/var/lib/kubelet/config.yaml&quot;
+[kubelet-start] Starting the kubelet
+[control-plane] Using manifest folder &quot;/etc/kubernetes/manifests&quot;
+[control-plane] Creating static Pod manifest for &quot;kube-apiserver&quot;
+[control-plane] Creating static Pod manifest for &quot;kube-controller-manager&quot;
+[control-plane] Creating static Pod manifest for &quot;kube-scheduler&quot;
+[etcd] Creating static Pod manifest for local etcd in &quot;/etc/kubernetes/manifests&quot;
+[wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory &quot;/etc/kubernetes/manifests&quot;. This can take up to 4m0s
+</code></pre><ul>
 <li>部署 flannel 网络</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 需上传具体 kube-flannel.yml 到`$HOME`目录</span>
@@ -361,6 +408,11 @@ kube-master-01   NotReady   control-plane,master   18m   v1.22.1
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
+</div>
 
     </main>
     <footer>
@@ -369,25 +421,38 @@ kube-master-01   NotReady   control-plane,master   18m   v1.22.1
 <div class="paginator">
     <div class="prev">
         
-        <a href="/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/"><span>kubernetes cluster installation trouble shooting</span></a>
+        <a href="http://yipsen.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/"><span>kubernetes cluster installation trouble shooting</span></a>
     </div>
     <div class="next">
         
+        <a href="http://yipsen.github.io/posts/redis/%E8%AE%B0%E4%B8%80%E6%AC%A1-redis-%E4%B8%BB%E5%A4%87%E6%96%AD%E9%93%BE%E7%9A%84%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D/"><span>记一次 Redis 主备断链的故障恢复</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

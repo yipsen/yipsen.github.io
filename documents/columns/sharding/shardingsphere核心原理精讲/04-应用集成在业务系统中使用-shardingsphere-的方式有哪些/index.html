@@ -28,10 +28,10 @@ ShardingSphere 同时集成了 Spring 和 Spring Boot 这两款 Spring 家族的
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -40,7 +40,7 @@ ShardingSphere 同时集成了 Spring 和 Spring Boot 这两款 Spring 家族的
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -232,12 +232,10 @@ ShardingSphere 同时集成了 Spring 和 Spring Boot 这两款 Spring 家族的
 </style><article class="post-block">
         <h1 class="post-title">04 应用集成：在业务系统中使用 ShardingSphere 的方式有哪些？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:55:46</span>🏷️&nbsp;<a class="post-tag" href="/tags/sharding/">sharding</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/">ShardingSphere核心原理精讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:55:46</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>在上一课时中，我详细介绍了 ShardingSphere 与 JDBC 规范之间的兼容性关系，我们知道 ShardingSphere 对 JDBC 规范进行了重写，并嵌入了分片机制。基于这种兼容性，开发人员使用 ShardingSphere 时就像在使用 JDBC 规范所暴露的各个接口一样。这一课时，我们将讨论如何在业务系统中使用 ShardingSphere 的具体方式。</p>
 <h3 id="如何抽象开源框架的应用方式">如何抽象开源框架的应用方式？</h3>
@@ -465,6 +463,11 @@ public class UserApplication
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/sharding/">sharding</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/">ShardingSphere核心原理精讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -473,26 +476,38 @@ public class UserApplication
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/03-%E8%A7%84%E8%8C%83%E5%85%BC%E5%AE%B9jdbc-%E8%A7%84%E8%8C%83%E4%B8%8E-shardingsphere-%E6%98%AF%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB/"><span>03 规范兼容：JDBC 规范与 ShardingSphere 是什么关系？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/03-%E8%A7%84%E8%8C%83%E5%85%BC%E5%AE%B9jdbc-%E8%A7%84%E8%8C%83%E4%B8%8E-shardingsphere-%E6%98%AF%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB/"><span>03 规范兼容：JDBC 规范与 ShardingSphere 是什么关系？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/05-%E9%85%8D%E7%BD%AE%E9%A9%B1%E5%8A%A8shardingsphere-%E4%B8%AD%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BD%93%E7%B3%BB%E6%98%AF%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E7%9A%84/"><span>05 配置驱动：ShardingSphere 中的配置体系是如何设计的？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/sharding/shardingsphere%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2/05-%E9%85%8D%E7%BD%AE%E9%A9%B1%E5%8A%A8shardingsphere-%E4%B8%AD%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BD%93%E7%B3%BB%E6%98%AF%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E7%9A%84/"><span>05 配置驱动：ShardingSphere 中的配置体系是如何设计的？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

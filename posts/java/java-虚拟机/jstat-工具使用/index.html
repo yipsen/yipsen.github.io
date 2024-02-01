@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>jstat 工具使用 | Yipsen Ye</title>
+<meta name="description" content="jstat 是 JDK 自带的一个轻量级小工具，全称&amp;quot;Java Virtual Machine statistics monitoring tool&amp;quot;，位于JAVA_HOME的bin目录下，主要利于 JVM 内建的指令对 Java 应用的资源和性能进行实时的命令行监控，包括对内存与垃圾回收状况的监控。
+官方文档：https://docs.oracle.com/en/java/javase/14/docs/specs/man/jstat.html
+最常用命令为：jstat -gcutil &amp;lt;pid&amp;gt;
+使用方式  基本格式  jstat -&amp;lt;option&amp;gt; [-t] [-h&amp;lt;lines&amp;gt;] &amp;lt;vmid&amp;gt; [&amp;lt;interval&amp;gt; [&amp;lt;count&amp;gt;]]  参数说明   option -t -h vmid interval count   例子  简单使用案例
+# -gcutil: 表示使用gcutil选项，即打印垃圾回收统计信息 # -t: 表示同时打印时间戳列 # -h10: 表示每10行输出一次表头 # 14812: 为JVM的pid # 1000: 表示每1000毫秒即每秒打印一次 # 20: 表示仅打印20条就结束。 jstat -gcutil -t -h10 14812 1000 20 效果
+$&amp;gt;jstat -gcutil -t -h10 14812 1000 20 Timestamp S0 S1 E O M CCS YGC YGCT FGC FGCT GCT 89.">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title">jstat 工具使用</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2023-03-01 08:34:41</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <p>jstat 是 JDK 自带的一个轻量级小工具，全称&quot;Java Virtual Machine statistics monitoring tool&quot;，位于<code>JAVA_HOME</code>的bin目录下，主要利于 JVM 内建的指令对 Java 应用的资源和性能进行实时的命令行监控，包括对<code>内存</code>与<code>垃圾回收</code>状况的监控。</p>
+<p>官方文档：<a href="https://docs.oracle.com/en/java/javase/14/docs/specs/man/jstat.html">https://docs.oracle.com/en/java/javase/14/docs/specs/man/jstat.html</a></p>
+<p>最常用命令为：<code>jstat -gcutil &lt;pid&gt;</code></p>
+<h2 id="使用方式">使用方式</h2>
+<ul>
+<li>基本格式</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">jstat -&lt;option&gt; <span style="color:#f92672">[</span>-t<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-h&lt;lines&gt;<span style="color:#f92672">]</span> &lt;vmid&gt; <span style="color:#f92672">[</span>&lt;interval&gt; <span style="color:#f92672">[</span>&lt;count&gt;<span style="color:#f92672">]]</span>
+</code></pre></div><ul>
+<li>参数说明</li>
+</ul>
+<ol>
+<li>option</li>
+<li>-t</li>
+<li>-h</li>
+<li>vmid</li>
+<li>interval</li>
+<li>count</li>
+</ol>
+<ul>
+<li>例子</li>
+</ul>
+<p>简单使用案例</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># -gcutil: 表示使用gcutil选项，即打印垃圾回收统计信息</span>
+<span style="color:#75715e"># -t: 表示同时打印时间戳列</span>
+<span style="color:#75715e"># -h10: 表示每10行输出一次表头</span>
+<span style="color:#75715e"># 14812: 为JVM的pid</span>
+<span style="color:#75715e"># 1000: 表示每1000毫秒即每秒打印一次</span>
+<span style="color:#75715e"># 20: 表示仅打印20条就结束。</span>
+jstat -gcutil -t -h10 <span style="color:#ae81ff">14812</span> <span style="color:#ae81ff">1000</span> <span style="color:#ae81ff">20</span>
+</code></pre></div><p>效果</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$&gt;jstat -gcutil -t -h10 <span style="color:#ae81ff">14812</span> <span style="color:#ae81ff">1000</span> <span style="color:#ae81ff">20</span>
+Timestamp         S0     S1     E      O      M     CCS    YGC     YGCT    FGC    FGCT     GCT
+           89.9   0.00   0.00  68.05   0.00  17.38  19.94      <span style="color:#ae81ff">0</span>    0.000     <span style="color:#ae81ff">0</span>    0.000    0.000
+           90.9   0.00   0.00  68.05   0.00  17.38  19.94      <span style="color:#ae81ff">0</span>    0.000     <span style="color:#ae81ff">0</span>    0.000    0.000
+           91.9   0.00   0.00  68.05   0.00  17.38  19.94      <span style="color:#ae81ff">0</span>    0.000     <span style="color:#ae81ff">0</span>    0.000    0.000
+           93.0   0.00   0.00  68.05   0.00  17.38  19.94      <span style="color:#ae81ff">0</span>    0.000     <span style="color:#ae81ff">0</span>    0.000    0.000
+           94.0   0.00   0.00  68.05   0.00  17.38  19.94      <span style="color:#ae81ff">0</span>    0.000     <span style="color:#ae81ff">0</span>    0.000    0.000
+           95.0   0.00   0.00  68.05   0.00  17.38  19.94      <span style="color:#ae81ff">0</span>    0.000     <span style="color:#ae81ff">0</span>    0.000    0.000
+           96.0   0.00   0.00  68.05   0.00  17.38  19.94      <span style="color:#ae81ff">0</span>    0.000     <span style="color:#ae81ff">0</span>    0.000    0.000
+           97.0   0.00   0.00  68.05   0.00  17.38  19.94      <span style="color:#ae81ff">0</span>    0.000     <span style="color:#ae81ff">0</span>    0.000    0.000
+           98.0   0.00   0.00  68.05   0.00  17.38  19.94      <span style="color:#ae81ff">0</span>    0.000     <span style="color:#ae81ff">0</span>    0.000    0.000
+          100.8   0.00   0.00  68.05   0.00  17.38  19.94      <span style="color:#ae81ff">0</span>    0.000     <span style="color:#ae81ff">0</span>    0.000    0.000
+Timestamp         S0     S1     E      O      M     CCS    YGC     YGCT    FGC    FGCT     GCT
+          101.9   0.00   0.00  68.05   0.00  17.38  19.94      <span style="color:#ae81ff">0</span>    0.000     <span style="color:#ae81ff">0</span>    0.000    0.000
+          102.9   0.00   0.00  68.05   0.00  17.38  19.94      <span style="color:#ae81ff">0</span>    0.000     <span style="color:#ae81ff">0</span>    0.000    0.000
+          103.9   0.00   0.00  68.05   0.00  17.38  19.94      <span style="color:#ae81ff">0</span>    0.000     <span style="color:#ae81ff">0</span>    0.000    0.000
+          104.9   0.00   0.00  68.05   0.00  17.38  19.94      <span style="color:#ae81ff">0</span>    0.000     <span style="color:#ae81ff">0</span>    0.000    0.000
+          105.9   0.00   0.00  68.05   0.00  17.38  19.94      <span style="color:#ae81ff">0</span>    0.000     <span style="color:#ae81ff">0</span>    0.000    0.000
+          106.9   0.00   0.00  68.05   0.00  17.38  19.94      <span style="color:#ae81ff">0</span>    0.000     <span style="color:#ae81ff">0</span>    0.000    0.000
+          108.0   0.00   0.00  68.05   0.00  17.38  19.94      <span style="color:#ae81ff">0</span>    0.000     <span style="color:#ae81ff">0</span>    0.000    0.000
+          109.0   0.00   0.00  68.05   0.00  17.38  19.94      <span style="color:#ae81ff">0</span>    0.000     <span style="color:#ae81ff">0</span>    0.000    0.000
+          110.0   0.00   0.00  68.05   0.00  17.38  19.94      <span style="color:#ae81ff">0</span>    0.000     <span style="color:#ae81ff">0</span>    0.000    0.000
+          111.0   0.00   0.00  68.05   0.00  17.38  19.94      <span style="color:#ae81ff">0</span>    0.000     <span style="color:#ae81ff">0</span>    0.000    0.000
+</code></pre></div><p>其中打印信息选项分类较多，以下针对每个选项进行详细说明。</p>
+<h2 id="打印信息选项可理解为需要打印的信息">打印信息选项（可理解为需要打印的信息）</h2>
+<p>打印信息选项可以归为三类：1. 类加载信息；2. JIT编译信息；3. 内存与垃圾回收信息；
+其中内存与垃圾回收信息的可选选项最多，不同选项输出的字段不同。</p>
+<h3 id="打印类加载信息">打印类加载信息</h3>
+<ul>
+<li>
+<p>作用（使用场景）</p>
+</li>
+<li>
+<p>命令</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">jstat -class <span style="color:#ae81ff">14812</span>
+</code></pre></div><ul>
+<li>效果</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$&gt;jstat -class <span style="color:#ae81ff">14812</span>
+Loaded  Bytes  Unloaded  Bytes     Time
+  <span style="color:#ae81ff">3244</span>  6245.6        <span style="color:#ae81ff">0</span>     0.0       1.24
+</code></pre></div><ul>
+<li>输出字段说明</li>
+</ul>
+<ol>
+<li>Loaded: 已加载类总数</li>
+<li>Bytes: 类占用的内存字节大小</li>
+<li>Unloaded: 未加载的类总数（为什么会有未加载的？）</li>
+<li>Bytes: 未加载的类占用的内存字节大小</li>
+<li>Time: 耗费的时间</li>
+</ol>
+<h3 id="打印jit编译信息">打印JIT编译信息</h3>
+<ul>
+<li>
+<p>作用（使用场景）</p>
+</li>
+<li>
+<p>命令</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">jstat -compiler <span style="color:#ae81ff">14812</span>
+</code></pre></div><ul>
+<li>效果</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$&gt;jstat -compiler <span style="color:#ae81ff">14812</span>
+Compiled Failed Invalid   Time   FailedType FailedMethod
+    <span style="color:#ae81ff">1463</span>      <span style="color:#ae81ff">0</span>       <span style="color:#ae81ff">0</span>     1.23          <span style="color:#ae81ff">0</span>
+</code></pre></div><ul>
+<li>输出字段说明</li>
+</ul>
+<ol>
+<li>Compiled: 已编译类数量</li>
+<li>Failed: 编译失败数量</li>
+<li>Invalid: 不可用数量</li>
+<li>Time: 耗费的时间</li>
+<li>FailedType: 失败类型</li>
+<li>FailedMethod: 失败的方法</li>
+</ol>
+<h3 id="打印内存与垃圾回收信息">打印内存与垃圾回收信息</h3>
+<ul>
+<li>快查表：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>列\参数</th>
+<th>gc</th>
+<th>gccapacity</th>
+<th>gcmetacapacity</th>
+<th>gcnew</th>
+<th>gcnewcapacity</th>
+<th>gcold</th>
+<th>gcoldcapacity</th>
+<th>gcutil</th>
+<th>gccause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NGCMN</td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>NGCMX</td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>NGC</td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>S0</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>S0CMX</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>S0C</td>
+<td>Y</td>
+<td>Y</td>
+<td></td>
+<td>Y</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>S0U</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>S1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>S1CMX</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>S1C</td>
+<td>Y</td>
+<td>Y</td>
+<td></td>
+<td>Y</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>S1U</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>E</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>ECMX</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>EC</td>
+<td>Y</td>
+<td>Y</td>
+<td></td>
+<td>Y</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>EU</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>OGCMN</td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>OGCMX</td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>OGC</td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>O</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>OC</td>
+<td>Y</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td>Y</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>OU</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>M</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>MCMN</td>
+<td></td>
+<td>Y</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>MCMX</td>
+<td></td>
+<td>Y</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>MC</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>MU</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CCS</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>CCSMN</td>
+<td></td>
+<td>Y</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CCSMX</td>
+<td></td>
+<td>Y</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CCSC</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CCSU</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>YGC</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>YGCT</td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+</tr>
+<tr>
+<td>FGC</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td></td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>FGCT</td>
+<td>Y</td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>GCT</td>
+<td>Y</td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>LGCC</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+</tr>
+<tr>
+<td>GCC</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+</tr>
+<tr>
+<td>TT</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>MTT</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>DSS</td>
+<td></td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>输出字段说明</li>
+</ul>
+<ol>
+<li>NGCMN: Minimum New Generation Capacity (KB), 新生代的最小容量大小（单位KB）</li>
+<li>NGCMX: Maximum New Generation Capacity (KB), 新生代的最大容量大小（单位KB）</li>
+<li>NGC: Current New Generation Capacity (KB), 新生代的当前总容量大小（单位KB）</li>
+<li>S0CMX: Maximum Survivor Space 0 Capacity (KB), 第一个幸存区的最大容量大小（单位KB）</li>
+<li>S0C: Current Survivor Space 0 Capacity(KB), 第一个幸存区的当前总容量大小（单位KB）</li>
+<li>S0U: Survivor Space 0 Utilization(KB), 第一个幸存区已使用的容量大小（单位KB）</li>
+<li>S0: Survivor Space 0 Utilization as Percentage of The Space&rsquo;s Current Capacity, 第一个幸存区已使用的容量比例</li>
+<li>S1CMX: Maximum Survivor Space 1 Capacity (KB), 第二个幸存区的最大容量大小（单位KB）</li>
+<li>S1C: Current Survivor Space 1 Capacity(KB), 第二个幸存区的当前总容量大小（单位KB）</li>
+<li>S1U: Survivor Space 1 Utilization(KB), 第二个幸存区已使用的容量大小（单位KB）</li>
+<li>S1: Survivor Space 1 Utilization as Percentage of The Space&rsquo;s Current Capacity, 第二个幸存区已使用的容量比例</li>
+<li>ECMX: Maximum Eden Space Capacity(KB), 伊匈园区的最大容量大小（单位KB）</li>
+<li>EC: Current Eden Space Capacity(KB), 伊匈园区的当前总容量大小（单位KB）</li>
+<li>EU: Eden Utilization(KB), 伊匈园区已使用的容量大小（单位KB）</li>
+<li>E: Eden Space Utilization as Percentage of The Space&rsquo;s Current Capacity, 伊匈园区已使用的容量比例</li>
+<li>TT: Tenuring Threhold,</li>
+<li>MTT: Maximum Tenuring Threhold,</li>
+<li>DSS: Desired Survivor Size (KB),</li>
+<li>OGCMN: Minimum Old Generation Capacity (KB), 老年代的最小容量大小（单位KB）</li>
+<li>OGCMX: Maximum Old Generation Capacity (KB), 老年代的最大容量大小（单位KB）</li>
+<li>OGC: Current Old Generation Capacity (KB), 老年代的当前总容量大小（单位KB）</li>
+<li>OC: Current Old Space Capacity(KB), 老年代区的当前总容量大小（单位KB）</li>
+<li>OU: Old Space Utilization(KB), 老年代区已使用的容量大小（单位KB）</li>
+<li>O: Old Space Utilization as Percentage of The Space&rsquo;s Current Capacity, 老年代区已使用的比例</li>
+<li>MCMN: Minimum Metaspace Capacity (KB), 元空间的最小容量（单位KB）</li>
+<li>MCMX: Maximum Metaspace Capacity (KB), 元空间的最大容量（单位KB）</li>
+<li>MC: Metaspace Committed Size(KB), 元空间已提交的总容量大小（单位KB）</li>
+<li>MU: Metaspace Utilization(KB), 元空间已使用的容量大小（单位KB）</li>
+<li>M: Metaspace Utilization as Percentage of The Space&rsquo;s Current Capacity, 元空间已使用的容量比例</li>
+<li>CCSMN: Compressed Class Space Minimum Capacity (KB),</li>
+<li>CCSMX: Compressed Class Space Maximum Capacity (KB),</li>
+<li>CCSC: Compressed Class Committed Size(KB),</li>
+<li>CCSU: Compressed Class Space Used (KB),</li>
+<li>CCS: Compressed Class Space Utilization as a Percentage,</li>
+<li>YGC: Number of Young Generation GC Events, 新生代垃圾回收次数</li>
+<li>YGCT: Young Generation Garbage Collection Time. 新生代垃圾回收耗时</li>
+<li>FGC: Number of Full GC Events, Full GC 次数</li>
+<li>FGCT: Gull GC Time, Full GC 耗时</li>
+<li>GCT: Total Garbage Collection Time, 垃圾回收总耗时</li>
+<li>LGCC: Cause of Last GC, 最后一次垃圾回收发生原因</li>
+<li>GCC: Cause of Current GC, 当前垃圾回收发生原因</li>
+</ol>
+<ul>
+<li>输出选项说明</li>
+</ul>
+<ol>
+<li>gc: Garbage collected heap statistics.</li>
+<li>gccapacity: Memory pool generation and space capacities.</li>
+<li>gccause: This option displays the same summary of garbage collection statistics as the -gcutil option, but includes the causes of the last garbage collection event and (when applicable), the current garbage collection event. In addition to the columns listed for -gcutil, this option adds the following columns: LGCC, GCC.</li>
+<li>gcnew: New generation statistics.</li>
+<li>gcnewcapacity: New generation space size statistics.</li>
+<li>gcold: Old generation statistics.</li>
+<li>gcoldcapacity: Old generation size statistics.</li>
+<li>gcmetacapacity: Metaspace size statistics.</li>
+<li>gcutil: Summary of garbage collection statistics.</li>
+</ol>
+<h2 id="gc-cause">GC Cause</h2>
+<blockquote>
+<p>以下主要是 Hotspot VM 的源码分析出来的 GC 可能原因，源码文件：<code>src/share/vm/gc/shared/gcCause.cpp</code></p>
+</blockquote>
+<ul>
+<li>System.gc(): 显式手动触发 GC 操作</li>
+<li>FullGCAlot</li>
+<li>ScavengeAlot</li>
+<li>Allocation Profiler</li>
+<li>JvmtiEnv ForceGarbageCollection</li>
+<li>GCLocker Initiated GC</li>
+<li>Heap Inspection Initiated GC</li>
+<li>Heap Dump Initiated GC</li>
+<li>WhiteBox Initiated Young GC</li>
+<li>WhiteBox Initiated Concurrent Mark</li>
+<li>WhiteBox Initiated Full GC</li>
+<li>No GC</li>
+<li>Allocation Failure</li>
+<li>Tenured Generation Full</li>
+<li>Metadata GC Threshold</li>
+<li>Metadata GC Clear Soft References</li>
+<li>CMS Generation Full</li>
+<li>CMS Initial Mark</li>
+<li>CMS Final Remark</li>
+<li>CMS Concurrent Mark</li>
+<li>Old Generation Expanded On Last Scavenge</li>
+<li>Old Generation Too Full To Scavenge</li>
+<li>Ergonomics</li>
+<li>G1 Evacuation Pause</li>
+<li>G1 Humongous Allocation</li>
+<li>Diagnostic Command</li>
+<li>ILLEGAL VALUE - last gc cause - ILLEGAL VALUE</li>
+<li>unknow GCCause</li>
+</ul>
+<h2 id="常用案例">常用案例</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"> 
+</code></pre></div>
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/posts/java/java-%E8%99%9A%E6%8B%9F%E6%9C%BA/jvisualvm-%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"><span>jvisualvm 工具使用</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/posts/java/java-%E8%99%9A%E6%8B%9F%E6%9C%BA/jstack-%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"><span>jstack 工具使用</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

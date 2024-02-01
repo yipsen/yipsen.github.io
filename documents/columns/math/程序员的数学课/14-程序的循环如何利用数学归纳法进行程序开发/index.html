@@ -33,10 +33,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -45,7 +45,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -209,12 +209,10 @@
 </style><article class="post-block">
         <h1 class="post-title">14 程序的循环：如何利用数学归纳法进行程序开发？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:50:13</span>🏷️&nbsp;<a class="post-tag" href="/tags/math/">math</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/">程序员的数学课</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:50:13</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>我们在上一讲提到程序有<strong>顺序、选择、循环</strong>这三大基本结构，而在这其中，循环是处理复杂运算最有效的一种结构。</p>
 <p><strong>循环结构</strong>可以用短短几行代码，执行成千上万次的运算。从计算机编程的视角来看，循环结构又有三种实现方法，分别是 for 循环、while 循环和 do while 循环；而从数学视角来看，循环结构很像是<strong>数学归纳法</strong>。</p>
@@ -528,6 +526,11 @@ for (int k = 1; k &lt; 100; k++) // s1;s2;s3
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/math/">math</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/">程序员的数学课</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -536,26 +539,38 @@ for (int k = 1; k &lt; 100; k++) // s1;s2;s3
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/13-%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%AF%B9%E7%A8%8B%E5%BA%8F%E8%BF%9B%E8%A1%8C%E4%BC%98%E5%8C%96/"><span>13 复杂度：如何利用数学推导对程序进行优化？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/13-%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%AF%B9%E7%A8%8B%E5%BA%8F%E8%BF%9B%E8%A1%8C%E4%BC%98%E5%8C%96/"><span>13 复杂度：如何利用数学推导对程序进行优化？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/15-%E9%80%92%E5%BD%92%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98%E7%9A%84%E7%A7%BB%E5%8A%A8%E6%AD%A5%E6%95%B0/"><span>15 递归：如何计算汉诺塔问题的移动步数？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/15-%E9%80%92%E5%BD%92%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98%E7%9A%84%E7%A7%BB%E5%8A%A8%E6%AD%A5%E6%95%B0/"><span>15 递归：如何计算汉诺塔问题的移动步数？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

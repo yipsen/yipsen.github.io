@@ -26,10 +26,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -38,7 +38,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -202,12 +202,10 @@
 </style><article class="post-block">
         <h1 class="post-title">06 向量及其导数：计算机如何完成对海量高维度数据计算？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:50:05</span>🏷️&nbsp;<a class="post-tag" href="/tags/math/">math</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/">程序员的数学课</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:50:05</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>在上一课时，我们学习了利用梯度下降法求解函数的极值。我举了个例子，如果商品利润函数 r 和补贴金额 x 的关系为 r(x) = p(x)×(m - x - c) = (2/(1+e-x) - 1)×(16 - x - 8)，然后我又利用梯度下降法，求解出让利润最大的补贴额 x* 为 2.42 元。</p>
 <p>就这个例题而言，其实根本不需要求导法或者是梯度下降法。这是因为，商品定价是 8 元，补贴额 x 的<strong>决策空间</strong>就是从不打折的 0 元到不要钱的 8 元。如果最小颗粒度是“分”，那么决策空间就是 0.00元～8.00元，这 801 个变量而已。写个 for 循环，对每一个可能的补贴额都简单粗暴地计算一遍，也是一种简单可行的方法。</p>
@@ -285,6 +283,11 @@
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/math/">math</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/">程序员的数学课</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -293,26 +296,38 @@
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/05-%E6%B1%82%E6%9E%81%E5%80%BC%E5%A6%82%E4%BD%95%E6%89%BE%E5%88%B0%E5%A4%8D%E6%9D%82%E4%B8%9A%E5%8A%A1%E7%9A%84%E6%9C%80%E4%BC%98%E8%A7%A3/"><span>05 求极值：如何找到复杂业务的最优解？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/05-%E6%B1%82%E6%9E%81%E5%80%BC%E5%A6%82%E4%BD%95%E6%89%BE%E5%88%B0%E5%A4%8D%E6%9D%82%E4%B8%9A%E5%8A%A1%E7%9A%84%E6%9C%80%E4%BC%98%E8%A7%A3/"><span>05 求极值：如何找到复杂业务的最优解？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/07-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E5%A6%82%E4%BD%95%E5%9C%A8%E7%A6%BB%E6%95%A3%E7%82%B9%E4%B8%AD%E5%AF%BB%E6%89%BE%E6%95%B0%E6%8D%AE%E8%A7%84%E5%BE%8B/"><span>07 线性回归：如何在离散点中寻找数据规律？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/07-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E5%A6%82%E4%BD%95%E5%9C%A8%E7%A6%BB%E6%95%A3%E7%82%B9%E4%B8%AD%E5%AF%BB%E6%89%BE%E6%95%B0%E6%8D%AE%E8%A7%84%E5%BE%8B/"><span>07 线性回归：如何在离散点中寻找数据规律？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

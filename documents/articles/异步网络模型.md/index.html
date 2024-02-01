@@ -38,10 +38,10 @@ int client_fd = -1; struct sockaddr_in client_addr; socklen_t child_addrlen; whi
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -50,7 +50,7 @@ int client_fd = -1; struct sockaddr_in client_addr; socklen_t child_addrlen; whi
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -71,8 +71,10 @@ int client_fd = -1; struct sockaddr_in client_addr; socklen_t child_addrlen; whi
 <div class="container"><article class="post-block">
         <h1 class="post-title"></h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;0001-01-01 00:00:00</span></div></div>
+            <div class="post-date"> 
+                <span>0001-01-01 00:00:00</span>
+            </div>
+        </div>
         <div class="post-content">
             <h2 id="异步网络模型">异步网络模型</h2>
 <p>异步网络模型在服务开发中应用非常广泛，相关资料和开源库也非常多。项目中，使用现成的轮子提高了开发效率，除了能使用轮子，还是有必要了解一下轮子的内部构造。</p>
@@ -518,6 +520,11 @@ void STATE_MACHINE_HANDLER(state_enum cur_state) {
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
+</div>
 
     </main>
     <footer>
@@ -526,26 +533,38 @@ void STATE_MACHINE_HANDLER(state_enum cur_state) {
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/articles/%E8%AE%A4%E8%AF%86-mysql-%E5%92%8C-redis-%E7%9A%84%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98.md/"><span></span></a>
+        <a href="http://yipsen.github.io/documents/articles/%E8%AE%A4%E8%AF%86-mysql-%E5%92%8C-redis-%E7%9A%84%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98.md/"><span></span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/articles/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E4%BA%BF%E7%BA%A7%E6%B6%88%E6%81%AF%E9%87%8F%E7%9A%84-im-%E7%B3%BB%E7%BB%9F.md/"><span></span></a>
+        <a href="http://yipsen.github.io/documents/articles/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E4%BA%BF%E7%BA%A7%E6%B6%88%E6%81%AF%E9%87%8F%E7%9A%84-im-%E7%B3%BB%E7%BB%9F.md/"><span></span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

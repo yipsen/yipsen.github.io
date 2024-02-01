@@ -41,10 +41,10 @@ java -Xdebug -Xrunjdwp:transport=dt_socket,address=8888,server=y,suspend=y com.x
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -53,7 +53,7 @@ java -Xdebug -Xrunjdwp:transport=dt_socket,address=8888,server=y,suspend=y com.x
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -245,12 +245,10 @@ java -Xdebug -Xrunjdwp:transport=dt_socket,address=8888,server=y,suspend=y com.x
 </style><article class="post-block">
         <h1 class="post-title">11 JDWP 简介：十步杀一人，千里不留行</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:45:11</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/">JVM核心技术32讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:45:11</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>Java 平台调试体系（Java Platform Debugger Architecture，JPDA），由三个相对独立的层次共同组成。这三个层次由低到高分别是 Java 虚拟机工具接口（JVMTI）、Java 调试连接协议（JDWP）以及 Java 调试接口（JDI）。</p>
 <p>模块</p>
@@ -486,6 +484,11 @@ jdb -attach 8888
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/">JVM核心技术32讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -494,26 +497,38 @@ jdb -attach 8888
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/10-jdk-%E5%86%85%E7%BD%AE%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E5%B7%A5%E5%85%B7%E6%B5%B7%E9%98%94%E5%87%AD%E9%B1%BC%E8%B7%83%E5%A4%A9%E9%AB%98%E4%BB%BB%E9%B8%9F%E9%A3%9E/"><span>10 JDK 内置图形界面工具：海阔凭鱼跃，天高任鸟飞</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/10-jdk-%E5%86%85%E7%BD%AE%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E5%B7%A5%E5%85%B7%E6%B5%B7%E9%98%94%E5%87%AD%E9%B1%BC%E8%B7%83%E5%A4%A9%E9%AB%98%E4%BB%BB%E9%B8%9F%E9%A3%9E/"><span>10 JDK 内置图形界面工具：海阔凭鱼跃，天高任鸟飞</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/12-jmx-%E4%B8%8E%E7%9B%B8%E5%85%B3%E5%B7%A5%E5%85%B7%E5%B1%B1%E9%AB%98%E6%9C%88%E5%B0%8F%E6%B0%B4%E8%90%BD%E7%9F%B3%E5%87%BA/"><span>12 JMX 与相关工具：山高月小，水落石出</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/12-jmx-%E4%B8%8E%E7%9B%B8%E5%85%B3%E5%B7%A5%E5%85%B7%E5%B1%B1%E9%AB%98%E6%9C%88%E5%B0%8F%E6%B0%B4%E8%90%BD%E7%9F%B3%E5%87%BA/"><span>12 JMX 与相关工具：山高月小，水落石出</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

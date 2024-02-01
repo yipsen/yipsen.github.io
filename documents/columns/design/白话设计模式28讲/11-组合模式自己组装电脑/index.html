@@ -26,10 +26,10 @@ class Component:&amp;quot;组件，所有子配件的基类&amp;quot;def __ini
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -38,7 +38,7 @@ class Component:&amp;quot;组件，所有子配件的基类&amp;quot;def __ini
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -214,12 +214,10 @@ class Component:&amp;quot;组件，所有子配件的基类&amp;quot;def __ini
 </style><article class="post-block">
         <h1 class="post-title">11 组合模式：自己组装电脑</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:37:01</span>🏷️&nbsp;<a class="post-tag" href="/tags/design/">design</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/">白话设计模式28讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:37:01</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>【故事剧情】</p>
 <blockquote>
@@ -484,6 +482,11 @@ Tony DIY电脑 准备开始工作...
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/design/">design</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/">白话设计模式28讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -492,26 +495,38 @@ Tony DIY电脑 准备开始工作...
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/10-%E8%BF%AD%E4%BB%A3%E6%A8%A1%E5%BC%8F%E4%B8%8B%E4%B8%80%E4%B8%AA%E5%B0%B1%E6%98%AF%E4%BD%A0%E4%BA%86/"><span>10 迭代模式：下一个就是你了</span></a>
+        <a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/10-%E8%BF%AD%E4%BB%A3%E6%A8%A1%E5%BC%8F%E4%B8%8B%E4%B8%80%E4%B8%AA%E5%B0%B1%E6%98%AF%E4%BD%A0%E4%BA%86/"><span>10 迭代模式：下一个就是你了</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/12-%E6%9E%84%E5%BB%BA%E6%A8%A1%E5%BC%8F%E6%83%B3%E8%A6%81%E8%BD%A6%E8%BF%98%E6%98%AF%E5%BA%84%E5%9B%AD/"><span>12 构建模式：想要车还是庄园</span></a>
+        <a href="http://yipsen.github.io/documents/columns/design/%E7%99%BD%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F28%E8%AE%B2/12-%E6%9E%84%E5%BB%BA%E6%A8%A1%E5%BC%8F%E6%83%B3%E8%A6%81%E8%BD%A6%E8%BF%98%E6%98%AF%E5%BA%84%E5%9B%AD/"><span>12 构建模式：想要车还是庄园</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

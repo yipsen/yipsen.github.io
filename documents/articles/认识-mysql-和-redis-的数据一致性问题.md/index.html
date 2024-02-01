@@ -28,10 +28,10 @@ A. 无并发情况 无并发请求下，在更新数据库和删除缓存值的�
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -40,7 +40,7 @@ A. 无并发情况 无并发请求下，在更新数据库和删除缓存值的�
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -61,8 +61,10 @@ A. 无并发情况 无并发请求下，在更新数据库和删除缓存值的�
 <div class="container"><article class="post-block">
         <h1 class="post-title"></h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;0001-01-01 00:00:00</span></div></div>
+            <div class="post-date"> 
+                <span>0001-01-01 00:00:00</span>
+            </div>
+        </div>
         <div class="post-content">
             <h3 id="1-什么是数据的一致性"><strong>1. 什么是数据的一致性</strong></h3>
 <p>“数据一致”一般指的是：缓存中有数据，缓存的数据值 = 数据库中的值。</p>
@@ -245,6 +247,11 @@ public void read() {
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
+</div>
 
     </main>
     <footer>
@@ -253,26 +260,38 @@ public void read() {
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/drds/24%E8%AE%B2%E5%90%83%E9%80%8F%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93/00-%E5%BC%80%E7%AF%87%E8%AF%8D-%E5%90%83%E9%80%8F%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8F%90%E5%8D%87%E8%81%8C%E5%9C%BA%E7%AB%9E%E4%BA%89%E5%8A%9B.md/"><span></span></a>
+        <a href="http://yipsen.github.io/documents/columns/linux/linux-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/linux%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.md/"><span></span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/articles/%E5%BC%82%E6%AD%A5%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B.md/"><span></span></a>
+        <a href="http://yipsen.github.io/documents/articles/%E5%BC%82%E6%AD%A5%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B.md/"><span></span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

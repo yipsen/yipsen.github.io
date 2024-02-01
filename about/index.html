@@ -8,10 +8,11 @@
 
 <link rel="icon" type="image/png" href="/%20/favicon.png">
 
-<title>关于Yipsen | Yipsen Ye</title>
-<meta name="description" content="Yipsen Ye
-public static void main(String[] args) { System.out.println(&amp;#34;Hello, I&amp;#39;m Yipsen Ye.&amp;#34;); } About Me 一直以来使用的网名主要是奶瓶居士或是Yipsen，Yipsen是一个不存在的外文，本身也没有什么特别的意义，只是发音类似粤语的叶先生。
-About this Site Contact Me ">
+<title>ABOUT YIPSEN YE | Yipsen Ye</title>
+<meta name="description" content="ABOUT ME Yipsen Ye
+public static void main(String[] args) { System.out.println(&amp;#34;Hello, I&amp;#39;m Yipsen Ye.&amp;#34;); } 一直以来使用的网名主要是奶瓶居士或是Yipsen，Yipsen是一个不存在的外文，本身也没有什么特别的意义，只是发音类似粤语的叶先生。
+源码原理党
+ABOUT HERE CONTACT ">
 <meta name="author" content="">
 
 <link rel="stylesheet" type="text/css" href="/styles/main.css">
@@ -20,10 +21,10 @@ About this Site Contact Me ">
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -32,7 +33,7 @@ About this Site Contact Me ">
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -51,22 +52,30 @@ About this Site Contact Me ">
     <main id="content">
         
 <div class="container"><article class="post-block">
-        <h1 class="post-title">关于Yipsen</h1>
+        <h1 class="post-title">ABOUT YIPSEN YE</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-11 06:55:43</span></div></div>
+            <div class="post-date"> 
+                <span>2021-12-11 06:55:43</span>
+            </div>
+        </div>
         <div class="post-content">
-            <p>Yipsen Ye</p>
+            <h2 id="about-me">ABOUT ME</h2>
+<p>Yipsen Ye</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
   System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Hello, I&#39;m Yipsen Ye.&#34;</span><span style="color:#f92672">);</span>
 <span style="color:#f92672">}</span>
-</code></pre></div><h3 id="about-me">About Me</h3>
-<p>一直以来使用的网名主要是<code>奶瓶居士</code>或是<code>Yipsen</code>，<code>Yipsen</code>是一个不存在的外文，本身也没有什么特别的意义，只是发音类似粤语的<code>叶先生</code>。</p>
-<h3 id="about-this-site">About this Site</h3>
-<h3 id="contact-me">Contact Me</h3>
+</code></pre></div><p>一直以来使用的网名主要是<code>奶瓶居士</code>或是<code>Yipsen</code>，<code>Yipsen</code>是一个不存在的外文，本身也没有什么特别的意义，只是发音类似粤语的<code>叶先生</code>。</p>
+<p>源码原理党</p>
+<h2 id="about-here">ABOUT HERE</h2>
+<h2 id="contact">CONTACT</h2>
 
         </div>
     </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
 </div>
 
     </main>
@@ -83,17 +92,29 @@ About this Site Contact Me ">
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

@@ -33,10 +33,10 @@ Bob 如果想证明合同是 Alice 的，就要用 Alice 的公钥，将签名�
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -45,7 +45,7 @@ Bob 如果想证明合同是 Alice 的，就要用 Alice 的公钥，将签名�
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -309,12 +309,10 @@ Bob 如果想证明合同是 Alice 的，就要用 Alice 的公钥，将签名�
 </style><article class="post-block">
         <h1 class="post-title">36 公私钥体系和网络安全：什么是中间人攻击？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:49:36</span>🏷️&nbsp;<a class="post-tag" href="/tags/linux/">linux</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">重学操作系统</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:49:36</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>设想你和一个朋友签订了合同，双方各执一份。如果朋友恶意篡改了合同内容，比如替换了合同中的条款，最后大家闹到法院、各执一词。这个时候就需要专业鉴定机构去帮你鉴定合同的真伪，朋友花越多心思去伪造合同，那么鉴定的成本就会越高。</p>
 <p>在网络安全领域有个说法：没有办法杜绝网络犯罪，只能想办法提高网络犯罪的成本。我们的目标是提高作案的成本，并不是杜绝这种现象。今天我将带你初探网络安全的世界，学习网络安全中最重要的一个安全体系——公私钥体系。</p>
@@ -371,6 +369,11 @@ Bob 如果想证明合同是 Alice 的，就要用 Alice 的公钥，将签名�
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/linux/">linux</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">重学操作系统</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -379,26 +382,38 @@ Bob 如果想证明合同是 Alice 的，就要用 Alice 的公钥，将签名�
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/36-1%E5%8A%A0%E9%A4%90-%E7%BB%83%E4%B9%A0%E9%A2%98%E8%AF%A6%E8%A7%A3%E4%B8%83/"><span>36 (1)加餐 练习题详解（七）</span></a>
+        <a href="http://yipsen.github.io/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/36-1%E5%8A%A0%E9%A4%90-%E7%BB%83%E4%B9%A0%E9%A2%98%E8%AF%A6%E8%A7%A3%E4%B8%83/"><span>36 (1)加餐 练习题详解（七）</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/37-%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF%E4%BB%8B%E7%BB%8Dvmware-%E5%92%8C-docker-%E7%9A%84%E5%8C%BA%E5%88%AB/"><span>37 虚拟化技术介绍：VMware 和 Docker 的区别？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/37-%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF%E4%BB%8B%E7%BB%8Dvmware-%E5%92%8C-docker-%E7%9A%84%E5%8C%BA%E5%88%AB/"><span>37 虚拟化技术介绍：VMware 和 Docker 的区别？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

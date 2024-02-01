@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>tcpdump 命令详解 | Yipsen Ye</title>
+<meta name="description" content="一、作用 二、基本命令格式 tcpdump [ -DenNqvX ] [ -c count] [ -F file ] [ -i interface ] [ -r file ] [ -s snaplen ] [ -w file ] [ expression ] 三、表达式 expression # 上下文的 expression 如 &amp;lt;protocol&amp;gt; &amp;lt;dir&amp;gt; &amp;lt;type&amp;gt; &amp;lt;ID&amp;gt;，对于表达式语法，参考 pcap-filter 【pcap-filter - packet filter syntax】 # 一个基本的表达式单元格式为`protocol dir type ID` tcpdump [option] [not] &amp;lt;protocol&amp;gt; &amp;lt;dir&amp;gt; &amp;lt;type&amp;gt; &amp;lt;ID&amp;gt;    meaning parameter values example     协议 protocol tcp, udp, icmp, 若未给定协议类型，则匹配所有可能的类型 tcp   类型 type host, net, port, portrange host 192.">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title">tcpdump 命令详解</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-02-06 16:31:43</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <h3 id="一作用">一、作用</h3>
+<h3 id="二基本命令格式">二、基本命令格式</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">tcpdump <span style="color:#f92672">[</span> -DenNqvX <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -c count<span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -F file <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -i interface <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -r file <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -s snaplen <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> -w file <span style="color:#f92672">]</span> <span style="color:#f92672">[</span> expression <span style="color:#f92672">]</span>
+</code></pre></div><h3 id="三表达式-expression">三、表达式 expression</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 上下文的 expression 如 &lt;protocol&gt; &lt;dir&gt; &lt;type&gt; &lt;ID&gt;，对于表达式语法，参考 pcap-filter 【pcap-filter - packet filter syntax】</span>
+<span style="color:#75715e"># 一个基本的表达式单元格式为`protocol dir type ID`</span>
+tcpdump <span style="color:#f92672">[</span>option<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>not<span style="color:#f92672">]</span> &lt;protocol&gt; &lt;dir&gt; &lt;type&gt; &lt;ID&gt;
+</code></pre></div><table>
+<thead>
+<tr>
+<th>meaning</th>
+<th>parameter</th>
+<th>values</th>
+<th>example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>协议</td>
+<td>protocol</td>
+<td>tcp, udp, icmp, 若未给定协议类型，则匹配所有可能的类型</td>
+<td>tcp</td>
+</tr>
+<tr>
+<td>类型</td>
+<td>type</td>
+<td>host, net, port, portrange</td>
+<td>host 192.168.281.128, net 128.3, port 20, portrange 6000-6008</td>
+</tr>
+<tr>
+<td>目标</td>
+<td>dir</td>
+<td>src, dst, src or dst, src and dst</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>表达式大暖之间可以使用操作符<code>and</code>、<code>&amp;&amp;</code>、<code>or</code>、<code>||</code>、<code>not</code>、<code>!</code>进行连接，从而组成复杂的条件表达式
+如<code>host foo and not port ftp and not port ftp-data</code>表示筛选的数据包要满足“主机为foo且端口不是ftp（即端口21）和ftp-data（即端口20）的包”，
+常用的端口和名字的对应关系可在 linux 系统的 /etc/service 文件中找到。
+另外，同样的修饰符可省略，如<code>tcp dst port ftp or ftp-data or domain</code> 与 <code>tcp dst port ftp or tcp dst port ftp-data or tcp dst port domain</code> 意义相同，
+都表示包的协议为tcp且目的端口为ftp或ftp-data或domain（即端口53）.
+使用括号<code>()</code>可以改变表达式的优先级，但需要注意的是括号会被shell解释，所以应该使用转义符即反斜杆进行转义，还需要包围在引号中。</p>
+</blockquote>
+<h3 id="四参数解释">四、参数解释</h3>
+<ol>
+<li>
+<p>抓包参数</p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>word</th>
+<th>meanings</th>
+<th>example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c</td>
+<td>count</td>
+<td>指定要抓取的包的数量</td>
+<td>-c 100</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>interface</td>
+<td>指定tcpdump需要监听的接口。默认会抓取第一个网络接口</td>
+<td>-i eth0</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>number</td>
+<td>对地址以数字方式显示，否则显示为主机名，也就是说 -n 选项不做主机名解析</td>
+<td>-n</td>
+</tr>
+<tr>
+<td>-nn</td>
+<td>number x 2</td>
+<td>除了包含 -n 的作用外，还把端口显示为数值，否则显示端口服务名</td>
+<td>-nn</td>
+</tr>
+<tr>
+<td>-P</td>
+<td></td>
+<td>指定要抓取的包是流入还是流出的包。可以给定的值为&quot;in&quot;、&ldquo;out&quot;和&quot;inout&rdquo;（默认）</td>
+<td></td>
+</tr>
+<tr>
+<td>-s</td>
+<td>size</td>
+<td>设置tcpdump的数据包抓取的长度，如果不设置默认将会是65535字节。设置为0表示不限制，如抓取的数据包较大且长度设置不够会产生包截断</td>
+<td>-s 0</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>输出选项</p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>word</th>
+<th>meanings</th>
+<th>example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-e</td>
+<td>eth</td>
+<td>输出的每行中都将包括数据链路层头部信息，例如源MAC和目标MAC</td>
+<td></td>
+</tr>
+<tr>
+<td>-q</td>
+<td>quick</td>
+<td>快速打印输出。即打印很少的协议相关信息，从而输出行都比较简短。</td>
+<td></td>
+</tr>
+<tr>
+<td>-X</td>
+<td>eXtend</td>
+<td>输出包的头部数据，会以16进制和ASCII两种方式同时输出。</td>
+<td></td>
+</tr>
+<tr>
+<td>-XX</td>
+<td>eXtend x 2</td>
+<td>输出包的头部数据，会以16进制和ASCII两种方式同时输出且更详细。</td>
+<td></td>
+</tr>
+<tr>
+<td>-v</td>
+<td></td>
+<td>当分析和打印的时候，产生详细的输出。</td>
+<td></td>
+</tr>
+<tr>
+<td>-vv</td>
+<td></td>
+<td>产生比 -v 更详细的输出。</td>
+<td></td>
+</tr>
+<tr>
+<td>-vvv</td>
+<td></td>
+<td>产生比 -vv 更详细的输出。</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>其他功能性选项</p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>word</th>
+<th>meanings</th>
+<th>example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-D:</td>
+<td></td>
+<td>列出可用于抓包的接口。将会列出接口的数值编号和接口名，他们都可以用于&quot;-i&quot;后。</td>
+<td></td>
+</tr>
+<tr>
+<td>-F:</td>
+<td></td>
+<td>从文件中读取抓包的表达式。若使用该选项，则命令行中给定的其他表达式都将失效。</td>
+<td></td>
+</tr>
+<tr>
+<td>-w:</td>
+<td></td>
+<td>将抓包数据输出到文件中而不是标准输出。可以同时配合&quot;-G time&quot;选项使得输出文件每time秒就自动切换到另一个文件。可通过&quot;-r&quot;选项载入这些文件以进行分析和打印。</td>
+<td></td>
+</tr>
+<tr>
+<td>-r:</td>
+<td></td>
+<td>从给定的数据包文件中读取数据。使用&quot;-&ldquo;表示从标准输入中读取。</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+<h3 id="五常用案例-tcpdump只能抓取流经本机的数据包">五、常用案例 <strong>tcpdump只能抓取流经本机的数据包</strong></h3>
+<ol>
+<li>
+<p>默认启动</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 默认情况下，直接启动 tcpdump 将监视第一个网络接口（非 lo 接口）上所有流通的数据包，这样抓取的结果会非常多，滚动非常快。</span>
+tcpdump
+</code></pre></div></li>
+<li>
+<p>监视指定网络接口的数据包</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">tcpdump -i ens33
+</code></pre></div></li>
+<li>
+<p>监视指定主机的数据包</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 所有进入或离开 node1 的数据包，node1 也可以写为 IP 地址。</span>
+tcpdump -i ens33 host node1
+</code></pre></div></li>
+<li>
+<p>打印 node1 &lt;&ndash;&gt; node2 或 node1 &lt;&ndash;&gt; node3 之间通信的数据包</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">tcpdump -i ens33 host node1 and <span style="color:#ae81ff">\(</span>node2 or node3<span style="color:#ae81ff">\)</span>
+</code></pre></div></li>
+<li>
+<p>打印 node1 与任何其他主机之间通信的 IP 数据包，但不包括与 node4 之间的数据包</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">tcpdump -i ens33 host node1 and not node4
+</code></pre></div></li>
+<li>
+<p>截获主机 node1 发送的所有数据</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">tcpdump -i ens33 src host node1
+</code></pre></div></li>
+<li>
+<p>监视所有发送到主机 node1 的数据包</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">tcpdump -i ens33 dst host node1
+</code></pre></div></li>
+<li>
+<p>监视指定主机和端口的数据包</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">tcpdump -i ens33 port <span style="color:#ae81ff">8080</span> and host node1
+</code></pre></div></li>
+<li>
+<p>监视指定网络的数据包</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 本机与 192.168 网段通信的数据包。“-c 10”表示只抓取10个数据包</span>
+tcpdump -i ens33 -c <span style="color:#ae81ff">10</span> net 192.168
+</code></pre></div></li>
+<li>
+<p>打印所有通过网关 snup 的 ftp 数据包</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 注意，表达式被单引号括起来了，这可以防止 shell 对其中的括号进行错误解析</span>
+tcpdump <span style="color:#e6db74">&#39;gateway snup and (port ftp or ftp-data)&#39;</span>
+</code></pre></div></li>
+<li>
+<p>抓取 ping 包</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">tcpdump -c <span style="color:#ae81ff">5</span> -nn -i ens33
+
+<span style="color:#75715e"># 指定主机抓取 ping 数据包</span>
+tcpdump -c <span style="color:#ae81ff">5</span> -nn -i ech0 icmp and src 192.168.100.62
+</code></pre></div></li>
+<li>
+<p>抓取到主机 22 端口的数据包</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">tcpdump -c <span style="color:#ae81ff">10</span> -nn -i ens33 tcp dst port <span style="color:#ae81ff">22</span>
+</code></pre></div></li>
+<li>
+<p>解析包数据</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">tcpdump -c <span style="color:#ae81ff">2</span> -q -XX -vvv -nn -i ens33 tcp dst port <span style="color:#ae81ff">22</span>
+</code></pre></div></li>
+</ol>
+<h3 id="六抓包结果分析tcpdump--wireshark-实现可视化抓包分析">六、抓包结果分析：tcpdump + wireshark 实现可视化抓包分析</h3>
+<ol>
+<li>
+<p>基本命令</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">tcpdump tcp -i eth1 -t -s <span style="color:#ae81ff">0</span> -c <span style="color:#ae81ff">100</span> and dst port ! <span style="color:#ae81ff">22</span> and src net 192.168.1.0/24 -w /tmp/package.cap
+</code></pre></div></li>
+<li>
+<p>参数解释</p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>meanings</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tcp</td>
+<td>ip、icmp、arp、rarp 和 tcp、udp这些选项等都要放到第一个参数的位置，用来过滤数据报的协议类型</td>
+</tr>
+<tr>
+<td>-i eth1</td>
+<td>表示只抓取经过接口 eth1 网卡的包</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>不显示时间戳</td>
+</tr>
+<tr>
+<td>-s 0</td>
+<td>tcpdump 抓取数据包时默认抓取长度为68字节。加上<code>-s 0</code>后可以抓取到完整的数据包</td>
+</tr>
+<tr>
+<td>-c 100</td>
+<td>只抓取100个数据包</td>
+</tr>
+<tr>
+<td>dst port ! 22</td>
+<td>过滤条件：不抓取目标端口为22的数据包</td>
+</tr>
+<tr>
+<td>src net 192.168.1.0/24</td>
+<td>过滤条件：抓取数据包的源网络地址为<code>192.168.1.0/24</code></td>
+</tr>
+<tr>
+<td>-w /tmp/package.cap</td>
+<td>把抓取到的数据包保存到成cap文件，输出到<code>/tmp/package.cap</code>文件中，后续可导入到可视化软件<code>wireshark</code>中分析</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>抓包示例</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">tcpdump -s <span style="color:#ae81ff">0</span> udp port <span style="color:#ae81ff">8999</span> and src net 7.213.37.122 -w /tmp/MAA.cap
+</code></pre></div></li>
+</ol>
+<h3 id="常用案例">常用案例</h3>
+
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/network/">network</a>&nbsp;🏷️<a class="post-tag" href="/tags/linux/">linux</a>&nbsp;</div>
+    <div></div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/posts/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/vscode-%E7%BC%96%E5%86%99-markdown-%E4%B8%AD%E8%8B%B1%E6%96%87%E7%AD%89%E8%B7%9D/"><span>VSCode 编写 markdown 中英文等距</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/posts/linux/tar-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"><span>tar 命令详解</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>Kafka 部署 | Yipsen Ye</title>
+<meta name="description" content="部署 # 解压包 tar -xzvf kafka_2.13-3.2.1.tgz # 移动到指定目录 mv kafka_2.13-3.2.1 /volume2/services/ # 修改配置 cd kafka_2.13-3.2.1/ vi server.properties # 修改 advertised.listeners=PLAINTEXT://your.host.name:9092 为 advertised.listeners=PLAINTEXT://192.168.127.131:9092 # 开启自动创建topic vi server.properties # 追加配置`auto.create.topics.enable=true`到server.properties文件末尾 # 启动zookeeper sh zookeeper-server-start.sh -daemon ../config/zookeeper.properties # 启动kafka sh kafka-server-start.sh -daemon ../config/server.properties 常用指令 # 查看 TOPIC 列表 sh kafka-topics.sh --bootstrap-server localhost:9092 --list # 查看 TOPIC 详情 sh kafka-topics.sh --bootstrap-server localhost:9092 --describe T_FILEBEAT_LOG Topic: T_FILEBEAT_LOG TopicId: _X039cbbQVaK1XKHxzzFMg PartitionCount: 1 ReplicationFactor: 1 Configs: segment.bytes=1073741824 Topic: T_FILEBEAT_LOG Partition: 0 Leader: 0 Replicas: 0 Isr: 0 # 消费指定 TOPIC 内容，--from-beginning 表示消费全部 sh kafka-console-consumer.">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title">Kafka 部署</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-03-05 08:34:41</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <h2 id="部署">部署</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 解压包</span>
+tar -xzvf kafka_2.13-3.2.1.tgz
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 移动到指定目录</span>
+mv kafka_2.13-3.2.1 /volume2/services/
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 修改配置</span>
+cd kafka_2.13-3.2.1/
+vi server.properties
+<span style="color:#75715e"># 修改 advertised.listeners=PLAINTEXT://your.host.name:9092 为 advertised.listeners=PLAINTEXT://192.168.127.131:9092</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 开启自动创建topic</span>
+vi server.properties
+<span style="color:#75715e"># 追加配置`auto.create.topics.enable=true`到server.properties文件末尾</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 启动zookeeper</span>
+sh zookeeper-server-start.sh -daemon ../config/zookeeper.properties
+<span style="color:#75715e"># 启动kafka</span>
+sh kafka-server-start.sh -daemon ../config/server.properties
+</code></pre></div><h2 id="常用指令">常用指令</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 查看 TOPIC 列表</span>
+sh kafka-topics.sh --bootstrap-server localhost:9092 --list
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 查看 TOPIC 详情</span>
+sh kafka-topics.sh --bootstrap-server localhost:9092 --describe T_FILEBEAT_LOG
+
+Topic: T_FILEBEAT_LOG   TopicId: _X039cbbQVaK1XKHxzzFMg PartitionCount: <span style="color:#ae81ff">1</span>       ReplicationFactor: <span style="color:#ae81ff">1</span>    Configs: segment.bytes<span style="color:#f92672">=</span><span style="color:#ae81ff">1073741824</span>
+        Topic: T_FILEBEAT_LOG   Partition: <span style="color:#ae81ff">0</span>    Leader: <span style="color:#ae81ff">0</span>       Replicas: <span style="color:#ae81ff">0</span>     Isr: <span style="color:#ae81ff">0</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 消费指定 TOPIC 内容，--from-beginning 表示消费全部</span>
+sh kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic T_FILEBEAT_LOG --from-beginning
+</code></pre></div>
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/posts/redis/redis-%E5%91%BD%E4%BB%A4%E5%A4%87%E5%BF%98%E5%BD%95/"><span>Redis 命令备忘录</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/posts/git/git-%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"><span>Git 的基本使用</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

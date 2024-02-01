@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>07 附录：更多字符串操作命令 | Yipsen Ye</title>
+<meta name="description" content="键值对过期操作 a.添加键值对并设置过期时间 语法：set key value [expiration EX seconds|PX milliseconds] [NX|XX] 示例：
+127.0.0.1:6379&amp;gt; set k1 val1 ex 1000OK设置键值对 k1=val1，过期时间为 1000 秒。 查询键的过期时间可以使用 ttl key，如下代码所示：
+127.0.0.1:6379&amp;gt; ttl k1(integer) 997b.赋值字符串，并设置过期时间(单位/秒) 语法：setex key seconds value 示例：
+127.0.0.1:6379&amp;gt; setex k1 1000 v1OK127.0.0.1:6379&amp;gt; ttl k1(integer) 999127.0.0.1:6379&amp;gt; get k1&amp;quot;v1&amp;quot;如果 key 已经存在，setex 命令将会覆写原来的旧值。
+c.赋值字符串，并设置过期时间(单位/毫秒) 与 setex 用法类似，只不过 psetex 设置的单位是毫秒。 语法：psetex key milliseconds value 示例：
+127.0.0.1:6379&amp;gt; psetex k1 100000 v11OK127.">
+<meta name="author" content="">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><aside>
+    <div>
+        
+        
+            
+            
+            <div class="post-category-icon"></div>
+            <a href="/categories/redis%20%e6%a0%b8%e5%bf%83%e5%8e%9f%e7%90%86%e4%b8%8e%e5%ae%9e%e6%88%98/">Redis 核心原理与实战</a>
+            <ul>
+                
+            </ul>
+        
+    </div>
+</aside>
+
+<style>
+    aside {
+        position: fixed;
+        left: 20px;
+        background: #ffdee3;
+        border-radius: 6px;
+        padding: 20px;
+        padding-top: 60px;
+        box-shadow: 5px 10px #888;
+        list-style-type: none;
+        display: none;
+    }
+
+    .post-category-icon {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        left: 50%;
+        margin-left: -40px;
+        text-align: center;
+        font-size: 36px;
+        content: 'J';
+        background: #ffdee3;
+        border-radius: 100%;
+        border: 10px solid #fff;
+        box-shadow: 5px 10px #888;
+    }
+</style><article class="post-block">
+        <h1 class="post-title">07 附录：更多字符串操作命令</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-09-28 19:38:00</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <h3 id="键值对过期操作">键值对过期操作</h3>
+<h4 id="a添加键值对并设置过期时间">a.添加键值对并设置过期时间</h4>
+<p>语法：set key value [expiration EX seconds|PX milliseconds] [NX|XX] 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; set k1 val1 ex 1000
+OK
+
+</code></pre><p>设置键值对 k1=val1，过期时间为 1000 秒。 查询键的过期时间可以使用 ttl key，如下代码所示：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; ttl k1
+(integer) 997
+
+</code></pre><h4 id="b赋值字符串并设置过期时间单位秒">b.赋值字符串，并设置过期时间(单位/秒)</h4>
+<p>语法：setex key seconds value 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; setex k1 1000 v1
+OK
+127.0.0.1:6379&gt; ttl k1
+(integer) 999
+127.0.0.1:6379&gt; get k1
+&quot;v1&quot;
+
+</code></pre><p>如果 key 已经存在，setex 命令将会覆写原来的旧值。</p>
+<h4 id="c赋值字符串并设置过期时间单位毫秒">c.赋值字符串，并设置过期时间(单位/毫秒)</h4>
+<p>与 setex 用法类似，只不过 psetex 设置的单位是毫秒。 语法：psetex key milliseconds value 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; psetex k1 100000 v11
+OK
+127.0.0.1:6379&gt; ttl k1
+(integer) 97
+127.0.0.1:6379&gt; get k1
+&quot;v11&quot;
+
+</code></pre><h3 id="字符串操作进阶">字符串操作进阶</h3>
+<h4 id="a根据指定的范围截取字符串">a.根据指定的范围截取字符串</h4>
+<p>语法：getrange key start end 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; get hello
+&quot;hello world&quot;
+127.0.0.1:6379&gt; getrange hello 0 4
+&quot;hello&quot;
+127.0.0.1:6379&gt; getrange hello 0 -1
+&quot;hello world&quot;
+127.0.0.1:6379&gt; getrange hello 0 -2
+&quot;hello worl&quot;
+
+</code></pre><p>负数表示从字符串最后开始计数， -1 表示最后一个字符， -2 表示倒数第二个，以此类推。</p>
+<h4 id="b设置字符串新值并返回旧值">b.设置字符串新值并返回旧值</h4>
+<p>语法：getset key value 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; get db
+&quot;redis&quot;
+127.0.0.1:6379&gt; getset db mysql
+&quot;redis&quot;
+127.0.0.1:6379&gt; get db
+&quot;mysql&quot;
+
+</code></pre><p>使用 getset 命令时，如果 key 不为字符串会报错，如下效果所示：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; type myset
+set
+127.0.0.1:6379&gt; getset myset v1
+(error) WRONGTYPE Operation against a key holding the wrong kind of value
+
+</code></pre><p>根据 type 命令可以查询出 key 所对应的数据类型为非字符串，在使用 getset 命令就会报错。</p>
+<h4 id="c赋值创建键值对当-key-不存在时">c.赋值(创建)键值对，当 key 不存在时</h4>
+<p>如果 key 已经存在，则执行命令无效，不会修改原来的值，否则会创建新的键值对。 语法：setnx key value 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; setnx k9 v9
+(integer) 1
+127.0.0.1:6379&gt; get k9
+&quot;v9&quot;
+127.0.0.1:6379&gt; setnx k9 v99
+(integer) 0
+127.0.0.1:6379&gt; get k9
+&quot;v9&quot;
+
+</code></pre><h4 id="d设置一个或多个键值当所有键值都不存在时">d.设置一个或多个键值，当所有键值都不存在时</h4>
+<p>语法：msetnx key value [key value …] 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; msetnx k5 v5 k6 v6
+(integer) 1
+127.0.0.1:6379&gt; mget k5 k6
+1) &quot;v5&quot;
+2) &quot;v6&quot;
+
+</code></pre><p>注意：msetnx 是一个原子操作，当一个操作失败时，其他操作也会失败。例如，如果有一个已经存在的值，那么全部键值都会设置失败，效果如下：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; get k1
+&quot;val1&quot;
+127.0.0.1:6379&gt; get k8
+(nil)
+127.0.0.1:6379&gt; msetnx k1 v1 k8 v8
+(integer) 0
+127.0.0.1:6379&gt; get k1
+&quot;val1&quot;
+127.0.0.1:6379&gt; get k8
+(nil)
+
+</code></pre><h4 id="e截取字符串并赋值">e.截取字符串并赋值</h4>
+<p>语法：setrange key offset value 示例：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; get hello
+&quot;hello java&quot;
+127.0.0.1:6379&gt; setrange hello 6 redis
+(integer) 11
+127.0.0.1:6379&gt; get hello
+&quot;hello redis&quot;
+
+</code></pre><p>如果待截取的键不存在，会当作空白字符串处理，效果如下：</p>
+<pre tabindex="0"><code>127.0.0.1:6379&gt; setrange mystr 3 mystring
+(integer) 11
+127.0.0.1:6379&gt; get mystring
+(nil)
+
+</code></pre><p>以上这些命令基本涵盖了所有的字符串操作，有些不常用，但很好用，例如 <code>setnx key value</code> 命令，当 key 已经存在，则执行命令无效，并不会覆盖原有的值，如果没有此 key 则会新创建一个键值对。</p>
+
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/redis/">redis</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/">Redis 核心原理与实战</a>&nbsp; </div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/06-%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/"><span>06 字符串使用与内部实现原理</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/documents/columns/redis/redis-%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/08-%E5%AD%97%E5%85%B8%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/"><span>08 字典使用与内部实现原理</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

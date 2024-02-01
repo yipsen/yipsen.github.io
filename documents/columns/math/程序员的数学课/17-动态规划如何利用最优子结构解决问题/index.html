@@ -42,10 +42,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -54,7 +54,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -218,12 +218,10 @@
 </style><article class="post-block">
         <h1 class="post-title">17 动态规划：如何利用最优子结构解决问题？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:50:16</span>🏷️&nbsp;<a class="post-tag" href="/tags/math/">math</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/">程序员的数学课</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:50:16</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>动态规划是运筹学问题，运筹学又是数学的一个分支，与“运筹帷幄、决胜千里”的含义很接近；同时，动态规划也是计算机技术的问题，对于程序员而言，能灵活运用动态规划解决复杂问题是一项进阶的能力。<strong>在一线互联网公司的程序员面试中，动态规划的考核绝对是一大难点。</strong></p>
 <p>这一讲，我们就从数学的视角学习动态规划，并通过代码完成动态规划问题的开发。</p>
@@ -388,6 +386,11 @@ print minPath(m)
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/math/">math</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/">程序员的数学课</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -396,26 +399,38 @@ print minPath(m)
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/16-%E4%BA%8C%E5%88%86%E6%B3%95%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8%E6%8C%87%E6%95%B0%E7%88%86%E7%82%B8%E4%BC%98%E5%8C%96%E7%A8%8B%E5%BA%8F/"><span>16 二分法：如何利用指数爆炸优化程序？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/16-%E4%BA%8C%E5%88%86%E6%B3%95%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8%E6%8C%87%E6%95%B0%E7%88%86%E7%82%B8%E4%BC%98%E5%8C%96%E7%A8%8B%E5%BA%8F/"><span>16 二分法：如何利用指数爆炸优化程序？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/18-ai-%E5%85%A5%E9%97%A8%E5%88%A9%E7%94%A8-3-%E4%B8%AA%E5%85%AC%E5%BC%8F%E6%90%AD%E5%BB%BA%E6%9C%80%E7%AE%80-ai-%E6%A1%86%E6%9E%B6/"><span>18 AI 入门：利用 3 个公式搭建最简 AI 框架</span></a>
+        <a href="http://yipsen.github.io/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/18-ai-%E5%85%A5%E9%97%A8%E5%88%A9%E7%94%A8-3-%E4%B8%AA%E5%85%AC%E5%BC%8F%E6%90%AD%E5%BB%BA%E6%9C%80%E7%AE%80-ai-%E6%A1%86%E6%9E%B6/"><span>18 AI 入门：利用 3 个公式搭建最简 AI 框架</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

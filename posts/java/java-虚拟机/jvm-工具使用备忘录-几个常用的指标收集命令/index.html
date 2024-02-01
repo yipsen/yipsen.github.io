@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>JVM 工具使用备忘录 - 几个常用的指标收集命令 | Yipsen Ye</title>
+<meta name="description" content="内存镜像  输出较为简单的概要信息  jmap -histo:live &amp;lt;pid&amp;gt; &amp;gt; ~/jmap_20230310  完全镜像出 JVM 的内存内容信息（文件会比较大）  jmap -dump:live,format=b,file=~/dump_20230310.hprof &amp;lt;pid&amp;gt; 线程堆栈 jstack &amp;lt;pid&amp;gt; &amp;gt; ~/jstack_20230310 ">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title">JVM 工具使用备忘录 - 几个常用的指标收集命令</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2023-03-01 08:34:41</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <h2 id="内存镜像">内存镜像</h2>
+<ul>
+<li>输出较为简单的概要信息</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">jmap -histo:live &lt;pid&gt; &gt; ~/jmap_20230310
+</code></pre></div><ul>
+<li>完全镜像出 JVM 的内存内容信息（文件会比较大）</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">jmap -dump:live,format<span style="color:#f92672">=</span>b,file<span style="color:#f92672">=</span>~/dump_20230310.hprof &lt;pid&gt;
+</code></pre></div><h2 id="线程堆栈">线程堆栈</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">jstack &lt;pid&gt; &gt; ~/jstack_20230310
+</code></pre></div>
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/posts/redis/%E8%AE%B0%E4%B8%80%E6%AC%A1-redis-%E4%B8%BB%E5%A4%87%E6%96%AD%E9%93%BE%E7%9A%84%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D/"><span>记一次 Redis 主备断链的故障恢复</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/posts/java/java-%E8%99%9A%E6%8B%9F%E6%9C%BA/jvm-%E5%8F%91%E7%94%9F-gc-%E7%9A%84%E6%97%B6%E9%97%B4%E7%82%B9/"><span>JVM 发生 GC 的时间点</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

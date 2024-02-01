@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>Redis 命令备忘录 | Yipsen Ye</title>
+<meta name="description" content="密码登录 # 命令模式密码登录 ./redis-cli -h localhost -p 6379 -a &amp;lt;password&amp;gt; # 进入控制台之后 ./redis-cli -h localhost -p 6379 # 再密码登录 auth &amp;lt;password&amp;gt; 查看大 KEY 查看配置信息 查看占用内存资源情况 查看集群节点信息 # 查看集群节点情况：需要该主从组合以集群模式启动 cluster nodes 查看哨兵节点信息 # 进入哨兵进程，同样采用 ./redis-cli 进入控制台 # 查看 mymaster 全部哨兵节点信息，mymaster 是哨兵监听时自定义的 redis 主从组合 sentinel sentinels mymaster # 查看 mymaster 下的 master 节点信息（被当前哨兵监听的主从组合中的主节点） sentinel master mymaster # 查看 mymaster 下的 slaves 节点信息（被当前哨兵监听的主从组合中的从节点列表） sentinel slaves mymaster # 进入主从进程，同样采用 ./redis-cli 进入控制台 # 查看当前节点的主从节点信息，以普通主从模式部署时也可以用 info replication ">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title">Redis 命令备忘录</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-03-05 08:34:41</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <h3 id="密码登录">密码登录</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 命令模式密码登录</span>
+./redis-cli -h localhost -p <span style="color:#ae81ff">6379</span> -a &lt;password&gt;
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 进入控制台之后</span>
+./redis-cli -h localhost -p <span style="color:#ae81ff">6379</span>
+<span style="color:#75715e"># 再密码登录</span>
+auth &lt;password&gt;
+</code></pre></div><h3 id="查看大-key">查看大 KEY</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
+</code></pre></div><h3 id="查看配置信息">查看配置信息</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
+</code></pre></div><h3 id="查看占用内存资源情况">查看占用内存资源情况</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
+</code></pre></div><h3 id="查看集群节点信息">查看集群节点信息</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 查看集群节点情况：需要该主从组合以集群模式启动</span>
+cluster nodes
+</code></pre></div><h3 id="查看哨兵节点信息">查看哨兵节点信息</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 进入哨兵进程，同样采用 ./redis-cli 进入控制台</span>
+
+<span style="color:#75715e"># 查看 mymaster 全部哨兵节点信息，mymaster 是哨兵监听时自定义的 redis 主从组合</span>
+sentinel sentinels mymaster
+
+<span style="color:#75715e"># 查看 mymaster 下的 master 节点信息（被当前哨兵监听的主从组合中的主节点）</span>
+sentinel master mymaster
+
+<span style="color:#75715e"># 查看 mymaster 下的 slaves 节点信息（被当前哨兵监听的主从组合中的从节点列表）</span>
+sentinel slaves mymaster
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 进入主从进程，同样采用 ./redis-cli 进入控制台</span>
+
+<span style="color:#75715e"># 查看当前节点的主从节点信息，以普通主从模式部署时也可以用</span>
+info replication
+</code></pre></div>
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/redis/">Redis</a>&nbsp;</div>
+    <div></div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/posts/redis/redis-%E9%9B%86%E7%BE%A4%E6%B8%85%E7%A9%BA%E6%8C%87%E5%AE%9A-key/"><span>Redis 集群清空指定 KEY</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/posts/kafka/kafka-%E9%83%A8%E7%BD%B2/"><span>Kafka 部署</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

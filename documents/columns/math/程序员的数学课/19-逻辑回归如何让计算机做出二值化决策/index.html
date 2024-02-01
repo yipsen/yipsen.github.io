@@ -32,10 +32,10 @@
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -44,7 +44,7 @@
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -208,12 +208,10 @@
 </style><article class="post-block">
         <h1 class="post-title">19 逻辑回归：如何让计算机做出二值化决策？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:50:18</span>🏷️&nbsp;<a class="post-tag" href="/tags/math/">math</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/">程序员的数学课</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:50:18</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>在上一讲，学习完 AI 的基本框架后，我们现在就开始围绕当前人工智能领域最常用的模型，来分别学习一下它们背后的原理。</p>
 <p>这一讲，我们从最常见的逻辑回归模型说起，逻辑回归是人工智能领域中入门级的基础模型，它在很多领域都有应用，例如用户的信贷模型、疾病识别等。</p>
@@ -367,6 +365,11 @@ print w
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/math/">math</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/">程序员的数学课</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -375,26 +378,38 @@ print w
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/18-ai-%E5%85%A5%E9%97%A8%E5%88%A9%E7%94%A8-3-%E4%B8%AA%E5%85%AC%E5%BC%8F%E6%90%AD%E5%BB%BA%E6%9C%80%E7%AE%80-ai-%E6%A1%86%E6%9E%B6/"><span>18 AI 入门：利用 3 个公式搭建最简 AI 框架</span></a>
+        <a href="http://yipsen.github.io/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/18-ai-%E5%85%A5%E9%97%A8%E5%88%A9%E7%94%A8-3-%E4%B8%AA%E5%85%AC%E5%BC%8F%E6%90%AD%E5%BB%BA%E6%9C%80%E7%AE%80-ai-%E6%A1%86%E6%9E%B6/"><span>18 AI 入门：利用 3 个公式搭建最简 AI 框架</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/20-%E5%86%B3%E7%AD%96%E6%A0%91%E5%A6%82%E4%BD%95%E5%AF%B9-np-%E9%9A%BE%E5%A4%8D%E6%9D%82%E9%97%AE%E9%A2%98%E8%BF%9B%E8%A1%8C%E5%90%AF%E5%8F%91%E5%BC%8F%E6%B1%82%E8%A7%A3/"><span>20 决策树：如何对 NP 难复杂问题进行启发式求解？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/20-%E5%86%B3%E7%AD%96%E6%A0%91%E5%A6%82%E4%BD%95%E5%AF%B9-np-%E9%9A%BE%E5%A4%8D%E6%9D%82%E9%97%AE%E9%A2%98%E8%BF%9B%E8%A1%8C%E5%90%AF%E5%8F%91%E5%BC%8F%E6%B1%82%E8%A7%A3/"><span>20 决策树：如何对 NP 难复杂问题进行启发式求解？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

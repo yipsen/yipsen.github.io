@@ -23,10 +23,10 @@ public class ConditionDemo {private ReentrantLock lock = new ReentrantLock();p
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -35,7 +35,7 @@ public class ConditionDemo {private ReentrantLock lock = new ReentrantLock();p
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -415,12 +415,10 @@ public class ConditionDemo {private ReentrantLock lock = new ReentrantLock();p
 </style><article class="post-block">
         <h1 class="post-title">55 Condition、object.wait() 和 notify() 的关系？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:42:32</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/">Java并发编程78讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:42:32</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>本课时我们主要介绍 Condition、Object 的 wait() 和 notify() 的关系。</p>
 <p>下面先讲一下 Condition 这个接口，来看看它的作用、如何使用，以及需要注意的点有哪些。</p>
@@ -713,6 +711,11 @@ lock.unlock() 对应退出 synchronized 方法
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/">Java并发编程78讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -721,26 +724,38 @@ lock.unlock() 对应退出 synchronized 方法
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/54-cyclicbarrier-%E5%92%8C-countdownlatch-%E6%9C%89%E4%BB%80%E4%B9%88%E5%BC%82%E5%90%8C/"><span>54 CyclicBarrier 和 CountdownLatch 有什么异同？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/54-cyclicbarrier-%E5%92%8C-countdownlatch-%E6%9C%89%E4%BB%80%E4%B9%88%E5%BC%82%E5%90%8C/"><span>54 CyclicBarrier 和 CountdownLatch 有什么异同？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/56-%E8%AE%B2%E4%B8%80%E8%AE%B2%E4%BB%80%E4%B9%88%E6%98%AF-java-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/"><span>56 讲一讲什么是 Java 内存模型？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B78%E8%AE%B2/56-%E8%AE%B2%E4%B8%80%E8%AE%B2%E4%BB%80%E4%B9%88%E6%98%AF-java-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/"><span>56 讲一讲什么是 Java 内存模型？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

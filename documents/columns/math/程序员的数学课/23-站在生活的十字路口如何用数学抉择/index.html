@@ -35,10 +35,10 @@ import randomimport numpy as npt = 0f = 0for i in range(1000):a = np.">
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -47,7 +47,7 @@ import randomimport numpy as npt = 0f = 0for i in range(1000):a = np.">
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -211,12 +211,10 @@ import randomimport numpy as npt = 0f = 0for i in range(1000):a = np.">
 </style><article class="post-block">
         <h1 class="post-title">23 站在生活的十字路口，如何用数学抉择？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:50:23</span>🏷️&nbsp;<a class="post-tag" href="/tags/math/">math</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/">程序员的数学课</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:50:23</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>人的一生需要面临很多重大的选择和决策，举例而言：</p>
 <ul>
@@ -381,6 +379,11 @@ print &quot;percentage: &quot; + str(100.0*t/(t+f))
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/math/">math</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/">程序员的数学课</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -389,26 +392,38 @@ print &quot;percentage: &quot; + str(100.0*t/(t+f))
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/22-%E9%9D%A2%E8%AF%95%E4%B8%AD%E9%82%A3%E4%BA%9B%E5%9D%91%E4%BA%86%E6%97%A0%E6%95%B0%E4%BA%BA%E7%9A%84%E7%AE%97%E6%B3%95%E9%A2%98/"><span>22 面试中那些坑了无数人的算法题</span></a>
+        <a href="http://yipsen.github.io/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/22-%E9%9D%A2%E8%AF%95%E4%B8%AD%E9%82%A3%E4%BA%9B%E5%9D%91%E4%BA%86%E6%97%A0%E6%95%B0%E4%BA%BA%E7%9A%84%E7%AE%97%E6%B3%95%E9%A2%98/"><span>22 面试中那些坑了无数人的算法题</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/24-%E7%BB%93%E6%9D%9F%E8%AF%AD-%E6%95%B0%E5%AD%A6%E5%BA%95%E5%AD%90%E5%A5%BD%E5%AD%A6%E5%95%A5%E9%83%BD%E5%BF%AB/"><span>24 结束语 数学底子好，学啥都快</span></a>
+        <a href="http://yipsen.github.io/documents/columns/math/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%BE/24-%E7%BB%93%E6%9D%9F%E8%AF%AD-%E6%95%B0%E5%AD%A6%E5%BA%95%E5%AD%90%E5%A5%BD%E5%AD%A6%E5%95%A5%E9%83%BD%E5%BF%AB/"><span>24 结束语 数学底子好，学啥都快</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

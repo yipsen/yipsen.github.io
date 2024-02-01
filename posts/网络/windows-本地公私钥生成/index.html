@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>Windows 本地公私钥生成 | Yipsen Ye</title>
+<meta name="description" content=":: 方式一：生成 keystore（JKS 格式） keytool -genkey -alias yipsen -keypass 123456 -keyalg RSA -keysize 1024 -validity 365 -keystore D:\yipsen.keystore -storepass 123456 :: 方式二：生成 keystore (PKCS12 格式【推荐】) keytool -genkeypair -alias yipsen -keyalg RSA -keysize 2048 -validity 3650 -storetype PKCS12 -keystore yipsen.p12 :: 重置密码，会要求输入原密码 keytool -storepasswd -new 123456 -keystore D:\yipsen.keystore :: 罗列 keystore 信息，会要求输入密码 keytool -list -v -keystore D:\yipsen.keystore :: 导出为证书格式，会要求输入密码 keytool -export -alias yipsen -keystore D:\yipsen.keystore -rfc -file D:\yipsen.cer :: 转换 JKS 为 PKCS12 格式 keytool -importkeystore -srckeystore D:\yipsen.">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><article class="post-block">
+        <h1 class="post-title">Windows 本地公私钥生成</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-05-23 16:31:43</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bat" data-lang="bat">:<span style="color:#75715e">: 方式一：生成 keystore（JKS 格式）</span>
+keytool -genkey -alias yipsen -keypass 123456 -keyalg RSA -keysize 1024 -validity 365 -keystore D:\yipsen.keystore -storepass 123456
+
+:<span style="color:#75715e">: 方式二：生成 keystore (PKCS12 格式【推荐】)</span>
+keytool -genkeypair -alias yipsen -keyalg RSA -keysize 2048 -validity 3650 -storetype PKCS12 -keystore yipsen.p12
+
+:<span style="color:#75715e">: 重置密码，会要求输入原密码</span>
+keytool -storepasswd -new 123456 -keystore D:\yipsen.keystore
+
+:<span style="color:#75715e">: 罗列 keystore 信息，会要求输入密码</span>
+keytool -list -v -keystore D:\yipsen.keystore
+
+:<span style="color:#75715e">: 导出为证书格式，会要求输入密码</span>
+keytool -export -alias yipsen -keystore D:\yipsen.keystore -rfc -file D:\yipsen.cer
+
+:<span style="color:#75715e">: 转换 JKS 为 PKCS12 格式</span>
+keytool -importkeystore -srckeystore D:\yipsen.keystore -destkeystore D:\yipsen.p12 -deststoretype pkcs12
+</code></pre></div>
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div></div>
+    <div></div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C/"><span>一致性哈希</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E8%BF%90%E8%A1%8C%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/"><span>kubernetes cluster running trouble shooting</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

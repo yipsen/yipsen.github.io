@@ -34,10 +34,10 @@ Master 节点至少需要 2 个，但并不是越多越好。Master 节点主要
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -46,7 +46,7 @@ Master 节点至少需要 2 个，但并不是越多越好。Master 节点主要
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -310,12 +310,10 @@ Master 节点至少需要 2 个，但并不是越多越好。Master 节点主要
 </style><article class="post-block">
         <h1 class="post-title">38 容器编排技术：如何利用 K8s 和 Docker Swarm 管理微服务？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:49:38</span>🏷️&nbsp;<a class="post-tag" href="/tags/linux/">linux</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">重学操作系统</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:49:38</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>作为操作系统的最后一个部分，我选择了三个主题：虚拟化、Linux 的架构哲学和商业操作系统的设计。我还是以探索式教学为主，帮助你建立和掌握虚拟化、程序架构、业务架构三个方向的基本概念。</p>
 <p>操作系统的设计者和芯片的制造商们，早就感受到了虚拟化、容器化带来的变化，早早地支持了虚拟化，比如 Linux 的命名空间、Intel 的 VT-X 技术。这一讲作为虚拟化的一个延伸，我们一起讨论一下<strong>如何管理海量的容器，如何去构造一个高可用且具有扩展能力强的集群</strong>。</p>
@@ -381,6 +379,11 @@ Master 节点至少需要 2 个，但并不是越多越好。Master 节点主要
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/linux/">linux</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">重学操作系统</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -389,26 +392,38 @@ Master 节点至少需要 2 个，但并不是越多越好。Master 节点主要
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/37-%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF%E4%BB%8B%E7%BB%8Dvmware-%E5%92%8C-docker-%E7%9A%84%E5%8C%BA%E5%88%AB/"><span>37 虚拟化技术介绍：VMware 和 Docker 的区别？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/37-%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF%E4%BB%8B%E7%BB%8Dvmware-%E5%92%8C-docker-%E7%9A%84%E5%8C%BA%E5%88%AB/"><span>37 虚拟化技术介绍：VMware 和 Docker 的区别？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/39-linux-%E6%9E%B6%E6%9E%84%E4%BC%98%E7%A7%80%E5%9C%A8%E5%93%AA%E9%87%8C/"><span>39 Linux 架构优秀在哪里</span></a>
+        <a href="http://yipsen.github.io/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/39-linux-%E6%9E%B6%E6%9E%84%E4%BC%98%E7%A7%80%E5%9C%A8%E5%93%AA%E9%87%8C/"><span>39 Linux 架构优秀在哪里</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

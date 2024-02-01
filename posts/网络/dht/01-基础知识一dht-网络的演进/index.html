@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>01 基础知识（一）DHT 网络的演进 | Yipsen Ye</title>
+<meta name="description" content="background knowledge dht模块 dht模块实现一个dht节点，用来和网上的其他dht节点进行通信，在通信的过程中完成收集磁力链接的任务。
+bt模块 bt模块实现一个bt协议的客户端程序，当发现一个磁力链接可以下载的时候，通过bt客户端和远程的服务器通信，下载种子的元数据，
+原理解析 0x01 相关术语   P2P网络 对等计算（Peer to Peer，简称p2p）可以简单的定义成通过直接交换来共享计算机资源和服务，而对等计算模型应用层形成的网络通常称为对等网络。相信大家都用过迅雷，就不多说了。
+  DHT网络 DHT（Distributed Hash Table，分布式哈希表），DHT由节点组成，它存储peer的位置，是一种分布式存储方法。在不需要服务器的情况下，每个客户端负责一个小范围的路由，并负责存储一小部分数据，从而实现整个DHT网络的寻址和存储，其中BT客户端包含一个DHT节点，用来联系DHT中其他节点，从而得到peer的位置，进而通过BitTorrent协议下载。 简单来说DHT就是负责管理提供信息和服务节点的管理与路由功能，两个需要区分的概念： “peer” 是在一个 TCP 端口上监听的客户端/服务器，它实现了 BitTorrent 协议。 “节点” 是在一个 UDP 端口上监听的客户端/服务器，它实现了 DHT(分布式哈希表) 协议。
+  Kademlia算法 Kademlia是DHT网络的一种实现。在Kademlia网络中，距离是通过异或(XOR)计算的，结果为无符号整数。distance(A, B) = |A xor B|，值越小表示越近。
+  KRPC协议 KRPC 是节点之间的交互协议，是由 bencode 编码组成的一个简单的 RPC 结构，他使用 UDP 报文发送。一个独立的请求包被发出去然后一个独立的包被回复。这个协议没有重发。它包含 3 种消息：请求，回复和错误。对DHT协议而言，这里有 4 种请求：
+   method description     ping 检查一个节点是否有效   find_node 向一个节点发送查找节点的请求，在初始路由表或验证桶是否存活时使用   get_peers 向一个节点发送查找资源的请求   announce_peer 向一个节点发送自己已经开始下载某个资源的通知   一条KRPC消息由一个独立的字典组成，其中t和y关键字是每条信息都包含的       MagNet协议 MagNet协议，也就是磁力链接。是一个通过sha1算法生成一个20字节长的字符串，P2P客户端使用磁力链接，下载资源的种子文件，然后根据种子文件下载资源。">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+
+</head>
+
+<body id="page">
+    <header>
+        <div class="nav-logo">
+    <a href="http://yipsen.github.io/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="navbar justify-content-end">
+    <ul class="nav-list">
+        
+        
+        <li class="nav-item">
+            <a class="nav-link active"
+                href="http://yipsen.github.io/posts/">文章</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/collections/">附表</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link"
+                href="http://yipsen.github.io/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content">
+        
+<div class="container"><aside>
+    <div>
+        
+        
+            
+            
+            <div class="post-category-icon"></div>
+            <a href="/categories/dht/">DHT</a>
+            <ul>
+                
+                
+                    <li>01 基础知识（一）DHT 网络的演进</li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/02-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BA%8Ckademlia-%E7%AE%97%E6%B3%95/">02 基础知识（二）Kademlia 算法</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/03-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B8%89krpc-%E5%8D%8F%E8%AE%AE%E8%A7%A3%E6%9E%90/">03 基础知识（三）KRPC 协议解析</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/04-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%9B%9Bbencode-%E7%BC%96%E7%A0%81/">04 基础知识（四）Bencode 编码</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/05-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BA%94magnet-%E7%A3%81%E9%93%BE%E4%B8%8E-torrent-%E6%96%87%E4%BB%B6/">05 基础知识（五）Magnet 磁链与 Torrent 文件</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/06-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%85%AD%CE%BCtp-%E5%8D%8F%E8%AE%AE/">06 基础知识（六）μTP 协议</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/08-%E7%88%AC%E8%99%AB%E8%AE%BE%E8%AE%A1%E4%B8%80%E6%A8%A1%E5%9D%97%E5%88%92%E5%88%86%E4%B8%8E%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91/">08 爬虫设计（一）模块划分与核心逻辑</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/09-%E7%88%AC%E8%99%AB%E8%AE%BE%E8%AE%A1%E4%BA%8C%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6-%E8%B7%AF%E7%94%B1%E8%A1%A8%E8%AE%BE%E8%AE%A1/">09 爬虫设计（二）核心组件-路由表设计</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/10-%E7%88%AC%E8%99%AB%E8%AE%BE%E8%AE%A1%E4%B8%89%E4%BD%BF%E7%94%A8-netty-%E7%9A%84-handle-%E9%93%BE%E4%B8%8E%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">10 爬虫设计（三）使用 Netty 的 Handle 链与统一异常处理</a></li>
+                
+                
+                
+                    <li><a href="http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/11-%E7%88%AC%E8%99%AB%E8%AE%BE%E8%AE%A1%E5%9B%9B%E7%9B%91%E6%8E%A7%E9%87%87%E9%9B%86/">11 爬虫设计（四）监控采集</a></li>
+                
+                
+            </ul>
+        
+    </div>
+</aside>
+
+<style>
+    aside {
+        position: fixed;
+        left: 20px;
+        background: #ffdee3;
+        border-radius: 6px;
+        padding: 20px;
+        padding-top: 60px;
+        box-shadow: 5px 10px #888;
+        list-style-type: none;
+        display: none;
+    }
+
+    .post-category-icon {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        left: 50%;
+        margin-left: -40px;
+        text-align: center;
+        font-size: 36px;
+        content: 'J';
+        background: #ffdee3;
+        border-radius: 100%;
+        border: 10px solid #fff;
+        box-shadow: 5px 10px #888;
+    }
+</style><article class="post-block">
+        <h1 class="post-title">01 基础知识（一）DHT 网络的演进</h1>
+        <div class="post-info">
+            <div class="post-date"> 
+                <span>2022-01-16 16:31:43</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <h4 id="background-knowledge">background knowledge</h4>
+<h5 id="dht模块">dht模块</h5>
+<p>dht模块实现一个dht节点，用来和网上的其他dht节点进行通信，在通信的过程中完成收集磁力链接的任务。</p>
+<h5 id="bt模块">bt模块</h5>
+<p>bt模块实现一个bt协议的客户端程序，当发现一个磁力链接可以下载的时候，通过bt客户端和远程的服务器通信，下载种子的元数据，</p>
+<h5 id="原理解析">原理解析</h5>
+<h6 id="0x01-相关术语">0x01 相关术语</h6>
+<ol>
+<li>
+<p>P2P网络
+对等计算（Peer to Peer，简称p2p）可以简单的定义成通过直接交换来共享计算机资源和服务，而对等计算模型应用层形成的网络通常称为对等网络。相信大家都用过迅雷，就不多说了。</p>
+</li>
+<li>
+<p>DHT网络
+DHT（Distributed Hash Table，分布式哈希表），DHT由节点组成，它存储peer的位置，是一种分布式存储方法。在不需要服务器的情况下，每个客户端负责一个小范围的路由，并负责存储一小部分数据，从而实现整个DHT网络的寻址和存储，其中BT客户端包含一个DHT节点，用来联系DHT中其他节点，从而得到peer的位置，进而通过BitTorrent协议下载。
+简单来说DHT就是负责管理提供信息和服务节点的管理与路由功能，两个需要区分的概念：
+“peer” 是在一个 TCP 端口上监听的客户端/服务器，它实现了 BitTorrent 协议。
+“节点” 是在一个 UDP 端口上监听的客户端/服务器，它实现了 DHT(分布式哈希表) 协议。</p>
+</li>
+<li>
+<p>Kademlia算法
+Kademlia是DHT网络的一种实现。在Kademlia网络中，距离是通过异或(XOR)计算的，结果为无符号整数。distance(A, B) = |A xor B|，值越小表示越近。</p>
+</li>
+<li>
+<p>KRPC协议
+KRPC 是节点之间的交互协议，是由 bencode 编码组成的一个简单的 RPC 结构，他使用 UDP 报文发送。一个独立的请求包被发出去然后一个独立的包被回复。这个协议没有重发。它包含 3 种消息：请求，回复和错误。对DHT协议而言，这里有 4 种请求：</p>
+<table>
+<thead>
+<tr>
+<th>method</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ping</td>
+<td>检查一个节点是否有效</td>
+</tr>
+<tr>
+<td>find_node</td>
+<td>向一个节点发送查找节点的请求，在初始路由表或验证桶是否存活时使用</td>
+</tr>
+<tr>
+<td>get_peers</td>
+<td>向一个节点发送查找资源的请求</td>
+</tr>
+<tr>
+<td>announce_peer</td>
+<td>向一个节点发送自己已经开始下载某个资源的通知</td>
+</tr>
+<tr>
+<td>一条KRPC消息由一个独立的字典组成，其中t和y关键字是每条信息都包含的</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>MagNet协议
+MagNet协议，也就是磁力链接。是一个通过sha1算法生成一个20字节长的字符串，P2P客户端使用磁力链接，下载资源的种子文件，然后根据种子文件下载资源。</p>
+</li>
+</ol>
+<p>因已有现成的脚本实现，只需要对相关协议有个大概了解就可以动手了。</p>
+<h6 id="002-dht爬虫">0×02 DHT爬虫</h6>
+<ol>
+<li>
+<p>实现原理
+伪装成DHT节点加入DHT网络中收集信息，DHT中node（加入网络的时候随机生成）与infohash都是使用160bit的表示方式，也就是40位的16进制，意味着数量级有2^160，爬虫主要收集get_peer、announce_peer这两个请求的信息</p>
+</li>
+<li>
+<p>get_peer
+get_peers与torrent文件的infohash有关，找到待查资源是否有peer。这时KPRC中的q=get_peers，其中包含节点id和info_hash两个参数，如果被请求的节点有对应info_hash的peers，将返回一个关键字values，如果无则返回关键字nodes，同时也返回一个token，token在annouce_peer中需要携带。</p>
+</li>
+</ol>
+<p>参数：
+{&ldquo;id&rdquo; : &ldquo;<!-- raw HTML omitted -->&rdquo;, &ldquo;info_hash&rdquo; : &ldquo;&lt;20-byte infohash of target torrent&gt;&quot;}</p>
+<p>回复：
+{&ldquo;id&rdquo; : &ldquo;<!-- raw HTML omitted -->&rdquo;, &ldquo;token&rdquo; :&quot;<!-- raw HTML omitted -->&rdquo;, &ldquo;values&rdquo; : [&quot;&lt;peer 1 info string&gt;&quot;, &ldquo;&lt;peer 2 info string&gt;&quot;]}
+或者
+{&ldquo;id&rdquo; : &ldquo;<!-- raw HTML omitted -->&rdquo;, &ldquo;token&rdquo; :&quot;<!-- raw HTML omitted -->&rdquo;, &ldquo;nodes&rdquo; : &ldquo;<!-- raw HTML omitted -->&quot;}
+这里过来的info_hash不一定是有真实存在的</p>
+<ol start="3">
+<li>announce_peer
+这个请求用来表明发出announce_peer请求的节点，正在某个端口下载torrent文件。包含四个参数请求节点id、info_hash、整型端口port和tonken，收到请求的节点检查这个token，如果相同，则返回节点的IP和port等联系信息。爬虫中不能直接用announce_peer，否则很容易从上下文中判断是通报虚假资源而被禁掉。</li>
+</ol>
+<p>参数：
+{&ldquo;id&rdquo; : &ldquo;<!-- raw HTML omitted -->&rdquo;, &ldquo;implied_port&rdquo;: &lt;0 or 1&gt;, &ldquo;info_hash&rdquo; : &ldquo;&lt;20-byte infohash of target torrent&gt;&rdquo;, &ldquo;port&rdquo; : <!-- raw HTML omitted -->, &ldquo;token&rdquo; : &ldquo;<!-- raw HTML omitted -->&quot;}
+回复：
+{&ldquo;id&rdquo; : &ldquo;<!-- raw HTML omitted -->&quot;}</p>
+<h6 id="003-bt爬虫">0×03 bt爬虫</h6>
+<p>准确的来说是bt客户端，因为到这里一步我们已经知道种子存放的服务器ip，端口，只需要通过bt协议向服务器请求对于的种子文件就可以了。</p>
+
+        </div>
+    </article>
+</div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/network/">network</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/dht/">DHT</a>&nbsp; </div>
+</div>
+
+    </main>
+    <footer>
+        <div id="pagination">
+            
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/dht/02-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BA%8Ckademlia-%E7%AE%97%E6%B3%95/"><span>02 基础知识（二）Kademlia 算法</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://yipsen.github.io/posts/logback/logback-pattern-layout/"><span>Logback pattern layout</span></a>
+    </div>
+</div>
+
+        </div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

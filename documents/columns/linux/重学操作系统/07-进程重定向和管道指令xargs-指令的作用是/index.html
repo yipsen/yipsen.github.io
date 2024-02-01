@@ -31,10 +31,10 @@ ps
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -43,7 +43,7 @@ ps
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -307,12 +307,10 @@ ps
 </style><article class="post-block">
         <h1 class="post-title">07 进程、重定向和管道指令：xargs 指令的作用是？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:49:01</span>🏷️&nbsp;<a class="post-tag" href="/tags/linux/">linux</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">重学操作系统</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:49:01</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>在面试中，我们经常会遇到面试官询问 Linux 指令，06 课时中讲到的<code>rm -rf /</code>属于比较简单的题目，相当于小学难度。<strong>这节课给你带来一道初中难度的题目：</strong><code>xargs</code><strong>指令的作用是什么</strong>？</p>
 <p>通常这个指令是和管道一起使用，因此就引出了这节课的主题：管道。为了理解管道，和学习管道相关的内容，还有一些概念需要你理解，比如：进程、标准流和重定向。好的，接下来请和我一起，把这块知识一网打尽！</p>
@@ -459,6 +457,11 @@ Banana
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/linux/">linux</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">重学操作系统</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -467,26 +470,38 @@ Banana
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/06-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%92%8C%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E6%8C%87%E4%BB%A4rm-rf-%E6%8C%87%E4%BB%A4%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF/"><span>06 目录结构和文件管理指令：rm -rf 指令的作用是？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/06-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%92%8C%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E6%8C%87%E4%BB%A4rm-rf-%E6%8C%87%E4%BB%A4%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF/"><span>06 目录结构和文件管理指令：rm -rf 指令的作用是？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/08-%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86%E6%8C%87%E4%BB%A4-%E8%AF%B7%E7%AE%80%E8%BF%B0-linux-%E6%9D%83%E9%99%90%E5%88%92%E5%88%86%E7%9A%84%E5%8E%9F%E5%88%99/"><span>08 用户和权限管理指令： 请简述 Linux 权限划分的原则？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/linux/%E9%87%8D%E5%AD%A6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/08-%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86%E6%8C%87%E4%BB%A4-%E8%AF%B7%E7%AE%80%E8%BF%B0-linux-%E6%9D%83%E9%99%90%E5%88%92%E5%88%86%E7%9A%84%E5%8E%9F%E5%88%99/"><span>08 用户和权限管理指令： 请简述 Linux 权限划分的原则？</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

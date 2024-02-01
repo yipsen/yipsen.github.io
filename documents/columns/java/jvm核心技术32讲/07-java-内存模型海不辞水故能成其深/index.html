@@ -29,10 +29,10 @@ JVM 中，每个正在运行的线程，都有自己的线程栈。 线程栈包
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -41,7 +41,7 @@ JVM 中，每个正在运行的线程，都有自己的线程栈。 线程栈包
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -233,12 +233,10 @@ JVM 中，每个正在运行的线程，都有自己的线程栈。 线程栈包
 </style><article class="post-block">
         <h1 class="post-title">07 Java 内存模型：海不辞水，故能成其深</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:45:07</span>🏷️&nbsp;<a class="post-tag" href="/tags/java/">java</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/">JVM核心技术32讲</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:45:07</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>了解计算机历史的同学应该知道，计算机刚刚发明的时候，是没有内存这个概念的，速度慢到无法忍受。 直到冯诺依曼提出了一个天才的设计才解决了这个问题，没错，这个设计就是加了内存，所以现代的电子计算机又叫做“冯诺依曼机”。</p>
 <p>JVM 是一个完整的计算机模型，所以自然就需要有对应的内存模型，这个模型被称为 “<code>Java 内存模型</code>”，对应的英文是“<code>Java Memory Model</code>”，简称 <code>JMM</code>。</p>
@@ -389,6 +387,11 @@ JVM 中，每个正在运行的线程，都有自己的线程栈。 线程栈包
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/java/">java</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/">JVM核心技术32讲</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -397,26 +400,38 @@ JVM 中，每个正在运行的线程，都有自己的线程栈。 线程栈包
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/06-java-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%B1%B1%E4%B8%8D%E8%BE%9E%E5%9C%9F%E6%95%85%E8%83%BD%E6%88%90%E5%85%B6%E9%AB%98/"><span>06 Java 类加载器：山不辞土，故能成其高</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/06-java-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%B1%B1%E4%B8%8D%E8%BE%9E%E5%9C%9F%E6%95%85%E8%83%BD%E6%88%90%E5%85%B6%E9%AB%98/"><span>06 Java 类加载器：山不辞土，故能成其高</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/08-jvm-%E5%90%AF%E5%8A%A8%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3%E5%8D%9A%E8%A7%82%E8%80%8C%E7%BA%A6%E5%8F%96%E5%8E%9A%E7%A7%AF%E8%80%8C%E8%96%84%E5%8F%91/"><span>08 JVM 启动参数详解：博观而约取、厚积而薄发</span></a>
+        <a href="http://yipsen.github.io/documents/columns/java/jvm%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF32%E8%AE%B2/08-jvm-%E5%90%AF%E5%8A%A8%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3%E5%8D%9A%E8%A7%82%E8%80%8C%E7%BA%A6%E5%8F%96%E5%8E%9A%E7%A7%AF%E8%80%8C%E8%96%84%E5%8F%91/"><span>08 JVM 启动参数详解：博观而约取、厚积而薄发</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>

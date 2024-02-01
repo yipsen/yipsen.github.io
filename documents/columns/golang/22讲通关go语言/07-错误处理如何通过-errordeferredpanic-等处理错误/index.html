@@ -28,10 +28,10 @@ func main() {i,err:=strconv.Atoi(&amp;quot;a&amp;quot;)if err!=nil {fmt.">
 
 <body id="page">
     <header>
-        <div class="logo-link" style="width: 60px; color: #CA6924;">
+        <div class="nav-logo">
     <a href="http://yipsen.github.io/">
-        <img style="margin-bottom: -1rem;" src="/images/deer.svg" alt="logo">
-        <span style="font-size: 0.5rem; color: #CA6924;">Yipsen Ye</span>
+        
+        <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
 <nav class="navbar justify-content-end">
@@ -40,7 +40,7 @@ func main() {i,err:=strconv.Atoi(&amp;quot;a&amp;quot;)if err!=nil {fmt.">
         
         <li class="nav-item">
             <a class="nav-link"
-                href="http://yipsen.github.io/posts/">札记</a>
+                href="http://yipsen.github.io/posts/">文章</a>
         </li>
         
         <li class="nav-item">
@@ -200,12 +200,10 @@ func main() {i,err:=strconv.Atoi(&amp;quot;a&amp;quot;)if err!=nil {fmt.">
 </style><article class="post-block">
         <h1 class="post-title">07 错误处理：如何通过 error、deferred、panic 等处理错误？</h1>
         <div class="post-info">
-            <div> 
-                <span class="post-date">📅&nbsp;2021-12-22 01:33:00</span>🏷️&nbsp;<a class="post-tag" href="/tags/golang/">golang</a></div><div class="post-category">
-                
-                📚&nbsp;<a href="/categories/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/">22讲通关Go语言</a>
-                
-            </div></div>
+            <div class="post-date"> 
+                <span>2021-12-22 01:33:00</span>
+            </div>
+        </div>
         <div class="post-content">
             <p>上节课我为你讲解了结构体和接口，并留了一个小作业，让你自己练习实现有两个方法的接口。现在我就以“人既会走也会跑”为例进行讲解。</p>
 <p>首先定义一个接口 WalkRun，它有两个方法 Walk 和 Run，如下面的代码所示：</p>
@@ -483,6 +481,11 @@ if errors.As(err,&amp;cm){
         </div>
     </article>
 </div>
+<div class="division-line"></div>
+<div class="others">
+    <div>标签：🏷️<a class="post-tag" href="/tags/golang/">golang</a>&nbsp;</div>
+    <div>分类： 📒<a class="post-category" href="/categories/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/">22讲通关Go语言</a>&nbsp; </div>
+</div>
 
     </main>
     <footer>
@@ -491,26 +494,38 @@ if errors.As(err,&amp;cm){
 <div class="paginator">
     <div class="prev">
         
-        <a href="/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/06-struct-%E5%92%8C-interface%E7%BB%93%E6%9E%84%E4%BD%93%E4%B8%8E%E6%8E%A5%E5%8F%A3%E9%83%BD%E5%AE%9E%E7%8E%B0%E4%BA%86%E5%93%AA%E4%BA%9B%E5%8A%9F%E8%83%BD/"><span>06 struct 和 interface：结构体与接口都实现了哪些功能？</span></a>
+        <a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/06-struct-%E5%92%8C-interface%E7%BB%93%E6%9E%84%E4%BD%93%E4%B8%8E%E6%8E%A5%E5%8F%A3%E9%83%BD%E5%AE%9E%E7%8E%B0%E4%BA%86%E5%93%AA%E4%BA%9B%E5%8A%9F%E8%83%BD/"><span>06 struct 和 interface：结构体与接口都实现了哪些功能？</span></a>
     </div>
     <div class="next">
         
-        <a href="/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/08-%E5%B9%B6%E5%8F%91%E5%9F%BA%E7%A1%80goroutines-%E5%92%8C-channels-%E7%9A%84%E5%A3%B0%E6%98%8E%E4%B8%8E%E4%BD%BF%E7%94%A8/"><span>08 并发基础：Goroutines 和 Channels 的声明与使用</span></a>
+        <a href="http://yipsen.github.io/documents/columns/golang/22%E8%AE%B2%E9%80%9A%E5%85%B3go%E8%AF%AD%E8%A8%80/08-%E5%B9%B6%E5%8F%91%E5%9F%BA%E7%A1%80goroutines-%E5%92%8C-channels-%E7%9A%84%E5%A3%B0%E6%98%8E%E4%B8%8E%E4%BD%BF%E7%94%A8/"><span>08 并发基础：Goroutines 和 Channels 的声明与使用</span></a>
     </div>
 </div>
 
         </div>
-        <div class="toggler" onclick="toggleLight(this);">💡</div>
+        <div id="float">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
 <script>
-    function toggleLight() {
+    const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
     }
 </script>
 </body>
