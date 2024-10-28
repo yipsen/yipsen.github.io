@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1000"
+   height="600"
+   viewBox="0 0 1000 600"
+   version="1.1"
+   id="svg89"
+   sodipodi:docname="ThreadPoolExecutor-Design.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview89"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.011194"
+     inkscape:cx="566.16236"
+     inkscape:cy="322.88561"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg89" />
+  <defs
+     id="defs2">
+    <linearGradient
+       id="watermark_linear"
+       x1="50.181801"
+       y2="-11.9045"
+       y1="56"
+       gradientUnits="userSpaceOnUse"
+       x2="3.4974699">
+      <stop
+         stop-color="#0066FF"
+         id="stop1" />
+      <stop
+         stop-color="#66CCFF"
+         offset="1"
+         id="stop2" />
+    </linearGradient>
+  </defs>
+  <g
+     id="page1"
+     transform="translate(-52.5,-50.5)">
+    <rect
+       width="1123"
+       y="0"
+       fill="none"
+       height="794"
+       x="0"
+       id="rect2" />
+    <g
+       id="group1"
+       transform="translate(113,113)">
+      <path
+         id="shape2"
+         fill="#f3f3f3"
+         d="M 0,0 H 698 V 473 H 0 Z"
+         stroke="#101843"
+         stroke-width="1"
+         fill-rule="nonzero" />
+      <g
+         id="shape3"
+         transform="translate(10)">
+        <text
+           xml:space="preserve"
+           style="font-size:13.3333px;font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#191919"
+           id="text2"><tspan
+             y="20.5"
+             x="277.5"
+             style="font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial"
+             id="tspan2">ThreadPoolExecutor</tspan></text>
+      </g>
+    </g>
+    <g
+       id="group4"
+       transform="translate(187,169.5)">
+      <path
+         id="shape5"
+         d="M 0,0 H 341 V 264 H 0 Z"
+         fill="none"
+         stroke="#101843"
+         stroke-width="1"
+         stroke-dasharray="11, 5" />
+      <g
+         id="shape6"
+         transform="translate(10)">
+        <text
+           xml:space="preserve"
+           style="font-size:13.3333px;font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#191919"
+           id="text3"><tspan
+             y="20.5"
+             x="136.5"
+             style="font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial"
+             id="tspan3">workers</tspan></text>
+      </g>
+    </g>
+    <g
+       id="shape7"
+       transform="translate(395,208)">
+      <path
+         fill="#dae8fc"
+         d="M 114,38 V 0 H 0 v 38 z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         fill-rule="nonzero"
+         stroke-dasharray="11, 5"
+         id="path3" />
+      <text
+         xml:space="preserve"
+         style="font-size:10.6667px;font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#191919"
+         id="text4"><tspan
+           y="23"
+           x="38"
+           style="font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="tspan4">Worker</tspan></text>
+    </g>
+    <g
+       id="shape8"
+       transform="translate(395,378.5)">
+      <path
+         fill="#dae8fc"
+         d="M 114,38 V 0 H 0 v 38 z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         fill-rule="nonzero"
+         id="path4" />
+      <text
+         xml:space="preserve"
+         style="font-size:10.6667px;font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#191919"
+         id="text5"><tspan
+           y="23"
+           x="38"
+           style="font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="tspan5">Worker</tspan></text>
+    </g>
+    <g
+       id="shape9"
+       transform="translate(395,340.5)">
+      <path
+         fill="#dae8fc"
+         d="M 114,38 V 0 H 0 v 38 z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         fill-rule="nonzero"
+         id="path5" />
+      <text
+         xml:space="preserve"
+         style="font-size:10.6667px;font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#191919"
+         id="text6"><tspan
+           y="23"
+           x="48"
+           style="font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="tspan6">......</tspan></text>
+    </g>
+    <g
+       id="shape10"
+       transform="translate(395,302.5)">
+      <path
+         fill="#dae8fc"
+         d="M 114,38 V 0 H 0 v 38 z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         fill-rule="nonzero"
+         id="path6" />
+      <text
+         xml:space="preserve"
+         style="font-size:13.3333px;font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#191919"
+         id="text7"><tspan
+           y="24.5"
+           x="34.5"
+           style="font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="tspan7">Worker</tspan></text>
+    </g>
+    <g
+       id="shape11"
+       transform="translate(395,264.5)">
+      <path
+         fill="#dae8fc"
+         d="M 114,38 V 0 H 0 v 38 z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         fill-rule="nonzero"
+         id="path7" />
+      <text
+         xml:space="preserve"
+         style="font-size:10.6667px;font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#191919"
+         id="text8"><tspan
+           y="23"
+           x="38"
+           style="font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="tspan8">Worker</tspan></text>
+    </g>
+    <g
+       id="shape12"
+       transform="translate(206,208)">
+      <path
+         fill="#dae8fc"
+         d="M 114,38 V 0 H 0 v 38 z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         fill-rule="nonzero"
+         stroke-dasharray="11, 5"
+         id="path8" />
+      <text
+         xml:space="preserve"
+         style="font-size:10.6667px;font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#191919"
+         id="text9"><tspan
+           y="23"
+           x="39"
+           style="font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="tspan9">Thread</tspan></text>
+    </g>
+    <g
+       id="shape13"
+       transform="translate(206,378.5)">
+      <path
+         fill="#dae8fc"
+         d="M 114,38 V 0 H 0 v 38 z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         fill-rule="nonzero"
+         id="path9" />
+      <text
+         xml:space="preserve"
+         style="font-size:10.6667px;font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#191919"
+         id="text10"><tspan
+           y="23"
+           x="39"
+           style="font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="tspan10">Thread</tspan></text>
+    </g>
+    <g
+       id="shape14"
+       transform="translate(206,340.5)">
+      <path
+         fill="#dae8fc"
+         d="M 114,38 V 0 H 0 v 38 z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         fill-rule="nonzero"
+         id="path10" />
+      <text
+         xml:space="preserve"
+         style="font-size:10.6667px;font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#191919"
+         id="text11"><tspan
+           y="23"
+           x="48"
+           style="font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="tspan11">......</tspan></text>
+    </g>
+    <g
+       id="shape15"
+       transform="translate(206,302.5)">
+      <path
+         fill="#dae8fc"
+         d="M 114,38 V 0 H 0 v 38 z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         fill-rule="nonzero"
+         id="path11" />
+      <text
+         xml:space="preserve"
+         style="font-size:10.6667px;font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#191919"
+         id="text12"><tspan
+           y="23"
+           x="39"
+           style="font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="tspan12">Thread</tspan></text>
+    </g>
+    <g
+       id="shape16"
+       transform="translate(206,264.5)">
+      <path
+         fill="#dae8fc"
+         d="M 114,38 V 0 H 0 v 38 z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         fill-rule="nonzero"
+         id="path12" />
+      <text
+         xml:space="preserve"
+         style="font-size:10.6667px;font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#191919"
+         id="text13"><tspan
+           y="23"
+           x="39"
+           style="font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="tspan13">Thread</tspan></text>
+    </g>
+    <g
+       id="shape17"
+       transform="translate(320,283.5)">
+      <path
+         d="M 0,0 H 69"
+         fill="none"
+         stroke="#191919"
+         stroke-width="1"
+         id="path13" />
+      <path
+         stroke-linecap="round"
+         fill="#191919"
+         d="m 69,-3 6,3 -6,3 v -6"
+         stroke-width="1"
+         stroke="#191919"
+         id="path14" />
+    </g>
+    <g
+       id="shape18"
+       transform="translate(320,321.5)">
+      <path
+         d="M 0,0 H 69"
+         fill="none"
+         stroke="#191919"
+         stroke-width="1"
+         id="path15" />
+      <path
+         stroke-linecap="round"
+         fill="#191919"
+         d="m 69,-3 6,3 -6,3 v -6"
+         stroke-width="1"
+         stroke="#191919"
+         id="path16" />
+    </g>
+    <g
+       id="shape19"
+       transform="translate(320,359.5)">
+      <path
+         d="M 0,0 H 69"
+         fill="none"
+         stroke="#191919"
+         stroke-width="1"
+         id="path17" />
+      <path
+         stroke-linecap="round"
+         fill="#191919"
+         d="m 69,-3 6,3 -6,3 v -6"
+         stroke-width="1"
+         stroke="#191919"
+         id="path18" />
+    </g>
+    <g
+       id="shape20"
+       transform="translate(320,397.5)">
+      <path
+         d="M 0,0 H 69"
+         fill="none"
+         stroke="#191919"
+         stroke-width="1"
+         id="path19" />
+      <path
+         stroke-linecap="round"
+         fill="#191919"
+         d="m 69,-3 6,3 -6,3 v -6"
+         stroke-width="1"
+         stroke="#191919"
+         id="path20" />
+    </g>
+    <g
+       id="shape21"
+       transform="translate(603,302.5)">
+      <path
+         fill="#ffecd1"
+         d="M 114,38 V 0 H 0 v 38 z"
+         fill-rule="nonzero"
+         id="path21" />
+      <path
+         d="M 114,38 V 0 H 0 V 38 Z M 15,38 V 0 Z m 84,0 V 0 Z"
+         fill="none"
+         stroke="#e1b348"
+         stroke-width="1"
+         id="path22" />
+      <text
+         xml:space="preserve"
+         style="font-size:10.6667px;font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#191919"
+         id="text22"><tspan
+           y="23"
+           x="26.5"
+           style="font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="tspan22">workQueue</tspan></text>
+    </g>
+    <g
+       id="shape22"
+       transform="translate(509,283.5)">
+      <path
+         d="M 0,0 88.4,35.8"
+         fill="none"
+         stroke="#191919"
+         stroke-width="1"
+         id="path23" />
+      <path
+         stroke-linecap="round"
+         fill="#191919"
+         d="M 89.6,33 94,38 87.3,38.5 89.6,33"
+         stroke-width="1"
+         stroke="#191919"
+         id="path24" />
+    </g>
+    <g
+       id="shape23"
+       transform="translate(509,321.5)">
+      <path
+         d="M 0,0 H 88"
+         fill="none"
+         stroke="#191919"
+         stroke-width="1"
+         id="path25" />
+      <path
+         stroke-linecap="round"
+         fill="#191919"
+         d="m 88,-3 6,3 -6,3 v -6"
+         stroke-width="1"
+         stroke="#191919"
+         id="path26" />
+    </g>
+    <g
+       id="shape24"
+       transform="translate(509,359.5)">
+      <path
+         d="M 0,0 88.4,-35.8"
+         fill="none"
+         stroke="#191919"
+         stroke-width="1"
+         id="path27" />
+      <path
+         stroke-linecap="round"
+         fill="#191919"
+         d="m 87.3,-38.5 6.7,0.5 -4.4,5 -2.3,-5.5"
+         stroke-width="1"
+         stroke="#191919"
+         id="path28" />
+    </g>
+    <g
+       id="shape25"
+       transform="translate(509,397.5)">
+      <path
+         d="M 0,0 89.3,-72.2"
+         fill="none"
+         stroke="#191919"
+         stroke-width="1"
+         id="path29" />
+      <path
+         stroke-linecap="round"
+         fill="#191919"
+         d="m 87.4,-74.6 6.6,-1.4 -2.8,6.1 -3.8,-4.7"
+         stroke-width="1"
+         stroke="#191919"
+         id="path30" />
+    </g>
+    <g
+       id="shape26"
+       transform="translate(888,208)">
+      <path
+         fill="#dae8fc"
+         d="M 114,38 V 0 H 0 v 38 z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         fill-rule="nonzero"
+         id="path31" />
+      <text
+         xml:space="preserve"
+         style="font-size:13.3333px;font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#191919"
+         id="text31"><tspan
+           y="24.5"
+           x="18.5"
+           style="font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="tspan31">Main Thread</tspan></text>
+    </g>
+    <g
+       id="shape27"
+       transform="translate(802,216)">
+      <path
+         fill="#ffffff"
+         d="M 0,11 C 0,4.9 4.9,0 11,0 17.1,0 22,4.9 22,11 22,17.1 17.1,22 11,22 4.9,22 0,17.1 0,11 Z"
+         stroke="#101843"
+         stroke-width="1"
+         fill-rule="nonzero"
+         id="path32" />
+      <text
+         xml:space="preserve"
+         style="font-size:13.3333px;font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#191919"
+         id="text32"><tspan
+           y="16.5"
+           x="7.5"
+           style="font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="tspan32">E</tspan></text>
+    </g>
+    <g
+       id="shape28"
+       transform="translate(888,227)">
+      <path
+         d="M 0,0 H -58"
+         fill="none"
+         stroke="#191919"
+         stroke-width="1"
+         id="path33" />
+      <path
+         stroke-linecap="round"
+         fill="#191919"
+         d="m -58,3 -6,-3 6,-3 v 6"
+         stroke-width="1"
+         stroke="#191919"
+         id="path34" />
+    </g>
+    <g
+       id="shape29"
+       transform="translate(802,227)">
+      <path
+         d="m 0,0 c -16.3,0 -32.6,0 -73.3,0 -40.6,0 -105.8,0 -146.5,0 -36.3,0 -53.2,0 -68,0"
+         fill="none"
+         stroke="#191919"
+         stroke-width="1"
+         id="path35" />
+      <path
+         stroke-linecap="round"
+         fill="#191919"
+         d="m -287,3 -6,-3 6,-3 v 6"
+         stroke-width="1"
+         stroke="#191919"
+         id="path36" />
+    </g>
+    <g
+       id="shape30"
+       transform="translate(802,227)">
+      <path
+         d="m 0,0 c -11.5,1.6 -22.9,3.1 -31.3,18.1 -8.5,15 -13.9,43.3 -22.4,58.3 -7.3,13.1 -16.9,15.9 -26.8,17.5"
+         fill="none"
+         stroke="#191919"
+         stroke-width="1"
+         id="path37" />
+      <path
+         stroke-linecap="round"
+         fill="#191919"
+         d="m -78.6,96.6 -6.4,-2.1 5.5,-3.8 0.9,5.9"
+         stroke-width="1"
+         stroke="#191919"
+         id="path38" />
+    </g>
+    <g
+       id="group31"
+       transform="translate(187,453.5)">
+      <path
+         id="shape32"
+         d="M 0,0 H 548 V 94.5 H 0 Z"
+         fill="none"
+         stroke="#101843"
+         stroke-width="1"
+         stroke-dasharray="11, 5" />
+      <g
+         id="shape33"
+         transform="translate(10)">
+        <text
+           xml:space="preserve"
+           style="font-size:13.3333px;font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#191919"
+           id="text38"><tspan
+             y="20.5"
+             x="184"
+             style="font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial"
+             id="tspan38">RejectedExecutionHandler</tspan></text>
+      </g>
+    </g>
+    <g
+       id="shape34"
+       transform="translate(206,491)">
+      <path
+         fill="#ff9189"
+         d="M 114,38 V 0 H 0 v 38 z"
+         stroke="#c00000"
+         stroke-width="1"
+         fill-rule="nonzero"
+         id="path39" />
+      <text
+         xml:space="preserve"
+         style="font-size:10.6667px;font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#191919"
+         id="text39"><tspan
+           y="23"
+           x="13.5"
+           style="font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="tspan39">CallerRunsPolicy</tspan></text>
+    </g>
+    <g
+       id="shape35"
+       transform="translate(339,491)">
+      <path
+         fill="#ff9189"
+         d="M 114,38 V 0 H 0 v 38 z"
+         stroke="#c00000"
+         stroke-width="1"
+         fill-rule="nonzero"
+         id="path40" />
+      <text
+         xml:space="preserve"
+         style="font-weight:bold;font-size:10.6667px;font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#191919"
+         id="text40"><tspan
+           y="23"
+           x="25"
+           style="font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="tspan40">AbortPolicy</tspan></text>
+    </g>
+    <g
+       id="shape36"
+       transform="translate(472,491)">
+      <path
+         fill="#ff9189"
+         d="M 114,38 V 0 H 0 v 38 z"
+         stroke="#c00000"
+         stroke-width="1"
+         fill-rule="nonzero"
+         id="path41" />
+      <text
+         xml:space="preserve"
+         style="font-size:10.6667px;font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#191919"
+         id="text41"><tspan
+           y="23"
+           x="21.5"
+           style="font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="tspan41">DiscardPolicy</tspan></text>
+    </g>
+    <g
+       id="shape37"
+       transform="translate(603,491)">
+      <path
+         fill="#ff9189"
+         d="M 114,38 V 0 H 0 v 38 z"
+         stroke="#c00000"
+         stroke-width="1"
+         fill-rule="nonzero"
+         id="path42" />
+      <text
+         xml:space="preserve"
+         style="font-size:10.6667px;font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#191919"
+         id="text42"><tspan
+           y="23"
+           x="4.5"
+           style="font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="tspan42">DiscardOldestPolicy</tspan></text>
+    </g>
+    <g
+       id="shape38"
+       transform="translate(320,227)">
+      <path
+         d="M 0,0 H 69"
+         fill="none"
+         stroke="#191919"
+         stroke-width="1"
+         id="path43" />
+      <path
+         stroke-linecap="round"
+         fill="#191919"
+         d="m 69,-3 6,3 -6,3 v -6"
+         stroke-width="1"
+         stroke="#191919"
+         id="path44" />
+    </g>
+    <g
+       id="shape39"
+       transform="translate(802,227)">
+      <path
+         d="m 0,0 c -14.7,26.7 -29.3,53.4 -27,94 2.3,40.6 21.6,95.1 18.1,127.4 -3.3,30.6 -27.1,41.2 -53.7,50.8"
+         fill="none"
+         stroke="#191919"
+         stroke-width="1"
+         id="path45" />
+      <path
+         stroke-linecap="round"
+         fill="#191919"
+         d="m -60.3,274.6 -6.7,-0.8 4.6,-4.9 2.1,5.7"
+         stroke-width="1"
+         stroke="#191919"
+         id="path46" />
+    </g>
+    <path
+       id="shape40"
+       d="m 0,0 h 9 c 2.5,-0.4 5,0.5 6.8,2.2 C 17.5,4 18.4,6.5 18,9 v 95.5 c -0.4,2.5 0.5,5 2.2,6.8 1.8,1.7 4.3,2.6 6.8,2.2 -2.5,-0.4 -5,0.5 -6.8,2.2 -1.7,1.8 -2.6,4.3 -2.2,6.8 v 77 c 0.4,2.5 -0.5,5 -2.2,6.8 -1.8,1.7 -4.3,2.6 -6.8,2.2 H 0"
+       fill="none"
+       stroke="#000000"
+       stroke-width="1"
+       transform="matrix(-1,0,0,1,179,208)" />
+    <g
+       id="shape41"
+       transform="translate(116,303)">
+      <text
+         xml:space="preserve"
+         style="font-size:13.3333px;font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#191919"
+         id="text46"><tspan
+           y="23"
+           x="8.5"
+           style="font-family:'微软雅黑', 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="tspan46">wc</tspan></text>
+    </g>
+  </g>
+</svg>

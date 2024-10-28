@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
 
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8080&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
 <meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -9,58 +9,95 @@
 <link rel="icon" type="image/png" href="/%20/favicon.png">
 
 <title>VSCode 编写 markdown 中英文等距 | Yipsen Ye</title>
-<meta name="description" content="下载字体 下载地址: https://github.com/be5invis/Sarasa-Gothic/releases/tag/v0.40.1 下载 tff 格式: https://objects.githubusercontent.com/github-production-release-asset-2e65be/95871572/e7cbe568-9668-4628-997f-3dec15bd2046?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230224%2Fus-east-1%2Fs3%2Faws4_request&amp;amp;X-Amz-Date=20230224T123030Z&amp;amp;X-Amz-Expires=300&amp;amp;X-Amz-Signature=fe6d9e6b8361cdcf42a09960211d0ad7509078b222fa77e09a4b2db655c0ba90&amp;amp;X-Amz-SignedHeaders=host&amp;amp;actor_id=0&amp;amp;key_id=0&amp;amp;repo_id=95871572&amp;amp;response-content-disposition=attachment%3B%20filename%3Dsarasa-gothic-ttf-0.40.1.7z&amp;amp;response-content-type=application%2Foctet-stream
-安装字体  解压后复制选择的字体文件：sarasa-mono-sc-regular.ttf 安装字体：复制到目录C:\Windows\Fonts即可 检查是否安装成功：看是否有字体等距更纱黑体 SC 常规  VSCode 设置   按F1键弹出搜索框后输入settings.json，选择User的一项
-  编辑配置，由于``的英文过于逆天，感觉不适合编程使用，设置仅对 markdown 有效
-{ &amp;#34;[markdown]&amp;#34;: { &amp;#34;editor.defaultFormatter&amp;#34;: &amp;#34;yzhang.markdown-all-in-one&amp;#34;, &amp;#34;editor.fontFamily&amp;#34;: &amp;#34;&amp;#39;Sarasa Mono SC&amp;#39;&amp;#34;, }, &amp;#34;files.autoSave&amp;#34;: &amp;#34;afterDelay&amp;#34;, &amp;#34;editor.fontLigatures&amp;#34;: false }   必要的话，可以重启 VSCode 看是否生效
-  ">
+<meta name="description" content="下载字体 下载地址: https://github.com/be5invis/Sarasa-Gothic/releases/tag/v0.40.1 下载 tff 格式: https://objects.githubusercontent.com/github-production-release-asset-2e65be/95871572/e7cbe568-9668-4628-997f-3dec15bd2046?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230224%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230224T123030Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=fe6d9e6b8361cdcf42a09960211d0ad7509078b222fa77e09a4b2db655c0ba90&amp;X-Amz-SignedHeaders=host&amp;actor_id=0&amp;key_id=0&amp;repo_id=95871572&amp;response-content-disposition=attachment%3B%20filename%3Dsarasa-gothic-ttf-0.40.1.7z&amp;response-content-type=application%2Foctet-stream
+安装字体 解压后复制选择的字体文件：sarasa-mono-sc-regular.ttf 安装字体：复制到目录C:\Windows\Fonts即可 检查是否安装成功：看是否有字体等距更纱黑体 SC 常规 VSCode 设置 按F1键弹出搜索框后输入settings.json，选择User的一项
+编辑配置，由于``的英文过于逆天，感觉不适合编程使用，设置仅对 markdown 有效
+{ &#34;[markdown]&#34;: { &#34;editor.defaultFormatter&#34;: &#34;yzhang.markdown-all-in-one&#34;, &#34;editor.fontFamily&#34;: &#34;&#39;Sarasa Mono SC&#39;&#34;, }, &#34;files.autoSave&#34;: &#34;afterDelay&#34;, &#34;editor.fontLigatures&#34;: false } 必要的话，可以重启 VSCode 看是否生效
+">
 <meta name="author" content="yipsen">
 
 <link rel="stylesheet" type="text/css" href="/styles/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/standard.css">
 
 </head>
 
-<body id="page">
-    <header>
+<body id="page" class="ff-consolas m-0">
+    <header class="d-flex fd-row fw-wrap jc-between ai-center p-x-1 p-y-1 m-auto">
         <div class="nav-logo">
-    <a href="http://yipsen.github.io/">
+    <a href="http://localhost:8080/">
         
         <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
-<nav class="navbar justify-content-end">
-    <ul class="nav-list">
+<nav class="position-relative d-flex fw-wrap jc-end ai-center p-y-05">
+    <ul class="d-flex fw-wrap ls-none p-l-0 m-0">
         
         
-        <li class="nav-item">
-            <a class="nav-link active"
-                href="http://yipsen.github.io/posts/">文章</a>
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/series/java/">JAVA</a>
         </li>
         
-        <li class="nav-item">
-            <a class="nav-link"
-                href="http://yipsen.github.io/collections/">附表</a>
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/design/">设计</a>
         </li>
         
-        <li class="nav-item">
-            <a class="nav-link"
-                href="http://yipsen.github.io/about/">关于</a>
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/network/">网络</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/framework/">框架</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/middleware/">中间件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/plugin/">插件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/linux/">LINUX</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link  active"
+                href="http://localhost:8080/posts/">随心谈</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/others/">山海文库</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/about/">关于</a>
         </li>
         
     </ul>
 </nav>
     </header>
-    <main id="content">
+    <main id="content" class="m-auto">
         
-<div class="container"><article class="post-block">
-        <h1 class="post-title">VSCode 编写 markdown 中英文等距</h1>
-        <div class="post-info">
-            <div class="post-date"> 
-                <span>2022-02-06 16:31:43</span>
-            </div>
+<aside class="sidebar"></aside>
+<article>
+    <h1 class="m-b-1">VSCode 编写 markdown 中英文等距</h1>
+    <div class="d-flex fd-row jc-center">
+        <div class="fc-subtle">
+            <span>2022-02-06 16:31:43</span>
         </div>
-        <div class="post-content">
-            <h3 id="下载字体">下载字体</h3>
+    </div>
+    <div class="post-content">
+        <h3 id="下载字体">下载字体</h3>
 <p>下载地址: <a href="https://github.com/be5invis/Sarasa-Gothic/releases/tag/v0.40.1">https://github.com/be5invis/Sarasa-Gothic/releases/tag/v0.40.1</a>
 下载 tff 格式: <a href="https://objects.githubusercontent.com/github-production-release-asset-2e65be/95871572/e7cbe568-9668-4628-997f-3dec15bd2046?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230224%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230224T123030Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=fe6d9e6b8361cdcf42a09960211d0ad7509078b222fa77e09a4b2db655c0ba90&amp;X-Amz-SignedHeaders=host&amp;actor_id=0&amp;key_id=0&amp;repo_id=95871572&amp;response-content-disposition=attachment%3B%20filename%3Dsarasa-gothic-ttf-0.40.1.7z&amp;response-content-type=application%2Foctet-stream">https://objects.githubusercontent.com/github-production-release-asset-2e65be/95871572/e7cbe568-9668-4628-997f-3dec15bd2046?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230224%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20230224T123030Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=fe6d9e6b8361cdcf42a09960211d0ad7509078b222fa77e09a4b2db655c0ba90&amp;X-Amz-SignedHeaders=host&amp;actor_id=0&amp;key_id=0&amp;repo_id=95871572&amp;response-content-disposition=attachment%3B%20filename%3Dsarasa-gothic-ttf-0.40.1.7z&amp;response-content-type=application%2Foctet-stream</a></p>
 <h3 id="安装字体">安装字体</h3>
@@ -76,46 +113,61 @@
 </li>
 <li>
 <p>编辑配置，由于``的英文过于逆天，感觉不适合编程使用，设置仅对 markdown 有效</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
- <span style="color:#f92672">&#34;[markdown]&#34;</span>: {
-     <span style="color:#f92672">&#34;editor.defaultFormatter&#34;</span>: <span style="color:#e6db74">&#34;yzhang.markdown-all-in-one&#34;</span>,
-     <span style="color:#f92672">&#34;editor.fontFamily&#34;</span>: <span style="color:#e6db74">&#34;&#39;Sarasa Mono SC&#39;&#34;</span>,
- },
- <span style="color:#f92672">&#34;files.autoSave&#34;</span>: <span style="color:#e6db74">&#34;afterDelay&#34;</span>,
- <span style="color:#f92672">&#34;editor.fontLigatures&#34;</span>: <span style="color:#66d9ef">false</span>
-}
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">&#34;[markdown]&#34;</span>: {
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">&#34;editor.defaultFormatter&#34;</span>: <span style="color:#e6db74">&#34;yzhang.markdown-all-in-one&#34;</span>,
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">&#34;editor.fontFamily&#34;</span>: <span style="color:#e6db74">&#34;&#39;Sarasa Mono SC&#39;&#34;</span>,
+</span></span><span style="display:flex;"><span> },
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">&#34;files.autoSave&#34;</span>: <span style="color:#e6db74">&#34;afterDelay&#34;</span>,
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">&#34;editor.fontLigatures&#34;</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
 <li>
 <p>必要的话，可以重启 VSCode 看是否生效</p>
 </li>
 </ol>
 
-        </div>
-    </article>
-</div>
+    </div>
+</article>
+<aside class="catalog">
+    <div class="catalog-title">目录</div>
+    <div class="catalog-list">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#下载字体">下载字体</a></li>
+        <li><a href="#安装字体">安装字体</a></li>
+        <li><a href="#vscode-设置">VSCode 设置</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</aside>
 <div class="division-line"></div>
-<div class="others">
+<div class="misc">
     <div></div>
     <div></div>
 </div>
 
     </main>
-    <footer>
+    <footer class="p-x-0 p-b-2 m-auto">
         <div id="pagination">
             
+<div class="division-line"></div>
 <div class="paginator">
     <div class="prev">
         
-        <a href="http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/"><span>创建型 - 单例模式</span></a>
     </div>
     <div class="next">
         
-        <a href="http://yipsen.github.io/posts/linux/tcpdump-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"><span>tcpdump 命令详解</span></a>
+        <a href="http://localhost:8080/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/shell-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/"><span>Shell 代码样例速查</span></a>
     </div>
 </div>
 
         </div>
-        <div id="float">
+        <div class="position-fixed b-4 r-4">
             <ul class="float-button-bar">
     <li>
         <button class="float-button top" onclick="scrollToTop(this);">UP</button>
@@ -128,10 +180,19 @@
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
+
+<script src="https://cdn.staticfile.net/gumshoe/5.1.1/gumshoe.min.js"></script>
+<script>
+    var spy = new Gumshoe('#TableOfContents a', {
+        nested: true,
+        nestedClass: 'active'
+    });
+</script>
+
 <script>
     const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');

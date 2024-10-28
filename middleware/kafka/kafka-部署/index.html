@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8080&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>Kafka 部署 | Yipsen Ye</title>
+<meta name="description" content="部署 # 解压包 tar -xzvf kafka_2.13-3.2.1.tgz # 移动到指定目录 mv kafka_2.13-3.2.1 /volume2/services/ # 修改配置 cd kafka_2.13-3.2.1/ vi server.properties # 修改 advertised.listeners=PLAINTEXT://your.host.name:9092 为 advertised.listeners=PLAINTEXT://192.168.127.131:9092 # 开启自动创建topic vi server.properties # 追加配置`auto.create.topics.enable=true`到server.properties文件末尾 # 启动zookeeper sh zookeeper-server-start.sh -daemon ../config/zookeeper.properties # 启动kafka sh kafka-server-start.sh -daemon ../config/server.properties 常用指令 # 查看 TOPIC 列表 sh kafka-topics.sh --bootstrap-server localhost:9092 --list # 查看 TOPIC 详情 sh kafka-topics.sh --bootstrap-server localhost:9092 --describe T_FILEBEAT_LOG Topic: T_FILEBEAT_LOG TopicId: _X039cbbQVaK1XKHxzzFMg PartitionCount: 1 ReplicationFactor: 1 Configs: segment.bytes=1073741824 Topic: T_FILEBEAT_LOG Partition: 0 Leader: 0 Replicas: 0 Isr: 0 # 消费指定 TOPIC 内容，--from-beginning 表示消费全部 sh kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic T_FILEBEAT_LOG --from-beginning ">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/standard.css">
+
+</head>
+
+<body id="page" class="ff-consolas m-0">
+    <header class="d-flex fd-row fw-wrap jc-between ai-center p-x-1 p-y-1 m-auto">
+        <div class="nav-logo">
+    <a href="http://localhost:8080/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="position-relative d-flex fw-wrap jc-end ai-center p-y-05">
+    <ul class="d-flex fw-wrap ls-none p-l-0 m-0">
+        
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/series/java/">JAVA</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/design/">设计</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/network/">网络</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/framework/">框架</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link  active"
+                href="http://localhost:8080/middleware/">中间件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/plugin/">插件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/linux/">LINUX</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/posts/">随心谈</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/others/">山海文库</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content" class="m-auto">
+        
+<aside class="sidebar"></aside>
+<article>
+    <h1 class="m-b-1">Kafka 部署</h1>
+    <div class="d-flex fd-row jc-center">
+        <div class="fc-subtle">
+            <span>2022-03-05 08:34:41</span>
+        </div>
+    </div>
+    <div class="post-content">
+        <h2 id="部署">部署</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 解压包</span>
+</span></span><span style="display:flex;"><span>tar -xzvf kafka_2.13-3.2.1.tgz
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 移动到指定目录</span>
+</span></span><span style="display:flex;"><span>mv kafka_2.13-3.2.1 /volume2/services/
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 修改配置</span>
+</span></span><span style="display:flex;"><span>cd kafka_2.13-3.2.1/
+</span></span><span style="display:flex;"><span>vi server.properties
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 修改 advertised.listeners=PLAINTEXT://your.host.name:9092 为 advertised.listeners=PLAINTEXT://192.168.127.131:9092</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 开启自动创建topic</span>
+</span></span><span style="display:flex;"><span>vi server.properties
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 追加配置`auto.create.topics.enable=true`到server.properties文件末尾</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 启动zookeeper</span>
+</span></span><span style="display:flex;"><span>sh zookeeper-server-start.sh -daemon ../config/zookeeper.properties
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 启动kafka</span>
+</span></span><span style="display:flex;"><span>sh kafka-server-start.sh -daemon ../config/server.properties
+</span></span></code></pre></div><h2 id="常用指令">常用指令</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 查看 TOPIC 列表</span>
+</span></span><span style="display:flex;"><span>sh kafka-topics.sh --bootstrap-server localhost:9092 --list
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 查看 TOPIC 详情</span>
+</span></span><span style="display:flex;"><span>sh kafka-topics.sh --bootstrap-server localhost:9092 --describe T_FILEBEAT_LOG
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Topic: T_FILEBEAT_LOG   TopicId: _X039cbbQVaK1XKHxzzFMg PartitionCount: <span style="color:#ae81ff">1</span>       ReplicationFactor: <span style="color:#ae81ff">1</span>    Configs: segment.bytes<span style="color:#f92672">=</span><span style="color:#ae81ff">1073741824</span>
+</span></span><span style="display:flex;"><span>        Topic: T_FILEBEAT_LOG   Partition: <span style="color:#ae81ff">0</span>    Leader: <span style="color:#ae81ff">0</span>       Replicas: <span style="color:#ae81ff">0</span>     Isr: <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 消费指定 TOPIC 内容，--from-beginning 表示消费全部</span>
+</span></span><span style="display:flex;"><span>sh kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic T_FILEBEAT_LOG --from-beginning
+</span></span></code></pre></div>
+    </div>
+</article>
+<aside class="catalog">
+    <div class="catalog-title">目录</div>
+    <div class="catalog-list">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#部署">部署</a></li>
+    <li><a href="#常用指令">常用指令</a></li>
+  </ul>
+</nav>
+    </div>
+</aside>
+<div class="division-line"></div>
+<div class="misc">
+    <div></div>
+    <div></div>
+</div>
+
+    </main>
+    <footer class="p-x-0 p-b-2 m-auto">
+        <div id="pagination">
+            
+<div class="division-line"></div>
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://localhost:8080/middleware/redis/redis-%E5%91%BD%E4%BB%A4%E5%A4%87%E5%BF%98%E5%BD%95/"><span>Redis 命令备忘录</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://localhost:8080/middleware/redis/%E8%AE%B0%E4%B8%80%E6%AC%A1-redis-%E4%B8%BB%E5%A4%87%E6%96%AD%E9%93%BE%E7%9A%84%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D/"><span>记一次 Redis 主备断链的故障恢复</span></a>
+    </div>
+</div>
+
+        </div>
+        <div class="position-fixed b-4 r-4">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+
+<script src="https://cdn.staticfile.net/gumshoe/5.1.1/gumshoe.min.js"></script>
+<script>
+    var spy = new Gumshoe('#TableOfContents a', {
+        nested: true,
+        nestedClass: 'active'
+    });
+</script>
+
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

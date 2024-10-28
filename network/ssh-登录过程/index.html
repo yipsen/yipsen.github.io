@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8080&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>SSH 登录过程 | Yipsen Ye</title>
+<meta name="description" content="一、SSH登录 SSH登录流程 sequenceDiagramparticipant A as User Host Aparticipant B as Server Host BA -&gt;&gt; B : 发送SSH登录请求B -&gt;&gt; A : 发送公钥bbb.pub给用户A -&gt;&gt; A : 使用公钥bbb.pub加密登录密码A -&gt;&gt; B : 发送加密后的登录密码B -&gt;&gt; B : 使用私钥bbb进行解密opt 密码正确B -&gt;&gt; A : 登录成功end 二、公钥登录 公钥登录流程 公钥登录方式跟SSH登录方式有所不同。
+首先发布公钥
+sequenceDiagramparticipant A as User Host Aparticipant B as Server Host BA -&gt;&gt; B : 发布自己的公钥aaa.pub给服务器B -&gt;&gt; B : 保存用户公钥aaa.pubNote right of A : 公钥一般会被保存在如用户主目录的$HOME/.ssh/authorized_keys下 之后登录或认证
+">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/standard.css">
+
+</head>
+
+<body id="page" class="ff-consolas m-0">
+    <header class="d-flex fd-row fw-wrap jc-between ai-center p-x-1 p-y-1 m-auto">
+        <div class="nav-logo">
+    <a href="http://localhost:8080/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="position-relative d-flex fw-wrap jc-end ai-center p-y-05">
+    <ul class="d-flex fw-wrap ls-none p-l-0 m-0">
+        
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/series/java/">JAVA</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/design/">设计</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link  active"
+                href="http://localhost:8080/network/">网络</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/framework/">框架</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/middleware/">中间件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/plugin/">插件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/linux/">LINUX</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/posts/">随心谈</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/others/">山海文库</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content" class="m-auto">
+        
+<aside class="sidebar"></aside>
+<article>
+    <h1 class="m-b-1">SSH 登录过程</h1>
+    <div class="d-flex fd-row jc-center">
+        <div class="fc-subtle">
+            <span>2022-01-15 10:40:52</span>
+        </div>
+    </div>
+    <div class="post-content">
+        <h2 id="一ssh登录">一、SSH登录</h2>
+<h3 id="ssh登录流程">SSH登录流程</h3>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">sequenceDiagram
+  participant A as User Host A
+  participant B as Server Host B
+
+  A -&gt;&gt; B : 发送SSH登录请求
+  B -&gt;&gt; A : 发送公钥bbb.pub给用户
+  A -&gt;&gt; A : 使用公钥bbb.pub加密登录密码
+  A -&gt;&gt; B : 发送加密后的登录密码
+  B -&gt;&gt; B : 使用私钥bbb进行解密
+  opt 密码正确
+    B -&gt;&gt; A : 登录成功
+  end
+</code></pre><h2 id="二公钥登录">二、公钥登录</h2>
+<h3 id="公钥登录流程">公钥登录流程</h3>
+<p>公钥登录方式跟SSH登录方式有所不同。</p>
+<ol>
+<li>
+<p>首先发布公钥</p>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">sequenceDiagram
+  participant A as User Host A
+  participant B as Server Host B
+
+    A -&gt;&gt; B : 发布自己的公钥aaa.pub给服务器
+    B -&gt;&gt; B : 保存用户公钥aaa.pub
+    Note right of A : 公钥一般会被保存在如用户主目录的$HOME/.ssh/authorized_keys下
+</code></pre></li>
+<li>
+<p>之后登录或认证</p>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">sequenceDiagram
+  participant A as User Host A
+  participant B as Server Host B
+
+    B -&gt;&gt; A : 发送随机字符串
+    A -&gt;&gt; A : 采用私钥aaa进行加密
+    A -&gt;&gt; B : 发送加密后的随机字符串
+    B -&gt;&gt; B : 使用先前保存的公钥aaa.pub进行解密
+    opt 解密后与随机字符串吻合
+      B -&gt;&gt; A : 确认A可信(直接登录成功，无需再输入密码)
+    end
+</code></pre></li>
+</ol>
+<h3 id="本地公私钥生成">本地公私钥生成</h3>
+<ol>
+<li>
+<p>打开 Git Bash，或者cmd等命令行窗口</p>
+</li>
+<li>
+<p>输入命令</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ssh-keygen -t ed25519 -C <span style="color:#e6db74">&#34;yipsen@yeah.net&#34;</span>
+</span></span></code></pre></div><blockquote>
+<p>注：如果是旧系统不支持 Ed25519 算法，则采用RSA:</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ssh-keygen -t rsa -b <span style="color:#ae81ff">4096</span> -C <span style="color:#e6db74">&#34;your_email@example.com&#34;</span>
+</span></span></code></pre></div></li>
+<li>
+<p>一路回车即可</p>
+<blockquote>
+<p>注：如果担心安全问题，可以在下面的提示时设置一个密钥</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Enter passphrase <span style="color:#f92672">(</span>empty <span style="color:#66d9ef">for</span> no passphrase<span style="color:#f92672">)</span>:
+</span></span></code></pre></div></li>
+<li>
+<p>拷贝公钥到剪贴板，复制到目标服务器即可。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>clip &lt; ~/.ssh/id_ed25519.pub
+</span></span></code></pre></div><blockquote>
+<p>默认情况下密钥会保存<code>~/.ssh</code>下，其中<code>id_ed25519.pub</code>为公钥，<code>id_ed25519</code>为私钥。</p>
+</blockquote>
+</li>
+<li>
+<p>或者把pub文件发布过去，视服务器使用方式决定。</p>
+</li>
+</ol>
+
+    </div>
+</article>
+<aside class="catalog">
+    <div class="catalog-title">目录</div>
+    <div class="catalog-list">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一ssh登录">一、SSH登录</a>
+      <ul>
+        <li><a href="#ssh登录流程">SSH登录流程</a></li>
+      </ul>
+    </li>
+    <li><a href="#二公钥登录">二、公钥登录</a>
+      <ul>
+        <li><a href="#公钥登录流程">公钥登录流程</a></li>
+        <li><a href="#本地公私钥生成">本地公私钥生成</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</aside>
+<div class="division-line"></div>
+<div class="misc">
+    <div></div>
+    <div></div>
+</div>
+
+    </main>
+    <footer class="p-x-0 p-b-2 m-auto">
+        <div id="pagination">
+            
+<div class="division-line"></div>
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://localhost:8080/network/%E5%8D%8F%E8%AE%AE/%E5%8D%8F%E8%AE%AE/"><span>协议</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://localhost:8080/network/iptables-%E8%AF%A6%E8%A7%A3/"><span>iptables 详解</span></a>
+    </div>
+</div>
+
+        </div>
+        <div class="position-fixed b-4 r-4">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script async src="https://cdn.staticfile.org/mermaid/8.6.4/mermaid.min.js"></script>
+<script>
+    
+    Array.from(document.getElementsByClassName('language-mermaid')).forEach(el => {
+        el.parentElement.outerHTML = `<div class="mermaid">${el.innerText}</div>`
+    })
+</script>
+
+
+<script src="https://cdn.staticfile.net/gumshoe/5.1.1/gumshoe.min.js"></script>
+<script>
+    var spy = new Gumshoe('#TableOfContents a', {
+        nested: true,
+        nestedClass: 'active'
+    });
+</script>
+
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

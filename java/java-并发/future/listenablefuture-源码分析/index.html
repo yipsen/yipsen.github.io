@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8080&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>ListenableFuture 源码分析 | Yipsen Ye</title>
+<meta name="description" content="在 Future 源码解析 篇时提到过任务执行的四种模式，先简单回顾一下：
+单程模式（One-Way）
+即只管将任务提交执行，但并不关心其结果，这种通常使用 Runnable 封装为线程提交执行。
+同步阻塞模式
+即直接就是运行任务，当前线程会直接运行完任务再继续后续逻辑，比如直接运行 Runnable#run。
+异步阻塞模式
+就如上面对 FutureTask 的分析，将任务 Callable 封装为 Future 后提交执行，同时立即阻塞线程等待获取结果，直到结果产生后继续运行后续逻辑（后续逻辑在通常就主线程上下文中运行）。即主动查询
+异步监听模式
+还有一种任务执行模式就是异步监听模式，具体做法通常是将一个结果监听器注册给任务，任务提交执行后，主线程不阻塞继续运行，等任务线程执行完后，调用结果监听器，运行后续逻辑（通常此时在任务线程上下文中）。即被动回调
+本文主要讲的就是第4种，即异步监听模式，google 的 guava 工具包提供的 ListenableFuture 类就实现了这种模式。接下来看下其具体的使用，以及其实现原理。
+1. ListenableFuture 源码分析 1.1 一段简单的代码例子 我们照旧从简单的代码例子入手分析，本次直接使用官方推荐的案例：ListenableFutureExplained
+public void testcase() throws Exception { // Yipsen: 1. 先获取包装后的 ExecutorService，即 ListeningExecutorService ListeningExecutorService executor = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(10)); // Yipsen: 2. 提交任务，获取 ListenableFuture ListenableFuture&lt;String&gt; future = executor.submit(new Callable&lt;String&gt;() { @Override public String call() throws Exception { TimeUnit.SECONDS.sleep(5); // Yipsen: 模拟耗时调用 return &#34;callable return result&#34;; } }); // Yipsen: 3. 为 Future 绑定监听器，并继续使用 executor 生成线程（当然也可以选择其他的 executor） Futures.addCallback(future, new FutureCallback&lt;String&gt;() { @Override public void onSuccess(String result) { System.out.println(&#34;success: &#34; &#43; result); } @Override public void onFailure(Throwable throwable) { System.out.println(&#34;failure: &#34; &#43; throwable.getMessage()); } }, executor); // Yipsen: 4. 主线程可以继续运行后续逻辑，不会被阻塞 System.out.println(&#34;main thread is running now......&#34;); } 执行结果：
+">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/standard.css">
+
+</head>
+
+<body id="page" class="ff-consolas m-0">
+    <header class="d-flex fd-row fw-wrap jc-between ai-center p-x-1 p-y-1 m-auto">
+        <div class="nav-logo">
+    <a href="http://localhost:8080/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="position-relative d-flex fw-wrap jc-end ai-center p-y-05">
+    <ul class="d-flex fw-wrap ls-none p-l-0 m-0">
+        
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/series/java/">JAVA</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/design/">设计</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/network/">网络</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/framework/">框架</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/middleware/">中间件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/plugin/">插件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/linux/">LINUX</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/posts/">随心谈</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/others/">山海文库</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content" class="m-auto">
+        
+<aside class="sidebar"><div>
+    
+    
+        
+        
+        <a href="/categories/java%e5%b9%b6%e5%8f%91/">JAVA并发</a>
+        <ul>
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/abstractqueuedsynchronizer-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">AbstractQueuedSynchronizer 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/reentrantlock-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ReentrantLock 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/semaphore-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Semaphore 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/reentrantreadwritelock-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ReentrantReadWriteLock 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/countdownlatch--%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">CountDownLatch 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/cyclicbarrier-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">CyclicBarrier 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/phaser-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Phaser 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/exchanger-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Exchanger 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/datastructure/blockingqueue-%E5%88%86%E6%9E%90/">BlockingQueue 分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/datastructure/delayqueue-%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%8E%9F%E7%90%86/">DelayQueue 使用与原理（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/datastructure/concurrenthashmap-%E5%88%86%E6%9E%90/">ConcurrentHashMap 分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/datastructure/hashedwheeltimer-%E6%97%B6%E9%97%B4%E8%BD%AE/">HashedWheelTimer 时间轮（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/datastructure/copyonwritearraylist-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">CopyOnWriteArrayList 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/future/future-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Future 源码分析</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/future/scheduledfuture-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ScheduledFuture 源码分析</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/future/completablefuture-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">CompletableFuture 源码分析（未完）</a></li>
+            
+            
+            
+            <li>ListenableFuture 源码分析</li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/threadpool/threadpoolexecutor-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ThreadPoolExecutor 源码分析</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/threadpool/scheduledthreadpoolexecutor-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ScheduledThreadPoolExecutor 源码分析</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/threadpool/forkjoinpool-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ForkJoinPool 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/threadpool/completionservice-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">CompletionService 源码分析（未完）</a></li>
+            
+            
+        </ul>
+    
+</div></aside>
+<article>
+    <h1 class="m-b-1">ListenableFuture 源码分析</h1>
+    <div class="d-flex fd-row jc-center">
+        <div class="fc-subtle">
+            <span>2024-01-10 23:36:41</span>
+        </div>
+    </div>
+    <div class="post-content">
+        <p>在 <a href="../future-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90">Future 源码解析</a> 篇时提到过任务执行的四种模式，先简单回顾一下：</p>
+<ol>
+<li>
+<p>单程模式（One-Way）</p>
+<p>即只管将任务提交执行，但并不关心其结果，这种通常使用 Runnable 封装为线程提交执行。</p>
+</li>
+<li>
+<p>同步阻塞模式</p>
+<p>即直接就是运行任务，当前线程会直接运行完任务再继续后续逻辑，比如直接运行 Runnable#run。</p>
+</li>
+<li>
+<p>异步阻塞模式</p>
+<p>就如上面对 FutureTask 的分析，将任务 Callable 封装为 Future 后提交执行，同时立即阻塞线程等待获取结果，直到结果产生后继续运行后续逻辑（后续逻辑在通常就主线程上下文中运行）。即<strong>主动查询</strong></p>
+</li>
+<li>
+<p>异步监听模式</p>
+<p>还有一种任务执行模式就是异步监听模式，具体做法通常是将一个结果监听器注册给任务，任务提交执行后，主线程不阻塞继续运行，等任务线程执行完后，调用结果监听器，运行后续逻辑（通常此时在任务线程上下文中）。即<strong>被动回调</strong></p>
+</li>
+</ol>
+<p>本文主要讲的就是第4种，即异步监听模式，google 的 guava 工具包提供的 ListenableFuture 类就实现了这种模式。接下来看下其具体的使用，以及其实现原理。</p>
+<h2 id="1-listenablefuture-源码分析">1. ListenableFuture 源码分析</h2>
+<h3 id="11-一段简单的代码例子">1.1 一段简单的代码例子</h3>
+<p>我们照旧从简单的代码例子入手分析，本次直接使用官方推荐的案例：<a href="https://github.com/google/guava/wiki/ListenableFutureExplained">ListenableFutureExplained</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testcase</span>() <span style="color:#66d9ef">throws</span> Exception {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 1. 先获取包装后的 ExecutorService，即 ListeningExecutorService</span>
+</span></span><span style="display:flex;"><span>    ListeningExecutorService executor <span style="color:#f92672">=</span> MoreExecutors.<span style="color:#a6e22e">listeningDecorator</span>(Executors.<span style="color:#a6e22e">newFixedThreadPool</span>(10));
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 2. 提交任务，获取 ListenableFuture</span>
+</span></span><span style="display:flex;"><span>    ListenableFuture<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> future <span style="color:#f92672">=</span> executor.<span style="color:#a6e22e">submit</span>(<span style="color:#66d9ef">new</span> Callable<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">call</span>() <span style="color:#66d9ef">throws</span> Exception {
+</span></span><span style="display:flex;"><span>            TimeUnit.<span style="color:#a6e22e">SECONDS</span>.<span style="color:#a6e22e">sleep</span>(5); <span style="color:#75715e">// Yipsen: 模拟耗时调用</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;callable return result&#34;</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 3. 为 Future 绑定监听器，并继续使用 executor 生成线程（当然也可以选择其他的 executor）</span>
+</span></span><span style="display:flex;"><span>    Futures.<span style="color:#a6e22e">addCallback</span>(future, <span style="color:#66d9ef">new</span> FutureCallback<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onSuccess</span>(String result) {
+</span></span><span style="display:flex;"><span>            System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;success: &#34;</span> <span style="color:#f92672">+</span> result);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onFailure</span>(Throwable throwable) {
+</span></span><span style="display:flex;"><span>            System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;failure: &#34;</span> <span style="color:#f92672">+</span> throwable.<span style="color:#a6e22e">getMessage</span>());
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }, executor);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 4. 主线程可以继续运行后续逻辑，不会被阻塞</span>
+</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;main thread is running now......&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>执行结果：</p>
+<pre tabindex="0"><code class="language-log" data-lang="log">main thread is running now......
+success: callable return result
+</code></pre><h3 id="12-listenablefuture-源码分析">1.2 ListenableFuture 源码分析</h3>
+<p>我们首先看下 ListenableFuture 类的继承结构：</p>
+<p>源码逻辑部分，我们分三段来看：1. 第一段构造 ListeningExecutorService；2. 第二段提交任务的逻辑，获取的 ListenableFuture 如何工作；3. 第三段绑定监听器的逻辑，监听器内的函数什么时候被调用。</p>
+<h4 id="121-构造返回-listeningexecutorservice">1.2.1 构造返回 ListeningExecutorService</h4>
+<p>首先看第一段，由于普通 JDK 的 Executor 提交都是返回的普通 Future，无法返回 ListenableFuture，因此需要先进行装饰。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>ListeningExecutorService executor <span style="color:#f92672">=</span> MoreExecutors.<span style="color:#a6e22e">listeningDecorator</span>(Executors.<span style="color:#a6e22e">newFixedThreadPool</span>(10));
+</span></span></code></pre></div><p>看下 <code>MoreExecutors#listeningDecorator</code> 的逻辑</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> ListeningExecutorService <span style="color:#a6e22e">listeningDecorator</span>(ExecutorService delegate) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (delegate <span style="color:#66d9ef">instanceof</span> ListeningExecutorService)
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">?</span> (ListeningExecutorService) delegate
+</span></span><span style="display:flex;"><span>        : (delegate <span style="color:#66d9ef">instanceof</span> ScheduledExecutorService)
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">?</span> <span style="color:#66d9ef">new</span> ScheduledListeningDecorator((ScheduledExecutorService) delegate)
+</span></span><span style="display:flex;"><span>            : <span style="color:#66d9ef">new</span> ListeningDecorator(delegate);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>可以看到返回的是一个 ListeningDecorator，其内部的核心方法，都委派给了 ExecutorService (delegate)，是非常典型的装饰/委派设计模式。</p>
+<h4 id="122-提交任务运行返回-listenablefuture">1.2.2 提交任务运行，返回 ListenableFuture</h4>
+<p>接下来看下第二段，这个 ListeningDecorator 如何处理 submit 方法，实际其调用的是父类的默认方法<code>AbstractExecutorService#submit</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> Future<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">submit</span>(Callable<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> task) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (task <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>) <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> NullPointerException();
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: ListeningDecorator 重写了 newTaskFor 方法</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 此处返回的不再是普通的 FutureTask，而会是 ListenableFuture（也是 RunnableFuture 的子类）</span>
+</span></span><span style="display:flex;"><span>    RunnableFuture<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> ftask <span style="color:#f92672">=</span> newTaskFor(task);
+</span></span><span style="display:flex;"><span>    execute(ftask);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> ftask;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>ListeningDecorator 的父类 AbstractListeningExecutorService 重写了 newTaskFor 方法。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">final</span> <span style="color:#f92672">&lt;</span>T <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">@Nullable</span> Object<span style="color:#f92672">&gt;</span> RunnableFuture<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">newTaskFor</span>(Callable<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> callable) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 此处会构建一个 ListenableFuture 的实现类 TrustedListenableFutureTask。</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> TrustedListenableFutureTask.<span style="color:#a6e22e">create</span>(callable);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>之后调用 exectute 方法，其实际就是委派给参入的<code>Executors.newFixedThreadPool(10)</code>执行器去执行，因此此时就会<strong>开辟一个子线程，并开始运行任务</strong>。</p>
+<p><img src="/images/java/ListenableFuture-Submit.svg" alt="ListenableFuture-Submit"></p>
+<h4 id="123-为-listenablefuture-绑定回调监听器">1.2.3 为 ListenableFuture 绑定回调监听器</h4>
+<p>接下来看第三段，<code>Futures#addCallback</code>绑定监听器时，会触发哪些逻辑</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#f92672">&lt;</span>V <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">@Nullable</span> Object<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addCallback</span>(<span style="color:#66d9ef">final</span> ListenableFuture<span style="color:#f92672">&lt;</span>V<span style="color:#f92672">&gt;</span> future,
+</span></span><span style="display:flex;"><span>                                                            <span style="color:#66d9ef">final</span> FutureCallback<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> V<span style="color:#f92672">&gt;</span> callback,
+</span></span><span style="display:flex;"><span>                                                            Executor executor) {
+</span></span><span style="display:flex;"><span>    Preconditions.<span style="color:#a6e22e">checkNotNull</span>(callback);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 将 future 与 callback 一起封装为 CallbackListener 构成监听器</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 再调用 ListenableFuture 的 addListener 方法添加回调监听器给 ListenableFuture。</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//（CallbackListener 实际是个 Runnable 任务，只做一件事：从 future 中取值，回调 callback 内的方法，随后可以看下）</span>
+</span></span><span style="display:flex;"><span>    future.<span style="color:#a6e22e">addListener</span>(<span style="color:#66d9ef">new</span> CallbackListener<span style="color:#f92672">&lt;</span>V<span style="color:#f92672">&gt;</span>(future, callback), executor);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>本例此处的 ListenableFuture 是 TrustedListenableFutureTask，其没有重写 addListener 方法，默认使用父类 AbstractFuture 的，接下看下<code>AbstractFuture#addListener</code>的逻辑：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addListener</span>(Runnable listener, Executor executor) {
+</span></span><span style="display:flex;"><span>    checkNotNull(listener, <span style="color:#e6db74">&#34;Runnable was null.&#34;</span>);
+</span></span><span style="display:flex;"><span>    checkNotNull(executor, <span style="color:#e6db74">&#34;Executor was null.&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 如果绑定回调监听器 listener 时，任务还未完成，则将监听器加入到监听器列表 listeners 中。</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>isDone()) {
+</span></span><span style="display:flex;"><span>        Listener oldHead <span style="color:#f92672">=</span> listeners;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (oldHead <span style="color:#f92672">!=</span> Listener.<span style="color:#a6e22e">TOMBSTONE</span>) {
+</span></span><span style="display:flex;"><span>            Listener newNode <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Listener(listener, executor);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">do</span> {
+</span></span><span style="display:flex;"><span>                newNode.<span style="color:#a6e22e">next</span> <span style="color:#f92672">=</span> oldHead;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (ATOMIC_HELPER.<span style="color:#a6e22e">casListeners</span>(<span style="color:#66d9ef">this</span>, oldHead, newNode)) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                oldHead <span style="color:#f92672">=</span> listeners; <span style="color:#75715e">// re-read</span>
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">while</span> (oldHead <span style="color:#f92672">!=</span> Listener.<span style="color:#a6e22e">TOMBSTONE</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 如果绑定回调监听器 listener 时，任务都已经执行完了，那么就直接运行回调。</span>
+</span></span><span style="display:flex;"><span>    executeListener(listener, executor);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>此处分两种情况：</p>
+<ol>
+<li>如果给 ListenableFuture 绑定回调监听器<code>listener</code>时，任务已经执行完成了，那么会直接执行监听器<code>executeListener</code></li>
+<li>如果任务还没执行完，则加入监听器队列中，等待后续任务执行完后再执行。</li>
+</ol>
+<p>我们先看下第一种情况，直接运行监听器时具体都做了哪些逻辑</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">executeListener</span>(Runnable runnable, Executor executor) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>        executor.<span style="color:#a6e22e">execute</span>(runnable);
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">catch</span> (RuntimeException e) {
+</span></span><span style="display:flex;"><span>        log.<span style="color:#a6e22e">log</span>(Level.<span style="color:#a6e22e">SEVERE</span>,<span style="color:#e6db74">&#34;RuntimeException while executing runnable &#34;</span> <span style="color:#f92672">+</span> runnable <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; with executor &#34;</span> <span style="color:#f92672">+</span> executor,e);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>其实际就是使用了传入的线程池 executor，直接运行<code>CallbackListener</code>，（CallbackListener 实际也是一个 Runnable 任务），即执行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (future <span style="color:#66d9ef">instanceof</span> InternalFutureFailureAccess) {
+</span></span><span style="display:flex;"><span>        Throwable failure <span style="color:#f92672">=</span> InternalFutures.<span style="color:#a6e22e">tryInternalFastPathGetFailure</span>((InternalFutureFailureAccess) future);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (failure <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>            callback.<span style="color:#a6e22e">onFailure</span>(failure);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">final</span> V value;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen: 从 ListenableFuture 取回结果</span>
+</span></span><span style="display:flex;"><span>        value <span style="color:#f92672">=</span> getDone(future);
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">catch</span> (ExecutionException e) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen: 取回失败，就回调 onFailure 方法</span>
+</span></span><span style="display:flex;"><span>        callback.<span style="color:#a6e22e">onFailure</span>(e.<span style="color:#a6e22e">getCause</span>());
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">catch</span> (RuntimeException <span style="color:#f92672">|</span> Error e) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen: 同上</span>
+</span></span><span style="display:flex;"><span>        callback.<span style="color:#a6e22e">onFailure</span>(e);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 取回成功，就回调 onSuccess 方法</span>
+</span></span><span style="display:flex;"><span>    callback.<span style="color:#a6e22e">onSuccess</span>(value);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>getDone 方法具体运行如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@CanIgnoreReturnValue</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@ParametricNullness</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#f92672">&lt;</span>V <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">@Nullable</span> Object<span style="color:#f92672">&gt;</span> V <span style="color:#a6e22e">getUninterruptibly</span>(Future<span style="color:#f92672">&lt;</span>V<span style="color:#f92672">&gt;</span> future) <span style="color:#66d9ef">throws</span> ExecutionException {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">boolean</span> interrupted <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (<span style="color:#66d9ef">true</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// Yipsen: 看到这里应该就明白了，实际就是调用 Future#get 阻塞自身线程，直到读取返回值</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> future.<span style="color:#a6e22e">get</span>();
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">catch</span> (InterruptedException e) {
+</span></span><span style="display:flex;"><span>                interrupted <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">finally</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (interrupted) {
+</span></span><span style="display:flex;"><span>            Thread.<span style="color:#a6e22e">currentThread</span>().<span style="color:#a6e22e">interrupt</span>();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>可见，方法非常直白，运行监听器就是从 Future#get 中获取值，该方法会把当前线程挂起，直到 Future 内的 Callable 运行完成调用 Future#set 后再唤醒处理后续逻辑。此处不再赘述，详细可以看下 <a href="../future-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90">Future 源码解析</a> 篇。</p>
+<p>由此可见，在使用普通的 Future 时，主线程调用 get 方法会阻塞直到有结果唤醒，而 ListenableFuture 模式，则是另外启动一个子线程，帮主线程阻塞，以及运行后续逻辑了。子线程替父分忧了属于是。</p>
+<p>好，现在回过头看下第二种情况，就是加入监听器时任务还没执行完，而入队到 listeners 后，什么时候再被取出并执行？</p>
+<p>一个很直接的想法，既然监听器是因为任务没完成而被放入队中等待回调，那么回调时机肯定是任务完成时刻处理，而我们知道 Future 在 Callable 任务完成时，会调用 Future#set 或 Future#setException 方法设置 Callable 任务执行的结果。</p>
+<p>追踪<code>TrustedListenableFutureTask</code>发现没有重写<code>set</code>方法，即实际调用的父类的：<code>AbstractFuture#set</code>，可见 ListenableFuture 的很多核心逻辑都在 AbstractFuture 类中实现了。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@CanIgnoreReturnValue</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">set</span>(<span style="color:#a6e22e">@ParametricNullness</span> V value) {
+</span></span><span style="display:flex;"><span>    Object valueToSet <span style="color:#f92672">=</span> value <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">?</span> NULL : value;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (ATOMIC_HELPER.<span style="color:#a6e22e">casValue</span>(<span style="color:#66d9ef">this</span>, <span style="color:#66d9ef">null</span>, valueToSet)) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen: 在把 Callable 任务执行结果 value 设置完成后，开始执行善后处理 complete 方法</span>
+</span></span><span style="display:flex;"><span>        complete(<span style="color:#66d9ef">this</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>如同 FutureTask，在完成设置结果后，会调用相应善后方法，FutureTask 是唤醒 waiters 里的阻塞线程，而 AbstractFuture 则是</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">/** Unblocks all threads and runs all listeners. */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">complete</span>(AbstractFuture<span style="color:#f92672">&lt;?&gt;</span> param) {
+</span></span><span style="display:flex;"><span>    AbstractFuture<span style="color:#f92672">&lt;?&gt;</span> future <span style="color:#f92672">=</span> param;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Listener next <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>    outer:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (<span style="color:#66d9ef">true</span>) {
+</span></span><span style="display:flex;"><span>        future.<span style="color:#a6e22e">releaseWaiters</span>();
+</span></span><span style="display:flex;"><span>        future.<span style="color:#a6e22e">afterDone</span>();
+</span></span><span style="display:flex;"><span>        next <span style="color:#f92672">=</span> future.<span style="color:#a6e22e">clearListeners</span>(next);
+</span></span><span style="display:flex;"><span>        future <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen: 遍历全部 listeners 内的回调监听器。</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (next <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>            Listener curr <span style="color:#f92672">=</span> next;
+</span></span><span style="display:flex;"><span>            next <span style="color:#f92672">=</span> next.<span style="color:#a6e22e">next</span>;
+</span></span><span style="display:flex;"><span>            Runnable task <span style="color:#f92672">=</span> requireNonNull(curr.<span style="color:#a6e22e">task</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (task <span style="color:#66d9ef">instanceof</span> SetFuture) {
+</span></span><span style="display:flex;"><span>                SetFuture<span style="color:#f92672">&lt;?&gt;</span> setFuture <span style="color:#f92672">=</span> (SetFuture<span style="color:#f92672">&lt;?&gt;</span>) task;
+</span></span><span style="display:flex;"><span>                future <span style="color:#f92672">=</span> setFuture.<span style="color:#a6e22e">owner</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (future.<span style="color:#a6e22e">value</span> <span style="color:#f92672">==</span> setFuture) {
+</span></span><span style="display:flex;"><span>                    Object valueToSet <span style="color:#f92672">=</span> getFutureValue(setFuture.<span style="color:#a6e22e">future</span>);
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> (ATOMIC_HELPER.<span style="color:#a6e22e">casValue</span>(future, setFuture, valueToSet)) {
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">continue</span> outer;
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// Yipsen: 与第一种情况一样，就是调用 executeListener，即直接运行 CallbackListener。</span>
+</span></span><span style="display:flex;"><span>                executeListener(task, requireNonNull(curr.<span style="color:#a6e22e">executor</span>));
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>至此，Callable 任务完成后，对应的 Future 内绑定的回调监听器，就会被实行，实现了异步回调机制。</p>
+<h2 id="2-整体调用机制">2. 整体调用机制</h2>
+<p>// TODO: 补一张图</p>
+<p>我们可以稍微改写下</p>
+<h2 id="3-总结">3. 总结</h2>
+<p>guava 的 ListenableFuture 实现巧妙的使用了装饰委派设计模式，对 JDK 自带的执行器进行了能力增强，核心线程运行能力依旧使用的 JDK，而不用另外开发。</p>
+<p>同时我们发现使用异步监听模式，主线程可以无阻塞的一直运行，不断地创建一个 Callable 任务，绑定一个新的 ListenableFuture，对应再绑定一个新的 CallbackListener。</p>
+<p>执行调用链路：Callable run -&gt; Callable return -&gt; ListenableFuture set -&gt; CallbackListener onSuccess。</p>
+<p>guava 的官方也一直在推荐使用这种模式，在 gRPC 模块中也引入了 ListenableFuture，可以支持无阻塞式地远程调用，从而降低雪崩风险，达到一定程度故障解耦的目的。</p>
+<p>另外可以看到 ListenableFuture 的使用实际会发起两个子线程：</p>
+<ol>
+<li>第一个 Callable 任务线程会由 ListeningExecutorService 中包装的 Executor 生成，并在提交后立即执行。</li>
+<li>第二个 Callback 回调线程可以由另外指定的线程池生成（本文的案例与 Callable 任务线程使用了同一个线程池），并在任务完成后执行回调函数。</li>
+</ol>
+
+    </div>
+</article>
+<aside class="catalog">
+    <div class="catalog-title">目录</div>
+    <div class="catalog-list">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-listenablefuture-源码分析">1. ListenableFuture 源码分析</a>
+      <ul>
+        <li><a href="#11-一段简单的代码例子">1.1 一段简单的代码例子</a></li>
+        <li><a href="#12-listenablefuture-源码分析">1.2 ListenableFuture 源码分析</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-整体调用机制">2. 整体调用机制</a></li>
+    <li><a href="#3-总结">3. 总结</a></li>
+  </ul>
+</nav>
+    </div>
+</aside>
+<div class="division-line"></div>
+<div class="misc">
+    <div> 
+        <a class="post-category" href="/%20categories/java%E5%B9%B6%E5%8F%91/">📒JAVA并发</a>
+        </div>
+    <div></div>
+</div>
+
+    </main>
+    <footer class="p-x-0 p-b-2 m-auto">
+        <div id="pagination">
+            
+<div class="division-line"></div>
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/future/scheduledfuture-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"><span>ScheduledFuture 源码分析</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/future/future-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"><span>Future 源码分析</span></a>
+    </div>
+</div>
+
+        </div>
+        <div class="position-fixed b-4 r-4">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+
+<script src="https://cdn.staticfile.net/gumshoe/5.1.1/gumshoe.min.js"></script>
+<script>
+    var spy = new Gumshoe('#TableOfContents a', {
+        nested: true,
+        nestedClass: 'active'
+    });
+</script>
+
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

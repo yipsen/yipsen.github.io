@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8080&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>JVM 发生 GC 的时间点 | Yipsen Ye</title>
+<meta name="description" content="以下主要为 JVM 堆内存与 GC 相关知识点。
+内存模型 &#43;----------------&#43;--&#43;--&#43;----------------------------------------&#43;| 8 | 1| 1| 20 |&#43;================&#43;==&#43;==&#43;========================================&#43;| eden |S0|S1| tenured |&#43;================&#43;==&#43;==&#43;========================================&#43;| Young Generation | Old Generation |&#43;----------------------&#43;----------------------------------------&#43;图示1：JVM 堆内存分代图 为什么堆要进行分代（JVM的堆内存基于Generation算法划分为新生代、老年代、永久代），因为每个对象的生命周期是不一样的，因此为了·提高垃圾回收的效率·，对不同生命周期的对象进行分代，并针对不同代采用最适合高效的垃圾回收算法，整体提升垃圾回收效率。 Java8以前永久代是放置在堆中，占用了老年代空间的，主要放置class等静态对象，容易出现性能问题或内存溢出，为解决此问题，Java8时永久代被取消，取而代之的升级为元空间（Meta Space），且不再放置在堆空间中，而是放置在宿主机的内存中（不在JVM），解决了以前永久代OOM问题。
+为什么会有奇怪的 From 与 To 这两块 Survivor 区域呢？原因是新生代因对象朝生夕死的特点，一般GC时只有少量存活，所以采用复制算法，这就把内存区域分为两块，每次仅使用其中一块，GC发生时把一块中的内容（仅选存活的对象）移到另一块中，原来一块的内存就全部回收清空了。优点是快速且避免内存碎片。
+堆内存分配策略 对象优先在 Eden 分配 大对象直接进入老年代 长期存活（默认15以上）对象将进入老年代 GC 发生时机 第 1 种发生回收的时机点：Eden区空间不足，即Eden Space申请失败时期发生，会发生 Minor GC（即 Scavenge GC）【因对象朝生夕死特点，只有少量存活，采用复制算法】 S0不满： Eden区（仅存活部分的对象） -&gt; Survivor0 区（不满时） 清空 Eden S0已满： Eden区（仅存活部分的对象）&#43; Survivor0 区（已满时） -&gt; Survivor1 区 清空 Eden &#43; S0 Survivor1 区 &lt;-&gt; Surivior0 区（交换S0与S1的空间，目的是保持S1为空） S0已满，且S1不足以放置Eden &#43; S0的存活对象（Survivor满不会引发Minor GC，而是把对象移到老年代）： Eden &#43; S0 存量对象 -&gt; 老年代 躲过新生代存活区（S0 &#43; S1）回收的存活对象，则年龄 &#43;1，年龄满15（默认15）时移入老年代 S0 &#43; S1 -&gt; 老年代 为什么是15岁，原因是 HotSpot 会在对象头中的标记字段里记录年龄，分配到的空间只有4位，所以最多只能记录到15
+">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/standard.css">
+
+</head>
+
+<body id="page" class="ff-consolas m-0">
+    <header class="d-flex fd-row fw-wrap jc-between ai-center p-x-1 p-y-1 m-auto">
+        <div class="nav-logo">
+    <a href="http://localhost:8080/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="position-relative d-flex fw-wrap jc-end ai-center p-y-05">
+    <ul class="d-flex fw-wrap ls-none p-l-0 m-0">
+        
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/series/java/">JAVA</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/design/">设计</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/network/">网络</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/framework/">框架</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/middleware/">中间件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/plugin/">插件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/linux/">LINUX</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/posts/">随心谈</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/others/">山海文库</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content" class="m-auto">
+        
+<aside class="sidebar"><div>
+    
+    
+        
+        
+        <a href="/categories/java%e8%99%9a%e6%8b%9f%e6%9c%ba/">JAVA虚拟机</a>
+        <ul>
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E8%99%9A%E6%8B%9F%E6%9C%BA/jstat-%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">jstat 工具使用</a></li>
+            
+            
+            
+            <li>JVM 发生 GC 的时间点</li>
+            
+            
+        </ul>
+    
+</div></aside>
+<article>
+    <h1 class="m-b-1">JVM 发生 GC 的时间点</h1>
+    <div class="d-flex fd-row jc-center">
+        <div class="fc-subtle">
+            <span>2023-03-01 08:34:41</span>
+        </div>
+    </div>
+    <div class="post-content">
+        <p>以下主要为 JVM 堆内存与 GC 相关知识点。</p>
+<h2 id="内存模型">内存模型</h2>
+<pre tabindex="0"><code class="language-figure" data-lang="figure">
++----------------+--+--+----------------------------------------+
+|        8       | 1| 1|                   20                   |
++================+==+==+========================================+
+|      eden      |S0|S1|                tenured                 |
++================+==+==+========================================+
+|   Young Generation   |             Old Generation             |
++----------------------+----------------------------------------+
+
+                 图示1：JVM 堆内存分代图
+</code></pre><blockquote>
+<p>为什么堆要进行分代（JVM的堆内存基于Generation算法划分为新生代、老年代、永久代），因为每个对象的生命周期是不一样的，因此为了·提高垃圾回收的效率·，对不同生命周期的对象进行分代，并针对不同代采用最适合高效的垃圾回收算法，整体提升垃圾回收效率。
+Java8以前永久代是放置在堆中，占用了老年代空间的，主要放置class等静态对象，容易出现性能问题或内存溢出，为解决此问题，Java8时永久代被取消，取而代之的升级为元空间（Meta Space），且不再放置在堆空间中，而是放置在宿主机的内存中（不在JVM），解决了以前永久代OOM问题。</p>
+<p>为什么会有奇怪的 From 与 To 这两块 Survivor 区域呢？原因是新生代因对象朝生夕死的特点，一般GC时只有少量存活，所以采用复制算法，这就把内存区域分为两块，每次仅使用其中一块，GC发生时把一块中的内容（仅选存活的对象）移到另一块中，原来一块的内存就全部回收清空了。优点是快速且避免内存碎片。</p>
+</blockquote>
+<h3 id="堆内存分配策略">堆内存分配策略</h3>
+<ol>
+<li>对象优先在 Eden 分配</li>
+<li>大对象直接进入老年代</li>
+<li>长期存活（默认15以上）对象将进入老年代</li>
+</ol>
+<h2 id="gc-发生时机">GC 发生时机</h2>
+<h3 id="第-1-种发生回收的时机点eden区空间不足即eden-space申请失败时期发生会发生-minor-gc即-scavenge-gc因对象朝生夕死特点只有少量存活采用复制算法">第 1 种发生回收的时机点：Eden区空间不足，即Eden Space申请失败时期发生，会发生 Minor GC（即 Scavenge GC）【因对象朝生夕死特点，只有少量存活，采用复制算法】</h3>
+<ul>
+<li>S0不满：</li>
+</ul>
+<ol>
+<li>Eden区（仅存活部分的对象）                         -&gt; Survivor0 区（不满时）</li>
+<li>清空 Eden</li>
+</ol>
+<ul>
+<li>S0已满：</li>
+</ul>
+<ol>
+<li>Eden区（仅存活部分的对象）+ Survivor0 区（已满时） -&gt; Survivor1 区</li>
+<li>清空 Eden + S0</li>
+<li>Survivor1 区 &lt;-&gt; Surivior0 区（交换S0与S1的空间，目的是保持S1为空）</li>
+</ol>
+<ul>
+<li>S0已满，且S1不足以放置Eden + S0的存活对象（Survivor满不会引发Minor GC，而是把对象移到老年代）：</li>
+</ul>
+<ol>
+<li>Eden + S0 存量对象 -&gt; 老年代</li>
+</ol>
+<ul>
+<li>躲过新生代存活区（S0 + S1）回收的存活对象，则年龄 +1，年龄满15（默认15）时移入老年代</li>
+</ul>
+<ol>
+<li>S0 + S1 -&gt; 老年代</li>
+</ol>
+<blockquote>
+<p>为什么是15岁，原因是 HotSpot 会在对象头中的标记字段里记录年龄，分配到的空间只有4位，所以最多只能记录到15</p>
+</blockquote>
+<h3 id="第-2-种发生回收的时机点第-1-种时机点发生时发现老年代空间不足则触发-major-gc同时通常伴随-minor-gc即发生了-full-gc--major-gc--minor-gc老年代存活久一般无额外空间采用标记-清除或标记-整理算法">第 2 种发生回收的时机点：第 1 种时机点发生时，发现老年代空间不足，则触发 Major GC，同时通常伴随 Minor GC（即发生了 Full GC = Major GC + Minor GC）【老年代存活久，一般无额外空间，采用标记-清除或标记-整理算法】</h3>
+<p>参考上述</p>
+<h3 id="特别的-full-gc-还有几个触发点1-方法区空间不足2-程序主动调用-systemgc">特别的 Full GC 还有几个触发点：1. 方法区空间不足；2. 程序主动调用 System.gc()</h3>
+<h2 id="gc-优化">GC 优化</h2>
+<h3 id="优化角度也是堆内存分代的原因">优化角度（也是堆内存分代的原因）</h3>
+<ol>
+<li>减少 GC 次数</li>
+<li>减少 GC 时间</li>
+<li>避免全区扫描</li>
+</ol>
+
+    </div>
+</article>
+<aside class="catalog">
+    <div class="catalog-title">目录</div>
+    <div class="catalog-list">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#内存模型">内存模型</a>
+      <ul>
+        <li><a href="#堆内存分配策略">堆内存分配策略</a></li>
+      </ul>
+    </li>
+    <li><a href="#gc-发生时机">GC 发生时机</a>
+      <ul>
+        <li><a href="#第-1-种发生回收的时机点eden区空间不足即eden-space申请失败时期发生会发生-minor-gc即-scavenge-gc因对象朝生夕死特点只有少量存活采用复制算法">第 1 种发生回收的时机点：Eden区空间不足，即Eden Space申请失败时期发生，会发生 Minor GC（即 Scavenge GC）【因对象朝生夕死特点，只有少量存活，采用复制算法】</a></li>
+        <li><a href="#第-2-种发生回收的时机点第-1-种时机点发生时发现老年代空间不足则触发-major-gc同时通常伴随-minor-gc即发生了-full-gc--major-gc--minor-gc老年代存活久一般无额外空间采用标记-清除或标记-整理算法">第 2 种发生回收的时机点：第 1 种时机点发生时，发现老年代空间不足，则触发 Major GC，同时通常伴随 Minor GC（即发生了 Full GC = Major GC + Minor GC）【老年代存活久，一般无额外空间，采用标记-清除或标记-整理算法】</a></li>
+        <li><a href="#特别的-full-gc-还有几个触发点1-方法区空间不足2-程序主动调用-systemgc">特别的 Full GC 还有几个触发点：1. 方法区空间不足；2. 程序主动调用 System.gc()</a></li>
+      </ul>
+    </li>
+    <li><a href="#gc-优化">GC 优化</a>
+      <ul>
+        <li><a href="#优化角度也是堆内存分代的原因">优化角度（也是堆内存分代的原因）</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</aside>
+<div class="division-line"></div>
+<div class="misc">
+    <div> 
+        <a class="post-category" href="/%20categories/java%E8%99%9A%E6%8B%9F%E6%9C%BA/">📒JAVA虚拟机</a>
+        </div>
+    <div></div>
+</div>
+
+    </main>
+    <footer class="p-x-0 p-b-2 m-auto">
+        <div id="pagination">
+            
+<div class="division-line"></div>
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://localhost:8080/java/java-%E8%99%9A%E6%8B%9F%E6%9C%BA/jvm-%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95---%E5%87%A0%E4%B8%AA%E5%B8%B8%E7%94%A8%E7%9A%84%E6%8C%87%E6%A0%87%E6%94%B6%E9%9B%86%E5%91%BD%E4%BB%A4/"><span>JVM 工具使用备忘录 - 几个常用的指标收集命令</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://localhost:8080/java/java-%E8%99%9A%E6%8B%9F%E6%9C%BA/jvisualvm-%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"><span>jvisualvm 工具使用</span></a>
+    </div>
+</div>
+
+        </div>
+        <div class="position-fixed b-4 r-4">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+
+<script src="https://cdn.staticfile.net/gumshoe/5.1.1/gumshoe.min.js"></script>
+<script>
+    var spy = new Gumshoe('#TableOfContents a', {
+        nested: true,
+        nestedClass: 'active'
+    });
+</script>
+
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

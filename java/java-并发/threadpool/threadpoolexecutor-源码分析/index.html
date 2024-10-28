@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8080&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>ThreadPoolExecutor 源码分析 | Yipsen Ye</title>
+<meta name="description" content="线程的创建销毁非常耗费资源，因此都想着能不能不要销毁，而是可以复用，复用？嗯，条件发射的冒出两个方案：一个单例，一个池化。
+而 JDK8 之后，官方自带提供了一整套非常好用的任务执行器 Executor，今天我们先来看下最基本的 ThreadPoolExecutor 的使用，及其原理机制。
+1. ThreadPoolExecutor 的使用 一段简单的代码例子 我们还是从一个最简单的例子，看下怎么使用，再剖析其内部实现机制。
+public void thread_pool_execute() { ExecutorService executor = Executors.newFixedThreadPool(3); for (int i = 1; i &lt;= 5; i&#43;&#43;) { final int j = i; executor.execute(() -&gt; { try { TimeUnit.SECONDS.sleep(1); } catch (InterruptedException ignored) {} System.out.println(&#34;now task is running on &#34; &#43; j); }); System.out.println(&#34;now have assigned &#34; &#43; i &#43; &#34; tasks.&#34;); } System.out.println(&#34;main thread end.&#34;); // Yipsen: 注意，如果不对 ThreadPoolExecutor 进行 shutdown，会导致主线程阻塞 // 原因是 ThreadPoolExecutor 启动任务后就会构建 Worker，而 Worker 会一直驻留， // 而且因为 Worker 所属的 ThreadGroup 就是主线程，因此其驻留会挡住主线程的关闭。 executor.shutdown(); } 其运行结果：
+">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/standard.css">
+
+</head>
+
+<body id="page" class="ff-consolas m-0">
+    <header class="d-flex fd-row fw-wrap jc-between ai-center p-x-1 p-y-1 m-auto">
+        <div class="nav-logo">
+    <a href="http://localhost:8080/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="position-relative d-flex fw-wrap jc-end ai-center p-y-05">
+    <ul class="d-flex fw-wrap ls-none p-l-0 m-0">
+        
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/series/java/">JAVA</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/design/">设计</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/network/">网络</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/framework/">框架</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/middleware/">中间件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/plugin/">插件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/linux/">LINUX</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/posts/">随心谈</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/others/">山海文库</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content" class="m-auto">
+        
+<aside class="sidebar"><div>
+    
+    
+        
+        
+        <a href="/categories/java%e5%b9%b6%e5%8f%91/">JAVA并发</a>
+        <ul>
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/abstractqueuedsynchronizer-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">AbstractQueuedSynchronizer 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/reentrantlock-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ReentrantLock 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/semaphore-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Semaphore 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/reentrantreadwritelock-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ReentrantReadWriteLock 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/countdownlatch--%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">CountDownLatch 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/cyclicbarrier-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">CyclicBarrier 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/phaser-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Phaser 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/exchanger-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Exchanger 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/datastructure/blockingqueue-%E5%88%86%E6%9E%90/">BlockingQueue 分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/datastructure/delayqueue-%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%8E%9F%E7%90%86/">DelayQueue 使用与原理（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/datastructure/concurrenthashmap-%E5%88%86%E6%9E%90/">ConcurrentHashMap 分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/datastructure/hashedwheeltimer-%E6%97%B6%E9%97%B4%E8%BD%AE/">HashedWheelTimer 时间轮（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/datastructure/copyonwritearraylist-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">CopyOnWriteArrayList 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/future/future-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Future 源码分析</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/future/scheduledfuture-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ScheduledFuture 源码分析</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/future/completablefuture-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">CompletableFuture 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/future/listenablefuture-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ListenableFuture 源码分析</a></li>
+            
+            
+            
+            <li>ThreadPoolExecutor 源码分析</li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/threadpool/scheduledthreadpoolexecutor-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ScheduledThreadPoolExecutor 源码分析</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/threadpool/forkjoinpool-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ForkJoinPool 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/threadpool/completionservice-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">CompletionService 源码分析（未完）</a></li>
+            
+            
+        </ul>
+    
+</div></aside>
+<article>
+    <h1 class="m-b-1">ThreadPoolExecutor 源码分析</h1>
+    <div class="d-flex fd-row jc-center">
+        <div class="fc-subtle">
+            <span>2022-01-10 23:36:41</span>
+        </div>
+    </div>
+    <div class="post-content">
+        <p>线程的创建销毁非常耗费资源，因此都想着能不能不要销毁，而是可以复用，复用？嗯，条件发射的冒出两个方案：一个单例，一个池化。</p>
+<p>而 JDK8 之后，官方自带提供了一整套非常好用的任务执行器 Executor，今天我们先来看下最基本的 ThreadPoolExecutor 的使用，及其原理机制。</p>
+<h2 id="1-threadpoolexecutor-的使用">1. ThreadPoolExecutor 的使用</h2>
+<h3 id="一段简单的代码例子">一段简单的代码例子</h3>
+<p>我们还是从一个最简单的例子，看下怎么使用，再剖析其内部实现机制。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">thread_pool_execute</span>() {
+</span></span><span style="display:flex;"><span>    ExecutorService executor <span style="color:#f92672">=</span> Executors.<span style="color:#a6e22e">newFixedThreadPool</span>(3);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 1; i <span style="color:#f92672">&lt;=</span> 5; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>        executor.<span style="color:#a6e22e">execute</span>(() <span style="color:#f92672">-&gt;</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>                TimeUnit.<span style="color:#a6e22e">SECONDS</span>.<span style="color:#a6e22e">sleep</span>(1);
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">catch</span> (InterruptedException ignored) {}
+</span></span><span style="display:flex;"><span>            System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;now task is running on &#34;</span> <span style="color:#f92672">+</span> j);
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;now have assigned &#34;</span> <span style="color:#f92672">+</span> i <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; tasks.&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;main thread end.&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 注意，如果不对 ThreadPoolExecutor 进行 shutdown，会导致主线程阻塞</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 原因是 ThreadPoolExecutor 启动任务后就会构建 Worker，而 Worker 会一直驻留，</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 而且因为 Worker 所属的 ThreadGroup 就是主线程，因此其驻留会挡住主线程的关闭。</span>
+</span></span><span style="display:flex;"><span>    executor.<span style="color:#a6e22e">shutdown</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>其运行结果：</p>
+<pre tabindex="0"><code class="language-log" data-lang="log">now have assigned 1 tasks.
+now have assigned 2 tasks.
+now have assigned 3 tasks.
+now have assigned 4 tasks.
+now have assigned 5 tasks.
+main thread end.
+now task is running on 3
+now task is running on 1
+now task is running on 2
+now task is running on 5
+now task is running on 4
+</code></pre><h2 id="2-threadpoolexecutor-的设计结构">2. ThreadPoolExecutor 的设计结构</h2>
+<p><code>Executors.newFixedThreadPool(3)</code> 实际上返回的是一个 <code>ThreadPoolExecutor</code>：</p>
+<h3 id="21-threadpoolexecutor-的类继承结构">2.1 ThreadPoolExecutor 的类继承结构</h3>
+<p><img src="/images/java/ThreadPoolExecutor-Class-Design.svg" alt="ThreadPoolExecutor-Class-Design"></p>
+<p>ThreadPoolExecutor 作为一个线程池执行器，即是<code>线程池</code>管理线程，也是<code>执行器</code>运行任务，因此拥有<strong>执行任务</strong>，<strong>提交任务</strong>，<strong>获取线程池状态</strong>，以及<strong>关闭线程池</strong>四个特性。</p>
+<h3 id="22-threadpoolexecutor-的类设计结构">2.2 ThreadPoolExecutor 的类设计结构</h3>
+<p><img src="/images/java/ThreadPoolExecutor-Design.svg" alt="ThreadPoolExecutor-Design"></p>
+<p>整个 ThreadPoolExecutor 内部结构如上图，其中关键的主体对象：</p>
+<ul>
+<li>任务：即用户提交的 Callable 或 Runnable 任务。</li>
+<li>任务执行器：即 Worker，是主要的任务执行者，一个 Worker 绑定一个 Thread，并不断从 workQueue 中取出任务处理</li>
+<li>任务队列：即 workQueue，当所有的 Worker 都处于忙碌（且已经满容量）时，用户提交的任务则会暂存在任务队列中，等待 Worker 有空闲时取出处理。</li>
+<li>池：即 ThreadPoolExecutor，既是<code>线程池</code>可以管理调度线程，也是<code>执行器</code>可以运行任务。</li>
+</ul>
+<p>当有任务提交到线程池执行时，线程池首先创建 Worker 执行器，如果 Worker 已经达到指定容量，则停止创建，如果此时仍有任务进来，则先把任务预存在 workQueue 队列中，每个 Worker 内部保有一个线程 Thread，用来执行分派到当前 Worker 内的用户任务，任务执行完成后 Worker 还会不断从 workQueue 队列中取新任务继续执行，直到 workQueue 队列空时，Worker 执行器会销毁（当然 ThreadPoolExecutor 也支持空闲指定时间后再销毁），由于 workQueue 是一个 BlockingQueue 阻塞队列，其本身就是并发安全的，所以面对多个 Worker 执行器同时读取任务时，可以保证任务只会被取出一次。workQueue 也可以设定容量，如果队列满额后仍有任务提交进线程池，则执行拒绝策略，ThreadPoolExecutor 内置实现了四种拒绝策略，默认采用 AbortPolicy，即抛出异常。</p>
+<h2 id="3-threadpoolexecutor-源码分析">3. ThreadPoolExecutor 源码分析</h2>
+<h3 id="31-threadpoolexecutor-控制属性">3.1 ThreadPoolExecutor 控制属性</h3>
+<p>在进入核心代码分析前，我们看下<code>ThreadPoolExecutor</code>属性里几个可能乍一看令人有点困惑的地方，那就是<code>ctl</code>，<code>rs</code>，<code>wc</code>的取值，及其运算。</p>
+<p><img src="/images/java/ThreadPoolExecutor-Control.svg" alt="ThreadPoolExecutor-Control"></p>
+<p>rs 实际是 runState 即线程池的运行状态机，wc 实际是 workerCount 即当前 Worker 的数量。而 ctl 则是个原子整型，其值实际存储的就是 runState 与 workerCount，只不过 runState 存在其值内的高位前三位，而 workCount 则是存在其值内的低位29位。所以 ctl 这个字段本身并没有代表什么具体属性。后面源码可以看到，做状态判断已经数量控制时，会频繁的取出 ctl 的值，并通过<code>runStateOf</code>来提取出状态 runState 的值与<code>workCountOf</code>来提取出 workCount 的值。</p>
+<p>其实可以简单的理解为 ctl 是下面一个类</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Control</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> runState; <span style="color:#75715e">// 长度只占3位，且是高位前3位</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> workerCount; <span style="color:#75715e">// 长度只占29位，且是低位后29位</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>只不过作者用巧妙的手法，把一个类压缩转成了一个整型 int。</p>
+<blockquote>
+<p>注: 至于为什么 runState 是占用三位，原因是 runState 状态机的数量已经 &gt; 4个。也因为 runState 占用3位，因此 workCount 所占用的位数自然就是29，即<code>COUNT_BITS = Integer.SIZE - 3</code>，所以 workCount 的理论最大容量<code>CAPACITY</code>为 <code>CAPACITY = (1 &lt;&lt; COUNT_BITS) - 1</code>，其二进制表示为<code>00011111 11111111 11111111 11111111</code></p>
+</blockquote>
+<p>ThreadPoolExecutor 的状态机，即 runState 的取值:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> RUNNING    <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>1 <span style="color:#f92672">&lt;&lt;</span> COUNT_BITS; <span style="color:#75715e">// 11100000 00000000 00000000 00000000</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> SHUTDOWN   <span style="color:#f92672">=</span>  0 <span style="color:#f92672">&lt;&lt;</span> COUNT_BITS; <span style="color:#75715e">// 00000000 00000000 00000000 00000000</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> STOP       <span style="color:#f92672">=</span>  1 <span style="color:#f92672">&lt;&lt;</span> COUNT_BITS; <span style="color:#75715e">// 00100000 00000000 00000000 00000000</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> TIDYING    <span style="color:#f92672">=</span>  2 <span style="color:#f92672">&lt;&lt;</span> COUNT_BITS; <span style="color:#75715e">// 01000000 00000000 00000000 00000000</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> TERMINATED <span style="color:#f92672">=</span>  3 <span style="color:#f92672">&lt;&lt;</span> COUNT_BITS; <span style="color:#75715e">// 01100000 00000000 00000000 00000000</span>
+</span></span></code></pre></div><p>好，明白这几个属性的含义，以及取值方法的计算后，我们接下来看真正的逻辑。</p>
+<h3 id="32-threadpoolexecutor-核心逻辑">3.2 ThreadPoolExecutor 核心逻辑</h3>
+<p>我们从入口开始看源码分析执行逻辑，首先看下 <code>execute</code> 方法的逻辑：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">execute</span>(Runnable command) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (command <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> NullPointerException();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> c <span style="color:#f92672">=</span> ctl.<span style="color:#a6e22e">get</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen: 1. 如果当前 worker 的数量还没有满，那就继续新增 worker 并运行任务。</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (workerCountOf(c) <span style="color:#f92672">&lt;</span> corePoolSize) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (addWorker(command, <span style="color:#66d9ef">true</span>))
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>            c <span style="color:#f92672">=</span> ctl.<span style="color:#a6e22e">get</span>();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen: 2. 如果当前 worker 数量已满（在跑的还没结束），那么新的任务就放入缓存队列 workQueue 中。</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (isRunning(c) <span style="color:#f92672">&amp;&amp;</span> workQueue.<span style="color:#a6e22e">offer</span>(command)) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> recheck <span style="color:#f92672">=</span> ctl.<span style="color:#a6e22e">get</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Yipsen: 如果发现线程池已经关闭，那就直接拒绝任务并移除掉。</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span> isRunning(recheck) <span style="color:#f92672">&amp;&amp;</span> remove(command))
+</span></span><span style="display:flex;"><span>                reject(command);
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Yipsen: 如果检测到线程池未关闭，不过此时 worker 数量已经降到 0，就新增一个没有初始任务的 worker</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Yipsen: 之所以没有初始任务，是因为任务在上面已经加入到 workQueue 中了，该 worker 会从 workQueue 中取任务来运行</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (workerCountOf(recheck) <span style="color:#f92672">==</span> 0)
+</span></span><span style="display:flex;"><span>                addWorker(<span style="color:#66d9ef">null</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen: 3. 如果入队失败，再尝试创建 worker 还失败，就走拒绝策略</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>addWorker(command, <span style="color:#66d9ef">false</span>))
+</span></span><span style="display:flex;"><span>            reject(command);
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>接下来细看 <code>addWorker</code> 的逻辑，addWorker的代码逻辑较长，主要可分两段来看，第一段主要判断是否 worker 还有余量可以创建，可比喻为取号，即看是否能拿到号去创建新 worker。第二段则是取号成功后走的 worker 初始化逻辑。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>retry:
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (;;) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> c <span style="color:#f92672">=</span> ctl.<span style="color:#a6e22e">get</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> rs <span style="color:#f92672">=</span> runStateOf(c);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (rs <span style="color:#f92672">&gt;=</span> SHUTDOWN <span style="color:#f92672">&amp;&amp;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">!</span> (rs <span style="color:#f92672">==</span> SHUTDOWN <span style="color:#f92672">&amp;&amp;</span>
+</span></span><span style="display:flex;"><span>            firstTask <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">&amp;&amp;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">!</span> workQueue.<span style="color:#a6e22e">isEmpty</span>()))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (;;) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> wc <span style="color:#f92672">=</span> workerCountOf(c);
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen: 如果已经超过了理论最大容量 CAPACITY </span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen: 或者超过了初始化时指定的线程池容量 corePoolSize/maximumPoolSize，就直接返回失败</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (wc <span style="color:#f92672">&gt;=</span> CAPACITY <span style="color:#f92672">||</span>
+</span></span><span style="display:flex;"><span>            wc <span style="color:#f92672">&gt;=</span> (core <span style="color:#f92672">?</span> corePoolSize : maximumPoolSize))
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>; <span style="color:#75715e">// Yipsen: 取号失败，退出</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen: 如果能成功把 workerCount 加1，可认为拿到了号，就跳出循环，开始走第二段初始化逻辑。</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (compareAndIncrementWorkerCount(c))
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span> retry; <span style="color:#75715e">// Yipsen: 取号成功，跳出</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen: 如果不能成功把 workerCount 加1，所以同一时刻有人拿走了号，因此需要重新再取出wc最新的值，再试拿一次。</span>
+</span></span><span style="display:flex;"><span>        c <span style="color:#f92672">=</span> ctl.<span style="color:#a6e22e">get</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (runStateOf(c) <span style="color:#f92672">!=</span> rs) <span style="color:#75715e">// Yipsen: 如果状态没变化，不用从头开始重试取号，从本循环内重试就行。</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">continue</span> retry; <span style="color:#75715e">// Yipsen: 取号失败，同时状态有变，从头重试</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>我们知道&quot;取号失败&quot;（即创建 worker 失败），则会把任务放到 workQueue 中等待处理，那么&quot;取号成功&quot;后执行的 addWorker 第二段逻辑，即初始化逻辑又是怎么样的：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">boolean</span> workerStarted <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">boolean</span> workerAdded <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>Worker w <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 构建一个 Worker，构建时就初始化一个 Thread</span>
+</span></span><span style="display:flex;"><span>    w <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Worker(firstTask);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">final</span> Thread t <span style="color:#f92672">=</span> w.<span style="color:#a6e22e">thread</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (t <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen: 由于以下开始操作到公共变量，需要加锁保障并发安全。</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">final</span> ReentrantLock mainLock <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">mainLock</span>;
+</span></span><span style="display:flex;"><span>        mainLock.<span style="color:#a6e22e">lock</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> rs <span style="color:#f92672">=</span> runStateOf(ctl.<span style="color:#a6e22e">get</span>());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (rs <span style="color:#f92672">&lt;</span> SHUTDOWN <span style="color:#f92672">||</span>
+</span></span><span style="display:flex;"><span>                (rs <span style="color:#f92672">==</span> SHUTDOWN <span style="color:#f92672">&amp;&amp;</span> firstTask <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>)) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (t.<span style="color:#a6e22e">isAlive</span>()) <span style="color:#75715e">// precheck that t is startable</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> IllegalThreadStateException();
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// Yipsen: 新 Worker 加入 Worker 列表。</span>
+</span></span><span style="display:flex;"><span>                workers.<span style="color:#a6e22e">add</span>(w);
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">int</span> s <span style="color:#f92672">=</span> workers.<span style="color:#a6e22e">size</span>();
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (s <span style="color:#f92672">&gt;</span> largestPoolSize)
+</span></span><span style="display:flex;"><span>                    largestPoolSize <span style="color:#f92672">=</span> s;
+</span></span><span style="display:flex;"><span>                workerAdded <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">finally</span> {
+</span></span><span style="display:flex;"><span>            mainLock.<span style="color:#a6e22e">unlock</span>();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (workerAdded) {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Yipsen: 直接就运行 Worker 内的 Thread。（注意：Worker 的 Thread 实际运行 Worker#run 方法）</span>
+</span></span><span style="display:flex;"><span>            t.<span style="color:#a6e22e">start</span>();
+</span></span><span style="display:flex;"><span>            workerStarted <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">finally</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span> workerStarted)
+</span></span><span style="display:flex;"><span>        addWorkerFailed(w);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span> workerStarted;
+</span></span></code></pre></div><p>至此我们知道，<strong>ThreadPoolExecutor 的 execute 实际是尝试创建 Worker 并将用户任务封装进去，成功则运行 Worker 内部线程，否则就把用户任务放在 workQueue 中</strong>。</p>
+<p>接下来，我们看下关键主体 Worker 的详细设计逻辑，看下 Worker 内部线程启动后怎么执行用户任务，已经放在 workQueue 的任务什么时候被取出执行。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Worker</span> <span style="color:#66d9ef">extends</span> AbstractQueuedSynchronizer <span style="color:#66d9ef">implements</span> Runnable {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 省略部分代码</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Worker(Runnable firstTask) {
+</span></span><span style="display:flex;"><span>        setState(<span style="color:#f92672">-</span>1);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">firstTask</span> <span style="color:#f92672">=</span> firstTask;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen: Worker 的内部线程实际是将 Worker 自身作为执行对象（Worker 实际也是一个 Runnable）</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen：即实际内部线程运行的是 Worker 的 run 方法。</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">thread</span> <span style="color:#f92672">=</span> getThreadFactory().<span style="color:#a6e22e">newThread</span>(<span style="color:#66d9ef">this</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen：即最终执行的实际是外部类 ThreadPoolExecutor 的 runWorker 方法，参数是本 Worker 对象。</span>
+</span></span><span style="display:flex;"><span>        runWorker(<span style="color:#66d9ef">this</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 省略部分代码</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>我们看下工作核心方法<code>runWorker</code>的逻辑：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">final</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">runWorker</span>(Worker w) {
+</span></span><span style="display:flex;"><span>    Thread wt <span style="color:#f92672">=</span> Thread.<span style="color:#a6e22e">currentThread</span>();
+</span></span><span style="display:flex;"><span>    Runnable task <span style="color:#f92672">=</span> w.<span style="color:#a6e22e">firstTask</span>;
+</span></span><span style="display:flex;"><span>    w.<span style="color:#a6e22e">firstTask</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>    w.<span style="color:#a6e22e">unlock</span>(); <span style="color:#75715e">// allow interrupts</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">boolean</span> completedAbruptly <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen: 如果 worker 的初始任务，或者 getTask（实际即从 workQueue 取来的任务）不为空，则 Worker 会不断执行任务。</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (task <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">||</span> (task <span style="color:#f92672">=</span> getTask()) <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>            w.<span style="color:#a6e22e">lock</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> ((runStateAtLeast(ctl.<span style="color:#a6e22e">get</span>(), STOP) <span style="color:#f92672">||</span>
+</span></span><span style="display:flex;"><span>                    (Thread.<span style="color:#a6e22e">interrupted</span>() <span style="color:#f92672">&amp;&amp;</span>
+</span></span><span style="display:flex;"><span>                    runStateAtLeast(ctl.<span style="color:#a6e22e">get</span>(), STOP))) <span style="color:#f92672">&amp;&amp;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">!</span>wt.<span style="color:#a6e22e">isInterrupted</span>())
+</span></span><span style="display:flex;"><span>                wt.<span style="color:#a6e22e">interrupt</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>                beforeExecute(wt, task);
+</span></span><span style="display:flex;"><span>                Throwable thrown <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e">// Yipsen：可以看到实际调用了用户任务的 run 方法。</span>
+</span></span><span style="display:flex;"><span>                    task.<span style="color:#a6e22e">run</span>();
+</span></span><span style="display:flex;"><span>                } <span style="color:#66d9ef">catch</span> (RuntimeException x) {
+</span></span><span style="display:flex;"><span>                    thrown <span style="color:#f92672">=</span> x; <span style="color:#66d9ef">throw</span> x;
+</span></span><span style="display:flex;"><span>                } <span style="color:#66d9ef">catch</span> (Error x) {
+</span></span><span style="display:flex;"><span>                    thrown <span style="color:#f92672">=</span> x; <span style="color:#66d9ef">throw</span> x;
+</span></span><span style="display:flex;"><span>                } <span style="color:#66d9ef">catch</span> (Throwable x) {
+</span></span><span style="display:flex;"><span>                    thrown <span style="color:#f92672">=</span> x; <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(x);
+</span></span><span style="display:flex;"><span>                } <span style="color:#66d9ef">finally</span> {
+</span></span><span style="display:flex;"><span>                    afterExecute(task, thrown);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">finally</span> {
+</span></span><span style="display:flex;"><span>                task <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>                w.<span style="color:#a6e22e">completedTasks</span><span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>                w.<span style="color:#a6e22e">unlock</span>();
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        completedAbruptly <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">finally</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen：任务运行完之后，便会退出</span>
+</span></span><span style="display:flex;"><span>        processWorkerExit(w, completedAbruptly);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>由此可见 runWorker 是整个任务执行调度的核心，即运行 Worker 内的任务，之后不断从 workQueue 取任务运行。一直到所有线程池的任务全部执行完，再调用<code>processWorkerExit</code>关闭。</p>
+<p>关闭分为两种：1. 正常关闭，即已经没有任务可以执行了。2. 异常关闭，比如用户任务<code>task#run</code>执行抛出异常了。</p>
+<blockquote>
+<p>注: 正常关闭还能支持保活，即 Worker 无任务处理而处于空闲时，可以保活一段指定时间 keepAliveTime，以避免 Worker 的频繁创建销毁，在 Executors.newCachedThreadPool 使用到了。</p>
+</blockquote>
+<p>也可以看到 getTask 实际就是从 workQueue 拿任务了。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> Runnable <span style="color:#a6e22e">getTask</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">boolean</span> timedOut <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>; <span style="color:#75715e">// Did the last poll() time out?</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (;;) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen：省略部分代码</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Yipsen: 实际就是从 workQueue 中取出任务</span>
+</span></span><span style="display:flex;"><span>            Runnable r <span style="color:#f92672">=</span> timed <span style="color:#f92672">?</span>
+</span></span><span style="display:flex;"><span>                workQueue.<span style="color:#a6e22e">poll</span>(keepAliveTime, TimeUnit.<span style="color:#a6e22e">NANOSECONDS</span>) :
+</span></span><span style="display:flex;"><span>                workQueue.<span style="color:#a6e22e">take</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (r <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> r;
+</span></span><span style="display:flex;"><span>            timedOut <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">catch</span> (InterruptedException retry) {
+</span></span><span style="display:flex;"><span>            timedOut <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="33-拒绝策略">3.3 拒绝策略</h3>
+<p>最后，我们回到最初 execute 方法里剩余的一个拒绝逻辑 reject，实际即是执行了 ThreadPoolExecute 的拒绝策略，其内置的四种策略，当然也可以用户自定义实现。</p>
+<ol>
+<li>CallerRunsPolicy：由用户线程自行执行任务，即直接调用了task#run方法。</li>
+<li><strong>AbortPolicy</strong>：直接抛出异常（<strong>默认</strong>）</li>
+<li>DiscardPolicy：直接抛弃任务，静默，不会抛出异常，也没有任务，扔海里还有个波纹，这个没有。</li>
+<li>DiscardOldestPolicy：推陈出新，把线程池内部队列中弹出一个任务扔掉，执行当前的。</li>
+</ol>
+<h2 id="4-总结">4. 总结</h2>
+<p>以上我们主要分析了 ThreadPoolExecutor 的设计，同时分析了核心方法 execute 的源码。实际 ThreadPoolExecutor 也可以支持 submit，即提交任务，与 execute 不同的时，execute 提交后任务执行，没有返回值，而 submit 则可以返回一个 Future，并在后续可以从 Future 中获得任务的执行结果。submit 的源码实现则基本在 ThreadPoolExecutor 的父类 AbstractExecutorService 中，感兴趣可以看下源码，其实际就是把传入的用户任务封装为一个 RunnableFuture，之后再调用 execute 去执行。具体可以查看<code>Future</code>相关的设计及原理机制。</p>
+<p>分析完源码后我们来解答几个问题，</p>
+<ol>
+<li>提交到线程池的用户任务如果执行中被挂起，是会占用线程池额度的</li>
+<li>提交到线程池的用户任务如果执行中抛出异常，则会被释放，不会占用额度</li>
+<li>同时需要注意的是，使用<code>Executors.newFixedThreadPool(3)</code>构建的线程池，其默认的 workQueue 是初始一个没有带容量限制的 LinkedBlockingQueue，实际使用时需要防止内存撑爆，所以建议通过直接构建的方式并传入带容量限制的队列。</li>
+<li>线程池不进行 shutdown 的话，会怎么样？</li>
+<li>线程池内的线程互相死锁，是否池子就释放不了了？</li>
+</ol>
+
+    </div>
+</article>
+<aside class="catalog">
+    <div class="catalog-title">目录</div>
+    <div class="catalog-list">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-threadpoolexecutor-的使用">1. ThreadPoolExecutor 的使用</a>
+      <ul>
+        <li><a href="#一段简单的代码例子">一段简单的代码例子</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-threadpoolexecutor-的设计结构">2. ThreadPoolExecutor 的设计结构</a>
+      <ul>
+        <li><a href="#21-threadpoolexecutor-的类继承结构">2.1 ThreadPoolExecutor 的类继承结构</a></li>
+        <li><a href="#22-threadpoolexecutor-的类设计结构">2.2 ThreadPoolExecutor 的类设计结构</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-threadpoolexecutor-源码分析">3. ThreadPoolExecutor 源码分析</a>
+      <ul>
+        <li><a href="#31-threadpoolexecutor-控制属性">3.1 ThreadPoolExecutor 控制属性</a></li>
+        <li><a href="#32-threadpoolexecutor-核心逻辑">3.2 ThreadPoolExecutor 核心逻辑</a></li>
+        <li><a href="#33-拒绝策略">3.3 拒绝策略</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-总结">4. 总结</a></li>
+  </ul>
+</nav>
+    </div>
+</aside>
+<div class="division-line"></div>
+<div class="misc">
+    <div> 
+        <a class="post-category" href="/%20categories/java%E5%B9%B6%E5%8F%91/">📒JAVA并发</a>
+        </div>
+    <div></div>
+</div>
+
+    </main>
+    <footer class="p-x-0 p-b-2 m-auto">
+        <div id="pagination">
+            
+<div class="division-line"></div>
+<div class="paginator">
+    <div class="prev">
+        
+    </div>
+    <div class="next">
+        
+        <a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/threadpool/scheduledthreadpoolexecutor-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"><span>ScheduledThreadPoolExecutor 源码分析</span></a>
+    </div>
+</div>
+
+        </div>
+        <div class="position-fixed b-4 r-4">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+
+<script src="https://cdn.staticfile.net/gumshoe/5.1.1/gumshoe.min.js"></script>
+<script>
+    var spy = new Gumshoe('#TableOfContents a', {
+        nested: true,
+        nestedClass: 'active'
+    });
+</script>
+
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

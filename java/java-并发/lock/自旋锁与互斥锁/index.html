@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8080&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>自旋锁与互斥锁 | Yipsen Ye</title>
+<meta name="description" content="背景 当一个人处理任务非常繁忙为了提高效率事，最直接的方式就是多找几个人并行的做。放置到计算机的场景，就是多线程并发执行来提高处理效率，而并行的方式在遇到共享资源处理或者需要保证线程间执行顺序的场景，就难免需要引入锁的机制来控制调度各个线程的执行。 而锁实际就是一个共同争抢的资源，那没能拿到锁的线程该怎么办呢？一般有两种思路，一种就是一直循环等待判断该资源是否已经释放锁，这种叫自旋锁。一种是把自己阻塞起来，等待资源释放后重新调度请求，这种叫互斥锁。
+自旋锁 自旋锁(Spin Lock)的命名听起来非常晦涩高大上，而实质可以说是非常地简单，所谓自旋，也称为忙等待(busy waiting)，而更直观的来看，其实就是个死循环。 如果持有锁的线程能在短时间内释放锁资源，那么那些等待竞争锁的线程就不需要做内核态和用户态之间的切换进入阻塞状态，他们只需要原地自旋渡一下步，等到持有锁的线程释放锁之后就可以获取，这样就避免了用户进程和内核切换的消耗。 但是遇到长期持有锁资源做繁忙任务的场景，自旋锁反而是非常消耗性能的，整个线程占用着 CPU 死做无用功，
+自旋锁的特点与适用场景 自旋锁的简单实现 排队自旋锁 互斥锁">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/standard.css">
+
+</head>
+
+<body id="page" class="ff-consolas m-0">
+    <header class="d-flex fd-row fw-wrap jc-between ai-center p-x-1 p-y-1 m-auto">
+        <div class="nav-logo">
+    <a href="http://localhost:8080/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="position-relative d-flex fw-wrap jc-end ai-center p-y-05">
+    <ul class="d-flex fw-wrap ls-none p-l-0 m-0">
+        
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/series/java/">JAVA</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/design/">设计</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/network/">网络</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/framework/">框架</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/middleware/">中间件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/plugin/">插件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/linux/">LINUX</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/posts/">随心谈</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/others/">山海文库</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content" class="m-auto">
+        
+<aside class="sidebar"></aside>
+<article>
+    <h1 class="m-b-1">自旋锁与互斥锁</h1>
+    <div class="d-flex fd-row jc-center">
+        <div class="fc-subtle">
+            <span>2022-02-06 16:31:43</span>
+        </div>
+    </div>
+    <div class="post-content">
+        <h3 id="背景">背景</h3>
+<p>当一个人处理任务非常繁忙为了提高效率事，最直接的方式就是多找几个人并行的做。放置到计算机的场景，就是多线程并发执行来提高处理效率，而并行的方式在遇到共享资源处理或者需要保证线程间执行顺序的场景，就难免需要引入锁的机制来控制调度各个线程的执行。
+而锁实际就是一个共同争抢的资源，那没能拿到锁的线程该怎么办呢？一般有两种思路，一种就是一直循环等待判断该资源是否已经释放锁，这种叫自旋锁。一种是把自己阻塞起来，等待资源释放后重新调度请求，这种叫互斥锁。</p>
+<h3 id="自旋锁">自旋锁</h3>
+<p>自旋锁(Spin Lock)的命名听起来非常晦涩高大上，而实质可以说是非常地简单，所谓自旋，也称为忙等待(busy waiting)，而更直观的来看，其实就是个死循环。
+如果持有锁的线程能在短时间内释放锁资源，那么那些等待竞争锁的线程就不需要做内核态和用户态之间的切换进入阻塞状态，他们只需要原地自旋渡一下步，等到持有锁的线程释放锁之后就可以获取，这样就避免了用户进程和内核切换的消耗。
+但是遇到长期持有锁资源做繁忙任务的场景，自旋锁反而是非常消耗性能的，整个线程占用着 CPU 死做无用功，</p>
+<h3 id="自旋锁的特点与适用场景">自旋锁的特点与适用场景</h3>
+<h3 id="自旋锁的简单实现">自旋锁的简单实现</h3>
+<h3 id="排队自旋锁">排队自旋锁</h3>
+<h3 id="互斥锁">互斥锁</h3>
+
+    </div>
+</article>
+<aside class="catalog">
+    <div class="catalog-title">目录</div>
+    <div class="catalog-list">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#背景">背景</a></li>
+        <li><a href="#自旋锁">自旋锁</a></li>
+        <li><a href="#自旋锁的特点与适用场景">自旋锁的特点与适用场景</a></li>
+        <li><a href="#自旋锁的简单实现">自旋锁的简单实现</a></li>
+        <li><a href="#排队自旋锁">排队自旋锁</a></li>
+        <li><a href="#互斥锁">互斥锁</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</aside>
+<div class="division-line"></div>
+<div class="misc">
+    <div></div>
+    <div></div>
+</div>
+
+    </main>
+    <footer class="p-x-0 p-b-2 m-auto">
+        <div id="pagination">
+            
+<div class="division-line"></div>
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://localhost:8080/java/java-%E5%9F%BA%E7%A1%80/java-%E5%AE%89%E8%A3%85/"><span>Java 安装</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/semaphore-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"><span>Semaphore 源码分析（未完）</span></a>
+    </div>
+</div>
+
+        </div>
+        <div class="position-fixed b-4 r-4">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+
+<script src="https://cdn.staticfile.net/gumshoe/5.1.1/gumshoe.min.js"></script>
+<script>
+    var spy = new Gumshoe('#TableOfContents a', {
+        nested: true,
+        nestedClass: 'active'
+    });
+</script>
+
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

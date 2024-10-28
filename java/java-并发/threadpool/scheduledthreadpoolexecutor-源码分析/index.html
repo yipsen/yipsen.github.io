@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8080&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>ScheduledThreadPoolExecutor 源码分析 | Yipsen Ye</title>
+<meta name="description" content="1. ScheduledThreadPoolExecutor 的使用 一段简单的代码例子 public static void main(String[] args) { ScheduledExecutorService executor = Executors.newScheduledThreadPool(10); executor.schedule(() -&gt; { System.out.println(&#34;schedule task is running....&#34;); return &#34;schedule task done&#34;; }, 10, TimeUnit.SECONDS); System.out.println(&#34;main thread run here.&#34;); executor.shutdown(); } 其运行结果如下：
+main thread run here.schedule task is running.... 2. 源码分析 ScheduledExecutorService executor = Executors.newScheduledThreadPool(10); // 实际返回的便是 ScheduledThreadPoolExecutor 而 ScheduledThreadPoolExecutor 实际是 ThreadPoolExecutor 的子类，在其设计基础上扩展了定时能力，与 ThreadPoolExecutor 不同的是，ScheduledThreadPoolExecutor 内的 workQueue 采用的是 DelayedWorkQueue，一个 BlockingQueue 实现，但支持定时能力，内部实现更类似 DelayQueue。
+public ScheduledThreadPoolExecutor(int corePoolSize) { super(corePoolSize, Integer.MAX_VALUE, 0, NANOSECONDS, new DelayedWorkQueue()); } 接下来我们看核心逻辑，即schedule方法的逻辑：
+">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/standard.css">
+
+</head>
+
+<body id="page" class="ff-consolas m-0">
+    <header class="d-flex fd-row fw-wrap jc-between ai-center p-x-1 p-y-1 m-auto">
+        <div class="nav-logo">
+    <a href="http://localhost:8080/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="position-relative d-flex fw-wrap jc-end ai-center p-y-05">
+    <ul class="d-flex fw-wrap ls-none p-l-0 m-0">
+        
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/series/java/">JAVA</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/design/">设计</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/network/">网络</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/framework/">框架</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/middleware/">中间件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/plugin/">插件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/linux/">LINUX</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/posts/">随心谈</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/others/">山海文库</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content" class="m-auto">
+        
+<aside class="sidebar"><div>
+    
+    
+        
+        
+        <a href="/categories/java%e5%b9%b6%e5%8f%91/">JAVA并发</a>
+        <ul>
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/abstractqueuedsynchronizer-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">AbstractQueuedSynchronizer 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/reentrantlock-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ReentrantLock 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/semaphore-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Semaphore 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/reentrantreadwritelock-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ReentrantReadWriteLock 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/countdownlatch--%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">CountDownLatch 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/cyclicbarrier-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">CyclicBarrier 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/phaser-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Phaser 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/exchanger-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Exchanger 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/datastructure/blockingqueue-%E5%88%86%E6%9E%90/">BlockingQueue 分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/datastructure/delayqueue-%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%8E%9F%E7%90%86/">DelayQueue 使用与原理（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/datastructure/concurrenthashmap-%E5%88%86%E6%9E%90/">ConcurrentHashMap 分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/datastructure/hashedwheeltimer-%E6%97%B6%E9%97%B4%E8%BD%AE/">HashedWheelTimer 时间轮（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/datastructure/copyonwritearraylist-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">CopyOnWriteArrayList 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/future/future-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Future 源码分析</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/future/scheduledfuture-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ScheduledFuture 源码分析</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/future/completablefuture-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">CompletableFuture 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/future/listenablefuture-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ListenableFuture 源码分析</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/threadpool/threadpoolexecutor-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ThreadPoolExecutor 源码分析</a></li>
+            
+            
+            
+            <li>ScheduledThreadPoolExecutor 源码分析</li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/threadpool/forkjoinpool-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ForkJoinPool 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/threadpool/completionservice-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">CompletionService 源码分析（未完）</a></li>
+            
+            
+        </ul>
+    
+</div></aside>
+<article>
+    <h1 class="m-b-1">ScheduledThreadPoolExecutor 源码分析</h1>
+    <div class="d-flex fd-row jc-center">
+        <div class="fc-subtle">
+            <span>2022-01-10 23:36:41</span>
+        </div>
+    </div>
+    <div class="post-content">
+        <h2 id="1-scheduledthreadpoolexecutor-的使用">1. ScheduledThreadPoolExecutor 的使用</h2>
+<h3 id="一段简单的代码例子">一段简单的代码例子</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>    ScheduledExecutorService executor <span style="color:#f92672">=</span> Executors.<span style="color:#a6e22e">newScheduledThreadPool</span>(10);
+</span></span><span style="display:flex;"><span>    executor.<span style="color:#a6e22e">schedule</span>(() <span style="color:#f92672">-&gt;</span> {
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;schedule task is running....&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;schedule task done&#34;</span>;
+</span></span><span style="display:flex;"><span>    }, 10, TimeUnit.<span style="color:#a6e22e">SECONDS</span>);
+</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;main thread run here.&#34;</span>);
+</span></span><span style="display:flex;"><span>    executor.<span style="color:#a6e22e">shutdown</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>其运行结果如下：</p>
+<pre tabindex="0"><code class="language-log" data-lang="log">main thread run here.
+schedule task is running....
+</code></pre><h2 id="2-源码分析">2. 源码分析</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>ScheduledExecutorService executor <span style="color:#f92672">=</span> Executors.<span style="color:#a6e22e">newScheduledThreadPool</span>(10); <span style="color:#75715e">// 实际返回的便是 ScheduledThreadPoolExecutor</span>
+</span></span></code></pre></div><p>而 ScheduledThreadPoolExecutor 实际是 ThreadPoolExecutor 的子类，在其设计基础上扩展了定时能力，与 ThreadPoolExecutor 不同的是，ScheduledThreadPoolExecutor 内的 workQueue 采用的是 DelayedWorkQueue，一个 BlockingQueue 实现，但支持定时能力，内部实现更类似 DelayQueue。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#a6e22e">ScheduledThreadPoolExecutor</span>(<span style="color:#66d9ef">int</span> corePoolSize) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">super</span>(corePoolSize, Integer.<span style="color:#a6e22e">MAX_VALUE</span>, 0, NANOSECONDS, <span style="color:#66d9ef">new</span> DelayedWorkQueue());
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>接下来我们看核心逻辑，即<code>schedule</code>方法的逻辑：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> ScheduledFuture<span style="color:#f92672">&lt;?&gt;</span> schedule(Runnable command, <span style="color:#66d9ef">long</span> delay, TimeUnit unit) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (command <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">||</span> unit <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> NullPointerException();
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 将 ThreadPoolExecutor 返回的 RunnableFuture（子类 FutureTask）包装为一个 RunnableScheduledFuture（子类 ScheduledFutureTask）</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 注意这个 triggerTime，其实际就是通过 delay 与当前时间 now 计算出该任务的具体执行时间。</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 后续该 ScheduledFutureTask 会被放入到 workQueue 队列中等待执行，该计算得出的 triggerTime 就是其出队条件。</span>
+</span></span><span style="display:flex;"><span>    RunnableScheduledFuture<span style="color:#f92672">&lt;?&gt;</span> t <span style="color:#f92672">=</span> decorateTask(command, <span style="color:#66d9ef">new</span> ScheduledFutureTask<span style="color:#f92672">&lt;</span>Void<span style="color:#f92672">&gt;</span>(command, <span style="color:#66d9ef">null</span>, triggerTime(delay, unit)));
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 随后执行</span>
+</span></span><span style="display:flex;"><span>    delayedExecute(t);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> t;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>具体看下 delayedExecute 即所谓延迟执行的逻辑:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">delayedExecute</span>(RunnableScheduledFuture<span style="color:#f92672">&lt;?&gt;</span> task) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (isShutdown())
+</span></span><span style="display:flex;"><span>        reject(task);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen：与 ThreadPoolExecutor 不同，直接就是放入 workQueue 队列中，即 DelayedWorkQueue 中。</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span>.<span style="color:#a6e22e">getQueue</span>().<span style="color:#a6e22e">add</span>(task);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (isShutdown() <span style="color:#f92672">&amp;&amp;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">!</span>canRunInCurrentRunState(task.<span style="color:#a6e22e">isPeriodic</span>()) <span style="color:#f92672">&amp;&amp;</span>
+</span></span><span style="display:flex;"><span>            remove(task))
+</span></span><span style="display:flex;"><span>            task.<span style="color:#a6e22e">cancel</span>(<span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Yipsen: 运行</span>
+</span></span><span style="display:flex;"><span>            ensurePrestart();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>可以看到<code>delayedExecute</code>只是把任务简单放入队列中，所以关键执行逻辑需要看下<code>ensurePrestart</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">ensurePrestart</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> wc <span style="color:#f92672">=</span> workerCountOf(ctl.<span style="color:#a6e22e">get</span>());
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (wc <span style="color:#f92672">&lt;</span> corePoolSize)
+</span></span><span style="display:flex;"><span>        addWorker(<span style="color:#66d9ef">null</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (wc <span style="color:#f92672">==</span> 0)
+</span></span><span style="display:flex;"><span>        addWorker(<span style="color:#66d9ef">null</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>核心即新建一个无初始任务的 Worker，这部分详细逻辑已经在 ThreadPoolExecutor 一文中分析过，这里不再赘述。简单说其流程主要是判断 Worker 是否已满容量，如果不满则创建并执行任务，否则说明已有 Worker 在运行，其自然会从 workQueue 中取任务运行，而<code>delayedExecute</code>已经把任务放入队列中了。</p>
+<p>当然此处<code>ensurePrestart</code>保证了如果预设的 corePoolSize 是0，那么就采用 maximumPoolSize 作为最大容量参照，可以保证线程池中至少有一个 Worker 可以运行任务。</p>
+<blockquote>
+<p>注：ThreadPoolExecutor 的构造函数已经保证了 maximumPoolSize 不会为0。</p>
+</blockquote>
+<p>可以看到 <strong>ScheduledThreadPoolExecutor 的线程池核心能力都在默认沿用 ThreadPoolExecutor 的实现，而其扩展的定时执行能力，则依赖着 DelayedWorkQueue 的能力</strong>。其将任务提交到<code>DelayedWorkQueue</code>中，并等待 Worker 从其中获取任务执行，我们看下 Worker 中从队列中取任务的逻辑，即<code>DelayedWorkQueue#poll</code>或<code>DelayedWorkQueue#task</code>的逻辑:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> RunnableScheduledFuture<span style="color:#f92672">&lt;?&gt;</span> take() <span style="color:#66d9ef">throws</span> InterruptedException {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">final</span> ReentrantLock lock <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">lock</span>;
+</span></span><span style="display:flex;"><span>    lock.<span style="color:#a6e22e">lockInterruptibly</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (;;) {
+</span></span><span style="display:flex;"><span>            RunnableScheduledFuture<span style="color:#f92672">&lt;?&gt;</span> first <span style="color:#f92672">=</span> queue<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (first <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>                available.<span style="color:#a6e22e">await</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// Yipsen: 拿到队列的队头任务，看下对比现有时间是否已经倒计时到0</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// Yipsen: 如果是，则返回任务，交由 Worker 运行，并调整队列的位置。</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// Yipsen: 否则就等待 ReentrantLock 的 available 条件，线程挂起。该逻辑的实现类似 DelayedQueue</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">long</span> delay <span style="color:#f92672">=</span> first.<span style="color:#a6e22e">getDelay</span>(NANOSECONDS);
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (delay <span style="color:#f92672">&lt;=</span> 0)
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">return</span> finishPoll(first);
+</span></span><span style="display:flex;"><span>                first <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (leader <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>                    available.<span style="color:#a6e22e">await</span>();
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                    Thread thisThread <span style="color:#f92672">=</span> Thread.<span style="color:#a6e22e">currentThread</span>();
+</span></span><span style="display:flex;"><span>                    leader <span style="color:#f92672">=</span> thisThread;
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>                        available.<span style="color:#a6e22e">awaitNanos</span>(delay);
+</span></span><span style="display:flex;"><span>                    } <span style="color:#66d9ef">finally</span> {
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">if</span> (leader <span style="color:#f92672">==</span> thisThread)
+</span></span><span style="display:flex;"><span>                            leader <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">finally</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (leader <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">&amp;&amp;</span> queue<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>            available.<span style="color:#a6e22e">signal</span>();
+</span></span><span style="display:flex;"><span>        lock.<span style="color:#a6e22e">unlock</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>从上面的逻辑可以看到从队列中取任务，都是取的队头，且会等待队头到期。那么保证所有任务能按时执行，就必须要求队列的排序是按执行时间排序的，越快到期的排在越前面。那么我们看下<code>DelayedWorkQueue</code>是否是这样处理的，我们看队列入队时的逻辑，即<code>DelayedWorkQueue#offer</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">offer</span>(Runnable x) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (x <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> NullPointerException();
+</span></span><span style="display:flex;"><span>    RunnableScheduledFuture<span style="color:#f92672">&lt;?&gt;</span> e <span style="color:#f92672">=</span> (RunnableScheduledFuture<span style="color:#f92672">&lt;?&gt;</span>)x;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">final</span> ReentrantLock lock <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">lock</span>;
+</span></span><span style="display:flex;"><span>    lock.<span style="color:#a6e22e">lock</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> size;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">&gt;=</span> queue.<span style="color:#a6e22e">length</span>)
+</span></span><span style="display:flex;"><span>            grow();
+</span></span><span style="display:flex;"><span>        size <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> 1;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">==</span> 0) {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Yipsen: 如果是第一个元素，那就直接放队头就完事了。</span>
+</span></span><span style="display:flex;"><span>            queue<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> e;
+</span></span><span style="display:flex;"><span>            setIndex(e, 0);
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Yipsen: 如果不是第一个元素，则需要进行一次 siftUp 调整队列，将元素放到应该在的位置。即按时间排序后的位置。</span>
+</span></span><span style="display:flex;"><span>            siftUp(i, e);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (queue<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span> <span style="color:#f92672">==</span> e) {
+</span></span><span style="display:flex;"><span>            leader <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>            available.<span style="color:#a6e22e">signal</span>();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">finally</span> {
+</span></span><span style="display:flex;"><span>        lock.<span style="color:#a6e22e">unlock</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Yipsen: 看到这里应该很清楚了，DelayedWorkQueue 是一个典型的堆，也即优先队列。</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">siftUp</span>(<span style="color:#66d9ef">int</span> k, RunnableScheduledFuture<span style="color:#f92672">&lt;?&gt;</span> key) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (k <span style="color:#f92672">&gt;</span> 0) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> parent <span style="color:#f92672">=</span> (k <span style="color:#f92672">-</span> 1) <span style="color:#f92672">&gt;&gt;&gt;</span> 1;
+</span></span><span style="display:flex;"><span>        RunnableScheduledFuture<span style="color:#f92672">&lt;?&gt;</span> e <span style="color:#f92672">=</span> queue<span style="color:#f92672">[</span>parent<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (key.<span style="color:#a6e22e">compareTo</span>(e) <span style="color:#f92672">&gt;=</span> 0)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        queue<span style="color:#f92672">[</span>k<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> e;
+</span></span><span style="display:flex;"><span>        setIndex(e, k);
+</span></span><span style="display:flex;"><span>        k <span style="color:#f92672">=</span> parent;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    queue<span style="color:#f92672">[</span>k<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> key;
+</span></span><span style="display:flex;"><span>    setIndex(key, k);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="3-总结">3. 总结</h2>
+<p>总结一下，整个 ScheduledThreadPoolExecutor 的运行逻辑，实际上基本还是 ThreadPoolExecutor 的操作，至少在此基础上扩展了定时执行的能力，而该定时执行的能力，都是靠一个延迟优先队列<code>DelayedWorkQueue</code>这个数据结构来支撑，以控制出队时机。</p>
+<p>另外一点不同在于 ThreadPoolExecutor 放入 workQueue 的是用户任务或者包装后的 RunnableFuture，而 ScheduledThreadPoolExecutor 则是 RunnableScheduledFuture，该 RunnableScheduledFuture 拥有 Runnable，Future 能力外，还有 Schedule 定时计算相关的能力。</p>
+<p>所以 ScheduledThreadPoolExecutor 在提交任务会，会计算实际应执行的时间 triggerTime，并存储在 RunnableScheduledFuture 中，再提交到队列中，以 triggerTime 排序。之后 Worker 会等待队头到达 triggerTime，陆陆续续提出队列，并执行其中的用户任务。依次反复。</p>
+
+    </div>
+</article>
+<aside class="catalog">
+    <div class="catalog-title">目录</div>
+    <div class="catalog-list">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-scheduledthreadpoolexecutor-的使用">1. ScheduledThreadPoolExecutor 的使用</a>
+      <ul>
+        <li><a href="#一段简单的代码例子">一段简单的代码例子</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-源码分析">2. 源码分析</a></li>
+    <li><a href="#3-总结">3. 总结</a></li>
+  </ul>
+</nav>
+    </div>
+</aside>
+<div class="division-line"></div>
+<div class="misc">
+    <div> 
+        <a class="post-category" href="/%20categories/java%E5%B9%B6%E5%8F%91/">📒JAVA并发</a>
+        </div>
+    <div></div>
+</div>
+
+    </main>
+    <footer class="p-x-0 p-b-2 m-auto">
+        <div id="pagination">
+            
+<div class="division-line"></div>
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/threadpool/threadpoolexecutor-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"><span>ThreadPoolExecutor 源码分析</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/threadpool/forkjoinpool-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"><span>ForkJoinPool 源码分析（未完）</span></a>
+    </div>
+</div>
+
+        </div>
+        <div class="position-fixed b-4 r-4">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+
+<script src="https://cdn.staticfile.net/gumshoe/5.1.1/gumshoe.min.js"></script>
+<script>
+    var spy = new Gumshoe('#TableOfContents a', {
+        nested: true,
+        nestedClass: 'active'
+    });
+</script>
+
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

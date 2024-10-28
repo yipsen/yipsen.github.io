@@ -1,0 +1,170 @@
+/** root **/
+/** theme selection: #ca6924; #541236; #5f5f7c**/
+:root {
+    /** light-theme **/
+    --var-color-gray: #808080;
+
+    /** light-theme **/
+    --var-theme-color: #5f5f7c;
+    --var-font-color: #212529;
+    --var-background-color: #F6F6F6;
+    --var-link-hover: #f4974a;
+    --var-border-color: #dee2e6;
+    --var-table-border-color: #b7b7b7;
+    --var-table-header-color: #f4d9aa;
+    --var-table-sripe-color: #e9e9e9;
+
+    /** night-theme **/
+    --var-night-border-color: #272822;
+    --var-night-font-color: #D1D1D1;
+    --var-night-background-color: #1D1D1D;
+}
+/********************************    FONT    ****************************************/
+.fs-16 {
+    font-size: 16px !important;
+}
+
+.ff-consolas {
+    font-family: Consolas !important;
+}
+
+/********************************    COLOR     *********************************/
+.fc-subtle {
+    color: var(--var-color-gray);
+}
+
+/********************************    BOX    ***************************************/
+.h-100 {
+    height: 100% !important;
+    min-height: 100% !important;
+}
+
+.m-0 {
+    margin: 0 !important;
+}
+
+.m-b-05 {
+    margin-bottom: 0.5rem !important;
+}
+
+.m-b-1 {
+    margin-bottom: 1rem !important;
+}
+
+.m-l-2 {
+    margin-left: 2rem !important;
+}
+
+.m-t--5 {
+    margin-top: -5rem !important;
+}
+
+.m-x-1 {
+    margin-left: 1rem !important;
+    margin-right: 1rem !important;
+}
+
+.m-y-05 {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.m-auto {
+    margin: auto !important;
+}
+
+.p-0 {
+    padding: 0rem !important;
+}
+
+.p-t-1 {
+    padding-top: 1rem !important;
+}
+
+.p-b-2 {
+    padding-bottom: 2rem !important;
+}
+
+.p-l-0 {
+    padding-left: 0rem !important;
+}
+
+.p-x-0 {
+    padding-left: 0rem !important;
+    padding-right: 0rem !important;
+}
+
+.p-x-1 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
+
+.p-y-0 {
+    padding-top: 0rem !important;
+    padding-bottom: 0rem !important;
+}
+
+.p-y-05 {
+    padding-top: .5rem !important;
+    padding-bottom: .5rem !important;
+}
+
+.p-y-1 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+}
+
+.p-y-2 {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+}
+
+/********************************    LIST    ***************************************/
+.ls-none {
+    list-style: none !important;
+}
+/********************************    FLEX    ***************************************/
+.d-flex {
+    display: flex !important;
+}
+
+.fd-row {
+    flex-direction: row !important;
+}
+
+.fw-wrap {
+    flex-wrap: wrap !important;
+}
+
+.jc-end {
+    justify-content: flex-end !important;
+}
+
+.jc-between {
+    justify-content: space-between !important;
+}
+
+.jc-center {
+    justify-content: center !important;
+}
+
+.ai-center {
+    align-items: center !important;
+}
+
+/********************************    POSITION     *********************************/
+.position-relative {
+    position: relative !important;
+}
+
+.position-fixed {
+    position: fixed !important;
+}
+
+.b-4 {
+    bottom: 4rem !important;
+}
+
+.r-4 {
+    right: 4rem !important;
+}

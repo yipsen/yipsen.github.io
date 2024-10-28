@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8080&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>Future 源码分析 | Yipsen Ye</title>
+<meta name="description" content="Java 提供两种线程实现方式：Runnable 与 Callable。其中 Runnable 任务提交执行后没有返回值，主线程无法感知线程的执行结果。而 Callable 弥补了这种场景，提供返回值。
+那么在多线程场景下，线程提交出去了，已经不在同一个运行空间（或说线程上下文），主线程又是如何能获取到其他线程的运行结果的呢？
+一个很直接的想法就是让任务执行完成后把执行结果放置在某处，主线程需要时去取即可。我们通过分析 Future 模式相关核心类的源码来看看它的实现原理。
+1. Future 源码分析 1.1 一段简单的代码例子 下面我们从一段简单的 FutureTask 使用代码入手，分析 Future 模式的机理。
+public void future_run_success() throws Exception { // Yipsen: 1. 构建 FutureTask 任务，内部封装一个 Callable 任务，该任务执行完后返回一个 String。 FutureTask&lt;String&gt; future = new FutureTask&lt;&gt;(new Callable&lt;String&gt;() { @Override public String call() throws Exception { Thread.sleep(20 * 1000); return &#34;future run success&#34;; } }); // Yipsen: 2. 开启任务执行 new Thread(future).start(); // Yipsen: 3. 取回任务执行结果 String result = future.get(); // Yipsen: 4. 打印。 System.out.println(result); } 运行以上代码，20s后可以看到打印出结果：
+">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/standard.css">
+
+</head>
+
+<body id="page" class="ff-consolas m-0">
+    <header class="d-flex fd-row fw-wrap jc-between ai-center p-x-1 p-y-1 m-auto">
+        <div class="nav-logo">
+    <a href="http://localhost:8080/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="position-relative d-flex fw-wrap jc-end ai-center p-y-05">
+    <ul class="d-flex fw-wrap ls-none p-l-0 m-0">
+        
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/series/java/">JAVA</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/design/">设计</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/network/">网络</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/framework/">框架</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/middleware/">中间件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/plugin/">插件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/linux/">LINUX</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/posts/">随心谈</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/others/">山海文库</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content" class="m-auto">
+        
+<aside class="sidebar"><div>
+    
+    
+        
+        
+        <a href="/categories/java%e5%b9%b6%e5%8f%91/">JAVA并发</a>
+        <ul>
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/abstractqueuedsynchronizer-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">AbstractQueuedSynchronizer 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/reentrantlock-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ReentrantLock 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/semaphore-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Semaphore 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/reentrantreadwritelock-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ReentrantReadWriteLock 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/countdownlatch--%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">CountDownLatch 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/cyclicbarrier-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">CyclicBarrier 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/phaser-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Phaser 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/lock/exchanger-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Exchanger 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/datastructure/blockingqueue-%E5%88%86%E6%9E%90/">BlockingQueue 分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/datastructure/delayqueue-%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%8E%9F%E7%90%86/">DelayQueue 使用与原理（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/datastructure/concurrenthashmap-%E5%88%86%E6%9E%90/">ConcurrentHashMap 分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/datastructure/hashedwheeltimer-%E6%97%B6%E9%97%B4%E8%BD%AE/">HashedWheelTimer 时间轮（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/datastructure/copyonwritearraylist-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">CopyOnWriteArrayList 源码分析（未完）</a></li>
+            
+            
+            
+            <li>Future 源码分析</li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/future/scheduledfuture-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ScheduledFuture 源码分析</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/future/completablefuture-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">CompletableFuture 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/future/listenablefuture-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ListenableFuture 源码分析</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/threadpool/threadpoolexecutor-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ThreadPoolExecutor 源码分析</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/threadpool/scheduledthreadpoolexecutor-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ScheduledThreadPoolExecutor 源码分析</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/threadpool/forkjoinpool-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ForkJoinPool 源码分析（未完）</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/threadpool/completionservice-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">CompletionService 源码分析（未完）</a></li>
+            
+            
+        </ul>
+    
+</div></aside>
+<article>
+    <h1 class="m-b-1">Future 源码分析</h1>
+    <div class="d-flex fd-row jc-center">
+        <div class="fc-subtle">
+            <span>2024-01-10 23:36:41</span>
+        </div>
+    </div>
+    <div class="post-content">
+        <p>Java 提供两种线程实现方式：<code>Runnable</code> 与 <code>Callable</code>。其中 Runnable 任务提交执行后没有返回值，主线程无法感知线程的执行结果。而 Callable 弥补了这种场景，提供返回值。</p>
+<p>那么在多线程场景下，线程提交出去了，已经不在同一个运行空间（或说线程上下文），主线程又是如何能获取到其他线程的运行结果的呢？</p>
+<p>一个很直接的想法就是让任务执行完成后把执行结果放置在某处，主线程需要时去取即可。我们通过分析 Future 模式相关核心类的源码来看看它的实现原理。</p>
+<h2 id="1-future-源码分析">1. Future 源码分析</h2>
+<h3 id="11-一段简单的代码例子">1.1 一段简单的代码例子</h3>
+<p>下面我们从一段简单的 FutureTask 使用代码入手，分析 Future 模式的机理。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">future_run_success</span>() <span style="color:#66d9ef">throws</span> Exception {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 1. 构建 FutureTask 任务，内部封装一个 Callable 任务，该任务执行完后返回一个 String。</span>
+</span></span><span style="display:flex;"><span>    FutureTask<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> future <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FutureTask<span style="color:#f92672">&lt;&gt;</span>(<span style="color:#66d9ef">new</span> Callable<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">call</span>() <span style="color:#66d9ef">throws</span> Exception {
+</span></span><span style="display:flex;"><span>            Thread.<span style="color:#a6e22e">sleep</span>(20 <span style="color:#f92672">*</span> 1000);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;future run success&#34;</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 2. 开启任务执行</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">new</span> Thread(future).<span style="color:#a6e22e">start</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 3. 取回任务执行结果</span>
+</span></span><span style="display:flex;"><span>    String result <span style="color:#f92672">=</span> future.<span style="color:#a6e22e">get</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 4. 打印。</span>
+</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(result);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>运行以上代码，20s后可以看到打印出结果：</p>
+<pre tabindex="0"><code class="language-log" data-lang="log">future run success
+</code></pre><h3 id="12-futuretask-源码分析">1.2 FutureTask 源码分析</h3>
+<p>我们看下 FutureTask 类的继承结构：</p>
+<p><img src="/images/java/FutureTask-Class-Design.svg" alt="FutureTask-Class-Design"></p>
+<p>其实际是一个 RunnableFuture 接口的具体实现类，而 RunnableFuture 顾名思义，是既有 Runnable 的能力，也有 Future 的功能。</p>
+<p>Runnable 是 Java 线程的一个接口能力，当然也可以用在单线程场景，这里不再赘述。我们主要看下 Future 接口，其是 Future 模式的一个核心能力接口，主要要求实现对任务的取消控制，状态判断，结果获取等。而 Runnable 补充了对任务的执行控制，即 RunnableFuture 可实现对任务的<code>执行控制</code>，<code>状态判断</code>，<code>结果获取</code>，三个核心能力。</p>
+<p>而 FutureTask 是 JDK 对 RunnableFuture 的默认实现，可以说 <strong>FutureTask 类即为 Java Future 模式最基本的实现</strong>。</p>
+<p>我们看下 FutureTask 类的设计结构：</p>
+<p>其实现了父接口方法，同时拥有三个属性：<code>state</code>表示任务状态，<code>outcome</code>保存任务执行结果，<code>waiters</code>保存被 FutureTask 阻塞的线程列表。</p>
+<h4 id="121-futuretask-状态机">1.2.1 FutureTask 状态机</h4>
+<p>我们首先来了解一下 FutureTask 的任务状态机，FutureTask 采用一个 state 字段记录状态，并定义了7种状态：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * Possible state transitions:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * NEW -&gt; COMPLETING -&gt; NORMAL
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * NEW -&gt; COMPLETING -&gt; EXCEPTIONAL
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * NEW -&gt; CANCELLED
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * NEW -&gt; INTERRUPTING -&gt; INTERRUPTED
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">volatile</span> <span style="color:#66d9ef">int</span> state; <span style="color:#75715e">// FutureTask 任务状态，可以粗略分为三类，到最终态时（取值 &gt; COMPLETING）即表示外部可以取得任务执行结果。</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> NEW          <span style="color:#f92672">=</span> 0; <span style="color:#75715e">// 初始态：NEW，主要在 FutureTask 对象被构建时的初始状态。</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> COMPLETING   <span style="color:#f92672">=</span> 1; <span style="color:#75715e">// 中间态：COMPLETING，表示任务已经执行，并已执行完成，FutureTask 在做善后处理中。</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> NORMAL       <span style="color:#f92672">=</span> 2; <span style="color:#75715e">// 最终态：NORMAL，表示任务执行成功。</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> EXCEPTIONAL  <span style="color:#f92672">=</span> 3; <span style="color:#75715e">// 最终态：EXCEPTIONAL 表示任务执行异常。</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> CANCELLED    <span style="color:#f92672">=</span> 4; <span style="color:#75715e">// 最终态：CANCELLED 表示任务被取消。</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> INTERRUPTING <span style="color:#f92672">=</span> 5; <span style="color:#75715e">// 最终态：INTERRUPTING，表示任务被中断，正在处理一些中断信息中。（注：该状态也可以返回）</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> INTERRUPTED  <span style="color:#f92672">=</span> 6; <span style="color:#75715e">// 最终态：INTERRUPTED 表示任务被中断</span>
+</span></span></code></pre></div><p>整个状态机流转如下图：</p>
+<p><img src="/images/java/FutureTask-State.svg" alt="FutureTask-State"></p>
+<table>
+  <thead>
+      <tr>
+          <th>状态</th>
+          <th>触发时机</th>
+          <th>状态路由</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>NEW</td>
+          <td>FutureTask new 对象</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>COMPLETING</td>
+          <td>set/setException 调用开始时</td>
+          <td>NEW -&gt; COMPLETING</td>
+      </tr>
+      <tr>
+          <td>NORMAL</td>
+          <td>set 调用成功后</td>
+          <td>NEW -&gt; COMPLETING -&gt; NORMAL</td>
+      </tr>
+      <tr>
+          <td>EXCEPTIONAL</td>
+          <td>setException 调用成功后</td>
+          <td>NEW -&gt; COMPLETING -&gt; EXCEPTIONAL</td>
+      </tr>
+      <tr>
+          <td>CANCELLED</td>
+          <td>非中断引起 cancel 方法调用开始及完成时</td>
+          <td>NEW -&gt; CANCELLED</td>
+      </tr>
+      <tr>
+          <td>INTERRUPTING</td>
+          <td>中断引起 cancel 方法调用开始时</td>
+          <td>NEW -&gt; INTERRUPTING</td>
+      </tr>
+      <tr>
+          <td>INTERRUPTED</td>
+          <td>中断引起 cancel 方法调用结束时</td>
+          <td>NEW -&gt; INTERRUPTING -&gt; INTERRUPTED</td>
+      </tr>
+  </tbody>
+</table>
+<blockquote>
+<p>注：COMPLETING 可以理解为 FutureTask 进入一个乐观锁状态，保护 outcome 字段（任务结果返回值字段）的并发安全。</p>
+</blockquote>
+<h4 id="122-futurntask-运行任务--获取结果">1.2.2 FuturnTask 运行任务 &amp; 获取结果</h4>
+<p>接下来我们看下 FutureTask 的源码实现，首先我们看下怎么取出任务运行结果。</p>
+<p>FutureTask 被作为任务提交给 Thread 运行时，执行了对应 run 方法：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (state <span style="color:#f92672">!=</span> NEW <span style="color:#f92672">||</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">!</span>UNSAFE.<span style="color:#a6e22e">compareAndSwapObject</span>(<span style="color:#66d9ef">this</span>, runnerOffset, <span style="color:#66d9ef">null</span>, Thread.<span style="color:#a6e22e">currentThread</span>()))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>        Callable<span style="color:#f92672">&lt;</span>V<span style="color:#f92672">&gt;</span> c <span style="color:#f92672">=</span> callable;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (c <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">&amp;&amp;</span> state <span style="color:#f92672">==</span> NEW) {
+</span></span><span style="display:flex;"><span>            V result;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">boolean</span> ran;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// Yipsen: 运行封装在 FutureTask 内部的 Callable#call 方法，执行任务，并取得其执行结果</span>
+</span></span><span style="display:flex;"><span>                result <span style="color:#f92672">=</span> c.<span style="color:#a6e22e">call</span>();
+</span></span><span style="display:flex;"><span>                ran <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">catch</span> (Throwable ex) {
+</span></span><span style="display:flex;"><span>                result <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>                ran <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// Yipsen: 如果有异常，则是调用 setException 方法将异常保存在本 FutureTask 对象中。</span>
+</span></span><span style="display:flex;"><span>                setException(ex);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (ran)
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// Yipsen: 如果无异常，调用 set 方法将结果保存在本 FutureTask 对象中。</span>
+</span></span><span style="display:flex;"><span>                set(result);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">finally</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// runner must be non-null until state is settled to prevent concurrent calls to run()</span>
+</span></span><span style="display:flex;"><span>        runner <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// state must be re-read after nulling runner to prevent leaked interrupts</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> s <span style="color:#f92672">=</span> state;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (s <span style="color:#f92672">&gt;=</span> INTERRUPTING)
+</span></span><span style="display:flex;"><span>            handlePossibleCancellationInterrupt(s);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>其实际就是运行了封装在内部的 Callable#call 方法，并取得对应返回值，跟我们想的一样，FutureTask 会把执行结果保存起来，即调用 set 方法，会将结果保存在 outcome 字段。相应的，如果是异常则是调用 setException 保存给 outcome。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">set</span>(V v) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 先把状态置为 COMPLETING，锁起来。</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (UNSAFE.<span style="color:#a6e22e">compareAndSwapInt</span>(<span style="color:#66d9ef">this</span>, stateOffset, NEW, COMPLETING)) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen: 将返回值保存在 outcome 字段中，并将状态设置为 NORMAL。</span>
+</span></span><span style="display:flex;"><span>        outcome <span style="color:#f92672">=</span> v;
+</span></span><span style="display:flex;"><span>        UNSAFE.<span style="color:#a6e22e">putOrderedInt</span>(<span style="color:#66d9ef">this</span>, stateOffset, NORMAL); <span style="color:#75715e">// final state</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen: 做善后处理，比如可以将原先被 FutureTask 挂起的线程唤醒</span>
+</span></span><span style="display:flex;"><span>        finishCompletion();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>我们可以看到 set 完成后，还调用了 <code>finishCompletion</code> 方法，该方法的源码如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">finishCompletion</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 唤醒所有被该 FutureTask 所阻塞的线程，按顺序。</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// assert state &gt; COMPLETING;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (WaitNode q; (q <span style="color:#f92672">=</span> waiters) <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>;) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (UNSAFE.<span style="color:#a6e22e">compareAndSwapObject</span>(<span style="color:#66d9ef">this</span>, waitersOffset, q, <span style="color:#66d9ef">null</span>)) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (;;) {
+</span></span><span style="display:flex;"><span>                Thread t <span style="color:#f92672">=</span> q.<span style="color:#a6e22e">thread</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (t <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>                    q.<span style="color:#a6e22e">thread</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e">// Yipsen: 唤醒</span>
+</span></span><span style="display:flex;"><span>                    LockSupport.<span style="color:#a6e22e">unpark</span>(t);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                WaitNode next <span style="color:#f92672">=</span> q.<span style="color:#a6e22e">next</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (next <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>                q.<span style="color:#a6e22e">next</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>; <span style="color:#75715e">// unlink to help gc</span>
+</span></span><span style="display:flex;"><span>                q <span style="color:#f92672">=</span> next;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 此处还留有一个扩展实现方法，给子类扩展。FutureTask 默认无逻辑。</span>
+</span></span><span style="display:flex;"><span>    done();
+</span></span><span style="display:flex;"><span>    callable <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;        <span style="color:#75715e">// to reduce footprint</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>可以看到 <code>finishCompletion</code> 遍历了一个 <code>WaitNode</code> 链表 waiters，并将其内部的线程唤醒。WaitNode 是一个简单的链表实现，内部保存一个线程的引用，此处可以看到队列有 CLH 的影子。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">WaitNode</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">volatile</span> Thread thread;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">volatile</span> WaitNode next;
+</span></span><span style="display:flex;"><span>    WaitNode() { thread <span style="color:#f92672">=</span> Thread.<span style="color:#a6e22e">currentThread</span>(); }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>那么被唤醒的线程是什么呢？其实就是我们试图在任务未执行完成前就试图去获取结果时，被阻塞的线程，我们接下来看下 get 方法就清楚了。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> V <span style="color:#a6e22e">get</span>() <span style="color:#66d9ef">throws</span> InterruptedException, ExecutionException {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> s <span style="color:#f92672">=</span> state;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (s <span style="color:#f92672">&lt;=</span> COMPLETING)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen: 如果任务未完成，则调用 awaitDone 等待结果</span>
+</span></span><span style="display:flex;"><span>        s <span style="color:#f92672">=</span> awaitDone(<span style="color:#66d9ef">false</span>, 0L);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> report(s);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 此处省略其他代码...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">awaitDone</span>(<span style="color:#66d9ef">boolean</span> timed, <span style="color:#66d9ef">long</span> nanos) <span style="color:#66d9ef">throws</span> InterruptedException {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">long</span> deadline <span style="color:#f92672">=</span> timed <span style="color:#f92672">?</span> System.<span style="color:#a6e22e">nanoTime</span>() <span style="color:#f92672">+</span> nanos : 0L;
+</span></span><span style="display:flex;"><span>    WaitNode q <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">boolean</span> queued <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (;;) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (Thread.<span style="color:#a6e22e">interrupted</span>()) {
+</span></span><span style="display:flex;"><span>            removeWaiter(q);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> InterruptedException();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> s <span style="color:#f92672">=</span> state;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (s <span style="color:#f92672">&gt;</span> COMPLETING) { <span style="color:#75715e">// Yipsen: 状态如果已变为 最终态（&gt; COMPLETING），进入该流程</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (q <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>                q.<span style="color:#a6e22e">thread</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Yipsen: 此处直接返回任务的状态，跳出循环。</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> s;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (s <span style="color:#f92672">==</span> COMPLETING) <span style="color:#75715e">// cannot time out yet</span>
+</span></span><span style="display:flex;"><span>            Thread.<span style="color:#a6e22e">yield</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (q <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>            q <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> WaitNode();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>queued)
+</span></span><span style="display:flex;"><span>            queued <span style="color:#f92672">=</span> UNSAFE.<span style="color:#a6e22e">compareAndSwapObject</span>(<span style="color:#66d9ef">this</span>, waitersOffset, q.<span style="color:#a6e22e">next</span> <span style="color:#f92672">=</span> waiters, q);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (timed) {
+</span></span><span style="display:flex;"><span>            nanos <span style="color:#f92672">=</span> deadline <span style="color:#f92672">-</span> System.<span style="color:#a6e22e">nanoTime</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (nanos <span style="color:#f92672">&lt;=</span> 0L) {
+</span></span><span style="display:flex;"><span>                removeWaiter(q);
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> state;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            LockSupport.<span style="color:#a6e22e">parkNanos</span>(<span style="color:#66d9ef">this</span>, nanos);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>            LockSupport.<span style="color:#a6e22e">park</span>(<span style="color:#66d9ef">this</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>可以看到 get 方法实际调用了 awaitDone 即等待任务执行完成，该方法首先判断任务的状态，如果未完成则封装成一个 WaitNode 并加入等待队列中。加入队列后再循环，如果状态没有改变，就会调用 <code>LockSupport.park(this)</code> 将当前线程挂起。是的，被挂起后，就只能等待该 WaitNode 在 waiters 中被遍历到，并被通过<code>LockSupport.unpark(t)</code>唤醒。</p>
+<p>但是我们看逻辑就知道如果只是单纯的唤醒，而 FutureTask 的状态还不是最终态（&gt; COMPLETING），则仍旧会被再次挂起。所以 FutureTask 任务执行完成后，会将状态机改变为 <code>NORMAL</code>(取值&gt; <code>COMPLETING</code>)。
+这样的话我们可以看到，原先被阻塞的线程被唤醒后，从阻塞点继续运行，最后会返回状态码。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> V <span style="color:#a6e22e">report</span>(<span style="color:#66d9ef">int</span> s) <span style="color:#66d9ef">throws</span> ExecutionException {
+</span></span><span style="display:flex;"><span>    Object x <span style="color:#f92672">=</span> outcome;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (s <span style="color:#f92672">==</span> NORMAL)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen: NORMAL 状态下，直接返回结果。</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> (V)x;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (s <span style="color:#f92672">&gt;=</span> CANCELLED)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Yipsen: CANCELLED 状态下，抛出异常。</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> CancellationException();
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: 其他状态下，同样抛出异常。</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> ExecutionException((Throwable)x);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>最后 get 方法调用 report 方法，把 Callable#call 的结果取回。</p>
+<p>其程序流程图如下：</p>
+<p><img src="/images/java/FutureTask-Flow.svg" alt="FutureTask-Flow"></p>
+<p>所以，如果你单单运行下面的代码，你将会遇到线程被挂起，且一直处于挂起状态，因为 FutureTask 的 run 方法没有被调用，任务没有运行，没有获取到结果。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">future_hang_cause_undone</span>() <span style="color:#66d9ef">throws</span> Exception {
+</span></span><span style="display:flex;"><span>    FutureTask<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> future <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FutureTask<span style="color:#f92672">&lt;&gt;</span>(<span style="color:#66d9ef">new</span> Callable<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">call</span>() <span style="color:#66d9ef">throws</span> Exception {
+</span></span><span style="display:flex;"><span>            Thread.<span style="color:#a6e22e">sleep</span>(20 <span style="color:#f92672">*</span> 1000);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;future run success&#34;</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//  new Thread(future).start();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: get 导致线程阻塞，无人把线程唤醒。</span>
+</span></span><span style="display:flex;"><span>    String result <span style="color:#f92672">=</span> future.<span style="color:#a6e22e">get</span>();
+</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(result);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>又或是在任务提交之前就先试图获取结果，一样会导致线程一直阻塞着。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">future_hang_cause_run_behind</span>() <span style="color:#66d9ef">throws</span> Exception {
+</span></span><span style="display:flex;"><span>    FutureTask<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> future <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FutureTask<span style="color:#f92672">&lt;&gt;</span>(<span style="color:#66d9ef">new</span> Callable<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">call</span>() <span style="color:#66d9ef">throws</span> Exception {
+</span></span><span style="display:flex;"><span>            Thread.<span style="color:#a6e22e">sleep</span>(20 <span style="color:#f92672">*</span> 1000);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;future run success&#34;</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>    String result <span style="color:#f92672">=</span> future.<span style="color:#a6e22e">get</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Yipsen: get 导致线程阻塞，此处无法运行到。</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">new</span> Thread(future).<span style="color:#a6e22e">start</span>();
+</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(result);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>最后，我们看到 FutureTask 也实现了 cannel 取消任务的能力，同时取消也可以是中断的形式。</p>
+<p>所以从上面的分析上看到，Future 接口可以理解为是 Callable 任务的容器，将运行逻辑，运行命令，及其运行结果都存在其空间中，提供外部接口来执行任务内容，提取结果，由主线程决定什么时候来却子线程的运行结果。而 Callable 与 Future 通常是绑定使用的。</p>
+<p>当然上面为了便于分析，直接使用了 FutureTask，而通常我们开发时，多数是通过线程池方式提交任务，取得 Future 再来轮询或者阻塞以取得结果。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">future_from_executor</span>() <span style="color:#66d9ef">throws</span> Exception {
+</span></span><span style="display:flex;"><span>    ExecutorService executor <span style="color:#f92672">=</span> Executors.<span style="color:#a6e22e">newSingleThreadExecutor</span>();
+</span></span><span style="display:flex;"><span>    Future<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> future <span style="color:#f92672">=</span> executor.<span style="color:#a6e22e">submit</span>(() <span style="color:#f92672">-&gt;</span> <span style="color:#e6db74">&#34;future run success&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (<span style="color:#66d9ef">true</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (future.<span style="color:#a6e22e">isDone</span>()) {
+</span></span><span style="display:flex;"><span>            System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(future.<span style="color:#a6e22e">get</span>());
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    executor.<span style="color:#a6e22e">shutdown</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="3-任务提交执行模式">3. 任务提交执行模式</h2>
+<p>接下来，我们探讨下任务发起执行的模式，通常有四种：</p>
+<ol>
+<li>
+<p>单程模式（One-Way）</p>
+<p>即只管将任务提交执行，但并不关心其结果，这种通常使用 Runnable 封装为线程提交执行。</p>
+</li>
+<li>
+<p>同步阻塞模式</p>
+<p>即直接就是运行任务，当前线程会直接运行完任务再继续后续逻辑，比如直接运行 Runnable#run。</p>
+</li>
+<li>
+<p>异步阻塞模式</p>
+<p>就如上面对 FutureTask 的分析，将任务 Callable 封装为 Future 后提交执行，同时立即阻塞线程等待获取结果，直到结果产生后继续运行后续逻辑（后续逻辑在通常就主线程上下文中运行）。即<strong>主动查询</strong></p>
+</li>
+<li>
+<p>异步监听模式</p>
+<p>还有一种任务执行模式就是异步监听模式，具体做法通常是将一个结果监听器注册给任务，任务提交执行后，主线程不阻塞继续运行，等任务线程执行完后，调用结果监听器，运行后续逻辑（通常此时在任务线程上下文中）。即<strong>被动回调</strong></p>
+</li>
+</ol>
+<blockquote>
+<p>网络交互上也会经常遇到，比如 UDP 发送后就结束，好比单程。HTTP/1.x 实现的 RESTFul 通常发送 Request 后就需要等待 Response 来继续运行，好比同步阻塞模式。当然网络中客户端与服务端的处理线程不是同一个，最后都是异步阻塞模式，只是框架会封装成类似方法调用一样的同步阻塞模式。当然还有一些 RPC 框架实现的，等待结果执行后再回调继续执行。</p>
+</blockquote>
+<p>很难说哪种方式最优，主要看具体的场景哪种更为适用，一般而言，异步监听模式是效率最高的，几乎榨干了每个工作线程，同时减少了阻塞的风险，也就减轻了资源耗尽的风险。</p>
+<blockquote>
+<p>注：可以粗略地认为，同步就是串行，阻塞就是线程无法做其他事务。</p>
+</blockquote>
+<h2 id="4-常用-future-模式实现类">4. 常用 Future 模式实现类</h2>
+<p>我们看到 FutureTask 如果提交后就想立即获取子线程的结果，势必要等待子线程执行完成产生出结果，那么就不可避免要阻塞等待。所以 Java 设计的 Future 模式，也允许使用类似回调的方式。</p>
+<ol>
+<li>CompletableFuture：着重实现多任务之间依赖组合等场景，可以用来替代 CountDownLatch 等传统多任务控制调配的场景。</li>
+<li>ListenableFuture：google guava 工具包扩展实现的一个 Future，着重实现上述任务提交执行模式中的第四种，异步监听模式，可以使主线程不阻塞。</li>
+<li>SettableFuture：ListenableFuture 的一个扩展实现，支持对 Future 设置值，且保证只能有一个设置成功，多用于缓存场景。</li>
+</ol>
+<h2 id="5-总结">5. 总结</h2>
+<p>本文主要讲解了 Future 模式的设计，并对其基本实现类 FutureTask 进行了源码分析，理解里面的原理。同时讲了关于任务执行的几种模式，最后也引申下 Future 的其他实现，其中就包括异步监听模式。</p>
+
+    </div>
+</article>
+<aside class="catalog">
+    <div class="catalog-title">目录</div>
+    <div class="catalog-list">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-future-源码分析">1. Future 源码分析</a>
+      <ul>
+        <li><a href="#11-一段简单的代码例子">1.1 一段简单的代码例子</a></li>
+        <li><a href="#12-futuretask-源码分析">1.2 FutureTask 源码分析</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-任务提交执行模式">3. 任务提交执行模式</a></li>
+    <li><a href="#4-常用-future-模式实现类">4. 常用 Future 模式实现类</a></li>
+    <li><a href="#5-总结">5. 总结</a></li>
+  </ul>
+</nav>
+    </div>
+</aside>
+<div class="division-line"></div>
+<div class="misc">
+    <div> 
+        <a class="post-category" href="/%20categories/java%E5%B9%B6%E5%8F%91/">📒JAVA并发</a>
+        </div>
+    <div></div>
+</div>
+
+    </main>
+    <footer class="p-x-0 p-b-2 m-auto">
+        <div id="pagination">
+            
+<div class="division-line"></div>
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/future/listenablefuture-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"><span>ListenableFuture 源码分析</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://localhost:8080/java/java-%E5%B9%B6%E5%8F%91/future/completablefuture-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"><span>CompletableFuture 源码分析（未完）</span></a>
+    </div>
+</div>
+
+        </div>
+        <div class="position-fixed b-4 r-4">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+
+<script src="https://cdn.staticfile.net/gumshoe/5.1.1/gumshoe.min.js"></script>
+<script>
+    var spy = new Gumshoe('#TableOfContents a', {
+        nested: true,
+        nestedClass: 'active'
+    });
+</script>
+
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

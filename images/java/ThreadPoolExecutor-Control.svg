@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="800"
+   height="200"
+   viewBox="0 0 800 200"
+   version="1.1"
+   id="svg51"
+   sodipodi:docname="绘图1.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview51"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="1.011194"
+     inkscape:cx="566.16236"
+     inkscape:cy="323.87454"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="page1" />
+  <defs
+     id="defs2">
+    <linearGradient
+       id="watermark_linear"
+       x1="50.181801"
+       y2="-11.9045"
+       y1="56"
+       gradientUnits="userSpaceOnUse"
+       x2="3.4974699">
+      <stop
+         stop-color="#0066FF"
+         id="stop1" />
+      <stop
+         stop-color="#66CCFF"
+         offset="1"
+         id="stop2" />
+    </linearGradient>
+  </defs>
+  <g
+     id="page1"
+     transform="translate(5.5,5.5)"
+     style="display:inline">
+    <g
+       id="group1"
+       transform="translate(11.921587,3.1595945)">
+      <path
+         id="shape2"
+         fill="#f8cecc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#b85450"
+         stroke-width="1"
+         transform="translate(80,80)"
+         fill-rule="nonzero" />
+      <g
+         id="shape3"
+         transform="translate(76.5,77.5)">
+        <text
+           xml:space="preserve"
+           style="font-size:13.3333px;font-family:Arial, 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="text2"><tspan
+             y="16"
+             x="4"
+             style="font-size:12px;font-family:'Courier New', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#000000"
+             id="tspan2">01</tspan></text>
+      </g>
+      <path
+         id="shape4"
+         fill="#f8cecc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#b85450"
+         stroke-width="1"
+         transform="translate(100,80)"
+         fill-rule="nonzero" />
+      <g
+         id="shape5"
+         transform="translate(96.5,77.5)">
+        <text
+           xml:space="preserve"
+           style="font-size:13.3333px;font-family:Arial, 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="text3"><tspan
+             y="16"
+             x="4"
+             style="font-size:12px;font-family:'Courier New', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#000000"
+             id="tspan3">02</tspan></text>
+      </g>
+      <path
+         id="shape6"
+         fill="#f8cecc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#b85450"
+         stroke-width="1"
+         transform="translate(120,80)"
+         fill-rule="nonzero" />
+      <g
+         id="shape7"
+         transform="translate(116.5,77.5)">
+        <text
+           xml:space="preserve"
+           style="font-size:13.3333px;font-family:Arial, 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="text4"><tspan
+             y="16"
+             x="4"
+             style="font-size:12px;font-family:'Courier New', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#000000"
+             id="tspan4">03</tspan></text>
+      </g>
+      <path
+         id="shape8"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(140,80)"
+         fill-rule="nonzero" />
+      <g
+         id="shape9"
+         transform="translate(136.5,77.5)">
+        <text
+           xml:space="preserve"
+           style="font-size:13.3333px;font-family:Arial, 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="text5"><tspan
+             y="16"
+             x="4"
+             style="font-size:12px;font-family:'Courier New', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#000000"
+             id="tspan5">04</tspan></text>
+      </g>
+      <path
+         id="shape10"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(160,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape11"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(180,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape12"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(200,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape13"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(220,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape14"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(240,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape15"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(260,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape16"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(280,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape17"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(300,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape18"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(320,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape19"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(340,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape20"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(360,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape21"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(380,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape22"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(400,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape23"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(420,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape24"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(440,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape25"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(460,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape26"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(480,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape27"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(500,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape28"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(520,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape29"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(540,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape30"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(560,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape31"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(580,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape32"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(600,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape33"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(620,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape34"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(640,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape35"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(660,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape36"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(680,80)"
+         fill-rule="nonzero" />
+      <path
+         id="shape37"
+         fill="#dae8fc"
+         d="M 0,0 H 20 V 20 H 0 Z"
+         stroke="#6c8ebf"
+         stroke-width="1"
+         transform="translate(700,80)"
+         fill-rule="nonzero" />
+      <g
+         id="shape38"
+         transform="translate(696.5,77.5)">
+        <text
+           xml:space="preserve"
+           style="font-size:13.3333px;font-family:Arial, 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="text6"><tspan
+             y="16"
+             x="4"
+             style="font-size:12px;font-family:'Courier New', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#000000"
+             id="tspan6">32</tspan></text>
+      </g>
+      <path
+         id="shape39"
+         d="m 18.3,0 h -5 c -3.3,0 -5,3.3 -5,10 v 300 c 0,6.7 -1.6,10 -5,10 H 0.8 c -1.6,0 -0.8,0 2.5,0 h 2.5 c 1.7,0 2.5,3.3 2.5,10 v 300 c 0,6.7 1.7,10 5,10 h 5"
+         fill="none"
+         stroke="#000000"
+         stroke-width="1"
+         transform="rotate(90,334.16667,385.83333)" />
+      <path
+         id="shape40"
+         d="m 18.3,0 h -5 c -3.3,0 -5,5.1 -5,15.2 v 7.6 c 0,5 -1.6,7.6 -5,7.6 H 0.8 c -1.6,0 -0.8,0 2.5,0 h 2.5 c 1.7,0 2.5,5 2.5,15.2 v 7.6 c 0,5 1.7,7.5 5,7.5 h 5"
+         fill="none"
+         stroke="#000000"
+         stroke-width="1"
+         transform="rotate(-90,104.16667,24.166667)" />
+      <path
+         id="shape41"
+         d="m 18.3,0 h -5 C 10,0 8.3,3.2 8.3,9.7 V 280 c 0,6.4 -1.6,9.6 -5,9.6 H 0.8 c -1.6,0 -0.8,0 2.5,0 h 2.5 c 1.7,0 2.5,3.2 2.5,9.7 v 270.3 c 0,6.4 1.7,9.7 5,9.7 h 5"
+         fill="none"
+         stroke="#000000"
+         stroke-width="1"
+         transform="rotate(-90,134.54167,-6.2083335)" />
+      <g
+         id="shape43"
+         transform="translate(65.5,132.5)">
+        <text
+           xml:space="preserve"
+           style="font-size:13.3333px;font-family:Arial, 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="text7"><tspan
+             y="16"
+             x="4"
+             style="font-size:12px;font-family:'Courier New', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#000000"
+             id="tspan7">runState</tspan></text>
+      </g>
+      <g
+         id="shape45"
+         transform="translate(375,132.5)">
+        <text
+           xml:space="preserve"
+           style="font-size:13.3333px;font-family:Arial, 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="text8"><tspan
+             y="16"
+             x="4"
+             style="font-size:12px;font-family:'Courier New', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#000000"
+             id="tspan8">workerCount</tspan></text>
+      </g>
+      <g
+         id="shape47"
+         transform="translate(383,22.5)">
+        <text
+           xml:space="preserve"
+           style="font-size:13.3333px;font-family:Arial, 'PingFang SC', 'Mircrosoft YaHei', Arial"
+           id="text9"><tspan
+             y="16"
+             x="4"
+             style="font-size:12px;font-family:'Courier New', 'PingFang SC', 'Mircrosoft YaHei', Arial;fill:#000000"
+             id="tspan9">ctl</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>

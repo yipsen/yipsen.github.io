@@ -2,216 +2,95 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Yipsen Ye</title>
-    <link>http://yipsen.github.io/tags/</link>
+    <link>http://localhost:8080/tags/</link>
     <description>Recent content in Tags on Yipsen Ye</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 05 Mar 2023 08:34:41 +0800</lastBuildDate><atom:link href="http://yipsen.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 05 Mar 2023 08:34:41 +0800</lastBuildDate>
+    <atom:link href="http://localhost:8080/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>redis</title>
-      <link>http://yipsen.github.io/tags/redis/</link>
+      <title>Redis</title>
+      <link>http://localhost:8080/tags/redis/</link>
       <pubDate>Sun, 05 Mar 2023 08:34:41 +0800</pubDate>
-      
-      <guid>http://yipsen.github.io/tags/redis/</guid>
+      <guid>http://localhost:8080/tags/redis/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Trouble Shooting</title>
-      <link>http://yipsen.github.io/tags/trouble-shooting/</link>
+      <link>http://localhost:8080/tags/trouble-shooting/</link>
       <pubDate>Tue, 15 Nov 2022 18:34:43 +0000</pubDate>
-      
-      <guid>http://yipsen.github.io/tags/trouble-shooting/</guid>
+      <guid>http://localhost:8080/tags/trouble-shooting/</guid>
       <description></description>
     </item>
-    
-    <item>
-      <title>database</title>
-      <link>http://yipsen.github.io/tags/database/</link>
-      <pubDate>Wed, 28 Sep 2022 19:43:05 +0800</pubDate>
-      
-      <guid>http://yipsen.github.io/tags/database/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>network</title>
-      <link>http://yipsen.github.io/tags/network/</link>
-      <pubDate>Wed, 28 Sep 2022 19:39:49 +0800</pubDate>
-      
-      <guid>http://yipsen.github.io/tags/network/</guid>
-      <description></description>
-    </item>
-    
     <item>
       <title>Wireshark</title>
-      <link>http://yipsen.github.io/tags/wireshark/</link>
+      <link>http://localhost:8080/tags/wireshark/</link>
       <pubDate>Sat, 05 Mar 2022 08:34:41 +0800</pubDate>
-      
-      <guid>http://yipsen.github.io/tags/wireshark/</guid>
+      <guid>http://localhost:8080/tags/wireshark/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>备忘录</title>
-      <link>http://yipsen.github.io/tags/%E5%A4%87%E5%BF%98%E5%BD%95/</link>
+      <link>http://localhost:8080/tags/%E5%A4%87%E5%BF%98%E5%BD%95/</link>
       <pubDate>Sat, 05 Mar 2022 08:34:41 +0800</pubDate>
-      
-      <guid>http://yipsen.github.io/tags/%E5%A4%87%E5%BF%98%E5%BD%95/</guid>
+      <guid>http://localhost:8080/tags/%E5%A4%87%E5%BF%98%E5%BD%95/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>java</title>
-      <link>http://yipsen.github.io/tags/java/</link>
+      <title>Java</title>
+      <link>http://localhost:8080/tags/java/</link>
       <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
-      
-      <guid>http://yipsen.github.io/tags/java/</guid>
+      <guid>http://localhost:8080/tags/java/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>linux</title>
-      <link>http://yipsen.github.io/tags/linux/</link>
+      <title>Linux</title>
+      <link>http://localhost:8080/tags/linux/</link>
       <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
-      
-      <guid>http://yipsen.github.io/tags/linux/</guid>
+      <guid>http://localhost:8080/tags/linux/</guid>
       <description></description>
     </item>
-    
+    <item>
+      <title>Network</title>
+      <link>http://localhost:8080/tags/network/</link>
+      <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
+      <guid>http://localhost:8080/tags/network/</guid>
+      <description></description>
+    </item>
     <item>
       <title>代码样例速查</title>
-      <link>http://yipsen.github.io/tags/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</link>
+      <link>http://localhost:8080/tags/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</link>
       <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
-      
-      <guid>http://yipsen.github.io/tags/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</guid>
+      <guid>http://localhost:8080/tags/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>设计模式</title>
-      <link>http://yipsen.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <link>http://localhost:8080/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
       <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
-      
-      <guid>http://yipsen.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <guid>http://localhost:8080/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>log</title>
-      <link>http://yipsen.github.io/tags/log/</link>
+      <title>Log</title>
+      <link>http://localhost:8080/tags/log/</link>
       <pubDate>Wed, 19 Jan 2022 15:22:11 +0000</pubDate>
-      
-      <guid>http://yipsen.github.io/tags/log/</guid>
+      <guid>http://localhost:8080/tags/log/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>logback</title>
-      <link>http://yipsen.github.io/tags/logback/</link>
+      <title>Logback</title>
+      <link>http://localhost:8080/tags/logback/</link>
       <pubDate>Wed, 19 Jan 2022 15:22:11 +0000</pubDate>
-      
-      <guid>http://yipsen.github.io/tags/logback/</guid>
+      <guid>http://localhost:8080/tags/logback/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>DHT</title>
-      <link>http://yipsen.github.io/tags/dht/</link>
+      <link>http://localhost:8080/tags/dht/</link>
       <pubDate>Sun, 16 Jan 2022 16:31:43 +0000</pubDate>
-      
-      <guid>http://yipsen.github.io/tags/dht/</guid>
+      <guid>http://localhost:8080/tags/dht/</guid>
       <description></description>
     </item>
-    
-    <item>
-      <title>zookeeper</title>
-      <link>http://yipsen.github.io/tags/zookeeper/</link>
-      <pubDate>Wed, 22 Dec 2021 01:57:18 +0800</pubDate>
-      
-      <guid>http://yipsen.github.io/tags/zookeeper/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>sharding</title>
-      <link>http://yipsen.github.io/tags/sharding/</link>
-      <pubDate>Wed, 22 Dec 2021 01:56:14 +0800</pubDate>
-      
-      <guid>http://yipsen.github.io/tags/sharding/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>netty</title>
-      <link>http://yipsen.github.io/tags/netty/</link>
-      <pubDate>Wed, 22 Dec 2021 01:54:53 +0800</pubDate>
-      
-      <guid>http://yipsen.github.io/tags/netty/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>mysql</title>
-      <link>http://yipsen.github.io/tags/mysql/</link>
-      <pubDate>Wed, 22 Dec 2021 01:53:28 +0800</pubDate>
-      
-      <guid>http://yipsen.github.io/tags/mysql/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>mybatis</title>
-      <link>http://yipsen.github.io/tags/mybatis/</link>
-      <pubDate>Wed, 22 Dec 2021 01:51:25 +0800</pubDate>
-      
-      <guid>http://yipsen.github.io/tags/mybatis/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>math</title>
-      <link>http://yipsen.github.io/tags/math/</link>
-      <pubDate>Wed, 22 Dec 2021 01:50:24 +0800</pubDate>
-      
-      <guid>http://yipsen.github.io/tags/math/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>kubernetes</title>
-      <link>http://yipsen.github.io/tags/kubernetes/</link>
-      <pubDate>Wed, 22 Dec 2021 01:48:30 +0800</pubDate>
-      
-      <guid>http://yipsen.github.io/tags/kubernetes/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>kafka</title>
-      <link>http://yipsen.github.io/tags/kafka/</link>
-      <pubDate>Wed, 22 Dec 2021 01:46:38 +0800</pubDate>
-      
-      <guid>http://yipsen.github.io/tags/kafka/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>design</title>
-      <link>http://yipsen.github.io/tags/design/</link>
-      <pubDate>Wed, 22 Dec 2021 01:38:51 +0800</pubDate>
-      
-      <guid>http://yipsen.github.io/tags/design/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>golang</title>
-      <link>http://yipsen.github.io/tags/golang/</link>
-      <pubDate>Wed, 22 Dec 2021 01:33:16 +0800</pubDate>
-      
-      <guid>http://yipsen.github.io/tags/golang/</guid>
-      <description></description>
-    </item>
-    
   </channel>
 </rss>

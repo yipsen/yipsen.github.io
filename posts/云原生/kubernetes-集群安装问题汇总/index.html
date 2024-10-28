@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
 
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8080&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
 <meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -9,54 +9,92 @@
 <link rel="icon" type="image/png" href="/%20/favicon.png">
 
 <title>kubernetes cluster installation trouble shooting | Yipsen Ye</title>
-<meta name="description" content="kubernetes 集群安装常见错误与解决方案 负一、kubeadm init失败  错误日志  [root@kube-master-01 ~]# kubeadm init --apiserver-advertise-address=192.168.0.201 --image-repository=registry.aliyuncs.com/google_containers --kubernetes-version v1.22.1 --service-cidr=10.96.0.0/12 --pod-network-cidr=10.244.0.0/16 | tee kubeadm-init.log[init] Using Kubernetes version: v1.22.1[preflight] Running pre-flight checks[WARNING SystemVerification]: this Docker version is not on the list of validated versions: 24.0.7. Latest validated version: 20.10error execution phase preflight: [preflight] Some fatal errors occurred:[ERROR FileAvailable--etc-kubernetes-manifests-kube-apiserver.yaml]: /etc/kubernetes/manifests/kube-apiserver.yaml already exists[ERROR FileAvailable--etc-kubernetes-manifests-kube-controller-manager.yaml]: /etc/kubernetes/manifests/kube-controller-manager.yaml already exists[ERROR FileAvailable--etc-kubernetes-manifests-kube-scheduler.yaml]: /etc/kubernetes/manifests/kube-scheduler.yaml already exists[ERROR FileAvailable--etc-kubernetes-manifests-etcd.">
+<meta name="description" content="kubernetes 集群安装常见错误与解决方案 负一、kubeadm init失败 错误日志 [root@kube-master-01 ~]# kubeadm init --apiserver-advertise-address=192.168.0.201 --image-repository=registry.aliyuncs.com/google_containers --kubernetes-version v1.22.1 --service-cidr=10.96.0.0/12 --pod-network-cidr=10.244.0.0/16 | tee kubeadm-init.log[init] Using Kubernetes version: v1.22.1[preflight] Running pre-flight checks[WARNING SystemVerification]: this Docker version is not on the list of validated versions: 24.0.7. Latest validated version: 20.10error execution phase preflight: [preflight] Some fatal errors occurred:[ERROR FileAvailable--etc-kubernetes-manifests-kube-apiserver.yaml]: /etc/kubernetes/manifests/kube-apiserver.yaml already exists[ERROR FileAvailable--etc-kubernetes-manifests-kube-controller-manager.yaml]: /etc/kubernetes/manifests/kube-controller-manager.yaml already exists[ERROR FileAvailable--etc-kubernetes-manifests-kube-scheduler.yaml]: /etc/kubernetes/manifests/kube-scheduler.yaml already exists[ERROR FileAvailable--etc-kubernetes-manifests-etcd.yaml]: /etc/kubernetes/manifests/etcd.yaml already exists[preflight] If you know what you are doing, you can make a check non-fatal with `--ignore-preflight-errors=...`To see the stack trace of this error execute with --v=5 or higher[root@kube-master-01 ~]# 解决方案 # 重置 kubeadm reset [root@kube-master-01 ~]# kubeadm reset[reset] Reading configuration from the cluster...[reset] FYI: You can look at this config file with &#39;kubectl -n kube-system get cm kubeadm-config -o yaml&#39;W1030 23:05:29.490334 11530 reset.go:101] [reset] Unable to fetch the kubeadm-config ConfigMap from cluster: failed to get config map: Get &#34;https://192.168.0.201:6443/api/v1/namespaces/kube-system/configmaps/kubeadm-config?timeout=10s&#34;: dial tcp 192.168.0.201:6443: connect: connection refused[reset] WARNING: Changes made to this host by &#39;kubeadm init&#39; or &#39;kubeadm join&#39; will be reverted.[reset] Are you sure you want to proceed? [y/N]: y[preflight] Running pre-flight checksW1030 23:05:32.886997 11530 removeetcdmember.go:80] [reset] No kubeadm config, using etcd pod spec to get data directory[reset] Stopping the kubelet service[reset] Unmounting mounted directories in &#34;/var/lib/kubelet&#34;[reset] Deleting contents of config directories: [/etc/kubernetes/manifests /etc/kubernetes/pki][reset] Deleting files: [/etc/kubernetes/admin.conf /etc/kubernetes/kubelet.conf /etc/kubernetes/bootstrap-kubelet.conf /etc/kubernetes/controller-manager.conf /etc/kubernetes/scheduler.conf][reset] Deleting contents of stateful directories: [/var/lib/etcd /var/lib/kubelet /var/lib/dockershim /var/run/kubernetes /var/lib/cni]The reset process does not clean CNI configuration. To do so, you must remove /etc/cni/net.dThe reset process does not reset or clean up iptables rules or IPVS tables.If you wish to reset iptables, you must do so manually by using the &#34;iptables&#34; command.If your cluster was setup to utilize IPVS, run ipvsadm --clear (or similar)to reset your system&#39;s IPVS tables.The reset process does not clean your kubeconfig files and you must remove them manually.Please, check the contents of the $HOME/.kube/config file. 零、kubeadm init失败 错误日志 [root@localhost Downloads]# kubeadm init [init] Using Kubernetes version: v1.24.3 [preflight] Running pre-flight checks [WARNING Firewalld]: firewalld is active, please ensure ports [6443 10250] are open or your cluster may not function correctly [WARNING Swap]: swap is enabled; production deployments should disable swap unless testing the NodeSwap feature gate of the kubelet error execution phase preflight: [preflight] Some fatal errors occurred: [ERROR NumCPU]: the number of available CPUs 1 is less than the required 2 [ERROR Mem]: the system RAM (972 MB) is less than the minimum 1700 MB [ERROR CRI]: container runtime is not running: output: time=&#34;2022-08-13T09:53:22-07:00&#34; level=fatal msg=&#34;unable to determine runtime API version: rpc error: code = Unavailable desc = connection error: desc = \&#34;transport: Error while dialing dial unix /var/run/containerd/containerd.sock: connect: no such file or directory\&#34;&#34; , error: exit status 1 [ERROR FileContent--proc-sys-net-bridge-bridge-nf-call-iptables]: /proc/sys/net/bridge/bridge-nf-call-iptables does not exist [ERROR FileExisting-conntrack]: conntrack not found in system path [preflight] If you know what you are doing, you can make a check non-fatal with `--ignore-preflight-errors=...` To see the stack trace of this error execute with --v=5 or higher 错误分析 # 需要关闭防火墙 [WARNING Firewalld]: firewalld is active, please ensure ports [6443 10250] are open or your cluster may not function correctly # 需要关闭 Swap [WARNING Swap]: swap is enabled; production deployments should disable swap unless testing the NodeSwap feature gate of the kubelet error execution phase preflight: [preflight] Some fatal errors occurred: # CPU 需要两核以上 [ERROR NumCPU]: the number of available CPUs 1 is less than the required 2 # 内存需要 1700 MB 以上 [ERROR Mem]: the system RAM (972 MB) is less than the minimum 1700 MB # 没有安装 CRI 容器运行时，比如 docker [ERROR CRI]: container runtime is not running: output: time=&#34;2022-08-13T09:53:22-07:00&#34; level=fatal msg=&#34;unable to determine runtime API version: rpc error: code = Unavailable desc = connection error: desc = \&#34;transport: Error while dialing dial unix /var/run/containerd/containerd.sock: connect: no such file or directory\&#34;&#34; # 没有配置 iptables [ERROR FileContent--proc-sys-net-bridge-bridge-nf-call-iptables]: /proc/sys/net/bridge/bridge-nf-call-iptables does not exist # 没有安装 conntrack [ERROR FileExisting-conntrack]: conntrack not found in system path 一、 [preflight] You can also perform this action in beforehand using &lsquo;kubeadm config images pull&rsquo; 发生场景：执行命令kubeadm init时 问题现象：卡顿在[preflight] You can also perform this action in beforehand using &#39;kubeadm config images pull&#39;直到超时 问题原因：拉取镜像被墙，拉不下来 解决方案：改镜像仓库 image-repository 为阿里云 registry.aliyuncs.com/google_containers 加上参数image-repository并指定为阿里云 kubeadm init --image-repository=registry.aliyuncs.com/google_containers 主动拉取 kubeadm config images pull --image-repository=registry.aliyuncs.com/google_containers 列出需要的镜像，然后用 docker 去 pull，再重新打为需要的 tag 列出需要的镜像： kubeadm config images list 结果： k8s.gcr.io/kube-apiserver:v1.22.12 k8s.gcr.io/kube-controller-manager:v1.22.12 k8s.gcr.io/kube-scheduler:v1.22.12 k8s.gcr.io/kube-proxy:v1.22.12 k8s.gcr.io/pause:3.5 k8s.gcr.io/etcd:3.5.0-0 k8s.gcr.io/coredns/coredns:v1.8.4 改标签然后用 docker 去拉取： docker pull registry.aliyuncs.com/google_containers/kube-apiserver:v1.22.12 docker pull registry.aliyuncs.com/google_containers/kube-controller-manager:v1.22.12 docker pull registry.aliyuncs.com/google_containers/kube-scheduler:v1.22.12 docker pull registry.aliyuncs.com/google_containers/kube-proxy:v1.22.12 docker pull registry.aliyuncs.com/google_containers/pause:3.5 docker pull registry.aliyuncs.com/google_containers/etcd:3.5.0-0 docker pull registry.aliyuncs.com/google_containers/coredns:v1.8.4 二、 [wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory &ldquo;/etc/kubernetes/manifests&rdquo;. This can take up to 4m0s 发生场景：执行命令kubeadm init时 问题现象：卡顿在[wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory &quot;/etc/kubernetes/manifests&quot;. This can take up to 4m0s之后失败 问题原因：未知，需要通过提示查看，一般是journalctl -xeu kubelet查看 kubelet 运行问题 解决方案：虚拟机vmware采用双网卡，一个NAT，一个主机共享。然后 kubernetes 版本降到 v1.22.1 后没有再出现。 三、 [WARNING Hostname]: hostname &ldquo;kube-master-01&rdquo;: lookup kube-master-01 on 192.168.163.2:53: no such host 发生场景：执行命令kubeadm init时 问题现象：日志显示[WARNING Hostname]: hostname &quot;kube-master-01&quot;: lookup kube-master-01 on 192.168.163.2:53: no such host 问题原因：主机 hostname 没有配置 解决方案：修改 hostname 直接修改 hostname hostnamectl set-hostname kube-master-01 修改本机 hosts 配置文件 执行命令 vi /etc/hosts 并在最尾处追加： 192.168.163.129 kube-master-01 四、 failed to run Kubelet: misconfiguration: kubelet cgroup driver: &ldquo;cgroupfs&rdquo; is different from docker cgroup driver: &ldquo;systemd&rdquo; 发生场景：执行kubeadm init失败，同时查看journalctl -xeu kubelet发现 kubelet 有异常 问题现象：kubelet 日志显示failed to run Kubelet: misconfiguration: kubelet cgroup driver: &quot;cgroupfs&quot; is different from docker cgroup driver: &quot;systemd&quot; 问题原因：docker 与 kubelet 配置不一致 解决方案：修改双方配置 重置未初始化成功的kubeadm配置 echo y|kubeadm reset 修改 docker 配置/etc/docker/daemon.json 执行命令 vi /etc/docker/daemon.json 添加配置 &#34;exec-opts&#34;: [&#34;native.cgroupdriver=systemd&#34;] 修改 kubelet 配置/var/lib/kubelet/config.yaml cat &gt; /var/lib/kubelet/config.yaml &lt;&lt;EOF apiVersion: kubelet.config.k8s.io/v1beta1 kind: KubeletConfiguration cgroupDriver: systemd EOF 重启docker 与 kubelet systemctl daemon-reload systemctl restart docker systemctl restart kubelet 检查 # 检查是否输出 Cgroup Driver: systemd docker info|grep &#34;Cgroup Driver&#34; 五、 &ldquo;Failed to run kubelet&rdquo; err=&ldquo;failed to run Kubelet: unable to load bootstrap kubeconfig: stat /etc/kubernetes/bootstrap-kubelet.conf: no such file or directory&rdquo; 发生场景：通过systemctl status kubelet查看 kubelet 状态时发现错误 问题现象：&ldquo;Failed to run kubelet&rdquo; err=&ldquo;failed to run Kubelet: unable to load bootstrap kubeconfig: stat /etc/kubernetes/bootstrap-kubelet.conf: no such file or directory&rdquo; 问题原因：证书问题 解决方案：重新生成 $ cd /etc/kubernetes/pki/ $ mv {apiserver.crt,apiserver-etcd-client.key,apiserver-kubelet-client.crt,front-proxy-ca.crt,front-proxy-client.crt,front-proxy-client.key,front-proxy-ca.key,apiserver-kubelet-client.key,apiserver.key,apiserver-etcd-client.crt} ~/ $ kubeadm init phase certs all $ cd /etc/kubernetes/ $ mv {admin.conf,controller-manager.conf,kubelet.conf,scheduler.conf} ~/ $ kubeadm init phase kubeconfig all $ reboot $ cp -i /etc/kubernetes/admin.conf $HOME/.kube/config 六、 failed to run Kubelet: unable to load bootstrap kubeconfig: stat /etc/kubernetes/bootstrap-kubelet.conf: no such file 发生场景：通过systemctl status kubelet查看 kubelet 状态时发现错误 问题现象：failed to run Kubelet: unable to load bootstrap kubeconfig: stat /etc/kubernetes/bootstrap-kubelet.conf: no such file 问题原因：还未初始化 解决方案：初始化执行kubeadm init就好了 七、 The connection to the server localhost:8080 was refused - did you specify the right host or port? 发生场景：执行kubectl get nodes报错 问题现象：提示错误The connection to the server localhost:8080 was refused - did you specify the right host or port? 问题原因：需要配置 kubectl 解决方案：配置一下 kubectl kubectl --kubeconfig /etc/kubernetes/admin.conf get nodes # 如果是从节点，则需要从 master 把 admin.conf 传送过去 # scp /etc/kubernetes/admin.conf root@kube-worker-01:/etc/kubernetes/admin.conf mkdir -p $HOME/.kube sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config sudo chown $(id -u):$(id -g) $HOME/.kube/config kubectl get nodes # 结果 NAME STATUS ROLES AGE VERSION kube-master-01 NotReady control-plane,master 18m v1.22.1 八、 container runtime network not ready: NetworkReady=false reason:NetworkPluginNotReady; message:docker: network plugin is not ready: cni config uninitialized 发生场景：通过systemctl status kubelet查看 kubelet 状态时发现错误 问题现象：container runtime network not ready: NetworkReady=false reason:NetworkPluginNotReady; message:docker: network plugin is not ready: cni config uninitialized 问题原因：kubernetes 网络配置问题 解决方案：需要重置并kubeadm init需要带参数--pod-network-cidr=10.244.0.0/16并且使用 flannel 作为网络数据包转换 echo y | kubeadm reset kubectl apply -f ~/kube-flannel.yml 九、 no networks found in /etc/cni/net.d 发生场景：通过systemctl status kubelet查看 kubelet 状态时发现错误 问题现象：no networks found in /etc/cni/net.d 问题原因：kubernetes 网络配置问题 解决方案：删除配置项 执行命令 vim /var/lib/kubelet/kubeadm-flags.env 删除其中的--network-plugin=cni
+">
 <meta name="author" content="">
 
 <link rel="stylesheet" type="text/css" href="/styles/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/standard.css">
 
 </head>
 
-<body id="page">
-    <header>
+<body id="page" class="ff-consolas m-0">
+    <header class="d-flex fd-row fw-wrap jc-between ai-center p-x-1 p-y-1 m-auto">
         <div class="nav-logo">
-    <a href="http://yipsen.github.io/">
+    <a href="http://localhost:8080/">
         
         <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
-<nav class="navbar justify-content-end">
-    <ul class="nav-list">
+<nav class="position-relative d-flex fw-wrap jc-end ai-center p-y-05">
+    <ul class="d-flex fw-wrap ls-none p-l-0 m-0">
         
         
-        <li class="nav-item">
-            <a class="nav-link active"
-                href="http://yipsen.github.io/posts/">文章</a>
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/series/java/">JAVA</a>
         </li>
         
-        <li class="nav-item">
-            <a class="nav-link"
-                href="http://yipsen.github.io/collections/">附表</a>
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/design/">设计</a>
         </li>
         
-        <li class="nav-item">
-            <a class="nav-link"
-                href="http://yipsen.github.io/about/">关于</a>
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/network/">网络</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/framework/">框架</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/middleware/">中间件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/plugin/">插件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/linux/">LINUX</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link  active"
+                href="http://localhost:8080/posts/">随心谈</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/others/">山海文库</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/about/">关于</a>
         </li>
         
     </ul>
 </nav>
     </header>
-    <main id="content">
+    <main id="content" class="m-auto">
         
-<div class="container"><article class="post-block">
-        <h1 class="post-title">kubernetes cluster installation trouble shooting</h1>
-        <div class="post-info">
-            <div class="post-date"> 
-                <span>2022-08-15 22:00:00</span>
-            </div>
+<aside class="sidebar"></aside>
+<article>
+    <h1 class="m-b-1">kubernetes cluster installation trouble shooting</h1>
+    <div class="d-flex fd-row jc-center">
+        <div class="fc-subtle">
+            <span>2022-08-15 22:00:00</span>
         </div>
-        <div class="post-content">
-            <h3 id="kubernetes-集群安装常见错误与解决方案">kubernetes 集群安装常见错误与解决方案</h3>
+    </div>
+    <div class="post-content">
+        <h3 id="kubernetes-集群安装常见错误与解决方案">kubernetes 集群安装常见错误与解决方案</h3>
 <h4 id="负一kubeadm-init失败">负一、kubeadm init失败</h4>
 <ul>
 <li>错误日志</li>
@@ -76,18 +114,18 @@ To see the stack trace of this error execute with --v=5 or higher
 </code></pre><ul>
 <li>解决方案</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 重置</span>
-kubeadm reset
-</code></pre></div><pre tabindex="0"><code class="language-log" data-lang="log">[root@kube-master-01 ~]# kubeadm reset
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 重置</span>
+</span></span><span style="display:flex;"><span>kubeadm reset
+</span></span></code></pre></div><pre tabindex="0"><code class="language-log" data-lang="log">[root@kube-master-01 ~]# kubeadm reset
 [reset] Reading configuration from the cluster...
-[reset] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -o yaml'
-W1030 23:05:29.490334   11530 reset.go:101] [reset] Unable to fetch the kubeadm-config ConfigMap from cluster: failed to get config map: Get &quot;https://192.168.0.201:6443/api/v1/namespaces/kube-system/configmaps/kubeadm-config?timeout=10s&quot;: dial tcp 192.168.0.201:6443: connect: connection refused
-[reset] WARNING: Changes made to this host by 'kubeadm init' or 'kubeadm join' will be reverted.
+[reset] FYI: You can look at this config file with &#39;kubectl -n kube-system get cm kubeadm-config -o yaml&#39;
+W1030 23:05:29.490334   11530 reset.go:101] [reset] Unable to fetch the kubeadm-config ConfigMap from cluster: failed to get config map: Get &#34;https://192.168.0.201:6443/api/v1/namespaces/kube-system/configmaps/kubeadm-config?timeout=10s&#34;: dial tcp 192.168.0.201:6443: connect: connection refused
+[reset] WARNING: Changes made to this host by &#39;kubeadm init&#39; or &#39;kubeadm join&#39; will be reverted.
 [reset] Are you sure you want to proceed? [y/N]: y
 [preflight] Running pre-flight checks
 W1030 23:05:32.886997   11530 removeetcdmember.go:80] [reset] No kubeadm config, using etcd pod spec to get data directory
 [reset] Stopping the kubelet service
-[reset] Unmounting mounted directories in &quot;/var/lib/kubelet&quot;
+[reset] Unmounting mounted directories in &#34;/var/lib/kubelet&#34;
 [reset] Deleting contents of config directories: [/etc/kubernetes/manifests /etc/kubernetes/pki]
 [reset] Deleting files: [/etc/kubernetes/admin.conf /etc/kubernetes/kubelet.conf /etc/kubernetes/bootstrap-kubelet.conf /etc/kubernetes/controller-manager.conf /etc/kubernetes/scheduler.conf]
 [reset] Deleting contents of stateful directories: [/var/lib/etcd /var/lib/kubelet /var/lib/dockershim /var/run/kubernetes /var/lib/cni]
@@ -95,10 +133,10 @@ W1030 23:05:32.886997   11530 removeetcdmember.go:80] [reset] No kubeadm config,
 The reset process does not clean CNI configuration. To do so, you must remove /etc/cni/net.d
 
 The reset process does not reset or clean up iptables rules or IPVS tables.
-If you wish to reset iptables, you must do so manually by using the &quot;iptables&quot; command.
+If you wish to reset iptables, you must do so manually by using the &#34;iptables&#34; command.
 
 If your cluster was setup to utilize IPVS, run ipvsadm --clear (or similar)
-to reset your system's IPVS tables.
+to reset your system&#39;s IPVS tables.
 
 The reset process does not clean your kubeconfig files and you must remove them manually.
 Please, check the contents of the $HOME/.kube/config file.
@@ -106,39 +144,39 @@ Please, check the contents of the $HOME/.kube/config file.
 <ul>
 <li>错误日志</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@localhost Downloads<span style="color:#f92672">]</span><span style="color:#75715e"># kubeadm init</span>
-<span style="color:#f92672">[</span>init<span style="color:#f92672">]</span> Using Kubernetes version: v1.24.3
-<span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> Running pre-flight checks
-        <span style="color:#f92672">[</span>WARNING Firewalld<span style="color:#f92672">]</span>: firewalld is active, please ensure ports <span style="color:#f92672">[</span><span style="color:#ae81ff">6443</span> 10250<span style="color:#f92672">]</span> are open or your cluster may not <span style="color:#66d9ef">function</span> correctly
-        <span style="color:#f92672">[</span>WARNING Swap<span style="color:#f92672">]</span>: swap is enabled; production deployments should disable swap unless testing the NodeSwap feature gate of the kubelet
-error execution phase preflight: <span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> Some fatal errors occurred:
-        <span style="color:#f92672">[</span>ERROR NumCPU<span style="color:#f92672">]</span>: the number of available CPUs <span style="color:#ae81ff">1</span> is less than the required <span style="color:#ae81ff">2</span>
-        <span style="color:#f92672">[</span>ERROR Mem<span style="color:#f92672">]</span>: the system RAM <span style="color:#f92672">(</span><span style="color:#ae81ff">972</span> MB<span style="color:#f92672">)</span> is less than the minimum <span style="color:#ae81ff">1700</span> MB
-        <span style="color:#f92672">[</span>ERROR CRI<span style="color:#f92672">]</span>: container runtime is not running: output: time<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2022-08-13T09:53:22-07:00&#34;</span> level<span style="color:#f92672">=</span>fatal msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;unable to determine runtime API version: rpc error: code = Unavailable desc = connection error: desc = \&#34;transport: Error while dialing dial unix /var/run/containerd/containerd.sock: connect: no such file or directory\&#34;&#34;</span>
-, error: exit status <span style="color:#ae81ff">1</span>
-        <span style="color:#f92672">[</span>ERROR FileContent--proc-sys-net-bridge-bridge-nf-call-iptables<span style="color:#f92672">]</span>: /proc/sys/net/bridge/bridge-nf-call-iptables does not exist
-        <span style="color:#f92672">[</span>ERROR FileExisting-conntrack<span style="color:#f92672">]</span>: conntrack not found in system path
-<span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> If you know what you are doing, you can make a check non-fatal with <span style="color:#e6db74">`</span>--ignore-preflight-errors<span style="color:#f92672">=</span>...<span style="color:#e6db74">`</span>
-To see the stack trace of this error execute with --v<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span> or higher
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@localhost Downloads<span style="color:#f92672">]</span><span style="color:#75715e"># kubeadm init</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>init<span style="color:#f92672">]</span> Using Kubernetes version: v1.24.3
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> Running pre-flight checks
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span>WARNING Firewalld<span style="color:#f92672">]</span>: firewalld is active, please ensure ports <span style="color:#f92672">[</span><span style="color:#ae81ff">6443</span> 10250<span style="color:#f92672">]</span> are open or your cluster may not <span style="color:#66d9ef">function</span> correctly
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span>WARNING Swap<span style="color:#f92672">]</span>: swap is enabled; production deployments should disable swap unless testing the NodeSwap feature gate of the kubelet
+</span></span><span style="display:flex;"><span>error execution phase preflight: <span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> Some fatal errors occurred:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span>ERROR NumCPU<span style="color:#f92672">]</span>: the number of available CPUs <span style="color:#ae81ff">1</span> is less than the required <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span>ERROR Mem<span style="color:#f92672">]</span>: the system RAM <span style="color:#f92672">(</span><span style="color:#ae81ff">972</span> MB<span style="color:#f92672">)</span> is less than the minimum <span style="color:#ae81ff">1700</span> MB
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span>ERROR CRI<span style="color:#f92672">]</span>: container runtime is not running: output: time<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2022-08-13T09:53:22-07:00&#34;</span> level<span style="color:#f92672">=</span>fatal msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;unable to determine runtime API version: rpc error: code = Unavailable desc = connection error: desc = \&#34;transport: Error while dialing dial unix /var/run/containerd/containerd.sock: connect: no such file or directory\&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>, error: exit status <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span>ERROR FileContent--proc-sys-net-bridge-bridge-nf-call-iptables<span style="color:#f92672">]</span>: /proc/sys/net/bridge/bridge-nf-call-iptables does not exist
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span>ERROR FileExisting-conntrack<span style="color:#f92672">]</span>: conntrack not found in system path
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> If you know what you are doing, you can make a check non-fatal with <span style="color:#e6db74">`</span>--ignore-preflight-errors<span style="color:#f92672">=</span>...<span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span>To see the stack trace of this error execute with --v<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span> or higher
+</span></span></code></pre></div><ul>
 <li>错误分析</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 需要关闭防火墙</span>
-<span style="color:#f92672">[</span>WARNING Firewalld<span style="color:#f92672">]</span>: firewalld is active, please ensure ports <span style="color:#f92672">[</span><span style="color:#ae81ff">6443</span> 10250<span style="color:#f92672">]</span> are open or your cluster may not <span style="color:#66d9ef">function</span> correctly
-<span style="color:#75715e"># 需要关闭 Swap</span>
-<span style="color:#f92672">[</span>WARNING Swap<span style="color:#f92672">]</span>: swap is enabled; production deployments should disable swap unless testing the NodeSwap feature gate of the kubelet
-error execution phase preflight: <span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> Some fatal errors occurred:
-<span style="color:#75715e"># CPU 需要两核以上</span>
-<span style="color:#f92672">[</span>ERROR NumCPU<span style="color:#f92672">]</span>: the number of available CPUs <span style="color:#ae81ff">1</span> is less than the required <span style="color:#ae81ff">2</span>
-<span style="color:#75715e"># 内存需要 1700 MB 以上</span>
-<span style="color:#f92672">[</span>ERROR Mem<span style="color:#f92672">]</span>: the system RAM <span style="color:#f92672">(</span><span style="color:#ae81ff">972</span> MB<span style="color:#f92672">)</span> is less than the minimum <span style="color:#ae81ff">1700</span> MB
-<span style="color:#75715e"># 没有安装 CRI 容器运行时，比如 docker</span>
-<span style="color:#f92672">[</span>ERROR CRI<span style="color:#f92672">]</span>: container runtime is not running: output: time<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2022-08-13T09:53:22-07:00&#34;</span> level<span style="color:#f92672">=</span>fatal msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;unable to determine runtime API version: rpc error: code = Unavailable desc = connection error: desc = \&#34;transport: Error while dialing dial unix /var/run/containerd/containerd.sock: connect: no such file or directory\&#34;&#34;</span>
-<span style="color:#75715e"># 没有配置 iptables</span>
-<span style="color:#f92672">[</span>ERROR FileContent--proc-sys-net-bridge-bridge-nf-call-iptables<span style="color:#f92672">]</span>: /proc/sys/net/bridge/bridge-nf-call-iptables does not exist
-<span style="color:#75715e"># 没有安装 conntrack</span>
-<span style="color:#f92672">[</span>ERROR FileExisting-conntrack<span style="color:#f92672">]</span>: conntrack not found in system path
-</code></pre></div><h4 id="一-preflight-you-can-also-perform-this-action-in-beforehand-using-kubeadm-config-images-pull">一、 [preflight] You can also perform this action in beforehand using &lsquo;kubeadm config images pull&rsquo;</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 需要关闭防火墙</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>WARNING Firewalld<span style="color:#f92672">]</span>: firewalld is active, please ensure ports <span style="color:#f92672">[</span><span style="color:#ae81ff">6443</span> 10250<span style="color:#f92672">]</span> are open or your cluster may not <span style="color:#66d9ef">function</span> correctly
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 需要关闭 Swap</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>WARNING Swap<span style="color:#f92672">]</span>: swap is enabled; production deployments should disable swap unless testing the NodeSwap feature gate of the kubelet
+</span></span><span style="display:flex;"><span>error execution phase preflight: <span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> Some fatal errors occurred:
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># CPU 需要两核以上</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>ERROR NumCPU<span style="color:#f92672">]</span>: the number of available CPUs <span style="color:#ae81ff">1</span> is less than the required <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 内存需要 1700 MB 以上</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>ERROR Mem<span style="color:#f92672">]</span>: the system RAM <span style="color:#f92672">(</span><span style="color:#ae81ff">972</span> MB<span style="color:#f92672">)</span> is less than the minimum <span style="color:#ae81ff">1700</span> MB
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 没有安装 CRI 容器运行时，比如 docker</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>ERROR CRI<span style="color:#f92672">]</span>: container runtime is not running: output: time<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2022-08-13T09:53:22-07:00&#34;</span> level<span style="color:#f92672">=</span>fatal msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;unable to determine runtime API version: rpc error: code = Unavailable desc = connection error: desc = \&#34;transport: Error while dialing dial unix /var/run/containerd/containerd.sock: connect: no such file or directory\&#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 没有配置 iptables</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>ERROR FileContent--proc-sys-net-bridge-bridge-nf-call-iptables<span style="color:#f92672">]</span>: /proc/sys/net/bridge/bridge-nf-call-iptables does not exist
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 没有安装 conntrack</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>ERROR FileExisting-conntrack<span style="color:#f92672">]</span>: conntrack not found in system path
+</span></span></code></pre></div><h4 id="一-preflight-you-can-also-perform-this-action-in-beforehand-using-kubeadm-config-images-pull">一、 [preflight] You can also perform this action in beforehand using &lsquo;kubeadm config images pull&rsquo;</h4>
 <ul>
 <li>发生场景：执行命令<code>kubeadm init</code>时</li>
 <li>问题现象：卡顿在<code>[preflight] You can also perform this action in beforehand using 'kubeadm config images pull'</code>直到超时</li>
@@ -148,39 +186,39 @@ error execution phase preflight: <span style="color:#f92672">[</span>preflight<s
 <ol>
 <li>加上参数<code>image-repository</code>并指定为阿里云</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubeadm init --image-repository<span style="color:#f92672">=</span>registry.aliyuncs.com/google_containers
-</code></pre></div><ol start="2">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubeadm init --image-repository<span style="color:#f92672">=</span>registry.aliyuncs.com/google_containers
+</span></span></code></pre></div><ol start="2">
 <li>主动拉取</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubeadm config images pull --image-repository<span style="color:#f92672">=</span>registry.aliyuncs.com/google_containers
-</code></pre></div><ol start="3">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubeadm config images pull --image-repository<span style="color:#f92672">=</span>registry.aliyuncs.com/google_containers
+</span></span></code></pre></div><ol start="3">
 <li>列出需要的镜像，然后用 docker 去 pull，再重新打为需要的 tag</li>
 </ol>
 <ul>
 <li>列出需要的镜像：</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubeadm config images list
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubeadm config images list
+</span></span></code></pre></div><ul>
 <li>结果：</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">k8s.gcr.io/kube-apiserver:v1.22.12
-k8s.gcr.io/kube-controller-manager:v1.22.12
-k8s.gcr.io/kube-scheduler:v1.22.12
-k8s.gcr.io/kube-proxy:v1.22.12
-k8s.gcr.io/pause:3.5
-k8s.gcr.io/etcd:3.5.0-0
-k8s.gcr.io/coredns/coredns:v1.8.4
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>k8s.gcr.io/kube-apiserver:v1.22.12
+</span></span><span style="display:flex;"><span>k8s.gcr.io/kube-controller-manager:v1.22.12
+</span></span><span style="display:flex;"><span>k8s.gcr.io/kube-scheduler:v1.22.12
+</span></span><span style="display:flex;"><span>k8s.gcr.io/kube-proxy:v1.22.12
+</span></span><span style="display:flex;"><span>k8s.gcr.io/pause:3.5
+</span></span><span style="display:flex;"><span>k8s.gcr.io/etcd:3.5.0-0
+</span></span><span style="display:flex;"><span>k8s.gcr.io/coredns/coredns:v1.8.4
+</span></span></code></pre></div><ul>
 <li>改标签然后用 docker 去拉取：</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker pull registry.aliyuncs.com/google_containers/kube-apiserver:v1.22.12
-docker pull registry.aliyuncs.com/google_containers/kube-controller-manager:v1.22.12
-docker pull registry.aliyuncs.com/google_containers/kube-scheduler:v1.22.12
-docker pull registry.aliyuncs.com/google_containers/kube-proxy:v1.22.12
-docker pull registry.aliyuncs.com/google_containers/pause:3.5
-docker pull registry.aliyuncs.com/google_containers/etcd:3.5.0-0
-docker pull registry.aliyuncs.com/google_containers/coredns:v1.8.4
-</code></pre></div><h4 id="二-wait-control-plane-waiting-for-the-kubelet-to-boot-up-the-control-plane-as-static-pods-from-directory-etckubernetesmanifests-this-can-take-up-to-4m0s">二、 [wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory &ldquo;/etc/kubernetes/manifests&rdquo;. This can take up to 4m0s</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker pull registry.aliyuncs.com/google_containers/kube-apiserver:v1.22.12
+</span></span><span style="display:flex;"><span>docker pull registry.aliyuncs.com/google_containers/kube-controller-manager:v1.22.12
+</span></span><span style="display:flex;"><span>docker pull registry.aliyuncs.com/google_containers/kube-scheduler:v1.22.12
+</span></span><span style="display:flex;"><span>docker pull registry.aliyuncs.com/google_containers/kube-proxy:v1.22.12
+</span></span><span style="display:flex;"><span>docker pull registry.aliyuncs.com/google_containers/pause:3.5
+</span></span><span style="display:flex;"><span>docker pull registry.aliyuncs.com/google_containers/etcd:3.5.0-0
+</span></span><span style="display:flex;"><span>docker pull registry.aliyuncs.com/google_containers/coredns:v1.8.4
+</span></span></code></pre></div><h4 id="二-wait-control-plane-waiting-for-the-kubelet-to-boot-up-the-control-plane-as-static-pods-from-directory-etckubernetesmanifests-this-can-take-up-to-4m0s">二、 [wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory &ldquo;/etc/kubernetes/manifests&rdquo;. This can take up to 4m0s</h4>
 <ul>
 <li>发生场景：执行命令<code>kubeadm init</code>时</li>
 <li>问题现象：卡顿在<code>[wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory &quot;/etc/kubernetes/manifests&quot;. This can take up to 4m0s</code>之后失败</li>
@@ -197,15 +235,15 @@ docker pull registry.aliyuncs.com/google_containers/coredns:v1.8.4
 <ol>
 <li>直接修改 hostname</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">hostnamectl set-hostname kube-master-01
-</code></pre></div><ol start="2">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>hostnamectl set-hostname kube-master-01
+</span></span></code></pre></div><ol start="2">
 <li>修改本机 hosts 配置文件</li>
 </ol>
 <ul>
 <li>执行命令</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">vi /etc/hosts
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>vi /etc/hosts
+</span></span></code></pre></div><ul>
 <li>并在最尾处追加：</li>
 </ul>
 <pre tabindex="0"><code class="language-hosts" data-lang="hosts">192.168.163.129 kube-master-01
@@ -219,53 +257,53 @@ docker pull registry.aliyuncs.com/google_containers/coredns:v1.8.4
 <ol>
 <li>重置未初始化成功的kubeadm配置</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo y|kubeadm reset
-</code></pre></div><ol start="2">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>echo y|kubeadm reset
+</span></span></code></pre></div><ol start="2">
 <li>修改 docker 配置<code>/etc/docker/daemon.json</code></li>
 </ol>
 <ul>
 <li>执行命令</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">vi /etc/docker/daemon.json
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>vi /etc/docker/daemon.json
+</span></span></code></pre></div><ul>
 <li>添加配置</li>
 </ul>
-<pre tabindex="0"><code class="language-properties" data-lang="properties">&quot;exec-opts&quot;: [&quot;native.cgroupdriver=systemd&quot;]
-</code></pre><ol start="3">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-properties" data-lang="properties"><span style="display:flex;"><span><span style="color:#a6e22e">&#34;exec-opts&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">[&#34;native.cgroupdriver=systemd&#34;]</span>
+</span></span></code></pre></div><ol start="3">
 <li>修改 kubelet 配置<code>/var/lib/kubelet/config.yaml</code></li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat &gt; /var/lib/kubelet/config.yaml <span style="color:#e6db74">&lt;&lt;EOF
-</span><span style="color:#e6db74">apiVersion: kubelet.config.k8s.io/v1beta1
-</span><span style="color:#e6db74">kind: KubeletConfiguration
-</span><span style="color:#e6db74">cgroupDriver: systemd
-</span><span style="color:#e6db74">EOF</span>
-</code></pre></div><ol start="4">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cat &gt; /var/lib/kubelet/config.yaml <span style="color:#e6db74">&lt;&lt;EOF
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">apiVersion: kubelet.config.k8s.io/v1beta1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">kind: KubeletConfiguration
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">cgroupDriver: systemd
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
+</span></span></code></pre></div><ol start="4">
 <li>重启docker 与 kubelet</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">systemctl daemon-reload
-systemctl restart docker
-systemctl restart kubelet
-</code></pre></div><ol start="5">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>systemctl daemon-reload
+</span></span><span style="display:flex;"><span>systemctl restart docker
+</span></span><span style="display:flex;"><span>systemctl restart kubelet
+</span></span></code></pre></div><ol start="5">
 <li>检查</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 检查是否输出 Cgroup Driver: systemd</span>
-docker info|grep <span style="color:#e6db74">&#34;Cgroup Driver&#34;</span>
-</code></pre></div><h4 id="五-failed-to-run-kubelet-errfailed-to-run-kubelet-unable-to-load-bootstrap-kubeconfig-stat-etckubernetesbootstrap-kubeletconf-no-such-file-or-directory">五、 &ldquo;Failed to run kubelet&rdquo; err=&ldquo;failed to run Kubelet: unable to load bootstrap kubeconfig: stat /etc/kubernetes/bootstrap-kubelet.conf: no such file or directory&rdquo;</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 检查是否输出 Cgroup Driver: systemd</span>
+</span></span><span style="display:flex;"><span>docker info|grep <span style="color:#e6db74">&#34;Cgroup Driver&#34;</span>
+</span></span></code></pre></div><h4 id="五-failed-to-run-kubelet-errfailed-to-run-kubelet-unable-to-load-bootstrap-kubeconfig-stat-etckubernetesbootstrap-kubeletconf-no-such-file-or-directory">五、 &ldquo;Failed to run kubelet&rdquo; err=&ldquo;failed to run Kubelet: unable to load bootstrap kubeconfig: stat /etc/kubernetes/bootstrap-kubelet.conf: no such file or directory&rdquo;</h4>
 <ul>
 <li>发生场景：通过<code>systemctl status kubelet</code>查看 kubelet 状态时发现错误</li>
 <li>问题现象：&ldquo;Failed to run kubelet&rdquo; err=&ldquo;failed to run Kubelet: unable to load bootstrap kubeconfig: stat /etc/kubernetes/bootstrap-kubelet.conf: no such file or directory&rdquo;</li>
 <li>问题原因：证书问题</li>
 <li>解决方案：重新生成</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ cd /etc/kubernetes/pki/
-$ mv <span style="color:#f92672">{</span>apiserver.crt,apiserver-etcd-client.key,apiserver-kubelet-client.crt,front-proxy-ca.crt,front-proxy-client.crt,front-proxy-client.key,front-proxy-ca.key,apiserver-kubelet-client.key,apiserver.key,apiserver-etcd-client.crt<span style="color:#f92672">}</span> ~/
-$ kubeadm init phase certs all
-$ cd /etc/kubernetes/
-$ mv <span style="color:#f92672">{</span>admin.conf,controller-manager.conf,kubelet.conf,scheduler.conf<span style="color:#f92672">}</span> ~/
-$ kubeadm init phase kubeconfig all
-$ reboot
-$ cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-</code></pre></div><h4 id="六-failed-to-run-kubelet-unable-to-load-bootstrap-kubeconfig-stat-etckubernetesbootstrap-kubeletconf-no-such-file">六、 failed to run Kubelet: unable to load bootstrap kubeconfig: stat /etc/kubernetes/bootstrap-kubelet.conf: no such file</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ cd /etc/kubernetes/pki/
+</span></span><span style="display:flex;"><span>$ mv <span style="color:#f92672">{</span>apiserver.crt,apiserver-etcd-client.key,apiserver-kubelet-client.crt,front-proxy-ca.crt,front-proxy-client.crt,front-proxy-client.key,front-proxy-ca.key,apiserver-kubelet-client.key,apiserver.key,apiserver-etcd-client.crt<span style="color:#f92672">}</span> ~/
+</span></span><span style="display:flex;"><span>$ kubeadm init phase certs all
+</span></span><span style="display:flex;"><span>$ cd /etc/kubernetes/
+</span></span><span style="display:flex;"><span>$ mv <span style="color:#f92672">{</span>admin.conf,controller-manager.conf,kubelet.conf,scheduler.conf<span style="color:#f92672">}</span> ~/
+</span></span><span style="display:flex;"><span>$ kubeadm init phase kubeconfig all
+</span></span><span style="display:flex;"><span>$ reboot
+</span></span><span style="display:flex;"><span>$ cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+</span></span></code></pre></div><h4 id="六-failed-to-run-kubelet-unable-to-load-bootstrap-kubeconfig-stat-etckubernetesbootstrap-kubeletconf-no-such-file">六、 failed to run Kubelet: unable to load bootstrap kubeconfig: stat /etc/kubernetes/bootstrap-kubelet.conf: no such file</h4>
 <ul>
 <li>发生场景：通过<code>systemctl status kubelet</code>查看 kubelet 状态时发现错误</li>
 <li>问题现象：<code>failed to run Kubelet: unable to load bootstrap kubeconfig: stat /etc/kubernetes/bootstrap-kubelet.conf: no such file</code></li>
@@ -279,26 +317,26 @@ $ cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 <li>问题原因：需要配置 kubectl</li>
 <li>解决方案：配置一下 kubectl</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl --kubeconfig /etc/kubernetes/admin.conf get nodes
-<span style="color:#75715e"># 如果是从节点，则需要从 master 把 admin.conf 传送过去</span>
-<span style="color:#75715e"># scp /etc/kubernetes/admin.conf root@kube-worker-01:/etc/kubernetes/admin.conf</span>
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown <span style="color:#66d9ef">$(</span>id -u<span style="color:#66d9ef">)</span>:<span style="color:#66d9ef">$(</span>id -g<span style="color:#66d9ef">)</span> $HOME/.kube/config
-kubectl get nodes
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 结果</span>
-NAME             STATUS     ROLES                  AGE   VERSION
-kube-master-01   NotReady   control-plane,master   18m   v1.22.1
-</code></pre></div><h4 id="八-container-runtime-network-not-ready-networkreadyfalse-reasonnetworkpluginnotready-messagedocker-network-plugin-is-not-ready-cni-config-uninitialized">八、 container runtime network not ready: NetworkReady=false reason:NetworkPluginNotReady; message:docker: network plugin is not ready: cni config uninitialized</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl --kubeconfig /etc/kubernetes/admin.conf get nodes
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 如果是从节点，则需要从 master 把 admin.conf 传送过去</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># scp /etc/kubernetes/admin.conf root@kube-worker-01:/etc/kubernetes/admin.conf</span>
+</span></span><span style="display:flex;"><span>mkdir -p $HOME/.kube
+</span></span><span style="display:flex;"><span>sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+</span></span><span style="display:flex;"><span>sudo chown <span style="color:#66d9ef">$(</span>id -u<span style="color:#66d9ef">)</span>:<span style="color:#66d9ef">$(</span>id -g<span style="color:#66d9ef">)</span> $HOME/.kube/config
+</span></span><span style="display:flex;"><span>kubectl get nodes
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 结果</span>
+</span></span><span style="display:flex;"><span>NAME             STATUS     ROLES                  AGE   VERSION
+</span></span><span style="display:flex;"><span>kube-master-01   NotReady   control-plane,master   18m   v1.22.1
+</span></span></code></pre></div><h4 id="八-container-runtime-network-not-ready-networkreadyfalse-reasonnetworkpluginnotready-messagedocker-network-plugin-is-not-ready-cni-config-uninitialized">八、 container runtime network not ready: NetworkReady=false reason:NetworkPluginNotReady; message:docker: network plugin is not ready: cni config uninitialized</h4>
 <ul>
 <li>发生场景：通过<code>systemctl status kubelet</code>查看 kubelet 状态时发现错误</li>
 <li>问题现象：<code>container runtime network not ready: NetworkReady=false reason:NetworkPluginNotReady; message:docker: network plugin is not ready: cni config uninitialized</code></li>
 <li>问题原因：kubernetes 网络配置问题</li>
 <li>解决方案：需要重置并<code>kubeadm init</code>需要带参数<code>--pod-network-cidr=10.244.0.0/16</code>并且使用 flannel 作为网络数据包转换</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">echo y | kubeadm reset
-kubectl apply -f ~/kube-flannel.yml
-</code></pre></div><h4 id="九-no-networks-found-in-etccninetd">九、 no networks found in /etc/cni/net.d</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>echo y | kubeadm reset
+</span></span><span style="display:flex;"><span>kubectl apply -f ~/kube-flannel.yml
+</span></span></code></pre></div><h4 id="九-no-networks-found-in-etccninetd">九、 no networks found in /etc/cni/net.d</h4>
 <ul>
 <li>发生场景：通过<code>systemctl status kubelet</code>查看 kubelet 状态时发现错误</li>
 <li>问题现象：<code>no networks found in /etc/cni/net.d</code></li>
@@ -308,8 +346,8 @@ kubectl apply -f ~/kube-flannel.yml
 <ol>
 <li>执行命令</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">vim /var/lib/kubelet/kubeadm-flags.env
-</code></pre></div><ol start="2">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>vim /var/lib/kubelet/kubeadm-flags.env
+</span></span></code></pre></div><ol start="2">
 <li>
 <p>删除其中的<code>--network-plugin=cni</code></p>
 </li>
@@ -317,19 +355,19 @@ kubectl apply -f ~/kube-flannel.yml
 <p>重启 kubelet</p>
 </li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">systemctl daemon-reload
-systemctl restart kubelet
-</code></pre></div><h4 id="十-error-filecontent--proc-sys-net-bridge-bridge-nf-call-iptables-procsysnetbridgebridge-nf-call-iptables-contents-are-not-set-to-1">十、 [ERROR FileContent&ndash;proc-sys-net-bridge-bridge-nf-call-iptables]: /proc/sys/net/bridge/bridge-nf-call-iptables contents are not set to 1</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>systemctl daemon-reload
+</span></span><span style="display:flex;"><span>systemctl restart kubelet
+</span></span></code></pre></div><h4 id="十-error-filecontent--proc-sys-net-bridge-bridge-nf-call-iptables-procsysnetbridgebridge-nf-call-iptables-contents-are-not-set-to-1">十、 [ERROR FileContent&ndash;proc-sys-net-bridge-bridge-nf-call-iptables]: /proc/sys/net/bridge/bridge-nf-call-iptables contents are not set to 1</h4>
 <ul>
 <li>发生场景：执行命令<code>kubeadm init</code>时</li>
 <li>问题现象：报错<code>[ERROR FileContent--proc-sys-net-bridge-bridge-nf-call-iptables]: /proc/sys/net/bridge/bridge-nf-call-iptables contents are not set to 1</code></li>
 <li>问题原因：TODO: 待补充</li>
 <li>解决方案：TODO: 待补充</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 尝试使用 vi 去编辑但是保存失败，采用下列的 echo 可以</span>
-echo <span style="color:#e6db74">&#34;1&#34;</span> &gt;/proc/sys/net/bridge/bridge-nf-call-iptables
-reboot
-</code></pre></div><h4 id="十一-error-unable-to-upgrade-connection-unauthorized">十一、 error: unable to upgrade connection: Unauthorized</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 尝试使用 vi 去编辑但是保存失败，采用下列的 echo 可以</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;1&#34;</span> &gt;/proc/sys/net/bridge/bridge-nf-call-iptables
+</span></span><span style="display:flex;"><span>reboot
+</span></span></code></pre></div><h4 id="十一-error-unable-to-upgrade-connection-unauthorized">十一、 error: unable to upgrade connection: Unauthorized</h4>
 <ul>
 <li>发生场景：执行<code>kubectl exec -it &lt;PodID&gt; -- bash</code>失败</li>
 <li>问题现象：报错<code>error: unable to upgrade connection: Unauthorized</code></li>
@@ -350,50 +388,64 @@ reboot
 <li>问题原因：未知</li>
 <li>解决方案：未知</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker0: flags<span style="color:#f92672">=</span>4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span style="color:#ae81ff">1500</span>
-        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
-        inet6 fe80::42:5ff:fe3d:5433  prefixlen <span style="color:#ae81ff">64</span>  scopeid 0x20&lt;link&gt;
-        ether 02:42:05:3d:54:33  txqueuelen <span style="color:#ae81ff">0</span>  <span style="color:#f92672">(</span>Ethernet<span style="color:#f92672">)</span>
-        RX packets <span style="color:#ae81ff">43</span>  bytes <span style="color:#ae81ff">3991</span> <span style="color:#f92672">(</span>3.8 KiB<span style="color:#f92672">)</span>
-        RX errors <span style="color:#ae81ff">0</span>  dropped <span style="color:#ae81ff">0</span>  overruns <span style="color:#ae81ff">0</span>  frame <span style="color:#ae81ff">0</span>
-        TX packets <span style="color:#ae81ff">75</span>  bytes <span style="color:#ae81ff">6375</span> <span style="color:#f92672">(</span>6.2 KiB<span style="color:#f92672">)</span>
-        TX errors <span style="color:#ae81ff">0</span>  dropped <span style="color:#ae81ff">0</span> overruns <span style="color:#ae81ff">0</span>  carrier <span style="color:#ae81ff">0</span>  collisions <span style="color:#ae81ff">0</span>
-
-flannel.1: flags<span style="color:#f92672">=</span>4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span style="color:#ae81ff">1450</span>
-        inet 10.244.3.0  netmask 255.255.255.255  broadcast 0.0.0.0
-        inet6 fe80::41a:daff:fea2:45f3  prefixlen <span style="color:#ae81ff">64</span>  scopeid 0x20&lt;link&gt;
-        ether 06:1a:da:a2:45:f3  txqueuelen <span style="color:#ae81ff">0</span>  <span style="color:#f92672">(</span>Ethernet<span style="color:#f92672">)</span>
-        RX packets <span style="color:#ae81ff">0</span>  bytes <span style="color:#ae81ff">0</span> <span style="color:#f92672">(</span>0.0 B<span style="color:#f92672">)</span>
-        RX errors <span style="color:#ae81ff">0</span>  dropped <span style="color:#ae81ff">0</span>  overruns <span style="color:#ae81ff">0</span>  frame <span style="color:#ae81ff">0</span>
-        TX packets <span style="color:#ae81ff">0</span>  bytes <span style="color:#ae81ff">0</span> <span style="color:#f92672">(</span>0.0 B<span style="color:#f92672">)</span>
-        TX errors <span style="color:#ae81ff">0</span>  dropped <span style="color:#ae81ff">27</span> overruns <span style="color:#ae81ff">0</span>  carrier <span style="color:#ae81ff">0</span>  collisions <span style="color:#ae81ff">0</span>
-</code></pre></div>
-        </div>
-    </article>
-</div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker0: flags<span style="color:#f92672">=</span>4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span style="color:#ae81ff">1500</span>
+</span></span><span style="display:flex;"><span>        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+</span></span><span style="display:flex;"><span>        inet6 fe80::42:5ff:fe3d:5433  prefixlen <span style="color:#ae81ff">64</span>  scopeid 0x20&lt;link&gt;
+</span></span><span style="display:flex;"><span>        ether 02:42:05:3d:54:33  txqueuelen <span style="color:#ae81ff">0</span>  <span style="color:#f92672">(</span>Ethernet<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        RX packets <span style="color:#ae81ff">43</span>  bytes <span style="color:#ae81ff">3991</span> <span style="color:#f92672">(</span>3.8 KiB<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        RX errors <span style="color:#ae81ff">0</span>  dropped <span style="color:#ae81ff">0</span>  overruns <span style="color:#ae81ff">0</span>  frame <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        TX packets <span style="color:#ae81ff">75</span>  bytes <span style="color:#ae81ff">6375</span> <span style="color:#f92672">(</span>6.2 KiB<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        TX errors <span style="color:#ae81ff">0</span>  dropped <span style="color:#ae81ff">0</span> overruns <span style="color:#ae81ff">0</span>  carrier <span style="color:#ae81ff">0</span>  collisions <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>flannel.1: flags<span style="color:#f92672">=</span>4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span style="color:#ae81ff">1450</span>
+</span></span><span style="display:flex;"><span>        inet 10.244.3.0  netmask 255.255.255.255  broadcast 0.0.0.0
+</span></span><span style="display:flex;"><span>        inet6 fe80::41a:daff:fea2:45f3  prefixlen <span style="color:#ae81ff">64</span>  scopeid 0x20&lt;link&gt;
+</span></span><span style="display:flex;"><span>        ether 06:1a:da:a2:45:f3  txqueuelen <span style="color:#ae81ff">0</span>  <span style="color:#f92672">(</span>Ethernet<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        RX packets <span style="color:#ae81ff">0</span>  bytes <span style="color:#ae81ff">0</span> <span style="color:#f92672">(</span>0.0 B<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        RX errors <span style="color:#ae81ff">0</span>  dropped <span style="color:#ae81ff">0</span>  overruns <span style="color:#ae81ff">0</span>  frame <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        TX packets <span style="color:#ae81ff">0</span>  bytes <span style="color:#ae81ff">0</span> <span style="color:#f92672">(</span>0.0 B<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        TX errors <span style="color:#ae81ff">0</span>  dropped <span style="color:#ae81ff">27</span> overruns <span style="color:#ae81ff">0</span>  carrier <span style="color:#ae81ff">0</span>  collisions <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div>
+    </div>
+</article>
+<aside class="catalog">
+    <div class="catalog-title">目录</div>
+    <div class="catalog-list">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#kubernetes-集群安装常见错误与解决方案">kubernetes 集群安装常见错误与解决方案</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</aside>
 <div class="division-line"></div>
-<div class="others">
+<div class="misc">
     <div></div>
     <div></div>
 </div>
 
     </main>
-    <footer>
+    <footer class="p-x-0 p-b-2 m-auto">
         <div id="pagination">
             
+<div class="division-line"></div>
 <div class="paginator">
     <div class="prev">
         
-        <a href="http://yipsen.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E8%BF%90%E8%A1%8C%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/"><span>kubernetes cluster running trouble shooting</span></a>
+        <a href="http://localhost:8080/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E8%BF%90%E8%A1%8C%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/"><span>kubernetes cluster running trouble shooting</span></a>
     </div>
     <div class="next">
         
-        <a href="http://yipsen.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4/"><span>kubernetes cluster installation step</span></a>
+        <a href="http://localhost:8080/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4/"><span>kubernetes cluster installation step</span></a>
     </div>
 </div>
 
         </div>
-        <div id="float">
+        <div class="position-fixed b-4 r-4">
             <ul class="float-button-bar">
     <li>
         <button class="float-button top" onclick="scrollToTop(this);">UP</button>
@@ -406,10 +458,19 @@ flannel.1: flags<span style="color:#f92672">=</span>4163&lt;UP,BROADCAST,RUNNING
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
+
+<script src="https://cdn.staticfile.net/gumshoe/5.1.1/gumshoe.min.js"></script>
+<script>
+    var spy = new Gumshoe('#TableOfContents a', {
+        nested: true,
+        nestedClass: 'active'
+    });
+</script>
+
 <script>
     const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');

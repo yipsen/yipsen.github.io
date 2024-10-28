@@ -2,8 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Series on Yipsen Ye</title>
-    <link>http://yipsen.github.io/series/</link>
+    <link>http://localhost:8080/series/</link>
     <description>Recent content in Series on Yipsen Ye</description>
-    <generator>Hugo -- gohugo.io</generator><atom:link href="http://yipsen.github.io/series/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 10 Jan 2024 23:36:41 +0800</lastBuildDate>
+    <atom:link href="http://localhost:8080/series/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JAVA</title>
+      <link>http://localhost:8080/series/java/</link>
+      <pubDate>Wed, 10 Jan 2024 23:36:41 +0800</pubDate>
+      <guid>http://localhost:8080/series/java/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

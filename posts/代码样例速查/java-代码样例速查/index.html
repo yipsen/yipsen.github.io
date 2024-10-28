@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
 
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8080&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
 <meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -9,208 +9,269 @@
 <link rel="icon" type="image/png" href="/%20/favicon.png">
 
 <title>Java 代码样例速查 | Yipsen Ye</title>
-<meta name="description" content="多线程发起请求并合并结果 // 退群记录 CompletableFuture&amp;lt;Collection&amp;lt;Long&amp;gt;&amp;gt; leaveGroupFuture = queryUserLeftGroupId(userAccount, st, m); // 群信息变更记录 CompletableFuture&amp;lt;Collection&amp;lt;Long&amp;gt;&amp;gt; infoChangedGroupFuture = queryInfoChangedGroupId(corpIdList, groupIdList, st, m); // 群成员变更记录 CompletableFuture&amp;lt;Collection&amp;lt;Long&amp;gt;&amp;gt; memberChangedGroupFuture = queryMemberChangedGroupId(corpIdList, groupIdList, st, m); // 群头像变更记录 CompletableFuture&amp;lt;Collection&amp;lt;Long&amp;gt;&amp;gt; iconChangedGroupFuture = queryIconChangedGroupId(corpIdList, groupIdList, m); // 不活跃群记录 CompletableFuture&amp;lt;Collection&amp;lt;Long&amp;gt;&amp;gt; inactiveGroupFuture = queryInactiveGroupId(corpIdList, leaveGroupFuture, st, m); // 群成员信息 CompletableFuture&amp;lt;Collection&amp;lt;GroupMemberInfo&amp;gt;&amp;gt; memberInfoQueryFuture = infoChangedGroupFuture.thenCombineAsync(memberChangedGroupFuture, (x1, x2) -&amp;gt; queryGroupMemberInfo(x1, x2, userAccount), executor); // 查询变更的群详情，需要等待信息和成员变更查询结束 CompletableFuture.allOf(infoChangedGroupFuture, memberChangedGroupFuture).join(); Collection&amp;lt;Long&amp;gt; infoChangedGroupIdList = infoChangedGroupFuture.join(); Collection&amp;lt;Long&amp;gt; memberChangedGroupIdList = memberChangedGroupFuture.join(); // 群详情 CompletableFuture&amp;lt;Collection&amp;lt;GroupInfo&amp;gt;&amp;gt; groupInfoQueryFuture = leaveGroupFuture.">
+<meta name="description" content="多线程发起请求并合并结果 // 退群记录 CompletableFuture&lt;Collection&lt;Long&gt;&gt; leaveGroupFuture = queryUserLeftGroupId(userAccount, st, m); // 群信息变更记录 CompletableFuture&lt;Collection&lt;Long&gt;&gt; infoChangedGroupFuture = queryInfoChangedGroupId(corpIdList, groupIdList, st, m); // 群成员变更记录 CompletableFuture&lt;Collection&lt;Long&gt;&gt; memberChangedGroupFuture = queryMemberChangedGroupId(corpIdList, groupIdList, st, m); // 群头像变更记录 CompletableFuture&lt;Collection&lt;Long&gt;&gt; iconChangedGroupFuture = queryIconChangedGroupId(corpIdList, groupIdList, m); // 不活跃群记录 CompletableFuture&lt;Collection&lt;Long&gt;&gt; inactiveGroupFuture = queryInactiveGroupId(corpIdList, leaveGroupFuture, st, m); // 群成员信息 CompletableFuture&lt;Collection&lt;GroupMemberInfo&gt;&gt; memberInfoQueryFuture = infoChangedGroupFuture.thenCombineAsync(memberChangedGroupFuture, (x1, x2) -&gt; queryGroupMemberInfo(x1, x2, userAccount), executor); // 查询变更的群详情，需要等待信息和成员变更查询结束 CompletableFuture.allOf(infoChangedGroupFuture, memberChangedGroupFuture).join(); Collection&lt;Long&gt; infoChangedGroupIdList = infoChangedGroupFuture.join(); Collection&lt;Long&gt; memberChangedGroupIdList = memberChangedGroupFuture.join(); // 群详情 CompletableFuture&lt;Collection&lt;GroupInfo&gt;&gt; groupInfoQueryFuture = leaveGroupFuture.thenApplyAsync(FunctionWrapper.wrap(x -&gt; queryChangedGroupInfo(infoChangedGroupIdList, x, memberChangedGroupIdList))); // 等待结果 CompletableFuture.allOf(groupInfoQueryFuture, iconChangedGroupFuture, inactiveGroupFuture, memberInfoQueryFuture).join(); // 构建响应 GroupChangeQueryResponse response = responseBuilder .addAllGroupInfo(groupInfoQueryFuture.join()) .addAllMemberInfo(memberInfoQueryFuture.join()) .addAllIconChangedGroupId(iconChangedGroupFuture.join()) .addAllMemberChangedGroupId(memberChangedGroupIdList) .addAllInactiveGroupId(inactiveGroupFuture.join()) .build(); 等待回执确认结果 private final Cache&lt;String, Timeout&gt; timeoutCache = CacheBuilder.newBuilder().expireAfterWrite(4, TimeUnit.SECONDS).build(); private HashedWheelTimer ackCheckTimer = new HashedWheelTimer(); // 1. 发起超时检查任务 public void checkAck(SocketMessage message) { Timeout timeout = ackCheckTimer.newTimeout(new AckCheckTask(session, message), getAckWaitTimeoutSec(), TimeUnit.SECONDS); timeoutCache.put(getKey(sessionId, sequenceId), timeout); } // 2. 如果超时时间窗口内有响应（回执）回来，则取消超时检查的任务 public void cleanCacheData(String sessionId, String sequenceId) { String key = getKey(sessionId, sequenceId); Timeout timeout = timeoutCache.getIfPresent(key); if (timeout != null) { log.debug(&#34;cancel check ack task. session id:{}, sequence id:{}&#34;, StringTool.desensitizeStr(sessionId), sequenceId); timeout.cancel(); timeoutCache.invalidate(key); } log.debug(&#34;clean cache message. session id:{}, sequence id:{}&#34;, StringTool.desensitizeStr(sessionId), sequenceId); Session session = SessionManager.getInstance().getSessionByMaaSessionId(sessionId); if (session != null) { AffirmMsgManager.getInstance().cheanCacheMsg(session, CloudCodeConst.CHAT_NOTIFY, sequenceId); } } public class AckCheckTask implements TimerTask { private SocketMessage message; private Session session; private String traceId; public AckCheckTask(Session session, SocketMessage message) { this.session = session; this.message = message; this.traceId = MDC.get(GrpcCommonConstant.TRACE_ID_KEY); } // 3. 如果到时间 timeout 了，任务还没有被清除掉即触发了超时动作 @Override public void run() { MDC.put(GrpcCommonConstant.TRACE_ID_KEY, traceId); String sessionId = session.getMaaSessionId(); String sequenceId = getSequenceId(message); if (timeout.isCancelled()) { log.debug(&#34;task is cancelled. session id:{}, sequence id:{}&#34;, StringTool.desensitizeStr(sessionId), sequenceId); return; } if (StringUtils.isEmpty(sequenceId)) { log.warn(&#34;sequence id is illegal. session id:{}, sequence id:{}&#34;, StringTool.desensitizeStr(sessionId), sequenceId); return; } log.warn(&#34;wait client ack timeout. session id:{}, sequence id:{}&#34;, StringTool.desensitizeStr(sessionId), sequenceId); transferToSendPushMessage(session, sequenceId); } private String getSequenceId(SocketMessage message) { return message != null ? String.valueOf(message.getSequenceId()) : StringUtils.EMPTY; } } 采用事件来收集原子逻辑，事件的处理可同步，也可异步 // TODO 自定义注解注入对象 // TODO Spring 自启动 // TODO 无锁设计 // TODO 通过配置的KEY来控制是否加载对应的配置 @ConditionalOnProperty(value = Config.KUBENETES_DISABLE_AUTO_CONFIG_SYSTEM_PROPERTY, havingValue = &#34;false&#34;, matchIfMissing = true) 替换 Map 里的 value protected Object getClassLoadingLock(String className) { Object lock = this; if (parallelLockMap != null) { Object new Lock = new Object(); lock = parallelLockMap.putIfAbsent(className, newLock); if (lock == null) { lock = newLock; } } return lock; } redis 防击穿 // TODO 签名认证（防抵赖、同时防重放） // TODO TCP 同步调用实现（callback方式、promise方式） // TODO ">
 <meta name="author" content="yipsen">
 
 <link rel="stylesheet" type="text/css" href="/styles/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/standard.css">
 
 </head>
 
-<body id="page">
-    <header>
+<body id="page" class="ff-consolas m-0">
+    <header class="d-flex fd-row fw-wrap jc-between ai-center p-x-1 p-y-1 m-auto">
         <div class="nav-logo">
-    <a href="http://yipsen.github.io/">
+    <a href="http://localhost:8080/">
         
         <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
-<nav class="navbar justify-content-end">
-    <ul class="nav-list">
+<nav class="position-relative d-flex fw-wrap jc-end ai-center p-y-05">
+    <ul class="d-flex fw-wrap ls-none p-l-0 m-0">
         
         
-        <li class="nav-item">
-            <a class="nav-link active"
-                href="http://yipsen.github.io/posts/">文章</a>
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/series/java/">JAVA</a>
         </li>
         
-        <li class="nav-item">
-            <a class="nav-link"
-                href="http://yipsen.github.io/collections/">附表</a>
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/design/">设计</a>
         </li>
         
-        <li class="nav-item">
-            <a class="nav-link"
-                href="http://yipsen.github.io/about/">关于</a>
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/network/">网络</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/framework/">框架</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/middleware/">中间件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/plugin/">插件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/linux/">LINUX</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link  active"
+                href="http://localhost:8080/posts/">随心谈</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/others/">山海文库</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/about/">关于</a>
         </li>
         
     </ul>
 </nav>
     </header>
-    <main id="content">
+    <main id="content" class="m-auto">
         
-<div class="container"><article class="post-block">
-        <h1 class="post-title">Java 代码样例速查</h1>
-        <div class="post-info">
-            <div class="post-date"> 
-                <span>2022-02-06 16:31:43</span>
-            </div>
+<aside class="sidebar"></aside>
+<article>
+    <h1 class="m-b-1">Java 代码样例速查</h1>
+    <div class="d-flex fd-row jc-center">
+        <div class="fc-subtle">
+            <span>2022-02-06 16:31:43</span>
         </div>
-        <div class="post-content">
-            <h3 id="多线程发起请求并合并结果">多线程发起请求并合并结果</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 退群记录
-</span><span style="color:#75715e"></span>CompletableFuture<span style="color:#f92672">&lt;</span>Collection<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">&gt;&gt;</span> leaveGroupFuture <span style="color:#f92672">=</span> queryUserLeftGroupId<span style="color:#f92672">(</span>userAccount<span style="color:#f92672">,</span> st<span style="color:#f92672">,</span> m<span style="color:#f92672">);</span>
-<span style="color:#75715e">// 群信息变更记录
-</span><span style="color:#75715e"></span>CompletableFuture<span style="color:#f92672">&lt;</span>Collection<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">&gt;&gt;</span> infoChangedGroupFuture <span style="color:#f92672">=</span> queryInfoChangedGroupId<span style="color:#f92672">(</span>corpIdList<span style="color:#f92672">,</span> groupIdList<span style="color:#f92672">,</span> st<span style="color:#f92672">,</span> m<span style="color:#f92672">);</span>
-<span style="color:#75715e">// 群成员变更记录
-</span><span style="color:#75715e"></span>CompletableFuture<span style="color:#f92672">&lt;</span>Collection<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">&gt;&gt;</span> memberChangedGroupFuture <span style="color:#f92672">=</span> queryMemberChangedGroupId<span style="color:#f92672">(</span>corpIdList<span style="color:#f92672">,</span> groupIdList<span style="color:#f92672">,</span> st<span style="color:#f92672">,</span> m<span style="color:#f92672">);</span>
-<span style="color:#75715e">// 群头像变更记录
-</span><span style="color:#75715e"></span>CompletableFuture<span style="color:#f92672">&lt;</span>Collection<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">&gt;&gt;</span> iconChangedGroupFuture <span style="color:#f92672">=</span> queryIconChangedGroupId<span style="color:#f92672">(</span>corpIdList<span style="color:#f92672">,</span> groupIdList<span style="color:#f92672">,</span> m<span style="color:#f92672">);</span>
-<span style="color:#75715e">// 不活跃群记录
-</span><span style="color:#75715e"></span>CompletableFuture<span style="color:#f92672">&lt;</span>Collection<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">&gt;&gt;</span> inactiveGroupFuture <span style="color:#f92672">=</span> queryInactiveGroupId<span style="color:#f92672">(</span>corpIdList<span style="color:#f92672">,</span> leaveGroupFuture<span style="color:#f92672">,</span> st<span style="color:#f92672">,</span> m<span style="color:#f92672">);</span>
-<span style="color:#75715e">// 群成员信息
-</span><span style="color:#75715e"></span>CompletableFuture<span style="color:#f92672">&lt;</span>Collection<span style="color:#f92672">&lt;</span>GroupMemberInfo<span style="color:#f92672">&gt;&gt;</span> memberInfoQueryFuture <span style="color:#f92672">=</span> infoChangedGroupFuture<span style="color:#f92672">.</span><span style="color:#a6e22e">thenCombineAsync</span><span style="color:#f92672">(</span>memberChangedGroupFuture<span style="color:#f92672">,</span> <span style="color:#f92672">(</span>x1<span style="color:#f92672">,</span> x2<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span> queryGroupMemberInfo<span style="color:#f92672">(</span>x1<span style="color:#f92672">,</span> x2<span style="color:#f92672">,</span> userAccount<span style="color:#f92672">),</span> executor<span style="color:#f92672">);</span>
-
-<span style="color:#75715e">// 查询变更的群详情，需要等待信息和成员变更查询结束
-</span><span style="color:#75715e"></span>CompletableFuture<span style="color:#f92672">.</span><span style="color:#a6e22e">allOf</span><span style="color:#f92672">(</span>infoChangedGroupFuture<span style="color:#f92672">,</span> memberChangedGroupFuture<span style="color:#f92672">).</span><span style="color:#a6e22e">join</span><span style="color:#f92672">();</span>
-Collection<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">&gt;</span> infoChangedGroupIdList <span style="color:#f92672">=</span> infoChangedGroupFuture<span style="color:#f92672">.</span><span style="color:#a6e22e">join</span><span style="color:#f92672">();</span>
-Collection<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">&gt;</span> memberChangedGroupIdList <span style="color:#f92672">=</span> memberChangedGroupFuture<span style="color:#f92672">.</span><span style="color:#a6e22e">join</span><span style="color:#f92672">();</span>
-
-<span style="color:#75715e">// 群详情
-</span><span style="color:#75715e"></span>CompletableFuture<span style="color:#f92672">&lt;</span>Collection<span style="color:#f92672">&lt;</span>GroupInfo<span style="color:#f92672">&gt;&gt;</span> groupInfoQueryFuture <span style="color:#f92672">=</span> leaveGroupFuture<span style="color:#f92672">.</span><span style="color:#a6e22e">thenApplyAsync</span><span style="color:#f92672">(</span>FunctionWrapper<span style="color:#f92672">.</span><span style="color:#a6e22e">wrap</span><span style="color:#f92672">(</span>x <span style="color:#f92672">-&gt;</span> queryChangedGroupInfo<span style="color:#f92672">(</span>infoChangedGroupIdList<span style="color:#f92672">,</span> x<span style="color:#f92672">,</span> memberChangedGroupIdList<span style="color:#f92672">)));</span>
-
-<span style="color:#75715e">// 等待结果
-</span><span style="color:#75715e"></span>CompletableFuture<span style="color:#f92672">.</span><span style="color:#a6e22e">allOf</span><span style="color:#f92672">(</span>groupInfoQueryFuture<span style="color:#f92672">,</span> iconChangedGroupFuture<span style="color:#f92672">,</span> inactiveGroupFuture<span style="color:#f92672">,</span> memberInfoQueryFuture<span style="color:#f92672">).</span><span style="color:#a6e22e">join</span><span style="color:#f92672">();</span>
-
-<span style="color:#75715e">// 构建响应
-</span><span style="color:#75715e"></span>GroupChangeQueryResponse response <span style="color:#f92672">=</span> responseBuilder
-    <span style="color:#f92672">.</span><span style="color:#a6e22e">addAllGroupInfo</span><span style="color:#f92672">(</span>groupInfoQueryFuture<span style="color:#f92672">.</span><span style="color:#a6e22e">join</span><span style="color:#f92672">())</span>
-    <span style="color:#f92672">.</span><span style="color:#a6e22e">addAllMemberInfo</span><span style="color:#f92672">(</span>memberInfoQueryFuture<span style="color:#f92672">.</span><span style="color:#a6e22e">join</span><span style="color:#f92672">())</span>
-    <span style="color:#f92672">.</span><span style="color:#a6e22e">addAllIconChangedGroupId</span><span style="color:#f92672">(</span>iconChangedGroupFuture<span style="color:#f92672">.</span><span style="color:#a6e22e">join</span><span style="color:#f92672">())</span>
-    <span style="color:#f92672">.</span><span style="color:#a6e22e">addAllMemberChangedGroupId</span><span style="color:#f92672">(</span>memberChangedGroupIdList<span style="color:#f92672">)</span>
-    <span style="color:#f92672">.</span><span style="color:#a6e22e">addAllInactiveGroupId</span><span style="color:#f92672">(</span>inactiveGroupFuture<span style="color:#f92672">.</span><span style="color:#a6e22e">join</span><span style="color:#f92672">())</span>
-    <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
-</code></pre></div><h3 id="等待回执确认结果">等待回执确认结果</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> Cache<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> Timeout<span style="color:#f92672">&gt;</span> timeoutCache <span style="color:#f92672">=</span> CacheBuilder<span style="color:#f92672">.</span><span style="color:#a6e22e">newBuilder</span><span style="color:#f92672">().</span><span style="color:#a6e22e">expireAfterWrite</span><span style="color:#f92672">(</span>4<span style="color:#f92672">,</span> TimeUnit<span style="color:#f92672">.</span><span style="color:#a6e22e">SECONDS</span><span style="color:#f92672">).</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
-
-<span style="color:#66d9ef">private</span> HashedWheelTimer ackCheckTimer <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashedWheelTimer<span style="color:#f92672">();</span>
-
-<span style="color:#75715e">// 1. 发起超时检查任务
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">checkAck</span><span style="color:#f92672">(</span>SocketMessage message<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-    Timeout timeout <span style="color:#f92672">=</span> ackCheckTimer<span style="color:#f92672">.</span><span style="color:#a6e22e">newTimeout</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> AckCheckTask<span style="color:#f92672">(</span>session<span style="color:#f92672">,</span> message<span style="color:#f92672">),</span> getAckWaitTimeoutSec<span style="color:#f92672">(),</span> TimeUnit<span style="color:#f92672">.</span><span style="color:#a6e22e">SECONDS</span><span style="color:#f92672">);</span>
-    timeoutCache<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>getKey<span style="color:#f92672">(</span>sessionId<span style="color:#f92672">,</span> sequenceId<span style="color:#f92672">),</span> timeout<span style="color:#f92672">);</span>
-<span style="color:#f92672">}</span>
-
-<span style="color:#75715e">// 2. 如果超时时间窗口内有响应（回执）回来，则取消超时检查的任务
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">cleanCacheData</span><span style="color:#f92672">(</span>String sessionId<span style="color:#f92672">,</span> String sequenceId<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-    String key <span style="color:#f92672">=</span> getKey<span style="color:#f92672">(</span>sessionId<span style="color:#f92672">,</span> sequenceId<span style="color:#f92672">);</span>
-    Timeout timeout <span style="color:#f92672">=</span> timeoutCache<span style="color:#f92672">.</span><span style="color:#a6e22e">getIfPresent</span><span style="color:#f92672">(</span>key<span style="color:#f92672">);</span>
-    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>timeout <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-        log<span style="color:#f92672">.</span><span style="color:#a6e22e">debug</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;cancel check ack task. session id:{}, sequence id:{}&#34;</span><span style="color:#f92672">,</span> StringTool<span style="color:#f92672">.</span><span style="color:#a6e22e">desensitizeStr</span><span style="color:#f92672">(</span>sessionId<span style="color:#f92672">),</span> sequenceId<span style="color:#f92672">);</span>
-        timeout<span style="color:#f92672">.</span><span style="color:#a6e22e">cancel</span><span style="color:#f92672">();</span>
-        timeoutCache<span style="color:#f92672">.</span><span style="color:#a6e22e">invalidate</span><span style="color:#f92672">(</span>key<span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span>
-
-    log<span style="color:#f92672">.</span><span style="color:#a6e22e">debug</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;clean cache message. session id:{}, sequence id:{}&#34;</span><span style="color:#f92672">,</span> StringTool<span style="color:#f92672">.</span><span style="color:#a6e22e">desensitizeStr</span><span style="color:#f92672">(</span>sessionId<span style="color:#f92672">),</span> sequenceId<span style="color:#f92672">);</span>
-    Session session <span style="color:#f92672">=</span> SessionManager<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getSessionByMaaSessionId</span><span style="color:#f92672">(</span>sessionId<span style="color:#f92672">);</span>
-    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>session <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-        AffirmMsgManager<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">().</span><span style="color:#a6e22e">cheanCacheMsg</span><span style="color:#f92672">(</span>session<span style="color:#f92672">,</span> CloudCodeConst<span style="color:#f92672">.</span><span style="color:#a6e22e">CHAT_NOTIFY</span><span style="color:#f92672">,</span> sequenceId<span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-
-<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AckCheckTask</span> <span style="color:#66d9ef">implements</span> TimerTask <span style="color:#f92672">{</span>
-
-    <span style="color:#66d9ef">private</span> SocketMessage message<span style="color:#f92672">;</span>
-
-    <span style="color:#66d9ef">private</span> Session session<span style="color:#f92672">;</span>
-
-    <span style="color:#66d9ef">private</span> String traceId<span style="color:#f92672">;</span>
-
-    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">AckCheckTask</span><span style="color:#f92672">(</span>Session session<span style="color:#f92672">,</span> SocketMessage message<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">session</span> <span style="color:#f92672">=</span> session<span style="color:#f92672">;</span>
-        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">message</span> <span style="color:#f92672">=</span> message<span style="color:#f92672">;</span>
-        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">traceId</span> <span style="color:#f92672">=</span> MDC<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>GrpcCommonConstant<span style="color:#f92672">.</span><span style="color:#a6e22e">TRACE_ID_KEY</span><span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span>
-
-    <span style="color:#75715e">// 3. 如果到时间 timeout 了，任务还没有被清除掉即触发了超时动作
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@Override</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-        MDC<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>GrpcCommonConstant<span style="color:#f92672">.</span><span style="color:#a6e22e">TRACE_ID_KEY</span><span style="color:#f92672">,</span> traceId<span style="color:#f92672">);</span>
-        String sessionId <span style="color:#f92672">=</span> session<span style="color:#f92672">.</span><span style="color:#a6e22e">getMaaSessionId</span><span style="color:#f92672">();</span>
-        String sequenceId <span style="color:#f92672">=</span> getSequenceId<span style="color:#f92672">(</span>message<span style="color:#f92672">);</span>
-
-        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>timeout<span style="color:#f92672">.</span><span style="color:#a6e22e">isCancelled</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
-            log<span style="color:#f92672">.</span><span style="color:#a6e22e">debug</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;task is cancelled. session id:{}, sequence id:{}&#34;</span><span style="color:#f92672">,</span> StringTool<span style="color:#f92672">.</span><span style="color:#a6e22e">desensitizeStr</span><span style="color:#f92672">(</span>sessionId<span style="color:#f92672">),</span> sequenceId<span style="color:#f92672">);</span>
-            <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
-        <span style="color:#f92672">}</span>
-
-        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>StringUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">(</span>sequenceId<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
-            log<span style="color:#f92672">.</span><span style="color:#a6e22e">warn</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;sequence id is illegal. session id:{}, sequence id:{}&#34;</span><span style="color:#f92672">,</span> StringTool<span style="color:#f92672">.</span><span style="color:#a6e22e">desensitizeStr</span><span style="color:#f92672">(</span>sessionId<span style="color:#f92672">),</span> sequenceId<span style="color:#f92672">);</span>
-            <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
-        <span style="color:#f92672">}</span>
-
-        log<span style="color:#f92672">.</span><span style="color:#a6e22e">warn</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;wait client ack timeout. session id:{}, sequence id:{}&#34;</span><span style="color:#f92672">,</span> StringTool<span style="color:#f92672">.</span><span style="color:#a6e22e">desensitizeStr</span><span style="color:#f92672">(</span>sessionId<span style="color:#f92672">),</span> sequenceId<span style="color:#f92672">);</span>
-        transferToSendPushMessage<span style="color:#f92672">(</span>session<span style="color:#f92672">,</span> sequenceId<span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span>
-
-    <span style="color:#66d9ef">private</span> String <span style="color:#a6e22e">getSequenceId</span><span style="color:#f92672">(</span>SocketMessage message<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-        <span style="color:#66d9ef">return</span> message <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">?</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">valueOf</span><span style="color:#f92672">(</span>message<span style="color:#f92672">.</span><span style="color:#a6e22e">getSequenceId</span><span style="color:#f92672">())</span> <span style="color:#f92672">:</span> StringUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">EMPTY</span><span style="color:#f92672">;</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><h3 id="采用事件来收集原子逻辑事件的处理可同步也可异步">采用事件来收集原子逻辑，事件的处理可同步，也可异步</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// TODO
-</span></code></pre></div><h3 id="自定义注解注入对象">自定义注解注入对象</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// TODO
-</span></code></pre></div><h3 id="spring-自启动">Spring 自启动</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// TODO
-</span></code></pre></div><h3 id="无锁设计">无锁设计</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// TODO
-</span></code></pre></div><h3 id="通过配置的key来控制是否加载对应的配置">通过配置的KEY来控制是否加载对应的配置</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@ConditionalOnProperty</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span> Config<span style="color:#f92672">.</span><span style="color:#a6e22e">KUBENETES_DISABLE_AUTO_CONFIG_SYSTEM_PROPERTY</span><span style="color:#f92672">,</span> havingValue <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">,</span> matchIfMissing <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">)</span>
-</code></pre></div><h3 id="替换-map-里的-value">替换 Map 里的 value</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">protected</span> Object <span style="color:#a6e22e">getClassLoadingLock</span><span style="color:#f92672">(</span>String className<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-    Object lock <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">;</span>
-    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>parallelLockMap <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-        Object <span style="color:#66d9ef">new</span> Lock <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Object<span style="color:#f92672">();</span>
-        lock <span style="color:#f92672">=</span> parallelLockMap<span style="color:#f92672">.</span><span style="color:#a6e22e">putIfAbsent</span><span style="color:#f92672">(</span>className<span style="color:#f92672">,</span> newLock<span style="color:#f92672">);</span>
-        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>lock <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            lock <span style="color:#f92672">=</span> newLock<span style="color:#f92672">;</span>
-        <span style="color:#f92672">}</span>
-    <span style="color:#f92672">}</span>
-    <span style="color:#66d9ef">return</span> lock<span style="color:#f92672">;</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><h3 id="redis-防击穿">redis 防击穿</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// TODO
-</span></code></pre></div><h3 id="签名认证防抵赖同时防重放">签名认证（防抵赖、同时防重放）</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// TODO
-</span></code></pre></div><h3 id="tcp-同步调用实现callback方式promise方式">TCP 同步调用实现（callback方式、promise方式）</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// TODO
-</span></code></pre></div>
-        </div>
-    </article>
-</div>
+    </div>
+    <div class="post-content">
+        <h3 id="多线程发起请求并合并结果">多线程发起请求并合并结果</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// 退群记录</span>
+</span></span><span style="display:flex;"><span>CompletableFuture<span style="color:#f92672">&lt;</span>Collection<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">&gt;&gt;</span> leaveGroupFuture <span style="color:#f92672">=</span> queryUserLeftGroupId(userAccount, st, m);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 群信息变更记录</span>
+</span></span><span style="display:flex;"><span>CompletableFuture<span style="color:#f92672">&lt;</span>Collection<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">&gt;&gt;</span> infoChangedGroupFuture <span style="color:#f92672">=</span> queryInfoChangedGroupId(corpIdList, groupIdList, st, m);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 群成员变更记录</span>
+</span></span><span style="display:flex;"><span>CompletableFuture<span style="color:#f92672">&lt;</span>Collection<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">&gt;&gt;</span> memberChangedGroupFuture <span style="color:#f92672">=</span> queryMemberChangedGroupId(corpIdList, groupIdList, st, m);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 群头像变更记录</span>
+</span></span><span style="display:flex;"><span>CompletableFuture<span style="color:#f92672">&lt;</span>Collection<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">&gt;&gt;</span> iconChangedGroupFuture <span style="color:#f92672">=</span> queryIconChangedGroupId(corpIdList, groupIdList, m);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 不活跃群记录</span>
+</span></span><span style="display:flex;"><span>CompletableFuture<span style="color:#f92672">&lt;</span>Collection<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">&gt;&gt;</span> inactiveGroupFuture <span style="color:#f92672">=</span> queryInactiveGroupId(corpIdList, leaveGroupFuture, st, m);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 群成员信息</span>
+</span></span><span style="display:flex;"><span>CompletableFuture<span style="color:#f92672">&lt;</span>Collection<span style="color:#f92672">&lt;</span>GroupMemberInfo<span style="color:#f92672">&gt;&gt;</span> memberInfoQueryFuture <span style="color:#f92672">=</span> infoChangedGroupFuture.<span style="color:#a6e22e">thenCombineAsync</span>(memberChangedGroupFuture, (x1, x2) <span style="color:#f92672">-&gt;</span> queryGroupMemberInfo(x1, x2, userAccount), executor);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 查询变更的群详情，需要等待信息和成员变更查询结束</span>
+</span></span><span style="display:flex;"><span>CompletableFuture.<span style="color:#a6e22e">allOf</span>(infoChangedGroupFuture, memberChangedGroupFuture).<span style="color:#a6e22e">join</span>();
+</span></span><span style="display:flex;"><span>Collection<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">&gt;</span> infoChangedGroupIdList <span style="color:#f92672">=</span> infoChangedGroupFuture.<span style="color:#a6e22e">join</span>();
+</span></span><span style="display:flex;"><span>Collection<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">&gt;</span> memberChangedGroupIdList <span style="color:#f92672">=</span> memberChangedGroupFuture.<span style="color:#a6e22e">join</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 群详情</span>
+</span></span><span style="display:flex;"><span>CompletableFuture<span style="color:#f92672">&lt;</span>Collection<span style="color:#f92672">&lt;</span>GroupInfo<span style="color:#f92672">&gt;&gt;</span> groupInfoQueryFuture <span style="color:#f92672">=</span> leaveGroupFuture.<span style="color:#a6e22e">thenApplyAsync</span>(FunctionWrapper.<span style="color:#a6e22e">wrap</span>(x <span style="color:#f92672">-&gt;</span> queryChangedGroupInfo(infoChangedGroupIdList, x, memberChangedGroupIdList)));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 等待结果</span>
+</span></span><span style="display:flex;"><span>CompletableFuture.<span style="color:#a6e22e">allOf</span>(groupInfoQueryFuture, iconChangedGroupFuture, inactiveGroupFuture, memberInfoQueryFuture).<span style="color:#a6e22e">join</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 构建响应</span>
+</span></span><span style="display:flex;"><span>GroupChangeQueryResponse response <span style="color:#f92672">=</span> responseBuilder
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">addAllGroupInfo</span>(groupInfoQueryFuture.<span style="color:#a6e22e">join</span>())
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">addAllMemberInfo</span>(memberInfoQueryFuture.<span style="color:#a6e22e">join</span>())
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">addAllIconChangedGroupId</span>(iconChangedGroupFuture.<span style="color:#a6e22e">join</span>())
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">addAllMemberChangedGroupId</span>(memberChangedGroupIdList)
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">addAllInactiveGroupId</span>(inactiveGroupFuture.<span style="color:#a6e22e">join</span>())
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">build</span>();
+</span></span></code></pre></div><h3 id="等待回执确认结果">等待回执确认结果</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> Cache<span style="color:#f92672">&lt;</span>String, Timeout<span style="color:#f92672">&gt;</span> timeoutCache <span style="color:#f92672">=</span> CacheBuilder.<span style="color:#a6e22e">newBuilder</span>().<span style="color:#a6e22e">expireAfterWrite</span>(4, TimeUnit.<span style="color:#a6e22e">SECONDS</span>).<span style="color:#a6e22e">build</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> HashedWheelTimer ackCheckTimer <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashedWheelTimer();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 1. 发起超时检查任务</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">checkAck</span>(SocketMessage message) {
+</span></span><span style="display:flex;"><span>    Timeout timeout <span style="color:#f92672">=</span> ackCheckTimer.<span style="color:#a6e22e">newTimeout</span>(<span style="color:#66d9ef">new</span> AckCheckTask(session, message), getAckWaitTimeoutSec(), TimeUnit.<span style="color:#a6e22e">SECONDS</span>);
+</span></span><span style="display:flex;"><span>    timeoutCache.<span style="color:#a6e22e">put</span>(getKey(sessionId, sequenceId), timeout);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 2. 如果超时时间窗口内有响应（回执）回来，则取消超时检查的任务</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">cleanCacheData</span>(String sessionId, String sequenceId) {
+</span></span><span style="display:flex;"><span>    String key <span style="color:#f92672">=</span> getKey(sessionId, sequenceId);
+</span></span><span style="display:flex;"><span>    Timeout timeout <span style="color:#f92672">=</span> timeoutCache.<span style="color:#a6e22e">getIfPresent</span>(key);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (timeout <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>        log.<span style="color:#a6e22e">debug</span>(<span style="color:#e6db74">&#34;cancel check ack task. session id:{}, sequence id:{}&#34;</span>, StringTool.<span style="color:#a6e22e">desensitizeStr</span>(sessionId), sequenceId);
+</span></span><span style="display:flex;"><span>        timeout.<span style="color:#a6e22e">cancel</span>();
+</span></span><span style="display:flex;"><span>        timeoutCache.<span style="color:#a6e22e">invalidate</span>(key);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    log.<span style="color:#a6e22e">debug</span>(<span style="color:#e6db74">&#34;clean cache message. session id:{}, sequence id:{}&#34;</span>, StringTool.<span style="color:#a6e22e">desensitizeStr</span>(sessionId), sequenceId);
+</span></span><span style="display:flex;"><span>    Session session <span style="color:#f92672">=</span> SessionManager.<span style="color:#a6e22e">getInstance</span>().<span style="color:#a6e22e">getSessionByMaaSessionId</span>(sessionId);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (session <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>        AffirmMsgManager.<span style="color:#a6e22e">getInstance</span>().<span style="color:#a6e22e">cheanCacheMsg</span>(session, CloudCodeConst.<span style="color:#a6e22e">CHAT_NOTIFY</span>, sequenceId);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AckCheckTask</span> <span style="color:#66d9ef">implements</span> TimerTask {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> SocketMessage message;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Session session;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String traceId;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">AckCheckTask</span>(Session session, SocketMessage message) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">session</span> <span style="color:#f92672">=</span> session;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">message</span> <span style="color:#f92672">=</span> message;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">traceId</span> <span style="color:#f92672">=</span> MDC.<span style="color:#a6e22e">get</span>(GrpcCommonConstant.<span style="color:#a6e22e">TRACE_ID_KEY</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 3. 如果到时间 timeout 了，任务还没有被清除掉即触发了超时动作</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span>() {
+</span></span><span style="display:flex;"><span>        MDC.<span style="color:#a6e22e">put</span>(GrpcCommonConstant.<span style="color:#a6e22e">TRACE_ID_KEY</span>, traceId);
+</span></span><span style="display:flex;"><span>        String sessionId <span style="color:#f92672">=</span> session.<span style="color:#a6e22e">getMaaSessionId</span>();
+</span></span><span style="display:flex;"><span>        String sequenceId <span style="color:#f92672">=</span> getSequenceId(message);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (timeout.<span style="color:#a6e22e">isCancelled</span>()) {
+</span></span><span style="display:flex;"><span>            log.<span style="color:#a6e22e">debug</span>(<span style="color:#e6db74">&#34;task is cancelled. session id:{}, sequence id:{}&#34;</span>, StringTool.<span style="color:#a6e22e">desensitizeStr</span>(sessionId), sequenceId);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (StringUtils.<span style="color:#a6e22e">isEmpty</span>(sequenceId)) {
+</span></span><span style="display:flex;"><span>            log.<span style="color:#a6e22e">warn</span>(<span style="color:#e6db74">&#34;sequence id is illegal. session id:{}, sequence id:{}&#34;</span>, StringTool.<span style="color:#a6e22e">desensitizeStr</span>(sessionId), sequenceId);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        log.<span style="color:#a6e22e">warn</span>(<span style="color:#e6db74">&#34;wait client ack timeout. session id:{}, sequence id:{}&#34;</span>, StringTool.<span style="color:#a6e22e">desensitizeStr</span>(sessionId), sequenceId);
+</span></span><span style="display:flex;"><span>        transferToSendPushMessage(session, sequenceId);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String <span style="color:#a6e22e">getSequenceId</span>(SocketMessage message) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> message <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">?</span> String.<span style="color:#a6e22e">valueOf</span>(message.<span style="color:#a6e22e">getSequenceId</span>()) : StringUtils.<span style="color:#a6e22e">EMPTY</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="采用事件来收集原子逻辑事件的处理可同步也可异步">采用事件来收集原子逻辑，事件的处理可同步，也可异步</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// TODO</span>
+</span></span></code></pre></div><h3 id="自定义注解注入对象">自定义注解注入对象</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// TODO</span>
+</span></span></code></pre></div><h3 id="spring-自启动">Spring 自启动</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// TODO</span>
+</span></span></code></pre></div><h3 id="无锁设计">无锁设计</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// TODO</span>
+</span></span></code></pre></div><h3 id="通过配置的key来控制是否加载对应的配置">通过配置的KEY来控制是否加载对应的配置</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@ConditionalOnProperty</span>(value <span style="color:#f92672">=</span> Config.<span style="color:#a6e22e">KUBENETES_DISABLE_AUTO_CONFIG_SYSTEM_PROPERTY</span>, havingValue <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;false&#34;</span>, matchIfMissing <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>)
+</span></span></code></pre></div><h3 id="替换-map-里的-value">替换 Map 里的 value</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">protected</span> Object <span style="color:#a6e22e">getClassLoadingLock</span>(String className) {
+</span></span><span style="display:flex;"><span>    Object lock <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (parallelLockMap <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>        Object <span style="color:#66d9ef">new</span> Lock <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Object();
+</span></span><span style="display:flex;"><span>        lock <span style="color:#f92672">=</span> parallelLockMap.<span style="color:#a6e22e">putIfAbsent</span>(className, newLock);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (lock <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>            lock <span style="color:#f92672">=</span> newLock;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> lock;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="redis-防击穿">redis 防击穿</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// TODO</span>
+</span></span></code></pre></div><h3 id="签名认证防抵赖同时防重放">签名认证（防抵赖、同时防重放）</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// TODO</span>
+</span></span></code></pre></div><h3 id="tcp-同步调用实现callback方式promise方式">TCP 同步调用实现（callback方式、promise方式）</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// TODO</span>
+</span></span></code></pre></div>
+    </div>
+</article>
+<aside class="catalog">
+    <div class="catalog-title">目录</div>
+    <div class="catalog-list">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#多线程发起请求并合并结果">多线程发起请求并合并结果</a></li>
+        <li><a href="#等待回执确认结果">等待回执确认结果</a></li>
+        <li><a href="#采用事件来收集原子逻辑事件的处理可同步也可异步">采用事件来收集原子逻辑，事件的处理可同步，也可异步</a></li>
+        <li><a href="#自定义注解注入对象">自定义注解注入对象</a></li>
+        <li><a href="#spring-自启动">Spring 自启动</a></li>
+        <li><a href="#无锁设计">无锁设计</a></li>
+        <li><a href="#通过配置的key来控制是否加载对应的配置">通过配置的KEY来控制是否加载对应的配置</a></li>
+        <li><a href="#替换-map-里的-value">替换 Map 里的 value</a></li>
+        <li><a href="#redis-防击穿">redis 防击穿</a></li>
+        <li><a href="#签名认证防抵赖同时防重放">签名认证（防抵赖、同时防重放）</a></li>
+        <li><a href="#tcp-同步调用实现callback方式promise方式">TCP 同步调用实现（callback方式、promise方式）</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</aside>
 <div class="division-line"></div>
-<div class="others">
-    <div>标签：🏷️<a class="post-tag" href="/tags/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/">代码样例速查</a>&nbsp;</div>
+<div class="misc">
     <div></div>
+    <div><a class="post-tag" href="/%20/tags/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/">代码样例速查</a></div>
 </div>
 
     </main>
-    <footer>
+    <footer class="p-x-0 p-b-2 m-auto">
         <div id="pagination">
             
+<div class="division-line"></div>
 <div class="paginator">
     <div class="prev">
         
-        <a href="http://yipsen.github.io/posts/java/java-%E5%9F%BA%E7%A1%80/java-%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8/"><span>Java 常见异常</span></a>
+        <a href="http://localhost:8080/posts/%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/javascript-%E4%BB%A3%E7%A0%81%E6%A0%B7%E4%BE%8B%E9%80%9F%E6%9F%A5/"><span>Javascript 代码样例速查</span></a>
     </div>
     <div class="next">
         
-        <a href="http://yipsen.github.io/posts/java/java-%E5%B9%B6%E5%8F%91/aqs-%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/"><span>AQS 介绍与原理解析</span></a>
+        <a href="http://localhost:8080/posts/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/wireshark-%E5%A4%87%E5%BF%98%E5%BD%95/"><span>Wireshark 备忘录</span></a>
     </div>
 </div>
 
         </div>
-        <div id="float">
+        <div class="position-fixed b-4 r-4">
             <ul class="float-button-bar">
     <li>
         <button class="float-button top" onclick="scrollToTop(this);">UP</button>
@@ -223,10 +284,19 @@ Collection<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672"
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
+
+<script src="https://cdn.staticfile.net/gumshoe/5.1.1/gumshoe.min.js"></script>
+<script>
+    var spy = new Gumshoe('#TableOfContents a', {
+        nested: true,
+        nestedClass: 'active'
+    });
+</script>
+
 <script>
     const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');

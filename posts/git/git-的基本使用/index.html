@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
 
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8080&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
 <meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -9,148 +9,203 @@
 <link rel="icon" type="image/png" href="/%20/favicon.png">
 
 <title>Git 的基本使用 | Yipsen Ye</title>
-<meta name="description" content="1. 取消 SSL 证书校验 git config --global http.sslVerify false 2. 提交密钥 # 基本使用 git push https://&amp;lt;username&amp;gt;:&amp;lt;password&amp;gt;@github.com/&amp;lt;username&amp;gt;/&amp;lt;repository&amp;gt;.git --all # 使用样例 git push https://yipsen:ghp_ir6E94TlMJcW9Hq3GANJ1hfFarrJsX1PDKDV@github.com/yipsen/xxx.git --all 3. 代码库迁移 # 镜像拷贝：含历史提交记录 git clone -bare &amp;lt;old_repository_url&amp;gt; cd &amp;lt;respository_name&amp;gt; # 镜像推送：含历史提交记录 git push --mirror &amp;lt;new_repository_url&amp;gt; cd .. # 新代码拉取 git clone &amp;lt;new_repository_url&amp;gt; 4. 打Tag # 新增 git tag -a &amp;lt;tag_name&amp;gt; -m &amp;#34;xxx version&amp;#34; # 推送新增 git push origin &amp;lt;tag_name&amp;gt; # 删除 git tag -d &amp;lt;tag_name&amp;gt; # 推送删除 git push origin --delete &amp;lt;tag_name&amp;gt; # 提交全部 Tag git push origin --tags 5.">
+<meta name="description" content="1. 取消 SSL 证书校验 git config --global http.sslVerify false 2. 提交密钥 # 基本使用 git push https://&lt;username&gt;:&lt;password&gt;@github.com/&lt;username&gt;/&lt;repository&gt;.git --all # 使用样例 git push https://yipsen:ghp_ir6E94TlMJcW9Hq3GANJ1hfFarrJsX1PDKDV@github.com/yipsen/xxx.git --all 3. 代码库迁移 # 镜像拷贝：含历史提交记录 git clone -bare &lt;old_repository_url&gt; cd &lt;respository_name&gt; # 镜像推送：含历史提交记录 git push --mirror &lt;new_repository_url&gt; cd .. # 新代码拉取 git clone &lt;new_repository_url&gt; 4. 打Tag # 新增 git tag -a &lt;tag_name&gt; -m &#34;xxx version&#34; # 推送新增 git push origin &lt;tag_name&gt; # 删除 git tag -d &lt;tag_name&gt; # 推送删除 git push origin --delete &lt;tag_name&gt; # 提交全部 Tag git push origin --tags 5. 撤销 状态 命令 备注 已add的撤销 git reset &lt;filename&gt; 已commit的撤销 git reset --soft HEAD~1 已修改的撤销 git checkout &lt;filename&gt; 注意：本地修改会丢失！ 已merge的撤销 ">
 <meta name="author" content="yipsen">
 
 <link rel="stylesheet" type="text/css" href="/styles/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/standard.css">
 
 </head>
 
-<body id="page">
-    <header>
+<body id="page" class="ff-consolas m-0">
+    <header class="d-flex fd-row fw-wrap jc-between ai-center p-x-1 p-y-1 m-auto">
         <div class="nav-logo">
-    <a href="http://yipsen.github.io/">
+    <a href="http://localhost:8080/">
         
         <span class="nav-title">Yipsen Ye</span>
     </a>
 </div>
-<nav class="navbar justify-content-end">
-    <ul class="nav-list">
+<nav class="position-relative d-flex fw-wrap jc-end ai-center p-y-05">
+    <ul class="d-flex fw-wrap ls-none p-l-0 m-0">
         
         
-        <li class="nav-item">
-            <a class="nav-link active"
-                href="http://yipsen.github.io/posts/">文章</a>
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/series/java/">JAVA</a>
         </li>
         
-        <li class="nav-item">
-            <a class="nav-link"
-                href="http://yipsen.github.io/collections/">附表</a>
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/design/">设计</a>
         </li>
         
-        <li class="nav-item">
-            <a class="nav-link"
-                href="http://yipsen.github.io/about/">关于</a>
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/network/">网络</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/framework/">框架</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/middleware/">中间件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/plugin/">插件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/linux/">LINUX</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link  active"
+                href="http://localhost:8080/posts/">随心谈</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/others/">山海文库</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/about/">关于</a>
         </li>
         
     </ul>
 </nav>
     </header>
-    <main id="content">
+    <main id="content" class="m-auto">
         
-<div class="container"><article class="post-block">
-        <h1 class="post-title">Git 的基本使用</h1>
-        <div class="post-info">
-            <div class="post-date"> 
-                <span>2022-03-05 08:34:41</span>
-            </div>
+<aside class="sidebar"></aside>
+<article>
+    <h1 class="m-b-1">Git 的基本使用</h1>
+    <div class="d-flex fd-row jc-center">
+        <div class="fc-subtle">
+            <span>2022-03-05 08:34:41</span>
         </div>
-        <div class="post-content">
-            <h3 id="1-取消-ssl-证书校验">1. 取消 SSL 证书校验</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git config --global http.sslVerify false
-</code></pre></div><h3 id="2-提交密钥">2. 提交密钥</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 基本使用</span>
-git push https://&lt;username&gt;:&lt;password&gt;@github.com/&lt;username&gt;/&lt;repository&gt;.git --all
-
-<span style="color:#75715e"># 使用样例</span>
-git push https://yipsen:ghp_ir6E94TlMJcW9Hq3GANJ1hfFarrJsX1PDKDV@github.com/yipsen/xxx.git --all
-</code></pre></div><h3 id="3-代码库迁移">3. 代码库迁移</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 镜像拷贝：含历史提交记录</span>
-git clone -bare &lt;old_repository_url&gt;
-
-cd &lt;respository_name&gt;
-
-<span style="color:#75715e"># 镜像推送：含历史提交记录</span>
-git push --mirror &lt;new_repository_url&gt;
-
-cd ..
-
-<span style="color:#75715e"># 新代码拉取</span>
-git clone &lt;new_repository_url&gt;
-</code></pre></div><h3 id="4-打tag">4. 打Tag</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 新增</span>
-git tag -a &lt;tag_name&gt; -m <span style="color:#e6db74">&#34;xxx version&#34;</span>
-
-<span style="color:#75715e"># 推送新增</span>
-git push origin &lt;tag_name&gt;
-
-<span style="color:#75715e"># 删除</span>
-git tag -d &lt;tag_name&gt;
-
-<span style="color:#75715e"># 推送删除</span>
-git push origin --delete &lt;tag_name&gt;
-
-<span style="color:#75715e"># 提交全部 Tag</span>
-git push origin --tags
-</code></pre></div><h3 id="5-撤销">5. 撤销</h3>
+    </div>
+    <div class="post-content">
+        <h3 id="1-取消-ssl-证书校验">1. 取消 SSL 证书校验</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git config --global http.sslVerify false
+</span></span></code></pre></div><h3 id="2-提交密钥">2. 提交密钥</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 基本使用</span>
+</span></span><span style="display:flex;"><span>git push https://&lt;username&gt;:&lt;password&gt;@github.com/&lt;username&gt;/&lt;repository&gt;.git --all
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 使用样例</span>
+</span></span><span style="display:flex;"><span>git push https://yipsen:ghp_ir6E94TlMJcW9Hq3GANJ1hfFarrJsX1PDKDV@github.com/yipsen/xxx.git --all
+</span></span></code></pre></div><h3 id="3-代码库迁移">3. 代码库迁移</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 镜像拷贝：含历史提交记录</span>
+</span></span><span style="display:flex;"><span>git clone -bare &lt;old_repository_url&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cd &lt;respository_name&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 镜像推送：含历史提交记录</span>
+</span></span><span style="display:flex;"><span>git push --mirror &lt;new_repository_url&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cd ..
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 新代码拉取</span>
+</span></span><span style="display:flex;"><span>git clone &lt;new_repository_url&gt;
+</span></span></code></pre></div><h3 id="4-打tag">4. 打Tag</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 新增</span>
+</span></span><span style="display:flex;"><span>git tag -a &lt;tag_name&gt; -m <span style="color:#e6db74">&#34;xxx version&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 推送新增</span>
+</span></span><span style="display:flex;"><span>git push origin &lt;tag_name&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 删除</span>
+</span></span><span style="display:flex;"><span>git tag -d &lt;tag_name&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 推送删除</span>
+</span></span><span style="display:flex;"><span>git push origin --delete &lt;tag_name&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 提交全部 Tag</span>
+</span></span><span style="display:flex;"><span>git push origin --tags
+</span></span></code></pre></div><h3 id="5-撤销">5. 撤销</h3>
 <table>
-<thead>
-<tr>
-<th>状态</th>
-<th>命令</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>已<code>add</code>的撤销</td>
-<td><code>git reset &lt;filename&gt;</code></td>
-<td></td>
-</tr>
-<tr>
-<td>已<code>commit</code>的撤销</td>
-<td><code>git reset --soft HEAD~1</code></td>
-<td></td>
-</tr>
-<tr>
-<td>已修改的撤销</td>
-<td><code>git checkout &lt;filename&gt;</code></td>
-<td>注意：本地修改会丢失！</td>
-</tr>
-<tr>
-<td>已<code>merge</code>的撤销</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>状态</th>
+          <th>命令</th>
+          <th>备注</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>已<code>add</code>的撤销</td>
+          <td><code>git reset &lt;filename&gt;</code></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>已<code>commit</code>的撤销</td>
+          <td><code>git reset --soft HEAD~1</code></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>已修改的撤销</td>
+          <td><code>git checkout &lt;filename&gt;</code></td>
+          <td>注意：本地修改会丢失！</td>
+      </tr>
+      <tr>
+          <td>已<code>merge</code>的撤销</td>
+          <td></td>
+          <td></td>
+      </tr>
+  </tbody>
 </table>
 
-        </div>
-    </article>
-</div>
+    </div>
+</article>
+<aside class="catalog">
+    <div class="catalog-title">目录</div>
+    <div class="catalog-list">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-取消-ssl-证书校验">1. 取消 SSL 证书校验</a></li>
+        <li><a href="#2-提交密钥">2. 提交密钥</a></li>
+        <li><a href="#3-代码库迁移">3. 代码库迁移</a></li>
+        <li><a href="#4-打tag">4. 打Tag</a></li>
+        <li><a href="#5-撤销">5. 撤销</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</aside>
 <div class="division-line"></div>
-<div class="others">
+<div class="misc">
     <div></div>
     <div></div>
 </div>
 
     </main>
-    <footer>
+    <footer class="p-x-0 p-b-2 m-auto">
         <div id="pagination">
             
+<div class="division-line"></div>
 <div class="paginator">
     <div class="prev">
         
-        <a href="http://yipsen.github.io/posts/kafka/kafka-%E9%83%A8%E7%BD%B2/"><span>Kafka 部署</span></a>
+        <a href="http://localhost:8080/posts/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/wireshark-%E5%A4%87%E5%BF%98%E5%BD%95/"><span>Wireshark 备忘录</span></a>
     </div>
     <div class="next">
         
-        <a href="http://yipsen.github.io/posts/%E8%AE%BE%E8%AE%A1/%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C/"><span>一致性哈希</span></a>
+        <a href="http://localhost:8080/posts/%E4%BA%91%E5%8E%9F%E7%94%9F/kubernetes-%E9%9B%86%E7%BE%A4%E8%BF%90%E8%A1%8C%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/"><span>kubernetes cluster running trouble shooting</span></a>
     </div>
 </div>
 
         </div>
-        <div id="float">
+        <div class="position-fixed b-4 r-4">
             <ul class="float-button-bar">
     <li>
         <button class="float-button top" onclick="scrollToTop(this);">UP</button>
@@ -163,10 +218,19 @@ git push origin --tags
         <div id="copyright" style="display: none;">
     
     
-    <p>&copy; 2020 <a href="/"></a>, powered by Hugo and Qiao</p>
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
 </div>
     </footer>
     
+
+<script src="https://cdn.staticfile.net/gumshoe/5.1.1/gumshoe.min.js"></script>
+<script>
+    var spy = new Gumshoe('#TableOfContents a', {
+        nested: true,
+        nestedClass: 'active'
+    });
+</script>
+
 <script>
     const changeSkin = () => {
         document.getElementById('page').classList.toggle('night');

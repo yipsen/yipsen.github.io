@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>协议 on Yipsen Ye</title>
-    <link>http://yipsen.github.io/categories/%E5%8D%8F%E8%AE%AE/</link>
+    <link>http://localhost:8080/categories/%E5%8D%8F%E8%AE%AE/</link>
     <description>Recent content in 协议 on Yipsen Ye</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 15 Jan 2022 10:40:52 +0800</lastBuildDate><atom:link href="http://yipsen.github.io/categories/%E5%8D%8F%E8%AE%AE/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 15 Jan 2022 10:40:52 +0800</lastBuildDate>
+    <atom:link href="http://localhost:8080/categories/%E5%8D%8F%E8%AE%AE/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>协议</title>
-      <link>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/%E5%8D%8F%E8%AE%AE/%E5%8D%8F%E8%AE%AE/</link>
+      <link>http://localhost:8080/network/%E5%8D%8F%E8%AE%AE/%E5%8D%8F%E8%AE%AE/</link>
       <pubDate>Sat, 15 Jan 2022 10:40:52 +0800</pubDate>
-      
-      <guid>http://yipsen.github.io/posts/%E7%BD%91%E7%BB%9C/%E5%8D%8F%E8%AE%AE/%E5%8D%8F%E8%AE%AE/</guid>
-      <description>协议 = 数据格式 + 一整套交互方案 = 协议提供（或说承诺）的各种特性，以解决特定实际需求问题。也可以理解为对宽广自由的网络交互提出的约束。</description>
+      <guid>http://localhost:8080/network/%E5%8D%8F%E8%AE%AE/%E5%8D%8F%E8%AE%AE/</guid>
+      <description>&lt;p&gt;协议 = 数据格式 + 一整套交互方案 = 协议提供（或说承诺）的各种特性，以解决特定实际需求问题。也可以理解为对宽广自由的网络交互提出的约束。&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

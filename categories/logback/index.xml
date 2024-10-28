@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>logback on Yipsen Ye</title>
-    <link>http://yipsen.github.io/categories/logback/</link>
-    <description>Recent content in logback on Yipsen Ye</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 19 Jan 2022 15:22:11 +0000</lastBuildDate><atom:link href="http://yipsen.github.io/categories/logback/index.xml" rel="self" type="application/rss+xml" />
+    <title>Logback on Yipsen Ye</title>
+    <link>http://localhost:8080/categories/logback/</link>
+    <description>Recent content in Logback on Yipsen Ye</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 19 Jan 2022 15:22:11 +0000</lastBuildDate>
+    <atom:link href="http://localhost:8080/categories/logback/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Log4J pattern layout</title>
-      <link>http://yipsen.github.io/posts/logback/log4j-pattern-layout/</link>
+      <link>http://localhost:8080/framework/logback/log4j-pattern-layout/</link>
       <pubDate>Wed, 19 Jan 2022 15:22:11 +0000</pubDate>
-      
-      <guid>http://yipsen.github.io/posts/logback/log4j-pattern-layout/</guid>
-      <description>配置解释 </description>
+      <guid>http://localhost:8080/framework/logback/log4j-pattern-layout/</guid>
+      <description>&lt;h3 id=&#34;配置解释&#34;&gt;配置解释&lt;/h3&gt;</description>
     </item>
-    
     <item>
       <title>Logback pattern layout</title>
-      <link>http://yipsen.github.io/posts/logback/logback-pattern-layout/</link>
+      <link>http://localhost:8080/framework/logback/logback-pattern-layout/</link>
       <pubDate>Wed, 19 Jan 2022 15:22:11 +0000</pubDate>
-      
-      <guid>http://yipsen.github.io/posts/logback/logback-pattern-layout/</guid>
-      <description>配置解释    Conversion Effect     c{length}lo{length}logger{length} 输出日志名，length参数可以指定数字用以缩短控制长度   C{length}class{length} 输出类名.   d{pattern}date{pattern} 输出时间，使用方法与格式效果见：时间格式   micros ms    F file    caller{depth} 输出调用方   kvp{NONE,SINGLE,DOUBLE}    m msg message 日志信息   M method 方法名   n 换行符   p le level 日志级别   r relative    t thread 输出线程名   X{key:-defaultVal}mdc{key:-defaultVal}    ex{depth}exception{depth}throwable{depth} 输出异常堆栈信息   xEx{depth}xException{depth}xThrowable{depth} 输出异常堆栈信息及其所在jar包   nopexnopexception    marker    property{key}    replace(p){r, t}    prefix(p)    rEx{depth}rootException{depth}     配置示例 时间格式    Pattern Result     %d 2006-10-20 14:06:49,812   %date 2006-10-20 14:06:49,812   %date{ISO8601} 2006-10-20 14:06:49,812   %date{HH:mm:ss.</description>
+      <guid>http://localhost:8080/framework/logback/logback-pattern-layout/</guid>
+      <description>&lt;h3 id=&#34;配置解释&#34;&gt;配置解释&lt;/h3&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;Conversion&lt;/th&gt;&#xA;          &lt;th&gt;Effect&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;c{length}&lt;!-- raw HTML omitted --&gt;lo{length}&lt;!-- raw HTML omitted --&gt;logger{length}&lt;/td&gt;&#xA;          &lt;td&gt;输出日志名，length参数可以指定数字用以缩短控制长度&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;C{length}&lt;!-- raw HTML omitted --&gt;class{length}&lt;/td&gt;&#xA;          &lt;td&gt;输出类名.&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;d{pattern}&lt;!-- raw HTML omitted --&gt;date{pattern}&lt;/td&gt;&#xA;          &lt;td&gt;输出时间，使用方法与格式效果见：&lt;a href=&#34;#date&#34;&gt;时间格式&lt;/a&gt;&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;micros &lt;!-- raw HTML omitted --&gt; ms&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;F &lt;!-- raw HTML omitted --&gt; file&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;caller{depth}&lt;/td&gt;&#xA;          &lt;td&gt;输出调用方&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;kvp{NONE,SINGLE,DOUBLE}&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;m &lt;!-- raw HTML omitted --&gt; msg &lt;!-- raw HTML omitted --&gt; message&lt;/td&gt;&#xA;          &lt;td&gt;日志信息&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;M &lt;!-- raw HTML omitted --&gt; method&lt;/td&gt;&#xA;          &lt;td&gt;方法名&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;n&lt;/td&gt;&#xA;          &lt;td&gt;换行符&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;p &lt;!-- raw HTML omitted --&gt; le &lt;!-- raw HTML omitted --&gt; level&lt;/td&gt;&#xA;          &lt;td&gt;日志级别&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;r &lt;!-- raw HTML omitted --&gt; relative&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;t &lt;!-- raw HTML omitted --&gt; thread&lt;/td&gt;&#xA;          &lt;td&gt;输出线程名&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;X{key:-defaultVal}&lt;!-- raw HTML omitted --&gt;mdc{key:-defaultVal}&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;ex{depth}&lt;!-- raw HTML omitted --&gt;exception{depth}&lt;!-- raw HTML omitted --&gt;throwable{depth}&lt;/td&gt;&#xA;          &lt;td&gt;输出异常堆栈信息&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;xEx{depth}&lt;!-- raw HTML omitted --&gt;xException{depth}&lt;!-- raw HTML omitted --&gt;xThrowable{depth}&lt;/td&gt;&#xA;          &lt;td&gt;输出异常堆栈信息及其所在jar包&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;nopex&lt;!-- raw HTML omitted --&gt;nopexception&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;marker&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;property{key}&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;replace(p){r, t}&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;prefix(p)&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;rEx{depth}&lt;!-- raw HTML omitted --&gt;rootException{depth}&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;h3 id=&#34;配置示例&#34;&gt;配置示例&lt;/h3&gt;&#xA;&lt;p&gt;&lt;!-- raw HTML omitted --&gt; 时间格式 &lt;!-- raw HTML omitted --&gt;&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8080&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>记一次 Redis 主备断链的故障恢复 | Yipsen Ye</title>
+<meta name="description" content="环境信息 IM 最近会话数据由于更新频繁且数据重要度相对较低，采用 Redis 存储。
+Redis 机器规格
+器件 型号 规格 CPU Intel(R) Xeon(R) Gold 6161 CPU @ 2.20GHz 16 * 4 Cores Memory 62GB 故障现象 【问题现象】 业务巡检发现：2022-11-15 16:00 最近会话 Redis 集群（6节点，3主3从集群模式部署）从库与主库断链，数据复制状态异常，业务正常。 （slave 侧 redis 连接 master 状态显示为： master_link_status:down, 集群 slave 和 master 状态同步异常）
+【问题根因】 通过查看主库日志发现报错：psync scheduled to be closed ASAP for overcoming of output buffer limits。从库向主库进行 psync 时，因超过主库的 output buffer limits 限制，导致连接被中断。而之所以报该错误，是因为设置的主从同步缓冲区已经远小于主从库之间的数据差异，主库为了保护自身不受影响，主动断开了从库的连接。而断开连接后，主从之间的差异进一步拉大，以至于主从之间已无法连接上。
+【解决方案】 在主、备侧 Redis 配置 config set client-output-buffer-limit &ldquo;slave 2684254560 671088640 600&rdquo; 后解决，恢复主从连接与数据复制。（256MB 扩大到 2.5GB）
+">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/standard.css">
+
+</head>
+
+<body id="page" class="ff-consolas m-0">
+    <header class="d-flex fd-row fw-wrap jc-between ai-center p-x-1 p-y-1 m-auto">
+        <div class="nav-logo">
+    <a href="http://localhost:8080/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="position-relative d-flex fw-wrap jc-end ai-center p-y-05">
+    <ul class="d-flex fw-wrap ls-none p-l-0 m-0">
+        
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/series/java/">JAVA</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/design/">设计</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/network/">网络</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/framework/">框架</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link  active"
+                href="http://localhost:8080/middleware/">中间件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/plugin/">插件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/linux/">LINUX</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/posts/">随心谈</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/others/">山海文库</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content" class="m-auto">
+        
+<aside class="sidebar"></aside>
+<article>
+    <h1 class="m-b-1">记一次 Redis 主备断链的故障恢复</h1>
+    <div class="d-flex fd-row jc-center">
+        <div class="fc-subtle">
+            <span>2022-11-15 18:34:43</span>
+        </div>
+    </div>
+    <div class="post-content">
+        <h2 id="环境信息">环境信息</h2>
+<p>IM 最近会话数据由于更新频繁且数据重要度相对较低，采用 Redis 存储。</p>
+<blockquote>
+<p>Redis 机器规格</p>
+<table>
+  <thead>
+      <tr>
+          <th>器件</th>
+          <th>型号</th>
+          <th>规格</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>CPU</td>
+          <td>Intel(R) Xeon(R) Gold 6161 CPU @ 2.20GHz</td>
+          <td>16 * 4 Cores</td>
+      </tr>
+      <tr>
+          <td>Memory</td>
+          <td></td>
+          <td>62GB</td>
+      </tr>
+  </tbody>
+</table>
+</blockquote>
+<h2 id="故障现象">故障现象</h2>
+<ul>
+<li>【问题现象】</li>
+</ul>
+<p>业务巡检发现：2022-11-15 16:00 最近会话 Redis 集群（6节点，3主3从集群模式部署）从库与主库断链，数据复制状态异常，业务正常。
+（slave 侧 redis 连接 master 状态显示为： master_link_status:down, 集群 slave 和 master 状态同步异常）</p>
+<ul>
+<li>【问题根因】</li>
+</ul>
+<p>通过查看主库日志发现报错：<code>psync scheduled to be closed ASAP for overcoming of output buffer limits</code>。从库向主库进行 psync 时，因超过主库的 output buffer limits 限制，导致连接被中断。而之所以报该错误，是因为设置的主从同步缓冲区已经远小于主从库之间的数据差异，主库为了保护自身不受影响，主动断开了从库的连接。而断开连接后，主从之间的差异进一步拉大，以至于主从之间已无法连接上。</p>
+<ul>
+<li>【解决方案】</li>
+</ul>
+<p>在主、备侧 Redis 配置 config set client-output-buffer-limit &ldquo;slave 2684254560 671088640 600&rdquo; 后解决，恢复主从连接与数据复制。（256MB 扩大到 2.5GB）</p>
+<ul>
+<li>【经验沉淀】</li>
+</ul>
+<p>Redis 3.0 版本对于 confg set client-output-buffer-limit 不支持使用 mb 单位，故如配置<code>slave 10240mb 2560mb 600</code>是未能生效的，后通过设置纯数字（单位 byte）解决。</p>
+<h2 id="原理知识点">原理知识点</h2>
+
+    </div>
+</article>
+<aside class="catalog">
+    <div class="catalog-title">目录</div>
+    <div class="catalog-list">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#环境信息">环境信息</a></li>
+    <li><a href="#故障现象">故障现象</a></li>
+    <li><a href="#原理知识点">原理知识点</a></li>
+  </ul>
+</nav>
+    </div>
+</aside>
+<div class="division-line"></div>
+<div class="misc">
+    <div></div>
+    <div><a class="post-tag" href="/%20/tags/redis/">Redis</a><a class="post-tag" href="/%20/tags/trouble-shooting/">Trouble Shooting</a></div>
+</div>
+
+    </main>
+    <footer class="p-x-0 p-b-2 m-auto">
+        <div id="pagination">
+            
+<div class="division-line"></div>
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://localhost:8080/middleware/kafka/kafka-%E9%83%A8%E7%BD%B2/"><span>Kafka 部署</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://localhost:8080/middleware/elk/windows-%E5%AE%89%E8%A3%85-elk/"><span>Windows 安装 ELK</span></a>
+    </div>
+</div>
+
+        </div>
+        <div class="position-fixed b-4 r-4">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+
+<script src="https://cdn.staticfile.net/gumshoe/5.1.1/gumshoe.min.js"></script>
+<script>
+    var spy = new Gumshoe('#TableOfContents a', {
+        nested: true,
+        nestedClass: 'active'
+    });
+</script>
+
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

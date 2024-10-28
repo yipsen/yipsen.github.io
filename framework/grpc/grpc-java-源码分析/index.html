@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8080&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>gRPC Java 源码分析 | Yipsen Ye</title>
+<meta name="description" content="最后追究问题(原始目的):grpc是怎么做到异步化的
+简单样例代码 调用时序(帧) sequenceDiagramparticipant S as Serverparticipant C as ClientS-&gt;&gt;C: SETTINGS S1 -&gt; &lt;- C3S-&gt;&gt;C: UPDATE_WINDOW S2 -&gt; &lt;- C5C-&gt;&gt;S: SETTINGS S3 -&gt; &lt;- C1 C--&gt;&gt;S: SETTINGS(ACK) S4 -&gt; &lt;- C6 C-&gt;&gt;S: UPDATE_WINDOW S5 -&gt; &lt;- C2 C--&gt;&gt;S: SETTINGS(ACK) S6 -&gt; &lt;- C4 C-&gt;&gt;S:HEADERS S7 -&gt; &lt;- C7 C-&gt;&gt;S:DATA S8 -&gt; &lt;- C8 S-&gt;&gt;C: PING S9 -&gt; &lt;- C9 C--&gt;&gt;S: PING(ACK) S10 -&gt; &lt;- C10S--&gt;&gt;C:HEADERS S11 -&gt; &lt;- C11S--&gt;&gt;C:DATA S12 -&gt; &lt;- C12S--&gt;&gt;C:HEADERS S13 -&gt; &lt;- C14S-&gt;&gt;C:GO_AWAY(未送达) S14 -&gt; C-&gt;&gt;S: PING(未送达) &lt;- C13 源码运行逻辑 receive client frames io.grpc.netty.NettyServerHandler#onHeadersRead io.grpc.netty.NettyServerHandler#onDataRead io.grpc.internal.MessageDeframer#deframe io.grpc.internal.MessageDeframer#deliver io.grpc.internal.MessageDeframer#close io.grpc.internal.ServerImpl.JumpToApplicationThreadServerStreamListener#halfClosed io.grpc.stub.ServerCalls.UnaryServerCallHandler.UnaryServerCallListener#halfClosed handle customer logics">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/standard.css">
+
+</head>
+
+<body id="page" class="ff-consolas m-0">
+    <header class="d-flex fd-row fw-wrap jc-between ai-center p-x-1 p-y-1 m-auto">
+        <div class="nav-logo">
+    <a href="http://localhost:8080/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="position-relative d-flex fw-wrap jc-end ai-center p-y-05">
+    <ul class="d-flex fw-wrap ls-none p-l-0 m-0">
+        
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/series/java/">JAVA</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/design/">设计</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/network/">网络</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link  active"
+                href="http://localhost:8080/framework/">框架</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/middleware/">中间件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/plugin/">插件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/linux/">LINUX</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/posts/">随心谈</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/others/">山海文库</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content" class="m-auto">
+        
+<aside class="sidebar"><div>
+    
+    
+        
+        
+        <a href="/categories/logback/">Logback</a>
+        <ul>
+            
+            
+            <li><a href="http://localhost:8080/framework/grpc/grpc-channel/">gRPC Channel</a></li>
+            
+            
+            
+            <li>gRPC Java 源码分析</li>
+            
+            
+            
+            <li><a href="http://localhost:8080/framework/logback/log4j-pattern-layout/">Log4J pattern layout</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/framework/logback/logback-pattern-layout/">Logback pattern layout</a></li>
+            
+            
+        </ul>
+    
+</div></aside>
+<article>
+    <h1 class="m-b-1">gRPC Java 源码分析</h1>
+    <div class="d-flex fd-row jc-center">
+        <div class="fc-subtle">
+            <span>2022-01-19 15:22:11</span>
+        </div>
+    </div>
+    <div class="post-content">
+        <p>最后追究问题(原始目的):grpc是怎么做到异步化的</p>
+<h3 id="简单样例代码">简单样例代码</h3>
+<h3 id="调用时序帧">调用时序(帧)</h3>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">sequenceDiagram
+participant S as Server
+participant C as Client
+
+S-&gt;&gt;C: SETTINGS            S1 -&gt; &lt;- C3
+S-&gt;&gt;C: UPDATE_WINDOW       S2 -&gt; &lt;- C5
+C-&gt;&gt;S: SETTINGS            S3 -&gt; &lt;- C1  
+C--&gt;&gt;S: SETTINGS(ACK)      S4 -&gt; &lt;- C6 
+C-&gt;&gt;S: UPDATE_WINDOW       S5 -&gt; &lt;- C2 
+C--&gt;&gt;S: SETTINGS(ACK)      S6 -&gt; &lt;- C4 
+C-&gt;&gt;S:HEADERS              S7 -&gt; &lt;- C7 
+C-&gt;&gt;S:DATA                 S8 -&gt; &lt;- C8 
+S-&gt;&gt;C: PING                S9 -&gt; &lt;- C9 
+C--&gt;&gt;S: PING(ACK)          S10 -&gt; &lt;- C10
+S--&gt;&gt;C:HEADERS             S11 -&gt; &lt;- C11
+S--&gt;&gt;C:DATA                S12 -&gt; &lt;- C12
+S--&gt;&gt;C:HEADERS             S13 -&gt; &lt;- C14
+S-&gt;&gt;C:GO_AWAY(未送达)      S14 -&gt; 
+C-&gt;&gt;S: PING(未送达)               &lt;- C13
+</code></pre><h3 id="源码运行逻辑">源码运行逻辑</h3>
+<h4 id="receive-client-frames">receive client frames</h4>
+<h4 id="iogrpcnettynettyserverhandleronheadersread">io.grpc.netty.NettyServerHandler#onHeadersRead</h4>
+<h4 id="iogrpcnettynettyserverhandlerondataread">io.grpc.netty.NettyServerHandler#onDataRead</h4>
+<h4 id="iogrpcinternalmessagedeframerdeframe">io.grpc.internal.MessageDeframer#deframe</h4>
+<h4 id="iogrpcinternalmessagedeframerdeliver">io.grpc.internal.MessageDeframer#deliver</h4>
+<h4 id="iogrpcinternalmessagedeframerclose">io.grpc.internal.MessageDeframer#close</h4>
+<h4 id="iogrpcinternalserverimpljumptoapplicationthreadserverstreamlistenerhalfclosed">io.grpc.internal.ServerImpl.JumpToApplicationThreadServerStreamListener#halfClosed</h4>
+<h4 id="iogrpcstubservercallsunaryservercallhandlerunaryservercalllistenerhalfclosed">io.grpc.stub.ServerCalls.UnaryServerCallHandler.UnaryServerCallListener#halfClosed</h4>
+<h4 id="handle-customer-logics">handle customer logics</h4>
+
+    </div>
+</article>
+<aside class="catalog">
+    <div class="catalog-title">目录</div>
+    <div class="catalog-list">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#简单样例代码">简单样例代码</a></li>
+        <li><a href="#调用时序帧">调用时序(帧)</a></li>
+        <li><a href="#源码运行逻辑">源码运行逻辑</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</aside>
+<div class="division-line"></div>
+<div class="misc">
+    <div> 
+        <a class="post-category" href="/%20categories/logback/">📒logback</a>
+        </div>
+    <div><a class="post-tag" href="/%20/tags/log/">log</a><a class="post-tag" href="/%20/tags/logback/">logback</a></div>
+</div>
+
+    </main>
+    <footer class="p-x-0 p-b-2 m-auto">
+        <div id="pagination">
+            
+<div class="division-line"></div>
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://localhost:8080/framework/logback/log4j-pattern-layout/"><span>Log4J pattern layout</span></a>
+    </div>
+    <div class="next">
+        
+        <a href="http://localhost:8080/framework/grpc/grpc-channel/"><span>gRPC Channel</span></a>
+    </div>
+</div>
+
+        </div>
+        <div class="position-fixed b-4 r-4">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 28280 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+
+<script src="https://cdn.staticfile.net/gumshoe/5.1.1/gumshoe.min.js"></script>
+<script>
+    var spy = new Gumshoe('#TableOfContents a', {
+        nested: true,
+        nestedClass: 'active'
+    });
+</script>
+
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8080&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>行为型 - 观察者模式 | Yipsen Ye</title>
+<meta name="description" content="观察者模式（Observer Pattern）属于行为类型的一种常用的软件设计模式。还有其他的称谓如，发布-订阅模式，模型-视图模式，而最常见的应用就是事件-通知机制了。
+该模式定义了一种一对多的依赖关系，并对关系进行解耦。即一个对象发生变化时，将通知所有依赖他的对象，以进一步处理相应变化。通过变化产生事件，进而通知处理相应变化的方式，实现了两个对象的解耦，并提供了灵活的依赖关系。
+为什么需要观察者模式 解耦 常见应用场景 spring event 结构 classDiagramclass Subject {&lt;&lt;abstract&gt;&gt;&#43;observers&#43;addObserver()&#43;removeObserver()&#43;notifyObserver()}class Observer {&lt;&lt;interface&gt;&gt;update()}class ConcreteSubject {}class ContreteObserver {} 实现方式 要实现观察者模式，其关键有 4 个对象，分别是：
+对象 称谓 特性 Subject 被观察者 被观察者提供一系列方法以维护观察者列表（可随时进行增删），同时定义通知方法，以在发生变化时通知已维护在列表中的观察者们。 ConcreteSubject 具体的被观察者 被观察者的具体实现类，实现具体场景下发送变化通知。 Observer 观察者 观察者可以是一个或多个，当被观察者Subject发生变化时，观察者将收到通知。 ConcreteObserver 具体的观察者 观察者的具体实现类，不同的观察者在收到通知后可实现不同的操作。 1. 基础方式 观察者模式实现如下：
+定义被观察者
+关键定义三个特性：添加观察者，移除观察者，通知观察者。其中通知观察者可由具体实现类按需在具体场景下处理发送逻辑。
+public abstract class Subject { protected List&lt;Observer&gt; observers = new ArrayList&lt;&gt;(); public void addObserver(Observer observer) { observers.add(observer); } public void removeObserver(Observer observer) { observers.remove(observer); } public abstract void notifyObserver(); } 被观察者的具体实现类
+">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/standard.css">
+
+</head>
+
+<body id="page" class="ff-consolas m-0">
+    <header class="d-flex fd-row fw-wrap jc-between ai-center p-x-1 p-y-1 m-auto">
+        <div class="nav-logo">
+    <a href="http://localhost:8080/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="position-relative d-flex fw-wrap jc-end ai-center p-y-05">
+    <ul class="d-flex fw-wrap ls-none p-l-0 m-0">
+        
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/series/java/">JAVA</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link  active"
+                href="http://localhost:8080/design/">设计</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/network/">网络</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/framework/">框架</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/middleware/">中间件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/plugin/">插件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/linux/">LINUX</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/posts/">随心谈</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/others/">山海文库</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content" class="m-auto">
+        
+<aside class="sidebar"><div>
+    
+    
+        
+        
+        <a href="/categories/java%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f/">Java设计模式</a>
+        <ul>
+            
+            
+            <li><a href="http://localhost:8080/design/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/">创建型 - 单例模式</a></li>
+            
+            
+            
+            <li><a href="http://localhost:8080/design/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E7%BB%93%E6%9E%84%E5%9E%8B-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/">结构型 - 代理模式</a></li>
+            
+            
+            
+            <li>行为型 - 观察者模式</li>
+            
+            
+        </ul>
+    
+</div></aside>
+<article>
+    <h1 class="m-b-1">行为型 - 观察者模式</h1>
+    <div class="d-flex fd-row jc-center">
+        <div class="fc-subtle">
+            <span>2022-02-06 16:31:43</span>
+        </div>
+    </div>
+    <div class="post-content">
+        <p>观察者模式（Observer Pattern）属于行为类型的一种常用的软件设计模式。还有其他的称谓如，发布-订阅模式，模型-视图模式，而最常见的应用就是事件-通知机制了。</p>
+<p>该模式定义了一种一对多的依赖关系，并对关系进行解耦。即一个对象发生变化时，将通知所有依赖他的对象，以进一步处理相应变化。通过变化产生事件，进而通知处理相应变化的方式，实现了两个对象的解耦，并提供了灵活的依赖关系。</p>
+<h2 id="为什么需要观察者模式">为什么需要观察者模式</h2>
+<ol>
+<li>解耦</li>
+</ol>
+<h3 id="常见应用场景">常见应用场景</h3>
+<ol>
+<li>spring event</li>
+</ol>
+<h2 id="结构">结构</h2>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">classDiagram
+    class Subject {
+        &lt;&lt;abstract&gt;&gt;
+        +observers
+        +addObserver()
+        +removeObserver()
+        +notifyObserver()
+    }
+    class Observer {
+        &lt;&lt;interface&gt;&gt;
+        update()
+    }
+    class ConcreteSubject {
+
+    }
+    class ContreteObserver {
+
+    }
+</code></pre><h2 id="实现方式">实现方式</h2>
+<p>要实现观察者模式，其关键有 4 个对象，分别是：</p>
+<table>
+  <thead>
+      <tr>
+          <th>对象</th>
+          <th>称谓</th>
+          <th>特性</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Subject</td>
+          <td>被观察者</td>
+          <td>被观察者提供一系列方法以维护观察者列表（可随时进行增删），同时定义通知方法，以在发生变化时通知已维护在列表中的观察者们。</td>
+      </tr>
+      <tr>
+          <td>ConcreteSubject</td>
+          <td>具体的被观察者</td>
+          <td>被观察者的具体实现类，实现具体场景下发送变化通知。</td>
+      </tr>
+      <tr>
+          <td>Observer</td>
+          <td>观察者</td>
+          <td>观察者可以是一个或多个，当被观察者Subject发生变化时，观察者将收到通知。</td>
+      </tr>
+      <tr>
+          <td>ConcreteObserver</td>
+          <td>具体的观察者</td>
+          <td>观察者的具体实现类，不同的观察者在收到通知后可实现不同的操作。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="1-基础方式">1. 基础方式</h3>
+<p>观察者模式实现如下：</p>
+<ol>
+<li>
+<p>定义被观察者</p>
+<p>关键定义三个特性：添加观察者，移除观察者，通知观察者。其中通知观察者可由具体实现类按需在具体场景下处理发送逻辑。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Subject</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> List<span style="color:#f92672">&lt;</span>Observer<span style="color:#f92672">&gt;</span> observers <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addObserver</span>(Observer observer) {
+</span></span><span style="display:flex;"><span>        observers.<span style="color:#a6e22e">add</span>(observer);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">removeObserver</span>(Observer observer) {
+</span></span><span style="display:flex;"><span>        observers.<span style="color:#a6e22e">remove</span>(observer);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">notifyObserver</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+<li>
+<p>被观察者的具体实现类</p>
+<p>实现通知观察者特性</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ConcreteSubject</span> <span style="color:#66d9ef">extends</span> Subject {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">notifyObserver</span>() {
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;subject updated, notify observers&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (Observer observer : observers) {
+</span></span><span style="display:flex;"><span>            observer.<span style="color:#a6e22e">update</span>();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+<li>
+<p>定义观察者</p>
+<p>主要定义当被观察者变化时的处理响应。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Observer</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+<li>
+<p>观察者的多个具体实现</p>
+<p>实现各个观察者在观察到被观察者有变化时的响应逻辑。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ConcreteObserver1</span> <span style="color:#66d9ef">implements</span> Observer {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update</span>() {
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;observer1 updated.&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ConcreteObserver2</span> <span style="color:#66d9ef">implements</span> Observer {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update</span>() {
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;observer2 updated.&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+<li>
+<p>具体的使用测试</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ObserverTest</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Test</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testObserver</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 创建观察者</span>
+</span></span><span style="display:flex;"><span>        Observer observer1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ConcreteObserver1();
+</span></span><span style="display:flex;"><span>        Observer observer2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ConcreteObserver2();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 创建被观察者</span>
+</span></span><span style="display:flex;"><span>        Subject subject <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ConcreteSubject();
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 被观察者添加两个观察者</span>
+</span></span><span style="display:flex;"><span>        subject.<span style="color:#a6e22e">addObserver</span>(observer1);
+</span></span><span style="display:flex;"><span>        subject.<span style="color:#a6e22e">addObserver</span>(observer2);
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 通知观察者当前发生了变化</span>
+</span></span><span style="display:flex;"><span>        subject.<span style="color:#a6e22e">notifyObserver</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// subject updated, notify observers</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// observer1 updated.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// observer2 updated.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 移除其中一个观察者</span>
+</span></span><span style="display:flex;"><span>        subject.<span style="color:#a6e22e">removeObserver</span>(observer2);
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 再发起通知</span>
+</span></span><span style="display:flex;"><span>        subject.<span style="color:#a6e22e">notifyObserver</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// subject updated, notify observers</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// observer1 updated.</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+</ol>
+<h3 id="2-事件模式">2. 事件模式</h3>
+<p>以下通过事件-通知-监听器的方式实现观察者模式，对比原始实现，多出一个Publish对象用以承载原先Subject的特性，原先Subject变为单纯的Event对象，Observer为Listener对象：</p>
+<ol>
+<li>
+<p>首先定义事件基类 Event：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Event</span> {}
+</span></span></code></pre></div><p>对应实现几个具体的事件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// 门开启事件</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DoorOpenEvent</span> <span style="color:#66d9ef">extends</span> Event {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 门关闭事件</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DoorCloseEvent</span> <span style="color:#66d9ef">extends</span> Event {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 冰箱开启事件</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FreezerOpenEvent</span> <span style="color:#66d9ef">extends</span> Event {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 冰箱关闭事件</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FreezerCloseEvent</span> <span style="color:#66d9ef">extends</span> Event {}
+</span></span></code></pre></div></li>
+<li>
+<p>定义监听器基类 Listener:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Listener</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 监听(观察)到事件时，处理事件</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">handleEvent</span>(Event event);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>对应实现几个具体的监听器：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// 门监听器</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DoorEventListener</span> <span style="color:#66d9ef">implements</span> Listener {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">handleEvent</span>(Event event) {
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;DoorEventListener called.&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (event <span style="color:#66d9ef">instanceof</span> DoorOpenEvent) {
+</span></span><span style="display:flex;"><span>            System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;detective door opened.&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (event <span style="color:#66d9ef">instanceof</span> DoorCloseEvent) {
+</span></span><span style="display:flex;"><span>            System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;detective door closed.&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// 开启动作监听器</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OpenEventListener</span> <span style="color:#66d9ef">implements</span> Listener {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">handleEvent</span>(Event event) {
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;OpenEventListener called.&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (event <span style="color:#66d9ef">instanceof</span> DoorOpenEvent) {
+</span></span><span style="display:flex;"><span>            System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;detective door opened.&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (event <span style="color:#66d9ef">instanceof</span> FreezerOpenEvent) {
+</span></span><span style="display:flex;"><span>            System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;detective freezer opened.&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+<li>
+<p>定义事件发布器 EventPublisher:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EventPublisher</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 维护事件与其对应监听器的绑定关系</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> Map<span style="color:#f92672">&lt;</span>Class<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">extends</span> Event<span style="color:#f92672">&gt;</span>, List<span style="color:#f92672">&lt;</span>Listener<span style="color:#f92672">&gt;&gt;</span> bindings <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addListener</span>(Class<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">extends</span> Event<span style="color:#f92672">&gt;</span> eventType, Listener listener) {
+</span></span><span style="display:flex;"><span>        bindings.<span style="color:#a6e22e">computeIfAbsent</span>(eventType, l <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>()).<span style="color:#a6e22e">add</span>(listener);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">removeListener</span>(Class<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">extends</span> Event<span style="color:#f92672">&gt;</span> eventType, Listener listener) {
+</span></span><span style="display:flex;"><span>        bindings.<span style="color:#a6e22e">computeIfAbsent</span>(eventType, l <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>()).<span style="color:#a6e22e">remove</span>(listener);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">publish</span>(Event event) {
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;publish &#34;</span> <span style="color:#f92672">+</span> event.<span style="color:#a6e22e">getClass</span>().<span style="color:#a6e22e">getSimpleName</span>());
+</span></span><span style="display:flex;"><span>        bindings.<span style="color:#a6e22e">getOrDefault</span>(event.<span style="color:#a6e22e">getClass</span>(), <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>()).<span style="color:#a6e22e">forEach</span>(l <span style="color:#f92672">-&gt;</span> l.<span style="color:#a6e22e">handleEvent</span>(event));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>事件发布器有几个要点，首先维护一个事件与其对应监听器的绑定（一个Map），并支持添加以及删除，这点相当于承载了观察者模式中元被观察者的能力。
+同时实现一个发布事件的特性，即事件发布后，监听（绑定）该事件的监听器将被通知（调用处理）。</p>
+</li>
+<li>
+<p>测试</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// 基于 JUnit 编写的测试类，当然直接用 main 函数也可以测试。</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EventTest</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 初始化绑定事件</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@BeforeAll</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setUp</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 实例化门监听器，并监听其感兴趣的事件，即与门相关的门开启与门关闭事件</span>
+</span></span><span style="display:flex;"><span>        DoorEventListener doorEventListener <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> DoorEventListener();
+</span></span><span style="display:flex;"><span>        EventPublisher.<span style="color:#a6e22e">addListener</span>(DoorOpenEvent.<span style="color:#a6e22e">class</span>, doorEventListener);
+</span></span><span style="display:flex;"><span>        EventPublisher.<span style="color:#a6e22e">addListener</span>(DoorCloseEvent.<span style="color:#a6e22e">class</span>, doorEventListener);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 实例化开启动作监听器，并监听其感兴趣的事件，即与开启动作有关的门开启与冰箱开启事件</span>
+</span></span><span style="display:flex;"><span>        OpenEventListener openEventListener <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> OpenEventListener();
+</span></span><span style="display:flex;"><span>        EventPublisher.<span style="color:#a6e22e">addListener</span>(DoorOpenEvent.<span style="color:#a6e22e">class</span>, openEventListener);
+</span></span><span style="display:flex;"><span>        EventPublisher.<span style="color:#a6e22e">addListener</span>(FreezerOpenEvent.<span style="color:#a6e22e">class</span>, openEventListener);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Test</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testDoorOpenEvent</span>() {
+</span></span><span style="display:flex;"><span>        EventPublisher.<span style="color:#a6e22e">publish</span>(<span style="color:#66d9ef">new</span> DoorOpenEvent());
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Test</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testDoorCloseEvent</span>() {
+</span></span><span style="display:flex;"><span>        EventPublisher.<span style="color:#a6e22e">publish</span>(<span style="color:#66d9ef">new</span> DoorCloseEvent());
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Test</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testFreezerOpenEvent</span>() {
+</span></span><span style="display:flex;"><span>        EventPublisher.<span style="color:#a6e22e">publish</span>(<span style="color:#66d9ef">new</span> FreezerOpenEvent());
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Test</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testFreezerCloseEvent</span>() {
+</span></span><span style="display:flex;"><span>        EventPublisher.<span style="color:#a6e22e">publish</span>(<span style="color:#66d9ef">new</span> FreezerCloseEvent());
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>测试结果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>publish DoorOpenEvent
+</span></span><span style="display:flex;"><span>DoorEventListener called.
+</span></span><span style="display:flex;"><span>detective door opened.
+</span></span><span style="display:flex;"><span>OpenEventListener called.
+</span></span><span style="display:flex;"><span>detective door opened.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>publish DoorCloseEvent
+</span></span><span style="display:flex;"><span>DoorEventListener called.
+</span></span><span style="display:flex;"><span>detective door closed.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>publish FreezerOpenEvent
+</span></span><span style="display:flex;"><span>OpenEventListener called.
+</span></span><span style="display:flex;"><span>detective freezer opened.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>publish FreezerCloseEvent
+</span></span></code></pre></div></li>
+</ol>
+<h2 id="使用案例">使用案例</h2>
+<p>// 待补充实际工作上项目的使用案例。</p>
+<h2 id="引申">引申</h2>
+<h2 id="总结">总结</h2>
+<p>观察者模式可以让多个有依赖关系的对象以一种松耦合的方式灵活配置依赖关系，并支持在运行时动态修正依赖关系。</p>
+
+    </div>
+</article>
+<aside class="catalog">
+    <div class="catalog-title">目录</div>
+    <div class="catalog-list">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#为什么需要观察者模式">为什么需要观察者模式</a>
+      <ul>
+        <li><a href="#常见应用场景">常见应用场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#结构">结构</a></li>
+    <li><a href="#实现方式">实现方式</a>
+      <ul>
+        <li><a href="#1-基础方式">1. 基础方式</a></li>
+        <li><a href="#2-事件模式">2. 事件模式</a></li>
+      </ul>
+    </li>
+    <li><a href="#使用案例">使用案例</a></li>
+    <li><a href="#引申">引申</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav>
+    </div>
+</aside>
+<div class="division-line"></div>
+<div class="misc">
+    <div> 
+        <a class="post-category" href="/%20categories/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">📒Java设计模式</a>
+        </div>
+    <div><a class="post-tag" href="/%20/tags/java/">Java</a><a class="post-tag" href="/%20/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></div>
+</div>
+
+    </main>
+    <footer class="p-x-0 p-b-2 m-auto">
+        <div id="pagination">
+            
+<div class="division-line"></div>
+<div class="paginator">
+    <div class="prev">
+        
+    </div>
+    <div class="next">
+        
+        <a href="http://localhost:8080/design/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E7%BB%93%E6%9E%84%E5%9E%8B-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%B8%B8%E7%94%A8/"><span>结构型 - 代理模式</span></a>
+    </div>
+</div>
+
+        </div>
+        <div class="position-fixed b-4 r-4">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+<script async src="https://cdn.staticfile.org/mermaid/8.6.4/mermaid.min.js"></script>
+<script>
+    
+    Array.from(document.getElementsByClassName('language-mermaid')).forEach(el => {
+        el.parentElement.outerHTML = `<div class="mermaid">${el.innerText}</div>`
+    })
+</script>
+
+
+<script src="https://cdn.staticfile.net/gumshoe/5.1.1/gumshoe.min.js"></script>
+<script>
+    var spy = new Gumshoe('#TableOfContents a', {
+        nested: true,
+        nestedClass: 'active'
+    });
+</script>
+
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=8080&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="X-UA-Compatible" , content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="/%20/favicon.png">
+
+<title>一致性哈希 | Yipsen Ye</title>
+<meta name="description" content="在容器化大行其道的当下，为满足服务横向扩容，对无状态服务一直是倍加推崇的，尽管如此，基于在性能效率上的考量，有状态服务仍有存在的空间，主要因其优点在于数据本地化后可以减少数据的网络交互，同时拥有更高的数据一致性（例如 Sticky Session），因此也多用于数据或网络强相关的服务上。
+如果系统设计上采用有状态的服务，那么不可避免的需要解决一个问题，即如何做到有状态服务在横向扩缩容时尽可能少的造成影响，一种常用的方案便是一致性哈希。
+一致性哈希算法早在https://dl.acm.org/doi/10.1145/258533.258660论文中提及，其在分布式缓存系统上有广泛的使用。
+负载均衡 对于分布式系统，我们通常希望所有用户的信息与请求可以均匀地分配到各个节点上，以均摊压力，避免单点故障。即通常需要对服务做负载均衡策略。
+假设一个分布式缓存系统，用以存储用户相关的信息，服务总共部署了N个节点，在负载均衡策略上希望用户可以均匀的映射到部署的节点上，那么最容易想到采用通用的哈希方式，即通过计算用户ID的哈希值，再对节点总数进行取模后即可找到用户分布到的节点。由于哈希函数其散列以及稳定的特性，可以保证用户均匀地分布到服务所部署的节点上。
+当然在上述负载均衡方案中，如果节点能永久不变的运行，便完事大吉了。然而，当节点发生扩缩容导致总节点数发生变化时，将导致用户到节点的映射关系会彻底打乱。
+假设节点 N 宕机（即节点退出）时，原先映射到节点 N 的用户会受限丢失数据，且由于映射采用的哈希函数的逻辑不变（hashcode * n），原先分布到节点 N 的用户，下次存储仍然会被分配到节点 N，但实际节点 N 已宕机下线，因此这部分用户将一直无法使用，处于失效状态。而如果我们修正哈希函数，更改为（hashcode &amp; (n - 1)），此时虽然失效用户可以重新映射到存活的节点上，但由于映射算法的变化，会导致原先的映射关系全部打乱。 同样的，假设由于业务扩展，原先 N 个节点已不足支撑，需横向扩容节点数到（N &#43; 1），由于原先映射关系的稳定性，如不更改映射函数，新增的节点不会有用户访问，而修改映射函数为hashcode % (n &#43; 1)则会遇到同上的场景，原先所有的映射关系全部失效，需重算，重算后关联的节点将不保证是原来的节点。 而一致性哈希的目标正是解决在节点扩缩容时，尽可能的维持原先映射关系的不变，仅影响小部分用户。
+基本特性 我们养成解决问题的一贯方式，找出问题，针对问题提出目标，再围绕目标去思考方案去达成，从而解决问题。
+我们可以从上述说到的问题场景中总结出几个关键问题点：
+服务节点扩缩容时，映射关系彻底打乱，发生大量的数据迁移。 有新节点上线时，映射关系全部打乱，出现映射在健康节点的KEY又映射到另一个原健康节点上。出现无谓的迁移。 针对这几个问题，我们可以提出几个关键特性要求。
+2.1 单调性 当有新的节点上线后，系统中原有的 KEY 要么还是映射到原来的节点上，要么映射到新节点上，不会出现从一个老节点重新映射到其他老节点的情况。
+2.2 稳定性 当服务发生扩缩容时，发生迁移的数据量尽可能地少
+2.3 平衡性 不同的 KEY 通过算法映射后，可以比较均衡地分布在所有节点上。
+一致性哈希 下面讲下一个常用的一致性哈希算法，也是所熟知的割环法。
+哈希环 为满足我们提出的特性，我们试图分析原先的普通哈希映射方案，可以看到对象是生硬的映射到节点上的，随节点消失后，我们可以尝试把失去节点的迁移到原健康的节点，而尽量保持正常的对象不变化。为保证映射方式一致，我们可以把生硬的一步映射到节点上改为下面的方式。
+首先我们构建一个长度为2^32大小的链表，并采用哈希函数，将对象映射到链表上：
+之后再使用同样的方式，将节点也映射到链表上：
+接下来将对象与节点建立起映射关系，可以将对象像右寻找节点，找到的第一个节点便认为是该对象所分布的节点（如果对象与节点映射在链表上的位置重合，则也认为该节点为对象所分布的节点），以此建立起对应关系。
+">
+<meta name="author" content="yipsen">
+
+<link rel="stylesheet" type="text/css" href="/styles/main.css">
+<link rel="stylesheet" type="text/css" href="/styles/standard.css">
+
+</head>
+
+<body id="page" class="ff-consolas m-0">
+    <header class="d-flex fd-row fw-wrap jc-between ai-center p-x-1 p-y-1 m-auto">
+        <div class="nav-logo">
+    <a href="http://localhost:8080/">
+        
+        <span class="nav-title">Yipsen Ye</span>
+    </a>
+</div>
+<nav class="position-relative d-flex fw-wrap jc-end ai-center p-y-05">
+    <ul class="d-flex fw-wrap ls-none p-l-0 m-0">
+        
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/series/java/">JAVA</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link  active"
+                href="http://localhost:8080/design/">设计</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/network/">网络</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/framework/">框架</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/middleware/">中间件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/plugin/">插件</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/linux/">LINUX</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/posts/">随心谈</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/others/">山海文库</a>
+        </li>
+        
+        <li class="nav-item p-0 m-x-1 m-y-05">
+            <a class="nav-link "
+                href="http://localhost:8080/about/">关于</a>
+        </li>
+        
+    </ul>
+</nav>
+    </header>
+    <main id="content" class="m-auto">
+        
+<aside class="sidebar"></aside>
+<article>
+    <h1 class="m-b-1">一致性哈希</h1>
+    <div class="d-flex fd-row jc-center">
+        <div class="fc-subtle">
+            <span>2022-03-05 08:34:41</span>
+        </div>
+    </div>
+    <div class="post-content">
+        <p>在容器化大行其道的当下，为满足服务横向扩容，对无状态服务一直是倍加推崇的，尽管如此，基于在性能效率上的考量，有状态服务仍有存在的空间，主要因其优点在于数据本地化后可以减少数据的网络交互，同时拥有更高的数据一致性（例如 Sticky Session），因此也多用于数据或网络强相关的服务上。</p>
+<p>如果系统设计上采用有状态的服务，那么不可避免的需要解决一个问题，即如何做到有状态服务在横向扩缩容时尽可能少的造成影响，一种常用的方案便是一致性哈希。</p>
+<p>一致性哈希算法早在<a href="https://dl.acm.org/doi/10.1145/258533.258660">https://dl.acm.org/doi/10.1145/258533.258660</a>论文中提及，其在分布式缓存系统上有广泛的使用。</p>
+<h2 id="负载均衡">负载均衡</h2>
+<p>对于分布式系统，我们通常希望所有用户的信息与请求可以均匀地分配到各个节点上，以均摊压力，避免单点故障。即通常需要对服务做负载均衡策略。</p>
+<p>假设一个分布式缓存系统，用以存储用户相关的信息，服务总共部署了N个节点，在负载均衡策略上希望用户可以均匀的映射到部署的节点上，那么最容易想到采用通用的哈希方式，即通过计算用户ID的哈希值，再对节点总数进行取模后即可找到用户分布到的节点。由于哈希函数其散列以及稳定的特性，可以保证用户均匀地分布到服务所部署的节点上。</p>
+<p>当然在上述负载均衡方案中，如果节点能永久不变的运行，便完事大吉了。然而，当节点发生扩缩容导致总节点数发生变化时，将导致用户到节点的映射关系会彻底打乱。</p>
+<ol>
+<li>假设节点 N 宕机（即节点退出）时，原先映射到节点 N 的用户会受限丢失数据，且由于映射采用的哈希函数的逻辑不变（hashcode * n），原先分布到节点 N 的用户，下次存储仍然会被分配到节点 N，但实际节点 N 已宕机下线，因此这部分用户将一直无法使用，处于失效状态。而如果我们修正哈希函数，更改为（hashcode &amp; (n - 1)），此时虽然失效用户可以重新映射到存活的节点上，但由于映射算法的变化，会导致原先的映射关系全部打乱。</li>
+<li>同样的，假设由于业务扩展，原先 N 个节点已不足支撑，需横向扩容节点数到（N + 1），由于原先映射关系的稳定性，如不更改映射函数，新增的节点不会有用户访问，而修改映射函数为<code>hashcode % (n + 1)</code>则会遇到同上的场景，原先所有的映射关系全部失效，需重算，重算后关联的节点将不保证是原来的节点。</li>
+</ol>
+<p>而一致性哈希的目标正是解决在节点扩缩容时，尽可能的维持原先映射关系的不变，仅影响小部分用户。</p>
+<h2 id="基本特性">基本特性</h2>
+<p>我们养成解决问题的一贯方式，找出问题，针对问题提出目标，再围绕目标去思考方案去达成，从而解决问题。</p>
+<p>我们可以从上述说到的问题场景中总结出几个关键问题点：</p>
+<ol>
+<li>服务节点扩缩容时，映射关系彻底打乱，发生大量的数据迁移。</li>
+<li>有新节点上线时，映射关系全部打乱，出现映射在健康节点的KEY又映射到另一个原健康节点上。出现无谓的迁移。</li>
+</ol>
+<p>针对这几个问题，我们可以提出几个关键特性要求。</p>
+<h3 id="21-单调性">2.1 单调性</h3>
+<p>当有新的节点上线后，系统中原有的 KEY 要么还是映射到原来的节点上，要么映射到新节点上，不会出现从一个老节点重新映射到其他老节点的情况。</p>
+<h3 id="22-稳定性">2.2 稳定性</h3>
+<p>当服务发生扩缩容时，发生迁移的数据量尽可能地少</p>
+<h3 id="23-平衡性">2.3 平衡性</h3>
+<p>不同的 KEY 通过算法映射后，可以比较均衡地分布在所有节点上。</p>
+<h2 id="一致性哈希">一致性哈希</h2>
+<p>下面讲下一个常用的一致性哈希算法，也是所熟知的割环法。</p>
+<h3 id="哈希环">哈希环</h3>
+<p>为满足我们提出的特性，我们试图分析原先的普通哈希映射方案，可以看到对象是生硬的映射到节点上的，随节点消失后，我们可以尝试把失去节点的迁移到原健康的节点，而尽量保持正常的对象不变化。为保证映射方式一致，我们可以把生硬的一步映射到节点上改为下面的方式。</p>
+<p>首先我们构建一个长度为<code>2^32</code>大小的链表，并采用哈希函数，将对象映射到链表上：</p>
+<p><img src="../../../images/Consistent-Hash-01.svg" alt="Consistent Hash 01"></p>
+<p>之后再使用同样的方式，将节点也映射到链表上：</p>
+<p><img src="../../../images/Consistent-Hash-02.svg" alt="Consistent Hash 02"></p>
+<p>接下来将对象与节点建立起映射关系，可以将对象像右寻找节点，找到的第一个节点便认为是该对象所分布的节点（如果对象与节点映射在链表上的位置重合，则也认为该节点为对象所分布的节点），以此建立起对应关系。</p>
+<p><img src="../../../images/Consistent-Hash-02.svg" alt="Consistent Hash 02"></p>
+<p>此时我们再看下有节点加入与退出时，数据迁移的变化。</p>
+<p><img src="../../../images/Consistent-Hash-02.svg" alt="Consistent Hash 02"></p>
+<p>我们发现相较于之前普通哈希映射的方案，节点扩缩容后只有小部分对象发生迁移，满足单调性与稳定性。</p>
+<table>
+  <thead>
+      <tr>
+          <th><img src="../../../images/Consistent-Hash-02.svg" alt="Consistent Hash 02"></th>
+          <th><img src="../../../images/Consistent-Hash-02.svg" alt="Consistent Hash 02"></th>
+      </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+<p>好的，眼尖的我们也注意到一点，既然设定为向右寻找节点，那如果最右的几个对象向右无法寻找到节点时该如何处理呢？</p>
+<p><img src="../../../images/Consistent-Hash-02.svg" alt="Consistent Hash 02"></p>
+<p>一个显而易见的方式便是把链式结构首尾相连形成一个环形结构，这也便是<code>哈希环</code>，也称哈希空间，这也是割环法名称的由来。</p>
+<p><img src="../../../images/Consistent-Hash-02.svg" alt="Consistent Hash 02"></p>
+<p>至此我们可以满足单调性与稳定性，然而还未能满足平衡性。</p>
+<h3 id="数据倾斜导致的雪崩问题">数据倾斜导致的雪崩问题</h3>
+<p><img src="../../../images/Consistent-Hash-02.svg" alt="Consistent Hash 02"></p>
+<p>如上图极端场景，由于映射的不平衡，导致分布不均，有大量的对象分布在个别节点上，在节点由于压力过大而奔溃宕机后，退出哈希环，继而所有原来的对象映射到下一个节点，再搞崩，如此循环，以致所有节点全部崩盘。这种现象便是我们熟知的雪崩问题。</p>
+<h3 id="引入虚拟节点">引入虚拟节点</h3>
+<p>雪崩问题的引发本质在于节点无法均衡的分布在哈希环中（参照于对象而言），即平衡性差，而解决该问题的一种办法便是引入虚拟节点。</p>
+<p><img src="../../../images/Consistent-Hash-02.svg" alt="Consistent Hash 02"></p>
+<blockquote>
+<p>注：可以理解为虚拟节点为实际节点在哈希环中的分身。</p>
+</blockquote>
+<h3 id="再看负载均衡方案">再看负载均衡方案</h3>
+<h2 id="实现">实现</h2>
+<h3 id="ketama-算法">Ketama 算法</h3>
+<p>下面以 Ketama 算法为例，采用Java实现，主要构建三个类：1. 虚拟节点类（映射实际节点）；2. 哈希环（关键数据结构）；3. 选择器（封装整个一致性哈希算法的功能）</p>
+<ul>
+<li>
+<p>虚拟节点：</p>
+</li>
+<li>
+<p>哈希环：</p>
+</li>
+<li>
+<p>选择器：</p>
+</li>
+<li>
+<p>测试用例：</p>
+</li>
+</ul>
+<h2 id="其他种类的一致性哈希实现方案">其他种类的一致性哈希实现方案</h2>
+<h2 id="redis-哈希槽方案">Redis 哈希槽方案</h2>
+<h2 id="总结">总结</h2>
+
+    </div>
+</article>
+<aside class="catalog">
+    <div class="catalog-title">目录</div>
+    <div class="catalog-list">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#负载均衡">负载均衡</a></li>
+    <li><a href="#基本特性">基本特性</a>
+      <ul>
+        <li><a href="#21-单调性">2.1 单调性</a></li>
+        <li><a href="#22-稳定性">2.2 稳定性</a></li>
+        <li><a href="#23-平衡性">2.3 平衡性</a></li>
+      </ul>
+    </li>
+    <li><a href="#一致性哈希">一致性哈希</a>
+      <ul>
+        <li><a href="#哈希环">哈希环</a></li>
+        <li><a href="#数据倾斜导致的雪崩问题">数据倾斜导致的雪崩问题</a></li>
+        <li><a href="#引入虚拟节点">引入虚拟节点</a></li>
+        <li><a href="#再看负载均衡方案">再看负载均衡方案</a></li>
+      </ul>
+    </li>
+    <li><a href="#实现">实现</a>
+      <ul>
+        <li><a href="#ketama-算法">Ketama 算法</a></li>
+      </ul>
+    </li>
+    <li><a href="#其他种类的一致性哈希实现方案">其他种类的一致性哈希实现方案</a></li>
+    <li><a href="#redis-哈希槽方案">Redis 哈希槽方案</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav>
+    </div>
+</aside>
+<div class="division-line"></div>
+<div class="misc">
+    <div></div>
+    <div></div>
+</div>
+
+    </main>
+    <footer class="p-x-0 p-b-2 m-auto">
+        <div id="pagination">
+            
+<div class="division-line"></div>
+<div class="paginator">
+    <div class="prev">
+        
+        <a href="http://localhost:8080/design/%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0web-%E5%89%8D%E7%AB%AF%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83%E6%B1%87%E6%80%BB/"><span>【持续更新】Web 前端设计规范汇总</span></a>
+    </div>
+    <div class="next">
+        
+    </div>
+</div>
+
+        </div>
+        <div class="position-fixed b-4 r-4">
+            <ul class="float-button-bar">
+    <li>
+        <button class="float-button top" onclick="scrollToTop(this);">UP</button>
+    </li>
+    <li>
+        <button class="float-button toggler" onclick="changeSkin(this);">DARK</button>
+    </li>
+</ul>
+        </div>
+        <div id="copyright" style="display: none;">
+    
+    
+    <p>&copy; 27270 <a href="/"></a>, powered by Hugo and Qiao</p>
+</div>
+    </footer>
+    
+
+<script src="https://cdn.staticfile.net/gumshoe/5.1.1/gumshoe.min.js"></script>
+<script>
+    var spy = new Gumshoe('#TableOfContents a', {
+        nested: true,
+        nestedClass: 'active'
+    });
+</script>
+
+<script>
+    const changeSkin = () => {
+        document.getElementById('page').classList.toggle('night');
+    }
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
+</script>
+</body>
+
+</html>

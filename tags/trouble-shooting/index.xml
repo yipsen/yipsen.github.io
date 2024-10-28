@@ -2,30 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Trouble Shooting on Yipsen Ye</title>
-    <link>http://yipsen.github.io/tags/trouble-shooting/</link>
+    <link>http://localhost:8080/tags/trouble-shooting/</link>
     <description>Recent content in Trouble Shooting on Yipsen Ye</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 15 Nov 2022 18:34:43 +0000</lastBuildDate><atom:link href="http://yipsen.github.io/tags/trouble-shooting/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 15 Nov 2022 18:34:43 +0000</lastBuildDate>
+    <atom:link href="http://localhost:8080/tags/trouble-shooting/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>记一次 Redis 主备断链的故障恢复</title>
-      <link>http://yipsen.github.io/posts/redis/%E8%AE%B0%E4%B8%80%E6%AC%A1-redis-%E4%B8%BB%E5%A4%87%E6%96%AD%E9%93%BE%E7%9A%84%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D/</link>
+      <link>http://localhost:8080/middleware/redis/%E8%AE%B0%E4%B8%80%E6%AC%A1-redis-%E4%B8%BB%E5%A4%87%E6%96%AD%E9%93%BE%E7%9A%84%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D/</link>
       <pubDate>Tue, 15 Nov 2022 18:34:43 +0000</pubDate>
-      
-      <guid>http://yipsen.github.io/posts/redis/%E8%AE%B0%E4%B8%80%E6%AC%A1-redis-%E4%B8%BB%E5%A4%87%E6%96%AD%E9%93%BE%E7%9A%84%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D/</guid>
-      <description>环境信息 IM 最近会话数据由于更新频繁且数据重要度相对较低，采用 Redis 存储。
- Redis 机器规格
-   器件 型号 规格     CPU Intel(R) Xeon(R) Gold 6161 CPU @ 2.20GHz 16 * 4 Cores   Memory  62GB     故障现象  【问题现象】  业务巡检发现：2022-11-15 16:00 最近会话 Redis 集群（6节点，3主3从集群模式部署）从库与主库断链，数据复制状态异常，业务正常。 （slave 侧 redis 连接 master 状态显示为： master_link_status:down, 集群 slave 和 master 状态同步异常）
- 【问题根因】  通过查看主库日志发现报错：psync scheduled to be closed ASAP for overcoming of output buffer limits。从库向主库进行 psync 时，因超过主库的 output buffer limits 限制，导致连接被中断。而之所以报该错误，是因为设置的主从同步缓冲区已经远小于主从库之间的数据差异，主库为了保护自身不受影响，主动断开了从库的连接。而断开连接后，主从之间的差异进一步拉大，以至于主从之间已无法连接上。</description>
+      <guid>http://localhost:8080/middleware/redis/%E8%AE%B0%E4%B8%80%E6%AC%A1-redis-%E4%B8%BB%E5%A4%87%E6%96%AD%E9%93%BE%E7%9A%84%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D/</guid>
+      <description>&lt;h2 id=&#34;环境信息&#34;&gt;环境信息&lt;/h2&gt;&#xA;&lt;p&gt;IM 最近会话数据由于更新频繁且数据重要度相对较低，采用 Redis 存储。&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Redis 机器规格&lt;/p&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;器件&lt;/th&gt;&#xA;          &lt;th&gt;型号&lt;/th&gt;&#xA;          &lt;th&gt;规格&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;CPU&lt;/td&gt;&#xA;          &lt;td&gt;Intel(R) Xeon(R) Gold 6161 CPU @ 2.20GHz&lt;/td&gt;&#xA;          &lt;td&gt;16 * 4 Cores&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;Memory&lt;/td&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td&gt;62GB&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;故障现象&#34;&gt;故障现象&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;【问题现象】&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;业务巡检发现：2022-11-15 16:00 最近会话 Redis 集群（6节点，3主3从集群模式部署）从库与主库断链，数据复制状态异常，业务正常。&#xA;（slave 侧 redis 连接 master 状态显示为： master_link_status:down, 集群 slave 和 master 状态同步异常）&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;【问题根因】&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;通过查看主库日志发现报错：&lt;code&gt;psync scheduled to be closed ASAP for overcoming of output buffer limits&lt;/code&gt;。从库向主库进行 psync 时，因超过主库的 output buffer limits 限制，导致连接被中断。而之所以报该错误，是因为设置的主从同步缓冲区已经远小于主从库之间的数据差异，主库为了保护自身不受影响，主动断开了从库的连接。而断开连接后，主从之间的差异进一步拉大，以至于主从之间已无法连接上。&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;【解决方案】&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;在主、备侧 Redis 配置 config set client-output-buffer-limit &amp;ldquo;slave 2684254560 671088640 600&amp;rdquo; 后解决，恢复主从连接与数据复制。（256MB 扩大到 2.5GB）&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Redis 相关常见异常</title>
-      <link>http://yipsen.github.io/posts/redis/redis-%E7%9B%B8%E5%85%B3%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8/</link>
+      <link>http://localhost:8080/middleware/redis/redis-%E7%9B%B8%E5%85%B3%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8/</link>
       <pubDate>Sun, 06 Feb 2022 16:31:43 +0000</pubDate>
-      
-      <guid>http://yipsen.github.io/posts/redis/redis-%E7%9B%B8%E5%85%B3%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8/</guid>
+      <guid>http://localhost:8080/middleware/redis/redis-%E7%9B%B8%E5%85%B3%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8/</guid>
       <description></description>
     </item>
-    
   </channel>
 </rss>
